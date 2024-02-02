@@ -1,0 +1,1 @@
+print("Thank you for using Python Multi-Media API (PMMA)!")
