@@ -18,11 +18,18 @@ pycache_prefix = base_path+sep+"temporary"
 del up
 
 def _init_(sep, path):
-    print("__init__")
     root = base_path+sep+"src"
     path.append(base_path)
     path.append(root)
     path.append(root+sep+"core")
+    path.append(root+sep+"audio")
+    path.append(root+sep+"display")
+    path.append(root+sep+"events")
+    path.append(root+sep+"math")
+    path.append(root+sep+"noise")
+    path.append(root+sep+"text")
+    path.append(root+sep+"time")
+    path.append(root+sep+"graphics")
 
 if __name__ == "pmma":
     _init_(sep, path)
