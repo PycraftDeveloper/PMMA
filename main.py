@@ -4,20 +4,14 @@ if __name__ == "__main__":
     import __init__
     del __init__
 
-class Src:
-    registry = None
-    Perlin_utils = None
-
-src = Src()
-del Src
-
 import registry_utils
-src.registry = registry_utils.Registry()
+registry = registry_utils.Registry
 del registry_utils
 
 def init_all():
+    print(registry.disable_numba_compilation)
     import Perlin_utils
-    src.Perlin_utils = Perlin_utils
+    registry.Perlin_utils = Perlin_utils
     del Perlin_utils
 
 def init_audio():
@@ -37,7 +31,7 @@ def init_math():
 
 def init_noise():
     import Perlin_utils
-    src.Perlin_utils = Perlin_utils
+    registry.Perlin_utils = Perlin_utils
     del Perlin_utils
 
 def init_text():

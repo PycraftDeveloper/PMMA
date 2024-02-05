@@ -13,7 +13,8 @@ if __name__ != "__main__":
         #for _ in range(4):
             #root.up()
         #base_path = root.path
-        y = "Yellow"
+        disable_numba_compilation = False
+
 else:
     MESSAGE = "You need to run this through PMMA "
     MESSAGE += "please run the 'main.py' file."
