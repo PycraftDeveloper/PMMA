@@ -1,11 +1,16 @@
-import setuptools
+from setuptools import setup
+from requests import get
+from json import loads
+
+tag_data = get("https://api.github.com/repos/PycraftDeveloper/PMMA/tags")
+latest_tag = loads(tag_data.text)[0]["name"]
 
 with open("README.md", "r", encoding = "utf-8") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name = "pmma",
-    version = "0.0.1",
+    version = latest_tag,
     author = "PycraftDev",
     author_email = "thomasjebbo@gmail.com",
     description = "Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
