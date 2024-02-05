@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from requests import get
 from json import loads
 
@@ -26,6 +26,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     package_dir = {"": "src"},
-    packages = setuptools.find_packages(where="src"),
+    packages = find_packages(where="src"),
     python_requires = ">=3.6"
 )
