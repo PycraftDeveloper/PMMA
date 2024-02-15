@@ -5,6 +5,7 @@ def _up(file_path: str) -> str:
 
 base_path = _up(__file__)
 
+from pmma.constants import *
 from pmma.registry import *
 from pmma.recorder import *
 from pmma.canvas import *
