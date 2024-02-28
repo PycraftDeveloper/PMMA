@@ -2,7 +2,7 @@ import pyaudio
 import numpy as np
 import threading
 
-from pmma.registry import Registry
+from pmma.src.registry import Registry
 
 class GetAudioData(Registry):
     volume = 0

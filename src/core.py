@@ -1,9 +1,9 @@
-from os import sep, environ
+from os import environ
 
-from pmma.registry import Registry
+from pmma.src.registry import Registry
 
-def _up(file_path: str) -> str:
-    return file_path[::-1].split(sep, 1)[-1][::-1]
+from pmma.src.utility.math_utils import *
+from pmma.src.utility.noise_utils import *
 
 def environ_to_registry():
     for key in Registry.__dict__:

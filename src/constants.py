@@ -2,7 +2,7 @@ import math
 
 import numpy
 
-from pmma.registry import Registry
+from pmma.src.registry import Registry
 
 class Constants:
     PYGAME = "pygame"

@@ -1,6 +1,6 @@
 import os
-from pmma.registry import Registry
-from pmma.constants import Constants
+from pmma.src.registry import Registry
+from pmma.src.constants import Constants
 
 class Canvas(Registry, Constants):
     def __init__(self, display_mode=Constants.PYGAME):

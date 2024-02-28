@@ -1,11 +1,12 @@
 from math import floor
 
 import numpy as np
+
+from pmma.src.registry import Registry
+from pmma.src.constants import Constants
+
 import numba
-
-from pmma.constants import Constants
-
-from . import math_utils
+from pmma.src.utility.math_utils import *
 
 GRADIENTS2 = Constants.GRADIENTS2
 STRETCH_CONSTANT2 = Constants.STRETCH_CONSTANT2
@@ -14,8 +15,8 @@ SQUISH_CONSTANT2 = Constants.SQUISH_CONSTANT2
 NORM_CONSTANT2 = Constants.NORM_CONSTANT2
 GRADIENTS3 = Constants.GRADIENTS3
 
-@numba.njit()
-def generate_2D_perlin_noise(x, y, perm):
+@numba.njit(cache=True)
+def generate_2D_perlin_noise(extrapolate_function, x, y, perm):
     stretch_offset = (x + y) * STRETCH_CONSTANT2
 
     xs = x + stretch_offset
@@ -43,14 +44,14 @@ def generate_2D_perlin_noise(x, y, perm):
     attn1 = 2 - dx1 * dx1 - dy1 * dy1
     if attn1 > 0:
         attn1 *= attn1
-        value += attn1 * attn1 * math_utils.extrapolate2(perm, xsb + 1, ysb + 0, dx1, dy1)
+        value += attn1 * attn1 * extrapolate_function(perm, xsb + 1, ysb + 0, dx1, dy1)
 
     dx2 = dx0 - 0 - SQUISH_CONSTANT2
     dy2 = dy0 - 1 - SQUISH_CONSTANT2
     attn2 = 2 - dx2 * dx2 - dy2 * dy2
     if attn2 > 0:
         attn2 *= attn2
-        value += attn2 * attn2 * math_utils.extrapolate2(perm, xsb + 0, ysb + 1, dx2, dy2)
+        value += attn2 * attn2 * extrapolate_function(perm, xsb + 0, ysb + 1, dx2, dy2)
 
     if in_sum <= 1:
         zins = 1 - in_sum
@@ -96,12 +97,12 @@ def generate_2D_perlin_noise(x, y, perm):
     attn0 = 2 - dx0 * dx0 - dy0 * dy0
     if attn0 > 0:
         attn0 *= attn0
-        value += attn0 * attn0 * math_utils.extrapolate2(perm, xsb, ysb, dx0, dy0)
+        value += attn0 * attn0 * extrapolate_function(perm, xsb, ysb, dx0, dy0)
 
     attn_ext = 2 - dx_ext * dx_ext - dy_ext * dy_ext
     if attn_ext > 0:
         attn_ext *= attn_ext
-        value += attn_ext * attn_ext * math_utils.extrapolate2(perm, xsv_ext, ysv_ext, dx_ext, dy_ext)
+        value += attn_ext * attn_ext * extrapolate_function(perm, xsv_ext, ysv_ext, dx_ext, dy_ext)
 
     return value / NORM_CONSTANT2
 
@@ -110,11 +111,11 @@ def get_seed(seed):
     perm_grad_index3 = np.zeros(256, dtype=np.int64)
     source = np.arange(256)
 
-    seed = math_utils.overflow(seed * 6364136223846793005 + 1442695040888963407)
-    seed = math_utils.overflow(seed * 6364136223846793005 + 1442695040888963407)
-    seed = math_utils.overflow(seed * 6364136223846793005 + 1442695040888963407)
+    seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
+    seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
+    seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
     for i in range(255, -1, -1):
-        seed = math_utils.overflow(seed * 6364136223846793005 + 1442695040888963407)
+        seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
         r = int((seed + 31) % (i + 1))
         if r < 0:
             r += i + 1
