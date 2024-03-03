@@ -17,7 +17,7 @@ class Canvas(Registry, Constants):
         self.fullscreen = None
         self.display_attributes = []
 
-    def create_canvas(self, width, height, fullscreen, resizable, caption="Canvas", native_fullscreen=True, vsync=True):
+    def create_canvas(self, width, height, fullscreen=False, resizable=False, caption="Canvas", native_fullscreen=True, vsync=True):
         if Registry.display_mode == Constants.PYGAME:
             flags = 0
             if fullscreen:
