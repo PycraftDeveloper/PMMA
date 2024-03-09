@@ -10,7 +10,7 @@ class Perlin(Registry):
 
     def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
         if Registry.compile_math_functions:
-            noise = generate_2D_perlin_noise(extrapolate2,x, y, self.seed)
+            noise = generate_2D_perlin_noise(extrapolate2, x, y, self.seed)
         else:
             noise = generate_2D_perlin_noise.py_func(extrapolate2.py_func, x, y, self.seed)
         return ranger(noise, [-1, 1], range)

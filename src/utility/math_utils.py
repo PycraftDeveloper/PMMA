@@ -23,5 +23,5 @@ def ranger(value, old, new):
     else:
         old_range = (old[1] - old[0])
         new_range = (new[1] - new[0])
-        new_value = (((value - old[0]) * new_range) / old_range) + new_range[0]
+        new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
