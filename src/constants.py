@@ -7,6 +7,8 @@ from pmma.src.registry import Registry
 class Constants:
     PYGAME = "pygame"
 
+    DEFAULT = "default"
+
     GRADIENTS2 = numpy.array([
         5, 2, 2, 5,
         -5, 2, -2, 5,
