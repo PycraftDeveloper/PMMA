@@ -6,3 +6,4 @@ class Registry:
     precise_math_constants = True
     temporary_files_path = None
     base_path = None
+    anti_aliasing = True
