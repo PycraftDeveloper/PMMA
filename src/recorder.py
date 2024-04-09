@@ -23,7 +23,6 @@ class Sampler(Registry):
         except IOError:
             return
 
-<<<<<<< Updated upstream
     def sampler(self):
         if self.input_device == Constants.DEFAULT:
             input_device = self.get_default_input_device()
@@ -31,21 +30,12 @@ class Sampler(Registry):
             input_device = self.input_device
 
         stream = self.pyaudio.open(
-=======
-    def sampler(self, input_device_id):
-        p = pyaudio.PyAudio()
-        stream=p.open(
->>>>>>> Stashed changes
             format=pyaudio.paInt32,
             channels=1,
             rate=self.rate,
             input=True,
             frames_per_buffer=self.chunk,
-<<<<<<< Updated upstream
             input_device_index=input_device)
-=======
-            input_device_index=input_device_id)
->>>>>>> Stashed changes
 
         while self.do_sampling:
             data = np.frombuffer(
