@@ -3,17 +3,17 @@ from pmma.src.constants import Constants
 
 class Events(Registry, Constants):
     def __init__(self):
-        self.events = []
+        self.raw_events = []
 
     def __get(self):
-        self.events = []
+        self.raw_events = []
         if Registry.display_mode == Constants.PYGAME:
-            self.events += Registry.graphics_backend.event.get()
+            self.raw_events += Registry.graphics_backend.event.get()
 
-    def handle(self, canvas, enable_toggle_fullscreen=True, enable_close=True):
+    def handle(self, canvas, enable_toggle_fullscreen=True, enable_close=True, return_events=True):
         self.__get()
         if enable_toggle_fullscreen or enable_close:
-            for event in self.events:
+            for event in self.raw_events:
                 if Registry.display_mode == Constants.PYGAME:
                     if event.type == Registry.graphics_backend.QUIT:
                         if enable_close:
@@ -26,7 +26,10 @@ class Events(Registry, Constants):
                             if enable_toggle_fullscreen:
                                 canvas.toggle_fullscreen()
 
-        return self.events
+        if return_events:
+            #events = []
+            #for event in self.raw_events:
+            return self.raw_events
 
     def get_events(self, update_events=False):
         if update_events:
