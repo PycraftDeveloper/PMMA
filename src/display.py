@@ -1,9 +1,14 @@
 import os
+
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-class Display(Registry, Constants):
+from pmma.src.draw import Draw
+
+class Display(Draw, Registry, Constants):
     def __init__(self, display_mode=Constants.PYGAME):
+        super(Draw).__init__()
+
         Registry.graphics_backend = __import__(display_mode)
         if display_mode == Constants.PYGAME:
             Registry.graphics_backend.init()

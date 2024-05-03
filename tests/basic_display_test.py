@@ -11,8 +11,6 @@ events = pmma.Events()
 color = [0, 0, 0]
 switch = False
 
-draw = pmma.Draw(display)
-
 while registry.running:
     display.clear(*color)
 
@@ -27,6 +25,6 @@ while registry.running:
     else:
         color = [0, 0, 0]
 
-    draw.curved_lines((255, 0, 0), [(0, 0), (1000, 1000), (500, 100)], steps=100)
+    display.curved_lines((255, 0, 0), [(0, 0), (1000, 1000), (500, 100)], steps=100)
 
     display.refresh()

@@ -3,16 +3,19 @@ from pmma.src.registry import Registry
 from pmma.src.utility.noise_utils import *
 from pmma.src.utility.math_utils import *
 
+from pmma.src.advmath import Math
+
 class Perlin(Registry):
     def __init__(self, seed):
+        self.math = Math()
         self.seed_value = seed
         self.seed = get_seed(seed)
 
     def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
         if Registry.compile_math_functions:
-            noise = generate_2D_perlin_noise(extrapolate2, x, y, self.seed)
+            noise = generate_2D_perlin_noise(self.math.get_function_extrapolate2(), x, y, self.seed)
         else:
-            noise = generate_2D_perlin_noise.py_func(extrapolate2.py_func, x, y, self.seed)
+            noise = generate_2D_perlin_noise.py_func(self.math.get_function_extrapolate2(), x, y, self.seed)
         return ranger(noise, [-1, 1], range)
 
     def set_seed(self, seed):

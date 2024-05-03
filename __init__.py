@@ -26,9 +26,7 @@ from pmma.src.recorder import *
 from pmma.src.display import *
 from pmma.src.events import *
 from pmma.src.noise import *
-from pmma.src.draw import *
-from pmma.src.utility.math_utils import *
-from pmma.src.utility.noise_utils import *
+from pmma.src.advmath import *
 
 Registry.base_path
 

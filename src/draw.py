@@ -5,17 +5,16 @@ from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
 class Draw(Registry, Constants):
-    def __init__(self, canvas):
-        self.canvas = canvas
+    def __init__(self):
         if Registry.display_mode == Constants.PYGAME:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")
 
     def line(self, color, start, end, width):
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
-                Registry.graphics_backend.draw.aaline(self.canvas.surface, color, start, end, width)
+                Registry.graphics_backend.draw.aaline(self.surface, color, start, end, width)
             else:
-                Registry.graphics_backend.draw.line(self.canvas.surface, color, start, end, width)
+                Registry.graphics_backend.draw.line(self.surface, color, start, end, width)
         else:
             raise NotImplementedError
 
@@ -24,9 +23,9 @@ class Draw(Registry, Constants):
             if len(points) < 2:
                 return
             if Registry.anti_aliasing:
-                Registry.graphics_backend.draw.aalines(self.canvas.surface, color, closed, points, width)
+                Registry.graphics_backend.draw.aalines(self.surface, color, closed, points, width)
             else:
-                Registry.graphics_backend.draw.lines(self.canvas.surface, color, closed, points, width)
+                Registry.graphics_backend.draw.lines(self.surface, color, closed, points, width)
         else:
             raise NotImplementedError
 
@@ -68,15 +67,15 @@ class Draw(Registry, Constants):
             y_offset = -1 * radius * math.sin(angle + rot_radians)
             x_offset = radius * math.cos(angle + rot_radians)
             points.append((x + x_offset, y + y_offset))
-        
+
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.draw.polygon(self.canvas.surface, color, points)
+            Registry.graphics_backend.draw.polygon(self.surface, color, points)
         else:
             raise NotImplementedError
 
     def rect(self, color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1):
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.draw.rect(self.canvas.surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
+            Registry.graphics_backend.draw.rect(self.surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
         else:
             raise NotImplementedError
 
@@ -84,35 +83,35 @@ class Draw(Registry, Constants):
         if abs(radius) < 1:
             return
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.draw.circle(self.canvas.surface, color, center, abs(radius), width)
+            Registry.graphics_backend.draw.circle(self.surface, color, center, abs(radius), width)
         else:
             raise NotImplementedError
 
     def arc(self, color, rect, start_angle, stop_angle, width=1):
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.draw.arc(self.canvas.surface, color, rect, start_angle, stop_angle, width)
+            Registry.graphics_backend.draw.arc(self.surface, color, rect, start_angle, stop_angle, width)
         else:
             raise NotImplementedError
 
     def polygon(self, color, points, width=0):
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.draw.polygon(self.canvas.surface, color, points, width)
+            Registry.graphics_backend.draw.polygon(self.surface, color, points, width)
         else:
             raise NotImplementedError
 
     def ellipse(self, color, rect, width=0):
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.draw.ellipse(self.canvas.surface, color, rect, width)
+            Registry.graphics_backend.draw.ellipse(self.surface, color, rect, width)
         else:
             raise NotImplementedError
 
     def pixel(self, color, point):
         if Registry.display_mode == Constants.PYGAME:
             try:
-                self.drawing_extension.pixel(self.canvas.surface, color, point)
+                self.drawing_extension.pixel(self.surface, color, point)
             except:
                 temp_rect = Registry.graphics_backend.rect.Rect(*point, 1, 1)
-                Registry.graphics_backend.draw.rect(self.canvas.surface, color, temp_rect, 1)
+                Registry.graphics_backend.draw.rect(self.surface, color, temp_rect, 1)
         else:
             raise NotImplementedError
 
@@ -120,7 +119,7 @@ class Draw(Registry, Constants):
         if Registry.display_mode == Constants.PYGAME:
             if len(points) > 2:
                 try:
-                    self.drawing_extension.bezier(self.canvas.surface, points, steps, color)
+                    self.drawing_extension.bezier(self.surface, points, steps, color)
                     return True
                 except:
                     pass
