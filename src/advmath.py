@@ -12,6 +12,15 @@ class Math(Registry):
     def extrapolate2(self, perm, xsb, ysb, dx, dy):
         return self.get_function_extrapolate2()(perm, xsb, ysb, dx, dy)
 
+    def extrapolate(self, perm, xsb, dx):
+        return self.get_function_extrapolate()(perm, xsb, dx)
+
+    def get_function_extrapolate(self):
+        if Registry.compile_math_functions:
+            return math_utils.extrapolate
+        else:
+            return math_utils.extrapolate.py_func
+
     def get_function_overflow(self):
         return math_utils.overflow
 

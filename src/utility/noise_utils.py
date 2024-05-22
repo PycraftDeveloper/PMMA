@@ -16,6 +16,68 @@ NORM_CONSTANT2 = Constants.NORM_CONSTANT2
 GRADIENTS3 = Constants.GRADIENTS3
 
 @numba.njit(cache=True)
+def generate_1D_perlin_noise(extrapolate_function, x, perm):
+    stretch_offset = x * STRETCH_CONSTANT2
+
+    xs = x + stretch_offset
+
+    xsb = floor(xs)
+
+    squish_offset = xsb * SQUISH_CONSTANT2
+    xb = xsb + squish_offset
+
+    xins = xs - xsb
+
+    in_sum = xins
+
+    dx0 = x - xb
+
+    value = 0
+
+    dx1 = dx0 - 1 - SQUISH_CONSTANT2
+    attn1 = 2 - dx1 * dx1
+    if attn1 > 0:
+        attn1 *= attn1
+        value += attn1 * attn1 * extrapolate_function(perm, xsb + 1, dx1)
+
+    dx2 = dx0 - 0 - SQUISH_CONSTANT2
+    attn2 = 2 - dx2 * dx2
+    if attn2 > 0:
+        attn2 *= attn2
+        value += attn2 * attn2 * extrapolate_function(perm, xsb + 0, dx2)
+
+    if in_sum <= 1:
+        zins = 1 - in_sum
+        if zins > xins:
+            xsv_ext = xsb - 1
+            dx_ext = dx0 + 1
+        else:
+            xsv_ext = xsb + 1
+            dx_ext = dx0 - 1 - 2 * SQUISH_CONSTANT2
+    else:
+        zins = 2 - in_sum
+        if zins < xins:
+            xsv_ext = xsb + 0
+            dx_ext = dx0 + 0 - 2 * SQUISH_CONSTANT2
+        else:
+            dx_ext = dx0
+            xsv_ext = xsb
+        xsb += 1
+        dx0 = dx0 - 1 - 2 * SQUISH_CONSTANT2
+
+    attn0 = 2 - dx0 * dx0
+    if attn0 > 0:
+        attn0 *= attn0
+        value += attn0 * attn0 * extrapolate_function(perm, xsb, dx0)
+
+    attn_ext = 2 - dx_ext * dx_ext
+    if attn_ext > 0:
+        attn_ext *= attn_ext
+        value += attn_ext * attn_ext * extrapolate_function(perm, xsv_ext, dx_ext)
+
+    return value / NORM_CONSTANT2
+
+@numba.njit(cache=True)
 def generate_2D_perlin_noise(extrapolate_function, x, y, perm):
     stretch_offset = (x + y) * STRETCH_CONSTANT2
 

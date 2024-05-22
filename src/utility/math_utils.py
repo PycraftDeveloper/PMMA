@@ -14,6 +14,12 @@ def extrapolate2(perm, xsb, ysb, dx, dy):
     g1, g2 = GRADIENTS2[index : index + 2]
     return g1 * dx + g2 * dy
 
+@numba.njit(cache=True)
+def extrapolate(perm, xsb, dx):
+    index = perm[(perm[xsb & 0xFF]) & 0xFF] & 0x0E
+    g1, g2 = GRADIENTS2[index : index + 2]
+    return g1 * dx + g2
+
 def overflow(x):
     return c_int64(x).value
 

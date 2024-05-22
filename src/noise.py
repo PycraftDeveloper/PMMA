@@ -23,11 +23,10 @@ class Perlin(Registry):
         return ranger(noise, [-1, 1], range)
 
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
-        y = 0
         if Registry.compile_math_functions:
-            noise = generate_2D_perlin_noise(self.math.get_function_extrapolate2(), x, y, self.seed)
+            noise = generate_1D_perlin_noise(self.math.get_function_extrapolate(), x, self.seed)
         else:
-            noise = generate_2D_perlin_noise.py_func(self.math.get_function_extrapolate2(), x, y, self.seed)
+            noise = generate_1D_perlin_noise.py_func(self.math.get_function_extrapolate(), x, self.seed)
         return ranger(noise, [-1, 1], range)
 
     def set_seed(self, seed):
