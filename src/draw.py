@@ -4,37 +4,45 @@ import math
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-tau = math.pi * 2
+Constants.TAU = math.pi * 2
 
 class Draw(Registry, Constants):
-    def __init__(self):
+    def __init__(self, canvas=None):
         if Registry.display_mode == Constants.PYGAME:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")
 
-    def line(self, color, start, end, width):
+        self.canvas = canvas
+
+    def line(self, color, start, end, width, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
-                return Registry.graphics_backend.draw.aaline(self.surface, color, start, end, width)
+                return Registry.graphics_backend.draw.aaline(canvas.surface, color, start, end, width)
             else:
-                return Registry.graphics_backend.draw.line(self.surface, color, start, end, width)
+                return Registry.graphics_backend.draw.line(canvas.surface, color, start, end, width)
         else:
             raise NotImplementedError
 
-    def lines(self, color, points, width=1, closed=False):
+    def lines(self, color, points, width=1, closed=False, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             if len(points) < 2:
                 return
             if Registry.anti_aliasing:
-                return Registry.graphics_backend.draw.aalines(self.surface, color, closed, points, width)
+                return Registry.graphics_backend.draw.aalines(canvas.surface, color, closed, points, width)
             else:
-                return Registry.graphics_backend.draw.lines(self.surface, color, closed, points, width)
+                return Registry.graphics_backend.draw.lines(canvas.surface, color, closed, points, width)
         else:
             raise NotImplementedError
 
-    def advanced_polygon(self, color, centre, radius, number_of_sides, rotation_angle=0, width=0, cache=None, wire_frame=False):
+    def advanced_polygon(self, color, centre, radius, number_of_sides, rotation_angle=0, width=0, cache=None, wire_frame=False, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
-                return Registry.graphics_backend.draw.polygon(self.surface, color, points, width=width), cache
+                return Registry.graphics_backend.draw.polygon(canvas.surface, color, points, width=width), cache
             else:
                 return None, cache
 
@@ -42,25 +50,25 @@ class Draw(Registry, Constants):
             for i in range(0, number_of_sides):
                 if Registry.display_mode == Constants.PYGAME:
                     Registry.graphics_backend.draw.line(
-                        self.surface,
+                        canvas.surface,
                         color,
                         centre, (
-                            math.cos(i / number_of_sides * tau) * radius + centre[0],
-                            math.sin(i / number_of_sides * tau) * radius + centre[1]))
+                            math.cos(i / number_of_sides * Constants.TAU) * radius + centre[0],
+                            math.sin(i / number_of_sides * Constants.TAU) * radius + centre[1]))
 
         points = [
-            (math.cos(i / number_of_sides * tau + rotation_angle) * radius + centre[0],
-                math.sin(i / number_of_sides * tau + rotation_angle) * radius + centre[1]) for i in range(0, number_of_sides)]
+            (math.cos(i / number_of_sides * Constants.TAU + rotation_angle) * radius + centre[0],
+                math.sin(i / number_of_sides * Constants.TAU + rotation_angle) * radius + centre[1]) for i in range(0, number_of_sides)]
 
         if wire_frame:
             width = 1
 
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.polygon(self.surface, color, points, width=width), points
+            return Registry.graphics_backend.draw.polygon(canvas.surface, color, points, width=width), points
         else:
             return None, cache
 
-    def rotated_rect(self, color, center_of_rect, radius, height, rotation_angle=0, cache=None, width=0): # https://stackoverflow.com/a/73855696
+    def rotated_rect(self, color, center_of_rect, radius, height, rotation_angle=0, cache=None, width=0, canvas=None): # https://stackoverflow.com/a/73855696
         """Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!
 
@@ -76,9 +84,11 @@ class Draw(Registry, Constants):
         color (str):
             Name of the fill color, in HTML format.
         """
+        if canvas is None:
+            canvas = self.canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
-                return Registry.graphics_backend.draw.polygon(self.surface, color, points, width=width), cache
+                return Registry.graphics_backend.draw.polygon(canvas.surface, color, points, width=width), cache
             else:
                 return None, cache
 
@@ -106,59 +116,73 @@ class Draw(Registry, Constants):
             points.append((x + x_offset, y + y_offset))
 
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.polygon(self.surface, color, points, width=width)
+            return Registry.graphics_backend.draw.polygon(canvas.surface, color, points, width=width)
         else:
             raise NotImplementedError
 
-    def rect(self, color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1):
+    def rect(self, color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.rect(self.surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
+            return Registry.graphics_backend.draw.rect(canvas.surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
         else:
             raise NotImplementedError
 
-    def circle(self, color, center, radius, width=0):
+    def circle(self, color, center, radius, width=0, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if abs(radius) < 1:
             return
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.circle(self.surface, color, center, abs(radius), width)
+            return Registry.graphics_backend.draw.circle(canvas.surface, color, center, abs(radius), width)
         else:
             raise NotImplementedError
 
-    def arc(self, color, rect, start_angle, stop_angle, width=1):
+    def arc(self, color, rect, start_angle, stop_angle, width=1, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.arc(self.surface, color, rect, start_angle, stop_angle, width)
+            return Registry.graphics_backend.draw.arc(canvas.surface, color, rect, start_angle, stop_angle, width)
         else:
             raise NotImplementedError
 
-    def polygon(self, color, points, width=0):
+    def polygon(self, color, points, width=0, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.polygon(self.surface, color, points, width)
+            return Registry.graphics_backend.draw.polygon(canvas.surface, color, points, width)
         else:
             raise NotImplementedError
 
-    def ellipse(self, color, rect, width=0):
+    def ellipse(self, color, rect, width=0, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.ellipse(self.surface, color, rect, width)
+            return Registry.graphics_backend.draw.ellipse(canvas.surface, color, rect, width)
         else:
             raise NotImplementedError
 
-    def pixel(self, color, point):
+    def pixel(self, color, point, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             try:
-                return self.drawing_extension.pixel(self.surface, color, point), True
+                return self.drawing_extension.pixel(canvas.surface, color, point), True
             except:
                 temp_rect = Registry.graphics_backend.rect.Rect(*point, 1, 1)
-                return Registry.graphics_backend.draw.rect(self.surface, color, temp_rect, 1), False
+                return Registry.graphics_backend.draw.rect(canvas.surface, color, temp_rect, 1), False
         else:
             raise NotImplementedError
 
-    def curved_lines(self, color, points, steps=2):
+    def curved_lines(self, color, points, steps=2, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             if len(points) > 2:
                 try:
-                    return self.drawing_extension.bezier(self.surface, points, steps, color), True
+                    return self.drawing_extension.bezier(canvas.surface, points, steps, color), True
                 except:
                     pass
-            return self.lines(color, points, width=1, closed=False), False
+            return self.lines(canvas, color, points, width=1, closed=False), False
         else:
             raise NotImplementedError

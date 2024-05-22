@@ -2,15 +2,18 @@ from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
 class Events(Registry, Constants):
-    def __init__(self):
+    def __init__(self, canvas=None):
         self.raw_events = []
+        self.canvas = canvas
 
     def __get(self):
         self.raw_events = []
         if Registry.display_mode == Constants.PYGAME:
             self.raw_events += Registry.graphics_backend.event.get()
 
-    def handle(self, canvas, enable_toggle_fullscreen=True, enable_close=True, return_events=True):
+    def handle(self, enable_toggle_fullscreen=True, enable_close=True, return_events=True, canvas=None):
+        if canvas is None:
+            canvas = self.canvas
         self.__get()
         if enable_toggle_fullscreen or enable_close:
             for event in self.raw_events:

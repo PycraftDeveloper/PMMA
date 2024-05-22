@@ -1,10 +1,10 @@
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-class CoordinateIntermediary(Registry, Constants):
-    def __init__(self, type, coordinate):
+class ColorIntermediary(Registry, Constants):
+    def __init__(self, type, color):
         self.type = type
-        self.data = coordinate
+        self.data = color
 
     def out(self, type):
         return self.data

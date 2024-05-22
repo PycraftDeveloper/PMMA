@@ -15,6 +15,9 @@ class Math(Registry):
     def get_function_overflow(self):
         return math_utils.overflow
 
+    def pythag(self, *args):
+        return math_utils.pythag(*args)
+
     def overflow(self, x):
         return self.function_overflow()(x)
 

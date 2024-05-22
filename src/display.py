@@ -3,12 +3,8 @@ import os
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-from pmma.src.draw import Draw
-
-class Display(Draw, Registry, Constants):
+class Display(Registry, Constants):
     def __init__(self, display_mode=Constants.PYGAME):
-        super(Draw).__init__()
-
         Registry.graphics_backend = __import__(display_mode)
         if display_mode == Constants.PYGAME:
             Registry.graphics_backend.init()
@@ -22,7 +18,7 @@ class Display(Draw, Registry, Constants):
         self.fullscreen = None
         self.surface_attributes = []
 
-    def create(self, width, height, fullscreen=False, resizable=False, caption="Canvas", native_fullscreen=True, vsync=True, alpha=False):
+    def create(self, width, height, fullscreen=False, resizable=False, caption="Display", native_fullscreen=True, vsync=True, alpha=False):
         if Registry.display_mode == Constants.PYGAME:
             flags = 0
             if fullscreen:
@@ -79,6 +75,8 @@ class Display(Draw, Registry, Constants):
             raise NotImplementedError
 
     def clear(self, *args):
+        if args == ():
+            args = (0, 0, 0)
         if Registry.display_mode == Constants.PYGAME:
             self.surface.fill(args)
         else:

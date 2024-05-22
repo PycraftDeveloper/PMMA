@@ -49,6 +49,13 @@ def gl_look_at(pos, target, up):
     return rotate * translate[:, numpy.newaxis]
 
 @numba.njit(fastmath=True, cache=True)
+def pythag(*args):
+    sum = 0
+    for arg in args:
+        sum += arg ** 2
+    return sum ** 0.5
+
+@numba.njit(fastmath=True, cache=True)
 def compute_position(pos, target, up):
     def normalize(v):
         norm = numpy.linalg.norm(v)
