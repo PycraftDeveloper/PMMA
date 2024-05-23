@@ -36,6 +36,8 @@ class Constants:
         XY,
         YX]
 
+    ALPHA = "alpha"
+
     MAROON = (128,0,0)
     DARK_RED = (139,0,0)
     BROWN = (165,42,42)
@@ -178,6 +180,17 @@ class Constants:
     WHITE = (255,255,255)
 
     HEX = "hex"
+    HEXA = "hexa"
+
+    HEX_RANGE = ([0, 16], [0, 16], [0, 16])
+    HEXA_RANGE = (*HEX_RANGE, [0, 16])
+    RGB_RANGE = ([0, 255], [0, 255], [0, 255])
+    RGBA_RANGE = (*RGB_RANGE, [0, 255])
+    SMALL_RGB_RANGE = ([0, 1], [0, 1], [0, 1])
+    SMALL_RGBA_RANGE = (*SMALL_RGB_RANGE, [0, 1])
+    HSL_RANGE = ([0, 360], [0, 100], [0, 100])
+    HSLA_RANGE = (*HSL_RANGE, [0, 1])
+    # larger value for alpha means more opaque :)
 
     RGB = "rgb"
     RBG = "rbg"
@@ -245,6 +258,72 @@ class Constants:
         ABRG,
         ABGR]
 
+    SMALL_RGB = "small_rgb"
+    SMALL_RBG = "small_rbg"
+    SMALL_GRB = "small_grb"
+    SMALL_GBR = "small_gbr"
+    SMALL_BRG = "small_brg"
+    SMALL_BGR = "small_bgr"
+
+    SMALL_RGB_SWIZZLES = [
+        SMALL_RGB,
+        SMALL_RBG,
+        SMALL_GRB,
+        SMALL_GBR,
+        SMALL_BRG,
+        SMALL_BGR]
+
+    SMALL_RGBA = "small_rgba"
+    SMALL_RGAB = "small_rgab"
+    SMALL_RBGA = "small_rbga"
+    SMALL_RBAG = "small_rbag"
+    SMALL_RAGB = "small_ragb"
+    SMALL_RABG = "small_rabg"
+    SMALL_GRBA = "small_grba"
+    SMALL_GRAB = "small_grab"
+    SMALL_GBRA = "small_gbra"
+    SMALL_GBAR = "small_gbar"
+    SMALL_GARB = "small_garb"
+    SMALL_GABR = "small_gabr"
+    SMALL_BRGA = "small_brga"
+    SMALL_BRAG = "small_brag"
+    SMALL_BGRA = "small_bgra"
+    SMALL_BGAR = "small_bgar"
+    SMALL_BARG = "small_barg"
+    SMALL_BAGR = "small_bagr"
+    SMALL_ARGB = "small_argb"
+    SMALL_ARBG = "small_arbg"
+    SMALL_AGRB = "small_agrb"
+    SMALL_AGBR = "small_agbr"
+    SMALL_ABRG = "small_abrg"
+    SMALL_ABGR = "small_abgr"
+
+    SMALL_RGBA_SWIZZLES = [
+        SMALL_RGBA,
+        SMALL_RGAB,
+        SMALL_RBGA,
+        SMALL_RBAG,
+        SMALL_RAGB,
+        SMALL_RABG,
+        SMALL_GRBA,
+        SMALL_GRAB,
+        SMALL_GBRA,
+        SMALL_GBAR,
+        SMALL_GARB,
+        SMALL_GABR,
+        SMALL_BRGA,
+        SMALL_BRAG,
+        SMALL_BGRA,
+        SMALL_BGAR,
+        SMALL_BARG,
+        SMALL_BAGR,
+        SMALL_ARGB,
+        SMALL_ARBG,
+        SMALL_AGRB,
+        SMALL_AGBR,
+        SMALL_ABRG,
+        SMALL_ABGR]
+
     HSL = "hsl"
     HLS = "hls"
     SHL = "shl"
@@ -311,204 +390,6 @@ class Constants:
         ALHS,
         ALSH]
 
-    LCH = "lch"
-    LHC = "lhc"
-    CLH = "clh"
-    CHL = "chl"
-    HLC = "hlc"
-    HCL = "hcl"
-
-    LCH_SWIZZLES = [
-        LCH,
-        LHC,
-        CLH,
-        CHL,
-        HLC,
-        HCL]
-
-    LCHA = "lcha"
-    LCAH = "lcah"
-    LHCA = "lhca"
-    LHAC = "lhac"
-    LACH = "lach"
-    LAHC = "lahc"
-    CLHA = "clha"
-    CLAH = "clah"
-    CHLA = "chla"
-    CHAL = "chal"
-    CALH = "calh"
-    CAHL = "cahl"
-    HLCA = "hlca"
-    HLAC = "hlac"
-    HCLA = "hcla"
-    HCAL = "hcal"
-    HALC = "halc"
-    HACL = "hacl"
-    ALCH = "alch"
-    ALHC = "alhc"
-    ACLH = "aclh"
-    ACHL = "achl"
-    AHLC = "ahlc"
-    AHCL = "ahcl"
-
-    LCHA_SWIZZLES = [
-        LCHA,
-        LCAH,
-        LHCA,
-        LHAC,
-        LACH,
-        LAHC,
-        CLHA,
-        CLAH,
-        CHLA,
-        CHAL,
-        CALH,
-        CAHL,
-        HLCA,
-        HLAC,
-        HCLA,
-        HCAL,
-        HALC,
-        HACL,
-        ALCH,
-        ALHC,
-        ACLH,
-        ACHL,
-        AHLC,
-        AHCL]
-
-    HSV = "hsv"
-    HVS = "hvs"
-    SHV = "shv"
-    SVH = "svh"
-    VHS = "vhs"
-    VSH = "vsh"
-
-    HSV_SWIZZLES = [
-        HSV,
-        HVS,
-        SHV,
-        SVH,
-        VHS,
-        VSH]
-
-    HSVA = "hsva"
-    HSAV = "hsav"
-    HVSA = "hvsa"
-    HVAS = "hvas"
-    HASV = "hasv"
-    HAVS = "havs"
-    SHVA = "shva"
-    SHAV = "shav"
-    SVHA = "svha"
-    SVAH = "svah"
-    SAHV = "sahv"
-    SAVH = "savh"
-    VHSA = "vhsa"
-    VHAS = "vhas"
-    VSHA = "vsha"
-    VSAH = "vsah"
-    VAHS = "vahs"
-    VASH = "vash"
-    AHSV = "ahsv"
-    AHVS = "ahvs"
-    ASHV = "ashv"
-    ASVH = "asvh"
-    AVHS = "avhs"
-    AVSH = "avsh"
-
-    HSVA_SWIZZLES = [
-        HSVA,
-        HSAV,
-        HVSA,
-        HVAS,
-        HASV,
-        HAVS,
-        SHVA,
-        SHAV,
-        SVHA,
-        SVAH,
-        SAHV,
-        SAVH,
-        VHSA,
-        VHAS,
-        VSHA,
-        VSAH,
-        VAHS,
-        VASH,
-        AHSV,
-        AHVS,
-        ASHV,
-        ASVH,
-        AVHS,
-        AVSH]
-
-    HSI = "hsi"
-    HIS = "his"
-    SHI = "shi"
-    SIH = "sih"
-    IHS = "ihs"
-    ISH = "ish"
-
-    HSI_SWIZZLES = [
-        HSI,
-        HIS,
-        SHI,
-        SIH,
-        IHS,
-        ISH]
-
-    HSIA = "hsia"
-    HSAI = "hsai"
-    HISA = "hisa"
-    HIAS = "hias"
-    HASI = "hasi"
-    HAIS = "hais"
-    SHIA = "shia"
-    SHAI = "shai"
-    SIHA = "siha"
-    SIAH = "siah"
-    SAHI = "sahi"
-    SAIH = "saih"
-    IHSA = "ihsa"
-    IHAS = "ihas"
-    ISHA = "isha"
-    ISAH = "isah"
-    IAHS = "iahs"
-    IASH = "iash"
-    AHSI = "ahsi"
-    AHIS = "ahis"
-    ASHI = "ashi"
-    ASIH = "asih"
-    AIHS = "aihs"
-    AISH = "aish"
-
-    HSIA_SWIZZLES = [
-        HSIA,
-        HSAI,
-        HISA,
-        HIAS,
-        HASI,
-        HAIS,
-        SHIA,
-        SHAI,
-        SIHA,
-        SIAH,
-        SAHI,
-        SAIH,
-        IHSA,
-        IHAS,
-        ISHA,
-        ISAH,
-        IAHS,
-        IASH,
-        AHSI,
-        AHIS,
-        ASHI,
-        ASIH,
-        AIHS,
-        AISH]
-
     COLOR_FORMATS = [
         RGB,
         RBG,
@@ -569,97 +450,7 @@ class Constants:
         ASHL,
         ASLH,
         ALHS,
-        ALSH,
-        LCH,
-        LHC,
-        CLH,
-        CHL,
-        HLC,
-        HCL,
-        LCHA,
-        LCAH,
-        LHCA,
-        LHAC,
-        LACH,
-        LAHC,
-        CLHA,
-        CLAH,
-        CHLA,
-        CHAL,
-        CALH,
-        CAHL,
-        HLCA,
-        HLAC,
-        HCLA,
-        HCAL,
-        HALC,
-        HACL,
-        ALCH,
-        ALHC,
-        ACLH,
-        ACHL,
-        AHLC,
-        AHCL,
-        HSV,
-        HVS,
-        SHV,
-        SVH,
-        VHS,
-        VSH,
-        HSVA,
-        HSAV,
-        HVSA,
-        HVAS,
-        HASV,
-        HAVS,
-        SHVA,
-        SHAV,
-        SVHA,
-        SVAH,
-        SAHV,
-        SAVH,
-        VHSA,
-        VHAS,
-        VSHA,
-        VSAH,
-        VAHS,
-        VASH,
-        AHSV,
-        AHVS,
-        ASHV,
-        ASVH,
-        AVHS,
-        AVSH,
-        HSI,
-        HIS,
-        SHI,
-        SIH,
-        IHS,
-        ISH,
-        HSIA,
-        HSAI,
-        HISA,
-        HIAS,
-        HASI,
-        HAIS,
-        SHIA,
-        SHAI,
-        SIHA,
-        SIAH,
-        SAHI,
-        SAIH,
-        IHSA,
-        IHAS,
-        ISHA,
-        ISAH,
-        IAHS,
-        IASH,
-        AHSI,
-        AHIS,
-        ASHI,
-        ASIH,
-        AIHS,
-        AISH]
+        ALSH]
 
     GRADIENTS2 = numpy.array([
         5, 2, 2, 5,
