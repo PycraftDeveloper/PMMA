@@ -390,6 +390,74 @@ class Constants:
         ALHS,
         ALSH]
 
+    ###
+
+    SMALL_HSL = "small_hsl"
+    SMALL_HLS = "small_hls"
+    SMALL_SHL = "small_shl"
+    SMALL_SLH = "small_slh"
+    SMALL_LHS = "small_lhs"
+    SMALL_LSH = "small_lsh"
+
+    SMALL_HSL_SWIZZLES = [
+        SMALL_HSL,
+        SMALL_HLS,
+        SMALL_SHL,
+        SMALL_SLH,
+        SMALL_LHS,
+        SMALL_LSH]
+
+    SMALL_HSLA = "small_hsla"
+    SMALL_HSAL = "small_hsal"
+    SMALL_HLSA = "small_hlsa"
+    SMALL_HLAS = "small_hlas"
+    SMALL_HASL = "small_hasl"
+    SMALL_HALS = "small_hals"
+    SMALL_SHLA = "small_shla"
+    SMALL_SHAL = "small_shal"
+    SMALL_SLHA = "small_slha"
+    SMALL_SLAH = "small_slah"
+    SMALL_SAHL = "small_sahl"
+    SMALL_SALH = "small_salh"
+    SMALL_LHSA = "small_lhsa"
+    SMALL_LHAS = "small_lhas"
+    SMALL_LSHA = "small_lsha"
+    SMALL_LSAH = "small_lsah"
+    SMALL_LAHS = "small_lahs"
+    SMALL_LASH = "small_lash"
+    SMALL_AHSL = "small_ahsl"
+    SMALL_AHLS = "small_ahls"
+    SMALL_ASHL = "small_ashl"
+    SMALL_ASLH = "small_aslh"
+    SMALL_ALHS = "small_alhs"
+    SMALL_ALSH = "small_alsh"
+
+    SMALL_HSLA_SWIZZLES = [
+        SMALL_HSLA,
+        SMALL_HSAL,
+        SMALL_HLSA,
+        SMALL_HLAS,
+        SMALL_HASL,
+        SMALL_HALS,
+        SMALL_SHLA,
+        SMALL_SHAL,
+        SMALL_SLHA,
+        SMALL_SLAH,
+        SMALL_SAHL,
+        SMALL_SALH,
+        SMALL_LHSA,
+        SMALL_LHAS,
+        SMALL_LSHA,
+        SMALL_LSAH,
+        SMALL_LAHS,
+        SMALL_LASH,
+        SMALL_AHSL,
+        SMALL_AHLS,
+        SMALL_ASHL,
+        SMALL_ASLH,
+        SMALL_ALHS,
+        SMALL_ALSH]
+
     COLOR_FORMATS = [
         RGB,
         RBG,
@@ -450,7 +518,37 @@ class Constants:
         ASHL,
         ASLH,
         ALHS,
-        ALSH]
+        ALSH,
+        SMALL_HSL,
+        SMALL_HLS,
+        SMALL_SHL,
+        SMALL_SLH,
+        SMALL_LHS,
+        SMALL_LSH,
+        SMALL_HSLA,
+        SMALL_HSAL,
+        SMALL_HLSA,
+        SMALL_HLAS,
+        SMALL_HASL,
+        SMALL_HALS,
+        SMALL_SHLA,
+        SMALL_SHAL,
+        SMALL_SLHA,
+        SMALL_SLAH,
+        SMALL_SAHL,
+        SMALL_SALH,
+        SMALL_LHSA,
+        SMALL_LHAS,
+        SMALL_LSHA,
+        SMALL_LSAH,
+        SMALL_LAHS,
+        SMALL_LASH,
+        SMALL_AHSL,
+        SMALL_AHLS,
+        SMALL_ASHL,
+        SMALL_ASLH,
+        SMALL_ALHS,
+        SMALL_ALSH]
 
     GRADIENTS2 = numpy.array([
         5, 2, 2, 5,
