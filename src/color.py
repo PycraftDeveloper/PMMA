@@ -88,5 +88,3 @@ class Color:
 
     def convert_format(self, out_type):
         return self.__color_backend.out(out_type)
-
-print(Color([192, 168, 1, 170], Constants.RGBA).convert_format())
