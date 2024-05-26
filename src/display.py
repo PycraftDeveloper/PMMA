@@ -84,19 +84,19 @@ class Display:
 
     def refresh(self, refresh_rate=60):
         if Registry.display_mode == Constants.PYGAME:
-            self.graphics_backend.display.update()
+            Registry.graphics_backend.display.update()
             self.clock.tick(refresh_rate)
         else:
             raise NotImplementedError
 
     def close(self):
         if Registry.display_mode == Constants.PYGAME:
-            self.graphics_backend.quit()
+            Registry.graphics_backend.quit()
         else:
             raise NotImplementedError
 
     def get_fps(self):
-        if self.surface_mode == Constants.PYGAME:
+        if Registry.display_mode == Constants.PYGAME:
             return self.clock.get_fps()
         else:
             raise NotImplementedError

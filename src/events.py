@@ -21,7 +21,7 @@ class Events:
                     if event.type == Registry.graphics_backend.QUIT:
                         if enable_close:
                             Registry.running = False
-                    if event.type == self.graphics_backend.KEYDOWN:
+                    if event.type == Registry.graphics_backend.KEYDOWN:
                         if event.key == Registry.graphics_backend.K_ESCAPE:
                             if enable_close:
                                 Registry.running = False
