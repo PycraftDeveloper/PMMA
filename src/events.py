@@ -1,7 +1,7 @@
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-class Events(Registry, Constants):
+class Events:
     def __init__(self, canvas=None):
         self.raw_events = []
         self.canvas = canvas

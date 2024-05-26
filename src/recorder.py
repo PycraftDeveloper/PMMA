@@ -5,7 +5,7 @@ import threading
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-class Sampler(Registry):
+class Sampler:
     volume = None
     frequency = None
     chunk = 2048

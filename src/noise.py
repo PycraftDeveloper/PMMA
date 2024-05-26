@@ -7,7 +7,7 @@ from pmma.src.utility.math_utils import *
 
 from pmma.src.advmath import Math
 
-class Perlin(Registry):
+class Perlin:
     def __init__(self, seed=None):
         if seed is None:
             seed = random.randint(0, 1000000)

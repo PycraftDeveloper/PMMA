@@ -6,7 +6,7 @@ from pmma.src.constants import Constants
 
 Constants.TAU = math.pi * 2
 
-class Draw(Registry, Constants):
+class Draw:
     def __init__(self, canvas=None):
         if Registry.display_mode == Constants.PYGAME:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")

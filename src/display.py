@@ -3,7 +3,7 @@ import os
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-class Display(Registry, Constants):
+class Display:
     def __init__(self, display_mode=Constants.PYGAME):
         Registry.graphics_backend = __import__(display_mode)
         if display_mode == Constants.PYGAME:

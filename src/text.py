@@ -3,7 +3,7 @@ from tkinter import font
 from pmma.src.registry import Registry
 from pmma.src.constants import Constants
 
-class Text(Registry, Constants):
+class Text:
     def __init__(self):
         pass
 

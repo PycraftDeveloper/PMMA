@@ -6,7 +6,7 @@ from pmma.src.constants import Constants
 
 from pmma.src.general import swizzle, can_swizzle
 
-class ColorIntermediary(Registry, Constants):
+class ColorIntermediary:
     def __init__(self, in_type, color):
         color = list(color)
         if sorted(in_type) == sorted(Constants.RGBA):
@@ -82,4 +82,11 @@ class ColorIntermediary(Registry, Constants):
         elif sorted(out_type) == sorted(Constants.HEXA):
             return '#%02x%02x%02x%02x' % tuple(self.color)
 
-print(ColorIntermediary(Constants.RGBA, (250, 190, 170, 255)).out(Constants.HEXA))
+class Color:
+    def __init__(self, color, in_type=Constants.RGBA):
+        self.__color_backend = ColorIntermediary(in_type, color)
+
+    def convert_format(self, out_type):
+        return self.__color_backend.out(out_type)
+
+print(Color([192, 168, 1, 170], Constants.RGBA).convert_format())

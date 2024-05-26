@@ -2,7 +2,7 @@ from pmma.src.registry import Registry
 
 import pmma.src.utility.math_utils as math_utils
 
-class Math(Registry):
+class Math:
     def get_function_extrapolate2(self):
         if Registry.compile_math_functions:
             return math_utils.extrapolate2
