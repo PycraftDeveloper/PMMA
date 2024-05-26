@@ -32,7 +32,7 @@ class ColorIntermediary(Registry, Constants):
             color = "".join(color)
             self.color = list(int(str(color[i:i+2]), 16) for i in (0, 2, 4, 6))
 
-    def __convert_rgb_to_hsv(self, red, green, blue):
+    def __convert_rgb_to_hsv(self, red, green, blue, per_maximum=100, do_round=True):
         #get rgb percentage: range (0-1, 0-1, 0-1 )
         red_percentage= red / float(255)
         green_percentage= green/ float(255)
@@ -44,8 +44,13 @@ class ColorIntermediary(Registry, Constants):
 
         #get normal hsv: range (0-360, 0-255, 0-255)
         color_h=round(360*color_hsv_percentage[0])
-        color_s=round(100*color_hsv_percentage[1])
-        color_v=round(100*color_hsv_percentage[2])
+
+        if do_round:
+            color_s=round(per_maximum*color_hsv_percentage[1])
+            color_v=round(per_maximum*color_hsv_percentage[2])
+        else:
+            color_s=per_maximum*color_hsv_percentage[1]
+            color_v=per_maximum*color_hsv_percentage[2]
 
         return color_h, color_s, color_v
 
@@ -61,16 +66,20 @@ class ColorIntermediary(Registry, Constants):
             color = list(self.__convert_rgb_to_hsv(*self.color[0:3])) + [round((100/255)*self.color[3])]
             return swizzle(Constants.HSLA, color, out_type)
         elif sorted(out_type) == sorted(Constants.SMALL_HSL):
-            pass
+            color = list(self.__convert_rgb_to_hsv(*self.color[0:3], per_maximum=1, do_round=False))
+            return swizzle(Constants.SMALL_HSL, color, out_type)
         elif sorted(out_type) == sorted(Constants.SMALL_HSLA):
-            pass
+            color = list(self.__convert_rgb_to_hsv(*self.color[0:3], per_maximum=1, do_round=False)) + [round((1/255)*self.color[3])]
+            return swizzle(Constants.SMALL_HSLA, color, out_type)
         elif sorted(out_type) == sorted(Constants.SMALL_RGB):
-            pass
+            color = self.color[0]/255, self.color[1]/255, self.color[2]/255
+            return swizzle(Constants.SMALL_RGB, color, out_type)
         elif sorted(out_type) == sorted(Constants.SMALL_RGBA):
-            pass
+            color = self.color[0]/255, self.color[1]/255, self.color[2]/255, self.color[3]/255
+            return swizzle(Constants.SMALL_RGBA, color, out_type)
         elif sorted(out_type) == sorted(Constants.HEX):
-            pass
+            return '#%02x%02x%02x' % tuple(self.color[0:3])
         elif sorted(out_type) == sorted(Constants.HEXA):
-            pass
+            return '#%02x%02x%02x%02x' % tuple(self.color)
 
-print(ColorIntermediary(Constants.RGBA, (250, 190, 170, 255)).out(Constants.LSHA))
+print(ColorIntermediary(Constants.RGBA, (250, 190, 170, 255)).out(Constants.HEXA))
