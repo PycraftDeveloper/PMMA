@@ -100,3 +100,11 @@ class Display:
             return self.clock.get_fps()
         else:
             raise NotImplementedError
+
+    def get_center(self, as_integer=True):
+        if Registry.display_mode == Constants.PYGAME:
+            if as_integer:
+                return self.surface.get_width() // 2, self.surface.get_height() // 2
+            return self.surface.get_width() / 2, self.surface.get_height() / 2
+        else:
+            raise NotImplementedError
