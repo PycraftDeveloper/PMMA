@@ -1,16 +1,18 @@
 import random
 
 from pmma.src.registry import Registry
+from pmma.src.constants import Constants
 
 from pmma.src.utility.noise_utils import *
 from pmma.src.utility.math_utils import *
 
 from pmma.src.advmath import Math
 
-class Perlin:
-    def __init__(self, seed=None):
+class Perlin():
+    def __init__(self, seed=None, octaves=1, frequency=1, interpolation=Constants.COSINE, use_fade=False):
         if seed is None:
             seed = random.randint(0, 1000000)
+        self.advanced_noise = PerlinNoise(seed=seed, octaves=octaves, frequency=frequency, interpolation=interpolation, use_fade=use_fade)
         self.math = Math()
         self.seed_value = seed
         self.seed = get_seed(seed)
@@ -24,9 +26,9 @@ class Perlin:
 
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
         if Registry.compile_math_functions:
-            noise = generate_1D_perlin_noise(self.math.get_function_extrapolate(), x, self.seed)
+            noise = self.advanced_noise.get(x)
         else:
-            noise = generate_1D_perlin_noise.py_func(self.math.get_function_extrapolate(), x, self.seed)
+            noise = self.advanced_noise.get(x)
         return ranger(noise, [-1, 1], range)
 
     def set_seed(self, seed):

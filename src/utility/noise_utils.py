@@ -1,4 +1,5 @@
-from math import floor
+import math
+import random
 
 import numpy as np
 
@@ -15,67 +16,88 @@ SQUISH_CONSTANT2 = Constants.SQUISH_CONSTANT2
 NORM_CONSTANT2 = Constants.NORM_CONSTANT2
 GRADIENTS3 = Constants.GRADIENTS3
 
-@numba.njit(cache=True)
-def generate_1D_perlin_noise(extrapolate_function, x, perm):
-    stretch_offset = x * STRETCH_CONSTANT2
+class PerlinNoise():
+    def __init__(
+            self,
+            seed,
+            amplitude=1,
+            frequency=1,
+            octaves=1,
+            interpolation=Constants.COSINE,
+            use_fade=False):
 
-    xs = x + stretch_offset
+        self.seed = random.Random(seed).random()
+        self.amplitude = amplitude
+        self.frequency = frequency
+        self.octaves = octaves
+        self.interp = interpolation
+        self.use_fade = use_fade
 
-    xsb = floor(xs)
+        self.mem_x = dict()
 
-    squish_offset = xsb * SQUISH_CONSTANT2
-    xb = xsb + squish_offset
+    def __noise(self, x):
+        # made for improve performance
+        if x not in self.mem_x:
+            self.mem_x[x] = random.Random(self.seed + x).uniform(-1, 1)
+        return self.mem_x[x]
 
-    xins = xs - xsb
+    def __interpolated_noise(self, x):
+        prev_x = int(x) # previous integer
+        next_x = prev_x + 1 # next integer
+        frac_x = x - prev_x # fractional of x
 
-    in_sum = xins
+        if self.use_fade:
+            frac_x = self.__fade(frac_x)
 
-    dx0 = x - xb
-
-    value = 0
-
-    dx1 = dx0 - 1 - SQUISH_CONSTANT2
-    attn1 = 2 - dx1 * dx1
-    if attn1 > 0:
-        attn1 *= attn1
-        value += attn1 * attn1 * extrapolate_function(perm, xsb + 1, dx1)
-
-    dx2 = dx0 - 0 - SQUISH_CONSTANT2
-    attn2 = 2 - dx2 * dx2
-    if attn2 > 0:
-        attn2 *= attn2
-        value += attn2 * attn2 * extrapolate_function(perm, xsb + 0, dx2)
-
-    if in_sum <= 1:
-        zins = 1 - in_sum
-        if zins > xins:
-            xsv_ext = xsb - 1
-            dx_ext = dx0 + 1
+        # intepolate x
+        if self.interp is Constants.LINEAR:
+            res = self.__linear_interp(
+                self.__noise(prev_x),
+                self.__noise(next_x),
+                frac_x)
+        elif self.interp is Constants.COSINE:
+            res = self.__cosine_interp(
+                self.__noise(prev_x),
+                self.__noise(next_x),
+                frac_x)
         else:
-            xsv_ext = xsb + 1
-            dx_ext = dx0 - 1 - 2 * SQUISH_CONSTANT2
-    else:
-        zins = 2 - in_sum
-        if zins < xins:
-            xsv_ext = xsb + 0
-            dx_ext = dx0 + 0 - 2 * SQUISH_CONSTANT2
-        else:
-            dx_ext = dx0
-            xsv_ext = xsb
-        xsb += 1
-        dx0 = dx0 - 1 - 2 * SQUISH_CONSTANT2
+            res = self.__cubic_interp(
+                self.__noise(prev_x - 1),
+                self.__noise(prev_x),
+                self.__noise(next_x),
+                self.__noise(next_x + 1),
+                frac_x)
 
-    attn0 = 2 - dx0 * dx0
-    if attn0 > 0:
-        attn0 *= attn0
-        value += attn0 * attn0 * extrapolate_function(perm, xsb, dx0)
+        return res
 
-    attn_ext = 2 - dx_ext * dx_ext
-    if attn_ext > 0:
-        attn_ext *= attn_ext
-        value += attn_ext * attn_ext * extrapolate_function(perm, xsv_ext, dx_ext)
+    def get(self, x):
+        frequency = self.frequency
+        amplitude = self.amplitude
+        result = 0
+        for _ in range(self.octaves):
+            result += self.__interpolated_noise(x * frequency) * amplitude
+            frequency *= 2
+            amplitude /= 2
 
-    return value / NORM_CONSTANT2
+        return result
+
+    def __linear_interp(self, a, b, x):
+        return a + x * (b - a)
+
+    def __cosine_interp(self, a, b, x):
+        x2 = (1 - math.cos(x * math.pi)) / 2
+        return a * (1 - x2) + b * x2
+
+    def __cubic_interp(self, v0, v1, v2, v3, x):
+        p = (v3 - v2) - (v0 - v1)
+        q = (v0 - v1) - p
+        r = v2 - v0
+        s = v1
+        return p * x**3 + q * x**2 + r * x + s
+
+    def __fade(self, x):
+        # useful only for linear interpolation
+        return (6 * x**5) - (15 * x**4) + (10 * x**3)
 
 @numba.njit(cache=True)
 def generate_2D_perlin_noise(extrapolate_function, x, y, perm):
@@ -84,8 +106,8 @@ def generate_2D_perlin_noise(extrapolate_function, x, y, perm):
     xs = x + stretch_offset
     ys = y + stretch_offset
 
-    xsb = floor(xs)
-    ysb = floor(ys)
+    xsb = math.floor(xs)
+    ysb = math.floor(ys)
 
     squish_offset = (xsb + ysb) * SQUISH_CONSTANT2
     xb = xsb + squish_offset

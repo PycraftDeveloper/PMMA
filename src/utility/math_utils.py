@@ -3,6 +3,8 @@ from ctypes import c_int64
 from pmma.src.registry import Registry
 
 import numba
+import pyrr
+import numpy
 
 from pmma.src.constants import Constants
 
@@ -13,12 +15,6 @@ def extrapolate2(perm, xsb, ysb, dx, dy):
     index = perm[(perm[xsb & 0xFF] + ysb) & 0xFF] & 0x0E
     g1, g2 = GRADIENTS2[index : index + 2]
     return g1 * dx + g2 * dy
-
-@numba.njit(cache=True)
-def extrapolate(perm, xsb, dx):
-    index = perm[(perm[xsb & 0xFF]) & 0xFF] & 0x0E
-    g1, g2 = GRADIENTS2[index : index + 2]
-    return g1 * dx + g2
 
 def overflow(x):
     return c_int64(x).value

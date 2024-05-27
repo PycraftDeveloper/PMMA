@@ -7,6 +7,10 @@ from pmma.src.registry import Registry
 class Constants:
     PYGAME = "pygame"
 
+    LINEAR = 1
+    COSINE = 2
+    CUBIC = 3
+
     DEFAULT = "default"
     TAU = math.pi * 2
 
