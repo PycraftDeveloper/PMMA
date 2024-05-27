@@ -22,6 +22,7 @@ from pmma.src.core import *
 environ_to_registry()
 
 from pmma.src.constants import *
+from pmma.src.optimizer import *
 from pmma.src.recorder import *
 from pmma.src.display import *
 from pmma.src.events import *
@@ -46,3 +47,10 @@ del sys
 del os
 del numba
 del environ_to_registry
+
+def init(do_custom_compilation_setup=True):
+    benchmark = Benchmark() # cache this unique to device
+    if do_custom_compilation_setup:
+        benchmark.test_all()
+
+    print(Registry.custom_compiled_behavior)

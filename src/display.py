@@ -37,6 +37,9 @@ class Display:
         else:
             raise NotImplementedError
 
+    def set_caption(self, caption):
+        Registry.graphics_backend.display.set_caption(caption)
+
     def toggle_fullscreen(self):
         self.fullscreen = not self.fullscreen
         if self.fullscreen:

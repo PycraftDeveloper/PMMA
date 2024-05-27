@@ -7,3 +7,4 @@ class Registry:
     temporary_files_path = None
     base_path = None
     anti_aliasing = True
+    custom_compiled_behavior = {}
