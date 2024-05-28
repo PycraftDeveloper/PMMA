@@ -15,23 +15,23 @@ class Perlin():
         self.advanced_noise = PerlinNoise(seed=seed, octaves=octaves, frequency=frequency, interpolation=interpolation, use_fade=use_fade)
         self.math = Math()
         self.seed_value = seed
-        self.seed = get_seed(seed)
+        self.seed = raw_get_seed(seed)
 
     def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
         if Registry.compile_math_functions and ("generate_2D_perlin_noise" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["generate_2D_perlin_noise"]):
-            noise = generate_2D_perlin_noise(self.math.get_function_extrapolate2(), x, y, self.seed)
+            noise = raw_generate_2D_perlin_noise(raw_extrapolate2, x, y, self.seed)
         else:
-            noise = generate_2D_perlin_noise.py_func(self.math.get_function_extrapolate2(), x, y, self.seed)
-        return ranger(noise, [-1, 1], range)
+            noise = raw_generate_2D_perlin_noise.py_func(self.math.get_function_extrapolate2(), x, y, self.seed)
+        return raw_ranger(noise, [-1, 1], range)
 
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
-        noise = self.advanced_noise.get(
+        noise = self.advanced_noise.raw_get(
             x,
             self.math.get_function_linear_interpolation(),
             self.math.get_function_cosine_interpolation(),
             self.math.get_function_cubic_interpolation(),
             self.math.get_function_fade())
-        return ranger(noise, [-1, 1], range)
+        return raw_ranger(noise, [-1, 1], range)
 
     def set_seed(self, seed):
         self.__init__(seed)

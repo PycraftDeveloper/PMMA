@@ -35,13 +35,13 @@ class PerlinNoise():
 
         self.mem_x = dict()
 
-    def __noise(self, x):
+    def __raw_noise(self, x):
         # made for improve performance
         if x not in self.mem_x:
             self.mem_x[x] = random.Random(self.seed + x).uniform(-1, 1)
         return self.mem_x[x]
 
-    def __interpolated_noise(self, x, linear_interpolation_function, cosine_interpolation_function, cubic_interpolation_function, fade_function):
+    def __raw_interpolated_noise(self, x, linear_interpolation_function, cosine_interpolation_function, cubic_interpolation_function, fade_function):
         prev_x = int(x) # previous integer
         next_x = prev_x + 1 # next integer
         frac_x = x - prev_x # fractional of x
@@ -52,30 +52,30 @@ class PerlinNoise():
         # intepolate x
         if self.interp is Constants.LINEAR:
             res = linear_interpolation_function(
-                self.__noise(prev_x),
-                self.__noise(next_x),
+                self.__raw_noise(prev_x),
+                self.__raw_noise(next_x),
                 frac_x)
         elif self.interp is Constants.COSINE:
             res = cosine_interpolation_function(
-                self.__noise(prev_x),
-                self.__noise(next_x),
+                self.__raw_noise(prev_x),
+                self.__raw_noise(next_x),
                 frac_x)
         else:
             res = cubic_interpolation_function(
-                self.__noise(prev_x - 1),
-                self.__noise(prev_x),
-                self.__noise(next_x),
-                self.__noise(next_x + 1),
+                self.__raw_noise(prev_x - 1),
+                self.__raw_noise(prev_x),
+                self.__raw_noise(next_x),
+                self.__raw_noise(next_x + 1),
                 frac_x)
 
         return res
 
-    def get(self, x, linear_interpolation_function, cosine_interpolation_function, cubic_interpolation_function, fade_function):
+    def raw_get(self, x, linear_interpolation_function, cosine_interpolation_function, cubic_interpolation_function, fade_function):
         frequency = self.frequency
         amplitude = self.amplitude
         result = 0
         for _ in range(self.octaves):
-            result += self.__interpolated_noise(
+            result += self.__raw_interpolated_noise(
                 x * frequency,
                 linear_interpolation_function,
                 cosine_interpolation_function,
@@ -87,7 +87,7 @@ class PerlinNoise():
         return result
 
 @numba.njit(fastmath=True, cache=True)
-def generate_2D_perlin_noise(extrapolate_function, x, y, perm):
+def raw_generate_2D_perlin_noise(extrapolate_function, x, y, perm):
     stretch_offset = (x + y) * STRETCH_CONSTANT2
 
     xs = x + stretch_offset
@@ -177,16 +177,16 @@ def generate_2D_perlin_noise(extrapolate_function, x, y, perm):
 
     return value / NORM_CONSTANT2
 
-def get_seed(seed):
+def raw_get_seed(seed):
     perm = np.zeros(256, dtype=np.int64)
     perm_grad_index3 = np.zeros(256, dtype=np.int64)
     source = np.arange(256)
 
-    seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
-    seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
-    seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
+    seed = raw_overflow(seed * 6364136223846793005 + 1442695040888963407)
+    seed = raw_overflow(seed * 6364136223846793005 + 1442695040888963407)
+    seed = raw_overflow(seed * 6364136223846793005 + 1442695040888963407)
     for i in range(255, -1, -1):
-        seed = overflow(seed * 6364136223846793005 + 1442695040888963407)
+        seed = raw_overflow(seed * 6364136223846793005 + 1442695040888963407)
         r = int((seed + 31) % (i + 1))
         if r < 0:
             r += i + 1

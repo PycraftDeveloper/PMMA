@@ -13,16 +13,16 @@ from pmma.src.constants import Constants
 GRADIENTS2 = Constants.GRADIENTS2
 
 @numba.njit(fastmath=True, cache=True)
-def linear_interpolation(a, b, x):
+def raw_linear_interpolation(a, b, x):
     return a + x * (b - a)
 
 @numba.njit(fastmath=True, cache=True)
-def cosine_interpolation(a, b, x):
+def raw_cosine_interpolation(a, b, x):
     x2 = (1 - math.cos(x * math.pi)) / 2
     return a * (1 - x2) + b * x2
 
 @numba.njit(fastmath=True, cache=True)
-def cubic_interpolation(v0, v1, v2, v3, x):
+def raw_cubic_interpolation(v0, v1, v2, v3, x):
     p = (v3 - v2) - (v0 - v1)
     q = (v0 - v1) - p
     r = v2 - v0
@@ -30,20 +30,20 @@ def cubic_interpolation(v0, v1, v2, v3, x):
     return p * x**3 + q * x**2 + r * x + s
 
 @numba.njit(fastmath=True, cache=True)
-def fade(x):
+def raw_fade(x):
     # useful only for linear interpolation
     return (6 * x**5) - (15 * x**4) + (10 * x**3)
 
 @numba.njit(fastmath=True, cache=True)
-def extrapolate2(perm, xsb, ysb, dx, dy):
+def raw_extrapolate2(perm, xsb, ysb, dx, dy):
     index = perm[(perm[xsb & 0xFF] + ysb) & 0xFF] & 0x0E
     g1, g2 = GRADIENTS2[index : index + 2]
     return g1 * dx + g2 * dy
 
-def overflow(x):
+def raw_overflow(x):
     return c_int64(x).value
 
-def ranger(value, old, new):
+def raw_ranger(value, old, new):
     if old == new:
         return value
     else:
@@ -52,7 +52,7 @@ def ranger(value, old, new):
         new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
 
-def gl_look_at(pos, target, up):
+def raw_gl_look_at(pos, target, up):
     x, y, z = compute_position(
         pos, target, up)
 
@@ -75,14 +75,14 @@ def gl_look_at(pos, target, up):
     return rotate * translate[:, numpy.newaxis]
 
 @numba.njit(fastmath=True, cache=True)
-def pythag(points):
+def raw_pythag(points):
     sum = 0
     for point in points:
         sum += point ** 2
     return sum ** 0.5
 
 @numba.njit(fastmath=True, cache=True)
-def compute_position(pos, target, up):
+def raw_compute_position(pos, target, up):
     def normalize(v):
         norm = numpy.linalg.norm(v)
         if norm == 0:
@@ -95,7 +95,7 @@ def compute_position(pos, target, up):
     return x, y, z
 
 @numba.njit(fastmath=True, cache=True)
-def perspective_fov(fov, aspect_ratio, near_plane, far_plane):
+def raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane):
     num = 1.0 / math.tan(fov / 2.0)
     num9 = num / aspect_ratio
     return numpy.array([
@@ -107,7 +107,7 @@ def perspective_fov(fov, aspect_ratio, near_plane, far_plane):
     ], dtype="f4")
 
 @numba.njit(fastmath=True, cache=True)
-def look_at(camera_position, camera_target, up_vector):
+def raw_look_at(camera_position, camera_target, up_vector):
     vector = camera_target - camera_position
 
     x = numpy.linalg.norm(vector)
@@ -126,5 +126,5 @@ def look_at(camera_position, camera_target, up_vector):
     ], dtype="f4")
 
 @numba.njit(fastmath=True, cache=True)
-def multiply(light_proj, sun_light_look_at):
+def raw_multiply(light_proj, sun_light_look_at):
     return light_proj * sun_light_look_at
