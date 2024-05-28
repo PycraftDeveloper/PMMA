@@ -13,26 +13,26 @@ from pmma.src.constants import Constants
 GRADIENTS2 = Constants.GRADIENTS2
 
 @numba.njit(fastmath=True, cache=True)
-def raw_linear_interpolation(a, b, x):
-    return a + x * (b - a)
+def hash(x):
+    # A simple hash function for our purposes
+    x = ((x >> 13) ^ x) * 15731
+    x = (x * x * 789221 + 1376312589)
+    return x & 0xFFFFFFFF
 
 @numba.njit(fastmath=True, cache=True)
-def raw_cosine_interpolation(a, b, x):
-    x2 = (1 - math.cos(x * math.pi)) / 2
-    return a * (1 - x2) + b * x2
+def fade(t):
+    # Perlin's fade function
+    return t * t * t * (t * (t * 6 - 15) + 10)
 
 @numba.njit(fastmath=True, cache=True)
-def raw_cubic_interpolation(v0, v1, v2, v3, x):
-    p = (v3 - v2) - (v0 - v1)
-    q = (v0 - v1) - p
-    r = v2 - v0
-    s = v1
-    return p * x**3 + q * x**2 + r * x + s
+def lerp(a, b, t):
+    # Linear interpolation
+    return a + t * (b - a)
 
 @numba.njit(fastmath=True, cache=True)
-def raw_fade(x):
-    # useful only for linear interpolation
-    return (6 * x**5) - (15 * x**4) + (10 * x**3)
+def grad(hash, x):
+    # Calculate gradient
+    return (hash & 1) * 2 - 1 * x
 
 @numba.njit(fastmath=True, cache=True)
 def raw_extrapolate2(perm, xsb, ysb, dx, dy):

@@ -9,10 +9,9 @@ from pmma.src.utility.math_utils import *
 from pmma.src.advmath import Math
 
 class Perlin():
-    def __init__(self, seed=None, octaves=1, frequency=1, interpolation=Constants.COSINE, use_fade=False):
+    def __init__(self, seed=None):
         if seed is None:
             seed = random.randint(0, 1000000)
-        self.advanced_noise = PerlinNoise(seed=seed, octaves=octaves, frequency=frequency, interpolation=interpolation, use_fade=use_fade)
         self.math = Math()
         self.seed_value = seed
         self.seed = raw_get_seed(seed)
@@ -25,12 +24,13 @@ class Perlin():
         return raw_ranger(noise, [-1, 1], range)
 
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
-        noise = self.advanced_noise.raw_get(
+        noise = raw_generate_1D_perlin_noise(
             x,
-            self.math.get_function_linear_interpolation(),
-            self.math.get_function_cosine_interpolation(),
-            self.math.get_function_cubic_interpolation(),
-            self.math.get_function_fade())
+            self.math.get_function_fade(),
+            self.math.get_function_hash(),
+            self.math.get_function_grad(),
+            self.math.get_function_lerp())
+
         return raw_ranger(noise, [-1, 1], range)
 
     def set_seed(self, seed):

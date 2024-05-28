@@ -3,41 +3,41 @@ from pmma.src.registry import Registry
 import pmma.src.utility.math_utils as math_utils
 
 class Math:
-    def get_function_linear_interpolation(self):
-        if Registry.compile_math_functions and ("linear_interpolation" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["linear_interpolation"]):
-            return math_utils.raw_linear_interpolation
+    def get_function_hash(self):
+        if Registry.compile_math_functions and ("hash" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["hash"]):
+            return math_utils.hash
         else:
-            return math_utils.raw_linear_interpolation.py_func
+            return math_utils.hash.py_func
 
-    def linear_interpolation(self, a, b, x):
-        return self.get_function_linear_interpolation()(a, b, x)
-
-    def get_function_cosine_interpolation(self):
-        if Registry.compile_math_functions and ("cosine_interpolation" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["cosine_interpolation"]):
-            return math_utils.raw_cosine_interpolation
-        else:
-            return math_utils.raw_cosine_interpolation.py_func
-
-    def cosine_interpolation(self, a, b, x):
-        return self.get_function_cosine_interpolation()(a, b, x)
-
-    def get_function_cubic_interpolation(self):
-        if Registry.compile_math_functions and ("cubic_interpolation" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["cubic_interpolation"]):
-            return math_utils.raw_cubic_interpolation
-        else:
-            return math_utils.raw_cubic_interpolation.py_func
-
-    def cubic_interpolation(self, a, b, c, d, x):
-        return self.get_function_cubic_interpolation()(a, b, c, d, x)
+    def hash(self, x):
+        return self.get_function_hash()(x)
 
     def get_function_fade(self):
         if Registry.compile_math_functions and ("fade" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["fade"]):
-            return math_utils.raw_fade
+            return math_utils.fade
         else:
-            return math_utils.raw_fade.py_func
+            return math_utils.fade.py_func
 
-    def fade(self, t):
-        return self.get_function_fade()(t)
+    def fade(self, x):
+        return self.get_function_fade()(x)
+
+    def get_function_lerp(self):
+        if Registry.compile_math_functions and ("lerp" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["lerp"]):
+            return math_utils.lerp
+        else:
+            return math_utils.lerp.py_func
+
+    def lerp(self, a, b, x):
+        return self.get_function_lerp()(a, b, x)
+
+    def get_function_grad(self):
+        if Registry.compile_math_functions and ("grad" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["grad"]):
+            return math_utils.grad
+        else:
+            return math_utils.grad.py_func
+
+    def grad(self, hash, x):
+        return self.get_function_grad()(hash, x)
 
     def get_function_extrapolate2(self):
         if Registry.compile_math_functions and ("extrapolate2" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["extrapolate2"]):

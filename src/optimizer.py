@@ -14,89 +14,81 @@ class Benchmark:
         self.math = Math()
 
     def test_all(self):
-        self.test_linear_interpolation()
-        self.test_cosine_interpolation()
-        self.test_cubic_interpolation()
+        self.test_hash()
         self.test_fade()
+        self.test_lerp()
+        self.test_grad()
         self.test_extrapolate2()
         self.test_pythag()
         self.test_generate_2D_perlin_noise() # MUST BE DONE AFTER test_extrapolate2
 
-    def test_linear_interpolation(self):
-        raw_linear_interpolation(0, 0, 0)
-
+    def test_hash(self):
         total_compiled_time = 0
         total_raw_time = 0
         for iteration in range(self.n):
             start = time.perf_counter()
-            raw_linear_interpolation(iteration, -iteration, iteration/2)
+            hash(iteration)
             end = time.perf_counter()
             total_compiled_time += end - start
 
         for iteration in range(self.n):
             start = time.perf_counter()
-            raw_linear_interpolation.py_func(iteration, -iteration, iteration/2)
+            hash.py_func(iteration)
             end = time.perf_counter()
             total_raw_time += end - start
 
-        Registry.custom_compiled_behavior["linear_interpolation"] = total_compiled_time < total_raw_time
-
-    def test_cosine_interpolation(self):
-        raw_cosine_interpolation(0, 0, 0)
-
-        total_compiled_time = 0
-        total_raw_time = 0
-        for iteration in range(self.n):
-            start = time.perf_counter()
-            raw_cosine_interpolation(iteration, -iteration, iteration/2)
-            end = time.perf_counter()
-            total_compiled_time += end - start
-
-        for iteration in range(self.n):
-            start = time.perf_counter()
-            raw_cosine_interpolation.py_func(iteration, -iteration, iteration/2)
-            end = time.perf_counter()
-            total_raw_time += end - start
-
-        Registry.custom_compiled_behavior["cosine_interpolation"] = total_compiled_time < total_raw_time
-
-    def test_cubic_interpolation(self):
-        raw_cubic_interpolation(0, 0, 0, 0, 0)
-
-        total_compiled_time = 0
-        total_raw_time = 0
-        for iteration in range(self.n):
-            start = time.perf_counter()
-            raw_cubic_interpolation(iteration, -iteration, iteration/2, -iteration/2, iteration/4)
-            end = time.perf_counter()
-            total_compiled_time += end - start
-
-        for iteration in range(self.n):
-            start = time.perf_counter()
-            raw_cubic_interpolation.py_func(iteration, -iteration, iteration/2, -iteration/2, iteration/4)
-            end = time.perf_counter()
-            total_raw_time += end - start
-
-        Registry.custom_compiled_behavior["cubic_interpolation"] = total_compiled_time < total_raw_time
+        Registry.custom_compiled_behavior["hash"] = total_compiled_time < total_raw_time
 
     def test_fade(self):
-        raw_fade(0)
-
         total_compiled_time = 0
         total_raw_time = 0
         for iteration in range(self.n):
             start = time.perf_counter()
-            raw_fade(iteration)
+            fade(iteration)
             end = time.perf_counter()
             total_compiled_time += end - start
 
         for iteration in range(self.n):
             start = time.perf_counter()
-            raw_fade.py_func(iteration)
+            fade.py_func(iteration)
             end = time.perf_counter()
             total_raw_time += end - start
 
         Registry.custom_compiled_behavior["fade"] = total_compiled_time < total_raw_time
+
+    def test_lerp(self):
+        total_compiled_time = 0
+        total_raw_time = 0
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            lerp(iteration, 0, 1)
+            end = time.perf_counter()
+            total_compiled_time += end - start
+
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            lerp.py_func(iteration, 0, 1)
+            end = time.perf_counter()
+            total_raw_time += end - start
+
+        Registry.custom_compiled_behavior["lerp"] = total_compiled_time < total_raw_time
+
+    def test_grad(self):
+        total_compiled_time = 0
+        total_raw_time = 0
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            grad(iteration, iteration/2)
+            end = time.perf_counter()
+            total_compiled_time += end - start
+
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            grad.py_func(iteration, iteration/2)
+            end = time.perf_counter()
+            total_raw_time += end - start
+
+        Registry.custom_compiled_behavior["grad"] = total_compiled_time < total_raw_time
 
     def test_extrapolate2(self):
         seed = raw_get_seed(0)

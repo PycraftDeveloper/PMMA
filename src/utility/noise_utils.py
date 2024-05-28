@@ -16,75 +16,27 @@ SQUISH_CONSTANT2 = Constants.SQUISH_CONSTANT2
 NORM_CONSTANT2 = Constants.NORM_CONSTANT2
 GRADIENTS3 = Constants.GRADIENTS3
 
-class PerlinNoise():
-    def __init__(
-            self,
-            seed,
-            amplitude=1,
-            frequency=1,
-            octaves=1,
-            interpolation=Constants.COSINE,
-            use_fade=False):
+def raw_generate_1D_perlin_noise(x, fade_function, hash_function, grad_function, lerp_function):
+    # Determine grid cell coordinates
+    x0 = math.floor(x)
+    x1 = x0 + 1
 
-        self.seed = random.Random(seed).random()
-        self.amplitude = amplitude
-        self.frequency = frequency
-        self.octaves = octaves
-        self.interp = interpolation
-        self.use_fade = use_fade
+    # Relative x coordinate in the cell
+    sx = x - x0
 
-        self.mem_x = dict()
+    # Fade curves
+    u = fade_function(sx)
 
-    def __raw_noise(self, x):
-        # made for improve performance
-        if x not in self.mem_x:
-            self.mem_x[x] = random.Random(self.seed + x).uniform(-1, 1)
-        return self.mem_x[x]
+    # Hash coordinates of the 1D points
+    h0 = hash_function(x0)
+    h1 = hash_function(x1)
 
-    def __raw_interpolated_noise(self, x, linear_interpolation_function, cosine_interpolation_function, cubic_interpolation_function, fade_function):
-        prev_x = int(x) # previous integer
-        next_x = prev_x + 1 # next integer
-        frac_x = x - prev_x # fractional of x
+    # Calculate gradient vectors and dot product with distance vectors
+    g0 = grad_function(h0, sx)
+    g1 = grad_function(h1, sx - 1)
 
-        if self.use_fade:
-            frac_x = fade_function(frac_x)
-
-        # intepolate x
-        if self.interp is Constants.LINEAR:
-            res = linear_interpolation_function(
-                self.__raw_noise(prev_x),
-                self.__raw_noise(next_x),
-                frac_x)
-        elif self.interp is Constants.COSINE:
-            res = cosine_interpolation_function(
-                self.__raw_noise(prev_x),
-                self.__raw_noise(next_x),
-                frac_x)
-        else:
-            res = cubic_interpolation_function(
-                self.__raw_noise(prev_x - 1),
-                self.__raw_noise(prev_x),
-                self.__raw_noise(next_x),
-                self.__raw_noise(next_x + 1),
-                frac_x)
-
-        return res
-
-    def raw_get(self, x, linear_interpolation_function, cosine_interpolation_function, cubic_interpolation_function, fade_function):
-        frequency = self.frequency
-        amplitude = self.amplitude
-        result = 0
-        for _ in range(self.octaves):
-            result += self.__raw_interpolated_noise(
-                x * frequency,
-                linear_interpolation_function,
-                cosine_interpolation_function,
-                cubic_interpolation_function,
-                fade_function) * amplitude
-            frequency *= 2
-            amplitude /= 2
-
-        return result
+    # Interpolate between the results
+    return lerp_function(g0, g1, u)
 
 @numba.njit(fastmath=True, cache=True)
 def raw_generate_2D_perlin_noise(extrapolate_function, x, y, perm):
