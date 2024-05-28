@@ -23,6 +23,8 @@ class Benchmark:
         self.test_generate_2D_perlin_noise() # MUST BE DONE AFTER test_extrapolate2
 
     def test_hash(self):
+        hash(0)
+
         total_compiled_time = 0
         total_raw_time = 0
         for iteration in range(self.n):
@@ -40,6 +42,8 @@ class Benchmark:
         Registry.custom_compiled_behavior["hash"] = total_compiled_time < total_raw_time
 
     def test_fade(self):
+        fade(0)
+
         total_compiled_time = 0
         total_raw_time = 0
         for iteration in range(self.n):
@@ -57,6 +61,8 @@ class Benchmark:
         Registry.custom_compiled_behavior["fade"] = total_compiled_time < total_raw_time
 
     def test_lerp(self):
+        lerp(0, 0, 1)
+
         total_compiled_time = 0
         total_raw_time = 0
         for iteration in range(self.n):
@@ -74,6 +80,8 @@ class Benchmark:
         Registry.custom_compiled_behavior["lerp"] = total_compiled_time < total_raw_time
 
     def test_grad(self):
+        grad(0, 0)
+
         total_compiled_time = 0
         total_raw_time = 0
         for iteration in range(self.n):
