@@ -53,7 +53,7 @@ def raw_ranger(value, old, new):
         return new_value
 
 def raw_gl_look_at(pos, target, up):
-    x, y, z = compute_position(
+    x, y, z = raw_compute_position(
         pos, target, up)
 
     translate = pyrr.Matrix44.identity(dtype="f4")
