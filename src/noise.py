@@ -31,7 +31,7 @@ class Perlin():
             self.math.get_function_grad(),
             self.math.get_function_lerp())
 
-        return raw_ranger(noise, [-1, 1], range)
+        return raw_ranger(noise, [-2, 2], range)
 
     def set_seed(self, seed):
         self.__init__(seed)

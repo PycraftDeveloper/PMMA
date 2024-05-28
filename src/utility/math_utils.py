@@ -44,6 +44,11 @@ def raw_overflow(x):
     return c_int64(x).value
 
 def raw_ranger(value, old, new):
+    if value > old[1]:
+        value = old[1]
+    elif value < old[0]:
+        value = old[0]
+
     if old == new:
         return value
     else:
