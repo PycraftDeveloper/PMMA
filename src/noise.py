@@ -15,16 +15,6 @@ class Perlin():
         self.math = Math()
         self.seed = seed
 
-    def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
-        noise = raw_generate_2D_perlin_noise(
-            x,
-            y,
-            self.math.get_function_fade(),
-            self.math.get_function_hash2(),
-            self.math.get_function_grad2(),
-            self.math.get_function_lerp())
-        return raw_ranger(noise, [-1, 1], range)
-
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
         noise = raw_generate_1D_perlin_noise(
             x,
@@ -33,7 +23,17 @@ class Perlin():
             self.math.get_function_grad(),
             self.math.get_function_lerp())
 
-        return raw_ranger(noise, [-2, 2], range)
+        return raw_ranger(noise, [0, 2], range)
+
+    def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
+        noise = raw_generate_2D_perlin_noise(
+            x,
+            y,
+            self.math.get_function_fade(),
+            self.math.get_function_hash2(),
+            self.math.get_function_grad2(),
+            self.math.get_function_lerp())
+        return raw_ranger(noise, [-0.50119561029, 0.50119561029], range)
 
     def set_seed(self, seed):
         self.__init__(seed)
