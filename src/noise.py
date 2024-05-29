@@ -13,14 +13,16 @@ class Perlin():
         if seed is None:
             seed = random.randint(0, 1000000)
         self.math = Math()
-        self.seed_value = seed
-        self.seed = raw_get_seed(seed)
+        self.seed = seed
 
     def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
-        if Registry.compile_math_functions and ("generate_2D_perlin_noise" in Registry.custom_compiled_behavior.keys() and Registry.custom_compiled_behavior["generate_2D_perlin_noise"]):
-            noise = raw_generate_2D_perlin_noise(raw_extrapolate2, x, y, self.seed)
-        else:
-            noise = raw_generate_2D_perlin_noise.py_func(self.math.get_function_extrapolate2(), x, y, self.seed)
+        noise = raw_generate_2D_perlin_noise(
+            x,
+            y,
+            self.math.get_function_fade(),
+            self.math.get_function_hash2(),
+            self.math.get_function_grad2(),
+            self.math.get_function_lerp())
         return raw_ranger(noise, [-1, 1], range)
 
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
@@ -38,6 +40,3 @@ class Perlin():
 
     def get_seed(self):
         return self.seed
-
-    def get_seed_value(self):
-        return self.seed_value

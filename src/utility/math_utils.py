@@ -13,32 +13,39 @@ from pmma.src.constants import Constants
 GRADIENTS2 = Constants.GRADIENTS2
 
 @numba.njit(fastmath=True, cache=True)
-def hash(x):
+def raw_hash(x):
     # A simple hash function for our purposes
     x = ((x >> 13) ^ x) * 15731
     x = (x * x * 789221 + 1376312589)
     return x & 0xFFFFFFFF
 
 @numba.njit(fastmath=True, cache=True)
-def fade(t):
+def raw_fade(t):
     # Perlin's fade function
     return t * t * t * (t * (t * 6 - 15) + 10)
 
 @numba.njit(fastmath=True, cache=True)
-def lerp(a, b, t):
+def raw_lerp(a, b, t):
     # Linear interpolation
     return a + t * (b - a)
 
 @numba.njit(fastmath=True, cache=True)
-def grad(hash, x):
+def raw_grad(hash, x):
     # Calculate gradient
     return (hash & 1) * 2 - 1 * x
 
 @numba.njit(fastmath=True, cache=True)
-def raw_extrapolate2(perm, xsb, ysb, dx, dy):
-    index = perm[(perm[xsb & 0xFF] + ysb) & 0xFF] & 0x0E
-    g1, g2 = GRADIENTS2[index : index + 2]
-    return g1 * dx + g2 * dy
+def raw_grad2(hash, x, y):
+    # Calculate gradient based on hash
+    h = hash & 3
+    u = x if h & 2 == 0 else -x
+    v = y if h & 1 == 0 else -y
+    return u + v
+
+@numba.njit(fastmath=True, cache=True)
+def raw_hash2(x, y):
+    # A simple hash function for our purposes
+    return (x * 73856093 ^ y * 19349663) & 0xFFFFFFFF
 
 def raw_overflow(x):
     return c_int64(x).value
