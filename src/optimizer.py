@@ -16,7 +16,9 @@ class Benchmark:
         self.test_fade()
         self.test_lerp()
         self.test_grad()
+        self.test_fast_grad()
         self.test_grad2()
+        self.test_fast_grad2()
         self.test_pythag()
 
     def test_hash(self):
@@ -114,6 +116,25 @@ class Benchmark:
 
         Registry.custom_compiled_behavior["raw_grad"] = total_compiled_time < total_raw_time
 
+    def test_fast_grad(self):
+        raw_fast_grad(0, 0)
+
+        total_compiled_time = 0
+        total_raw_time = 0
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            raw_fast_grad(iteration, iteration/2)
+            end = time.perf_counter()
+            total_compiled_time += end - start
+
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            raw_fast_grad.py_func(iteration, iteration/2)
+            end = time.perf_counter()
+            total_raw_time += end - start
+
+        Registry.custom_compiled_behavior["raw_fast_grad"] = total_compiled_time < total_raw_time
+
     def test_grad2(self):
         raw_grad2(0, 0, 0)
 
@@ -132,6 +153,25 @@ class Benchmark:
             total_raw_time += end - start
 
         Registry.custom_compiled_behavior["raw_grad2"] = total_compiled_time < total_raw_time
+
+    def test_fast_grad2(self):
+        raw_fast_grad2(0, 0, 0)
+
+        total_compiled_time = 0
+        total_raw_time = 0
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            raw_fast_grad2(iteration, -iteration, iteration/2)
+            end = time.perf_counter()
+            total_compiled_time += end - start
+
+        for iteration in range(self.n):
+            start = time.perf_counter()
+            raw_fast_grad2.py_func(iteration, -iteration, iteration/2)
+            end = time.perf_counter()
+            total_raw_time += end - start
+
+        Registry.custom_compiled_behavior["raw_fast_grad2"] = total_compiled_time < total_raw_time
 
     def test_pythag(self):
         raw_pythag([0, 0, 0])

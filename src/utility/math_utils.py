@@ -31,11 +31,34 @@ def raw_lerp(a, b, t):
 
 @numba.njit(fastmath=True, cache=True)
 def raw_grad(hash, x):
+    """Calculate gradient vector and dot product with distance vector."""
+    g = hash & 15
+    grad = 1 + (g & 7)  # Gradient is one of 1, 2, ..., 8
+    if g & 8:
+        grad = -grad  # And a random sign for the gradient
+    return grad * x
+
+@numba.njit(fastmath=True, cache=True)
+def raw_fast_grad(hash, x):
     # Calculate gradient
     return (hash & 1) * 2 - 1 * x
 
 @numba.njit(fastmath=True, cache=True)
 def raw_grad2(hash, x, y):
+    """Calculate the dot product of the distance and gradient vectors."""
+    g = hash & 7  # There are 8 possible gradients
+    if g == 0: u, v = 1, 1
+    elif g == 1: u, v = -1, 1
+    elif g == 2: u, v = 1, -1
+    elif g == 3: u, v = -1, -1
+    elif g == 4: u, v = 1, 0
+    elif g == 5: u, v = -1, 0
+    elif g == 6: u, v = 0, 1
+    else: u, v = 0, -1
+    return u * x + v * y
+
+@numba.njit(fastmath=True, cache=True)
+def raw_fast_grad2(hash, x, y):
     # Calculate gradient based on hash
     h = hash & 3
     u = x if h & 2 == 0 else -x

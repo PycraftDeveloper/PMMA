@@ -5,6 +5,8 @@ from pmma.src.constants import Constants
 
 from pmma.src.utility.math_utils import *
 
+import numpy as np
+
 GRADIENTS2 = Constants.GRADIENTS2
 STRETCH_CONSTANT2 = Constants.STRETCH_CONSTANT2
 SQUISH_CONSTANT2 = Constants.SQUISH_CONSTANT2
@@ -12,7 +14,41 @@ SQUISH_CONSTANT2 = Constants.SQUISH_CONSTANT2
 NORM_CONSTANT2 = Constants.NORM_CONSTANT2
 GRADIENTS3 = Constants.GRADIENTS3
 
-def raw_generate_1D_perlin_noise(x, fade_function, hash_function, grad_function, lerp_function):
+def raw_generate_1D_perlin_noise(x, permutation, fade_function, grad_function, lerp_function):
+    """Generate Perlin noise value at a given x coordinate."""
+    xi = int(np.floor(x)) & 255  # Calculate the "unit cube" that the point asked will be located in
+    xf = x - np.floor(x)         # Relative x coordinate in the unit cube
+    u = fade_function(xf)            # Compute fade curves for each of x
+
+    # Hash coordinates of the 2 cube corners
+    aa = permutation[xi]
+    ab = permutation[xi + 1]
+
+    # And add blended results from 2 corners of the cube
+    x1 = lerp_function(u, grad_function(aa, xf), grad_function(ab, xf - 1))
+
+    return (x1 + 1) / 2  # Normalize to [0, 1] range
+
+def raw_generate_2D_perlin_noise(x, y, permutation, fade_function, grad_function, lerp_function):
+    """Generate Perlin noise value at coordinates (x, y)."""
+    xi = int(np.floor(x)) & 255
+    yi = int(np.floor(y)) & 255
+    xf = x - np.floor(x)
+    yf = y - np.floor(y)
+    u = fade_function(xf)
+    v = fade_function(yf)
+
+    aa = permutation[permutation[xi] + yi]
+    ab = permutation[permutation[xi] + yi + 1]
+    ba = permutation[permutation[xi + 1] + yi]
+    bb = permutation[permutation[xi + 1] + yi + 1]
+
+    x1 = lerp_function(u, grad_function(aa, xf, yf), grad_function(ba, xf - 1, yf))
+    x2 = lerp_function(u, grad_function(ab, xf, yf - 1), grad_function(bb, xf - 1, yf - 1))
+
+    return (lerp_function(v, x1, x2) + 1) / 2  # Normalize to [0, 1]
+
+def raw_generate_seedless_1D_perlin_noise(x, fade_function, hash_function, grad_function, lerp_function):
     # Determine grid cell coordinates
     x0 = math.floor(x)
     x1 = x0 + 1
@@ -34,7 +70,7 @@ def raw_generate_1D_perlin_noise(x, fade_function, hash_function, grad_function,
     # Interpolate between the results
     return lerp_function(g0, g1, u)
 
-def raw_generate_2D_perlin_noise(x, y, fade_function, hash_function, grad_function, lerp_function):
+def raw_generate_seedless_2D_perlin_noise(x, y, fade_function, hash_function, grad_function, lerp_function):
     # Determine grid cell coordinates
     x0 = math.floor(x)
     y0 = math.floor(y)

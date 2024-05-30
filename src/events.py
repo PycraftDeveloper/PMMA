@@ -21,11 +21,11 @@ class Events:
                     if event.type == Registry.graphics_backend.QUIT:
                         if enable_close:
                             Registry.running = False
-                    if event.type == Registry.graphics_backend.KEYDOWN:
+                    elif event.type == Registry.graphics_backend.KEYDOWN:
                         if event.key == Registry.graphics_backend.K_ESCAPE:
                             if enable_close:
                                 Registry.running = False
-                        if event.key == Registry.graphics_backend.K_F11:
+                        elif event.key == Registry.graphics_backend.K_F11:
                             if enable_toggle_fullscreen:
                                 canvas.toggle_fullscreen()
 

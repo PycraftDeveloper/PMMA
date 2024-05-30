@@ -78,6 +78,21 @@ class Math:
     def grad(self, hash, x):
         return self.get_function_grad()(hash, x)
 
+    def get_function_fast_grad(self):
+        if Registry.compile_math_functions:
+            if "raw_grad" in Registry.custom_compiled_behavior.keys():
+                if Registry.custom_compiled_behavior["raw_fast_grad"]:
+                    return math_utils.raw_fast_grad
+                else:
+                    return math_utils.raw_fast_grad.py_func
+            else:
+                return math_utils.raw_fast_grad
+        else:
+            return math_utils.raw_fast_grad.py_func
+
+    def fast_grad(self, hash, x):
+        return self.get_function_fast_grad()(hash, x)
+
     def get_function_grad2(self):
         if Registry.compile_math_functions:
             if "raw_grad2" in Registry.custom_compiled_behavior.keys():
@@ -92,6 +107,21 @@ class Math:
 
     def grad2(self, hash, x, y):
         return self.get_function_grad2()(hash, x, y)
+
+    def get_function_fast_grad2(self):
+        if Registry.compile_math_functions:
+            if "raw_grad2" in Registry.custom_compiled_behavior.keys():
+                if Registry.custom_compiled_behavior["raw_fast_grad2"]:
+                    return math_utils.raw_fast_grad2
+                else:
+                    return math_utils.raw_fast_grad2.py_func
+            else:
+                return math_utils.raw_fast_grad2
+        else:
+            return math_utils.raw_fast_grad2.py_func
+
+    def fast_grad2(self, hash, x, y):
+        return self.get_function_fast_grad2()(hash, x, y)
 
     def get_function_overflow(self):
         return math_utils.raw_overflow

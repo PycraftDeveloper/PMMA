@@ -22,7 +22,7 @@ class Display:
         if Registry.display_mode == Constants.PYGAME:
             flags = 0
             if fullscreen:
-                self.flags = flags or Registry.graphics_backend.FULLSCREEN
+                self.flags = flags or Registry.graphics_backend.FULLSCREEN or Registry.graphics_backend.NOFRAME
                 if native_fullscreen:
                     width, height = 0, 0
 
