@@ -4,14 +4,11 @@ from pmma.src.constants import Constants
 from pmma.src.utility.math_utils import *
 from pmma.src.utility.noise_utils import *
 
-from pmma.src.advmath import Math
-
 import time
 
 class Benchmark:
     def __init__(self, n=100_000):
         self.n = n
-        self.math = Math()
 
     def test_all(self):
         self.test_hash()
