@@ -10,69 +10,6 @@ import numpy
 
 from pmma.py_src.constants import Constants
 
-GRADIENTS2 = Constants.GRADIENTS2
-
-@numba.njit(fastmath=True, cache=True)
-def raw_hash(x):
-    # A simple hash function for our purposes
-    x = ((x >> 13) ^ x) * 15731
-    x = (x * x * 789221 + 1376312589)
-    return x & 0xFFFFFFFF
-
-@numba.njit(fastmath=True, cache=True)
-def raw_fade(t):
-    # Perlin's fade function
-    return t * t * t * (t * (t * 6 - 15) + 10)
-
-@numba.njit(fastmath=True, cache=True)
-def raw_lerp(a, b, t):
-    # Linear interpolation
-    return a + t * (b - a)
-
-@numba.njit(fastmath=True, cache=True)
-def raw_grad(hash, x):
-    """Calculate gradient vector and dot product with distance vector."""
-    g = hash & 15
-    grad = 1 + (g & 7)  # Gradient is one of 1, 2, ..., 8
-    if g & 8:
-        grad = -grad  # And a random sign for the gradient
-    return grad * x
-
-@numba.njit(fastmath=True, cache=True)
-def raw_fast_grad(hash, x):
-    # Calculate gradient
-    return (hash & 1) * 2 - 1 * x
-
-@numba.njit(fastmath=True, cache=True)
-def raw_grad2(hash, x, y):
-    """Calculate the dot product of the distance and gradient vectors."""
-    g = hash & 7  # There are 8 possible gradients
-    if g == 0: u, v = 1, 1
-    elif g == 1: u, v = -1, 1
-    elif g == 2: u, v = 1, -1
-    elif g == 3: u, v = -1, -1
-    elif g == 4: u, v = 1, 0
-    elif g == 5: u, v = -1, 0
-    elif g == 6: u, v = 0, 1
-    else: u, v = 0, -1
-    return u * x + v * y
-
-@numba.njit(fastmath=True, cache=True)
-def raw_fast_grad2(hash, x, y):
-    # Calculate gradient based on hash
-    h = hash & 3
-    u = x if h & 2 == 0 else -x
-    v = y if h & 1 == 0 else -y
-    return u + v
-
-@numba.njit(fastmath=True, cache=True)
-def raw_hash2(x, y):
-    # A simple hash function for our purposes
-    return (x * 73856093 ^ y * 19349663) & 0xFFFFFFFF
-
-def raw_overflow(x):
-    return c_int64(x).value
-
 def raw_ranger(value, old, new):
     if value > old[1]:
         value = old[1]
