@@ -1,13 +1,10 @@
-from ctypes import c_int64
-
 import math
-
-from pmma.py_src.registry import Registry
 
 import numba
 import pyrr
 import numpy
 
+from pmma.py_src.registry import Registry
 from pmma.py_src.constants import Constants
 
 def raw_ranger(value, old, new):

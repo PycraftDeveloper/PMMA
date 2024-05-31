@@ -1,7 +1,5 @@
 import math
 
-import numpy
-
 from pmma.py_src.registry import Registry
 
 class Constants:
@@ -9,10 +7,6 @@ class Constants:
 
     DEFAULT = "default"
     TAU = math.pi * 2
-
-    CARTESIAN = "cartesian"
-    POLAR = "polar"
-    TEXT = "text"
 
     XYZ = "xyz"
     XZY = "xzy"
@@ -390,8 +384,6 @@ class Constants:
         ALHS,
         ALSH]
 
-    ###
-
     SMALL_HSL = "small_hsl"
     SMALL_HLS = "small_hls"
     SMALL_SHL = "small_shl"
@@ -549,59 +541,3 @@ class Constants:
         SMALL_ASLH,
         SMALL_ALHS,
         SMALL_ALSH]
-
-    GRADIENTS2 = numpy.array([
-        5, 2, 2, 5,
-        -5, 2, -2, 5,
-        5, -2, 2, -5,
-        -5, -2, -2, -5,
-    ], dtype=numpy.int64)
-
-    GRADIENTS3 = numpy.array([
-        -11, 4, 4, -4, 11, 4, -4, 4, 11,
-        11, 4, 4, 4, 11, 4, 4, 4, 11,
-        -11, -4, 4, -4, -11, 4, -4, -4, 11,
-        11, -4, 4, 4, -11, 4, 4, -4, 11,
-        -11, 4, -4, -4, 11, -4, -4, 4, -11,
-        11, 4, -4, 4, 11, -4, 4, 4, -11,
-        -11, -4, -4, -4, -11, -4, -4, -4, -11,
-        11, -4, -4, 4, -11, -4, 4, -4, -11,
-    ], dtype=numpy.int64)
-
-    GRADIENTS4 = numpy.array([
-        3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3,
-        -3, 1, 1, 1, -1, 3, 1, 1, -1, 1, 3, 1, -1, 1, 1, 3,
-        3, -1, 1, 1, 1, -3, 1, 1, 1, -1, 3, 1, 1, -1, 1, 3,
-        -3, -1, 1, 1, -1, -3, 1, 1, -1, -1, 3, 1, -1, -1, 1, 3,
-        3, 1, -1, 1, 1, 3, -1, 1, 1, 1, -3, 1, 1, 1, -1, 3,
-        -3, 1, -1, 1, -1, 3, -1, 1, -1, 1, -3, 1, -1, 1, -1, 3,
-        3, -1, -1, 1, 1, -3, -1, 1, 1, -1, -3, 1, 1, -1, -1, 3,
-        -3, -1, -1, 1, -1, -3, -1, 1, -1, -1, -3, 1, -1, -1, -1, 3,
-        3, 1, 1, -1, 1, 3, 1, -1, 1, 1, 3, -1, 1, 1, 1, -3,
-        -3, 1, 1, -1, -1, 3, 1, -1, -1, 1, 3, -1, -1, 1, 1, -3,
-        3, -1, 1, -1, 1, -3, 1, -1, 1, -1, 3, -1, 1, -1, 1, -3,
-        -3, -1, 1, -1, -1, -3, 1, -1, -1, -1, 3, -1, -1, -1, 1, -3,
-        3, 1, -1, -1, 1, 3, -1, -1, 1, 1, -3, -1, 1, 1, -1, -3,
-        -3, 1, -1, -1, -1, 3, -1, -1, -1, 1, -3, -1, -1, 1, -1, -3,
-        3, -1, -1, -1, 1, -3, -1, -1, 1, -1, -3, -1, 1, -1, -1, -3,
-        -3, -1, -1, -1, -1, -3, -1, -1, -1, -1, -3, -1, -1, -1, -1, -3,
-    ], dtype=numpy.int64)
-
-    if Registry.precise_math_constants:
-        STRETCH_CONSTANT2 = (1/math.sqrt(2+1)-1)/2
-        SQUISH_CONSTANT2 = (math.sqrt(2+1)-1)/2
-        STRETCH_CONSTANT3 = (1/math.sqrt(3+1)-1)/3
-        SQUISH_CONSTANT3 = (math.sqrt(3+1)-1)/3
-        STRETCH_CONSTANT4 = (1/math.sqrt(4+1)-1)/4
-        SQUISH_CONSTANT4 = (math.sqrt(4+1)-1)/4
-    else:
-        STRETCH_CONSTANT2 = -0.211324865405187
-        SQUISH_CONSTANT2 = 0.366025403784439
-        STRETCH_CONSTANT3 = -0.166666666666666
-        SQUISH_CONSTANT3 = 0.333333333333333
-        STRETCH_CONSTANT4 = -0.138196601125011
-        SQUISH_CONSTANT4 = 0.309016994374947
-
-    NORM_CONSTANT2 = 47
-    NORM_CONSTANT3 = 103
-    NORM_CONSTANT4 = 30

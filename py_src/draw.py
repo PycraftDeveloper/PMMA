@@ -4,8 +4,6 @@ import math
 from pmma.py_src.registry import Registry
 from pmma.py_src.constants import Constants
 
-Constants.TAU = math.pi * 2
-
 class Draw:
     def __init__(self, canvas=None):
         if Registry.display_mode == Constants.PYGAME:

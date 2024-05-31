@@ -1,6 +1,7 @@
+import threading
+
 import pyaudio
 import numpy as np
-import threading
 
 from pmma.py_src.registry import Registry
 from pmma.py_src.constants import Constants

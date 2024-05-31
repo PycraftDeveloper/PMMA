@@ -1,4 +1,5 @@
 from functools import reduce
+
 import colorsys
 
 from pmma.py_src.registry import Registry
