@@ -13,7 +13,7 @@ class Perlin():
         self.permutation = np.arange(256, dtype=int)
         if seed is None:
             seed = random.randint(0, 1000000)
-            np.random.seed(seed)
+        np.random.seed(seed)
         self.math = Math()
         self.seed = seed
         np.random.shuffle(self.permutation)
