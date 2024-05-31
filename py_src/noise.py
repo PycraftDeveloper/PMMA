@@ -1,12 +1,12 @@
 import random
 
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
-from pmma.src.utility.noise_utils import *
-from pmma.src.utility.math_utils import *
+from pmma.py_src.utility.noise_utils import *
+from pmma.py_src.utility.math_utils import *
 
-from pmma.src.advmath import Math
+from pmma.py_src.advmath import Math
 
 class Perlin():
     def __init__(self, seed=None):

@@ -1,5 +1,5 @@
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
 def swizzle(in_format, data, out_format, handle_alpha=False):
     if in_format == out_format:

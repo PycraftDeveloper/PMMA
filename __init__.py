@@ -14,22 +14,22 @@ temporary_files_path = base_path + os.sep + "temporary"
 sys.pycache_prefix = temporary_files_path
 numba.config.CACHE_DIR = temporary_files_path
 
-from pmma.src.registry import *
+from pmma.py_src.registry import *
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
-from pmma.src.core import *
+from pmma.py_src.core import *
 
 environ_to_registry()
 
-from pmma.src.constants import *
-from pmma.src.optimizer import *
-from pmma.src.recorder import *
-from pmma.src.display import *
-from pmma.src.events import *
-from pmma.src.noise import *
-from pmma.src.color import *
-from pmma.src.draw import *
-from pmma.src.advmath import *
+from pmma.py_src.constants import *
+from pmma.py_src.optimizer import *
+from pmma.py_src.recorder import *
+from pmma.py_src.display import *
+from pmma.py_src.events import *
+from pmma.py_src.noise import *
+from pmma.py_src.color import *
+from pmma.py_src.draw import *
+from pmma.py_src.advmath import *
 
 Registry.base_path
 

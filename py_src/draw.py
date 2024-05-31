@@ -1,8 +1,8 @@
 import importlib
 import math
 
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
 Constants.TAU = math.pi * 2
 

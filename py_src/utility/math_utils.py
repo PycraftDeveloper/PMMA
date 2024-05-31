@@ -2,13 +2,13 @@ from ctypes import c_int64
 
 import math
 
-from pmma.src.registry import Registry
+from pmma.py_src.registry import Registry
 
 import numba
 import pyrr
 import numpy
 
-from pmma.src.constants import Constants
+from pmma.py_src.constants import Constants
 
 GRADIENTS2 = Constants.GRADIENTS2
 

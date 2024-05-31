@@ -1,7 +1,7 @@
 import os
 
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):

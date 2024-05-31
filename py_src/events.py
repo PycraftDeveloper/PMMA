@@ -1,5 +1,5 @@
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
 class Events:
     def __init__(self, canvas=None):

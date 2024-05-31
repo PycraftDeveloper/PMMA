@@ -1,5 +1,5 @@
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
 class CoordinateIntermediary:
     def __init__(self, type, coordinate):

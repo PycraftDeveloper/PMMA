@@ -1,10 +1,10 @@
 from functools import reduce
 import colorsys
 
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
-from pmma.src.general import swizzle, can_swizzle
+from pmma.py_src.general import swizzle, can_swizzle
 
 class ColorIntermediary:
     def __init__(self, in_type, color):

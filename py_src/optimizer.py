@@ -1,8 +1,8 @@
-from pmma.src.registry import Registry
-from pmma.src.constants import Constants
+from pmma.py_src.registry import Registry
+from pmma.py_src.constants import Constants
 
-from pmma.src.utility.math_utils import *
-from pmma.src.utility.noise_utils import *
+from pmma.py_src.utility.math_utils import *
+from pmma.py_src.utility.noise_utils import *
 
 import time
 

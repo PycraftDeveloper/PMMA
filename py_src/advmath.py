@@ -1,6 +1,6 @@
-from pmma.src.registry import Registry
+from pmma.py_src.registry import Registry
 
-import pmma.src.utility.math_utils as math_utils
+import pmma.py_src.utility.math_utils as math_utils
 
 class Math:
     def get_function_hash(self):
