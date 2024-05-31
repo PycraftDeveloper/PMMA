@@ -48,9 +48,5 @@ del os
 del numba
 del environ_to_registry
 
-def init(do_custom_compilation_setup=True):
-    benchmark = Benchmark() # cache this unique to device
-    if do_custom_compilation_setup:
-        benchmark.test_all()
-
-    print(Registry.custom_compiled_behavior)
+benchmark = Benchmark() # cache this unique to device
+benchmark.test_all()
