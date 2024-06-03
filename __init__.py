@@ -19,7 +19,7 @@ from pmma.py_src.registry import *
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
 
-p = subprocess.Popen([os.environ, "c_setup.py build_ext --inplace"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+p = subprocess.Popen([sys.executable, "c_setup.py build_ext --inplace"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 for line in p.stdout.readlines():
     print(line)
 retval = p.wait()
