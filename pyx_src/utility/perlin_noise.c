@@ -6,7 +6,7 @@
         "depends": [],
         "name": "perlin_noise",
         "sources": [
-            "/home/thomas/.local/lib/python3.10/site-packages/pmma/pyx_src/utility/perlin_noise.pyx"
+            "pyx_src/utility/perlin_noise.pyx"
         ]
     },
     "module_name": "perlin_noise"

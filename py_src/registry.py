@@ -8,3 +8,4 @@ class Registry:
     base_path = None
     anti_aliasing = True
     custom_compiled_behavior = {}
+    cython_acceleration_available = False

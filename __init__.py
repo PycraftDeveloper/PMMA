@@ -19,10 +19,20 @@ from pmma.py_src.registry import *
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
 
-p = subprocess.Popen([sys.executable, "c_setup.py build_ext --inplace"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-for line in p.stdout.readlines():
-    print(line)
-retval = p.wait()
+try:
+    os.mkdir(f"{base_path}{os.sep}bin")
+except FileExistsError:
+    pass
+
+try:
+    import pmma.bin.perlin_noise
+    Registry.cython_acceleration_available = True
+except ImportError:
+    try:
+        exit_code = subprocess.call([sys.executable, "c_setup.py", "build_ext", "--inplace", "--build-lib", f"{base_path}{os.sep}bin", "--build-temp", "temporary"])
+        Registry.cython_acceleration_available = exit_code == 0
+    except:
+        Registry.cython_acceleration_available = False
 
 from pmma.py_src.core import *
 
