@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+import subprocess
 
 import numba
 
@@ -17,6 +18,12 @@ numba.config.CACHE_DIR = temporary_files_path
 from pmma.py_src.registry import *
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
+
+p = subprocess.Popen([os.environ, "c_setup.py build_ext --inplace"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+for line in p.stdout.readlines():
+    print(line)
+retval = p.wait()
+
 from pmma.py_src.core import *
 
 environ_to_registry()
