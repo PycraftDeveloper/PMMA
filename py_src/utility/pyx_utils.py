@@ -22,6 +22,7 @@ def compile_perlin_noise():
             Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = exit_code == 0
         except:
             Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = False
+        # clean up with FileCore
 
 def check_for_compiled_perlin_noise():
     try:

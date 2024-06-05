@@ -6,6 +6,69 @@ from pmma.py_src.registry import Registry
 class Constants:
     COMPILED_PERLIN_NOISE = "compiled Perlin noise"
 
+    PYTHON1 = "Python"
+    PYTHON2 = "Python2"
+    PYTHON3 = "Python3"
+
+    MAJOR_PYTHON_VERSIONS = [
+        PYTHON1,
+        PYTHON2,
+        PYTHON3]
+
+    PYTHON1_4 = "Python1.4"
+    PYTHON1_5 = "Python1.5"
+    PYTHON1_6 = "Python1.6"
+
+    PYTHON2_0 = "Python2.0"
+    PYTHON2_1 = "Python2.1"
+    PYTHON2_2 = "Python2.2"
+    PYTHON2_3 = "Python2.3"
+    PYTHON2_4 = "Python2.4"
+    PYTHON2_5 = "Python2.5"
+    PYTHON2_6 = "Python2.6"
+    PYTHON2_7 = "Python2.7"
+
+    PYTHON3_0 = "Python3.0"
+    PYTHON3_1 = "Python3.1"
+    PYTHON3_2 = "Python3.2"
+    PYTHON3_3 = "Python3.3"
+    PYTHON3_4 = "Python3.4"
+    PYTHON3_5 = "Python3.5"
+    PYTHON3_6 = "Python3.6"
+    PYTHON3_7 = "Python3.7"
+    PYTHON3_8 = "Python3.8"
+    PYTHON3_9 = "Python3.9"
+    PYTHON3_10 = "Python3.10"
+    PYTHON3_11 = "Python3.11"
+    PYTHON3_12 = "Python3.12"
+
+    MAJOR_MINOR_PYTHON_VERSIONS = [
+        PYTHON1_4,
+        PYTHON1_5,
+        PYTHON1_6,
+        PYTHON2_0,
+        PYTHON2_1,
+        PYTHON2_2,
+        PYTHON2_3,
+        PYTHON2_4,
+        PYTHON2_5,
+        PYTHON2_6,
+        PYTHON2_7,
+        PYTHON3_0,
+        PYTHON3_1,
+        PYTHON3_2,
+        PYTHON3_3,
+        PYTHON3_4,
+        PYTHON3_5,
+        PYTHON3_6,
+        PYTHON3_7,
+        PYTHON3_8,
+        PYTHON3_9,
+        PYTHON3_10,
+        PYTHON3_11,
+        PYTHON3_12
+    ]
+
     PATH_SEPARATOR = os.sep
 
     AUTODETECT = "autodetect"
