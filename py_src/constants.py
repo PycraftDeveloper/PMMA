@@ -1,8 +1,13 @@
 import math
+import os
 
 from pmma.py_src.registry import Registry
 
 class Constants:
+    COMPILED_PERLIN_NOISE = "compiled Perlin noise"
+
+    PATH_SEPARATOR = os.sep
+
     AUTODETECT = "autodetect"
 
     PYGAME = "pygame"

@@ -9,3 +9,5 @@ class Registry:
     anti_aliasing = True
     custom_compiled_behavior = {}
     cython_acceleration_available = False
+    cython_acceleration_enabled = False
+    python_acceleration_enabled = False

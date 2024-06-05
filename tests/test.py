@@ -1,1 +1,3 @@
 import pmma
+
+pmma.init()

@@ -1,11 +1,7 @@
 import sys
 import os
-import json
-import subprocess
 
 import numba
-
-#import path
 
 def _up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
@@ -18,21 +14,6 @@ numba.config.CACHE_DIR = temporary_files_path
 from pmma.py_src.registry import *
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
-
-try:
-    os.mkdir(f"{base_path}{os.sep}bin")
-except FileExistsError:
-    pass
-
-try:
-    import pmma.bin.perlin_noise
-    Registry.cython_acceleration_available = True
-except ImportError:
-    try:
-        exit_code = subprocess.call([sys.executable, "c_setup.py", "build_ext", "--inplace", "--build-lib", f"{base_path}{os.sep}bin", "--build-temp", "temporary"])
-        Registry.cython_acceleration_available = exit_code == 0
-    except:
-        Registry.cython_acceleration_available = False
 
 from pmma.py_src.core import *
 
@@ -48,7 +29,7 @@ from pmma.py_src.color import *
 from pmma.py_src.draw import *
 from pmma.py_src.advmath import *
 
-Registry.base_path
+from pmma.py_src.utility import pyx_utils
 
 # use json to load events.json
 # add these events to constants module
@@ -58,12 +39,20 @@ Registry.base_path
 
 # also add path module when legal issues resolved!
 
+def init(optimize_python_extensions=True, compile_c_extensions=True):
+    if optimize_python_extensions:
+        Registry.python_acceleration_enabled = optimize_python_extensions
+        benchmark = Benchmark() # cache this unique to device
+        benchmark.test_all()
+
+    if compile_c_extensions:
+        Registry.cython_acceleration_enabled = compile_c_extensions
+        pyx_utils.compile()
+
 del base_path
 del temporary_files_path
 del sys
 del os
 del numba
 del environ_to_registry
-
-benchmark = Benchmark() # cache this unique to device
-benchmark.test_all()
+del pyx_utils
