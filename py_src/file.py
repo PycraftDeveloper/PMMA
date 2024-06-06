@@ -36,7 +36,7 @@ class FileCore:
 
         self.update_locations(project_directory=project_directory, force_refresh=False)
 
-        self.watcher = file_utils.DirectoryWatcher(self.locations, self.file_matrix, File)
+        self.watcher = file_utils.DirectoryWatcher(self.locations, File)
 
         if passive_refresh:
             self.watcher.start()

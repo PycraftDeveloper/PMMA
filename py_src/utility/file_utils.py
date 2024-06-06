@@ -52,7 +52,7 @@ class EventHandler(FileSystemEventHandler):
                 del FileUtilityIntermediary.file_matrix[file]
 
 class DirectoryWatcher:
-    def __init__(self, locations, file_matrix, file_class):
+    def __init__(self, locations, file_class):
         self.observer = Observer()
         self.watching = {}
         for location in locations:
