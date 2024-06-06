@@ -1,3 +1,5 @@
+import os
+
 from pmma.py_src.registry import Registry
 from pmma.py_src.constants import Constants
 
@@ -30,14 +32,16 @@ class File:
 class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
         self.locations = []
+        self.file_matrix = {}
+
         self.update_locations(project_directory=project_directory, force_refresh=False)
 
-        self.watcher = file_utils.DirectoryWatcher(self.locations)
+        self.watcher = file_utils.DirectoryWatcher(self.locations, self.file_matrix, File)
 
         if passive_refresh:
             self.watcher.start()
 
-        self.file_matrix = {}
+        self.scan()
 
     def update_locations(self, project_directory=None, force_refresh=True):
         self.locations = [Registry.base_path]
@@ -56,12 +60,43 @@ class FileCore:
         if PassportIntermediary.project_c_src_directory is not None:
             self.locations.append(PassportIntermediary.project_c_src_directory)
 
-        print(self.locations)
-
         self.refresh(force=force_refresh)
 
     def scan(self):
-        pass
+        self.file_matrix = {}
+        construction_matrix = {}
+        for location in self.locations:
+            for root, subdirs, files in os.walk(location):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    if file not in construction_matrix:
+                        construction_matrix[file] = File(file_path)
+                    else: # duplicate name resolver
+                        original_file = construction_matrix[file].get_path()
+                        del construction_matrix[file]
+
+                        new_file = file_path
+
+                        original_file_split = original_file.split(os.sep)
+                        new_file_split = new_file.split(os.sep)
+
+                        original_identifier = original_file_split[-1]
+                        new_identifier = new_file_split[-1]
+
+                        del original_file_split[-1]
+                        del new_file_split[-1]
+
+                        while original_identifier == new_identifier:
+                            original_identifier = original_file_split[-1] + os.sep + original_identifier
+                            new_identifier = new_file_split[-1] + os.sep + new_identifier
+
+                            del original_file_split[-1]
+                            del new_file_split[-1]
+
+                        construction_matrix[original_identifier] = File(original_file)
+                        construction_matrix[new_identifier] = File(new_file)
+
+        self.file_matrix = self.watcher.sync_file_matrix(construction_matrix)
 
     def refresh(self, force=False):
         list_of_original_locations = self.locations
@@ -74,3 +109,7 @@ class FileCore:
 
     def start_passively_refreshing(self):
         self.watcher.start()
+
+    def identify(self, identifier):
+        if identifier in self.file_matrix:
+            return self.file_matrix[identifier]
