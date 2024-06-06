@@ -57,4 +57,3 @@ del sys
 del os
 del numba
 del environ_to_registry
-del pyx_utils
