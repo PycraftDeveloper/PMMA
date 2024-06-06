@@ -14,7 +14,6 @@ class EventHandler(FileSystemEventHandler):
         self.file_class = file_class
 
     def on_created(self, event):
-        print(event)
         if event.is_directory is False:
             file_path = event.src_path
             file = file_path.split(os.sep)[-1]
@@ -46,7 +45,6 @@ class EventHandler(FileSystemEventHandler):
                 FileUtilityIntermediary.file_matrix[new_identifier] = self.file_class(new_file)
 
     def on_deleted(self, event):
-        print(event)
         file_path = event.src_path
         local_file_matrix = dict(FileUtilityIntermediary.file_matrix)
         for file in local_file_matrix:
