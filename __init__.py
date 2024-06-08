@@ -30,6 +30,7 @@ from pmma.py_src.draw import *
 from pmma.py_src.advmath import *
 from pmma.py_src.file import *
 from pmma.py_src.passport import *
+from pmma.py_src.coordinate import *
 
 from pmma.py_src.utility import pyx_utils
 

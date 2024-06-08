@@ -4,7 +4,7 @@ from pmma.py_src.constants import Constants
 from pmma.py_src.advmath import Math
 
 class CoordinateIntermediary:
-    def __init__(self, in_type, *args):
+    def __init__(self, in_type=Constants.CARTESIAN, *args):
         self.in_type = in_type
         self.points = args
 
