@@ -17,17 +17,17 @@ class Perlin():
     def generate_1D_perlin_noise(self, x, range=[-1, 1]):
         noise = self.noise.fBM1D(x)
 
-        return noise#raw_ranger(noise, [-0.5008445989004566, 0.9999999987945568], range)
+        return raw_ranger(noise, [-1.166227320654655, 0.30489170105612395], range)
 
     def generate_2D_perlin_noise(self, x, y, range=[-1, 1]):
         noise = self.noise.fBM2D(x, y)
 
-        return noise#raw_ranger(noise, [0.4871120631082581, 1.0561227977881837], range)
+        return raw_ranger(noise, [-0.5254378425377668, 0.3887421630840867], range)
 
     def generate_3D_perlin_noise(self, x, y, z, range=[-1, 1]):
         noise = self.noise.fBM3D(x, y, z)
 
-        return noise#raw_ranger(noise, [0.4871120631082581, 1.0561227977881837], range)
+        return raw_ranger(noise, [-0.511635154235906, 0.6931716092231993], range)
 
     def set_seed(self, seed):
         self.__init__(seed)
