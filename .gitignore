@@ -162,4 +162,7 @@ cython_debug/
 
 # PMMA temporary directory
 temporary
+
+# PMMA runtime generated binaries
 bin
+/*.so

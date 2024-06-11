@@ -1640,13 +1640,13 @@ typedef struct {
 /* #### Code section: type_declarations ### */
 
 /*--- Type declarations ---*/
-struct __pyx_obj_21extended_perlin_noise_PerlinNoise;
+struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 struct __pyx_opt_args_21extended_perlin_noise_grad;
-struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin;
+struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin;
 
 /* "extended_perlin_noise.pyx":11
  *     return a + t * (b - a)
@@ -1668,7 +1668,7 @@ struct __pyx_opt_args_21extended_perlin_noise_grad {
  *         cdef int X = int(floor(x)) & 255
  *         cdef int Y = int(floor(y)) & 255
  */
-struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin {
+struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin {
   int __pyx_n;
   double y;
   double z;
@@ -1677,13 +1677,13 @@ struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin {
 /* "extended_perlin_noise.pyx":17
  *     return ((u if h & 1 == 0 else -u) + (v if h & 2 == 0 else -v))
  * 
- * cdef class PerlinNoise:             # <<<<<<<<<<<<<<
+ * cdef class ExtendedPerlinNoise:             # <<<<<<<<<<<<<<
  *     cdef int[512] permutation
  *     cdef int octaves
  */
-struct __pyx_obj_21extended_perlin_noise_PerlinNoise {
+struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise {
   PyObject_HEAD
-  struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise *__pyx_vtab;
+  struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_vtab;
   int permutation[0x200];
   int octaves;
   double persistence;
@@ -1770,15 +1770,15 @@ struct __pyx_memoryviewslice_obj {
 /* "extended_perlin_noise.pyx":17
  *     return ((u if h & 1 == 0 else -u) + (v if h & 2 == 0 else -v))
  * 
- * cdef class PerlinNoise:             # <<<<<<<<<<<<<<
+ * cdef class ExtendedPerlinNoise:             # <<<<<<<<<<<<<<
  *     cdef int[512] permutation
  *     cdef int octaves
  */
 
-struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise {
-  double (*perlin)(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *, double, struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin *__pyx_optional_args);
+struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise {
+  double (*perlin)(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *, double, struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin *__pyx_optional_args);
 };
-static struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise *__pyx_vtabptr_21extended_perlin_noise_PerlinNoise;
+static struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_vtabptr_21extended_perlin_noise_ExtendedPerlinNoise;
 
 
 /* "View.MemoryView":114
@@ -2812,7 +2812,7 @@ static PyObject *__pyx_memoryview__get_base(struct __pyx_memoryview_obj *__pyx_v
 static PyObject *__pyx_memoryviewslice_convert_item_to_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp); /* proto*/
 static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memoryviewslice_obj *__pyx_v_self, char *__pyx_v_itemp, PyObject *__pyx_v_value); /* proto*/
 static PyObject *__pyx_memoryviewslice__get_base(struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto*/
-static double __pyx_f_21extended_perlin_noise_11PerlinNoise_perlin(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, double __pyx_v_x, struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin *__pyx_optional_args); /* proto*/
+static double __pyx_f_21extended_perlin_noise_19ExtendedPerlinNoise_perlin(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, double __pyx_v_x, struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin *__pyx_optional_args); /* proto*/
 
 /* Module declarations from "libc.math" */
 
@@ -2828,7 +2828,7 @@ static PyThread_type_lock __pyx_memoryview_thread_locks[8];
 static double __pyx_f_21extended_perlin_noise_fade(double); /*proto*/
 static double __pyx_f_21extended_perlin_noise_lerp(double, double, double); /*proto*/
 static double __pyx_f_21extended_perlin_noise_grad(int, double, struct __pyx_opt_args_21extended_perlin_noise_grad *__pyx_optional_args); /*proto*/
-static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set_state(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *, PyObject *); /*proto*/
+static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise__set_state(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *, PyObject *); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_int(int *, Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_int(int *, Py_ssize_t); /*proto*/
 static int __Pyx_carray_from_py_int(PyObject *, int *, Py_ssize_t); /*proto*/
@@ -2982,7 +2982,6 @@ static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_MemoryError[] = "MemoryError";
-static const char __pyx_k_PerlinNoise[] = "PerlinNoise";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_RandomState[] = "RandomState";
 static const char __pyx_k_collections[] = "collections";
@@ -3015,6 +3014,7 @@ static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
+static const char __pyx_k_ExtendedPerlinNoise[] = "ExtendedPerlinNoise";
 static const char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static const char __pyx_k_Invalid_shape_in_axis[] = "Invalid shape in axis ";
 static const char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
@@ -3023,18 +3023,12 @@ static const char __pyx_k_Cannot_index_with_type[] = "Cannot index with type '";
 static const char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
 static const char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
 static const char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
-static const char __pyx_k_pyx_unpickle_PerlinNoise[] = "__pyx_unpickle_PerlinNoise";
 static const char __pyx_k_Dimension_d_is_not_direct[] = "Dimension %d is not direct";
 static const char __pyx_k_Index_out_of_bounds_axis_d[] = "Index out of bounds (axis %d)";
-static const char __pyx_k_PerlinNoise___reduce_cython[] = "PerlinNoise.__reduce_cython__";
-static const char __pyx_k_PerlinNoise_generate_fbm_1d[] = "PerlinNoise.generate_fbm_1d";
-static const char __pyx_k_PerlinNoise_generate_fbm_2d[] = "PerlinNoise.generate_fbm_2d";
-static const char __pyx_k_PerlinNoise_generate_fbm_3d[] = "PerlinNoise.generate_fbm_3d";
 static const char __pyx_k_Step_may_not_be_zero_axis_d[] = "Step may not be zero (axis %d)";
 static const char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
-static const char __pyx_k_PerlinNoise_init_permutation[] = "PerlinNoise.init_permutation";
-static const char __pyx_k_PerlinNoise___setstate_cython[] = "PerlinNoise.__setstate_cython__";
 static const char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
+static const char __pyx_k_pyx_unpickle_ExtendedPerlinNoi[] = "__pyx_unpickle_ExtendedPerlinNoise";
 static const char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
 static const char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
 static const char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
@@ -3043,6 +3037,10 @@ static const char __pyx_k_Cannot_assign_to_read_only_memor[] = "Cannot assign to
 static const char __pyx_k_Cannot_create_writable_memory_vi[] = "Cannot create writable memory view from read-only memoryview";
 static const char __pyx_k_Cannot_transpose_memoryview_with[] = "Cannot transpose memoryview with indirect dimensions";
 static const char __pyx_k_Empty_shape_tuple_for_cython_arr[] = "Empty shape tuple for cython.array";
+static const char __pyx_k_ExtendedPerlinNoise___reduce_cyt[] = "ExtendedPerlinNoise.__reduce_cython__";
+static const char __pyx_k_ExtendedPerlinNoise___setstate_c[] = "ExtendedPerlinNoise.__setstate_cython__";
+static const char __pyx_k_ExtendedPerlinNoise_generate_fbm[] = "ExtendedPerlinNoise.generate_fbm_1d";
+static const char __pyx_k_ExtendedPerlinNoise_init_permuta[] = "ExtendedPerlinNoise.init_permutation";
 static const char __pyx_k_Incompatible_checksums_0x_x_vs_0[] = "Incompatible checksums (0x%x vs (0x82a3537, 0x6ae9995, 0xb068931) = (name))";
 static const char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensions not supported";
 static const char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, expected 'c' or 'fortran', got ";
@@ -3052,6 +3050,8 @@ static const char __pyx_k_cython_src_utility_extended_perl[] = "cython_src/utili
 static const char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension ";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
+static const char __pyx_k_ExtendedPerlinNoise_generate_fbm_2[] = "ExtendedPerlinNoise.generate_fbm_2d";
+static const char __pyx_k_ExtendedPerlinNoise_generate_fbm_3[] = "ExtendedPerlinNoise.generate_fbm_3d";
 static const char __pyx_k_Incompatible_checksums_0x_x_vs_0_2[] = "Incompatible checksums (0x%x vs (0x25a8fca, 0x7273958, 0x5714550) = (octaves, permutation, persistence))";
 /* #### Code section: decls ### */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
@@ -3095,15 +3095,15 @@ static void __pyx_memoryviewslice___pyx_pf_15View_dot_MemoryView_16_memoryviewsl
 static PyObject *__pyx_pf___pyx_memoryviewslice___reduce_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf___pyx_memoryviewslice_2__setstate_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_15View_dot_MemoryView___pyx_unpickle_Enum(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static int __pyx_pf_21extended_perlin_noise_11PerlinNoise___init__(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, int __pyx_v_seed, int __pyx_v_octaves, double __pyx_v_persistence); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_2init_permutation(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, int __pyx_v_seed); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_4generate_fbm_1d(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cython__(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_12__setstate_cython__(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_21extended_perlin_noise_PerlinNoise(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise___init__(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, int __pyx_v_seed, int __pyx_v_octaves, double __pyx_v_persistence); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_2init_permutation(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, int __pyx_v_seed); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_4generate_fbm_1d(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_6generate_fbm_2d(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_8generate_fbm_3d(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_10__reduce_cython__(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_12__setstate_cython__(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_21extended_perlin_noise_ExtendedPerlinNoise(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -3138,13 +3138,13 @@ typedef struct {
   #if CYTHON_USE_MODULE_STATE
   #endif
   #if CYTHON_USE_MODULE_STATE
-  PyObject *__pyx_type_21extended_perlin_noise_PerlinNoise;
+  PyObject *__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise;
   PyObject *__pyx_type___pyx_array;
   PyObject *__pyx_type___pyx_MemviewEnum;
   PyObject *__pyx_type___pyx_memoryview;
   PyObject *__pyx_type___pyx_memoryviewslice;
   #endif
-  PyTypeObject *__pyx_ptype_21extended_perlin_noise_PerlinNoise;
+  PyTypeObject *__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise;
   PyTypeObject *__pyx_array_type;
   PyTypeObject *__pyx_MemviewEnum_type;
   PyTypeObject *__pyx_memoryview_type;
@@ -3162,6 +3162,13 @@ typedef struct {
   PyObject *__pyx_kp_s_Dimension_d_is_not_direct;
   PyObject *__pyx_n_s_Ellipsis;
   PyObject *__pyx_kp_s_Empty_shape_tuple_for_cython_arr;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise___reduce_cyt;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise___setstate_c;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise_generate_fbm;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise_generate_fbm_2;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise_generate_fbm_3;
+  PyObject *__pyx_n_s_ExtendedPerlinNoise_init_permuta;
   PyObject *__pyx_kp_s_Incompatible_checksums_0x_x_vs_0;
   PyObject *__pyx_kp_s_Incompatible_checksums_0x_x_vs_0_2;
   PyObject *__pyx_n_s_IndexError;
@@ -3175,13 +3182,6 @@ typedef struct {
   PyObject *__pyx_n_b_O;
   PyObject *__pyx_kp_u_Out_of_bounds_on_buffer_access_a;
   PyObject *__pyx_n_s_OverflowError;
-  PyObject *__pyx_n_s_PerlinNoise;
-  PyObject *__pyx_n_s_PerlinNoise___reduce_cython;
-  PyObject *__pyx_n_s_PerlinNoise___setstate_cython;
-  PyObject *__pyx_n_s_PerlinNoise_generate_fbm_1d;
-  PyObject *__pyx_n_s_PerlinNoise_generate_fbm_2d;
-  PyObject *__pyx_n_s_PerlinNoise_generate_fbm_3d;
-  PyObject *__pyx_n_s_PerlinNoise_init_permutation;
   PyObject *__pyx_n_s_PickleError;
   PyObject *__pyx_n_s_RandomState;
   PyObject *__pyx_n_s_Sequence;
@@ -3279,7 +3279,7 @@ typedef struct {
   PyObject *__pyx_n_s_pyx_state;
   PyObject *__pyx_n_s_pyx_type;
   PyObject *__pyx_n_s_pyx_unpickle_Enum;
-  PyObject *__pyx_n_s_pyx_unpickle_PerlinNoise;
+  PyObject *__pyx_n_s_pyx_unpickle_ExtendedPerlinNoi;
   PyObject *__pyx_n_s_pyx_vtable;
   PyObject *__pyx_n_s_random;
   PyObject *__pyx_n_s_range;
@@ -3399,8 +3399,8 @@ static int __pyx_m_clear(PyObject *m) {
   #ifdef __Pyx_FusedFunction_USED
   Py_CLEAR(clear_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_CLEAR(clear_module_state->__pyx_ptype_21extended_perlin_noise_PerlinNoise);
-  Py_CLEAR(clear_module_state->__pyx_type_21extended_perlin_noise_PerlinNoise);
+  Py_CLEAR(clear_module_state->__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
+  Py_CLEAR(clear_module_state->__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise);
   Py_CLEAR(clear_module_state->__pyx_array_type);
   Py_CLEAR(clear_module_state->__pyx_type___pyx_array);
   Py_CLEAR(clear_module_state->__pyx_MemviewEnum_type);
@@ -3422,6 +3422,13 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_Dimension_d_is_not_direct);
   Py_CLEAR(clear_module_state->__pyx_n_s_Ellipsis);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Empty_shape_tuple_for_cython_arr);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise___reduce_cyt);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise___setstate_c);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise_generate_fbm);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise_generate_fbm_2);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise_generate_fbm_3);
+  Py_CLEAR(clear_module_state->__pyx_n_s_ExtendedPerlinNoise_init_permuta);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0_2);
   Py_CLEAR(clear_module_state->__pyx_n_s_IndexError);
@@ -3435,13 +3442,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_b_O);
   Py_CLEAR(clear_module_state->__pyx_kp_u_Out_of_bounds_on_buffer_access_a);
   Py_CLEAR(clear_module_state->__pyx_n_s_OverflowError);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise___reduce_cython);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise___setstate_cython);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_generate_fbm_1d);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_generate_fbm_2d);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_generate_fbm_3d);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_init_permutation);
   Py_CLEAR(clear_module_state->__pyx_n_s_PickleError);
   Py_CLEAR(clear_module_state->__pyx_n_s_RandomState);
   Py_CLEAR(clear_module_state->__pyx_n_s_Sequence);
@@ -3539,7 +3539,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_state);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_type);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_unpickle_Enum);
-  Py_CLEAR(clear_module_state->__pyx_n_s_pyx_unpickle_PerlinNoise);
+  Py_CLEAR(clear_module_state->__pyx_n_s_pyx_unpickle_ExtendedPerlinNoi);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_vtable);
   Py_CLEAR(clear_module_state->__pyx_n_s_random);
   Py_CLEAR(clear_module_state->__pyx_n_s_range);
@@ -3637,8 +3637,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   #ifdef __Pyx_FusedFunction_USED
   Py_VISIT(traverse_module_state->__pyx_FusedFunctionType);
   #endif
-  Py_VISIT(traverse_module_state->__pyx_ptype_21extended_perlin_noise_PerlinNoise);
-  Py_VISIT(traverse_module_state->__pyx_type_21extended_perlin_noise_PerlinNoise);
+  Py_VISIT(traverse_module_state->__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
+  Py_VISIT(traverse_module_state->__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise);
   Py_VISIT(traverse_module_state->__pyx_array_type);
   Py_VISIT(traverse_module_state->__pyx_type___pyx_array);
   Py_VISIT(traverse_module_state->__pyx_MemviewEnum_type);
@@ -3660,6 +3660,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_Dimension_d_is_not_direct);
   Py_VISIT(traverse_module_state->__pyx_n_s_Ellipsis);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Empty_shape_tuple_for_cython_arr);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise___reduce_cyt);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise___setstate_c);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise_generate_fbm);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise_generate_fbm_2);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise_generate_fbm_3);
+  Py_VISIT(traverse_module_state->__pyx_n_s_ExtendedPerlinNoise_init_permuta);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0_2);
   Py_VISIT(traverse_module_state->__pyx_n_s_IndexError);
@@ -3673,13 +3680,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_b_O);
   Py_VISIT(traverse_module_state->__pyx_kp_u_Out_of_bounds_on_buffer_access_a);
   Py_VISIT(traverse_module_state->__pyx_n_s_OverflowError);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise___reduce_cython);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise___setstate_cython);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_generate_fbm_1d);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_generate_fbm_2d);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_generate_fbm_3d);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_init_permutation);
   Py_VISIT(traverse_module_state->__pyx_n_s_PickleError);
   Py_VISIT(traverse_module_state->__pyx_n_s_RandomState);
   Py_VISIT(traverse_module_state->__pyx_n_s_Sequence);
@@ -3777,7 +3777,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_state);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_type);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_unpickle_Enum);
-  Py_VISIT(traverse_module_state->__pyx_n_s_pyx_unpickle_PerlinNoise);
+  Py_VISIT(traverse_module_state->__pyx_n_s_pyx_unpickle_ExtendedPerlinNoi);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_vtable);
   Py_VISIT(traverse_module_state->__pyx_n_s_random);
   Py_VISIT(traverse_module_state->__pyx_n_s_range);
@@ -3886,13 +3886,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #if CYTHON_USE_MODULE_STATE
 #endif
 #if CYTHON_USE_MODULE_STATE
-#define __pyx_type_21extended_perlin_noise_PerlinNoise __pyx_mstate_global->__pyx_type_21extended_perlin_noise_PerlinNoise
+#define __pyx_type_21extended_perlin_noise_ExtendedPerlinNoise __pyx_mstate_global->__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise
 #define __pyx_type___pyx_array __pyx_mstate_global->__pyx_type___pyx_array
 #define __pyx_type___pyx_MemviewEnum __pyx_mstate_global->__pyx_type___pyx_MemviewEnum
 #define __pyx_type___pyx_memoryview __pyx_mstate_global->__pyx_type___pyx_memoryview
 #define __pyx_type___pyx_memoryviewslice __pyx_mstate_global->__pyx_type___pyx_memoryviewslice
 #endif
-#define __pyx_ptype_21extended_perlin_noise_PerlinNoise __pyx_mstate_global->__pyx_ptype_21extended_perlin_noise_PerlinNoise
+#define __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise __pyx_mstate_global->__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise
 #define __pyx_array_type __pyx_mstate_global->__pyx_array_type
 #define __pyx_MemviewEnum_type __pyx_mstate_global->__pyx_MemviewEnum_type
 #define __pyx_memoryview_type __pyx_mstate_global->__pyx_memoryview_type
@@ -3910,6 +3910,13 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_Dimension_d_is_not_direct __pyx_mstate_global->__pyx_kp_s_Dimension_d_is_not_direct
 #define __pyx_n_s_Ellipsis __pyx_mstate_global->__pyx_n_s_Ellipsis
 #define __pyx_kp_s_Empty_shape_tuple_for_cython_arr __pyx_mstate_global->__pyx_kp_s_Empty_shape_tuple_for_cython_arr
+#define __pyx_n_s_ExtendedPerlinNoise __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise
+#define __pyx_n_s_ExtendedPerlinNoise___reduce_cyt __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise___reduce_cyt
+#define __pyx_n_s_ExtendedPerlinNoise___setstate_c __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise___setstate_c
+#define __pyx_n_s_ExtendedPerlinNoise_generate_fbm __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise_generate_fbm
+#define __pyx_n_s_ExtendedPerlinNoise_generate_fbm_2 __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise_generate_fbm_2
+#define __pyx_n_s_ExtendedPerlinNoise_generate_fbm_3 __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise_generate_fbm_3
+#define __pyx_n_s_ExtendedPerlinNoise_init_permuta __pyx_mstate_global->__pyx_n_s_ExtendedPerlinNoise_init_permuta
 #define __pyx_kp_s_Incompatible_checksums_0x_x_vs_0 __pyx_mstate_global->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0
 #define __pyx_kp_s_Incompatible_checksums_0x_x_vs_0_2 __pyx_mstate_global->__pyx_kp_s_Incompatible_checksums_0x_x_vs_0_2
 #define __pyx_n_s_IndexError __pyx_mstate_global->__pyx_n_s_IndexError
@@ -3923,13 +3930,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_b_O __pyx_mstate_global->__pyx_n_b_O
 #define __pyx_kp_u_Out_of_bounds_on_buffer_access_a __pyx_mstate_global->__pyx_kp_u_Out_of_bounds_on_buffer_access_a
 #define __pyx_n_s_OverflowError __pyx_mstate_global->__pyx_n_s_OverflowError
-#define __pyx_n_s_PerlinNoise __pyx_mstate_global->__pyx_n_s_PerlinNoise
-#define __pyx_n_s_PerlinNoise___reduce_cython __pyx_mstate_global->__pyx_n_s_PerlinNoise___reduce_cython
-#define __pyx_n_s_PerlinNoise___setstate_cython __pyx_mstate_global->__pyx_n_s_PerlinNoise___setstate_cython
-#define __pyx_n_s_PerlinNoise_generate_fbm_1d __pyx_mstate_global->__pyx_n_s_PerlinNoise_generate_fbm_1d
-#define __pyx_n_s_PerlinNoise_generate_fbm_2d __pyx_mstate_global->__pyx_n_s_PerlinNoise_generate_fbm_2d
-#define __pyx_n_s_PerlinNoise_generate_fbm_3d __pyx_mstate_global->__pyx_n_s_PerlinNoise_generate_fbm_3d
-#define __pyx_n_s_PerlinNoise_init_permutation __pyx_mstate_global->__pyx_n_s_PerlinNoise_init_permutation
 #define __pyx_n_s_PickleError __pyx_mstate_global->__pyx_n_s_PickleError
 #define __pyx_n_s_RandomState __pyx_mstate_global->__pyx_n_s_RandomState
 #define __pyx_n_s_Sequence __pyx_mstate_global->__pyx_n_s_Sequence
@@ -4027,7 +4027,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_pyx_state __pyx_mstate_global->__pyx_n_s_pyx_state
 #define __pyx_n_s_pyx_type __pyx_mstate_global->__pyx_n_s_pyx_type
 #define __pyx_n_s_pyx_unpickle_Enum __pyx_mstate_global->__pyx_n_s_pyx_unpickle_Enum
-#define __pyx_n_s_pyx_unpickle_PerlinNoise __pyx_mstate_global->__pyx_n_s_pyx_unpickle_PerlinNoise
+#define __pyx_n_s_pyx_unpickle_ExtendedPerlinNoi __pyx_mstate_global->__pyx_n_s_pyx_unpickle_ExtendedPerlinNoi
 #define __pyx_n_s_pyx_vtable __pyx_mstate_global->__pyx_n_s_pyx_vtable
 #define __pyx_n_s_random __pyx_mstate_global->__pyx_n_s_random
 #define __pyx_n_s_range __pyx_mstate_global->__pyx_n_s_range
@@ -18438,7 +18438,7 @@ static double __pyx_f_21extended_perlin_noise_grad(int __pyx_v_hash, double __py
  *     cdef double v = y if h < 4 else (x if h == 12 or h == 14 else z)
  *     return ((u if h & 1 == 0 else -u) + (v if h & 2 == 0 else -v))             # <<<<<<<<<<<<<<
  * 
- * cdef class PerlinNoise:
+ * cdef class ExtendedPerlinNoise:
  */
   __pyx_t_2 = ((__pyx_v_h & 1) == 0);
   if (__pyx_t_2) {
@@ -18477,8 +18477,8 @@ static double __pyx_f_21extended_perlin_noise_grad(int __pyx_v_hash, double __py
  */
 
 /* Python wrapper */
-static int __pyx_pw_21extended_perlin_noise_11PerlinNoise_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_21extended_perlin_noise_11PerlinNoise_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_seed;
   int __pyx_v_octaves;
   double __pyx_v_persistence;
@@ -18568,11 +18568,11 @@ static int __pyx_pw_21extended_perlin_noise_11PerlinNoise_1__init__(PyObject *__
       __Pyx_Arg_XDECREF_VARARGS(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise___init__(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self), __pyx_v_seed, __pyx_v_octaves, __pyx_v_persistence);
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise___init__(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self), __pyx_v_seed, __pyx_v_octaves, __pyx_v_persistence);
 
   /* function exit code */
   {
@@ -18585,7 +18585,7 @@ static int __pyx_pw_21extended_perlin_noise_11PerlinNoise_1__init__(PyObject *__
   return __pyx_r;
 }
 
-static int __pyx_pf_21extended_perlin_noise_11PerlinNoise___init__(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, int __pyx_v_seed, int __pyx_v_octaves, double __pyx_v_persistence) {
+static int __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise___init__(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, int __pyx_v_seed, int __pyx_v_octaves, double __pyx_v_persistence) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -18668,7 +18668,7 @@ static int __pyx_pf_21extended_perlin_noise_11PerlinNoise___init__(struct __pyx_
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -18684,15 +18684,15 @@ static int __pyx_pf_21extended_perlin_noise_11PerlinNoise___init__(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_3init_permutation(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_3init_permutation(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_11PerlinNoise_3init_permutation = {"init_permutation", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_3init_permutation, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_3init_permutation(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_3init_permutation = {"init_permutation", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_3init_permutation, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_3init_permutation(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -18762,11 +18762,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.init_permutation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.init_permutation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise_2init_permutation(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self), __pyx_v_seed);
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_2init_permutation(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self), __pyx_v_seed);
 
   /* function exit code */
   {
@@ -18779,7 +18779,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_2init_permutation(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, int __pyx_v_seed) {
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_2init_permutation(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, int __pyx_v_seed) {
   int __pyx_v_i;
   PyObject *__pyx_v_rng = NULL;
   PyObject *__pyx_v_perm = NULL;
@@ -18914,7 +18914,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_2init_permutatio
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.init_permutation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.init_permutation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_rng);
@@ -18932,7 +18932,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_2init_permutatio
  *         cdef int Y = int(floor(y)) & 255
  */
 
-static double __pyx_f_21extended_perlin_noise_11PerlinNoise_perlin(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, double __pyx_v_x, struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin *__pyx_optional_args) {
+static double __pyx_f_21extended_perlin_noise_19ExtendedPerlinNoise_perlin(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, double __pyx_v_x, struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin *__pyx_optional_args) {
   double __pyx_v_y = ((double)0.0);
   double __pyx_v_z = ((double)0.0);
   int __pyx_v_X;
@@ -19303,7 +19303,7 @@ static double __pyx_f_21extended_perlin_noise_11PerlinNoise_perlin(struct __pyx_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.perlin", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.perlin", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -19319,15 +19319,15 @@ static double __pyx_f_21extended_perlin_noise_11PerlinNoise_perlin(struct __pyx_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_5generate_fbm_1d(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_5generate_fbm_1d(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_11PerlinNoise_5generate_fbm_1d = {"generate_fbm_1d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_5generate_fbm_1d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_5generate_fbm_1d(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_5generate_fbm_1d = {"generate_fbm_1d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_5generate_fbm_1d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_5generate_fbm_1d(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -19398,11 +19398,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     }
   }
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_input_array, 1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.generate_fbm_1d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.generate_fbm_1d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise_4generate_fbm_1d(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self), __pyx_v_input_array);
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_4generate_fbm_1d(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self), __pyx_v_input_array);
 
   /* function exit code */
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_input_array, 1);
@@ -19416,7 +19416,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_4generate_fbm_1d(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array) {
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_4generate_fbm_1d(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array) {
   int __pyx_v_length;
   __Pyx_memviewslice __pyx_v_output_array = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_v_i;
@@ -19572,7 +19572,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_4generate_fbm_1d
         __Pyx_RaiseBufferIndexError(__pyx_t_14);
         __PYX_ERR(0, 74, __pyx_L1_error)
       }
-      __pyx_t_15 = ((struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise *)__pyx_v_self->__pyx_vtab)->perlin(__pyx_v_self, ((*((double *) ( /* dim=0 */ (__pyx_v_input_array.data + __pyx_t_13 * __pyx_v_input_array.strides[0]) ))) * __pyx_v_frequency), NULL); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 74, __pyx_L1_error)
+      __pyx_t_15 = ((struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self->__pyx_vtab)->perlin(__pyx_v_self, ((*((double *) ( /* dim=0 */ (__pyx_v_input_array.data + __pyx_t_13 * __pyx_v_input_array.strides[0]) ))) * __pyx_v_frequency), NULL); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 74, __pyx_L1_error)
       __pyx_v_total = (__pyx_v_total + (__pyx_t_15 * __pyx_v_amplitude));
 
       /* "extended_perlin_noise.pyx":75
@@ -19685,7 +19685,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_4generate_fbm_1d
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_6, 1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.generate_fbm_1d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.generate_fbm_1d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_output_array, 1);
@@ -19703,15 +19703,15 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_4generate_fbm_1d
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_7generate_fbm_2d(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_7generate_fbm_2d(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_11PerlinNoise_7generate_fbm_2d = {"generate_fbm_2d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_7generate_fbm_2d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_7generate_fbm_2d(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_7generate_fbm_2d = {"generate_fbm_2d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_7generate_fbm_2d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_7generate_fbm_2d(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -19782,11 +19782,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     }
   }
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_input_array, 1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.generate_fbm_2d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.generate_fbm_2d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self), __pyx_v_input_array);
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_6generate_fbm_2d(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self), __pyx_v_input_array);
 
   /* function exit code */
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_input_array, 1);
@@ -19800,7 +19800,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array) {
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_6generate_fbm_2d(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array) {
   int __pyx_v_height;
   int __pyx_v_width;
   __Pyx_memviewslice __pyx_v_output_array = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -19834,7 +19834,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d
   int __pyx_t_17;
   int __pyx_t_18;
   double __pyx_t_19;
-  struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin __pyx_t_20;
+  struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin __pyx_t_20;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -20046,7 +20046,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d
  */
         __pyx_t_20.__pyx_n = 1;
         __pyx_t_20.y = (__pyx_v_y * __pyx_v_frequency);
-        __pyx_t_19 = ((struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise *)__pyx_v_self->__pyx_vtab)->perlin(__pyx_v_self, (__pyx_v_x * __pyx_v_frequency), &__pyx_t_20); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+        __pyx_t_19 = ((struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self->__pyx_vtab)->perlin(__pyx_v_self, (__pyx_v_x * __pyx_v_frequency), &__pyx_t_20); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
         __pyx_v_total = (__pyx_v_total + (__pyx_t_19 * __pyx_v_amplitude));
 
         /* "extended_perlin_noise.pyx":97
@@ -20165,7 +20165,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_6, 1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.generate_fbm_2d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.generate_fbm_2d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_output_array, 1);
@@ -20183,15 +20183,15 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_6generate_fbm_2d
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_9generate_fbm_3d(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_9generate_fbm_3d(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_11PerlinNoise_9generate_fbm_3d = {"generate_fbm_3d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_9generate_fbm_3d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_9generate_fbm_3d(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_9generate_fbm_3d = {"generate_fbm_3d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_9generate_fbm_3d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_9generate_fbm_3d(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -20262,11 +20262,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     }
   }
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_input_array, 1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.generate_fbm_3d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.generate_fbm_3d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self), __pyx_v_input_array);
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_8generate_fbm_3d(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self), __pyx_v_input_array);
 
   /* function exit code */
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_input_array, 1);
@@ -20280,7 +20280,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array) {
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_8generate_fbm_3d(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, __Pyx_memviewslice __pyx_v_input_array) {
   int __pyx_v_depth;
   int __pyx_v_height;
   int __pyx_v_width;
@@ -20321,7 +20321,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d
   int __pyx_t_21;
   int __pyx_t_22;
   double __pyx_t_23;
-  struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin __pyx_t_24;
+  struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin __pyx_t_24;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -20604,7 +20604,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d
           __pyx_t_24.__pyx_n = 2;
           __pyx_t_24.y = (__pyx_v_y * __pyx_v_frequency);
           __pyx_t_24.z = (__pyx_v_z * __pyx_v_frequency);
-          __pyx_t_23 = ((struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise *)__pyx_v_self->__pyx_vtab)->perlin(__pyx_v_self, (__pyx_v_x * __pyx_v_frequency), &__pyx_t_24); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 121, __pyx_L1_error)
+          __pyx_t_23 = ((struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self->__pyx_vtab)->perlin(__pyx_v_self, (__pyx_v_x * __pyx_v_frequency), &__pyx_t_24); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 121, __pyx_L1_error)
           __pyx_v_total = (__pyx_v_total + (__pyx_t_23 * __pyx_v_amplitude));
 
           /* "extended_perlin_noise.pyx":122
@@ -20726,7 +20726,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __PYX_XCLEAR_MEMVIEW(&__pyx_t_6, 1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.generate_fbm_3d", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.generate_fbm_3d", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XCLEAR_MEMVIEW(&__pyx_v_output_array, 1);
@@ -20742,15 +20742,15 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_8generate_fbm_3d
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_11__reduce_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_11__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_11PerlinNoise_11__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_11__reduce_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_11__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_11__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -20775,14 +20775,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   if (unlikely(__pyx_nargs > 0)) {
     __Pyx_RaiseArgtupleInvalid("__reduce_cython__", 1, 0, 0, __pyx_nargs); return NULL;}
   if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__reduce_cython__", 0))) return NULL;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cython__(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self));
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_10__reduce_cython__(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cython__(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self) {
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_10__reduce_cython__(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -20889,7 +20889,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cytho
  *     else:
  *         use_setstate = False             # <<<<<<<<<<<<<<
  *     if use_setstate:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, None), state
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, None), state
  */
   /*else*/ {
     __pyx_v_use_setstate = 0;
@@ -20900,7 +20900,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cytho
  *     else:
  *         use_setstate = False
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, None), state
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, None), state
  *     else:
  */
   if (__pyx_v_use_setstate) {
@@ -20908,12 +20908,12 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cytho
     /* "(tree fragment)":13
  *         use_setstate = False
  *     if use_setstate:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, None), state             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, None), state             # <<<<<<<<<<<<<<
  *     else:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pyx_unpickle_PerlinNoise); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pyx_unpickle_ExtendedPerlinNoi); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -20945,21 +20945,21 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cytho
  *     else:
  *         use_setstate = False
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, None), state
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, None), state
  *     else:
  */
   }
 
   /* "(tree fragment)":15
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, None), state
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, None), state
  *     else:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
- *     __pyx_unpickle_PerlinNoise__set_state(self, __pyx_state)
+ *     __pyx_unpickle_ExtendedPerlinNoise__set_state(self, __pyx_state)
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pyx_unpickle_PerlinNoise); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_pyx_unpickle_ExtendedPerlinNoi); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -20997,7 +20997,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cytho
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -21009,21 +21009,21 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_10__reduce_cytho
 
 /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_PerlinNoise__set_state(self, __pyx_state)
+ *     __pyx_unpickle_ExtendedPerlinNoise__set_state(self, __pyx_state)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_13__setstate_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_13__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_11PerlinNoise_13__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_11PerlinNoise_13__setstate_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_13__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_13__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21093,11 +21093,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise_11PerlinNoise_12__setstate_cython__(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v_self), __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_12__setstate_cython__(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v_self), __pyx_v___pyx_state);
 
   /* function exit code */
   {
@@ -21110,7 +21110,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_12__setstate_cython__(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_21extended_perlin_noise_19ExtendedPerlinNoise_12__setstate_cython__(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21120,20 +21120,20 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_12__setstate_cyt
   __Pyx_RefNannySetupContext("__setstate_cython__", 1);
 
   /* "(tree fragment)":17
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)
  * def __setstate_cython__(self, __pyx_state):
- *     __pyx_unpickle_PerlinNoise__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_ExtendedPerlinNoise__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
   if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v___pyx_state))) __PYX_ERR(1, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_PerlinNoise__set_state(self, __pyx_state)
+ *     __pyx_unpickle_ExtendedPerlinNoise__set_state(self, __pyx_state)
  */
 
   /* function exit code */
@@ -21141,7 +21141,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_12__setstate_cyt
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("extended_perlin_noise.PerlinNoise.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.ExtendedPerlinNoise.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -21150,21 +21150,21 @@ static PyObject *__pyx_pf_21extended_perlin_noise_11PerlinNoise_12__setstate_cyt
 }
 
 /* "(tree fragment)":1
- * def __pyx_unpickle_PerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_ExtendedPerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_21extended_perlin_noise_1__pyx_unpickle_PerlinNoise(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_21extended_perlin_noise_1__pyx_unpickle_ExtendedPerlinNoise(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_21extended_perlin_noise_1__pyx_unpickle_PerlinNoise = {"__pyx_unpickle_PerlinNoise", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_1__pyx_unpickle_PerlinNoise, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_21extended_perlin_noise_1__pyx_unpickle_PerlinNoise(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_21extended_perlin_noise_1__pyx_unpickle_ExtendedPerlinNoise = {"__pyx_unpickle_ExtendedPerlinNoise", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_1__pyx_unpickle_ExtendedPerlinNoise, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21extended_perlin_noise_1__pyx_unpickle_ExtendedPerlinNoise(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -21184,7 +21184,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__pyx_unpickle_PerlinNoise (wrapper)", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_ExtendedPerlinNoise (wrapper)", 0);
   #if !CYTHON_METH_FASTCALL
   #if CYTHON_ASSUME_SAFE_MACROS
   __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
@@ -21224,7 +21224,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
         }
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 1, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_PerlinNoise", 1, 3, 3, 1); __PYX_ERR(1, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_ExtendedPerlinNoise", 1, 3, 3, 1); __PYX_ERR(1, 1, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -21234,12 +21234,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
         }
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 1, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_PerlinNoise", 1, 3, 3, 2); __PYX_ERR(1, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_ExtendedPerlinNoise", 1, 3, 3, 2); __PYX_ERR(1, 1, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_unpickle_PerlinNoise") < 0)) __PYX_ERR(1, 1, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__pyx_unpickle_ExtendedPerlinNoise") < 0)) __PYX_ERR(1, 1, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -21254,7 +21254,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_PerlinNoise", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 1, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_ExtendedPerlinNoise", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 1, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -21264,11 +21264,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("extended_perlin_noise.__pyx_unpickle_PerlinNoise", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.__pyx_unpickle_ExtendedPerlinNoise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   {
@@ -21281,7 +21281,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -21294,7 +21294,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_unpickle_PerlinNoise", 1);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_ExtendedPerlinNoise", 1);
 
   /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
@@ -21314,7 +21314,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
  *     if __pyx_checksum not in (0x25a8fca, 0x7273958, 0x5714550):
  *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
  *         raise __pyx_PickleError, "Incompatible checksums (0x%x vs (0x25a8fca, 0x7273958, 0x5714550) = (octaves, permutation, persistence))" % __pyx_checksum
- *     __pyx_result = PerlinNoise.__new__(__pyx_type)
+ *     __pyx_result = ExtendedPerlinNoise.__new__(__pyx_type)
  */
     __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 5, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -21335,7 +21335,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
  *     if __pyx_checksum not in (0x25a8fca, 0x7273958, 0x5714550):
  *         from pickle import PickleError as __pyx_PickleError
  *         raise __pyx_PickleError, "Incompatible checksums (0x%x vs (0x25a8fca, 0x7273958, 0x5714550) = (octaves, permutation, persistence))" % __pyx_checksum             # <<<<<<<<<<<<<<
- *     __pyx_result = PerlinNoise.__new__(__pyx_type)
+ *     __pyx_result = ExtendedPerlinNoise.__new__(__pyx_type)
  *     if __pyx_state is not None:
  */
     __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 6, __pyx_L1_error)
@@ -21359,11 +21359,11 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
   /* "(tree fragment)":7
  *         from pickle import PickleError as __pyx_PickleError
  *         raise __pyx_PickleError, "Incompatible checksums (0x%x vs (0x25a8fca, 0x7273958, 0x5714550) = (octaves, permutation, persistence))" % __pyx_checksum
- *     __pyx_result = PerlinNoise.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     __pyx_result = ExtendedPerlinNoise.__new__(__pyx_type)             # <<<<<<<<<<<<<<
  *     if __pyx_state is not None:
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise), __pyx_n_s_new); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise), __pyx_n_s_new); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -21392,40 +21392,40 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
 
   /* "(tree fragment)":8
  *         raise __pyx_PickleError, "Incompatible checksums (0x%x vs (0x25a8fca, 0x7273958, 0x5714550) = (octaves, permutation, persistence))" % __pyx_checksum
- *     __pyx_result = PerlinNoise.__new__(__pyx_type)
+ *     __pyx_result = ExtendedPerlinNoise.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)
  *     return __pyx_result
  */
   __pyx_t_2 = (__pyx_v___pyx_state != Py_None);
   if (__pyx_t_2) {
 
     /* "(tree fragment)":9
- *     __pyx_result = PerlinNoise.__new__(__pyx_type)
+ *     __pyx_result = ExtendedPerlinNoise.__new__(__pyx_type)
  *     if __pyx_state is not None:
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
  *     return __pyx_result
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):
  */
     if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v___pyx_state))) __PYX_ERR(1, 9, __pyx_L1_error)
-    __pyx_t_1 = __pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set_state(((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 9, __pyx_L1_error)
+    __pyx_t_1 = __pyx_f_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise__set_state(((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "(tree fragment)":8
  *         raise __pyx_PickleError, "Incompatible checksums (0x%x vs (0x25a8fca, 0x7273958, 0x5714550) = (octaves, permutation, persistence))" % __pyx_checksum
- *     __pyx_result = PerlinNoise.__new__(__pyx_type)
+ *     __pyx_result = ExtendedPerlinNoise.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)
  *     return __pyx_result
  */
   }
 
   /* "(tree fragment)":10
  *     if __pyx_state is not None:
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)
  *     return __pyx_result             # <<<<<<<<<<<<<<
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):
  *     __pyx_result.octaves = __pyx_state[0]; __pyx_result.permutation = __pyx_state[1]; __pyx_result.persistence = __pyx_state[2]
  */
   __Pyx_XDECREF(__pyx_r);
@@ -21434,7 +21434,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
   goto __pyx_L0;
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_PerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_ExtendedPerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
@@ -21444,7 +21444,7 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("extended_perlin_noise.__pyx_unpickle_PerlinNoise", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.__pyx_unpickle_ExtendedPerlinNoise", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -21455,14 +21455,14 @@ static PyObject *__pyx_pf_21extended_perlin_noise___pyx_unpickle_PerlinNoise(CYT
 }
 
 /* "(tree fragment)":11
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)
  *     return __pyx_result
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_result.octaves = __pyx_state[0]; __pyx_result.permutation = __pyx_state[1]; __pyx_result.persistence = __pyx_state[2]
  *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
  */
 
-static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set_state(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_ExtendedPerlinNoise__set_state(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -21478,11 +21478,11 @@ static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_unpickle_PerlinNoise__set_state", 1);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_ExtendedPerlinNoise__set_state", 1);
 
   /* "(tree fragment)":12
  *     return __pyx_result
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):
  *     __pyx_result.octaves = __pyx_state[0]; __pyx_result.permutation = __pyx_state[1]; __pyx_result.persistence = __pyx_state[2]             # <<<<<<<<<<<<<<
  *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
  *         __pyx_result.__dict__.update(__pyx_state[3])
@@ -21520,7 +21520,7 @@ static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set
   __pyx_v___pyx_result->persistence = __pyx_t_4;
 
   /* "(tree fragment)":13
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):
  *     __pyx_result.octaves = __pyx_state[0]; __pyx_result.permutation = __pyx_state[1]; __pyx_result.persistence = __pyx_state[2]
  *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
  *         __pyx_result.__dict__.update(__pyx_state[3])
@@ -21583,7 +21583,7 @@ static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "(tree fragment)":13
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):
  *     __pyx_result.octaves = __pyx_state[0]; __pyx_result.permutation = __pyx_state[1]; __pyx_result.persistence = __pyx_state[2]
  *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
  *         __pyx_result.__dict__.update(__pyx_state[3])
@@ -21591,9 +21591,9 @@ static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set
   }
 
   /* "(tree fragment)":11
- *         __pyx_unpickle_PerlinNoise__set_state(<PerlinNoise> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_ExtendedPerlinNoise__set_state(<ExtendedPerlinNoise> __pyx_result, __pyx_state)
  *     return __pyx_result
- * cdef __pyx_unpickle_PerlinNoise__set_state(PerlinNoise __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_ExtendedPerlinNoise__set_state(ExtendedPerlinNoise __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_result.octaves = __pyx_state[0]; __pyx_result.permutation = __pyx_state[1]; __pyx_result.persistence = __pyx_state[2]
  *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
  */
@@ -21606,17 +21606,17 @@ static PyObject *__pyx_f_21extended_perlin_noise___pyx_unpickle_PerlinNoise__set
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("extended_perlin_noise.__pyx_unpickle_PerlinNoise__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("extended_perlin_noise.__pyx_unpickle_ExtendedPerlinNoise__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_21extended_perlin_noise_PerlinNoise __pyx_vtable_21extended_perlin_noise_PerlinNoise;
+static struct __pyx_vtabstruct_21extended_perlin_noise_ExtendedPerlinNoise __pyx_vtable_21extended_perlin_noise_ExtendedPerlinNoise;
 
-static PyObject *__pyx_tp_new_21extended_perlin_noise_PerlinNoise(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_21extended_perlin_noise_PerlinNoise *p;
+static PyObject *__pyx_tp_new_21extended_perlin_noise_ExtendedPerlinNoise(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *p;
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
@@ -21629,15 +21629,15 @@ static PyObject *__pyx_tp_new_21extended_perlin_noise_PerlinNoise(PyTypeObject *
   }
   if (unlikely(!o)) return 0;
   #endif
-  p = ((struct __pyx_obj_21extended_perlin_noise_PerlinNoise *)o);
-  p->__pyx_vtab = __pyx_vtabptr_21extended_perlin_noise_PerlinNoise;
+  p = ((struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *)o);
+  p->__pyx_vtab = __pyx_vtabptr_21extended_perlin_noise_ExtendedPerlinNoise;
   return o;
 }
 
-static void __pyx_tp_dealloc_21extended_perlin_noise_PerlinNoise(PyObject *o) {
+static void __pyx_tp_dealloc_21extended_perlin_noise_ExtendedPerlinNoise(PyObject *o) {
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && (!PyType_IS_GC(Py_TYPE(o)) || !__Pyx_PyObject_GC_IsFinalized(o))) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_21extended_perlin_noise_PerlinNoise) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_21extended_perlin_noise_ExtendedPerlinNoise) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -21652,38 +21652,38 @@ static void __pyx_tp_dealloc_21extended_perlin_noise_PerlinNoise(PyObject *o) {
   #endif
 }
 
-static PyMethodDef __pyx_methods_21extended_perlin_noise_PerlinNoise[] = {
-  {"init_permutation", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_3init_permutation, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"generate_fbm_1d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_5generate_fbm_1d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"generate_fbm_2d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_7generate_fbm_2d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"generate_fbm_3d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_9generate_fbm_3d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_11PerlinNoise_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+static PyMethodDef __pyx_methods_21extended_perlin_noise_ExtendedPerlinNoise[] = {
+  {"init_permutation", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_3init_permutation, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"generate_fbm_1d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_5generate_fbm_1d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"generate_fbm_2d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_7generate_fbm_2d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"generate_fbm_3d", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_9generate_fbm_3d, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_21extended_perlin_noise_PerlinNoise_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_21extended_perlin_noise_PerlinNoise},
-  {Py_tp_methods, (void *)__pyx_methods_21extended_perlin_noise_PerlinNoise},
-  {Py_tp_init, (void *)__pyx_pw_21extended_perlin_noise_11PerlinNoise_1__init__},
-  {Py_tp_new, (void *)__pyx_tp_new_21extended_perlin_noise_PerlinNoise},
+static PyType_Slot __pyx_type_21extended_perlin_noise_ExtendedPerlinNoise_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_21extended_perlin_noise_ExtendedPerlinNoise},
+  {Py_tp_methods, (void *)__pyx_methods_21extended_perlin_noise_ExtendedPerlinNoise},
+  {Py_tp_init, (void *)__pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_1__init__},
+  {Py_tp_new, (void *)__pyx_tp_new_21extended_perlin_noise_ExtendedPerlinNoise},
   {0, 0},
 };
-static PyType_Spec __pyx_type_21extended_perlin_noise_PerlinNoise_spec = {
-  "extended_perlin_noise.PerlinNoise",
-  sizeof(struct __pyx_obj_21extended_perlin_noise_PerlinNoise),
+static PyType_Spec __pyx_type_21extended_perlin_noise_ExtendedPerlinNoise_spec = {
+  "extended_perlin_noise.ExtendedPerlinNoise",
+  sizeof(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE,
-  __pyx_type_21extended_perlin_noise_PerlinNoise_slots,
+  __pyx_type_21extended_perlin_noise_ExtendedPerlinNoise_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_21extended_perlin_noise_PerlinNoise = {
+static PyTypeObject __pyx_type_21extended_perlin_noise_ExtendedPerlinNoise = {
   PyVarObject_HEAD_INIT(0, 0)
-  "extended_perlin_noise.""PerlinNoise", /*tp_name*/
-  sizeof(struct __pyx_obj_21extended_perlin_noise_PerlinNoise), /*tp_basicsize*/
+  "extended_perlin_noise.""ExtendedPerlinNoise", /*tp_name*/
+  sizeof(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_21extended_perlin_noise_PerlinNoise, /*tp_dealloc*/
+  __pyx_tp_dealloc_21extended_perlin_noise_ExtendedPerlinNoise, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -21716,7 +21716,7 @@ static PyTypeObject __pyx_type_21extended_perlin_noise_PerlinNoise = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_21extended_perlin_noise_PerlinNoise, /*tp_methods*/
+  __pyx_methods_21extended_perlin_noise_ExtendedPerlinNoise, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -21726,9 +21726,9 @@ static PyTypeObject __pyx_type_21extended_perlin_noise_PerlinNoise = {
   #if !CYTHON_USE_TYPE_SPECS
   0, /*tp_dictoffset*/
   #endif
-  __pyx_pw_21extended_perlin_noise_11PerlinNoise_1__init__, /*tp_init*/
+  __pyx_pw_21extended_perlin_noise_19ExtendedPerlinNoise_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_21extended_perlin_noise_PerlinNoise, /*tp_new*/
+  __pyx_tp_new_21extended_perlin_noise_ExtendedPerlinNoise, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -22735,6 +22735,13 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_s_Dimension_d_is_not_direct, __pyx_k_Dimension_d_is_not_direct, sizeof(__pyx_k_Dimension_d_is_not_direct), 0, 0, 1, 0},
     {&__pyx_n_s_Ellipsis, __pyx_k_Ellipsis, sizeof(__pyx_k_Ellipsis), 0, 0, 1, 1},
     {&__pyx_kp_s_Empty_shape_tuple_for_cython_arr, __pyx_k_Empty_shape_tuple_for_cython_arr, sizeof(__pyx_k_Empty_shape_tuple_for_cython_arr), 0, 0, 1, 0},
+    {&__pyx_n_s_ExtendedPerlinNoise, __pyx_k_ExtendedPerlinNoise, sizeof(__pyx_k_ExtendedPerlinNoise), 0, 0, 1, 1},
+    {&__pyx_n_s_ExtendedPerlinNoise___reduce_cyt, __pyx_k_ExtendedPerlinNoise___reduce_cyt, sizeof(__pyx_k_ExtendedPerlinNoise___reduce_cyt), 0, 0, 1, 1},
+    {&__pyx_n_s_ExtendedPerlinNoise___setstate_c, __pyx_k_ExtendedPerlinNoise___setstate_c, sizeof(__pyx_k_ExtendedPerlinNoise___setstate_c), 0, 0, 1, 1},
+    {&__pyx_n_s_ExtendedPerlinNoise_generate_fbm, __pyx_k_ExtendedPerlinNoise_generate_fbm, sizeof(__pyx_k_ExtendedPerlinNoise_generate_fbm), 0, 0, 1, 1},
+    {&__pyx_n_s_ExtendedPerlinNoise_generate_fbm_2, __pyx_k_ExtendedPerlinNoise_generate_fbm_2, sizeof(__pyx_k_ExtendedPerlinNoise_generate_fbm_2), 0, 0, 1, 1},
+    {&__pyx_n_s_ExtendedPerlinNoise_generate_fbm_3, __pyx_k_ExtendedPerlinNoise_generate_fbm_3, sizeof(__pyx_k_ExtendedPerlinNoise_generate_fbm_3), 0, 0, 1, 1},
+    {&__pyx_n_s_ExtendedPerlinNoise_init_permuta, __pyx_k_ExtendedPerlinNoise_init_permuta, sizeof(__pyx_k_ExtendedPerlinNoise_init_permuta), 0, 0, 1, 1},
     {&__pyx_kp_s_Incompatible_checksums_0x_x_vs_0, __pyx_k_Incompatible_checksums_0x_x_vs_0, sizeof(__pyx_k_Incompatible_checksums_0x_x_vs_0), 0, 0, 1, 0},
     {&__pyx_kp_s_Incompatible_checksums_0x_x_vs_0_2, __pyx_k_Incompatible_checksums_0x_x_vs_0_2, sizeof(__pyx_k_Incompatible_checksums_0x_x_vs_0_2), 0, 0, 1, 0},
     {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
@@ -22748,13 +22755,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_b_O, __pyx_k_O, sizeof(__pyx_k_O), 0, 0, 0, 1},
     {&__pyx_kp_u_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 1, 0, 0},
     {&__pyx_n_s_OverflowError, __pyx_k_OverflowError, sizeof(__pyx_k_OverflowError), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise, __pyx_k_PerlinNoise, sizeof(__pyx_k_PerlinNoise), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise___reduce_cython, __pyx_k_PerlinNoise___reduce_cython, sizeof(__pyx_k_PerlinNoise___reduce_cython), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise___setstate_cython, __pyx_k_PerlinNoise___setstate_cython, sizeof(__pyx_k_PerlinNoise___setstate_cython), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_generate_fbm_1d, __pyx_k_PerlinNoise_generate_fbm_1d, sizeof(__pyx_k_PerlinNoise_generate_fbm_1d), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_generate_fbm_2d, __pyx_k_PerlinNoise_generate_fbm_2d, sizeof(__pyx_k_PerlinNoise_generate_fbm_2d), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_generate_fbm_3d, __pyx_k_PerlinNoise_generate_fbm_3d, sizeof(__pyx_k_PerlinNoise_generate_fbm_3d), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_init_permutation, __pyx_k_PerlinNoise_init_permutation, sizeof(__pyx_k_PerlinNoise_init_permutation), 0, 0, 1, 1},
     {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
     {&__pyx_n_s_RandomState, __pyx_k_RandomState, sizeof(__pyx_k_RandomState), 0, 0, 1, 1},
     {&__pyx_n_s_Sequence, __pyx_k_Sequence, sizeof(__pyx_k_Sequence), 0, 0, 1, 1},
@@ -22852,7 +22852,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_type, __pyx_k_pyx_type, sizeof(__pyx_k_pyx_type), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_unpickle_Enum, __pyx_k_pyx_unpickle_Enum, sizeof(__pyx_k_pyx_unpickle_Enum), 0, 0, 1, 1},
-    {&__pyx_n_s_pyx_unpickle_PerlinNoise, __pyx_k_pyx_unpickle_PerlinNoise, sizeof(__pyx_k_pyx_unpickle_PerlinNoise), 0, 0, 1, 1},
+    {&__pyx_n_s_pyx_unpickle_ExtendedPerlinNoi, __pyx_k_pyx_unpickle_ExtendedPerlinNoi, sizeof(__pyx_k_pyx_unpickle_ExtendedPerlinNoi), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
     {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
     {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -23117,9 +23117,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_PerlinNoise__set_state(self, __pyx_state)
+ *     __pyx_unpickle_ExtendedPerlinNoise__set_state(self, __pyx_state)
  */
   __pyx_tuple__31 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_pyx_state); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
@@ -23127,11 +23127,11 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(1, 16, __pyx_L1_error)
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_PerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_ExtendedPerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_PerlinNoise, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_ExtendedPerlinNoi, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -23218,34 +23218,34 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_vtabptr_21extended_perlin_noise_PerlinNoise = &__pyx_vtable_21extended_perlin_noise_PerlinNoise;
-  __pyx_vtable_21extended_perlin_noise_PerlinNoise.perlin = (double (*)(struct __pyx_obj_21extended_perlin_noise_PerlinNoise *, double, struct __pyx_opt_args_21extended_perlin_noise_11PerlinNoise_perlin *__pyx_optional_args))__pyx_f_21extended_perlin_noise_11PerlinNoise_perlin;
+  __pyx_vtabptr_21extended_perlin_noise_ExtendedPerlinNoise = &__pyx_vtable_21extended_perlin_noise_ExtendedPerlinNoise;
+  __pyx_vtable_21extended_perlin_noise_ExtendedPerlinNoise.perlin = (double (*)(struct __pyx_obj_21extended_perlin_noise_ExtendedPerlinNoise *, double, struct __pyx_opt_args_21extended_perlin_noise_19ExtendedPerlinNoise_perlin *__pyx_optional_args))__pyx_f_21extended_perlin_noise_19ExtendedPerlinNoise_perlin;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_21extended_perlin_noise_PerlinNoise = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_21extended_perlin_noise_PerlinNoise_spec, NULL); if (unlikely(!__pyx_ptype_21extended_perlin_noise_PerlinNoise)) __PYX_ERR(0, 17, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_21extended_perlin_noise_PerlinNoise_spec, __pyx_ptype_21extended_perlin_noise_PerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise_spec, NULL); if (unlikely(!__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise)) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise_spec, __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #else
-  __pyx_ptype_21extended_perlin_noise_PerlinNoise = &__pyx_type_21extended_perlin_noise_PerlinNoise;
+  __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise = &__pyx_type_21extended_perlin_noise_ExtendedPerlinNoise;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_21extended_perlin_noise_PerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_21extended_perlin_noise_PerlinNoise->tp_print = 0;
+  __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_21extended_perlin_noise_PerlinNoise->tp_dictoffset && __pyx_ptype_21extended_perlin_noise_PerlinNoise->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_21extended_perlin_noise_PerlinNoise->tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise->tp_dictoffset && __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_vtabptr_21extended_perlin_noise_PerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_vtabptr_21extended_perlin_noise_ExtendedPerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_21extended_perlin_noise_PerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PerlinNoise, (PyObject *) __pyx_ptype_21extended_perlin_noise_PerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ExtendedPerlinNoise, (PyObject *) __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_21extended_perlin_noise_PerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #endif
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -24234,11 +24234,11 @@ if (!__Pyx_RefNanny) {
  *         cdef int i
  *         rng = np.random.RandomState(seed)
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_11PerlinNoise_3init_permutation, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_init_permutation, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_3init_permutation, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ExtendedPerlinNoise_init_permuta, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_n_s_init_permutation, __pyx_t_7) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_n_s_init_permutation, __pyx_t_7) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_21extended_perlin_noise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
 
   /* "extended_perlin_noise.pyx":63
  *                                        grad(self.permutation[BB+1], x-1, y-1, z-1))))
@@ -24247,11 +24247,11 @@ if (!__Pyx_RefNanny) {
  *         cdef int length = input_array.shape[0]
  *         cdef double[:] output_array = np.empty(length, dtype=np.float64)
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_11PerlinNoise_5generate_fbm_1d, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_generate_fbm_1d, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_5generate_fbm_1d, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ExtendedPerlinNoise_generate_fbm, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_n_s_generate_fbm_1d, __pyx_t_7) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_n_s_generate_fbm_1d, __pyx_t_7) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_21extended_perlin_noise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
 
   /* "extended_perlin_noise.pyx":81
  *         return np.asarray(output_array)
@@ -24260,11 +24260,11 @@ if (!__Pyx_RefNanny) {
  *         cdef int height = input_array.shape[0]
  *         cdef int width = input_array.shape[1]
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_11PerlinNoise_7generate_fbm_2d, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_generate_fbm_2d, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_7generate_fbm_2d, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ExtendedPerlinNoise_generate_fbm_2, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_n_s_generate_fbm_2d, __pyx_t_7) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_n_s_generate_fbm_2d, __pyx_t_7) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_21extended_perlin_noise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
 
   /* "extended_perlin_noise.pyx":103
  *         return np.asarray(output_array)
@@ -24273,43 +24273,43 @@ if (!__Pyx_RefNanny) {
  *         cdef int depth = input_array.shape[0]
  *         cdef int height = input_array.shape[1]
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_11PerlinNoise_9generate_fbm_3d, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_generate_fbm_3d, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_9generate_fbm_3d, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ExtendedPerlinNoise_generate_fbm_3, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_n_s_generate_fbm_3d, __pyx_t_7) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_n_s_generate_fbm_3d, __pyx_t_7) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_21extended_perlin_noise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     cdef tuple state
  *     cdef object _dict
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_11PerlinNoise_11__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise___reduce_cython, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_11__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ExtendedPerlinNoise___reduce_cyt, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_n_s_reduce_cython, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_n_s_reduce_cython, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_21extended_perlin_noise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_PerlinNoise, (type(self), 0x25a8fca, state)
+ *         return __pyx_unpickle_ExtendedPerlinNoise, (type(self), 0x25a8fca, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_PerlinNoise__set_state(self, __pyx_state)
+ *     __pyx_unpickle_ExtendedPerlinNoise__set_state(self, __pyx_state)
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_11PerlinNoise_13__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise___setstate_cython, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_19ExtendedPerlinNoise_13__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ExtendedPerlinNoise___setstate_c, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_PerlinNoise, __pyx_n_s_setstate_cython, __pyx_t_7) < 0) __PYX_ERR(1, 16, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise, __pyx_n_s_setstate_cython, __pyx_t_7) < 0) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  PyType_Modified(__pyx_ptype_21extended_perlin_noise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21extended_perlin_noise_ExtendedPerlinNoise);
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_PerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_ExtendedPerlinNoise(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_1__pyx_unpickle_PerlinNoise, 0, __pyx_n_s_pyx_unpickle_PerlinNoise, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_21extended_perlin_noise_1__pyx_unpickle_ExtendedPerlinNoise, 0, __pyx_n_s_pyx_unpickle_ExtendedPerlinNoi, NULL, __pyx_n_s_extended_perlin_noise, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_PerlinNoise, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_ExtendedPerlinNoi, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "extended_perlin_noise.pyx":1
