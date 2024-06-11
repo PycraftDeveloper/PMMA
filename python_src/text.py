@@ -1,7 +1,7 @@
 from tkinter import font
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
 class Text:
     def __init__(self):

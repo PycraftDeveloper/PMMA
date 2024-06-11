@@ -1,7 +1,7 @@
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
-from pmma.py_src.advmath import Math
+from pmma.python_src.advmath import Math
 
 class CoordinateIntermediary:
     def __init__(self, in_type=Constants.CARTESIAN, *args):

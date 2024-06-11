@@ -3,8 +3,8 @@ import sys
 import os
 import threading
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
 def setup():
     try:
@@ -15,23 +15,23 @@ def setup():
 def compile_perlin_noise():
     try:
         import pmma.bin.perlin_noise
-        Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = True
+        Registry.cython_acceleration_available = True
     except ImportError:
         try:
             exit_code = subprocess.call([sys.executable, "c_setup.py", "build_ext", "--inplace", "--build-lib", f"{Registry.base_path}{Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"])
-            Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = exit_code == 0
+            Registry.cython_acceleration_available = exit_code == 0
         except:
-            Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = False
-        # clean up with FileCore
+            Registry.cython_acceleration_available = False
 
 def check_for_compiled_perlin_noise():
     try:
         import pmma.bin.perlin_noise
-        Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = True
+        import pmma.bin.extended_perlin_noise
+        Registry.cython_acceleration_available = True
     except ImportError:
-        Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE] = False
+        Registry.cython_acceleration_available = False
 
-    return Registry.cython_acceleration_available[Constants.COMPILED_PERLIN_NOISE]
+    return Registry.cython_acceleration_available
 
 def compile_intermediary():
     if check_for_compiled_perlin_noise() is False:

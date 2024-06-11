@@ -1,11 +1,11 @@
 import os
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
-from pmma.py_src.passport import PassportIntermediary
+from pmma.python_src.passport import PassportIntermediary
 
-import pmma.py_src.utility.file_utils as file_utils
+import pmma.python_src.utility.file_utils as file_utils
 
 class File:
     def __init__(self, file_path):
@@ -53,8 +53,8 @@ class FileCore:
             self.locations.append(PassportIntermediary.project_temporary_directory)
         if PassportIntermediary.project_resources_directory is not None:
             self.locations.append(PassportIntermediary.project_resources_directory)
-        if PassportIntermediary.project_py_src_directory is not None:
-            self.locations.append(PassportIntermediary.project_py_src_directory)
+        if PassportIntermediary.project_python_src_directory is not None:
+            self.locations.append(PassportIntermediary.project_python_src_directory)
         if PassportIntermediary.project_pyx_src_directory is not None:
             self.locations.append(PassportIntermediary.project_pyx_src_directory)
         if PassportIntermediary.project_c_src_directory is not None:

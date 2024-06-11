@@ -11,28 +11,29 @@ temporary_files_path = base_path + os.sep + "temporary"
 sys.pycache_prefix = temporary_files_path
 numba.config.CACHE_DIR = temporary_files_path
 
-from pmma.py_src.registry import *
+from pmma.python_src.registry import *
+from pmma.python_src.constants import *
+
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
 
-from pmma.py_src.core import *
+from pmma.python_src.core import *
 
 environ_to_registry()
 
-from pmma.py_src.constants import *
-from pmma.py_src.optimizer import *
-from pmma.py_src.recorder import *
-from pmma.py_src.display import *
-from pmma.py_src.events import *
-from pmma.py_src.noise import *
-from pmma.py_src.color import *
-from pmma.py_src.draw import *
-from pmma.py_src.advmath import *
-from pmma.py_src.file import *
-from pmma.py_src.passport import *
-from pmma.py_src.coordinate import *
+from pmma.python_src.coordinate import *
+from pmma.python_src.optimizer import *
+from pmma.python_src.recorder import *
+from pmma.python_src.passport import *
+from pmma.python_src.display import *
+from pmma.python_src.advmath import *
+from pmma.python_src.events import *
+from pmma.python_src.noise import *
+from pmma.python_src.color import *
+from pmma.python_src.draw import *
+from pmma.python_src.file import *
 
-from pmma.py_src.utility import pyx_utils
+from pmma.python_src.utility import cython_utils
 
 # use json to load events.json
 # add these events to constants module
@@ -50,7 +51,7 @@ def init(optimize_python_extensions=True, compile_c_extensions=True):
 
     if compile_c_extensions:
         Registry.cython_acceleration_enabled = compile_c_extensions
-        pyx_utils.compile()
+        cython_utils.compile()
 
 del base_path
 del temporary_files_path

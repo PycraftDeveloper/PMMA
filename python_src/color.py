@@ -2,10 +2,10 @@ from functools import reduce
 
 import colorsys
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
-from pmma.py_src.general import swizzle, can_swizzle
+from pmma.python_src.general import swizzle, can_swizzle
 
 class ColorIntermediary:
     def detect_color_type(self, color):

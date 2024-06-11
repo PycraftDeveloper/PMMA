@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
 class TkinterUtils:
     def style(self, widget):

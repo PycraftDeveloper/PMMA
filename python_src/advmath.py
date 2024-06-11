@@ -1,7 +1,7 @@
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
-import pmma.py_src.utility.math_utils as math_utils
+import pmma.python_src.utility.math_utils as math_utils
 
 class Math:
     def get_function_pythag(self):
