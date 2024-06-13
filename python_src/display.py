@@ -88,7 +88,8 @@ class Display:
     def refresh(self, refresh_rate=60):
         if Registry.display_mode == Constants.PYGAME:
             Registry.graphics_backend.display.update()
-            self.clock.tick(refresh_rate)
+            if refresh_rate > 0:
+                self.clock.tick(refresh_rate)
         else:
             raise NotImplementedError
 
