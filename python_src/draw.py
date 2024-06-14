@@ -1,8 +1,8 @@
 import importlib
 import math
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
 class Draw:
     def __init__(self, canvas=None):

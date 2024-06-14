@@ -1,10 +1,9 @@
-
 import time
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
-from pmma.py_src.utility.math_utils import *
+from pmma.python_src.utility.math_utils import *
 
 class Benchmark:
     def __init__(self, n=100_000):

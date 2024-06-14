@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
-*.so
-
 # Distribution / packaging
 .Python
 build/
@@ -165,3 +162,7 @@ cython_debug/
 
 # PMMA temporary directory
 temporary
+
+# PMMA runtime generated binaries
+bin
+/*.so

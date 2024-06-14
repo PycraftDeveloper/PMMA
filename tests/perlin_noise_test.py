@@ -1,6 +1,8 @@
 import pmma
 import random
 
+pmma.init()
+
 pmma.Registry.compile_math_functions = True
 
 perlin_src = pmma.Perlin(random.randint(0, 999))

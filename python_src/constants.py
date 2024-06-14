@@ -1,9 +1,11 @@
 import math
 import os
 
-from pmma.py_src.registry import Registry
+from pmma.python_src.registry import Registry
 
 class Constants:
+    CARTESIAN = "cartesian"
+
     COMPILED_PERLIN_NOISE = "compiled Perlin noise"
 
     PYTHON1 = "Python"

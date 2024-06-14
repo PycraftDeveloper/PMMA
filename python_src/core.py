@@ -1,6 +1,6 @@
 from os import environ
 
-from pmma.py_src.registry import Registry
+from pmma.python_src.registry import Registry
 
 def environ_to_registry():
     for key in Registry.__dict__:

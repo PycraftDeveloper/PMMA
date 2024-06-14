@@ -1,7 +1,7 @@
 import os
 
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
@@ -88,7 +88,8 @@ class Display:
     def refresh(self, refresh_rate=60):
         if Registry.display_mode == Constants.PYGAME:
             Registry.graphics_backend.display.update()
-            self.clock.tick(refresh_rate)
+            if refresh_rate > 0:
+                self.clock.tick(refresh_rate)
         else:
             raise NotImplementedError
 

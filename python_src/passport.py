@@ -1,5 +1,5 @@
-from pmma.py_src.registry import Registry
-from pmma.py_src.constants import Constants
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
 
 class PassportIntermediary:
     name = None
@@ -10,7 +10,7 @@ class PassportIntermediary:
     project_directory = None
     project_temporary_directory = None
     project_resources_directory = None
-    project_py_src_directory = None
+    project_python_src_directory = None
     project_c_src_directory = None
     project_pyx_src_directory = None
     license = None
@@ -29,7 +29,7 @@ class Passport:
             project_directory=None,
             project_temporary_directory=None,
             project_resources_directory=None,
-            project_py_src_directory=None,
+            project_python_src_directory=None,
             project_c_src_directory=None,
             project_pyx_src_directory=None,
             license=None,
@@ -45,7 +45,7 @@ class Passport:
         PassportIntermediary.project_directory = project_directory
         PassportIntermediary.project_temporary_directory = project_temporary_directory
         PassportIntermediary.project_resources_directory = project_resources_directory
-        PassportIntermediary.project_py_src_directory = project_py_src_directory
+        PassportIntermediary.project_python_src_directory = project_python_src_directory
         PassportIntermediary.project_c_src_directory = project_c_src_directory
         PassportIntermediary.project_pyx_src_directory = project_pyx_src_directory
         PassportIntermediary.license = license
