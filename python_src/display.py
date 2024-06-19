@@ -1,11 +1,12 @@
 import os
+import importlib
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
-        Registry.graphics_backend = __import__(display_mode)
+        Registry.graphics_backend = importlib.import_module(display_mode)
         if display_mode == Constants.PYGAME:
             Registry.graphics_backend.init()
 

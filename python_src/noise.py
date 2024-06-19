@@ -1,4 +1,5 @@
 import random
+import importlib
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -38,7 +39,7 @@ class ExtendedPerlin():
 class Perlin():
     def __init__(self, seed=None, octaves=1, persistence=0.5):
         if Registry.cython_acceleration_available:
-            self.noise_module = __import__("pmma.bin.perlin_noise")
+            self.noise_module = importlib.import_module("pmma.bin.perlin_noise")
         if seed is None:
             seed = random.randint(0, 1000000)
         self.seed = seed
