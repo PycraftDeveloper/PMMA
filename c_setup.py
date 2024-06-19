@@ -4,7 +4,12 @@ import os
 import numpy
 from Cython.Build import cythonize
 
-cython_src_path = "cython_src"+os.sep+"utility"+os.sep
+def _up(path: str) -> str:
+    return path[::-1].split(os.sep, 1)[-1][::-1]
+
+base_path = _up(__file__)
+
+cython_src_path = base_path+os.sep+"cython_src"+os.sep+"utility"+os.sep
 
 extensions = [
     Extension(

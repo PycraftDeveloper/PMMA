@@ -8,7 +8,7 @@
             "-O3"
         ],
         "include_dirs": [
-            "/home/thomas/.local/lib/python3.10/site-packages/numpy/core/include"
+            "/home/thomas/.local/lib/python3.10/site-packages/numpy/_core/include"
         ],
         "name": "extended_perlin_noise",
         "sources": [

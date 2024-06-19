@@ -7,6 +7,7 @@ def _up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
 
 base_path = _up(__file__)
+
 temporary_files_path = base_path + os.sep + "temporary"
 sys.pycache_prefix = temporary_files_path
 numba.config.CACHE_DIR = temporary_files_path

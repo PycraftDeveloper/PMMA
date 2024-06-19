@@ -4,9 +4,12 @@
 {
     "distutils": {
         "depends": [],
+        "extra_compile_args": [
+            "-O3"
+        ],
         "name": "perlin_noise",
         "sources": [
-            "pyx_src/utility/perlin_noise.pyx"
+            "cython_src/utility/perlin_noise.pyx"
         ]
     },
     "module_name": "perlin_noise"
@@ -1485,7 +1488,7 @@ static const char *__pyx_filename;
 /* #### Code section: filename_table ### */
 
 static const char *__pyx_f[] = {
-  "pyx_src/utility/perlin_noise.pyx",
+  "cython_src/utility/perlin_noise.pyx",
   "<stringsource>",
 };
 /* #### Code section: utility_code_proto_before_types ### */
@@ -2339,8 +2342,8 @@ static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_pyx_unpickle_PerlinNoise[] = "__pyx_unpickle_PerlinNoise";
 static const char __pyx_k_PerlinNoise___reduce_cython[] = "PerlinNoise.__reduce_cython__";
 static const char __pyx_k_PerlinNoise___setstate_cython[] = "PerlinNoise.__setstate_cython__";
+static const char __pyx_k_cython_src_utility_perlin_noise[] = "cython_src/utility/perlin_noise.pyx";
 static const char __pyx_k_Incompatible_checksums_0x_x_vs_0[] = "Incompatible checksums (0x%x vs (0xaa505b5, 0xadde24c, 0xb624cac) = (octaves, p, persistence))";
-static const char __pyx_k_pyx_src_utility_perlin_noise_pyx[] = "pyx_src/utility/perlin_noise.pyx";
 /* #### Code section: decls ### */
 static int __pyx_pf_12perlin_noise_11PerlinNoise___init__(struct __pyx_obj_12perlin_noise_PerlinNoise *__pyx_v_self, int __pyx_v_seed, int __pyx_v_octaves, double __pyx_v_persistence); /* proto */
 static PyObject *__pyx_pf_12perlin_noise_11PerlinNoise_2fBM1D(struct __pyx_obj_12perlin_noise_PerlinNoise *__pyx_v_self, double __pyx_v_x); /* proto */
@@ -2407,6 +2410,7 @@ typedef struct {
   PyObject *__pyx_n_s__3;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_s_cline_in_traceback;
+  PyObject *__pyx_kp_s_cython_src_utility_perlin_noise;
   PyObject *__pyx_n_s_dict;
   PyObject *__pyx_n_s_dict_2;
   PyObject *__pyx_kp_u_disable;
@@ -2433,7 +2437,6 @@ typedef struct {
   PyObject *__pyx_n_s_pyx_PickleError;
   PyObject *__pyx_n_s_pyx_checksum;
   PyObject *__pyx_n_s_pyx_result;
-  PyObject *__pyx_kp_s_pyx_src_utility_perlin_noise_pyx;
   PyObject *__pyx_n_s_pyx_state;
   PyObject *__pyx_n_s_pyx_type;
   PyObject *__pyx_n_s_pyx_unpickle_PerlinNoise;
@@ -2532,6 +2535,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s__3);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_cython_src_utility_perlin_noise);
   Py_CLEAR(clear_module_state->__pyx_n_s_dict);
   Py_CLEAR(clear_module_state->__pyx_n_s_dict_2);
   Py_CLEAR(clear_module_state->__pyx_kp_u_disable);
@@ -2558,7 +2562,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_PickleError);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_checksum);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_result);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_pyx_src_utility_perlin_noise_pyx);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_state);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_type);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_unpickle_PerlinNoise);
@@ -2635,6 +2638,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s__3);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_cython_src_utility_perlin_noise);
   Py_VISIT(traverse_module_state->__pyx_n_s_dict);
   Py_VISIT(traverse_module_state->__pyx_n_s_dict_2);
   Py_VISIT(traverse_module_state->__pyx_kp_u_disable);
@@ -2661,7 +2665,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_PickleError);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_checksum);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_result);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_pyx_src_utility_perlin_noise_pyx);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_state);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_type);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_unpickle_PerlinNoise);
@@ -2758,6 +2761,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s__3 __pyx_mstate_global->__pyx_n_s__3
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
+#define __pyx_kp_s_cython_src_utility_perlin_noise __pyx_mstate_global->__pyx_kp_s_cython_src_utility_perlin_noise
 #define __pyx_n_s_dict __pyx_mstate_global->__pyx_n_s_dict
 #define __pyx_n_s_dict_2 __pyx_mstate_global->__pyx_n_s_dict_2
 #define __pyx_kp_u_disable __pyx_mstate_global->__pyx_kp_u_disable
@@ -2784,7 +2788,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_pyx_PickleError __pyx_mstate_global->__pyx_n_s_pyx_PickleError
 #define __pyx_n_s_pyx_checksum __pyx_mstate_global->__pyx_n_s_pyx_checksum
 #define __pyx_n_s_pyx_result __pyx_mstate_global->__pyx_n_s_pyx_result
-#define __pyx_kp_s_pyx_src_utility_perlin_noise_pyx __pyx_mstate_global->__pyx_kp_s_pyx_src_utility_perlin_noise_pyx
 #define __pyx_n_s_pyx_state __pyx_mstate_global->__pyx_n_s_pyx_state
 #define __pyx_n_s_pyx_type __pyx_mstate_global->__pyx_n_s_pyx_type
 #define __pyx_n_s_pyx_unpickle_PerlinNoise __pyx_mstate_global->__pyx_n_s_pyx_unpickle_PerlinNoise
@@ -6725,6 +6728,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s__3, __pyx_k__3, sizeof(__pyx_k__3), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+    {&__pyx_kp_s_cython_src_utility_perlin_noise, __pyx_k_cython_src_utility_perlin_noise, sizeof(__pyx_k_cython_src_utility_perlin_noise), 0, 0, 1, 0},
     {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
     {&__pyx_n_s_dict_2, __pyx_k_dict_2, sizeof(__pyx_k_dict_2), 0, 0, 1, 1},
     {&__pyx_kp_u_disable, __pyx_k_disable, sizeof(__pyx_k_disable), 0, 1, 0, 0},
@@ -6751,7 +6755,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_pyx_PickleError, __pyx_k_pyx_PickleError, sizeof(__pyx_k_pyx_PickleError), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_checksum, __pyx_k_pyx_checksum, sizeof(__pyx_k_pyx_checksum), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_result, __pyx_k_pyx_result, sizeof(__pyx_k_pyx_result), 0, 0, 1, 1},
-    {&__pyx_kp_s_pyx_src_utility_perlin_noise_pyx, __pyx_k_pyx_src_utility_perlin_noise_pyx, sizeof(__pyx_k_pyx_src_utility_perlin_noise_pyx), 0, 0, 1, 0},
     {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_type, __pyx_k_pyx_type, sizeof(__pyx_k_pyx_type), 0, 0, 1, 1},
     {&__pyx_n_s_pyx_unpickle_PerlinNoise, __pyx_k_pyx_unpickle_PerlinNoise, sizeof(__pyx_k_pyx_unpickle_PerlinNoise), 0, 0, 1, 1},
@@ -6815,7 +6818,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__4 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyx_src_utility_perlin_noise_pyx, __pyx_n_s_fBM1D, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cython_src_utility_perlin_noise, __pyx_n_s_fBM1D, 122, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 122, __pyx_L1_error)
 
   /* "perlin_noise.pyx":137
  *         return total / maxValue
@@ -6827,7 +6830,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__6 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyx_src_utility_perlin_noise_pyx, __pyx_n_s_fBM2D, 137, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 137, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cython_src_utility_perlin_noise, __pyx_n_s_fBM2D, 137, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 137, __pyx_L1_error)
 
   /* "perlin_noise.pyx":152
  *         return total / maxValue
@@ -6839,7 +6842,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__8 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyx_src_utility_perlin_noise_pyx, __pyx_n_s_fBM3D, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 152, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_cython_src_utility_perlin_noise, __pyx_n_s_fBM3D, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 152, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
