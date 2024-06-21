@@ -1,8 +1,8 @@
 
-Canvas
+Draw (draw)
 =======
 
 .. toctree::
     :maxdepth: 1
 
-    canvas.rst
+    draw.rst

@@ -22,6 +22,8 @@ from pmma.python_src.core import *
 
 environ_to_registry()
 
+from pmma.python_src.advthreading import *
+from pmma.python_src.advtkinter import *
 from pmma.python_src.coordinate import *
 from pmma.python_src.optimizer import *
 from pmma.python_src.recorder import *
