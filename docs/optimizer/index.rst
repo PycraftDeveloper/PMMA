@@ -2,7 +2,4 @@
 Optimizer (optimizer)
 =======
 
-.. toctree::
-    :maxdepth: 1
-
-    optimizer.rst
+Work in progress!

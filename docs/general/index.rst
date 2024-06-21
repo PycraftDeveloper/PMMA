@@ -2,7 +2,4 @@
 General (general)
 =======
 
-.. toctree::
-    :maxdepth: 1
-
-    general.rst
+Work in progress!

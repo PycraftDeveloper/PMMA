@@ -2,7 +2,4 @@
 Canvas (canvas)
 =======
 
-.. toctree::
-    :maxdepth: 1
-
-    canvas.rst
+Work in progress!

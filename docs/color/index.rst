@@ -2,7 +2,4 @@
 Color (color)
 =======
 
-.. toctree::
-    :maxdepth: 1
-
-    color.rst
+Work in progress!

@@ -2,7 +2,4 @@
 Advanced-Mathematics (advmath)
 =======
 
-.. toctree::
-    :maxdepth: 1
-
-    advmath.rst
+Work in progress!
