@@ -3,10 +3,11 @@ PMMA
 
 Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!
 
+Contents
+++++++++
 .. toctree::
     :maxdepth: 2
 
-    welcome/index.rst
     advmath/index.rst
     advthreading/index.rst
     advtkinter/index.rst
