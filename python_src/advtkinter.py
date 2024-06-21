@@ -4,7 +4,7 @@ from tkinter import ttk
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
-class TkinterUtils:
+class Tkinter:
     def style(self, widget):
         style = ttk.Style()
         style.configure(

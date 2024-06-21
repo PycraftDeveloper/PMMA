@@ -1,5 +1,5 @@
 
-Advanced-Mathematics (AdvMath)
+Advanced-Mathematics (advmath)
 =======
 
 .. toctree::

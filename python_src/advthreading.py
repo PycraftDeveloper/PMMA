@@ -1,7 +1,7 @@
 import sys
 import threading
 
-class thread_with_trace(threading.Thread):
+class Thread(threading.Thread):
   def __init__(self, *args, **keywords):
     threading.Thread.__init__(self, *args, **keywords)
     self.killed = False

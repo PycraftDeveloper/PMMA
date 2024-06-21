@@ -20,3 +20,4 @@ Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on
     passport/index.rst
     recorder/index.rst
     text/index.rst
+    opengl/index.rst
