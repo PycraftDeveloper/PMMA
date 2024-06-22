@@ -9,24 +9,24 @@ from pmma.python_src.utility.math_utils import *
 class ExtendedPerlin():
     def __init__(self, seed=None, octaves=1, persistence=0.5):
         if Registry.cython_acceleration_available:
-            self.extended_noise_module = __import__("pmma.bin.extended_perlin_noise")
+            self.extended_noise_module = importlib.import_module("pmma.bin.extended_perlin_noise")
         if seed is None:
             seed = random.randint(0, 1000000)
         self.seed = seed
-        self.noise = self.extended_noise_module.PerlinNoise(self.seed, octaves, persistence)
+        self.noise = self.extended_noise_module.ExtendedPerlinNoise(self.seed, octaves, persistence)
 
-    def generate_1D_perlin_noise(self, x, range=[-1, 1]):
-        noise = self.noise.generate_fbm_1d(x)
-
-        return noise # for now
-
-    def generate_2D_perlin_noise(self, x, range=[-1, 1]):
-        noise = self.noise.generate_fbm_2d(x)
+    def generate_1D_perlin_noise(self, array, range=[-1, 1]):
+        noise = self.noise.generate_fbm_1d(array)
 
         return noise # for now
 
-    def generate_3D_perlin_noise(self, x, range=[-1, 1]):
-        noise = self.noise.generate_fbm_2d(x)
+    def generate_2D_perlin_noise(self, array, range=[-1, 1]):
+        noise = self.noise.generate_fbm_2d(array)
+
+        return noise # for now
+
+    def generate_3D_perlin_noise(self, array, range=[-1, 1]):
+        noise = self.noise.generate_fbm_2d(array)
 
         return noise # for now
 
