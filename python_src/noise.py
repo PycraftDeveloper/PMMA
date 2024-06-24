@@ -6,22 +6,6 @@ from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.math_utils import *
 
-class ExtendedPerlin():
-    def __init__(self, seed=None, octaves=1, persistence=0.5):
-        if Registry.cython_acceleration_available:
-            self.extended_noise_module = importlib.import_module("pmma.bin.extended_perlin_noise")
-
-        if seed is None:
-            seed = random.randint(0, 1000000)
-        self.seed = seed
-        self.extended_noise = self.extended_noise_module.ExtendedPerlinNoise(self.seed, octaves, persistence)
-
-    def set_seed(self, seed):
-        self.__init__(seed)
-
-    def get_seed(self):
-        return self.seed
-
 class Perlin():
     def __init__(self, seed=None, octaves=1, persistence=0.5):
         if Registry.cython_acceleration_available:
