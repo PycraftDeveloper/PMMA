@@ -1,5 +1,5 @@
 
-Events (events)
+Events (``pmma.Events``)
 =======
 
 Work in progress!

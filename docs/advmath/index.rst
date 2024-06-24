@@ -1,5 +1,5 @@
 
-Advanced-Mathematics (advmath)
+Advanced-Mathematics (``pmma.Math``)
 =======
 
 Work in progress!

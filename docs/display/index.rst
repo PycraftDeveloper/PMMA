@@ -1,5 +1,5 @@
 
-Canvas (canvas)
+Canvas (``pmma.Display``)
 =======
 
 Work in progress!

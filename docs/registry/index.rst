@@ -1,5 +1,5 @@
 
-Registry (registry)
+Registry (``pmma.Registry``)
 =======
 
 Work in progress!

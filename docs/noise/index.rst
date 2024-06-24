@@ -1,5 +1,5 @@
 
-Noise (noise)
+Noise (``pmma.Perlin``)
 =======
 
 Work in progress!

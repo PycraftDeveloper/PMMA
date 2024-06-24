@@ -1,5 +1,5 @@
 
-Constants (constants)
+Constants (``pmma.Constants``)
 =======
 
 Work in progress!

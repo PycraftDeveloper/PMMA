@@ -1,5 +1,5 @@
 
-Recorder (recorder)
+Recorder (``pmma.Sampler``)
 =======
 
 Work in progress!
