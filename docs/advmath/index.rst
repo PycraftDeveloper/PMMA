@@ -15,6 +15,7 @@ Object
 Methods
 ++++++
 .. py:method:: Math.get_function_pythag() -> Callable[[Union[List[float], Tuple[float, ...]]], float]:
+
     🟩 Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
     This depends on the state of PMMA's registry entry: ``Registry.custom_compiled_behavior["raw_pythag"]``.
     For more information on this behaviour, check out the Registry section, or look at the welcome page.
