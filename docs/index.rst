@@ -37,10 +37,11 @@ Welcome
 Welcome to PMMA's Documentation!
 
 Let's walk you through some of PMMA's documentation syntax:
-1. Firstly, lets walk you through our deployment indicators. These are the colored squares found before each namespace (the names you will use to call PMMA's library).
-    * The green square - 🟩 - indicates that this code **is safe** to use in your projects, as it's unlikely to be modified in any-way in future updates to PMMA.
-    * The yellow square - 🟨 - indicates that this code **is safe** to use in your projects, as it's likely to have its name changed, but won't change in functionality or in its inputs and outputs (I/O).
-    * The orange square - 🟧 - indicates that this code **isn't suitable** for deployment, as its likely to have its name and/or its inputs and outputs (I/O) changed - its functionality won't change.
-    * The red square - 🟥 - indicates that this code **isn't suitable** for deployment, as its likely to have its name and/or its inputs and outputs (I/O) changed and/or its functionality may also be changed.
 
-*Currently things are a bit of a work in progress as we write the documentation, bear with us!
+    1. Firstly, lets walk you through our deployment indicators. These are the colored squares found before each namespace (the names you will use to call PMMA's library).
+        * The green square - 🟩 - indicates that this code **is safe** to use in your projects, as it's unlikely to be modified in any-way in future updates to PMMA.
+        * The yellow square - 🟨 - indicates that this code **is safe** to use in your projects, as it's likely to have its name changed, but won't change in functionality or in its inputs and outputs (I/O).
+        * The orange square - 🟧 - indicates that this code **isn't suitable** for deployment, as its likely to have its name and/or its inputs and outputs (I/O) changed - its functionality won't change.
+        * The red square - 🟥 - indicates that this code **isn't suitable** for deployment, as its likely to have its name and/or its inputs and outputs (I/O) changed and/or its functionality may also be changed.
+
+*Currently things are a bit of a work in progress as we write the documentation, bear with us!*
