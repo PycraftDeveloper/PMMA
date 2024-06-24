@@ -47,7 +47,7 @@ from pmma.python_src.utility import cython_utils
 
 # also add path module when legal issues resolved!
 
-def init(optimize_python_extensions=True, compile_c_extensions=True):
+def init(optimize_python_extensions=True, compile_c_extensions=True, wait_for_initialization=True):
     if optimize_python_extensions:
         Registry.python_acceleration_enabled = optimize_python_extensions
         benchmark = Benchmark() # cache this unique to device
@@ -55,7 +55,9 @@ def init(optimize_python_extensions=True, compile_c_extensions=True):
 
     if compile_c_extensions:
         Registry.cython_acceleration_enabled = compile_c_extensions
-        cython_utils.compile()
+        cython_thread = cython_utils.compile()
+        if wait_for_initialization:
+            cython_thread.join()
 
 del base_path
 del temporary_files_path

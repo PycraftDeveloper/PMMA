@@ -1,11 +1,7 @@
 import pmma
-import numpy
+import numpy as np
 
 pmma.init()
 
-perlin = pmma.ExtendedPerlin()
-
-values = numpy.linspace(0, 1, 10_000)
-data = perlin.generate_1D_perlin_noise(values)
-data = [*data]
-print(max(data), min(data))
+perlin = pmma.Perlin(seed=0)
+print(perlin.generate_3D_perlin_noise_from_range([10], [10], [10]))

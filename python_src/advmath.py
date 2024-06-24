@@ -25,6 +25,12 @@ class Math:
     def ranger(self, value, old, new):
         return self.get_function_ranger()(value, old, new)
 
+    def get_function_nparray_ranger(self):
+        return math_utils.raw_nparray_ranger()
+
+    def nparray_ranger(self, value, old, new):
+        return self.get_function_nparray_ranger()(value, old, new)
+
     def get_function_gl_look_at(self):
         return math_utils.raw_gl_look_at
 

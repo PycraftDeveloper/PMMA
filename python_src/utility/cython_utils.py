@@ -12,19 +12,18 @@ def setup():
     except FileExistsError:
         pass
 
-def compile_perlin_noise():
+def compile_libraries():
     try:
         import pmma.bin.perlin_noise
         Registry.cython_acceleration_available = True
     except ImportError:
         try:
-            print(sys.executable, f"{Registry.base_path}{Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--inplace", "--build-lib", f"{Registry.base_path}{Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary")
             exit_code = subprocess.call([sys.executable, f"{Registry.base_path}{Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--inplace", "--build-lib", f"{Registry.base_path}{Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"])
             Registry.cython_acceleration_available = exit_code == 0
         except:
             Registry.cython_acceleration_available = False
 
-def check_for_compiled_perlin_noise():
+def check_for_compiled_libraries():
     try:
         import pmma.bin.perlin_noise
         import pmma.bin.extended_perlin_noise
@@ -35,8 +34,8 @@ def check_for_compiled_perlin_noise():
     return Registry.cython_acceleration_available
 
 def compile_intermediary():
-    if check_for_compiled_perlin_noise() is False:
-        compile_perlin_noise()
+    if check_for_compiled_libraries() is False:
+        compile_libraries()
 
 def compile():
     thread = threading.Thread(target=compile_intermediary)

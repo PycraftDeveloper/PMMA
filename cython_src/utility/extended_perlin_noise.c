@@ -12,7 +12,7 @@
         ],
         "name": "extended_perlin_noise",
         "sources": [
-            "cython_src/utility/extended_perlin_noise.pyx"
+            "/home/thomas/.local/lib/python3.10/site-packages/pmma/cython_src/utility/extended_perlin_noise.pyx"
         ]
     },
     "module_name": "extended_perlin_noise"

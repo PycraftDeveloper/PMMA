@@ -21,6 +21,18 @@ def raw_ranger(value, old, new):
         new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
 
+def raw_nparray_ranger(value, old, new):
+    value[value > old[1]] = old[1]
+    value[value < old[0]] = old[0]
+
+    if old == new:
+        return value
+    else:
+        old_range = (old[1] - old[0])
+        new_range = (new[1] - new[0])
+        new_value = (((value - old[0]) * new_range) / old_range) + new[0]
+        return new_value
+
 def raw_gl_look_at(pos, target, up):
     x, y, z = raw_compute_position(
         pos, target, up)
