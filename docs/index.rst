@@ -61,6 +61,11 @@ Let's walk you through PMMA's additional syntax now:
         * The orange square - 🟧 - indicates that this code **isn't safe** for deployment yet, as its likely to have its name and/or its inputs and outputs (I/O) changed - its functionality won't change.
         * The red square - 🟥 - indicates that this code **isn't safe** for deployment yet, as its likely to have its name and/or its inputs and outputs (I/O) changed and/or its functionality may also be changed.
 
+    2. Secondly, the icon after the deployment indicator (in bold) indicates if the namespace uses any additional optimization.
+        * The **R** symbol - indicates that this namespace has no additional optimization (meaning **R**aw Python)
+        * The **N** symbol - indicates that this namespace *can* use Numba (JIT) compilation (meaning **N**umba)
+        * The **C** symbol - indicates that this namespace *can* use Cython compilation (meaning **C**ython)
+        * The use of a **/** indicates that multiple options are available - with **R** being the only option that's **always** required.
 Now lets discuss some important points about PMMA:
     1. Secondly, PMMA uses an object called the ``Registry`` behind the scenes. This is used to behind the scenes to configure PMMA for optimal performance and compatibility. This object can be accessed from outside PMMA (ie. in your own applications) however we strongly recommend that if you need to access it, you do so without changing any of its attributes *unless you know what your doing*.
 
