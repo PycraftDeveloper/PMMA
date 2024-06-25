@@ -21,46 +21,61 @@ Methods
     For more information on this behavior, check out the Registry section, or look at the welcome page.
 
 .. py:method:: Math.pythag(points: Union[List[float], Tuple[float, ...]]) -> float:
+
     return float
 
 .. py:method:: Math.get_function_ranger() -> Callable[[float, Union[List[float], Tuple[float, ...]], Union[List[float], Tuple[float, ...]]], float]:
+
     return function
 
 .. py:method:: Math.ranger(value: float, old: Union[List[float], Tuple[float, ...]], new: Union[List[float], Tuple[float, ...]]) -> float
+
     return float
 
 .. py:method:: Math.get_function_nparray_ranger() -> Callable[[numpy.ndarray, Union[List[float], Tuple[float, ...]], Union[List[float], Tuple[float, ...]]], numpy.ndarray]:
+
     return function
 
 .. py:method:: Math.nparray_ranger(value, old, new)
+
     return numpy_array
 
 .. py:method:: Math.get_function_gl_look_at
+
     return function
 
 .. py:method:: Math.gl_look_at(eye, target, up)
+
     return /
 
 .. py:method:: Math.get_function_compute_position
+
     return function
 
 .. py:method:: Math.compute_position(pos, target, up)
+
     return /
 
 .. py:method:: Math.get_function_perspective_fov
+
     return function
 
 .. py:method:: Math.perspective_fov(fov, aspect_ratio, near_plane, far_plane)
+
     return /
 
 .. py:method:: Math.get_function_look_at
+
     return function
 
 .. py:method:: Math.look_at(camera_position, camera_target, up_vector)
+
     return /
 
 .. py:method:: Math.get_function_multiply
+
     return function
 
 .. py:method:: Math.multiply(a, b)
+
     return /
