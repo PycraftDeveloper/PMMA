@@ -18,49 +18,49 @@ Methods
 
     🟩 Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
     This depends on the state of PMMA's registry entry: ``Registry.custom_compiled_behavior["raw_pythag"]``.
-    For more information on this behaviour, check out the Registry section, or look at the welcome page.
+    For more information on this behavior, check out the Registry section, or look at the welcome page.
 
-def pythag (points)
+.. py:method:: Math.pythag(points: Union[List[float], Tuple[float, ...]]) -> float:
     return float
 
-def get_function_ranger
+.. py:method:: Math.get_function_ranger() -> Callable[[float, Union[List[float], Tuple[float, ...]], Union[List[float], Tuple[float, ...]]], float]:
     return function
 
-def ranger (value, old, new)
+.. py:method:: Math.ranger(value: float, old: Union[List[float], Tuple[float, ...]], new: Union[List[float], Tuple[float, ...]]) -> float
     return float
 
-def get_function_nparray_ranger
+.. py:method:: Math.get_function_nparray_ranger() -> Callable[[numpy.ndarray, Union[List[float], Tuple[float, ...]], Union[List[float], Tuple[float, ...]]], numpy.ndarray]:
     return function
 
-def nparray_ranger (value, old, new)
+.. py:method:: Math.nparray_ranger(value, old, new)
     return numpy_array
 
-def get_function_gl_look_at
+.. py:method:: Math.get_function_gl_look_at
     return function
 
-def gl_look_at (eye, target, up)
+.. py:method:: Math.gl_look_at(eye, target, up)
     return /
 
-def get_function_compute_position
+.. py:method:: Math.get_function_compute_position
     return function
 
-def compute_position (pos, target, up)
+.. py:method:: Math.compute_position(pos, target, up)
     return /
 
-def get_function_perspective_fov
+.. py:method:: Math.get_function_perspective_fov
     return function
 
-def perspective_fov (fov, aspect_ratio, near_plane, far_plane)
+.. py:method:: Math.perspective_fov(fov, aspect_ratio, near_plane, far_plane)
     return /
 
-def get_function_look_at
+.. py:method:: Math.get_function_look_at
     return function
 
-def look_at (camera_position, camera_target, up_vector)
+.. py:method:: Math.look_at(camera_position, camera_target, up_vector)
     return /
 
-def get_function_multiply
+.. py:method:: Math.get_function_multiply
     return function
 
-def multiply (a, b)
+.. py:method:: Math.multiply(a, b)
     return /
