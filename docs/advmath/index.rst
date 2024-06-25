@@ -28,7 +28,7 @@ Methods
 
     return function
 
-.. py:method:: Math.ranger(value: float, old: Union[List[float], Tuple[float, ...]], new: Union[List[float], Tuple[float, ...]]) -> float
+.. py:method:: Math.ranger(value: float, old: Union[List[float], Tuple[float, ...]], new: Union[List[float], Tuple[float, ...]]) -> float:
 
     return float
 
@@ -36,46 +36,46 @@ Methods
 
     return function
 
-.. py:method:: Math.nparray_ranger(value, old, new)
+.. py:method:: Math.nparray_ranger(value: numpy.ndarray, old: Union[List[float], Tuple[float, ...]], new: Union[List[float], Tuple[float, ...]]) -> numpy.ndarray:
 
     return numpy_array
 
-.. py:method:: Math.get_function_gl_look_at
+.. py:method:: Math.get_function_gl_look_at() -> Callable[[numpy.ndarray, numpy.ndarray, numpy.ndarray], numpy.ndarray]:
 
     return function
 
-.. py:method:: Math.gl_look_at(eye, target, up)
+.. py:method:: Math.gl_look_at(eye: numpy.ndarray, target: numpy.ndarray, up: numpy.ndarray) -> numpy.ndarray:
 
     return /
 
-.. py:method:: Math.get_function_compute_position
+.. py:method:: Math.get_function_compute_position() -> Callable[[numpy.ndarray, numpy.ndarray, numpy.ndarray], numpy.ndarray]:
 
     return function
 
-.. py:method:: Math.compute_position(pos, target, up)
+.. py:method:: Math.compute_position(eye: numpy.ndarray, target: numpy.ndarray, up: numpy.ndarray) -> numpy.ndarray:
 
     return /
 
-.. py:method:: Math.get_function_perspective_fov
+.. py:method:: Math.get_function_perspective_fov() -> Callable[[float, float, float, float], numpy.ndarray]:
 
     return function
 
-.. py:method:: Math.perspective_fov(fov, aspect_ratio, near_plane, far_plane)
+.. py:method:: Math.perspective_fov(fov: float, aspect_ratio: float, near_plane: float, far_plane: float) -> numpy.ndarray:
 
     return /
 
-.. py:method:: Math.get_function_look_at
+.. py:method:: Math.get_function_look_at() -> Callable[[numpy.ndarray, numpy.ndarray, numpy.ndarray], numpy.ndarray]:
 
     return function
 
-.. py:method:: Math.look_at(camera_position, camera_target, up_vector)
+.. py:method:: Math.look_at(camera_position: numpy.ndarray, camera_target: numpy.ndarray, up_vector: numpy.ndarray) -> numpy.ndarray:
 
     return /
 
-.. py:method:: Math.get_function_multiply
+.. py:method:: Math.get_function_multiply() -> Callable[[numpy.ndarray, numpy.ndarray], numpy.ndarray]:
 
     return function
 
-.. py:method:: Math.multiply(a, b)
+.. py:method:: Math.multiply(a: numpy.ndarray, b: numpy.ndarray) -> numpy.ndarray:
 
     return /
