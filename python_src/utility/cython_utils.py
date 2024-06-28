@@ -15,6 +15,7 @@ def setup():
 def compile_libraries():
     try:
         import pmma.bin.perlin_noise
+        import pmma.bin.extended_perlin_noise
         Registry.cython_acceleration_available = True
     except ImportError:
         try:

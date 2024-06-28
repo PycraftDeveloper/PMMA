@@ -11,6 +11,9 @@ class Perlin():
         if Registry.cython_acceleration_available:
             self.noise_module = importlib.import_module("pmma.bin.perlin_noise")
             self.extended_noise_module = importlib.import_module("pmma.bin.extended_perlin_noise")
+        else:
+            self.noise_module = importlib.import_module("pmma.python_src.pyx_alternatives.utility.perlin_noise")
+            self.extended_noise_module = importlib.import_module("pmma.python_src.pyx_alternatives.utility.extended_perlin_noise")
 
         if seed is None:
             seed = random.randint(0, 1000000)
