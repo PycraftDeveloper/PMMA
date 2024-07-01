@@ -1,4 +1,7 @@
 import os
+import shutil
+
+import send2trash
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -14,23 +17,47 @@ class File:
     def get_path(self):
         return self.file_path
 
+    def get_directory(self):
+        return os.path.dirname(self.file_path)
+
+    def get_file_name_and_type(self):
+        return self.file_path.split(Constants.PATH_SEPARATOR)[-1]
+
+    def get_file_name(self):
+        return self.get_file_name_and_type().split(".")[0]
+
+    def get_file_type(self):
+        return self.get_file_name_and_type().split(".")[-1]
+
     def move(self, new_path):
-        pass
+        shutil.move(self.file_path, new_path)
+        self.file_path = new_path
 
     def delete(self):
-        pass
+        os.remove(self.file_path)
+
+    def recycle(self):
+        send2trash.send2trash(self.file_path)
 
     def rename(self, new_name):
-        pass
+        file_type = self.get_file_type()
+        new_file_path = os.path.dirname(self.file_path) + Constants.PATH_SEPARATOR + new_name + "." + file_type
+        os.rename(self.file_path, new_file_path)
+        self.file_path = new_file_path
 
     def read(self):
-        pass
+        with open(self.file_path, "r") as file:
+            return file.read()
 
     def write(self, content):
-        pass
+        with open(self.file_path, "w") as file:
+            file.write(content)
 
 class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
+        if Constants.FILECORE_OBJECT in Registry.pmma_module_spine.keys():
+            raise Exception("FileCore object already exists")
+
         self.locations = []
         self.file_matrix = {}
 
@@ -42,6 +69,8 @@ class FileCore:
             self.watcher.start()
 
         self.scan()
+
+        Registry.pmma_module_spine[Constants.FILECORE_OBJECT] = self
 
     def update_locations(self, project_directory=None, force_refresh=True):
         self.locations = [Registry.base_path]

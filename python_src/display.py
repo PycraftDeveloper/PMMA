@@ -1,11 +1,17 @@
 import os
 import importlib
+import random
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
+        self.v = random.random()
+
+        if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            raise Exception("Display object already exists")
+
         Registry.graphics_backend = importlib.import_module(display_mode)
         if display_mode == Constants.PYGAME:
             Registry.graphics_backend.init()
@@ -18,6 +24,11 @@ class Display:
 
         self.fullscreen = None
         self.surface_attributes = []
+
+        Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = self
+
+    def destroy(self):
+        Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
     def create(self, width, height, fullscreen=False, resizable=False, caption="Display", native_fullscreen=True, vsync=True, alpha=False):
         if Registry.display_mode == Constants.PYGAME:

@@ -4,6 +4,9 @@ from pmma.python_src.constants import Constants
 import pmma.python_src.utility.math_utils as math_utils
 
 class Math:
+    def __init__(self):
+        pass
+
     def get_function_pythag(self):
         if Registry.compile_math_functions:
             if "raw_pythag" in Registry.custom_compiled_behavior.keys():

@@ -11,3 +11,4 @@ class Registry:
     cython_acceleration_available = False
     cython_acceleration_enabled = False
     python_acceleration_enabled = False
+    pmma_module_spine = {}
