@@ -12,6 +12,8 @@ class Draw:
         self.canvas = canvas
 
     def line(self, color, start, end, width, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -23,6 +25,8 @@ class Draw:
             raise NotImplementedError
 
     def lines(self, color, points, width=1, closed=False, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -36,6 +40,8 @@ class Draw:
             raise NotImplementedError
 
     def advanced_polygon(self, color, centre, radius, number_of_sides, rotation_angle=0, width=0, cache=None, wire_frame=False, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if cache is not None:
@@ -82,6 +88,8 @@ class Draw:
         color (str):
             Name of the fill color, in HTML format.
         """
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if cache is not None:
@@ -119,6 +127,8 @@ class Draw:
             raise NotImplementedError
 
     def rect(self, color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -127,6 +137,8 @@ class Draw:
             raise NotImplementedError
 
     def circle(self, color, center, radius, width=0, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if abs(radius) < 1:
@@ -137,6 +149,8 @@ class Draw:
             raise NotImplementedError
 
     def arc(self, color, rect, start_angle, stop_angle, width=1, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -145,6 +159,8 @@ class Draw:
             raise NotImplementedError
 
     def polygon(self, color, points, width=0, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -153,6 +169,8 @@ class Draw:
             raise NotImplementedError
 
     def ellipse(self, color, rect, width=0, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -161,6 +179,8 @@ class Draw:
             raise NotImplementedError
 
     def pixel(self, color, point, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
@@ -173,6 +193,8 @@ class Draw:
             raise NotImplementedError
 
     def curved_lines(self, color, points, steps=2, canvas=None):
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
