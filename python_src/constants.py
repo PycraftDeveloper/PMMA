@@ -4,6 +4,13 @@ import os
 from pmma.python_src.registry import Registry
 
 class Constants:
+    CHARACTERS = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890"
+    CENTER = "center"
+    LEFT = "left"
+    RIGHT = "right"
+    TOP = "top"
+    BOTTOM = "bottom"
+
     DISPLAY_OBJECT = "display"
     EVENTS_OBJECT = "events"
     DRAW_OBJECT = "draw"
