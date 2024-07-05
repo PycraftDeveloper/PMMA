@@ -39,6 +39,7 @@ from pmma.python_src.file import *
 from pmma.python_src.text import *
 
 from pmma.python_src.utility import cython_utils
+from pmma.python_src.memory_manager import MemoryManager
 
 # use json to load events.json
 # add these events to constants module
@@ -63,6 +64,8 @@ def init(optimize_python_extensions=True, compile_c_extensions=True, wait_for_in
         cython_thread = cython_utils.compile()
         if wait_for_initialization:
             cython_thread.join()
+
+    MemoryManager()
 
 del base_path
 del temporary_files_path

@@ -32,6 +32,7 @@ class Constants:
     SAMPLER_OBJECT = "sampler"
     REGISTRY_OBJECT = "registry"
     TEXT_OBJECT = "text"
+    MEMORYMANAGER_OBJECT = "memory manager"
 
     CARTESIAN = "cartesian"
 
