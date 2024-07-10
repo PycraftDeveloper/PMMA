@@ -1,33 +1,38 @@
 import time
 import threading
+import sys
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class MemoryManager:
-    def __init__(self):
+    def __init__(self, object_lifetime=2.5):
         if Constants.MEMORYMANAGER_OBJECT in Registry.pmma_module_spine.keys():
             raise Exception("MemoryManager object already exists")
 
         self.objects = {}
         self.linker = {}
-        self.object_lifetime = 2.5
+        self.size_manager = {}
+        self.object_lifetime = object_lifetime
         self.manager_thread = threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
         self.manager_thread.start()
 
         Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT] = self
 
-    def add_object(self, obj, custom_id=None):
+    def add_object(self, obj, custom_id=None, object_lifetime=None):
         if custom_id is not None:
             identifier = custom_id
         else:
             identifier = id(obj)
         if identifier in self.linker.keys():
             raise KeyError("Object already exists")
+        if object_lifetime is None:
+            object_lifetime = self.object_lifetime
         current_time = str(time.perf_counter())
         self.linker[identifier] = current_time
-        self.objects[current_time] = [obj, identifier]
+        self.objects[current_time] = [obj, identifier, object_lifetime]
+        self.size_manager[identifier] = sys.getsizeof(obj) # start introducing precautions for full memory manager
         return identifier
 
     def get_object(self, obj_id):
@@ -54,7 +59,7 @@ class MemoryManager:
             current_time = time.perf_counter()
             for obj_time in list(self.objects.keys()):
                 try:
-                    if current_time - float(obj_time) > self.object_lifetime:
+                    if current_time - float(obj_time) > self.objects[obj_time][2]:
                         del self.linker[self.objects[obj_time][1]]
                         del self.objects[obj_time]
                 except Exception as error:
