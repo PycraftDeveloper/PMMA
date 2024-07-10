@@ -110,7 +110,20 @@ class Text:
             "position": (x, y)
         }
 
-        identifier = str(font_identifiable_data)+str(canvas_identifiable_data)+str(text)+str(position)+str(foreground_color)+str(background_color)+str(bold)+str(italic)+str(underline)+str(strikethrough)+str(word_separator)
+        identifier = (
+            str(font_identifiable_data)+\
+            str(canvas_identifiable_data)+\
+            str(text)+\
+            str(position)+\
+            str(foreground_color)+\
+            str(background_color)+\
+            str(bold)+\
+            str(italic)+\
+            str(underline)+\
+            str(strikethrough)+\
+            str(word_separator)+\
+            str(canvas.get_size))
+
         result = self.memory_manager_instance.get_object(identifier)
         if result is None:
             x, y = 0, 0
@@ -178,10 +191,14 @@ class Text:
                         for letter in word:
                             rendered_word = font.render(letter, Registry.do_anti_aliasing, foreground_color)
 
-                            if rendered_word.get_width() + x > surface.get_width() - defaults["position"][0]:
+                            if rendered_word.get_width() + x > surface.get_width():
                                 x = 0
                                 y += rendered_word.get_height()
-                            if x < surface.get_width() and y < surface.get_height():
+                            if (x < surface.get_width() and
+                                    y < surface.get_height() and
+                                    x + defaults["position"][0] + surface.get_width() > 0 and
+                                    y + defaults["position"][1] + surface.get_height() > 0):
+
                                 alpha = False
                                 if len(foreground_color) == 4 and foreground_color[3] > 0:
                                     rendered_word.set_alpha(foreground_color[3])
@@ -199,7 +216,7 @@ class Text:
                                 surface.blit(rendered_word, (x, y))
                             x += rendered_word.get_width()
 
-                    if rendered_word.get_width() + x > surface.get_width() - defaults["position"][0]:
+                    if rendered_word.get_width() + x > surface.get_width():
                         x = 0
                         y += rendered_word.get_height()
                     if x < surface.get_width() and y < surface.get_height():

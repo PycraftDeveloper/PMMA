@@ -95,7 +95,7 @@ Etiam vulputate, lacus quis pharetra aliquet, nibh sapien laoreet arcu, eget sag
 Nullam ullamcorper magna vel imperdiet vulputate. Vivamus tincidunt, odio quis varius fringilla, elit libero laoreet arcu, nec auctor tortor odio et sapien. Duis malesuada ex non nisi dapibus suscipit. Proin consectetur bibendum dui vitae hendrerit. Interdum et malesuada fames ac ante ipsum primis in faucibus. In pellentesque molestie augue sed dapibus. Sed quis tortor egestas felis sodales viverra. Aenean fermentum pulvinar scelerisque. Morbi sollicitudin fermentum orci, at ornare justo sagittis sit amet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum nec urna justo. Duis a egestas neque. Aliquam enim urna, dapibus vitae sodales vitae, tincidunt in eros.
 
 Donec sit amet odio eget velit convallis rutrum lobortis sed purus. Pellentesque tincidunt congue lacus sit amet facilisis. Curabitur eget eros at libero porta pulvinar ac non neque. Suspendisse placerat ante eget tortor commodo, ut auctor tortor finibus. Etiam aliquam iaculis arcu at accumsan. Proin aliquam mollis massa in auctor. Nulla placerat interdum libero eu commodo. Nam lectus est, maximus sit amet mauris a, rhoncus mollis lorem. Phasellus dui augue, hendrerit et purus vel, rhoncus elementum dolor. Integer ac tempor orci. Nam at mi risus.""",
-size=30, foreground_color=(0, 0, 0), background_color=(0, 0, 255), position=[200, 0])
+size=30, foreground_color=(0, 0, 0), background_color=(0, 0, 255), position=[0, 0])
 
     events.handle()
 
