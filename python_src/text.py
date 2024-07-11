@@ -1,5 +1,6 @@
 from tkinter import font
 import re
+import time
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -126,6 +127,7 @@ class Text:
 
         result = self.memory_manager_instance.get_object(identifier)
         if result is None:
+            start = time.perf_counter()
             x, y = 0, 0
             surface = Registry.graphics_backend.Surface((canvas.get_width(), canvas.get_height()), Registry.graphics_backend.SRCALPHA)
 
@@ -237,6 +239,8 @@ class Text:
                         surface.blit(rendered_word, (x, y))
                     x += rendered_word.get_width()
             canvas.blit(surface, defaults["position"])
-            self.memory_manager_instance.add_object(surface, custom_id=identifier)
+            end = time.perf_counter()
+            object_creation_time = end-start
+            self.memory_manager_instance.add_object(surface, custom_id=identifier, object_creation_time=object_creation_time)
         else:
             canvas.blit(result, defaults["position"])
