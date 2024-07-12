@@ -33,6 +33,7 @@ class Constants:
     REGISTRY_OBJECT = "registry"
     TEXT_OBJECT = "text"
     MEMORYMANAGER_OBJECT = "memory manager"
+    IMAGE_OBJECT = "image"
 
     CARTESIAN = "cartesian"
 
@@ -106,6 +107,7 @@ class Constants:
     AUTODETECT = "autodetect"
 
     PYGAME = "pygame"
+    PYGLET = "pyglet"
 
     DEFAULT = "default"
     TAU = math.pi * 2
