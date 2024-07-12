@@ -9,7 +9,7 @@ draw = pmma.Draw()
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline()
+compute_pipeline = pmma.ComputePipeline(num_threads=20)
 
 class BasicDrawOperation:
     def __init__(self):
@@ -31,20 +31,15 @@ for _ in range(N):
 
 n = 0
 while True:
-    #print(canvas.get_fps())
-    if n == 500:
-        compute_pipeline.request_experimental_thread_evaluation()
+    print(canvas.get_fps())
 
     events.handle()
 
-    start = time.perf_counter()
     compute_pipeline.execute()
-    end = time.perf_counter()
-    print(compute_pipeline.experiment_using_threads, n, compute_pipeline.num_threads, end-start)
 
     canvas.clear()
     for obj in objects:
         obj.render()
 
-    canvas.refresh()
+    canvas.refresh(refresh_rate=1000)
     n += 1

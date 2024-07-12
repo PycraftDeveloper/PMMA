@@ -287,7 +287,7 @@ while registry.running:
         ball.now_time = now_time
     dy = time.perf_counter()
 
-    #print(compute_pipeline.experiment_using_threads, compute_pipeline.num_threads, dy-dx)
+    print(compute_pipeline.experiment_using_threads, compute_pipeline.num_threads, dy-dx)
 
     compute_pipeline.execute()
 

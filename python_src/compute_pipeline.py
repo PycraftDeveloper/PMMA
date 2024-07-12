@@ -75,6 +75,7 @@ class ComputePipeline:
                         futures = [executor.submit(self._execute_block, block) for block in self.concurrent_blocks]
                         for future in futures:
                             results.extend(future.result())
+
                 end = time.perf_counter()
                 if end-start <= self.previous_run_time:
                     self.previous_run_time = end-start
