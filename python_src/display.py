@@ -30,7 +30,7 @@ class Display:
     def destroy(self):
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
-    def create(self, width, height, fullscreen=False, resizable=False, caption="Display", native_fullscreen=True, vsync=True, alpha=False):
+    def create(self, width, height, fullscreen=False, resizable=False, caption="PMMA Canvas", native_fullscreen=True, vsync=True, alpha=False):
         if Registry.display_mode == Constants.PYGAME:
             flags = 0
             if fullscreen:
