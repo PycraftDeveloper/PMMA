@@ -23,6 +23,17 @@ extensions = [
         include_dirs=[numpy.get_include()],
         extra_compile_args=["-O3"],  # Use optimization flag
     ),
+    Extension(
+        "laminator",
+        [cython_src_path+"laminator.pyx"],
+        extra_compile_args=["-O3"],  # Use optimization flag
+    ),
+    Extension(
+        "parallel_executor",
+        [cython_src_path+"parallel_executor.pyx"],
+        compiler_directives={'language_level': "3"},
+        extra_compile_args=["-O3"],  # Use optimization flag
+    )
 ]
 
 setup(
