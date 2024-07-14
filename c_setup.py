@@ -31,7 +31,6 @@ extensions = [
     Extension(
         "parallel_executor",
         [cython_src_path+"parallel_executor.pyx"],
-        compiler_directives={'language_level': "3"},
         extra_compile_args=["-O3"],  # Use optimization flag
     )
 ]

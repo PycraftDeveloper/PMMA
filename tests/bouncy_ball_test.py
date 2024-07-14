@@ -11,7 +11,7 @@ display.create(1280, 720)
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline()
+compute_pipeline = pmma.ComputePipeline(num_threads=2)
 
 registry = pmma.Registry()
 
@@ -287,7 +287,7 @@ while registry.running:
         ball.now_time = now_time
     dy = time.perf_counter()
 
-    print(compute_pipeline.experiment_using_threads, compute_pipeline.num_threads, dy-dx)
+    print(1/(dy-dx))
 
     compute_pipeline.execute()
 

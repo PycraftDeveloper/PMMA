@@ -2,6 +2,8 @@ import pmma
 import random
 import time
 
+pmma.init()
+
 canvas = pmma.Display()
 canvas.create(1280, 720)
 
@@ -9,7 +11,7 @@ draw = pmma.Draw()
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline(num_threads=20)
+compute_pipeline = pmma.ComputePipeline(num_threads=1)
 
 class BasicDrawOperation:
     def __init__(self):
@@ -20,10 +22,11 @@ class BasicDrawOperation:
         draw.circle(self.color, self.position, 20)
 
     def compute(self):
-        self.position = [random.randint(0, 1280), random.randint(0, 720)]
+        for _ in range(10):
+            self.position = [random.randint(0, 1280), random.randint(0, 720)]
 
 objects = []
-N = 1000
+N = 10_000
 for _ in range(N):
     inst = BasicDrawOperation()
     compute_pipeline.add_compute_function(inst.compute, parallel=True)
