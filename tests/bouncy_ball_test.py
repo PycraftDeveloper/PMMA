@@ -6,12 +6,14 @@ import time
 
 import pygame
 
+pmma.init()
+
 display = pmma.Display()
 display.create(1280, 720)
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline(num_threads=2)
+compute_pipeline = pmma.ComputePipeline(num_threads=1)
 
 registry = pmma.Registry()
 
@@ -267,6 +269,7 @@ for ball in balls:
 
 start = time.perf_counter()
 now_time = 0
+a = []
 while registry.running:
     display.set_caption(str(display.get_fps()))
     window_x, window_y = display.get_size()
@@ -287,7 +290,9 @@ while registry.running:
         ball.now_time = now_time
     dy = time.perf_counter()
 
-    print(1/(dy-dx))
+    a.append(1/(dy-dx))
+
+    print(sum(a)/len(a))
 
     compute_pipeline.execute()
 

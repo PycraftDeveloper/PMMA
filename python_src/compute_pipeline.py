@@ -26,6 +26,9 @@ class ComputePipeline:
         else:
             self.experiment_using_threads = False
 
+        self.parallel_functions = {}
+        self.series_functions = {}
+
         self.concurrent_functions = []
         self.series_functions = []
         self.num_threads = num_threads
@@ -61,28 +64,43 @@ class ComputePipeline:
 
     def execute(self):
         """Execute all functions, concurrent functions in threads and series functions in order."""
-        results = []
+        overall_functions = {}
 
         if self.concurrent_functions != []:
             if self.num_threads == 1:
                 for func in self.concurrent_functions:
-                    results.append(func[0]())
+                    start = time.perf_counter()
+                    result = func[0]()
+                    end = time.perf_counter()
+                    total_execution_time = end-start
+                    self.parallel_functions[func] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": False}
             else:
-                parallel_batches = self.laminator.laminator(self.concurrent_functions.copy(), self.num_threads)
+                s = time.perf_counter()
+                parallel_batches = self.laminator.laminator(self.parallel_functions, self.concurrent_functions, self.num_threads)
+                e = time.perf_counter()
+                print(f"Time to create parallel batches: {e-s}")
 
-                results += self.parallel_executor.execute_batch_in_parallel(parallel_batches)
+                self.parallel_functions = self.parallel_executor.execute_batch_in_parallel(parallel_batches, self.parallel_functions)
 
         for func in self.concurrent_functions_to_test:
             start = time.perf_counter()
-            results.append(func())
+            result = func()
             end = time.perf_counter()
             total_execution_time = end - start
-            self.concurrent_functions.append((func, total_execution_time))
+            self.parallel_functions[func] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": False}
+            self.concurrent_functions.append(func)
 
         self.concurrent_functions_to_test = []
 
         # Execute series functions
         for func in self.series_functions:
-            results.append((func, func()))
+            start = time.perf_counter()
+            result = func()
+            end = time.perf_counter()
+            total_execution_time = end - start
+            self.series_functions[func] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": False}
 
-        return results
+        overall_functions.update(self.series_functions)
+        overall_functions.update(self.parallel_functions)
+
+        return overall_functions

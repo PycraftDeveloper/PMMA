@@ -11,7 +11,7 @@ draw = pmma.Draw()
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline(num_threads=1)
+compute_pipeline = pmma.ComputePipeline(num_threads=2)
 
 class BasicDrawOperation:
     def __init__(self):
@@ -22,8 +22,7 @@ class BasicDrawOperation:
         draw.circle(self.color, self.position, 20)
 
     def compute(self):
-        for _ in range(10):
-            self.position = [random.randint(0, 1280), random.randint(0, 720)]
+        self.position = [random.randint(0, 1280), random.randint(0, 720)]
 
 objects = []
 N = 10_000
@@ -34,7 +33,7 @@ for _ in range(N):
 
 n = 0
 while True:
-    print(canvas.get_fps())
+    #print(canvas.get_fps())
 
     events.handle()
 
@@ -44,5 +43,5 @@ while True:
     for obj in objects:
         obj.render()
 
-    canvas.refresh(refresh_rate=1000)
+    canvas.refresh(refresh_rate=60)
     n += 1

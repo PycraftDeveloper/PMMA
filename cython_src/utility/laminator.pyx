@@ -1,7 +1,12 @@
 import heapq
 from libc.stdlib cimport malloc, free
 
-def laminator(list function_array, int number_of_threads):
+def laminator(dict parallel_functions, list concurrent_functions, int number_of_threads):
+    cdef function_array = []
+    for key in parallel_functions.keys():
+        if key in concurrent_functions:
+            function_array.append((key, parallel_functions[key]["total_execution_time"]))
+
     cdef list heap = [(0, i) for i in range(number_of_threads)]
     cdef list thread_function_array = [[] for _ in range(number_of_threads)]
 
