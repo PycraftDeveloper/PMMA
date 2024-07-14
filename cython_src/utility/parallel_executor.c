@@ -1499,7 +1499,7 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_17parallel_executor_ParallelExecutor;
 
 /* "parallel_executor.pyx":7
- * import time #
+ * import time
  * 
  * cdef class ParallelExecutor:             # <<<<<<<<<<<<<<
  *     cdef dict parallel_functions
@@ -5352,7 +5352,7 @@ if (!__Pyx_RefNanny) {
  * # cython: language_level=3
  * from concurrent.futures import ThreadPoolExecutor, as_completed             # <<<<<<<<<<<<<<
  * import cython
- * import time #
+ * import time
  */
   __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -5378,7 +5378,7 @@ if (!__Pyx_RefNanny) {
   /* "parallel_executor.pyx":5
  * from concurrent.futures import ThreadPoolExecutor, as_completed
  * import cython
- * import time #             # <<<<<<<<<<<<<<
+ * import time             # <<<<<<<<<<<<<<
  * 
  * cdef class ParallelExecutor:
  */

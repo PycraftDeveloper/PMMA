@@ -2,7 +2,7 @@
 # cython: language_level=3
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import cython
-import time #
+import time
 
 cdef class ParallelExecutor:
     cdef dict parallel_functions
