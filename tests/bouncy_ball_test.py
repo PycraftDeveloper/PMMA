@@ -13,7 +13,7 @@ display.create(1280, 720)
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline(num_threads=1)
+compute_pipeline = pmma.ComputePipeline(num_threads=None)
 
 registry = pmma.Registry()
 
@@ -258,7 +258,7 @@ class Ball:
         pygame.draw.circle(Surface, self.color, (self.x, self.y), self.mass)
 
 balls = []
-n_balls = 500
+n_balls = 5000
 for i in range(n_balls):
     ba = Ball()
     compute_pipeline.add_compute_function(ba.compute, parallel=True)
@@ -285,16 +285,17 @@ while registry.running:
 
     events.handle()
 
-    dx = time.perf_counter()
     for ball in balls:
         ball.now_time = now_time
+
+    dx = time.perf_counter()
+    compute_pipeline.execute()
     dy = time.perf_counter()
 
     a.append(1/(dy-dx))
 
     print(sum(a)/len(a))
-
-    compute_pipeline.execute()
+    print(1/(sum(a)/len(a)))
 
     for ball in balls:
         ball.render()

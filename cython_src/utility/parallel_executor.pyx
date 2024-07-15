@@ -9,8 +9,8 @@ cdef class ParallelExecutor:
     def __init__(self):
         self.parallel_functions = None
 
-    #@cython.cfunc
-    #@cython.exceptval(check=False)
+    @cython.cfunc
+    @cython.exceptval(check=False)
     def run_compute_function(self, list functions):
         for function in functions:
             start = time.perf_counter()

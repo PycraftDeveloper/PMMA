@@ -11,6 +11,9 @@ class Constants:
     TOP = "top"
     BOTTOM = "bottom"
 
+    CORE_COUNT = os.cpu_count()
+    THREAD_COUNT = CORE_COUNT * 2
+
     DISPLAY_OBJECT = "display"
     EVENTS_OBJECT = "events"
     DRAW_OBJECT = "draw"

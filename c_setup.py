@@ -15,23 +15,28 @@ extensions = [
     Extension(
         "perlin_noise",
         [cython_src_path+"perlin_noise.pyx"],
-        extra_compile_args=["-O3"],  # Use optimization flag DEBUG THIS
+        extra_compile_args=["-O3", "/O2"],  # Use optimization flag DEBUG THIS
     ),
     Extension(
         "extended_perlin_noise",
         [cython_src_path+"extended_perlin_noise.pyx"],
         include_dirs=[numpy.get_include()],
-        extra_compile_args=["-O3"],  # Use optimization flag
+        extra_compile_args=["-O3", "/O2"],  # Use optimization flag
     ),
     Extension(
         "laminator",
         [cython_src_path+"laminator.pyx"],
-        extra_compile_args=["-O3"],  # Use optimization flag
+        extra_compile_args=["-O3", "/O2"],  # Use optimization flag
     ),
     Extension(
         "parallel_executor",
         [cython_src_path+"parallel_executor.pyx"],
-        extra_compile_args=["-O3"],  # Use optimization flag
+        extra_compile_args=["-O3", "/O2"],  # Use optimization flag
+    ),
+    Extension(
+        "pipeline_threads_ml",
+        [cython_src_path+"pipeline_threads_ml.pyx"],
+        extra_compile_args=["-O3", "/O2"],  # Use optimization flag
     )
 ]
 

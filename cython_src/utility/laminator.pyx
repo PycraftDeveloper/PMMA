@@ -11,8 +11,11 @@ cdef list set_mixer(dict parallel_functions, list concurrent_functions):
 def laminator(dict parallel_functions, list concurrent_functions, int number_of_threads):
     function_array = set_mixer(parallel_functions, concurrent_functions)
 
-    cdef list heap = [(0, i) for i in range(number_of_threads)]
-    cdef list thread_function_array = [[] for _ in range(number_of_threads)]
+    cdef list heap = []
+    cdef list thread_function_array = []
+    for i in range(number_of_threads):
+        heap.append((0, i))
+        thread_function_array.append([])
 
     # Transform the heap into a min-heap
     heapq.heapify(heap)
@@ -21,9 +24,8 @@ def laminator(dict parallel_functions, list concurrent_functions, int number_of_
     function_array.sort(key=lambda x: x[1], reverse=True)
 
     # Distribute the functions across the threads
-    while function_array:
+    for function, time in function_array:
         exec_time, index = heapq.heappop(heap)
-        function, time = function_array.pop(0)  # pop the function with the highest time
         thread_function_array[index].append(function)
         new_exec_time = exec_time + time
         heapq.heappush(heap, (new_exec_time, index))

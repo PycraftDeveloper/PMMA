@@ -25,7 +25,7 @@ class BasicDrawOperation:
         self.position = [random.randint(0, 1280), random.randint(0, 720)]
 
 objects = []
-N = 10_000
+N = 10
 for _ in range(N):
     inst = BasicDrawOperation()
     compute_pipeline.add_compute_function(inst.compute, parallel=True)
@@ -33,7 +33,7 @@ for _ in range(N):
 
 n = 0
 while True:
-    #print(canvas.get_fps())
+    print(canvas.get_fps())
 
     events.handle()
 
@@ -43,5 +43,5 @@ while True:
     for obj in objects:
         obj.render()
 
-    canvas.refresh(refresh_rate=60)
+    canvas.refresh(refresh_rate=60000)
     n += 1
