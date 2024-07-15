@@ -21,14 +21,15 @@ class BasicDrawOperation:
     def __init__(self):
         self.color = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
         self.position = [random.randint(0, 1280), random.randint(0, 720)]
+        self.id = 0
 
     def render(self):
         draw.circle(self.color, self.position, 20)
 
     def compute(self):
         self.position = [random.randint(0, 1280), random.randint(0, 720)]
-        if n > 130:
-            time.sleep(random.random()/10)
+        if self.id == 1:
+            time.sleep(random.random())
 
 objects = []
 N = 10
@@ -40,6 +41,7 @@ for _ in range(N):
     inst = BasicDrawOperation()
     compute_pipeline.add(inst.compute, parallel=False)
     objects.append(inst)
+objects[0].id = 1
 
 compute_pipeline.train()
 x = []

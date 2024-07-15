@@ -130,13 +130,13 @@ class ComputePipeline:
                     if len(context) > 100:
                         standard_deviation = numpy.std(context)
                         mean = numpy.mean(context)
+                        self.optimizer[segment]["context"] = self.optimizer[segment]["context"][1:]
 
                         self.optimizer[segment]["use_model"] = not (total_time_for_model_training < mean + 2*standard_deviation and total_time_for_model_training > mean - 2*standard_deviation)
                     else:
                         self.optimizer[segment]["use_model"] = True
 
                     self.optimizer[segment]["context"] = numpy.append(total_time_for_model_training, self.optimizer[segment]["context"])
-                    self.optimizer[segment]["context"] = self.optimizer[segment]["context"][1:]
 
                 segment += 1
 
