@@ -10,28 +10,22 @@ cdef tuple set_mixer(dict parallel_functions, list concurrent_functions, int num
             total_execution_time = parallel_functions[function]["total_execution_time"]
         function_array.append((function, total_execution_time))
 
-    cdef list heap = []
-    cdef list thread_function_array = []
+    cdef list chunk_array = []
+    cdef list time_array = []
     for i in range(number_of_threads):
-        heap.append((0, i))
-        thread_function_array.append([])
+        chunk_array.append([])
+        time_array.append(0)
 
-    return function_array, heap, thread_function_array
+    return function_array, chunk_array, time_array
 
 def laminator(dict parallel_functions, list concurrent_functions, int number_of_threads):
-    function_array, heap, thread_function_array = set_mixer(parallel_functions, concurrent_functions, number_of_threads)
-
-    # Transform the heap into a min-heap
-    heapq.heapify(heap)
-
-    # Sort the function array by execution times in descending order
-    function_array.sort(key=lambda x: x[1], reverse=True)
+    function_array, chunk_array, time_array = set_mixer(parallel_functions, concurrent_functions, number_of_threads)
 
     # Distribute the functions across the threads
     for function, time in function_array:
-        exec_time, index = heapq.heappop(heap)
-        thread_function_array[index].append(function)
-        new_exec_time = exec_time + time
-        heapq.heappush(heap, (new_exec_time, index))
+        minimum_time = min(time_array)
+        minimum_time_index = time_array.index(minimum_time)
+        chunk_array[minimum_time_index].append(function)
+        time_array[minimum_time_index] += time
 
-    return thread_function_array
+    return chunk_array

@@ -62,7 +62,7 @@ class ComputePipeline:
         self.num_threads = num_threads
 
     def perform_parallel_operation(self, function_array, num_threads):
-        if self.num_threads == 1:
+        if num_threads == 1:
             for func in function_array:
                 start = time.perf_counter()
                 result = func()
@@ -132,12 +132,11 @@ class ComputePipeline:
                         mean = numpy.mean(context)
 
                         self.optimizer[segment]["use_model"] = not (total_time_for_model_training < mean + 2*standard_deviation and total_time_for_model_training > mean - 2*standard_deviation)
-                        if not self.optimizer[segment]["use_model"]:
-                            self.optimizer[segment]["context"] = self.optimizer[segment]["context"][-101:]
                     else:
                         self.optimizer[segment]["use_model"] = True
 
                     self.optimizer[segment]["context"] = numpy.append(total_time_for_model_training, self.optimizer[segment]["context"])
+                    self.optimizer[segment]["context"] = self.optimizer[segment]["context"][1:]
 
                 segment += 1
 

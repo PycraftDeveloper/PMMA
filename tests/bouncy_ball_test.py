@@ -258,10 +258,10 @@ class Ball:
         pygame.draw.circle(Surface, self.color, (self.x, self.y), self.mass)
 
 balls = []
-n_balls = 5000
+n_balls = 500
 for i in range(n_balls):
     ba = Ball()
-    compute_pipeline.add_compute_function(ba.compute, parallel=True)
+    compute_pipeline.add(ba.compute, parallel=True)
     balls.append(ba)
 
 for ball in balls:

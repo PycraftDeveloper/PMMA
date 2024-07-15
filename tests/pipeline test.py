@@ -13,6 +13,8 @@ events = pmma.Events()
 
 registry = pmma.Registry
 
+n = 0
+
 compute_pipeline = pmma.ComputePipeline(num_threads=None)
 
 class BasicDrawOperation:
@@ -25,6 +27,8 @@ class BasicDrawOperation:
 
     def compute(self):
         self.position = [random.randint(0, 1280), random.randint(0, 720)]
+        if n > 130:
+            time.sleep(random.random()/10)
 
 objects = []
 N = 10
@@ -37,17 +41,24 @@ for _ in range(N):
     compute_pipeline.add(inst.compute, parallel=False)
     objects.append(inst)
 
-#compute_pipeline.train()
-n = 0
+compute_pipeline.train()
 x = []
 y = []
+Y = []
 while registry.running:
-    y.append(canvas.get_fps())
-    x.append(n)
+    t = time.time()
+    tot = 0
+    for seg in range(len(compute_pipeline.optimizer)):
+        tot += compute_pipeline.optimizer[seg]["threads"]
+    Y.append(tot/len(compute_pipeline.optimizer))
+    x.append(t)
 
     events.handle()
 
+    dx = time.perf_counter()
     compute_pipeline.execute()
+    dy = time.perf_counter()
+    y.append(1/(dy-dx))
 
     canvas.clear()
     for obj in objects:
@@ -56,10 +67,10 @@ while registry.running:
     canvas.refresh(refresh_rate=60000)
     n += 1
 
-
 # importing the required libraries
 import matplotlib.pyplot as plt
 import numpy as np
 
 plt.plot(x, y)  # Plot the chart
+plt.plot(x, Y)  # Plot the chart
 plt.show()  # display
