@@ -13,7 +13,7 @@ display.create(1280, 720)
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline(num_threads=None)
+compute_pipeline = pmma.ComputePipeline(num_threads=1)
 
 registry = pmma.Registry()
 

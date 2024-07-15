@@ -21,7 +21,9 @@ class ParallelExecutor:
         futures = []
 
         with ThreadPoolExecutor() as executor:
-            for batch_number in range(n):
+            for batch_number in range(n-1):
                 futures.append(executor.submit(self.run_compute_function, batch_functions[batch_number]))
+
+            self.run_compute_function(batch_functions[n-1])
 
         return self.parallel_functions
