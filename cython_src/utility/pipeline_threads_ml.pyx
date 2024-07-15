@@ -20,6 +20,7 @@ cdef class RealTimeOptimizer:
     cdef object data
     cdef object X
     cdef object y
+
     def __init__(self):
         self.scaler = StandardScaler()
         self.model = SGDRegressor()
@@ -28,10 +29,10 @@ cdef class RealTimeOptimizer:
         self.X = None
         self.y = None
 
-    def collect_initial_data(self, int max_n, object benchmark_function):
+    def collect_initial_data(self, int max_n, object benchmark_function, list function_array):
         cdef list data = []
         for n in range(1, max_n + 1):
-            elapsed_time = benchmark_function(n)
+            elapsed_time = benchmark_function(function_array, n)
             data.append((n, elapsed_time))
         self.data = pd.DataFrame(data, columns=['threads', 'time'])
         self.X = self.data[['threads']]

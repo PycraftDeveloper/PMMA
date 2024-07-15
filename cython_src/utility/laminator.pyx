@@ -1,21 +1,25 @@
 import heapq
 from libc.stdlib cimport malloc, free
 
-cdef list set_mixer(dict parallel_functions, list concurrent_functions):
+cdef tuple set_mixer(dict parallel_functions, list concurrent_functions, int number_of_threads):
     cdef function_array = []
     for function in concurrent_functions:
-        function_array.append((function, parallel_functions[function]["total_execution_time"]))
-
-    return function_array
-
-def laminator(dict parallel_functions, list concurrent_functions, int number_of_threads):
-    function_array = set_mixer(parallel_functions, concurrent_functions)
+        if not function in parallel_functions:
+            total_execution_time = 0
+        else:
+            total_execution_time = parallel_functions[function]["total_execution_time"]
+        function_array.append((function, total_execution_time))
 
     cdef list heap = []
     cdef list thread_function_array = []
     for i in range(number_of_threads):
         heap.append((0, i))
         thread_function_array.append([])
+
+    return function_array, heap, thread_function_array
+
+def laminator(dict parallel_functions, list concurrent_functions, int number_of_threads):
+    function_array, heap, thread_function_array = set_mixer(parallel_functions, concurrent_functions, number_of_threads)
 
     # Transform the heap into a min-heap
     heapq.heapify(heap)

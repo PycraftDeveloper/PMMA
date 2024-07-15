@@ -11,7 +11,9 @@ draw = pmma.Draw()
 
 events = pmma.Events()
 
-compute_pipeline = pmma.ComputePipeline(num_threads=2)
+registry = pmma.Registry
+
+compute_pipeline = pmma.ComputePipeline(num_threads=None)
 
 class BasicDrawOperation:
     def __init__(self):
@@ -27,13 +29,21 @@ class BasicDrawOperation:
 objects = []
 N = 10
 for _ in range(N):
+    for _ in range(N):
+        inst = BasicDrawOperation()
+        compute_pipeline.add(inst.compute, parallel=True)
+        objects.append(inst)
     inst = BasicDrawOperation()
-    compute_pipeline.add_compute_function(inst.compute, parallel=True)
+    compute_pipeline.add(inst.compute, parallel=False)
     objects.append(inst)
 
+#compute_pipeline.train()
 n = 0
-while True:
-    print(canvas.get_fps())
+x = []
+y = []
+while registry.running:
+    y.append(canvas.get_fps())
+    x.append(n)
 
     events.handle()
 
@@ -45,3 +55,11 @@ while True:
 
     canvas.refresh(refresh_rate=60000)
     n += 1
+
+
+# importing the required libraries
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.plot(x, y)  # Plot the chart
+plt.show()  # display

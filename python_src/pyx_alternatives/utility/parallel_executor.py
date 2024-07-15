@@ -13,7 +13,10 @@ class ParallelExecutor:
             result = function()
             end = time.perf_counter()
             total_execution_time = end-start
-            self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+            if function in self.parallel_functions:
+                self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+            else:
+                self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}
 
     def execute_batch_in_parallel(self, batch_functions, parallel_functions):
         self.parallel_functions = parallel_functions

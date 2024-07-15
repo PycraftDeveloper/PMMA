@@ -3,7 +3,11 @@ import heapq
 def set_mixer(parallel_functions, concurrent_functions):
     function_array = []
     for function in concurrent_functions:
-        function_array.append((function, parallel_functions[function]["total_execution_time"]))
+        if not function in parallel_functions:
+            total_execution_time = 0
+        else:
+            total_execution_time = parallel_functions[function]["total_execution_time"]
+        function_array.append((function, total_execution_time))
 
     return function_array
 

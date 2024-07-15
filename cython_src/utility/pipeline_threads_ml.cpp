@@ -1853,6 +1853,12 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject *const *kwvalues
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,
     const char* function_name);
 
+/* ArgTypeTest.proto */
+#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
+    ((likely(__Pyx_IS_TYPE(obj, type) | (none_allowed && (obj == Py_None)))) ? 1 :\
+        __Pyx__ArgTypeTest(obj, type, name, exact))
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
+
 /* ListAppend.proto */
 #if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
 static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
@@ -2317,6 +2323,7 @@ static const char __pyx_k_class_getitem[] = "__class_getitem__";
 static const char __pyx_k_patch_sklearn[] = "patch_sklearn";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_StandardScaler[] = "StandardScaler";
+static const char __pyx_k_function_array[] = "function_array";
 static const char __pyx_k_optimal_threads[] = "optimal_threads";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
@@ -2339,7 +2346,7 @@ static const char __pyx_k_RealTimeOptimizer_predict_optima[] = "RealTimeOptimize
 static const char __pyx_k_c_Users_pamj0_AppData_Local_Prog[] = "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\pmma\\cython_src\\utility\\pipeline_threads_ml.pyx";
 /* #### Code section: decls ### */
 static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_initial_data(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self, int __pyx_v_max_n, PyObject *__pyx_v_benchmark_function); /* proto */
+static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_initial_data(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self, int __pyx_v_max_n, PyObject *__pyx_v_benchmark_function, PyObject *__pyx_v_function_array); /* proto */
 static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_model(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self, int __pyx_v_n, float __pyx_v_elapsed_time); /* proto */
 static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_optimal_threads(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self, int __pyx_v_max_n); /* proto */
 static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_8__reduce_cython__(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self); /* proto */
@@ -2412,6 +2419,7 @@ typedef struct {
   PyObject *__pyx_n_s_elapsed_time;
   PyObject *__pyx_kp_u_enable;
   PyObject *__pyx_n_s_fit;
+  PyObject *__pyx_n_s_function_array;
   PyObject *__pyx_kp_u_gc;
   PyObject *__pyx_n_s_getstate;
   PyObject *__pyx_n_s_ignore_index;
@@ -2562,6 +2570,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_elapsed_time);
   Py_CLEAR(clear_module_state->__pyx_kp_u_enable);
   Py_CLEAR(clear_module_state->__pyx_n_s_fit);
+  Py_CLEAR(clear_module_state->__pyx_n_s_function_array);
   Py_CLEAR(clear_module_state->__pyx_kp_u_gc);
   Py_CLEAR(clear_module_state->__pyx_n_s_getstate);
   Py_CLEAR(clear_module_state->__pyx_n_s_ignore_index);
@@ -2690,6 +2699,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_elapsed_time);
   Py_VISIT(traverse_module_state->__pyx_kp_u_enable);
   Py_VISIT(traverse_module_state->__pyx_n_s_fit);
+  Py_VISIT(traverse_module_state->__pyx_n_s_function_array);
   Py_VISIT(traverse_module_state->__pyx_kp_u_gc);
   Py_VISIT(traverse_module_state->__pyx_n_s_getstate);
   Py_VISIT(traverse_module_state->__pyx_n_s_ignore_index);
@@ -2828,6 +2838,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_elapsed_time __pyx_mstate_global->__pyx_n_s_elapsed_time
 #define __pyx_kp_u_enable __pyx_mstate_global->__pyx_kp_u_enable
 #define __pyx_n_s_fit __pyx_mstate_global->__pyx_n_s_fit
+#define __pyx_n_s_function_array __pyx_mstate_global->__pyx_n_s_function_array
 #define __pyx_kp_u_gc __pyx_mstate_global->__pyx_kp_u_gc
 #define __pyx_n_s_getstate __pyx_mstate_global->__pyx_n_s_getstate
 #define __pyx_n_s_ignore_index __pyx_mstate_global->__pyx_n_s_ignore_index
@@ -2901,9 +2912,9 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__16 __pyx_mstate_global->__pyx_codeobj__16
 /* #### Code section: module_code ### */
 
-/* "pipeline_threads_ml.pyx":23
- *     cdef object X
+/* "pipeline_threads_ml.pyx":24
  *     cdef object y
+ * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         self.scaler = StandardScaler()
  *         self.model = SGDRegressor()
@@ -2945,51 +2956,14 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 1);
 
-  /* "pipeline_threads_ml.pyx":24
- *     cdef object y
+  /* "pipeline_threads_ml.pyx":25
+ * 
  *     def __init__(self):
  *         self.scaler = StandardScaler()             # <<<<<<<<<<<<<<
  *         self.model = SGDRegressor()
  *         self.initial_data_collected = False
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_StandardScaler); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  __pyx_t_4 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-      __pyx_t_4 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
-    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  }
-  __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v_self->scaler);
-  __Pyx_DECREF(__pyx_v_self->scaler);
-  __pyx_v_self->scaler = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "pipeline_threads_ml.pyx":25
- *     def __init__(self):
- *         self.scaler = StandardScaler()
- *         self.model = SGDRegressor()             # <<<<<<<<<<<<<<
- *         self.initial_data_collected = False
- *         self.data = None
- */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_SGDRegressor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_StandardScaler); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -3014,12 +2988,49 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->scaler);
+  __Pyx_DECREF(__pyx_v_self->scaler);
+  __pyx_v_self->scaler = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "pipeline_threads_ml.pyx":26
+ *     def __init__(self):
+ *         self.scaler = StandardScaler()
+ *         self.model = SGDRegressor()             # <<<<<<<<<<<<<<
+ *         self.initial_data_collected = False
+ *         self.data = None
+ */
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_SGDRegressor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  __pyx_t_4 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->model);
   __Pyx_DECREF(__pyx_v_self->model);
   __pyx_v_self->model = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":26
+  /* "pipeline_threads_ml.pyx":27
  *         self.scaler = StandardScaler()
  *         self.model = SGDRegressor()
  *         self.initial_data_collected = False             # <<<<<<<<<<<<<<
@@ -3028,7 +3039,7 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
  */
   __pyx_v_self->initial_data_collected = 0;
 
-  /* "pipeline_threads_ml.pyx":27
+  /* "pipeline_threads_ml.pyx":28
  *         self.model = SGDRegressor()
  *         self.initial_data_collected = False
  *         self.data = None             # <<<<<<<<<<<<<<
@@ -3041,7 +3052,7 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
   __Pyx_DECREF(__pyx_v_self->data);
   __pyx_v_self->data = Py_None;
 
-  /* "pipeline_threads_ml.pyx":28
+  /* "pipeline_threads_ml.pyx":29
  *         self.initial_data_collected = False
  *         self.data = None
  *         self.X = None             # <<<<<<<<<<<<<<
@@ -3054,12 +3065,12 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
   __Pyx_DECREF(__pyx_v_self->X);
   __pyx_v_self->X = Py_None;
 
-  /* "pipeline_threads_ml.pyx":29
+  /* "pipeline_threads_ml.pyx":30
  *         self.data = None
  *         self.X = None
  *         self.y = None             # <<<<<<<<<<<<<<
  * 
- *     def collect_initial_data(self, int max_n, object benchmark_function):
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):
  */
   __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(Py_None);
@@ -3067,9 +3078,9 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
   __Pyx_DECREF(__pyx_v_self->y);
   __pyx_v_self->y = Py_None;
 
-  /* "pipeline_threads_ml.pyx":23
- *     cdef object X
+  /* "pipeline_threads_ml.pyx":24
  *     cdef object y
+ * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         self.scaler = StandardScaler()
  *         self.model = SGDRegressor()
@@ -3089,10 +3100,10 @@ static int __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer___init__(struct __
   return __pyx_r;
 }
 
-/* "pipeline_threads_ml.pyx":31
+/* "pipeline_threads_ml.pyx":32
  *         self.y = None
  * 
- *     def collect_initial_data(self, int max_n, object benchmark_function):             # <<<<<<<<<<<<<<
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):             # <<<<<<<<<<<<<<
  *         cdef list data = []
  *         for n in range(1, max_n + 1):
  */
@@ -3115,11 +3126,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 ) {
   int __pyx_v_max_n;
   PyObject *__pyx_v_benchmark_function = 0;
+  PyObject *__pyx_v_function_array = 0;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[2] = {0,0};
+  PyObject* values[3] = {0,0,0};
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3135,10 +3147,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   #endif
   __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_max_n,&__pyx_n_s_benchmark_function,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_max_n,&__pyx_n_s_benchmark_function,&__pyx_n_s_function_array,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
@@ -3153,7 +3167,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -3161,27 +3175,39 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("collect_initial_data", 1, 2, 2, 1); __PYX_ERR(0, 31, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("collect_initial_data", 1, 3, 3, 1); __PYX_ERR(0, 32, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_function_array)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("collect_initial_data", 1, 3, 3, 2); __PYX_ERR(0, 32, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "collect_initial_data") < 0)) __PYX_ERR(0, 31, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "collect_initial_data") < 0)) __PYX_ERR(0, 32, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 2)) {
+    } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
     }
-    __pyx_v_max_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_max_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+    __pyx_v_max_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_max_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
     __pyx_v_benchmark_function = values[1];
+    __pyx_v_function_array = ((PyObject*)values[2]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("collect_initial_data", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 31, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("collect_initial_data", 1, 3, 3, __pyx_nargs); __PYX_ERR(0, 32, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3195,9 +3221,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_initial_data(((struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *)__pyx_v_self), __pyx_v_max_n, __pyx_v_benchmark_function);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function_array), (&PyList_Type), 1, "function_array", 1))) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_r = __pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_initial_data(((struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *)__pyx_v_self), __pyx_v_max_n, __pyx_v_benchmark_function, __pyx_v_function_array);
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
   {
     Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
@@ -3208,7 +3239,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_initial_data(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self, int __pyx_v_max_n, PyObject *__pyx_v_benchmark_function) {
+static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_initial_data(struct __pyx_obj_19pipeline_threads_ml_RealTimeOptimizer *__pyx_v_self, int __pyx_v_max_n, PyObject *__pyx_v_benchmark_function, PyObject *__pyx_v_function_array) {
   PyObject *__pyx_v_data = 0;
   long __pyx_v_n;
   PyObject *__pyx_v_elapsed_time = NULL;
@@ -3229,23 +3260,23 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("collect_initial_data", 1);
 
-  /* "pipeline_threads_ml.pyx":32
+  /* "pipeline_threads_ml.pyx":33
  * 
- *     def collect_initial_data(self, int max_n, object benchmark_function):
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):
  *         cdef list data = []             # <<<<<<<<<<<<<<
  *         for n in range(1, max_n + 1):
- *             elapsed_time = benchmark_function(n)
+ *             elapsed_time = benchmark_function(function_array, n)
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_data = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":33
- *     def collect_initial_data(self, int max_n, object benchmark_function):
+  /* "pipeline_threads_ml.pyx":34
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):
  *         cdef list data = []
  *         for n in range(1, max_n + 1):             # <<<<<<<<<<<<<<
- *             elapsed_time = benchmark_function(n)
+ *             elapsed_time = benchmark_function(function_array, n)
  *             data.append((n, elapsed_time))
  */
   __pyx_t_2 = (__pyx_v_max_n + 1);
@@ -3253,14 +3284,14 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
   for (__pyx_t_4 = 1; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_n = __pyx_t_4;
 
-    /* "pipeline_threads_ml.pyx":34
+    /* "pipeline_threads_ml.pyx":35
  *         cdef list data = []
  *         for n in range(1, max_n + 1):
- *             elapsed_time = benchmark_function(n)             # <<<<<<<<<<<<<<
+ *             elapsed_time = benchmark_function(function_array, n)             # <<<<<<<<<<<<<<
  *             data.append((n, elapsed_time))
  *         self.data = pd.DataFrame(data, columns=['threads', 'time'])
  */
-    __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 34, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 35, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_v_benchmark_function);
     __pyx_t_6 = __pyx_v_benchmark_function; __pyx_t_7 = NULL;
@@ -3278,68 +3309,68 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
     }
     #endif
     {
-      PyObject *__pyx_callargs[2] = {__pyx_t_7, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_8, 1+__pyx_t_8);
+      PyObject *__pyx_callargs[3] = {__pyx_t_7, __pyx_v_function_array, __pyx_t_5};
+      __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_8, 2+__pyx_t_8);
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
     __Pyx_XDECREF_SET(__pyx_v_elapsed_time, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pipeline_threads_ml.pyx":35
+    /* "pipeline_threads_ml.pyx":36
  *         for n in range(1, max_n + 1):
- *             elapsed_time = benchmark_function(n)
+ *             elapsed_time = benchmark_function(function_array, n)
  *             data.append((n, elapsed_time))             # <<<<<<<<<<<<<<
  *         self.data = pd.DataFrame(data, columns=['threads', 'time'])
  *         self.X = self.data[['threads']]
  */
-    __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_1);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error);
     __Pyx_INCREF(__pyx_v_elapsed_time);
     __Pyx_GIVEREF(__pyx_v_elapsed_time);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_elapsed_time)) __PYX_ERR(0, 35, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_elapsed_time)) __PYX_ERR(0, 36, __pyx_L1_error);
     __pyx_t_1 = 0;
-    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_data, __pyx_t_6); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_data, __pyx_t_6); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 36, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
 
-  /* "pipeline_threads_ml.pyx":36
- *             elapsed_time = benchmark_function(n)
+  /* "pipeline_threads_ml.pyx":37
+ *             elapsed_time = benchmark_function(function_array, n)
  *             data.append((n, elapsed_time))
  *         self.data = pd.DataFrame(data, columns=['threads', 'time'])             # <<<<<<<<<<<<<<
  *         self.X = self.data[['threads']]
  *         self.y = self.data['time']
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pd); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pd); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_data);
   __Pyx_GIVEREF(__pyx_v_data);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_data)) __PYX_ERR(0, 36, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_data)) __PYX_ERR(0, 37, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = PyList_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_n_s_threads);
   __Pyx_GIVEREF(__pyx_n_s_threads);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_n_s_threads)) __PYX_ERR(0, 36, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_n_s_threads)) __PYX_ERR(0, 37, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_time);
   __Pyx_GIVEREF(__pyx_n_s_time);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_n_s_time)) __PYX_ERR(0, 36, __pyx_L1_error);
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_columns, __pyx_t_7) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 1, __pyx_n_s_time)) __PYX_ERR(0, 37, __pyx_L1_error);
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_columns, __pyx_t_7) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 36, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -3350,19 +3381,19 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
   __pyx_v_self->data = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "pipeline_threads_ml.pyx":37
+  /* "pipeline_threads_ml.pyx":38
  *             data.append((n, elapsed_time))
  *         self.data = pd.DataFrame(data, columns=['threads', 'time'])
  *         self.X = self.data[['threads']]             # <<<<<<<<<<<<<<
  *         self.y = self.data['time']
  * 
  */
-  __pyx_t_7 = PyList_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_7 = PyList_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_n_s_threads);
   __Pyx_GIVEREF(__pyx_n_s_threads);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_n_s_threads)) __PYX_ERR(0, 37, __pyx_L1_error);
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_self->data, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_7, 0, __pyx_n_s_threads)) __PYX_ERR(0, 38, __pyx_L1_error);
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_self->data, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_GIVEREF(__pyx_t_5);
@@ -3371,14 +3402,14 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
   __pyx_v_self->X = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "pipeline_threads_ml.pyx":38
+  /* "pipeline_threads_ml.pyx":39
  *         self.data = pd.DataFrame(data, columns=['threads', 'time'])
  *         self.X = self.data[['threads']]
  *         self.y = self.data['time']             # <<<<<<<<<<<<<<
  * 
  *         # Scale the features
  */
-  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_self->data, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_v_self->data, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_5);
   __Pyx_GOTREF(__pyx_v_self->y);
@@ -3386,47 +3417,14 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
   __pyx_v_self->y = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "pipeline_threads_ml.pyx":41
+  /* "pipeline_threads_ml.pyx":42
  * 
  *         # Scale the features
  *         self.scaler.fit(self.X)             # <<<<<<<<<<<<<<
  *         X_scaled = self.scaler.transform(self.X)
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_fit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = NULL;
-  __pyx_t_8 = 0;
-  #if CYTHON_UNPACK_METHODS
-  if (likely(PyMethod_Check(__pyx_t_7))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_7);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-      __Pyx_INCREF(__pyx_t_6);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_7, function);
-      __pyx_t_8 = 1;
-    }
-  }
-  #endif
-  {
-    PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_v_self->X};
-    __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_8, 1+__pyx_t_8);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-  /* "pipeline_threads_ml.pyx":42
- *         # Scale the features
- *         self.scaler.fit(self.X)
- *         X_scaled = self.scaler.transform(self.X)             # <<<<<<<<<<<<<<
- * 
- *         self.model.fit(X_scaled, self.y)
- */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_transform); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_fit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = NULL;
   __pyx_t_8 = 0;
@@ -3450,17 +3448,50 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pipeline_threads_ml.pyx":43
+ *         # Scale the features
+ *         self.scaler.fit(self.X)
+ *         X_scaled = self.scaler.transform(self.X)             # <<<<<<<<<<<<<<
+ * 
+ *         self.model.fit(X_scaled, self.y)
+ */
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_transform); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_6 = NULL;
+  __pyx_t_8 = 0;
+  #if CYTHON_UNPACK_METHODS
+  if (likely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_6)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_6);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
+      __pyx_t_8 = 1;
+    }
+  }
+  #endif
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_6, __pyx_v_self->X};
+    __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_8, 1+__pyx_t_8);
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  }
   __pyx_v_X_scaled = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "pipeline_threads_ml.pyx":44
+  /* "pipeline_threads_ml.pyx":45
  *         X_scaled = self.scaler.transform(self.X)
  * 
  *         self.model.fit(X_scaled, self.y)             # <<<<<<<<<<<<<<
  *         self.initial_data_collected = True
  * 
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->model, __pyx_n_s_fit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->model, __pyx_n_s_fit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_6 = NULL;
   __pyx_t_8 = 0;
@@ -3480,13 +3511,13 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
     PyObject *__pyx_callargs[3] = {__pyx_t_6, __pyx_v_X_scaled, __pyx_v_self->y};
     __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_7, __pyx_callargs+1-__pyx_t_8, 2+__pyx_t_8);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 44, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 45, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "pipeline_threads_ml.pyx":45
+  /* "pipeline_threads_ml.pyx":46
  * 
  *         self.model.fit(X_scaled, self.y)
  *         self.initial_data_collected = True             # <<<<<<<<<<<<<<
@@ -3495,10 +3526,10 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
  */
   __pyx_v_self->initial_data_collected = 1;
 
-  /* "pipeline_threads_ml.pyx":31
+  /* "pipeline_threads_ml.pyx":32
  *         self.y = None
  * 
- *     def collect_initial_data(self, int max_n, object benchmark_function):             # <<<<<<<<<<<<<<
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):             # <<<<<<<<<<<<<<
  *         cdef list data = []
  *         for n in range(1, max_n + 1):
  */
@@ -3522,7 +3553,7 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_2collect_ini
   return __pyx_r;
 }
 
-/* "pipeline_threads_ml.pyx":47
+/* "pipeline_threads_ml.pyx":48
  *         self.initial_data_collected = True
  * 
  *     def update_model(self, int n, float elapsed_time):             # <<<<<<<<<<<<<<
@@ -3586,7 +3617,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -3594,14 +3625,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("update_model", 1, 2, 2, 1); __PYX_ERR(0, 47, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("update_model", 1, 2, 2, 1); __PYX_ERR(0, 48, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "update_model") < 0)) __PYX_ERR(0, 47, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "update_model") < 0)) __PYX_ERR(0, 48, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -3609,12 +3640,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L3_error)
-    __pyx_v_elapsed_time = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_elapsed_time == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L3_error)
+    __pyx_v_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L3_error)
+    __pyx_v_elapsed_time = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_elapsed_time == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("update_model", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 47, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("update_model", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 48, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3656,53 +3687,53 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("update_model", 1);
 
-  /* "pipeline_threads_ml.pyx":48
+  /* "pipeline_threads_ml.pyx":49
  * 
  *     def update_model(self, int n, float elapsed_time):
  *         new_data = pd.DataFrame([[n, elapsed_time]], columns=['threads', 'time'])             # <<<<<<<<<<<<<<
  *         self.data = pd.concat([self.data, new_data], ignore_index=True)
  *         self.X = self.data[['threads']]
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_elapsed_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_elapsed_time); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 1, __pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error);
   __pyx_t_1 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_3, 0, __pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error);
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_3);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_threads);
   __Pyx_GIVEREF(__pyx_n_s_threads);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_threads)) __PYX_ERR(0, 48, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_threads)) __PYX_ERR(0, 49, __pyx_L1_error);
   __Pyx_INCREF(__pyx_n_s_time);
   __Pyx_GIVEREF(__pyx_n_s_time);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_time)) __PYX_ERR(0, 48, __pyx_L1_error);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_columns, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 1, __pyx_n_s_time)) __PYX_ERR(0, 49, __pyx_L1_error);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_columns, __pyx_t_1) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3710,35 +3741,35 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
   __pyx_v_new_data = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":49
+  /* "pipeline_threads_ml.pyx":50
  *     def update_model(self, int n, float elapsed_time):
  *         new_data = pd.DataFrame([[n, elapsed_time]], columns=['threads', 'time'])
  *         self.data = pd.concat([self.data, new_data], ignore_index=True)             # <<<<<<<<<<<<<<
  *         self.X = self.data[['threads']]
  *         self.y = self.data['time']
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_concat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_concat); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_self->data);
   __Pyx_GIVEREF(__pyx_v_self->data);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, __pyx_v_self->data)) __PYX_ERR(0, 49, __pyx_L1_error);
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 0, __pyx_v_self->data)) __PYX_ERR(0, 50, __pyx_L1_error);
   __Pyx_INCREF(__pyx_v_new_data);
   __Pyx_GIVEREF(__pyx_v_new_data);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 1, __pyx_v_new_data)) __PYX_ERR(0, 49, __pyx_L1_error);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_1, 1, __pyx_v_new_data)) __PYX_ERR(0, 50, __pyx_L1_error);
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_ignore_index, Py_True) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_ignore_index, Py_True) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3749,19 +3780,19 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
   __pyx_v_self->data = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pipeline_threads_ml.pyx":50
+  /* "pipeline_threads_ml.pyx":51
  *         new_data = pd.DataFrame([[n, elapsed_time]], columns=['threads', 'time'])
  *         self.data = pd.concat([self.data, new_data], ignore_index=True)
  *         self.X = self.data[['threads']]             # <<<<<<<<<<<<<<
  *         self.y = self.data['time']
  * 
  */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_threads);
   __Pyx_GIVEREF(__pyx_n_s_threads);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_threads)) __PYX_ERR(0, 50, __pyx_L1_error);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_self->data, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_threads)) __PYX_ERR(0, 51, __pyx_L1_error);
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_self->data, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
@@ -3770,14 +3801,14 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
   __pyx_v_self->X = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":51
+  /* "pipeline_threads_ml.pyx":52
  *         self.data = pd.concat([self.data, new_data], ignore_index=True)
  *         self.X = self.data[['threads']]
  *         self.y = self.data['time']             # <<<<<<<<<<<<<<
  * 
  *         # Scale the new data
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_self->data, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_self->data, __pyx_n_s_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->y);
@@ -3785,14 +3816,14 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
   __pyx_v_self->y = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":54
+  /* "pipeline_threads_ml.pyx":55
  * 
  *         # Scale the new data
  *         X_scaled = self.scaler.transform(self.X)             # <<<<<<<<<<<<<<
  * 
  *         self.model.partial_fit(X_scaled, self.y)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_transform); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_transform); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -3812,21 +3843,21 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
     PyObject *__pyx_callargs[2] = {__pyx_t_4, __pyx_v_self->X};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_X_scaled = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":56
+  /* "pipeline_threads_ml.pyx":57
  *         X_scaled = self.scaler.transform(self.X)
  * 
  *         self.model.partial_fit(X_scaled, self.y)             # <<<<<<<<<<<<<<
  * 
  *     def predict_optimal_threads(self, int max_n):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->model, __pyx_n_s_partial_fit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->model, __pyx_n_s_partial_fit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -3846,13 +3877,13 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
     PyObject *__pyx_callargs[3] = {__pyx_t_4, __pyx_v_X_scaled, __pyx_v_self->y};
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":47
+  /* "pipeline_threads_ml.pyx":48
  *         self.initial_data_collected = True
  * 
  *     def update_model(self, int n, float elapsed_time):             # <<<<<<<<<<<<<<
@@ -3878,7 +3909,7 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_4update_mode
   return __pyx_r;
 }
 
-/* "pipeline_threads_ml.pyx":58
+/* "pipeline_threads_ml.pyx":59
  *         self.model.partial_fit(X_scaled, self.y)
  * 
  *     def predict_optimal_threads(self, int max_n):             # <<<<<<<<<<<<<<
@@ -3939,23 +3970,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 58, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "predict_optimal_threads") < 0)) __PYX_ERR(0, 58, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "predict_optimal_threads") < 0)) __PYX_ERR(0, 59, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_max_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_max_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 58, __pyx_L3_error)
+    __pyx_v_max_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_max_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 59, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("predict_optimal_threads", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 58, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("predict_optimal_threads", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 59, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4000,19 +4031,19 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_opt
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("predict_optimal_threads", 1);
 
-  /* "pipeline_threads_ml.pyx":59
+  /* "pipeline_threads_ml.pyx":60
  * 
  *     def predict_optimal_threads(self, int max_n):
  *         X_new = np.arange(1, max_n + 1).reshape(-1, 1)             # <<<<<<<<<<<<<<
  * 
  *         # Ensure X_new is a DataFrame to match the fitted scaler's expectations
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_arange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_arange); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_max_n + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_max_n + 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   __pyx_t_5 = 0;
@@ -4033,46 +4064,46 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_opt
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_reshape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_X_new = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":62
+  /* "pipeline_threads_ml.pyx":63
  * 
  *         # Ensure X_new is a DataFrame to match the fitted scaler's expectations
  *         X_new_df = pd.DataFrame(X_new, columns=['threads'])             # <<<<<<<<<<<<<<
  * 
  *         # Scale the new data
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pd); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_DataFrame); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_v_X_new);
   __Pyx_GIVEREF(__pyx_v_X_new);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_X_new)) __PYX_ERR(0, 62, __pyx_L1_error);
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_X_new)) __PYX_ERR(0, 63, __pyx_L1_error);
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_n_s_threads);
   __Pyx_GIVEREF(__pyx_n_s_threads);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_s_threads)) __PYX_ERR(0, 62, __pyx_L1_error);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_columns, __pyx_t_4) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_s_threads)) __PYX_ERR(0, 63, __pyx_L1_error);
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_columns, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4080,14 +4111,14 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_opt
   __pyx_v_X_new_df = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pipeline_threads_ml.pyx":65
+  /* "pipeline_threads_ml.pyx":66
  * 
  *         # Scale the new data
  *         X_new_scaled = self.scaler.transform(X_new_df)             # <<<<<<<<<<<<<<
  * 
  *         y_pred = self.model.predict(X_new_scaled)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_transform); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->scaler, __pyx_n_s_transform); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   __pyx_t_5 = 0;
@@ -4107,21 +4138,21 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_opt
     PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_X_new_df};
     __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_X_new_scaled = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pipeline_threads_ml.pyx":67
+  /* "pipeline_threads_ml.pyx":68
  *         X_new_scaled = self.scaler.transform(X_new_df)
  * 
  *         y_pred = self.model.predict(X_new_scaled)             # <<<<<<<<<<<<<<
  *         optimal_threads = X_new[np.argmin(y_pred)]
  *         return optimal_threads[0]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->model, __pyx_n_s_predict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->model, __pyx_n_s_predict); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = NULL;
   __pyx_t_5 = 0;
@@ -4141,22 +4172,22 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_opt
     PyObject *__pyx_callargs[2] = {__pyx_t_1, __pyx_v_X_new_scaled};
     __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 67, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __pyx_v_y_pred = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "pipeline_threads_ml.pyx":68
+  /* "pipeline_threads_ml.pyx":69
  * 
  *         y_pred = self.model.predict(X_new_scaled)
  *         optimal_threads = X_new[np.argmin(y_pred)]             # <<<<<<<<<<<<<<
  *         return optimal_threads[0]
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_argmin); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_argmin); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4177,29 +4208,29 @@ static PyObject *__pyx_pf_19pipeline_threads_ml_17RealTimeOptimizer_6predict_opt
     PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_v_y_pred};
     __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_5, 1+__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_X_new, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_X_new, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_optimal_threads = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pipeline_threads_ml.pyx":69
+  /* "pipeline_threads_ml.pyx":70
  *         y_pred = self.model.predict(X_new_scaled)
  *         optimal_threads = X_new[np.argmin(y_pred)]
  *         return optimal_threads[0]             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_optimal_threads, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_optimal_threads, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pipeline_threads_ml.pyx":58
+  /* "pipeline_threads_ml.pyx":59
  *         self.model.partial_fit(X_scaled, self.y)
  * 
  *     def predict_optimal_threads(self, int max_n):             # <<<<<<<<<<<<<<
@@ -5417,6 +5448,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_elapsed_time, __pyx_k_elapsed_time, sizeof(__pyx_k_elapsed_time), 0, 0, 1, 1},
     {&__pyx_kp_u_enable, __pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0, 0},
     {&__pyx_n_s_fit, __pyx_k_fit, sizeof(__pyx_k_fit), 0, 0, 1, 1},
+    {&__pyx_n_s_function_array, __pyx_k_function_array, sizeof(__pyx_k_function_array), 0, 0, 1, 1},
     {&__pyx_kp_u_gc, __pyx_k_gc, sizeof(__pyx_k_gc), 0, 1, 0, 0},
     {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
     {&__pyx_n_s_ignore_index, __pyx_k_ignore_index, sizeof(__pyx_k_ignore_index), 0, 0, 1, 1},
@@ -5475,7 +5507,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 34, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -5486,14 +5518,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pipeline_threads_ml.pyx":59
+  /* "pipeline_threads_ml.pyx":60
  * 
  *     def predict_optimal_threads(self, int max_n):
  *         X_new = np.arange(1, max_n + 1).reshape(-1, 1)             # <<<<<<<<<<<<<<
  * 
  *         # Ensure X_new is a DataFrame to match the fitted scaler's expectations
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(2, __pyx_int_neg_1, __pyx_int_1); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
@@ -5508,41 +5540,41 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pipeline_threads_ml.pyx":31
+  /* "pipeline_threads_ml.pyx":32
  *         self.y = None
  * 
- *     def collect_initial_data(self, int max_n, object benchmark_function):             # <<<<<<<<<<<<<<
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):             # <<<<<<<<<<<<<<
  *         cdef list data = []
  *         for n in range(1, max_n + 1):
  */
-  __pyx_tuple__5 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_max_n, __pyx_n_s_benchmark_function, __pyx_n_s_data, __pyx_n_s_n, __pyx_n_s_elapsed_time, __pyx_n_s_X_scaled); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(8, __pyx_n_s_self, __pyx_n_s_max_n, __pyx_n_s_benchmark_function, __pyx_n_s_function_array, __pyx_n_s_data, __pyx_n_s_n, __pyx_n_s_elapsed_time, __pyx_n_s_X_scaled); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_collect_initial_data, 31, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_collect_initial_data, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pipeline_threads_ml.pyx":47
+  /* "pipeline_threads_ml.pyx":48
  *         self.initial_data_collected = True
  * 
  *     def update_model(self, int n, float elapsed_time):             # <<<<<<<<<<<<<<
  *         new_data = pd.DataFrame([[n, elapsed_time]], columns=['threads', 'time'])
  *         self.data = pd.concat([self.data, new_data], ignore_index=True)
  */
-  __pyx_tuple__7 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_n, __pyx_n_s_elapsed_time, __pyx_n_s_new_data, __pyx_n_s_X_scaled); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_n, __pyx_n_s_elapsed_time, __pyx_n_s_new_data, __pyx_n_s_X_scaled); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_update_model, 47, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_update_model, 48, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 48, __pyx_L1_error)
 
-  /* "pipeline_threads_ml.pyx":58
+  /* "pipeline_threads_ml.pyx":59
  *         self.model.partial_fit(X_scaled, self.y)
  * 
  *     def predict_optimal_threads(self, int max_n):             # <<<<<<<<<<<<<<
  *         X_new = np.arange(1, max_n + 1).reshape(-1, 1)
  * 
  */
-  __pyx_tuple__9 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_max_n, __pyx_n_s_X_new, __pyx_n_s_X_new_df, __pyx_n_s_X_new_scaled, __pyx_n_s_y_pred, __pyx_n_s_optimal_threads); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_max_n, __pyx_n_s_X_new, __pyx_n_s_X_new_df, __pyx_n_s_X_new_scaled, __pyx_n_s_y_pred, __pyx_n_s_optimal_threads); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_predict_optimal_threads, 58, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_predict_optimal_threads, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 59, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -6137,42 +6169,42 @@ if (!__Pyx_RefNanny) {
     __pyx_L7_try_end:;
   }
 
-  /* "pipeline_threads_ml.pyx":31
+  /* "pipeline_threads_ml.pyx":32
  *         self.y = None
  * 
- *     def collect_initial_data(self, int max_n, object benchmark_function):             # <<<<<<<<<<<<<<
+ *     def collect_initial_data(self, int max_n, object benchmark_function, list function_array):             # <<<<<<<<<<<<<<
  *         cdef list data = []
  *         for n in range(1, max_n + 1):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19pipeline_threads_ml_17RealTimeOptimizer_3collect_initial_data, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_RealTimeOptimizer_collect_initia, NULL, __pyx_n_s_pipeline_threads_ml, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19pipeline_threads_ml_17RealTimeOptimizer_3collect_initial_data, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_RealTimeOptimizer_collect_initia, NULL, __pyx_n_s_pipeline_threads_ml, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer, __pyx_n_s_collect_initial_data, __pyx_t_2) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer, __pyx_n_s_collect_initial_data, __pyx_t_2) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer);
 
-  /* "pipeline_threads_ml.pyx":47
+  /* "pipeline_threads_ml.pyx":48
  *         self.initial_data_collected = True
  * 
  *     def update_model(self, int n, float elapsed_time):             # <<<<<<<<<<<<<<
  *         new_data = pd.DataFrame([[n, elapsed_time]], columns=['threads', 'time'])
  *         self.data = pd.concat([self.data, new_data], ignore_index=True)
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19pipeline_threads_ml_17RealTimeOptimizer_5update_model, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_RealTimeOptimizer_update_model, NULL, __pyx_n_s_pipeline_threads_ml, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19pipeline_threads_ml_17RealTimeOptimizer_5update_model, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_RealTimeOptimizer_update_model, NULL, __pyx_n_s_pipeline_threads_ml, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer, __pyx_n_s_update_model, __pyx_t_2) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer, __pyx_n_s_update_model, __pyx_t_2) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer);
 
-  /* "pipeline_threads_ml.pyx":58
+  /* "pipeline_threads_ml.pyx":59
  *         self.model.partial_fit(X_scaled, self.y)
  * 
  *     def predict_optimal_threads(self, int max_n):             # <<<<<<<<<<<<<<
  *         X_new = np.arange(1, max_n + 1).reshape(-1, 1)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19pipeline_threads_ml_17RealTimeOptimizer_7predict_optimal_threads, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_RealTimeOptimizer_predict_optima, NULL, __pyx_n_s_pipeline_threads_ml, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19pipeline_threads_ml_17RealTimeOptimizer_7predict_optimal_threads, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_RealTimeOptimizer_predict_optima, NULL, __pyx_n_s_pipeline_threads_ml, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer, __pyx_n_s_predict_optimal_threads, __pyx_t_2) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer, __pyx_n_s_predict_optimal_threads, __pyx_t_2) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_19pipeline_threads_ml_RealTimeOptimizer);
 
@@ -7260,6 +7292,33 @@ bad:
     Py_XDECREF(key);
     Py_XDECREF(value);
     return -1;
+}
+
+/* ArgTypeTest */
+static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
+{
+    __Pyx_TypeName type_name;
+    __Pyx_TypeName obj_type_name;
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    else if (exact) {
+        #if PY_MAJOR_VERSION == 2
+        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
+        #endif
+    }
+    else {
+        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
+    }
+    type_name = __Pyx_PyType_GetName(type);
+    obj_type_name = __Pyx_PyType_GetName(Py_TYPE(obj));
+    PyErr_Format(PyExc_TypeError,
+        "Argument '%.200s' has incorrect type (expected " __Pyx_FMT_TYPENAME
+        ", got " __Pyx_FMT_TYPENAME ")", name, type_name, obj_type_name);
+    __Pyx_DECREF_TypeName(type_name);
+    __Pyx_DECREF_TypeName(obj_type_name);
+    return 0;
 }
 
 /* GetItemInt */

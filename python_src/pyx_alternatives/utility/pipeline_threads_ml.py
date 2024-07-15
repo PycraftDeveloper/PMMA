@@ -1,7 +1,7 @@
+# distutils: language = c++
 import pandas as pd
 from sklearn.linear_model import SGDRegressor
 from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline
 import numpy as np
 
 try:
@@ -17,11 +17,14 @@ class RealTimeOptimizer:
         self.scaler = StandardScaler()
         self.model = SGDRegressor()
         self.initial_data_collected = False
+        self.data = None
+        self.X = None
+        self.y = None
 
-    def collect_initial_data(self, max_n, benchmark_function):
+    def collect_initial_data(self, max_n, benchmark_function, function_array):
         data = []
         for n in range(1, max_n + 1):
-            elapsed_time = benchmark_function(n)
+            elapsed_time = benchmark_function(function_array, n)
             data.append((n, elapsed_time))
         self.data = pd.DataFrame(data, columns=['threads', 'time'])
         self.X = self.data[['threads']]

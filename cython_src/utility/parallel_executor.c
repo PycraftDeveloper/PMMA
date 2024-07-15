@@ -2019,6 +2019,12 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 #define __Pyx_PyObject_FastCall(func, args, nargs)  __Pyx_PyObject_FastCallDict(func, args, (size_t)(nargs), NULL)
 static CYTHON_INLINE PyObject* __Pyx_PyObject_FastCallDict(PyObject *func, PyObject **args, size_t nargs, PyObject *kwargs);
 
+/* PyDictContains.proto */
+static CYTHON_INLINE int __Pyx_PyDict_ContainsTF(PyObject* item, PyObject* dict, int eq) {
+    int result = PyDict_Contains(dict, item);
+    return unlikely(result < 0) ? result : (result == (eq == Py_EQ));
+}
+
 /* DictGetItem.proto */
 #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
 static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key);
@@ -2336,7 +2342,6 @@ static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_cfunc_to_py[] = "cfunc.to_py";
-static const char __pyx_k_as_completed[] = "as_completed";
 static const char __pyx_k_initializing[] = "_initializing";
 static const char __pyx_k_is_coroutine[] = "_is_coroutine";
 static const char __pyx_k_perf_counter[] = "perf_counter";
@@ -2419,7 +2424,6 @@ typedef struct {
   PyObject *__pyx_n_s__15;
   PyObject *__pyx_kp_u__5;
   PyObject *__pyx_n_s__6;
-  PyObject *__pyx_n_s_as_completed;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_s_batch_functions;
   PyObject *__pyx_kp_s_c_Users_pamj0_AppData_Local_Prog;
@@ -2545,7 +2549,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s__15);
   Py_CLEAR(clear_module_state->__pyx_kp_u__5);
   Py_CLEAR(clear_module_state->__pyx_n_s__6);
-  Py_CLEAR(clear_module_state->__pyx_n_s_as_completed);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_s_batch_functions);
   Py_CLEAR(clear_module_state->__pyx_kp_s_c_Users_pamj0_AppData_Local_Prog);
@@ -2649,7 +2652,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s__15);
   Py_VISIT(traverse_module_state->__pyx_kp_u__5);
   Py_VISIT(traverse_module_state->__pyx_n_s__6);
-  Py_VISIT(traverse_module_state->__pyx_n_s_as_completed);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_s_batch_functions);
   Py_VISIT(traverse_module_state->__pyx_kp_s_c_Users_pamj0_AppData_Local_Prog);
@@ -2765,7 +2767,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s__15 __pyx_mstate_global->__pyx_n_s__15
 #define __pyx_kp_u__5 __pyx_mstate_global->__pyx_kp_u__5
 #define __pyx_n_s__6 __pyx_mstate_global->__pyx_n_s__6
-#define __pyx_n_s_as_completed __pyx_mstate_global->__pyx_n_s_as_completed
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_s_batch_functions __pyx_mstate_global->__pyx_n_s_batch_functions
 #define __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog __pyx_mstate_global->__pyx_kp_s_c_Users_pamj0_AppData_Local_Prog
@@ -3167,6 +3168,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_run_compute_func
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   int __pyx_t_6;
+  int __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3277,7 +3279,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_run_compute_func
  *             result = function()
  *             end = time.perf_counter()             # <<<<<<<<<<<<<<
  *             total_execution_time = end-start
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+ *             if function in self.parallel_functions:
  */
     __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 18, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
@@ -3313,8 +3315,8 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_run_compute_func
  *             result = function()
  *             end = time.perf_counter()
  *             total_execution_time = end-start             # <<<<<<<<<<<<<<
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
- * 
+ *             if function in self.parallel_functions:
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
  */
     __pyx_t_3 = PyNumber_Subtract(__pyx_v_end, __pyx_v_start); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
@@ -3324,34 +3326,80 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_run_compute_func
     /* "parallel_executor.pyx":20
  *             end = time.perf_counter()
  *             total_execution_time = end-start
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}             # <<<<<<<<<<<<<<
+ *             if function in self.parallel_functions:             # <<<<<<<<<<<<<<
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+ *             else:
+ */
+    if (unlikely(__pyx_v_self->parallel_functions == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+      __PYX_ERR(0, 20, __pyx_L1_error)
+    }
+    __pyx_t_7 = (__Pyx_PyDict_ContainsTF(__pyx_v_function, __pyx_v_self->parallel_functions, Py_EQ)); if (unlikely((__pyx_t_7 < 0))) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (__pyx_t_7) {
+
+      /* "parallel_executor.pyx":21
+ *             total_execution_time = end-start
+ *             if function in self.parallel_functions:
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}             # <<<<<<<<<<<<<<
+ *             else:
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}
+ */
+      __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_result, __pyx_v_result) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+      if (unlikely(__pyx_v_self->parallel_functions == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 21, __pyx_L1_error)
+      }
+      __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->parallel_functions, __pyx_v_function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_total_execution_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_v_total_execution_time); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_total_execution_time, __pyx_t_4) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_run_in_parallel, Py_True) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+      if (unlikely(__pyx_v_self->parallel_functions == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 21, __pyx_L1_error)
+      }
+      if (unlikely((PyDict_SetItem(__pyx_v_self->parallel_functions, __pyx_v_function, __pyx_t_3) < 0))) __PYX_ERR(0, 21, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+      /* "parallel_executor.pyx":20
+ *             end = time.perf_counter()
+ *             total_execution_time = end-start
+ *             if function in self.parallel_functions:             # <<<<<<<<<<<<<<
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+ *             else:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "parallel_executor.pyx":23
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+ *             else:
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}             # <<<<<<<<<<<<<<
  * 
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):
  */
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_result, __pyx_v_result) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
-    if (unlikely(__pyx_v_self->parallel_functions == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 20, __pyx_L1_error)
+    /*else*/ {
+      __pyx_t_3 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_3);
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_result, __pyx_v_result) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_total_execution_time, __pyx_v_total_execution_time) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_run_in_parallel, Py_True) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+      if (unlikely(__pyx_v_self->parallel_functions == Py_None)) {
+        PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+        __PYX_ERR(0, 23, __pyx_L1_error)
+      }
+      if (unlikely((PyDict_SetItem(__pyx_v_self->parallel_functions, __pyx_v_function, __pyx_t_3) < 0))) __PYX_ERR(0, 23, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->parallel_functions, __pyx_v_function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 20, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_total_execution_time); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 20, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Add(__pyx_t_5, __pyx_v_total_execution_time); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 20, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_total_execution_time, __pyx_t_4) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_run_in_parallel, Py_True) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
-    if (unlikely(__pyx_v_self->parallel_functions == Py_None)) {
-      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 20, __pyx_L1_error)
-    }
-    if (unlikely((PyDict_SetItem(__pyx_v_self->parallel_functions, __pyx_v_function, __pyx_t_3) < 0))) __PYX_ERR(0, 20, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_L5:;
 
     /* "parallel_executor.pyx":15
  *     @cython.exceptval(check=False)
@@ -3392,8 +3440,8 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_run_compute_func
   return __pyx_r;
 }
 
-/* "parallel_executor.pyx":22
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+/* "parallel_executor.pyx":25
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}
  * 
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):             # <<<<<<<<<<<<<<
  *         self.parallel_functions = parallel_functions
@@ -3446,7 +3494,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_typedict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_execute_batch_in_parallel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_execute_batch_in_parallel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!__Pyx_IsSameCFunction(__pyx_t_1, (void*) __pyx_pw_17parallel_executor_16ParallelExecutor_3execute_batch_in_parallel)) {
         __Pyx_XDECREF(__pyx_r);
@@ -3469,11 +3517,11 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
           PyObject *__pyx_callargs[3] = {__pyx_t_4, __pyx_v_batch_functions, __pyx_v_parallel_functions};
           __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 2+__pyx_t_5);
           __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         }
-        if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_2))) __PYX_ERR(0, 22, __pyx_L1_error)
+        if (!(likely(PyDict_CheckExact(__pyx_t_2))||((__pyx_t_2) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_2))) __PYX_ERR(0, 25, __pyx_L1_error)
         __pyx_r = ((PyObject*)__pyx_t_2);
         __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3492,7 +3540,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
     #endif
   }
 
-  /* "parallel_executor.pyx":23
+  /* "parallel_executor.pyx":26
  * 
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):
  *         self.parallel_functions = parallel_functions             # <<<<<<<<<<<<<<
@@ -3505,7 +3553,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
   __Pyx_DECREF(__pyx_v_self->parallel_functions);
   __pyx_v_self->parallel_functions = __pyx_v_parallel_functions;
 
-  /* "parallel_executor.pyx":24
+  /* "parallel_executor.pyx":27
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):
  *         self.parallel_functions = parallel_functions
  *         cdef int n = len(batch_functions)             # <<<<<<<<<<<<<<
@@ -3514,24 +3562,24 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
  */
   if (unlikely(__pyx_v_batch_functions == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 24, __pyx_L1_error)
+    __PYX_ERR(0, 27, __pyx_L1_error)
   }
-  __pyx_t_6 = __Pyx_PyList_GET_SIZE(__pyx_v_batch_functions); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyList_GET_SIZE(__pyx_v_batch_functions); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 27, __pyx_L1_error)
   __pyx_v_n = __pyx_t_6;
 
-  /* "parallel_executor.pyx":25
+  /* "parallel_executor.pyx":28
  *         self.parallel_functions = parallel_functions
  *         cdef int n = len(batch_functions)
  *         cdef list futures = []             # <<<<<<<<<<<<<<
  * 
  *         with ThreadPoolExecutor() as executor:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_futures = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "parallel_executor.pyx":27
+  /* "parallel_executor.pyx":30
  *         cdef list futures = []
  * 
  *         with ThreadPoolExecutor() as executor:             # <<<<<<<<<<<<<<
@@ -3539,7 +3587,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
  *                 futures.append(executor.submit(self.run_compute_function, batch_functions[batch_number]))
  */
   /*with:*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_ThreadPoolExecutor); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     __pyx_t_5 = 0;
@@ -3559,13 +3607,13 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
       PyObject *__pyx_callargs[2] = {__pyx_t_3, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
-    __pyx_t_7 = __Pyx_PyObject_LookupSpecial(__pyx_t_1, __pyx_n_s_exit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 27, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_LookupSpecial(__pyx_t_1, __pyx_n_s_exit); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 30, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_1, __pyx_n_s_enter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L3_error)
+    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_1, __pyx_n_s_enter); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 30, __pyx_L3_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     __pyx_t_5 = 0;
@@ -3585,7 +3633,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_5, 0+__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L3_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -3604,7 +3652,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
           __pyx_v_executor = __pyx_t_3;
           __pyx_t_3 = 0;
 
-          /* "parallel_executor.pyx":28
+          /* "parallel_executor.pyx":31
  * 
  *         with ThreadPoolExecutor() as executor:
  *             for batch_number in range(n-1):             # <<<<<<<<<<<<<<
@@ -3616,31 +3664,31 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
           for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
             __pyx_v_batch_number = __pyx_t_13;
 
-            /* "parallel_executor.pyx":29
+            /* "parallel_executor.pyx":32
  *         with ThreadPoolExecutor() as executor:
  *             for batch_number in range(n-1):
  *                 futures.append(executor.submit(self.run_compute_function, batch_functions[batch_number]))             # <<<<<<<<<<<<<<
  * 
  *             self.run_compute_function(batch_functions[n-1])
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_executor, __pyx_n_s_submit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L7_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_executor, __pyx_n_s_submit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_INCREF((PyObject *)__pyx_v_self);
             __pyx_t_14 = __pyx_v_self;
-            __pyx_t_2 = __Pyx_CFunc_a72796__17parallel_executor_16ParallelExecutor_object___etc_to_py_4self_9functions(((struct __pyx_vtabstruct_17parallel_executor_ParallelExecutor *)__pyx_t_14->__pyx_vtab)->run_compute_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L7_error)
+            __pyx_t_2 = __Pyx_CFunc_a72796__17parallel_executor_16ParallelExecutor_object___etc_to_py_4self_9functions(((struct __pyx_vtabstruct_17parallel_executor_ParallelExecutor *)__pyx_t_14->__pyx_vtab)->run_compute_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_2);
             __pyx_t_4 = ((PyObject *)__pyx_t_14);
             __Pyx_INCREF(__pyx_t_4);
-            __pyx_t_15 = __Pyx_PyMethod_New2Arg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 29, __pyx_L7_error)
+            __pyx_t_15 = __Pyx_PyMethod_New2Arg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 32, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_15);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_DECREF((PyObject *)__pyx_t_14); __pyx_t_14 = 0;
             if (unlikely(__pyx_v_batch_functions == Py_None)) {
               PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-              __PYX_ERR(0, 29, __pyx_L7_error)
+              __PYX_ERR(0, 32, __pyx_L7_error)
             }
-            __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_batch_functions, __pyx_v_batch_number, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 29, __pyx_L7_error)
+            __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_batch_functions, __pyx_v_batch_number, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 32, __pyx_L7_error)
             __Pyx_GOTREF(__pyx_t_4);
             __pyx_t_2 = NULL;
             __pyx_t_5 = 0;
@@ -3662,15 +3710,15 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
               __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
               __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-              if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 29, __pyx_L7_error)
+              if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 32, __pyx_L7_error)
               __Pyx_GOTREF(__pyx_t_3);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             }
-            __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_futures, __pyx_t_3); if (unlikely(__pyx_t_16 == ((int)-1))) __PYX_ERR(0, 29, __pyx_L7_error)
+            __pyx_t_16 = __Pyx_PyList_Append(__pyx_v_futures, __pyx_t_3); if (unlikely(__pyx_t_16 == ((int)-1))) __PYX_ERR(0, 32, __pyx_L7_error)
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           }
 
-          /* "parallel_executor.pyx":31
+          /* "parallel_executor.pyx":34
  *                 futures.append(executor.submit(self.run_compute_function, batch_functions[batch_number]))
  * 
  *             self.run_compute_function(batch_functions[n-1])             # <<<<<<<<<<<<<<
@@ -3679,18 +3727,18 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
  */
           if (unlikely(__pyx_v_batch_functions == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 31, __pyx_L7_error)
+            __PYX_ERR(0, 34, __pyx_L7_error)
           }
           __pyx_t_11 = (__pyx_v_n - 1);
-          __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_batch_functions, __pyx_t_11, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L7_error)
+          __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_batch_functions, __pyx_t_11, long, 1, __Pyx_PyInt_From_long, 1, 1, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 34, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_3);
-          if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 31, __pyx_L7_error)
-          __pyx_t_1 = ((struct __pyx_vtabstruct_17parallel_executor_ParallelExecutor *)__pyx_v_self->__pyx_vtab)->run_compute_function(__pyx_v_self, ((PyObject*)__pyx_t_3)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L7_error)
+          if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None) || __Pyx_RaiseUnexpectedTypeError("list", __pyx_t_3))) __PYX_ERR(0, 34, __pyx_L7_error)
+          __pyx_t_1 = ((struct __pyx_vtabstruct_17parallel_executor_ParallelExecutor *)__pyx_v_self->__pyx_vtab)->run_compute_function(__pyx_v_self, ((PyObject*)__pyx_t_3)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L7_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "parallel_executor.pyx":27
+          /* "parallel_executor.pyx":30
  *         cdef list futures = []
  * 
  *         with ThreadPoolExecutor() as executor:             # <<<<<<<<<<<<<<
@@ -3711,20 +3759,20 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
         /*except:*/ {
           __Pyx_AddTraceback("parallel_executor.ParallelExecutor.execute_batch_in_parallel", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_3, &__pyx_t_4) < 0) __PYX_ERR(0, 27, __pyx_L9_except_error)
+          if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_3, &__pyx_t_4) < 0) __PYX_ERR(0, 30, __pyx_L9_except_error)
           __Pyx_XGOTREF(__pyx_t_1);
           __Pyx_XGOTREF(__pyx_t_3);
           __Pyx_XGOTREF(__pyx_t_4);
-          __pyx_t_15 = PyTuple_Pack(3, __pyx_t_1, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 27, __pyx_L9_except_error)
+          __pyx_t_15 = PyTuple_Pack(3, __pyx_t_1, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 30, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_15);
           __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_15, NULL);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-          if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 27, __pyx_L9_except_error)
+          if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 30, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_17);
           __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          if (__pyx_t_18 < 0) __PYX_ERR(0, 27, __pyx_L9_except_error)
+          if (__pyx_t_18 < 0) __PYX_ERR(0, 30, __pyx_L9_except_error)
           __pyx_t_19 = (!__pyx_t_18);
           if (unlikely(__pyx_t_19)) {
             __Pyx_GIVEREF(__pyx_t_1);
@@ -3732,7 +3780,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
             __Pyx_XGIVEREF(__pyx_t_4);
             __Pyx_ErrRestoreWithState(__pyx_t_1, __pyx_t_3, __pyx_t_4);
             __pyx_t_1 = 0; __pyx_t_3 = 0; __pyx_t_4 = 0; 
-            __PYX_ERR(0, 27, __pyx_L9_except_error)
+            __PYX_ERR(0, 30, __pyx_L9_except_error)
           }
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3758,7 +3806,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
         if (__pyx_t_7) {
           __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_tuple__3, NULL);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 27, __pyx_L1_error)
+          if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 30, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         }
@@ -3773,7 +3821,7 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
     __pyx_L18:;
   }
 
-  /* "parallel_executor.pyx":33
+  /* "parallel_executor.pyx":36
  *             self.run_compute_function(batch_functions[n-1])
  * 
  *         return self.parallel_functions             # <<<<<<<<<<<<<<
@@ -3783,8 +3831,8 @@ static PyObject *__pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in
   __pyx_r = __pyx_v_self->parallel_functions;
   goto __pyx_L0;
 
-  /* "parallel_executor.pyx":22
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+  /* "parallel_executor.pyx":25
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}
  * 
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):             # <<<<<<<<<<<<<<
  *         self.parallel_functions = parallel_functions
@@ -3865,7 +3913,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 25, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -3873,14 +3921,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 22, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 25, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("execute_batch_in_parallel", 1, 2, 2, 1); __PYX_ERR(0, 22, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("execute_batch_in_parallel", 1, 2, 2, 1); __PYX_ERR(0, 25, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "execute_batch_in_parallel") < 0)) __PYX_ERR(0, 22, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "execute_batch_in_parallel") < 0)) __PYX_ERR(0, 25, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -3893,7 +3941,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("execute_batch_in_parallel", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 22, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("execute_batch_in_parallel", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 25, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3907,8 +3955,8 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_batch_functions), (&PyList_Type), 1, "batch_functions", 1))) __PYX_ERR(0, 22, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_parallel_functions), (&PyDict_Type), 1, "parallel_functions", 1))) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_batch_functions), (&PyList_Type), 1, "batch_functions", 1))) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_parallel_functions), (&PyDict_Type), 1, "parallel_functions", 1))) __PYX_ERR(0, 25, __pyx_L1_error)
   __pyx_r = __pyx_pf_17parallel_executor_16ParallelExecutor_2execute_batch_in_parallel(((struct __pyx_obj_17parallel_executor_ParallelExecutor *)__pyx_v_self), __pyx_v_batch_functions, __pyx_v_parallel_functions);
 
   /* function exit code */
@@ -3935,7 +3983,7 @@ static PyObject *__pyx_pf_17parallel_executor_16ParallelExecutor_2execute_batch_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("execute_batch_in_parallel", 1);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in_parallel(__pyx_v_self, __pyx_v_batch_functions, __pyx_v_parallel_functions, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_17parallel_executor_16ParallelExecutor_execute_batch_in_parallel(__pyx_v_self, __pyx_v_batch_functions, __pyx_v_parallel_functions, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5137,7 +5185,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s__15, __pyx_k__15, sizeof(__pyx_k__15), 0, 0, 1, 1},
     {&__pyx_kp_u__5, __pyx_k__5, sizeof(__pyx_k__5), 0, 1, 0, 0},
     {&__pyx_n_s__6, __pyx_k__6, sizeof(__pyx_k__6), 0, 0, 1, 1},
-    {&__pyx_n_s_as_completed, __pyx_k_as_completed, sizeof(__pyx_k_as_completed), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_s_batch_functions, __pyx_k_batch_functions, sizeof(__pyx_k_batch_functions), 0, 0, 1, 1},
     {&__pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_k_c_Users_pamj0_AppData_Local_Prog, sizeof(__pyx_k_c_Users_pamj0_AppData_Local_Prog), 0, 0, 1, 0},
@@ -5197,7 +5244,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 31, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -5220,14 +5267,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple_);
   __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 67, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(1, 67, __pyx_L1_error)
 
-  /* "parallel_executor.pyx":27
+  /* "parallel_executor.pyx":30
  *         cdef list futures = []
  * 
  *         with ThreadPoolExecutor() as executor:             # <<<<<<<<<<<<<<
  *             for batch_number in range(n-1):
  *                 futures.append(executor.submit(self.run_compute_function, batch_functions[batch_number]))
  */
-  __pyx_tuple__3 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
@@ -5242,17 +5289,17 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "parallel_executor.pyx":22
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+  /* "parallel_executor.pyx":25
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}
  * 
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):             # <<<<<<<<<<<<<<
  *         self.parallel_functions = parallel_functions
  *         cdef int n = len(batch_functions)
  */
-  __pyx_tuple__7 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_batch_functions, __pyx_n_s_parallel_functions); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_batch_functions, __pyx_n_s_parallel_functions); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_execute_batch_in_parallel, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_c_Users_pamj0_AppData_Local_Prog, __pyx_n_s_execute_batch_in_parallel, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 25, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -5709,18 +5756,15 @@ if (!__Pyx_RefNanny) {
   /* "parallel_executor.pyx":3
  * # parallel_executor.pyx
  * # cython: language_level=3
- * from concurrent.futures import ThreadPoolExecutor, as_completed             # <<<<<<<<<<<<<<
+ * from concurrent.futures import ThreadPoolExecutor             # <<<<<<<<<<<<<<
  * import cython
  * import time
  */
-  __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_ThreadPoolExecutor);
   __Pyx_GIVEREF(__pyx_n_s_ThreadPoolExecutor);
   if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_ThreadPoolExecutor)) __PYX_ERR(0, 3, __pyx_L1_error);
-  __Pyx_INCREF(__pyx_n_s_as_completed);
-  __Pyx_GIVEREF(__pyx_n_s_as_completed);
-  if (__Pyx_PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_s_as_completed)) __PYX_ERR(0, 3, __pyx_L1_error);
   __pyx_t_3 = __Pyx_Import(__pyx_n_s_concurrent_futures, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -5728,14 +5772,10 @@ if (!__Pyx_RefNanny) {
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_ThreadPoolExecutor, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_as_completed); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_as_completed, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "parallel_executor.pyx":5
- * from concurrent.futures import ThreadPoolExecutor, as_completed
+ * from concurrent.futures import ThreadPoolExecutor
  * import cython
  * import time             # <<<<<<<<<<<<<<
  * 
@@ -5746,16 +5786,16 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_time, __pyx_t_3) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "parallel_executor.pyx":22
- *             self.parallel_functions[function] = {"result": result, "total_execution_time": self.parallel_functions[function]["total_execution_time"]+total_execution_time, "run_in_parallel": True}
+  /* "parallel_executor.pyx":25
+ *                 self.parallel_functions[function] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": True}
  * 
  *     cpdef dict execute_batch_in_parallel(self, list batch_functions, dict parallel_functions):             # <<<<<<<<<<<<<<
  *         self.parallel_functions = parallel_functions
  *         cdef int n = len(batch_functions)
  */
-  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_17parallel_executor_16ParallelExecutor_3execute_batch_in_parallel, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParallelExecutor_execute_batch_i, NULL, __pyx_n_s_parallel_executor, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_17parallel_executor_16ParallelExecutor_3execute_batch_in_parallel, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParallelExecutor_execute_batch_i, NULL, __pyx_n_s_parallel_executor, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_17parallel_executor_ParallelExecutor, __pyx_n_s_execute_batch_in_parallel, __pyx_t_3) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_17parallel_executor_ParallelExecutor, __pyx_n_s_execute_batch_in_parallel, __pyx_t_3) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   PyType_Modified(__pyx_ptype_17parallel_executor_ParallelExecutor);
 
@@ -5795,7 +5835,7 @@ if (!__Pyx_RefNanny) {
   /* "parallel_executor.pyx":1
  * # parallel_executor.pyx             # <<<<<<<<<<<<<<
  * # cython: language_level=3
- * from concurrent.futures import ThreadPoolExecutor, as_completed
+ * from concurrent.futures import ThreadPoolExecutor
  */
   __pyx_t_3 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
