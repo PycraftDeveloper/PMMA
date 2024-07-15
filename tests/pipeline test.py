@@ -28,8 +28,7 @@ class BasicDrawOperation:
 
     def compute(self):
         self.position = [random.randint(0, 1280), random.randint(0, 720)]
-        if self.id == 1:
-            time.sleep(random.random())
+        time.sleep(random.random()*0.001)
 
 objects = []
 N = 10

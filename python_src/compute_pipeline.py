@@ -7,7 +7,7 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class ComputePipeline:
-    def __init__(self, num_threads=None):
+    def __init__(self, num_threads=1):
         if Registry.cython_acceleration_available:
             self.parallel_extension = importlib.import_module("pmma.bin.parallel_executor")
             self.laminator = importlib.import_module("pmma.bin.laminator")
@@ -125,6 +125,7 @@ class ComputePipeline:
                     total_time_for_model_training = end_time_for_model_training - start_time_for_model_training
                     if self.optimizer[segment]["use_model"]:
                         self.optimizer[segment]["model"].update_model(num_threads, total_time_for_model_training)
+                        self.optimizer[segment]["context"] = numpy.append(total_time_for_model_training, self.optimizer[segment]["context"])
 
                     context = self.optimizer[segment]["context"]
                     if len(context) > 100:
@@ -135,8 +136,6 @@ class ComputePipeline:
                         self.optimizer[segment]["use_model"] = not (total_time_for_model_training < mean + 2*standard_deviation and total_time_for_model_training > mean - 2*standard_deviation)
                     else:
                         self.optimizer[segment]["use_model"] = True
-
-                    self.optimizer[segment]["context"] = numpy.append(total_time_for_model_training, self.optimizer[segment]["context"])
 
                 segment += 1
 
