@@ -11,7 +11,7 @@ PMMA is a Python library designed to make the development of applications using 
 To Do
 
 ## Backstory
-I [PycraftDev](https://github.com/PycraftDeveloper) joined GitHub to make the video game [Pycraft](https://github.com/PycraftDeveloper/Pycraft) in public, using the programming language Python. Whilst my initial progress wasn't very methodical, pretty much the first thing I would do, is start with the basic game loop, and work out how different Python libraries interacted with each other. Then, upon finding that my design was slow, I'd go back and optimize it.
+I ([PycraftDev](https://github.com/PycraftDeveloper)) joined GitHub to make the video game [Pycraft](https://github.com/PycraftDeveloper/Pycraft) in public, using the programming language Python. Whilst my initial progress wasn't very methodical, pretty much the first thing I would do, is start with the basic game loop, and work out how different Python libraries interacted with each other. Then, upon finding that my design was slow, I'd go back and optimize it.
 
 After many years of going through this cycle of development and optimization, I ended up with a large bank of knowledge of how to make some aspects of application development in Python really fast, and performant. With that in mind, I started writing utility programs for Pycraft, which would handle all of this behind the scenes, leaving the main programs much cleaner for their aggregation into my project - a video game.
 
