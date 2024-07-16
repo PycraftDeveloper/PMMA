@@ -15,12 +15,12 @@ registry = pmma.Registry
 
 n = 0
 
-compute_pipeline = pmma.ComputePipeline(num_threads=None)
+compute_pipeline = pmma.ComputePipeline(num_threads=1)
 
 class BasicDrawOperation:
     def __init__(self):
         self.color = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
-        self.position = [random.randint(0, 1280), random.randint(0, 720)]
+        self.position = [0, 0]
         self.id = 0
 
     def render(self):
@@ -35,8 +35,9 @@ N = 10
 for _ in range(N):
     for _ in range(N):
         inst = BasicDrawOperation()
-        compute_pipeline.add(inst.compute, parallel=True)
+        compute_pipeline.add(inst, parallel=True)
         objects.append(inst)
+
     inst = BasicDrawOperation()
     compute_pipeline.add(inst.compute, parallel=False)
     objects.append(inst)
@@ -47,19 +48,9 @@ x = []
 y = []
 Y = []
 while registry.running:
-    t = time.time()
-    tot = 0
-    for seg in range(len(compute_pipeline.optimizer)):
-        tot += compute_pipeline.optimizer[seg]["threads"]
-    Y.append(tot/len(compute_pipeline.optimizer))
-    x.append(t)
-
     events.handle()
 
-    dx = time.perf_counter()
     compute_pipeline.execute()
-    dy = time.perf_counter()
-    y.append(1/(dy-dx))
 
     canvas.clear()
     for obj in objects:
@@ -67,11 +58,3 @@ while registry.running:
 
     canvas.refresh(refresh_rate=60000)
     n += 1
-
-# importing the required libraries
-import matplotlib.pyplot as plt
-import numpy as np
-
-plt.plot(x, y)  # Plot the chart
-plt.plot(x, Y)  # Plot the chart
-plt.show()  # display

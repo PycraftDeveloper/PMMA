@@ -4,6 +4,11 @@ import os
 from pmma.python_src.registry import Registry
 
 class Constants:
+    CLASS = "class"
+    CLASS_INSTANCE = "class instance"
+    FUNCTION = "function"
+    UNKNOWN = "unknown"
+
     CHARACTERS = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890"
     CENTER = "center"
     LEFT = "left"

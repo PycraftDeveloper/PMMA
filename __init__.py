@@ -24,6 +24,7 @@ from pmma.python_src.core import *
 environ_to_registry()
 
 from pmma.python_src.compute_pipeline import *
+from pmma.python_src.helper_functions import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.advthreading import *
 from pmma.python_src.advtkinter import *
