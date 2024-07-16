@@ -4,14 +4,14 @@
 
 
 # Python Multi-Media API (PMMA)
-PMMA is a Python library designed to make the development of applications using the programming language Python easier and faster. Typically, application development in Python would require the developer to be familiar with a wide range of different libraries: (Pygame)[https://github.com/pygame/pygame], (ModernGL)[https://github.com/moderngl/moderngl], (PIL)[https://github.com/python-pillow/Pillow] and (Numpy)[https://github.com/numpy/numpy] for example. PMMA aims to change this idea of application development by combining all of those libraries - and more - together, along with optimized implementations of basic and advanced concepts, like window management, events management right through to shadow-mapping and advanced OpenGL.
+PMMA is a Python library designed to make the development of applications using the programming language Python easier and faster. Typically, application development in Python would require the developer to be familiar with a wide range of different libraries: [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy) for example. PMMA aims to change this idea of application development by combining all of those libraries - and more - together, along with optimized implementations of basic and advanced concepts, like window management, events management right through to shadow-mapping and advanced OpenGL.
 
 ## Contents
 
 To Do
 
 ## Backstory
-I (PycraftDev)[https://github.com/PycraftDeveloper] joined GitHub to make the video game (Pycraft)[https://github.com/PycraftDeveloper/Pycraft] in public, using the programming language Python. Whilst my initial progress wasn't very methodical, pretty much the first thing I would do, is start with the basic game loop, and work out how different Python libraries interacted with each other. Then, upon finding that my design was slow, I'd go back and optimize it.
+I [PycraftDev](https://github.com/PycraftDeveloper) joined GitHub to make the video game [Pycraft](https://github.com/PycraftDeveloper/Pycraft) in public, using the programming language Python. Whilst my initial progress wasn't very methodical, pretty much the first thing I would do, is start with the basic game loop, and work out how different Python libraries interacted with each other. Then, upon finding that my design was slow, I'd go back and optimize it.
 
 After many years of going through this cycle of development and optimization, I ended up with a large bank of knowledge of how to make some aspects of application development in Python really fast, and performant. With that in mind, I started writing utility programs for Pycraft, which would handle all of this behind the scenes, leaving the main programs much cleaner for their aggregation into my project - a video game.
 
@@ -21,7 +21,7 @@ Then, as I started work on other projects (of which there are a fair few!) I fou
 Bear with me, there are a fair few!
 
 * Object Oriented Programming - Most of PMMA exists as specific objects, making it super easy to customize what you want.
-  * (Cython)[https://github.com/cython/cython] and JIT ((Numba)[https://github.com/numba/numba]) acceleration - Where native Python is "too slow" we switch it out for these alternatives, dynamically choosing at runtime which one is fastest.
+  * [Cython](https://github.com/cython/cython) and JIT ([Numba](https://github.com/numba/numba)) acceleration - Where native Python is "too slow" we switch it out for these alternatives, dynamically choosing at runtime which one is fastest.
 * Machine Learning (ML) - Machine Learning is used to further optimize some areas of PMMA, by learning how you use it in your applications.
 * GPU accelerated - PMMA can use GPU acceleration for 2D and 3D rendering.
 * Advanced mathematics - PMMA includes highly-optimized commonly used mathematical functions.
