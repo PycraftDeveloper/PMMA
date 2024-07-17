@@ -55,10 +55,11 @@ class ComputePipeline:
                 self.__function_array.append([func])
             else:
                 last_item = self.__function_array[-1]
-                if callable(last_item):
-                    self.__function_array.append([func])
-                else:
+                if type(last_item) == list:
                     self.__function_array[-1].append(func)
+                else:
+                    self.__function_array.append([func])
+
         else:
             self.__function_array.append(func)
 

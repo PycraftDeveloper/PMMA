@@ -67,7 +67,7 @@ class ScalableCompute:
 
         for i in range(len(self.__jobs)):
             while self.__events[i].get() == "Start":
-                self.__events[i].put("Done")
+                self.__events[i].put("Start")
             results_data = self.__queues[i].get()
             print(results_data)
             self.__results_data.update(results_data)
