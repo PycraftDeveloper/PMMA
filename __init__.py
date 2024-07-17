@@ -1,7 +1,6 @@
 import sys
 import os
 import tkinter
-import multiprocessing
 
 import numba
 
@@ -45,14 +44,6 @@ from pmma.python_src.text import *
 
 from pmma.python_src.utility import cython_utils
 from pmma.python_src.memory_manager import MemoryManager
-
-# use json to load events.json
-# add these events to constants module
-# use these constants to key against events
-# to generate a list of events that are constant
-# regardless of graphics API.
-
-# also add path module when legal issues resolved!
 
 def init(optimize_python_extensions=True, compile_c_extensions=True, wait_for_initialization=True):
     root = tkinter.Tk()
