@@ -1,14 +1,11 @@
 import os
 import importlib
-import random
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
-        self.v = random.random()
-
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             raise Exception("Display object already exists")
 

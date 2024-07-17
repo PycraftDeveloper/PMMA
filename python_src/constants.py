@@ -42,6 +42,7 @@ class Constants:
     TEXT_OBJECT = "text"
     MEMORYMANAGER_OBJECT = "memory manager"
     IMAGE_OBJECT = "image"
+    COMPUTE_CORE_OBJECT = "compute core"
 
     CARTESIAN = "cartesian"
 
