@@ -2,7 +2,7 @@ import pmma
 import random
 import time
 
-pmma.init()
+pmma.init(compile_c_extensions=False)
 
 canvas = pmma.Display()
 canvas.create(1280, 720)
@@ -15,7 +15,7 @@ registry = pmma.Registry
 
 n = 0
 
-compute_pipeline = pmma.ComputePipeline(num_threads=1)
+compute_pipeline = pmma.ComputePipeline(num_threads=5)
 
 class BasicDrawOperation:
     def __init__(self):

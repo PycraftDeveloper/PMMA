@@ -4,8 +4,6 @@ import inspect
 
 import numpy
 
-from pmma.python_src.helper_functions import check_if_object_is_class_or_function
-
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -86,9 +84,9 @@ class ComputePipeline:
         self.__use_machine_learning = num_threads is None
         self.__num_threads = num_threads
 
-    def __perform_parallel_operation(self, __function_array, num_threads):
+    def __perform_parallel_operation(self, function_array, num_threads):
         if num_threads == 1:
-            for func in __function_array:
+            for func in function_array:
                 start = time.perf_counter()
                 result = func()
                 end = time.perf_counter()
@@ -98,7 +96,7 @@ class ComputePipeline:
                 else:
                     self.__parallel_functions[func] = {"result": result, "total_execution_time": total_execution_time, "run_in_parallel": False}
         else:
-            parallel_batches = self.__laminator.__laminator(self.__parallel_functions, __function_array, num_threads)
+            parallel_batches = self.__laminator.laminator(self.__parallel_functions, function_array, num_threads)
 
             self.__parallel_functions = self.__parallel_executor.execute_batch_in_parallel(parallel_batches, self.__parallel_functions)
 

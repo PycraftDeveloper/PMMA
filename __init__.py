@@ -1,6 +1,7 @@
 import sys
 import os
 import tkinter
+import multiprocessing
 
 import numba
 
@@ -54,22 +55,25 @@ from pmma.python_src.memory_manager import MemoryManager
 # also add path module when legal issues resolved!
 
 def init(optimize_python_extensions=True, compile_c_extensions=True, wait_for_initialization=True):
-    root = tkinter.Tk()
-    root.withdraw()
+    if multiprocessing.current_process().name == 'MainProcess':
+        root = tkinter.Tk()
+        root.withdraw()
 
-    Registry.python_acceleration_enabled = optimize_python_extensions
-    Registry.cython_acceleration_enabled = compile_c_extensions
+        Registry.python_acceleration_enabled = optimize_python_extensions
+        Registry.cython_acceleration_enabled = compile_c_extensions
 
-    if optimize_python_extensions:
-        benchmark = Benchmark() # cache this unique to device
-        benchmark.test_all()
+        if optimize_python_extensions:
+            benchmark = Benchmark() # cache this unique to device
+            benchmark.test_all()
 
-    if compile_c_extensions:
-        cython_thread = cython_utils.compile()
-        if wait_for_initialization:
-            cython_thread.join()
+        if compile_c_extensions:
+            cython_thread = cython_utils.compile()
+            if wait_for_initialization:
+                cython_thread.join()
 
-    MemoryManager()
+        MemoryManager()
+    else:
+        quit()
 
 del base_path
 del temporary_files_path
