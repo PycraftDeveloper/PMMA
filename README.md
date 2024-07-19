@@ -5,18 +5,18 @@
 
 
 # Python Multi-Media API (PMMA)
-PMMA is a Python library designed to make the development of applications using the programming language Python easier and faster. Typically, application development in Python would require the developer to be familiar with a wide range of different libraries: [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy) for example. PMMA aims to change this idea of application development by combining all of those libraries - and more - together, along with optimized implementations of basic and advanced concepts, like window management, events management right through to shadow-mapping and advanced OpenGL.
+PMMA is a Python library aimed at simplifying and expediting application development in Python. Typically, developing applications in Python necessitates familiarity with a variety of different libraries such as [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy). PMMA seeks to revolutionize application development by consolidating these libraries and more, along with optimized implementations of basic and advanced concepts. This includes window management, event management, and advanced OpenGL techniques like shadow-mapping.
 
 ## Contents
 
 To Do
 
 ## Backstory
-I ([PycraftDev](https://github.com/PycraftDeveloper)) joined GitHub to make the video game [Pycraft](https://github.com/PycraftDeveloper/Pycraft) in public, using the programming language Python. Whilst my initial progress wasn't very methodical, pretty much the first thing I would do, is start with the basic game loop, and work out how different Python libraries interacted with each other. Then, upon finding that my design was slow, I'd go back and optimize it.
+I, ([PycraftDev](https://github.com/PycraftDeveloper)), joined GitHub to make the video game [Pycraft](https://github.com/PycraftDeveloper/Pycraft) in public using the programming language Python. Initially, my progress wasn't very methodical. I started with the basic game loop and worked out how different Python libraries interacted with each other. When I found that my design was slow, I went back and optimized it.
 
-After many years of going through this cycle of development and optimization, I ended up with a large bank of knowledge of how to make some aspects of application development in Python really fast, and performant. With that in mind, I started writing utility programs for Pycraft, which would handle all of this behind the scenes, leaving the main programs much cleaner for their aggregation into my project - a video game.
+After many years of development and optimization, I gained extensive knowledge of making certain aspects of application development in Python really fast and performant. With that in mind, I started writing utility programs for Pycraft, which handled all of this behind the scenes, leaving the main programs much cleaner for their aggregation into my project - a video game.
 
-Then, as I started work on other projects (of which there are a fair few!) I found myself copying over these utility programs, revising them and gradually evolving my implementation of specific functions or classes. Eventually however, this set of utility programs grew to be longer typically than the applications using them, and I decided it was time to separate my applications into two: the application its' self, and PMMA.
+As I worked on other projects, I found myself copying over these utility programs, revising them and gradually evolving my implementation of specific functions or classes. Eventually, this set of utility programs grew to be longer typically than the applications using them, and I decided it was time to separate my applications into two: the application itself, and PMMA.
 
 ## Features
 Bear with me, there are a fair few!
