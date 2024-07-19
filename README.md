@@ -31,7 +31,7 @@ Bear with me, there are a fair few!
 * Simple shared memory - PMMA allows you to have a shared memory space for variables, as a replacement for global variables, which can be accessed easily through threads.
 * Dynamic color and coordinates - PMMA can easily convert between different color and coordinate formats.
 * Pipelines - PMMA uses these to allow for the bulk execution of functions, typically for compute or rendering purposes.
-* Easy display management - PMMA allows you to easily manage your application window, including size, captions, display modes and vsync.
+* Easy display management - PMMA allows you to easily manage your application window, including size, captions, display modes and v-sync.
 * Efficient shape rendering - PMMA includes support for a wide range of shapes, and can render these using GPU acceleration.
 * Advanced memory management - PMMA will automatically manage large objects stored in memory.
 * Image manipulation - PMMA will automatically convert image formats as needed for your application, and cache them for improved performance.
@@ -43,7 +43,7 @@ Bear with me, there are a fair few!
 _Note: GPU acceleration is only available with OpenGL applications, or in the render pipeline with the Pyglet graphics backend_
 _Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible_
 
-## Optional Dependancies
+## Optional Dependencies
 
 ### Cython
 
