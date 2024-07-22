@@ -241,7 +241,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             raise NotImplementedError
 
 class Rect:
-    def __init__(self, color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
+    def __init__(self, color=None, rect=None, width=-1, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
         self.color = color
         self.rect = rect
         self.width = width
@@ -250,27 +250,32 @@ class Rect:
         self.border_top_right_radius = border_top_right_radius
         self.border_bottom_left_radius = border_bottom_left_radius
         self.border_bottom_right_radius = border_bottom_right_radius
+        self.canvas = canvas
 
-
-    def draw(self, color=None, center_of_rect=None, radius=None, height=None, canvas=None):
+    def draw(self, color=None, rect=None, width=None, border_radius=None, border_top_left_radius=None, border_top_right_radius=None, border_bottom_left_radius=None, border_bottom_right_radius=None, canvas=None):
         if color is None:
             color = self.color
-        if center_of_rect is None:
-            center_of_rect = self.center_of_rect
-        if radius is None:
-            radius = self.radius
-        if height is None:
-            height = self.height
+        if rect is None:
+            rect = self.rect
+        if width is None:
+            width = self.width
+        if border_radius is None:
+            border_radius = self.border_radius
+        if border_top_left_radius is None:
+            border_top_left_radius = self.border_top_left_radius
+        if border_top_right_radius is None:
+            border_top_right_radius = self.border_top_right_radius
+        if border_bottom_left_radius is None:
+            border_bottom_left_radius = self.border_bottom_left_radius
+        if border_bottom_right_radius is None:
+            border_bottom_right_radius = self.border_bottom_right_radius
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
 
-        x, y = center_of_rect
-        points = [(x - radius, y - height / 2), (x + radius, y - height / 2), (x + radius, y + height / 2), (x - radius, y + height / 2)]
-
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.draw.polygon(canvas.surface, color, points)
+            return Registry.graphics_backend.draw.rect(canvas.surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
         else:
             raise NotImplementedError
 

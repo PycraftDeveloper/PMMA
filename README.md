@@ -9,9 +9,13 @@ PMMA is a Python library aimed at simplifying and expediting application develop
 
 ## Contents
 
-To Do
+* [History](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#history)
+* [Features](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#features)
+* [Optional Dependencies](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#optional-dependencies)
+* * [Cython](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#cython)
+* [Final Notes](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#final-notes)
 
-## Backstory
+## History
 I, ([PycraftDev](https://github.com/PycraftDeveloper)), joined GitHub to make the video game [Pycraft](https://github.com/PycraftDeveloper/Pycraft) in public using the programming language Python. Initially, my progress wasn't very methodical. I started with the basic game loop and worked out how different Python libraries interacted with each other. When I found that my design was slow, I went back and optimized it.
 
 After many years of development and optimization, I gained extensive knowledge of making certain aspects of application development in Python really fast and performant. With that in mind, I started writing utility programs for Pycraft, which handled all of this behind the scenes, leaving the main programs much cleaner for their aggregation into my project - a video game.
@@ -23,14 +27,13 @@ Bear with me, there are a fair few!
 
 * Object Oriented Programming - Most of PMMA exists as specific objects, making it super easy to customize what you want.
   * [Cython](https://github.com/cython/cython) and JIT ([Numba](https://github.com/numba/numba)) acceleration - Where native Python is "too slow" we switch it out for these alternatives, dynamically choosing at runtime which one is fastest.
-* Machine Learning (ML) - Machine Learning is used to further optimize some areas of PMMA, by learning how you use it in your applications.
 * GPU accelerated - PMMA can use GPU acceleration for 2D and 3D rendering.
 * Advanced mathematics - PMMA includes highly-optimized commonly used mathematical functions.
 * Advanced threading - PMMA includes an advanced form of the Threading library, which extends its existing functionality to include the ability to kill threads on the fly.
 * Advanced Tkinter - PMMA includes some advanced Tkinter functions, like getting window size, and default operating system fonts.
 * Simple shared memory - PMMA allows you to have a shared memory space for variables, as a replacement for global variables, which can be accessed easily through threads.
 * Dynamic color and coordinates - PMMA can easily convert between different color and coordinate formats.
-* Pipelines - PMMA uses these to allow for the bulk execution of functions, typically for compute or rendering purposes.
+* Pipelines - PMMA uses these to allow for the bulk execution of functions, typically for rendering purposes.
 * Easy display management - PMMA allows you to easily manage your application window, including size, captions, display modes and v-sync.
 * Efficient shape rendering - PMMA includes support for a wide range of shapes, and can render these using GPU acceleration.
 * Advanced memory management - PMMA will automatically manage large objects stored in memory.
@@ -60,10 +63,6 @@ To install MSVC:
 * On MacOS: I'd recommend GCC here but otherwise: https://learn.microsoft.com/en-us/visualstudio/mac/installation?view=vsmac-2022
 
 _Note: I am working on supporting additional compilers directly, however they should already work - they just haven't been tested yet_
-
-### scikit-learn-intelex
-
-PMMA uses Scikit-learn for Machine Learning, and can make use of the Python library `scikit-learn-intelex` for improved performance in these tasks. Installing this on a non-intel CPU or GPU system will not result in any degradation in performance. **This is not a required dependency**. To read more and to learn how to install go here: https://pypi.org/project/scikit-learn-intelex/
 
 ## Final Notes
 
