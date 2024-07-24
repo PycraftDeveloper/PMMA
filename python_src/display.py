@@ -1,22 +1,34 @@
 import os
 import importlib
+import io
+import contextlib
 
+import pmma.python_src.core as core
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            core.log_warning("Display object already exists")
+            core.log_development("Some PMMA objects can only be initialized once. This is to avoid creating unexpected behavior.")
             raise Exception("Display object already exists")
 
-        Registry.graphics_backend = importlib.import_module(display_mode)
         if display_mode == Constants.PYGAME:
+            os.environ["SDL_VIDEO_CENTERED"] = "1"
+
+            buffer = io.StringIO()
+            with contextlib.redirect_stdout(buffer):
+                Registry.graphics_backend = importlib.import_module(display_mode)
+            message = buffer.getvalue()
+            if core.log_information(message) is False:
+                print(message)
+
             Registry.graphics_backend.init()
 
         self.surface = None
         Registry.display_mode = display_mode
         if Registry.display_mode == Constants.PYGAME:
-            os.environ['SDL_VIDEO_CENTERED'] = '1'
             self.clock = Registry.graphics_backend.time.Clock()
 
         self.fullscreen = None

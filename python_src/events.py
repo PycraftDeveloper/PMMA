@@ -1,11 +1,14 @@
 from pmma.python_src.backpack import Backpack
 
+import pmma.python_src.core as core
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Events:
     def __init__(self, canvas=None):
         if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
+            core.log_warning("Events object already exists")
+            core.log_development("Some PMMA objects can only be initialized once. This is to avoid creating unexpected behavior.")
             raise Exception("Events object already exists")
 
         self.raw_events = []
