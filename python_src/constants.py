@@ -4,6 +4,11 @@ import os
 from pmma.python_src.registry import Registry
 
 class Constants:
+    DEVELOPMENT = "development"
+    INFORMATION = "information"
+    WARNING = "warning"
+    ERROR = "error"
+
     CLASS = "class"
     CLASS_INSTANCE = "class instance"
     FUNCTION = "function"
@@ -42,9 +47,10 @@ class Constants:
     TEXT_OBJECT = "text"
     MEMORYMANAGER_OBJECT = "memory manager"
     IMAGE_OBJECT = "image"
-    COMPUTE_CORE_OBJECT = "compute core"
+    LOGGING_OBJECT = "logging"
 
     CARTESIAN = "cartesian"
+    POLAR = "polar"
 
     COMPILED_PERLIN_NOISE = "compiled Perlin noise"
 

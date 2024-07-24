@@ -12,3 +12,4 @@ class Registry:
     python_acceleration_enabled = False
     pmma_module_spine = {}
     do_anti_aliasing = True
+    development_mode = True

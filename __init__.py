@@ -23,7 +23,6 @@ from pmma.python_src.core import *
 
 environ_to_registry()
 
-from pmma.python_src.compute_pipeline import *
 from pmma.python_src.helper_functions import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.advthreading import *
@@ -33,6 +32,7 @@ from pmma.python_src.optimizer import *
 from pmma.python_src.recorder import *
 from pmma.python_src.passport import *
 from pmma.python_src.display import *
+from pmma.python_src.logging import *
 from pmma.python_src.advmath import *
 from pmma.python_src.events import *
 from pmma.python_src.noise import *
