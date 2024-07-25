@@ -45,7 +45,13 @@ from pmma.python_src.text import *
 from pmma.python_src.utility import cython_utils
 from pmma.python_src.memory_manager import MemoryManager
 
-def init(optimize_python_extensions=True, compile_c_extensions=True, wait_for_initialization=True):
+def init(
+            optimize_python_extensions=True,
+            compile_c_extensions=True,
+            wait_for_initialization=True,
+            memory_management_max_object_lifetime=2.5,
+            memory_management_max_size=Constants.AUTOMATIC):
+
     root = tkinter.Tk()
     root.withdraw()
 
@@ -61,7 +67,9 @@ def init(optimize_python_extensions=True, compile_c_extensions=True, wait_for_in
         if wait_for_initialization:
             cython_thread.join()
 
-    MemoryManager()
+    MemoryManager(
+        object_lifetime=memory_management_max_object_lifetime,
+        target_size=memory_management_max_size)
 
 del base_path
 del temporary_files_path

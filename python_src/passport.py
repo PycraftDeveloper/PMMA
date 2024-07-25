@@ -17,6 +17,7 @@ class PassportIntermediary:
     author = None
     version = None
     supported_python_versions = None
+    project_size = None
 
 class Passport:
     def __init__(
@@ -35,7 +36,8 @@ class Passport:
             license=None,
             author=None,
             version=None,
-            supported_python_versions=None):
+            supported_python_versions=None,
+            project_size=None):
 
         PassportIntermediary.name = name
         PassportIntermediary.short_description = short_description
@@ -52,3 +54,4 @@ class Passport:
         PassportIntermediary.author = author
         PassportIntermediary.version = version
         PassportIntermediary.supported_python_versions = supported_python_versions
+        PassportIntermediary.project_size = project_size

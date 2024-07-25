@@ -4,6 +4,13 @@ import os
 from pmma.python_src.registry import Registry
 
 class Constants:
+    AUTOMATIC = "automatic"
+
+    LARGE_APPLICATION = "large"
+    MEDIUM_APPLICATION = "medium"
+    SMALL_APPLICATION = "small"
+    MICRO_APPLICATION = "micro"
+
     DEVELOPMENT = "development"
     INFORMATION = "information"
     WARNING = "warning"
