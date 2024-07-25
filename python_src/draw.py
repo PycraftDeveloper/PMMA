@@ -279,6 +279,161 @@ class Rect:
         else:
             raise NotImplementedError
 
+class Circle:
+    def __init__(self, color=None, center=None, radius=None, width=0, canvas=None):
+        self.color = color
+        self.center = center
+        self.radius = radius
+        self.width = width
+        self.canvas = canvas
+
+    def draw(self, color=None, center=None, radius=None, width=None, canvas=None):
+        if color is None:
+            color = self.color
+        if center is None:
+            center = self.center
+        if radius is None:
+            radius = self.radius
+        if width is None:
+            width = self.width
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None:
+            canvas = self.canvas
+
+        if Registry.display_mode == Constants.PYGAME:
+            return Registry.graphics_backend.draw.circle(canvas.surface, color, center, abs(radius), width)
+        else:
+            raise NotImplementedError
+
+class Arc:
+    def __init__(self, color=None, rect=None, start_angle=None, stop_angle=None, width=1, canvas=None):
+        self.color = color
+        self.rect = rect
+        self.start_angle = start_angle
+        self.stop_angle = stop_angle
+        self.width = width
+        self.canvas = canvas
+
+    def draw(self, color=None, rect=None, start_angle=None, stop_angle=None, width=None, canvas=None):
+        if color is None:
+            color = self.color
+        if rect is None:
+            rect = self.rect
+        if start_angle is None:
+            start_angle = self.start_angle
+        if stop_angle is None:
+            stop_angle = self.stop_angle
+        if width is None:
+            width = self.width
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None:
+            canvas = self.canvas
+
+        if Registry.display_mode == Constants.PYGAME:
+            return Registry.graphics_backend.draw.arc(canvas.surface, color, rect, start_angle, stop_angle, width)
+        else:
+            raise NotImplementedError
+
+class Polygon:
+    def __init__(self, color=None, points=None, width=0, canvas=None):
+        self.color = color
+        self.points = points
+        self.width = width
+        self.canvas = canvas
+
+    def draw(self, color=None, points=None, width=None, canvas=None):
+        if color is None:
+            color = self.color
+        if points is None:
+            points = self.points
+        if width is None:
+            width = self.width
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None:
+            canvas = self.canvas
+        if Registry.display_mode == Constants.PYGAME:
+            return Registry.graphics_backend.draw.polygon(canvas.surface, color, points, width)
+        else:
+            raise NotImplementedError
+
+class Ellipse:
+    def __init__(self, color=None, rect=None, width=0, canvas=None):
+        self.color = color
+        self.rect = rect
+        self.width = width
+        self.canvas = canvas
+
+    def draw(self, color=None, rect=None, width=None, canvas=None):
+        if color is None:
+            color = self.color
+        if rect is None:
+            rect = self.rect
+        if width is None:
+            width = self.width
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None:
+            canvas = self.canvas
+        if Registry.display_mode == Constants.PYGAME:
+            return Registry.graphics_backend.draw.ellipse(canvas.surface, color, rect, width)
+        else:
+            raise NotImplementedError
+
+class Pixel:
+    def __init__(self, color=None, point=None, canvas=None):
+        self.color = color
+        self.point = point
+        self.canvas = canvas
+
+    def draw(self, color=None, point=None, canvas=None):
+        if color is None:
+            color = self.color
+        if point is None:
+            point = self.point
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None:
+            canvas = self.canvas
+        if Registry.display_mode == Constants.PYGAME:
+            try:
+                return self.drawing_extension.pixel(canvas.surface, color, point), True
+            except:
+                temp_rect = Registry.graphics_backend.rect.Rect(*point, 1, 1)
+                return Registry.graphics_backend.draw.rect(canvas.surface, color, temp_rect, 1), False
+        else:
+            raise NotImplementedError
+
+class Curved_Lines:
+    def __init__(self, color=None, points=None, steps=2, canvas=None):
+        self.color = color
+        self.points = points
+        self.steps = steps
+        self.canvas = canvas
+
+    def draw(self, color=None, points=None, steps=None, canvas=None):
+        if color is None:
+            color = self.color
+        if points is None:
+            points = self.points
+        if steps is None:
+            steps = self.steps
+        if self.canvas is None and canvas is None:
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None:
+            canvas = self.canvas
+        if Registry.display_mode == Constants.PYGAME:
+            if len(points) > 2:
+                try:
+                    return self.drawing_extension.bezier(canvas.surface, points, steps, color), True
+                except:
+                    pass
+            return self.lines(canvas, color, points, width=1, closed=False), False
+        else:
+            raise NotImplementedError
+
 class Draw:
     def __init__(self, canvas=None):
         if Registry.display_mode == Constants.PYGAME:
