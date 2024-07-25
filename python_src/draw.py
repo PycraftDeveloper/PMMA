@@ -6,6 +6,9 @@ from pmma.python_src.constants import Constants
 
 class Line:
     def __init__(self, color=None, start=None, end=None, width=1, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.start = start
         self.end = end
@@ -36,6 +39,9 @@ class Line:
 
 class Lines:
     def __init__(self, color=None, points=None, width=1, closed=False, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.points = points
         self.width = width
@@ -68,6 +74,9 @@ class Lines:
 
 class AdvancedPolygon:
     def __init__(self, color=None, centre=None, radius=None, number_of_sides=None, rotation_angle=0, width=0, cache=None, wire_frame=False, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.centre = centre
         self.radius = radius
@@ -162,6 +171,9 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         color (str):
             Name of the fill color, in HTML format.
         """
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.center_of_rect = center_of_rect
         self.radius = radius
@@ -242,6 +254,9 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
 
 class Rect:
     def __init__(self, color=None, rect=None, width=-1, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.rect = rect
         self.width = width
@@ -281,6 +296,9 @@ class Rect:
 
 class Circle:
     def __init__(self, color=None, center=None, radius=None, width=0, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.center = center
         self.radius = radius
@@ -308,6 +326,9 @@ class Circle:
 
 class Arc:
     def __init__(self, color=None, rect=None, start_angle=None, stop_angle=None, width=1, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.rect = rect
         self.start_angle = start_angle
@@ -338,6 +359,9 @@ class Arc:
 
 class Polygon:
     def __init__(self, color=None, points=None, width=0, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.points = points
         self.width = width
@@ -361,6 +385,9 @@ class Polygon:
 
 class Ellipse:
     def __init__(self, color=None, rect=None, width=0, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.rect = rect
         self.width = width
@@ -384,6 +411,9 @@ class Ellipse:
 
 class Pixel:
     def __init__(self, color=None, point=None, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.point = point
         self.canvas = canvas
@@ -408,6 +438,9 @@ class Pixel:
 
 class Curved_Lines:
     def __init__(self, color=None, points=None, steps=2, canvas=None):
+        if Registry.display_mode == Constants.PYGAME:
+            self.drawing_extension = importlib.import_module("pygame.gfxdraw")
+
         self.color = color
         self.points = points
         self.steps = steps
