@@ -26,3 +26,5 @@ PMMA can use three different approaches to draw content directly to a canvas, de
 
 _Note: It's important to identify here that `OpenGL (PMMA)` and `OpenGL (Pyglet)` use the same API (OpenGL) for their rendering, but the interface between OpenGL and the relevant draw functionality is NOT the same. As such they are identified separately_
 
+_Note: It's important to identify here the system specifications used to achieve this data - as this test will vary in result between different hardware, however the overall trend will remain the same. CPU: `Intel Core i3-1115G4`. RAM: `7.8 GB @ 3733 MT/s` (virtual memory was not observed to have been used by the test). GPU: `Intel UHD Graphics` w/ 3.9 GB shared vRAM._
+
