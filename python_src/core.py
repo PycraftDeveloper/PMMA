@@ -51,8 +51,11 @@ def compute():
     DrawIntermediary.number_of_draw_calls = 0
     DrawIntermediary.total_time_spent_drawing = 0
 
-    if 1/(total_time_spent_drawing) < Registry.refresh_rate:
-        log_development(f"Your application performance is limited by the total number of draw calls being made. The program spent {total_time_spent_drawing}s on {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will likely improve application performance.")
-
     if number_of_draw_calls > 600:
         log_development(f"Your application performance might soon be degraded by the time spent handling draw calls. Consider switching to the more optimized Render Pipeline through PMMA to avoid any potential slowdowns.")
+
+    if total_time_spent_drawing == 0:
+        return
+
+    if 1/(total_time_spent_drawing) < Registry.refresh_rate:
+        log_development(f"Your application performance is limited by the total number of draw calls being made. The program spent {total_time_spent_drawing}s on {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will likely improve application performance.")

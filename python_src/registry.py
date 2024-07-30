@@ -14,3 +14,5 @@ class Registry:
     do_anti_aliasing = True
     development_mode = True
     refresh_rate = 60
+    display_initialized = False
+    context = None

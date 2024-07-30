@@ -10,6 +10,14 @@ from pmma.python_src.passport import PassportIntermediary
 
 import pmma.python_src.utility.file_utils as file_utils
 
+def path_builder(*args):
+    result = ""
+    for arg in args:
+        result += arg
+        result += Constants.PATH_SEPARATOR
+    result = result[:-1]
+    return result
+
 class File:
     def __init__(self, file_path):
         self.file_path = file_path

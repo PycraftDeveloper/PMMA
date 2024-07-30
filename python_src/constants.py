@@ -55,6 +55,8 @@ class Constants:
     MEMORYMANAGER_OBJECT = "memory manager"
     IMAGE_OBJECT = "image"
     LOGGING_OBJECT = "logging"
+    OPENGL_OBJECT = "opengl"
+    OPENGL_INTERMEDIARY_OBJECT = "opengl intermediary"
 
     CARTESIAN = "cartesian"
     POLAR = "polar"
