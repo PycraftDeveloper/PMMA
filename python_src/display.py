@@ -107,6 +107,7 @@ class Display:
             raise NotImplementedError
 
     def refresh(self, refresh_rate=60):
+        Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
             Registry.graphics_backend.display.update()
             if refresh_rate > 0:

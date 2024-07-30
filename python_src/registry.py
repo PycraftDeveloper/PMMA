@@ -13,3 +13,4 @@ class Registry:
     pmma_module_spine = {}
     do_anti_aliasing = True
     development_mode = True
+    refresh_rate = 60

@@ -3,6 +3,8 @@ from os import environ
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
+from pmma.python_src.draw import DrawIntermediary
+
 def environ_to_registry():
     for key in Registry.__dict__:
         check_key = f"PMMA_{key}"
@@ -42,3 +44,15 @@ def log_error(message, do_traceback=True):
         Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_error(message, do_traceback=do_traceback)
         return True
     return False
+
+def compute():
+    number_of_draw_calls = DrawIntermediary.number_of_draw_calls
+    total_time_spent_drawing = DrawIntermediary.total_time_spent_drawing
+    DrawIntermediary.number_of_draw_calls = 0
+    DrawIntermediary.total_time_spent_drawing = 0
+
+    if 1/(total_time_spent_drawing) < Registry.refresh_rate:
+        log_development(f"Your application performance is limited by the total number of draw calls being made. The program spent {total_time_spent_drawing}s on {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will likely improve application performance.")
+
+    if number_of_draw_calls > 600:
+        log_development(f"Your application performance might soon be degraded by the time spent handling draw calls. Consider switching to the more optimized Render Pipeline through PMMA to avoid any potential slowdowns.")
