@@ -16,7 +16,7 @@ events = pmma.Events()
 registry = pmma.Registry()
 
 while registry.running:
-    print(display.get_fps())
+    #print(display.get_fps())
     display.clear(255, 0, 0)
 
     image.blit([0, 0])
@@ -27,6 +27,6 @@ size=30, foreground_color=(0, 0, 0), background_color=(0, 0, 255), position=[0, 
 
     events.handle()
 
-    display.refresh(refresh_rate=75)
+    display.refresh(refresh_rate=2000)
 
 time.sleep(30)

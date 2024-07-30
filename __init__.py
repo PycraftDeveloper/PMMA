@@ -32,7 +32,6 @@ from pmma.python_src.optimizer import *
 from pmma.python_src.recorder import *
 from pmma.python_src.passport import *
 from pmma.python_src.display import *
-from pmma.python_src.logging import *
 from pmma.python_src.advmath import *
 from pmma.python_src.events import *
 from pmma.python_src.noise import *
@@ -44,13 +43,21 @@ from pmma.python_src.text import *
 
 from pmma.python_src.utility import cython_utils
 from pmma.python_src.memory_manager import MemoryManager
+from pmma.python_src.logging import Logger
 
 def init(
             optimize_python_extensions=True,
             compile_c_extensions=True,
             wait_for_initialization=True,
             memory_management_max_object_lifetime=2.5,
-            memory_management_max_size=Constants.AUTOMATIC):
+            memory_management_max_size=Constants.AUTOMATIC,
+            log_development=None,
+            log_information=False,
+            log_warning=False,
+            log_error=True,
+            log_to_file=False,
+            log_file=None,
+            log_to_terminal=True):
 
     root = tkinter.Tk()
     root.withdraw()
@@ -70,6 +77,15 @@ def init(
     MemoryManager(
         object_lifetime=memory_management_max_object_lifetime,
         target_size=memory_management_max_size)
+
+    Logger(
+        log_development=log_development,
+        log_information=log_information,
+        log_warning=log_warning,
+        log_error=log_error,
+        log_to_file=log_to_file,
+        log_file=log_file,
+        log_to_terminal=log_to_terminal)
 
 del base_path
 del temporary_files_path

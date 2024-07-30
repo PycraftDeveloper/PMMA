@@ -1,8 +1,10 @@
 import time
 import threading
 import sys
+import tempfile
 
 import psutil
+import dill
 
 import pmma.python_src.core as core
 from pmma.python_src.registry import Registry
@@ -43,9 +45,11 @@ class MemoryManager:
         self.manager_thread = threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
         self.manager_thread.start()
-        self.max_obj_creation_time = 0
+        self.max_obj_creation_time = float("-inf")
         self.max_obj_size = 0
         self.total_size = 0
+
+        self.temporary_files = {}
 
         self.enable_memory_management = True
 
@@ -53,9 +57,17 @@ class MemoryManager:
 
         Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT] = self
 
-    def add_object(self, obj, custom_id=None, object_lifetime=None, object_creation_time=None):
+    def add_object(self, obj, custom_id=None, object_lifetime=None, object_creation_time=None, recreatable_object=False, pre_locked=False):
         if self.enable_memory_management:
-            with self.memory_manager_thread_lock:
+            if pre_locked:
+                if recreatable_object is False:
+                    try:
+                        byte_data = dill.dumps(obj)
+                        dill.loads(byte_data)
+                        stay_in_memory = False
+                    except:
+                        stay_in_memory = True
+
                 if custom_id is not None:
                     identifier = custom_id
                 else:
@@ -87,9 +99,53 @@ class MemoryManager:
                     object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
                 current_time = str(time.perf_counter())
                 self.linker[identifier] = current_time
-                self.objects[current_time] = [obj, identifier, object_lifetime]
+                self.objects[current_time] = [obj, identifier, object_lifetime, object_creation_time, recreatable_object, stay_in_memory]
                 self.total_size += obj_size
                 return identifier
+            else:
+                with self.memory_manager_thread_lock:
+                    if recreatable_object is False:
+                        try:
+                            byte_data = dill.dumps(obj)
+                            dill.loads(byte_data)
+                            stay_in_memory = False
+                        except:
+                            stay_in_memory = True
+
+                    if custom_id is not None:
+                        identifier = custom_id
+                    else:
+                        identifier = id(obj)
+                    if identifier in self.linker.keys():
+                        raise KeyError("Object already exists")
+
+                    obj_size = sys.getsizeof(obj)
+                    if (PassportIntermediary.project_size is None or PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and self.assigned_target_size is False:
+                        if obj_size / self.target_size > 0.75:
+                            core.log_development("No single object is recommended to take up more than 75% of the assigned memory")
+                    elif PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and self.assigned_target_size is False:
+                        if obj_size / self.target_size > 0.5:
+                            core.log_development("No single object is recommended to take up more than 50% of the assigned memory")
+                    elif PassportIntermediary.project_size == Constants.SMALL_APPLICATION and self.assigned_target_size is False:
+                        if obj_size / self.target_size > 0.25:
+                            core.log_development("No single object is recommended to take up more than 25% of the assigned memory")
+
+                    if obj_size > self.max_obj_size:
+                        self.max_obj_size = obj_size
+                    relative_object_creation_time = obj_size / self.max_obj_size
+                    if object_creation_time is None:
+                        relative_object_creation_time = 1
+                    else:
+                        if object_creation_time > self.max_obj_creation_time:
+                            self.max_obj_creation_time = object_creation_time
+                        relative_object_creation_time = object_creation_time / self.max_obj_creation_time
+                    if object_lifetime is None:
+                        object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
+                    current_time = str(time.perf_counter())
+                    self.linker[identifier] = current_time
+                    self.objects[current_time] = [obj, identifier, object_lifetime, object_creation_time, recreatable_object, stay_in_memory]
+                    self.total_size += obj_size
+                    return identifier
         else:
             raise Exception("Memory management is disabled")
 
@@ -100,12 +156,23 @@ class MemoryManager:
                     current_time = str(time.perf_counter())
                     obj = self.objects[self.linker[obj_id]][0]
                     obj_lifetime = self.objects[self.linker[obj_id]][2]
+                    obj_creation_time = self.objects[self.linker[obj_id]][3]
+                    obj_recreatable_object = self.objects[self.linker[obj_id]][4]
+                    obj_stay_in_memory = self.objects[self.linker[obj_id]][5]
                     obj_time = self.linker[obj_id]
                     del self.linker[self.objects[obj_time][1]]
                     del self.objects[obj_time]
                     self.linker[obj_id] = current_time
-                    self.objects[current_time] = [obj, obj_id, obj_lifetime]
+                    self.objects[current_time] = [obj, obj_id, obj_lifetime, obj_creation_time, obj_recreatable_object, obj_stay_in_memory]
                     return obj
+                elif obj_id in self.temporary_files:
+                    core.log_development(f"Loading object w/ ID: {obj_id} from temporary file.")
+                    self.temporary_files[obj_id].seek(0)
+                    stored_object, identifier, object_lifetime, object_creation_time, recreatable_object, stay_in_memory = dill.load(self.temporary_files[obj_id])
+                    self.add_object(stored_object, obj_id, object_lifetime=object_lifetime, object_creation_time=object_creation_time, recreatable_object=recreatable_object, pre_locked=True)
+                    self.temporary_files[obj_id].close()
+                    del self.temporary_files[obj_id]
+                    return stored_object
         else:
             raise Exception("Memory management is disabled")
 
@@ -115,6 +182,10 @@ class MemoryManager:
                 if obj_id in self.linker:
                     del self.linker[self.objects[self.linker[obj_id]][1]]
                     del self.objects[self.linker[obj_id]]
+                    return True
+                elif obj_id in self.temporary_files:
+                    self.temporary_files[obj_id].close()
+                    del self.temporary_files[obj_id]
                     return True
                 return False
         else:
@@ -131,10 +202,20 @@ class MemoryManager:
                 with self.memory_manager_thread_lock:
                     for obj_time in list(self.objects.keys()):
                         try:
-                            if current_time - float(obj_time) > self.objects[obj_time][2]:
-                                self.total_size -= sys.getsizeof(self.objects[obj_time][0])
-                                del self.linker[self.objects[obj_time][1]]
-                                del self.objects[obj_time]
+                            recreatable_object = self.objects[obj_time][3]
+                            stay_in_memory = self.objects[obj_time][4]
+                            if stay_in_memory is False:
+                                if current_time - float(obj_time) > self.objects[obj_time][2]:
+                                    self.total_size -= sys.getsizeof(self.objects[obj_time][0])
+                                    if not recreatable_object:
+                                        core.log_development(f"Dumping object w/ ID: {self.objects[obj_time][1]} to temporary file.")
+                                        byte_data = dill.dumps(self.objects[obj_time])
+                                        file = tempfile.TemporaryFile()
+                                        file.write(byte_data)
+                                        self.temporary_files[self.objects[obj_time][1]] = file
+
+                                    del self.linker[self.objects[obj_time][1]]
+                                    del self.objects[obj_time]
                         except Exception as error:
                             print(error)
 
