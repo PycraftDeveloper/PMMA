@@ -46,7 +46,7 @@ inst = mm.MemoryManager()
     #data = file.read()
 
 data = "hellomynameisjeff"
-for i in range(28):
+for i in range(2):
     data += data
 
 addr = inst.add_object(data, custom_id="test")
@@ -57,5 +57,5 @@ time.sleep(15)
 snapshot = tracemalloc.take_snapshot()
 display_top(snapshot)
 time.sleep(15)
-inst.get_object(addr)
+print(inst.get_object(addr))
 time.sleep(200000)

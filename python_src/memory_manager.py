@@ -227,10 +227,10 @@ class MemoryManager:
                                     self.total_size -= sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
                                         core.log_development(f"Dumping object w/ ID: '{self.objects[obj_time][1]}' to temporary file.")
-                                        file = tempfile.NamedTemporaryFile(dir=self.memory_management_directory, delete=False)
-                                        file_name = file.name
-                                        dill.dump(self.objects[obj_time], file)
-                                        file.close()
+                                        with tempfile.NamedTemporaryFile(dir=self.memory_management_directory, delete=False) as file:
+                                            file_name = file.name
+                                            dill.dump(self.objects[obj_time], file)
+
                                         self.temporary_files[self.objects[obj_time][1]] = file_name
                                         core.log_development(f"Dumped object w/ ID: '{self.objects[obj_time][1]}' to temporary file.")
 
