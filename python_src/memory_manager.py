@@ -2,9 +2,15 @@ import time
 import threading
 import sys
 import tempfile
+import os
+import shutil
+import gc
+import traceback
 
 import psutil
 import dill
+
+from pmma.python_src.file import path_builder
 
 import pmma.python_src.core as core
 from pmma.python_src.registry import Registry
@@ -55,7 +61,16 @@ class MemoryManager:
 
         self.memory_manager_thread_lock = threading.Lock()
 
+        self.memory_management_directory = path_builder(Registry.base_path, "temporary", "memory management dumps")
+        shutil.rmtree(self.memory_management_directory, ignore_errors=True)
+        os.mkdir(self.memory_management_directory)
+
         Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT] = self
+
+    def quit(self):
+        self.enable_memory_management = False
+        shutil.rmtree(self.memory_management_directory, ignore_errors=True)
+        os.mkdir(self.memory_management_directory)
 
     def add_object(self, obj, custom_id=None, object_lifetime=None, object_creation_time=None, recreatable_object=False, pre_locked=False):
         if self.enable_memory_management:
@@ -141,6 +156,7 @@ class MemoryManager:
                         relative_object_creation_time = object_creation_time / self.max_obj_creation_time
                     if object_lifetime is None:
                         object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
+
                     current_time = str(time.perf_counter())
                     self.linker[identifier] = current_time
                     self.objects[current_time] = [obj, identifier, object_lifetime, object_creation_time, recreatable_object, stay_in_memory]
@@ -166,11 +182,11 @@ class MemoryManager:
                     self.objects[current_time] = [obj, obj_id, obj_lifetime, obj_creation_time, obj_recreatable_object, obj_stay_in_memory]
                     return obj
                 elif obj_id in self.temporary_files:
-                    core.log_development(f"Loading object w/ ID: {obj_id} from temporary file.")
-                    self.temporary_files[obj_id].seek(0)
-                    stored_object, identifier, object_lifetime, object_creation_time, recreatable_object, stay_in_memory = dill.load(self.temporary_files[obj_id])
+                    core.log_development(f"Loading object w/ ID: '{obj_id}' from temporary file.")
+                    with open(self.temporary_files[obj_id], "rb") as file:
+                        stored_object, identifier, object_lifetime, object_creation_time, recreatable_object, stay_in_memory = dill.loads(file.read())
                     self.add_object(stored_object, obj_id, object_lifetime=object_lifetime, object_creation_time=object_creation_time, recreatable_object=recreatable_object, pre_locked=True)
-                    self.temporary_files[obj_id].close()
+                    os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
                     return stored_object
         else:
@@ -182,10 +198,12 @@ class MemoryManager:
                 if obj_id in self.linker:
                     del self.linker[self.objects[self.linker[obj_id]][1]]
                     del self.objects[self.linker[obj_id]]
+                    gc.collect()
                     return True
                 elif obj_id in self.temporary_files:
-                    self.temporary_files[obj_id].close()
+                    os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
+                    gc.collect()
                     return True
                 return False
         else:
@@ -193,7 +211,7 @@ class MemoryManager:
 
     def object_dictionary_manager(self):
         try:
-            while True:
+            while self.enable_memory_management:
                 current_time = time.perf_counter()
                 if self.total_size / self.target_size > 0.9:
                     core.log_warning(f"Caution - memory management utilization is currently at: {round((self.total_size / self.target_size)*100, 2)}%. Consider lowering this percentage before performance is negatively affected.")
@@ -208,16 +226,26 @@ class MemoryManager:
                                 if current_time - float(obj_time) > self.objects[obj_time][2]:
                                     self.total_size -= sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
-                                        core.log_development(f"Dumping object w/ ID: {self.objects[obj_time][1]} to temporary file.")
-                                        byte_data = dill.dumps(self.objects[obj_time])
-                                        file = tempfile.TemporaryFile()
-                                        file.write(byte_data)
-                                        self.temporary_files[self.objects[obj_time][1]] = file
+                                        core.log_development(f"Dumping object w/ ID: '{self.objects[obj_time][1]}' to temporary file.")
+                                        file = tempfile.NamedTemporaryFile(dir=self.memory_management_directory, delete=False)
+                                        file_name = file.name
+                                        dill.dump(self.objects[obj_time], file)
+                                        file.close()
+                                        self.temporary_files[self.objects[obj_time][1]] = file_name
+                                        core.log_development(f"Dumped object w/ ID: '{self.objects[obj_time][1]}' to temporary file.")
 
+                                    core.log_development(f"Removing object w/ ID: '{self.objects[obj_time][1]}' from memory.")
+                                    self.linker[self.objects[obj_time][1]] = None
                                     del self.linker[self.objects[obj_time][1]]
+                                    self.objects[obj_time] = None
                                     del self.objects[obj_time]
+                                    gc.collect()
+                        except FileNotFoundError as error:
+                            raise error
+
                         except Exception as error:
                             print(error)
+                            print(traceback.format_exc())
 
                 time.sleep(1/30)
         except:
