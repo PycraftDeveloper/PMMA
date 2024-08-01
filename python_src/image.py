@@ -5,18 +5,33 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Image:
-    def __init__(self, image_path):
+    def __init__(self):
         self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
 
-        self.image_path = image_path
-        self.load_image()
         self.graphics_backend_image_address = None
 
-    def load_image(self):
+        self.pil_image_address = None
+
+    def create_from_file(self, image_path):
+        if self.pil_image_address is not None:
+            self.memory_manager_instance.remove_object(self.pil_image_address)
+
         start = time.perf_counter()
-        pil_image = ImageModule.open(self.image_path)
+        pil_image = ImageModule.open(image_path)
         end = time.perf_counter()
-        self.pil_image_address = self.memory_manager_instance.add_object(pil_image, object_creation_time=end-start)
+        self.pil_image_address = self.memory_manager_instance.add_object(pil_image, object_creation_time=end-start, recreatable_object=True)
+
+    def create_from_bytes(self, image_bytes):
+        if self.pil_image_address is not None:
+            self.memory_manager_instance.remove_object(self.pil_image_address)
+
+        start = time.perf_counter()
+        pil_image = ImageModule.frombytes(image_bytes)
+        end = time.perf_counter()
+        self.pil_image_address = self.memory_manager_instance.add_object(pil_image, object_creation_time=end-start, recreatable_object=False)
+
+    def image_to_PIL_object(self):
+        return self.memory_manager_instance.get_object(self.pil_image_address)
 
     def image_to_display_renderable_object(self, auto_optimize=True):
         start = time.perf_counter()
