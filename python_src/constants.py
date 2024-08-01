@@ -4,6 +4,14 @@ import os
 from pmma.python_src.registry import Registry
 
 class Constants:
+    WINDOWS = "windows"
+    LINUX = "linux"
+    MACOS = "macOS"
+    JAVA = "java"
+
+    LIGHT = "light"
+    DARK = "dark"
+
     AUTOMATIC = "automatic"
 
     LARGE_APPLICATION = "large"

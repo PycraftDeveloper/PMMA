@@ -23,6 +23,7 @@ from pmma.python_src.core import *
 
 environ_to_registry()
 
+from pmma.python_src.operating_system_interface import *
 from pmma.python_src.helper_functions import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.advthreading import *
