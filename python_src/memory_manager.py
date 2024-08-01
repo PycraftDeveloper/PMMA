@@ -196,11 +196,15 @@ class MemoryManager:
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
-                    del self.linker[self.objects[self.linker[obj_id]][1]]
-                    del self.objects[self.linker[obj_id]]
+                    core.log_development(f"Removing object w/ ID: '{self.objects[obj_id][1]}' from memory.")
+                    self.linker[self.objects[obj_id][1]] = None
+                    del self.linker[self.objects[obj_id][1]]
+                    self.objects[obj_id] = None
+                    del self.objects[obj_id]
                     gc.collect()
                     return True
                 elif obj_id in self.temporary_files:
+                    core.log_development(f"Removing temporary memory object w/ ID: '{self.objects[obj_id][1]}' from disk.")
                     os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
                     gc.collect()

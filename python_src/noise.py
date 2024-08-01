@@ -1,10 +1,6 @@
 import random
 import importlib
-import time
 import threading
-import traceback
-
-import numba
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
