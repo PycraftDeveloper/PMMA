@@ -18,6 +18,8 @@ def raw_ranger(value, old, new):
     else:
         old_range = (old[1] - old[0])
         new_range = (new[1] - new[0])
+        if old_range == 0:
+            old_range = 0.000000000000000000000000000000000000001
         new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
 
@@ -30,6 +32,8 @@ def raw_nparray_ranger(value, old, new):
     else:
         old_range = (old[1] - old[0])
         new_range = (new[1] - new[0])
+        if old_range == 0:
+            old_range = 0.000000000000000000000000000000000000001
         new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
 

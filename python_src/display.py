@@ -59,6 +59,7 @@ class Display:
             display_size = width, height
             self.display_attributes = [display_size, flags, vsync]
             self.display = Registry.graphics_backend.display.set_mode(display_size, flags, vsync=vsync)
+            display_size = self.display.get_size()
             Registry.display_initialized = True
             OpenGL()
             self.pygame_surface = Surface()
@@ -128,12 +129,14 @@ class Display:
     def clear(self, *args):
         if args == ():
             args = (0, 0, 0)
+        if not (type(args[0]) == int or type(args[0]) == float):
+            args = args[0]
         if Registry.display_mode == Constants.PYGAME:
             self.two_dimension_frame_buffer.use()
-            self.two_dimension_frame_buffer.clear(args[0:3], 0.0)
+            self.two_dimension_frame_buffer.clear(*args[0:3], 0.0)
             self.three_dimension_frame_buffer.use()
-            self.three_dimension_frame_buffer.clear(args[0:3], 0.0)
-            self.pygame_surface.fill(args[0:3], 0.0)
+            self.three_dimension_frame_buffer.clear(*args[0:3], 0.0)
+            self.pygame_surface.clear(*args[0:3], 0.0)
         else:
             raise NotImplementedError
 
@@ -143,7 +146,7 @@ class Display:
             byte_data = self.pygame_surface.to_string(flipped=True)
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT].blit_image_to_texture(byte_data, self.pygame_surface_texture)
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().screen.use()
-            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().clear(0.1, 0.1, 0.1)
+            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().clear(0, 0, 0)
             self.two_dimension_texture.use(location=0)
             self.three_dimension_texture.use(location=1)
             self.pygame_surface_texture.use(location=2)
