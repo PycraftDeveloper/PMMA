@@ -2,4 +2,12 @@
 Render Pipeline (``pmma.RenderPipeline``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: RenderPipeline
+
+    Work In Progress
+
+Methods
+++++++

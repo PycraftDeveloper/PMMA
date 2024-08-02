@@ -2,4 +2,12 @@
 Text (``pmma.Text``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Text
+
+    Work In Progress
+
+Methods
+++++++

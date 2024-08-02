@@ -2,4 +2,12 @@
 Logger (``pmma.Logger``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Logger
+
+    Work In Progress
+
+Methods
+++++++

@@ -1,5 +1,3 @@
-import threading
-
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 

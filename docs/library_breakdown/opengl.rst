@@ -1,5 +1,13 @@
 
-OpenGL (``pmma./``)
+OpenGL (``pmma.OpenGL``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: OpenGL
+
+    Work In Progress
+
+Methods
+++++++

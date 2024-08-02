@@ -2,4 +2,9 @@
 Backpack (``pmma.Backpack``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Backpack
+
+    Work In Progress

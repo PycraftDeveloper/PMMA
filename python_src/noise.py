@@ -7,7 +7,7 @@ from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.math_utils import *
 
-def prefill_optimizer(x):
+def __prefill_optimizer(x):
     x_array = numpy.linspace(0, x, x)
     x_out_array = x_array
     y_array = numpy.linspace(0, x, x)
@@ -94,7 +94,7 @@ class Perlin:
                 self.generate_3D_perlin_noise(x/100, -x/100, x/100, prefill=True)
 
             x = 10
-            x_array, y_array, z_array = prefill_optimizer(x)
+            x_array, y_array, z_array = __prefill_optimizer(x)
 
             self.generate_1D_perlin_noise_from_array(x_array, prefill=True)
 

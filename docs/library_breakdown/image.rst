@@ -2,4 +2,12 @@
 Image (``pmma.Image``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Image
+
+    Work In Progress
+
+Methods
+++++++

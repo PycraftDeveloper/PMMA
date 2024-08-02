@@ -2,4 +2,9 @@
 Constants (``pmma.Constants``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Constants
+
+    Work In Progress

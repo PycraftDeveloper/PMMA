@@ -2,4 +2,12 @@
 Memory Manager (``pmma.MemoryManager``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: MemoryManager
+
+    Work In Progress
+
+Methods
+++++++

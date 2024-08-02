@@ -2,4 +2,12 @@
 Events (``pmma.Events``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Events
+
+    Work In Progress
+
+Methods
+++++++

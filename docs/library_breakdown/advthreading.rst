@@ -2,4 +2,12 @@
 Advanced-Threading (``pmma.Thread``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Thread
+
+    Work In Progress
+
+Methods
+++++++

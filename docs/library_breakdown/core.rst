@@ -1,5 +1,6 @@
 
-Core (``pmma./``)
+Core (``pmma.``)
 =======
 
-Work in progress!
+Methods
+++++++

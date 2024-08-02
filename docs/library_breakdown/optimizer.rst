@@ -2,4 +2,12 @@
 Optimizer (``pmma.Benchmark``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Benchmark
+
+    Work In Progress
+
+Methods
+++++++

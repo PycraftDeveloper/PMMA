@@ -2,4 +2,9 @@
 Registry (``pmma.Registry``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Registry
+
+    Work In Progress

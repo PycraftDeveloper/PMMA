@@ -1,5 +1,6 @@
 
-General (``pmma./``)
+General (``pmma.``)
 =======
 
-Work in progress!
+Methods
+++++++

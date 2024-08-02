@@ -2,4 +2,12 @@
 Recorder (``pmma.Sampler``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Sampler
+
+    Work In Progress
+
+Methods
+++++++

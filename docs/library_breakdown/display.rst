@@ -1,5 +1,13 @@
 
-Canvas (``pmma.Display``)
+Display (``pmma.Display``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Display
+
+    Work In Progress
+
+Methods
+++++++
