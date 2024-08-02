@@ -73,16 +73,20 @@ def is_battery_saver_enabled(
                     ('BatteryFullLifeTime', wintypes.DWORD),
                 ]
 
-            # Instantiate the structure
+            SYSTEM_POWER_STATUS_P = ctypes.POINTER(SYSTEM_POWER_STATUS)
+
+            GetSystemPowerStatus = ctypes.windll.kernel32.GetSystemPowerStatus
+            GetSystemPowerStatus.argtypes = [SYSTEM_POWER_STATUS_P]
+            GetSystemPowerStatus.restype = wintypes.BOOL
+
             status = SYSTEM_POWER_STATUS()
-
-            # Call the Windows API to get the power status
-            result = ctypes.windll.kernel32.GetSystemPowerStatus(
-                ctypes.byref(status))
-
-            # Check if the API call was successful
-            if result == 0:
+            if not GetSystemPowerStatus(ctypes.pointer(status)):
                 raise ctypes.WinError()
+            print('ACLineStatus', status.ACLineStatus)
+            print('BatteryFlag', status.BatteryFlag)
+            print('BatteryLifePercent', status.BatteryLifePercent)
+            print('BatteryLifeTime', status.BatteryLifeTime)
+            print('BatteryFullLifeTime', status.BatteryFullLifeTime)
 
             # Check if battery saver is on
             return bool(status.BatteryFlag & SYSTEM_POWER_STATUS_BATTERY_SAVER_ON)
