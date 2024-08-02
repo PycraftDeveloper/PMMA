@@ -82,11 +82,6 @@ def is_battery_saver_enabled(
             status = SYSTEM_POWER_STATUS()
             if not GetSystemPowerStatus(ctypes.pointer(status)):
                 raise ctypes.WinError()
-            print('ACLineStatus', status.ACLineStatus)
-            print('BatteryFlag', status.BatteryFlag)
-            print('BatteryLifePercent', status.BatteryLifePercent)
-            print('BatteryLifeTime', status.BatteryLifeTime)
-            print('BatteryFullLifeTime', status.BatteryFullLifeTime)
 
             # Check if battery saver is on
             return bool(status.BatteryFlag & SYSTEM_POWER_STATUS_BATTERY_SAVER_ON)
