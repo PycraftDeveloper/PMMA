@@ -49,7 +49,6 @@ def get_language():
 def __fallback_is_battery_saver_enabled(
         fallback_battery_power_saving_threshold_percentage):
 
-    print("Fallback")
     battery = psutil.sensors_battery()
     if battery is None:
         return False
