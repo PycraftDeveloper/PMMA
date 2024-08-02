@@ -360,7 +360,10 @@ as PMMA attempts to correct this.")
                             print(error)
                             print(traceback.format_exc())
 
-                time.sleep(1/30)
+                if Registry.power_saving_mode:
+                    time.sleep(1/15)
+                else:
+                    time.sleep(1/30)
         except:
             self.enable_memory_management = False
             self.linker = {}

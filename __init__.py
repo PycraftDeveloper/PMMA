@@ -65,6 +65,7 @@ def init(
 
     Registry.python_acceleration_enabled = optimize_python_extensions
     Registry.cython_acceleration_enabled = compile_c_extensions
+    Registry.power_saving_mode = is_battery_saver_enabled()
 
     if optimize_python_extensions:
         benchmark = Benchmark() # cache this unique to device

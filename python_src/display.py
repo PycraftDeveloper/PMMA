@@ -39,6 +39,7 @@ This is to avoid creating unexpected behavior.")
 
         self.fullscreen = None
         self.display_attributes = []
+        self.vsync = True
 
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = self
 
@@ -56,6 +57,7 @@ This is to avoid creating unexpected behavior.")
             vsync=True,
             alpha=False):
 
+        self.vsync = vsync
         if Registry.display_mode == Constants.PYGAME:
             flags = Registry.graphics_backend.OPENGL | Registry.graphics_backend.DOUBLEBUF
             if fullscreen:
@@ -68,11 +70,11 @@ This is to avoid creating unexpected behavior.")
                     flags = flags | Registry.graphics_backend.RESIZABLE
 
             display_size = width, height
-            self.display_attributes = [display_size, flags, vsync]
+            self.display_attributes = [display_size, flags, self.vsync]
             self.display = Registry.graphics_backend.display.set_mode(
                 display_size,
                 flags,
-                vsync=vsync)
+                vsync=self.vsync)
 
             display_size = self.display.get_size()
             Registry.display_initialized = True
@@ -160,7 +162,13 @@ This is to avoid creating unexpected behavior.")
         else:
             raise NotImplementedError
 
-    def refresh(self, refresh_rate=60):
+    def refresh(self, refresh_rate=None):
+        if refresh_rate is None:
+            if Registry.power_saving_mode:
+                refresh_rate = 45
+            else:
+                refresh_rate = 60
+
         Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
             byte_data = self.pygame_surface.to_string(flipped=True)

@@ -16,3 +16,4 @@ class Registry:
     refresh_rate = 60
     display_initialized = False
     context = None
+    power_saving_mode = False

@@ -58,6 +58,8 @@ def log_error(message, do_traceback=True):
     return False
 
 def compute():
+    Registry.power_saving_mode = is_battery_saver_enabled()
+
     number_of_draw_calls = DrawIntermediary.number_of_draw_calls
     total_time_spent_drawing = DrawIntermediary.total_time_spent_drawing
     DrawIntermediary.number_of_draw_calls = 0

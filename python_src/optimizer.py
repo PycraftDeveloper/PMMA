@@ -6,7 +6,13 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.math_utils import *
 
 class Benchmark:
-    def __init__(self, n=100_000):
+    def __init__(self, n=None):
+        if n is None:
+            if Registry.power_saving_mode:
+                n = 1_000
+            else:
+                n = 10_000
+
         self.n = n
 
     def test_all(self):
