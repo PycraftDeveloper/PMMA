@@ -23,8 +23,3 @@ Object
 
 Methods
 ++++++
-
-Methods
-++++++
-
-__prefill_optimizer

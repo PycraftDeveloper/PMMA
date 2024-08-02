@@ -30,6 +30,7 @@ The full breakdown of what everything does!
     operating_system_interface.rst
     optimizer.rst
     passport.rst
+    pmma.rst
     recorder.rst
     registry.rst
     render_pipeline.rst

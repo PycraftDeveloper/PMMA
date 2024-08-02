@@ -24,8 +24,3 @@ Object
 
 Methods
 ++++++
-
-Methods
-=======
-
-path_builder
