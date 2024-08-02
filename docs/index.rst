@@ -9,28 +9,7 @@ Contents
 .. toctree::
     :maxdepth: 2
 
-    advmath.rst
-    advthreading.rst
-    advtkinter.rst
-    audio.rst
-    color.rst
-    constants.rst
-    coordinate.rst
-    core.rst
-    display.rst
-    draw.rst
-    events.rst
-    file.rst
-    general.rst
-    noise.rst
-    opengl.rst
-    optimizer.rst
-    passport.rst
-    recorder.rst
-    registry.rst
-    surface.rst
-    text.rst
-    video.rst
+    the_guide/index.rst
 
 Welcome
 =======
