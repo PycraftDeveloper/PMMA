@@ -1,7 +1,4 @@
 
-Coordinate (``pmma.Coordinate``, ``pmma.CoordinateIntermediary``)
-=======
-
 Coordinate (``pmma.Coordinate``)
 =======
 

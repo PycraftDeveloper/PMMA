@@ -1,5 +1,26 @@
 
-GlSL (``pmma.Shader``, ``pmma.ShaderAnalyzer``)
+Shader (``pmma.Shader``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Shader
+
+    Work In Progress
+
+Methods
+++++++
+
+Shader Intermediary (``pmma.ShaderAnalyzer``)
+=======
+
+Object
+++++++
+
+.. py:class:: ShaderIntermediary
+
+    Work In Progress
+
+Methods
+++++++

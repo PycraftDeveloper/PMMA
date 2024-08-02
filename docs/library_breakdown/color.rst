@@ -1,5 +1,26 @@
 
-Color (``pmma.ColorIntermediary``, ``pmma.Color``)
+Color (``pmma.Color``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Color
+
+    Work In Progress
+
+Methods
+++++++
+
+Color Intermediary (``pmma.ColorIntermediary``)
+=======
+
+Object
+++++++
+
+.. py:class:: ColorIntermediary
+
+    Work In Progress
+
+Methods
+++++++

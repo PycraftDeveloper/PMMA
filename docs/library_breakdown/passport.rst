@@ -1,5 +1,26 @@
 
-Passport (``pmma.PassportIntermediary``, ``pmma.Passport``)
+Passport (``pmma.Passport``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: Passport
+
+    Work In Progress
+
+Methods
+++++++
+
+Passport Intermediary (``pmma.PassportIntermediary``)
+=======
+
+Object
+++++++
+
+.. py:class:: PassportIntermediary
+
+    Work In Progress
+
+Methods
+++++++

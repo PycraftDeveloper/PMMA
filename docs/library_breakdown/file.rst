@@ -1,5 +1,26 @@
 
-File (``pmma.File``, ``pmma.FileCore``)
+File (``pmma.File``)
 =======
 
-Work in progress!
+Object
+++++++
+
+.. py:class:: File
+
+    Work In Progress
+
+Methods
+++++++
+
+File Core (``pmma.FileCore``)
+=======
+
+Object
+++++++
+
+.. py:class:: FileCore
+
+    Work In Progress
+
+Methods
+++++++
