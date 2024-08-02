@@ -9,7 +9,7 @@ Contents
 .. toctree::
     :maxdepth: 2
 
-    advmath/index.rst
+    advmath.rst
     advthreading/index.rst
     advtkinter/index.rst
     audio/index.rst
