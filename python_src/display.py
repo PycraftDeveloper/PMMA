@@ -17,7 +17,8 @@ class Display:
     def __init__(self, display_mode=Constants.PYGAME):
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             core.log_warning("Display object already exists")
-            core.log_development("Some PMMA objects can only be initialized once. This is to avoid creating unexpected behavior.")
+            core.log_development("Some PMMA objects can only be initialized once. \
+This is to avoid creating unexpected behavior.")
             raise Exception("Display object already exists")
 
         if display_mode == Constants.PYGAME:
@@ -44,7 +45,17 @@ class Display:
     def destroy(self):
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
-    def create(self, width, height, fullscreen=False, resizable=False, caption="PMMA Canvas", native_fullscreen=True, vsync=True, alpha=False):
+    def create(
+            self,
+            width,
+            height,
+            fullscreen=False,
+            resizable=False,
+            caption="PMMA Canvas",
+            native_fullscreen=True,
+            vsync=True,
+            alpha=False):
+
         if Registry.display_mode == Constants.PYGAME:
             flags = Registry.graphics_backend.OPENGL | Registry.graphics_backend.DOUBLEBUF
             if fullscreen:
@@ -58,7 +69,11 @@ class Display:
 
             display_size = width, height
             self.display_attributes = [display_size, flags, vsync]
-            self.display = Registry.graphics_backend.display.set_mode(display_size, flags, vsync=vsync)
+            self.display = Registry.graphics_backend.display.set_mode(
+                display_size,
+                flags,
+                vsync=vsync)
+
             display_size = self.display.get_size()
             Registry.display_initialized = True
             OpenGL()
@@ -81,7 +96,12 @@ class Display:
             quad_indices = numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
             quad_vbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vbo(quad_vertices)
             quad_ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(quad_indices)
-            self.quad_vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(combine_program, quad_vbo, attributes=["in_vert", "in_uv"], index_buffer=quad_ibo)
+            self.quad_vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(
+                combine_program,
+                quad_vbo,
+                attributes=["in_vert", "in_uv"],
+                index_buffer=quad_ibo)
+
             Registry.graphics_backend.display.set_caption(caption)
         else:
             raise NotImplementedError
@@ -144,9 +164,16 @@ class Display:
         Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
             byte_data = self.pygame_surface.to_string(flipped=True)
-            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].blit_image_to_texture(byte_data, self.pygame_surface_texture)
+            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].blit_image_to_texture(
+                byte_data,
+                self.pygame_surface_texture)
+
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().screen.use()
-            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().clear(0, 0, 0)
+            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().clear(
+                0,
+                0,
+                0)
+
             self.two_dimension_texture.use(location=0)
             self.three_dimension_texture.use(location=1)
             self.pygame_surface_texture.use(location=2)

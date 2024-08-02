@@ -30,28 +30,37 @@ def get_theme():
 def get_language():
     if get_operating_system() == Constants.WINDOWS:
         windll = ctypes.windll.kernel32
-        return locale.windows_locale[windll.GetUserDefaultUILanguage()]
+        return locale.windows_locale[
+            windll.GetUserDefaultUILanguage()]
     else:
         try:
-            result = subprocess.run(['locale'], capture_output=True, text=True, check=True)
+            result = subprocess.run(
+                ['locale'],
+                capture_output=True,
+                text=True,
+                check=True)
+
             for line in result.stdout.split('\n'):
                 if line.startswith('LANG='):
                     return line.split('=')[1]
         except subprocess.CalledProcessError:
             return None
 
-def __fallback_is_battery_saver_enabled():
+def __fallback_is_battery_saver_enabled(
+        fallback_battery_power_saving_threshold_percentage):
+
     battery = psutil.sensors_battery()
     if battery is None:
         return False
     # You might consider a threshold to determine battery saver mode
-    return battery.power_plugged == False and battery.percent < 30  # Example threshold
+    return (battery.power_plugged == False and
+                battery.percent < fallback_battery_power_saving_threshold_percentage)  # Example threshold
 
-def is_battery_saver_enabled():
+def is_battery_saver_enabled(
+        fallback_battery_power_saving_threshold_percentage=30):
     try:
         if get_operating_system() == Constants.WINDOWS:
             # Define the necessary constants and structures
-            SYSTEM_POWER_STATUS_ACLINE = 0x00000001
             SYSTEM_POWER_STATUS_BATTERY_SAVER_ON = 0x00000010
 
             class SYSTEM_POWER_STATUS(ctypes.Structure):
@@ -68,7 +77,8 @@ def is_battery_saver_enabled():
             status = SYSTEM_POWER_STATUS()
 
             # Call the Windows API to get the power status
-            result = ctypes.windll.kernel32.GetSystemPowerStatus(ctypes.byref(status))
+            result = ctypes.windll.kernel32.GetSystemPowerStatus(
+                ctypes.byref(status))
 
             # Check if the API call was successful
             if result == 0:
@@ -82,7 +92,9 @@ def is_battery_saver_enabled():
             # Check if battery saver is mentioned in the output
             return "Power Source: Battery" in output and "Low Power Mode: 1" in output
         else:
-            return __fallback_is_battery_saver_enabled()
+            return __fallback_is_battery_saver_enabled(
+                fallback_battery_power_saving_threshold_percentage)
     except Exception as error:
         print(error)
-        return __fallback_is_battery_saver_enabled()
+        return __fallback_is_battery_saver_enabled(
+            fallback_battery_power_saving_threshold_percentage)

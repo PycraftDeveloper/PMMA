@@ -4,7 +4,11 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.advmath import Math
 
 class CoordinateIntermediary:
-    def __init__(self, in_type=Constants.CARTESIAN, *args):
+    def __init__(
+            self,
+            in_type=Constants.CARTESIAN,
+            *args):
+
         self.in_type = in_type
         self.points = args
 
@@ -18,7 +22,12 @@ class CoordinateIntermediary:
         for point in self.points:
             new_point = []
             for dimension in point:
-                new_point.append(self.math.ranger(dimension, in_range, out_range))
+                new_point.append(
+                    self.math.ranger(
+                        dimension,
+                        in_range,
+                        out_range))
+
             points.append(new_point)
         return points
 

@@ -11,7 +11,14 @@ class ColorIntermediary:
     def detect_color_type(self, color):
         in_type = None
         if type(color) == str:
-            if "#" in color or "a" in color or "b" in color or "c" in color or "d" in color or "e" in color or "f" in color:
+            if ("#" in color or
+                    "a" in color or
+                    "b" in color or
+                    "c" in color or
+                    "d" in color or
+                    "e" in color or
+                    "f" in color):
+
                 if len(color) == 8:
                     in_type = Constants.HEXA
                 elif len(color) == 6:
@@ -65,17 +72,35 @@ class ColorIntermediary:
         elif sorted_in_type == Constants.SORTED_RGB:
             self.color = color_list + [255]
         elif sorted_in_type == Constants.SORTED_HSL:
-            self.color = list(colorsys.hsv_to_rgb(color_list[0]/360, color_list[1]/100, color_list[2]/100)) + [255]
+            self.color = list(colorsys.hsv_to_rgb(
+                color_list[0]/360,
+                color_list[1]/100,
+                color_list[2]/100)) + [255]
+
         elif sorted_in_type == Constants.SORTED_HSLA:
-            self.color = list(colorsys.hsv_to_rgb(color_list[0]/360, color_list[1]/100, color_list[2]/100)) + [(color_list[3]/100)*255]
+            self.color = list(colorsys.hsv_to_rgb(
+                color_list[0]/360,
+                color_list[1]/100,
+                color_list[2]/100)) + [(color_list[3]/100)*255]
+
         elif sorted_in_type == Constants.SORTED_SMALL_HSL:
             self.color = list(colorsys.hsv_to_rgb(*color_list[0:3])) + [255]
         elif sorted_in_type == Constants.SORTED_SMALL_HSLA:
             self.color = list(colorsys.hsv_to_rgb(*color_list[0:3])) + [255*color_list[3]]
         elif sorted_in_type == Constants.SORTED_SMALL_RGB:
-            self.color = [color_list[0]*255, color_list[1]*255, color_list[2]*255, 255]
+            self.color = [
+                color_list[0]*255,
+                color_list[1]*255,
+                color_list[2]*255,
+                255]
+
         elif sorted_in_type == Constants.SORTED_SMALL_RGBA:
-            self.color = [color_list[0]*255, color_list[1]*255, color_list[2]*255, color_list[3]*255]
+            self.color = [
+                color_list[0]*255,
+                color_list[1]*255,
+                color_list[2]*255,
+                color_list[3]*255]
+
         elif in_type == Constants.HEX:
             self.color = list(int(color[i:i+2], 16) for i in (0, 2, 4)) + [255]
         elif in_type == Constants.HEXA:
@@ -90,7 +115,10 @@ class ColorIntermediary:
         blue_percentage = blue / float(255)
 
         #get hsv percentage: range (0-1, 0-1, 0-1)
-        color_hsv_percentage = colorsys.rgb_to_hsv(red_percentage, green_percentage, blue_percentage)
+        color_hsv_percentage = colorsys.rgb_to_hsv(
+            red_percentage,
+            green_percentage,
+            blue_percentage)
 
         #get normal hsv: range (0-360, 0-255, 0-255)
         color_h = round(360*  color_hsv_percentage[0])
@@ -118,16 +146,29 @@ class ColorIntermediary:
             color = list(self.__convert_rgb_to_hsv(*self.color[0:3])) + [round((100/255)*self.color[3])]
             return swizzle(Constants.HSLA, color, out_type)
         elif sorted_out_type == Constants.SORTED_SMALL_HSL:
-            color = list(self.__convert_rgb_to_hsv(*self.color[0:3], per_maximum=1, do_round=False))
+            color = list(self.__convert_rgb_to_hsv(
+                *self.color[0:3],
+                per_maximum=1,
+                do_round=False))
+
             return swizzle(Constants.SMALL_HSL, color, out_type)
         elif sorted_out_type == Constants.SORTED_SMALL_HSLA:
-            color = list(self.__convert_rgb_to_hsv(*self.color[0:3], per_maximum=1, do_round=False)) + [round((1/255)*self.color[3])]
+            color = list(self.__convert_rgb_to_hsv(
+                *self.color[0:3],
+                per_maximum=1,
+                do_round=False)) + [round((1/255)*self.color[3])]
+
             return swizzle(Constants.SMALL_HSLA, color, out_type)
         elif sorted_out_type == Constants.SORTED_SMALL_RGB:
             color = self.color[0]/255, self.color[1]/255, self.color[2]/255
             return swizzle(Constants.SMALL_RGB, color, out_type)
         elif sorted_out_type == Constants.SORTED_SMALL_RGBA:
-            color = self.color[0]/255, self.color[1]/255, self.color[2]/255, self.color[3]/255
+            color = (
+                self.color[0]/255,
+                self.color[1]/255,
+                self.color[2]/255,
+                self.color[3]/255)
+
             return swizzle(Constants.SMALL_RGBA, color, out_type)
         elif out_type == Constants.HEX:
             return '#%02x%02x%02x' % tuple(self.color[0:3])

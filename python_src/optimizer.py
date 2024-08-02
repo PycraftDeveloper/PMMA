@@ -19,13 +19,21 @@ class Benchmark:
         total_raw_time = 0
         for iteration in range(self.n):
             start = time.perf_counter()
-            raw_pythag([float(iteration), iteration/2, iteration/4])
+            raw_pythag([
+                float(iteration),
+                iteration/2,
+                iteration/4])
+
             end = time.perf_counter()
             total_compiled_time += end - start
 
         for iteration in range(self.n):
             start = time.perf_counter()
-            raw_pythag.py_func([float(iteration), iteration/2, iteration/4])
+            raw_pythag.py_func([
+                float(iteration),
+                iteration/2,
+                iteration/4])
+
             end = time.perf_counter()
             total_raw_time += end - start
 

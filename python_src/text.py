@@ -34,7 +34,9 @@ class Text:
     def render_text_with_transparent_background(self, in_text, bg_color):
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
-        alpha_surface = Registry.graphics_backend.Surface((width, height), Registry.graphics_backend.SRCALPHA)
+        alpha_surface = Registry.graphics_backend.Surface(
+            (width, height),
+            Registry.graphics_backend.SRCALPHA)
 
         # Fill this surface with the background color and set alpha transparency
         alpha_surface.fill(bg_color)
@@ -129,7 +131,9 @@ class Text:
         if result is None:
             start = time.perf_counter()
             x, y = 0, 0
-            surface = Registry.graphics_backend.Surface((canvas.get_width(), canvas.get_height()), Registry.graphics_backend.SRCALPHA)
+            surface = Registry.graphics_backend.Surface(
+                (canvas.get_width(), canvas.get_height()),
+                Registry.graphics_backend.SRCALPHA)
 
             pattern = "(\$\{[a-zA-Z =\()\0-9]+})|"+word_separator
 
@@ -148,17 +152,27 @@ class Text:
                     split_content = content.split(" ")
                     for syntax in split_content:
                         foreground_color_pattern = r'^cfg=\(([^()]+)\)$'
-                        foreground_color_pattern_match = re.match(foreground_color_pattern, syntax)
+                        foreground_color_pattern_match = re.match(
+                            foreground_color_pattern,
+                            syntax)
+
                         background_color_pattern = r'^cbg=\(([^()]+)\)$'
-                        background_color_pattern_match = re.match(background_color_pattern, syntax)
+                        background_color_pattern_match = re.match(
+                            background_color_pattern,
+                            syntax)
+
                         size_pattern = r'^sze=\(([^()]+)\)$'
                         size_pattern_match = re.match(size_pattern, syntax)
                         if foreground_color_pattern_match:
                             raw_foreground_color = foreground_color_pattern_match.group(1)
-                            foreground_color = Color(raw_foreground_color).convert_format(Constants.RGBA)
+                            foreground_color = Color(raw_foreground_color).convert_format(
+                                Constants.RGBA)
+
                         elif background_color_pattern_match:
                             raw_background_color = background_color_pattern_match.group(1)
-                            background_color = Color(raw_background_color).convert_format(Constants.RGBA)
+                            background_color = Color(raw_background_color).convert_format(
+                                Constants.RGBA)
+
                         elif size_pattern_match:
                             raw_size = size_pattern_match.group(1)
                             size = int(raw_size)
@@ -171,7 +185,12 @@ class Text:
                         elif syntax == "str":
                             strikethrough = not strikethrough
                         elif syntax == "nln":
-                            temporary_text = font.render(" ", Registry.do_anti_aliasing, foreground_color, background_color)
+                            temporary_text = font.render(
+                                " ",
+                                Registry.do_anti_aliasing,
+                                foreground_color,
+                                background_color)
+
                             y += temporary_text.get_height()
                             x = 0
                         elif syntax == "clr":
@@ -183,15 +202,25 @@ class Text:
                             size = defaults["size"]
                         elif syntax in Constants.TEXT_BASED_COLORS.keys():
                             foreground_color = Constants.TEXT_BASED_COLORS[syntax]
-                        elif syntax.upper() in Constants.TEXT_BASED_COLORS.keys() and syntax != syntax.upper():
+
+                        elif (syntax.upper() in Constants.TEXT_BASED_COLORS.keys() and
+                                syntax != syntax.upper()):
+
                             background_color = Constants.TEXT_BASED_COLORS[syntax.upper()]
 
                 else:
-                    rendered_word = font.render(word+" ", Registry.do_anti_aliasing, foreground_color)
+                    rendered_word = font.render(
+                        word+" ",
+                        Registry.do_anti_aliasing,
+                        foreground_color)
+
                     if rendered_word.get_width() > surface.get_width():
                         word = word+" "
                         for letter in word:
-                            rendered_word = font.render(letter, Registry.do_anti_aliasing, foreground_color)
+                            rendered_word = font.render(
+                                letter,
+                                Registry.do_anti_aliasing,
+                                foreground_color)
 
                             if rendered_word.get_width() + x > surface.get_width():
                                 x = 0
@@ -205,9 +234,14 @@ class Text:
                                 if len(foreground_color) == 4 and foreground_color[3] > 0:
                                     rendered_word.set_alpha(foreground_color[3])
                                     alpha = True
-                                if background_color is None or (len(background_color) == 4 and background_color[3] > 0):
+                                if (background_color is None or
+                                        (len(background_color) == 4 and background_color[3] > 0)):
+
                                     if background_color is not None and len(background_color) == 4:
-                                        rendered_word = self.render_text_with_transparent_background(rendered_word, background_color)
+                                        rendered_word = self.render_text_with_transparent_background(
+                                            rendered_word,
+                                            background_color)
+
                                     alpha = True
 
                                 if alpha is False:
@@ -228,7 +262,10 @@ class Text:
                             alpha = True
                         if background_color is None or (len(background_color) == 4 and background_color[3] > 0):
                             if background_color is not None and len(background_color) == 4:
-                                rendered_word = self.render_text_with_transparent_background(rendered_word, background_color)
+                                rendered_word = self.render_text_with_transparent_background(
+                                    rendered_word,
+                                    background_color)
+
                             alpha = True
 
                         if alpha is False:
@@ -241,6 +278,11 @@ class Text:
             canvas.blit(surface, defaults["position"])
             end = time.perf_counter()
             object_creation_time = end-start
-            self.memory_manager_instance.add_object(surface, custom_id=identifier, object_creation_time=object_creation_time)
+            self.memory_manager_instance.add_object(
+                surface,
+                custom_id=identifier,
+                object_creation_time=object_creation_time,
+                recreatable_object=True)
+
         else:
             canvas.blit(result, defaults["position"])

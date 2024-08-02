@@ -15,11 +15,17 @@ class OpenGL:
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             if Registry.display_initialized is False:
                 core.log_warning("No OpenGL ready display available.")
-                core.log_development("The OpenGL module requires a PMMA display object to have already been created, with OpenGL support. Make sure to also call the 'create' function in the 'Display' class to create it.")
+
+                core.log_development("The OpenGL module requires a PMMA \
+display object to have already been created, with OpenGL support. Make \
+sure to also call the 'create' function in the 'Display' class to create it.")
 
                 raise Exception("No OpenGL ready display available.")
         else:
-            core.log_development("The OpenGL module requires a PMMA display object to have already been created, with OpenGL support. Make sure to instantiate the 'Display' class first!")
+            core.log_development("The OpenGL module requires a PMMA display \
+object to have already been created, with OpenGL support. Make sure to \
+instantiate the 'Display' class first!")
+
             raise Exception("No OpenGL ready display instantiated.")
 
         try:
@@ -27,15 +33,28 @@ class OpenGL:
                 Registry.context = moderngl.create_context()
         except Exception as error:
             core.log_error("Failed to create OpenGL context.")
-            core.log_development("Failed to create OpenGL context. The most likely cause for this error is that there is no available display with OpenGL support initiated; make sure to also call the 'create' function in the 'Display' class to create it. Should that also not work, make sure that you have the appropriate graphics drivers installed and make sure that your GPU supports OpenGL. If this fails, try to run another OpenGL application first to attempt to isolate the problem.")
+            core.log_development("Failed to create OpenGL context. The most \
+likely cause for this error is that there is no available display with OpenGL \
+support initiated; make sure to also call the 'create' function in the 'Display' \
+class to create it. Should that also not work, make sure that you have the \
+appropriate graphics drivers installed and make sure that your GPU supports OpenGL. \
+If this fails, try to run another OpenGL application first to attempt to isolate the problem.")
 
             raise error
 
         self.simple_texture_rendering_program = Shader()
-        self.simple_texture_rendering_program.create_from_location(path_builder(Registry.base_path, "shaders", "simple_texture_rendering"))
+        self.simple_texture_rendering_program.create_from_location(
+            path_builder(
+                Registry.base_path,
+                "shaders",
+                "simple_texture_rendering"))
 
         self.texture_aggregation_program = Shader()
-        self.texture_aggregation_program.create_from_location(path_builder(Registry.base_path, "shaders", "texture_aggregation"))
+        self.texture_aggregation_program.create_from_location(
+            path_builder(
+                Registry.base_path,
+                "shaders",
+                "texture_aggregation"))
 
     def get_simple_texture_rendering_program(self):
         return self.simple_texture_rendering_program
@@ -46,18 +65,40 @@ class OpenGL:
     def get_context(self):
         return Registry.context
 
-    def create_fbo(self, width, height, texture=None, color_format=Constants.RGBA):
+    def create_fbo(
+            self,
+            width,
+            height,
+            texture=None,
+            color_format=Constants.RGBA):
+
         if texture is None:
-            fbo_texture = self.create_texture(width, height, color_format)
+            fbo_texture = self.create_texture(
+                width,
+                height,
+                color_format)
+
         else:
             fbo_texture = texture
-        fbo = Registry.context.framebuffer(color_attachments=[fbo_texture])
+        fbo = Registry.context.framebuffer(
+            color_attachments=[fbo_texture])
+
         return fbo
 
-    def create_texture(self, width, height, color_format=Constants.RGBA, x_scaling_method=moderngl.LINEAR, y_scaling_method=moderngl.LINEAR):
+    def create_texture(
+            self,
+            width,
+            height,
+            color_format=Constants.RGBA,
+            x_scaling_method=moderngl.LINEAR,
+            y_scaling_method=moderngl.LINEAR):
+
         color_component = len(color_format)
 
-        texture = Registry.context.texture((width, height), color_component)
+        texture = Registry.context.texture(
+            (width, height),
+            color_component)
+
         texture.filter = (x_scaling_method, y_scaling_method)
         return texture
 
@@ -82,7 +123,13 @@ class OpenGL:
 
         return Registry.context.buffer(data)
 
-    def create_vao(self, program, data_or_vbo, attributes=None, index_buffer=None):
+    def create_vao(
+            self,
+            program,
+            data_or_vbo,
+            attributes=None,
+            index_buffer=None):
+
         if type(data_or_vbo) != moderngl.Buffer:
             data = data_or_vbo
             vbo = self.create_vbo(data)
@@ -98,4 +145,8 @@ class OpenGL:
         if type(program) == Shader:
             program = program.get()
 
-        return Registry.context.simple_vertex_array(program, vbo, *attributes, index_buffer=index_buffer)
+        return Registry.context.simple_vertex_array(
+            program,
+            vbo,
+            *attributes,
+            index_buffer=index_buffer)

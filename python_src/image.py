@@ -14,32 +14,44 @@ class Image:
 
     def create_from_file(self, image_path):
         if self.pil_image_address is not None:
-            self.memory_manager_instance.remove_object(self.pil_image_address)
+            self.memory_manager_instance.remove_object(
+                self.pil_image_address)
 
         start = time.perf_counter()
         pil_image = ImageModule.open(image_path)
         end = time.perf_counter()
-        self.pil_image_address = self.memory_manager_instance.add_object(pil_image, object_creation_time=end-start, recreatable_object=True)
+        self.pil_image_address = self.memory_manager_instance.add_object(
+            pil_image,
+            object_creation_time=end-start,
+            recreatable_object=True)
 
     def create_from_bytes(self, image_bytes):
         if self.pil_image_address is not None:
-            self.memory_manager_instance.remove_object(self.pil_image_address)
+            self.memory_manager_instance.remove_object(
+                self.pil_image_address)
 
         start = time.perf_counter()
         pil_image = ImageModule.frombytes(image_bytes)
         end = time.perf_counter()
-        self.pil_image_address = self.memory_manager_instance.add_object(pil_image, object_creation_time=end-start, recreatable_object=False)
+
+        self.pil_image_address = self.memory_manager_instance.add_object(
+            pil_image,
+            object_creation_time=end-start,
+            recreatable_object=False)
 
     def image_to_PIL_object(self):
-        return self.memory_manager_instance.get_object(self.pil_image_address)
+        return self.memory_manager_instance.get_object(
+            self.pil_image_address)
 
     def image_to_display_renderable_object(self, auto_optimize=True):
         start = time.perf_counter()
-        pil_image = self.memory_manager_instance.get_object(self.pil_image_address)
+        pil_image = self.memory_manager_instance.get_object(
+            self.pil_image_address)
 
         if pil_image is None:
             self.load_image()
-            pil_image = self.memory_manager_instance.get_object(self.pil_image_address)
+            pil_image = self.memory_manager_instance.get_object(
+                self.pil_image_address)
 
         if Registry.display_mode == Constants.PYGAME:
             graphics_backend_image = Registry.graphics_backend.image.fromstring(
@@ -55,7 +67,10 @@ class Image:
             raise NotImplementedError
 
         end = time.perf_counter()
-        self.graphics_backend_image_address = self.memory_manager_instance.add_object(graphics_backend_image, object_creation_time=end-start)
+
+        self.graphics_backend_image_address = self.memory_manager_instance.add_object(
+            graphics_backend_image,
+            object_creation_time=end-start)
 
         return graphics_backend_image
 
@@ -66,6 +81,8 @@ class Image:
         if self.memory_manager_instance.get_object(self.graphics_backend_image_address) is None:
             object = self.image_to_display_renderable_object()
         else:
-            object = self.memory_manager_instance.get_object(self.graphics_backend_image_address)
+
+            object = self.memory_manager_instance.get_object(
+                self.graphics_backend_image_address)
 
         surface.blit(object, position)

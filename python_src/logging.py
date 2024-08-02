@@ -6,10 +6,20 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Logger:
-    def __init__(self, log_development=None, log_information=False, log_warning=False, log_error=True, log_to_file=False, log_file=None, log_to_terminal=True):
+    def __init__(
+            self,
+            log_development=None,
+            log_information=False,
+            log_warning=False,
+            log_error=True,
+            log_to_file=False,
+            log_file=None,
+            log_to_terminal=True):
+
         if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
             core.log_warning("Logging object already exists")
-            core.log_development("Some PMMA objects can only be initialized once. This is to avoid creating unexpected behavior.")
+            core.log_development("Some PMMA objects can only be \
+initialized once. This is to avoid creating unexpected behavior.")
             raise Exception("Logging object already exists")
 
         if log_development is None:
@@ -64,7 +74,12 @@ class Logger:
             with open(self.log_file, "a") as log_file:
                 log_file.write(finished_message + "\n")
 
-    def log_development(self, message, do_traceback=False, repeat_for_effect=False):
+    def log_development(
+            self,
+            message,
+            do_traceback=False,
+            repeat_for_effect=False):
+
         if self.do_log_development and message.strip() != "":
             if repeat_for_effect is False and message in self.development_messages:
                 return

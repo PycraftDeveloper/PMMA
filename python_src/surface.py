@@ -16,7 +16,11 @@ class Surface:
                 flags = Registry.graphics_backend.SRCALPHA
             else:
                 flags = 0
-            self.pygame_surface = Registry.graphics_backend.Surface((width, height), flags)
+
+            self.pygame_surface = Registry.graphics_backend.Surface(
+                (width, height),
+                flags)
+
             self.surface_initialized = True
         else:
             raise NotImplementedError
@@ -73,4 +77,7 @@ class Surface:
                     color_format = "RGB"
 
             if Registry.display_mode == Constants.PYGAME:
-                return Registry.graphics_backend.image.tostring(self.pygame_surface, color_format, flipped)
+                return Registry.graphics_backend.image.tostring(
+                    self.pygame_surface,
+                    color_format,
+                    flipped)

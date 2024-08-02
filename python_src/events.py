@@ -8,7 +8,8 @@ class Events:
     def __init__(self, canvas=None):
         if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
             core.log_warning("Events object already exists")
-            core.log_development("Some PMMA objects can only be initialized once. This is to avoid creating unexpected behavior.")
+            core.log_development("Some PMMA objects can only be \
+initialized once. This is to avoid creating unexpected behavior.")
             raise Exception("Events object already exists")
 
         self.raw_events = []
@@ -24,7 +25,13 @@ class Events:
         if Registry.display_mode == Constants.PYGAME:
             self.raw_events += Registry.graphics_backend.event.get()
 
-    def handle(self, enable_toggle_fullscreen=True, enable_close=True, return_events=True, canvas=None):
+    def handle(
+            self,
+            enable_toggle_fullscreen=True,
+            enable_close=True,
+            return_events=True,
+            canvas=None):
+
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -52,7 +59,10 @@ class Events:
             #for event in self.raw_events:
             return self.raw_events
 
-    def get_events(self, update_events=False):
+    def get_events(
+            self,
+            update_events=False):
+
         if update_events:
             self.__get()
 

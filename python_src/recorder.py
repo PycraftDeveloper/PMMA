@@ -59,7 +59,10 @@ class Sampler:
 
     def start_sampling(self, input_device_id=0):
         self.do_sampling = True
-        self.sampler_thread = threading.Thread(target=self.sampler, args=(input_device_id,))
+        self.sampler_thread = threading.Thread(
+            target=self.sampler,
+            args=(input_device_id,))
+
         self.sampler_thread.daemon = True
         self.sampler_thread.name = "Sampler:Sampler_thread"
         self.sampler_thread.start()

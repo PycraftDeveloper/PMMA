@@ -10,14 +10,28 @@ class DrawIntermediary:
     total_time_spent_drawing = 0
 
 class Line:
-    def __init__(self, color=None, start=None, end=None, width=1, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            start=None,
+            end=None,
+            width=1,
+            canvas=None):
+
         self.color = color
         self.start = start
         self.end = end
         self.width = width
         self.canvas = canvas
 
-    def draw(self, color=None, start=None, end=None, width=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            start=None,
+            end=None,
+            width=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -35,9 +49,20 @@ class Line:
 
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
-                returnable = Registry.graphics_backend.draw.aaline(canvas.pygame_surface.pygame_surface, color, start, end, width)
+                returnable = Registry.graphics_backend.draw.aaline(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    start,
+                    end,
+                    width)
+
             else:
-                returnable = Registry.graphics_backend.draw.line(canvas.pygame_surface.pygame_surface, color, start, end, width)
+                returnable = Registry.graphics_backend.draw.line(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    start,
+                    end,
+                    width)
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -45,14 +70,28 @@ class Line:
         return returnable
 
 class Lines:
-    def __init__(self, color=None, points=None, width=1, closed=False, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            points=None,
+            width=1,
+            closed=False,
+            canvas=None):
+
         self.color = color
         self.points = points
         self.width = width
         self.closed = closed
         self.canvas = canvas
 
-    def draw(self, color=None, points=None, width=None, closed=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            points=None,
+            width=None,
+            closed=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -74,9 +113,20 @@ class Lines:
                 DrawIntermediary.total_time_spent_drawing += end-start
                 return
             if Registry.anti_aliasing:
-                returnable = Registry.graphics_backend.draw.aalines(canvas.pygame_surface.pygame_surface, color, closed, points, width)
+                returnable = Registry.graphics_backend.draw.aalines(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    closed,
+                    points,
+                    width)
+
             else:
-                returnable = Registry.graphics_backend.draw.lines(canvas.pygame_surface.pygame_surface, color, closed, points, width)
+                returnable = Registry.graphics_backend.draw.lines(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    closed,
+                    points,
+                    width)
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -84,7 +134,18 @@ class Lines:
         return returnable
 
 class AdvancedPolygon:
-    def __init__(self, color=None, centre=None, radius=None, number_of_sides=None, rotation_angle=0, width=0, cache=None, wire_frame=False, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            centre=None,
+            radius=None,
+            number_of_sides=None,
+            rotation_angle=0,
+            width=0,
+            cache=None,
+            wire_frame=False,
+            canvas=None):
+
         self.color = color
         self.centre = centre
         self.radius = radius
@@ -95,7 +156,18 @@ class AdvancedPolygon:
         self.wire_frame = wire_frame
         self.canvas = canvas
 
-    def draw(self, color=None, centre=None, radius=None, number_of_sides=None, rotation_angle=None, width=None, cache=None, wire_frame=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            centre=None,
+            radius=None,
+            number_of_sides=None,
+            rotation_angle=None,
+            width=None,
+            cache=None,
+            wire_frame=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -121,14 +193,19 @@ class AdvancedPolygon:
 
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
-                returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width), cache
+                returnable = Registry.graphics_backend.draw.polygon(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    points,
+                    width=width), cache
+
                 end = time.perf_counter()
                 DrawIntermediary.total_time_spent_drawing += end-start
                 return returnable
             else:
-                return None, cache
                 end = time.perf_counter()
                 DrawIntermediary.total_time_spent_drawing += end-start
+                return None, cache
 
         if wire_frame:
             for i in range(0, number_of_sides):
@@ -148,7 +225,11 @@ class AdvancedPolygon:
             width = 1
 
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width), points
+            returnable = Registry.graphics_backend.draw.polygon(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                points,
+                width=width), points
         else:
             return None, cache
         end = time.perf_counter()
@@ -172,7 +253,17 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
     color (str):
         Name of the fill color, in HTML format.
     """
-    def __init__(self, color=None, center_of_rect=None, radius=None, height=None, rotation_angle=0, cache=None, width=0, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            center_of_rect=None,
+            radius=None,
+            height=None,
+            rotation_angle=0,
+            cache=None,
+            width=0,
+            canvas=None):
+
         """
         Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!
@@ -198,7 +289,17 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.width = width
         self.canvas = canvas
 
-    def draw(self, color=None, center_of_rect=None, radius=None, height=None, rotation_angle=None, cache=None, width=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            center_of_rect=None,
+            radius=None,
+            height=None,
+            rotation_angle=None,
+            cache=None,
+            width=None,
+            canvas=None):
+
         """
         Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!
@@ -237,7 +338,12 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             canvas = self.canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
-                returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width), cache
+                returnable = Registry.graphics_backend.draw.polygon(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    points,
+                    width=width), cache
+
                 end = time.perf_counter()
                 DrawIntermediary.total_time_spent_drawing += end-start
                 return returnable
@@ -270,7 +376,12 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             points.append((x + x_offset, y + y_offset))
 
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width)
+            returnable = Registry.graphics_backend.draw.polygon(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                points,
+                width=width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -278,7 +389,18 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         return returnable
 
 class Rect:
-    def __init__(self, color=None, rect=None, width=-1, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            rect=None,
+            width=-1,
+            border_radius=-1,
+            border_top_left_radius=-1,
+            border_top_right_radius=-1,
+            border_bottom_left_radius=-1,
+            border_bottom_right_radius=-1,
+            canvas=None):
+
         self.color = color
         self.rect = rect
         self.width = width
@@ -289,7 +411,18 @@ class Rect:
         self.border_bottom_right_radius = border_bottom_right_radius
         self.canvas = canvas
 
-    def draw(self, color=None, rect=None, width=None, border_radius=None, border_top_left_radius=None, border_top_right_radius=None, border_bottom_left_radius=None, border_bottom_right_radius=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            rect=None,
+            width=None,
+            border_radius=None,
+            border_top_left_radius=None,
+            border_top_right_radius=None,
+            border_bottom_left_radius=None,
+            border_bottom_right_radius=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -314,7 +447,17 @@ class Rect:
             canvas = self.canvas
 
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.rect(canvas.pygame_surface.pygame_surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
+            returnable = Registry.graphics_backend.draw.rect(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                rect,
+                width,
+                border_radius,
+                border_top_left_radius,
+                border_top_right_radius,
+                border_bottom_left_radius,
+                border_bottom_right_radius)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -322,14 +465,28 @@ class Rect:
         return returnable
 
 class Circle:
-    def __init__(self, color=None, center=None, radius=None, width=0, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            center=None,
+            radius=None,
+            width=0,
+            canvas=None):
+
         self.color = color
         self.center = center
         self.radius = radius
         self.width = width
         self.canvas = canvas
 
-    def draw(self, color=None, center=None, radius=None, width=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            center=None,
+            radius=None,
+            width=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -345,8 +502,19 @@ class Circle:
         if canvas is None:
             canvas = self.canvas
 
+        if abs(radius) < 1:
+            end = time.perf_counter()
+            DrawIntermediary.total_time_spent_drawing += end-start
+            return
+
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.circle(canvas.pygame_surface.pygame_surface, color, center, abs(radius), width)
+            returnable = Registry.graphics_backend.draw.circle(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                center,
+                abs(radius),
+                width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -354,7 +522,15 @@ class Circle:
         return returnable
 
 class Arc:
-    def __init__(self, color=None, rect=None, start_angle=None, stop_angle=None, width=1, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            rect=None,
+            start_angle=None,
+            stop_angle=None,
+            width=1,
+            canvas=None):
+
         self.color = color
         self.rect = rect
         self.start_angle = start_angle
@@ -362,7 +538,15 @@ class Arc:
         self.width = width
         self.canvas = canvas
 
-    def draw(self, color=None, rect=None, start_angle=None, stop_angle=None, width=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            rect=None,
+            start_angle=None,
+            stop_angle=None,
+            width=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -381,7 +565,14 @@ class Arc:
             canvas = self.canvas
 
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.arc(canvas.pygame_surface.pygame_surface, color, rect, start_angle, stop_angle, width)
+            returnable = Registry.graphics_backend.draw.arc(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                rect,
+                start_angle,
+                stop_angle,
+                width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -389,13 +580,25 @@ class Arc:
         return returnable
 
 class Polygon:
-    def __init__(self, color=None, points=None, width=0, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            points=None,
+            width=0,
+            canvas=None):
+
         self.color = color
         self.points = points
         self.width = width
         self.canvas = canvas
 
-    def draw(self, color=None, points=None, width=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            points=None,
+            width=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -409,7 +612,12 @@ class Polygon:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width)
+            returnable = Registry.graphics_backend.draw.polygon(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                points,
+                width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -417,13 +625,25 @@ class Polygon:
         return returnable
 
 class Ellipse:
-    def __init__(self, color=None, rect=None, width=0, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            rect=None,
+            width=0,
+            canvas=None):
+
         self.color = color
         self.rect = rect
         self.width = width
         self.canvas = canvas
 
-    def draw(self, color=None, rect=None, width=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            rect=None,
+            width=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -437,7 +657,12 @@ class Ellipse:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.ellipse(canvas.pygame_surface.pygame_surface, color, rect, width)
+            returnable = Registry.graphics_backend.draw.ellipse(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                rect,
+                width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -445,7 +670,12 @@ class Ellipse:
         return returnable
 
 class Pixel:
-    def __init__(self, color=None, point=None, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            point=None,
+            canvas=None):
+
         if Registry.display_mode == Constants.PYGAME:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")
 
@@ -453,7 +683,12 @@ class Pixel:
         self.point = point
         self.canvas = canvas
 
-    def draw(self, color=None, point=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            point=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -466,10 +701,23 @@ class Pixel:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             try:
-                returnable = self.drawing_extension.pixel(canvas.pygame_surface.pygame_surface, color, point), True
+                returnable = self.drawing_extension.pixel(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    point), True
+
             except:
-                temp_rect = Registry.graphics_backend.rect.Rect(*point, 1, 1)
-                returnable = Registry.graphics_backend.draw.rect(canvas.pygame_surface.pygame_surface, color, temp_rect, 1), False
+                temp_rect = Registry.graphics_backend.rect.Rect(
+                    *point,
+                    1,
+                    1)
+
+                returnable = Registry.graphics_backend.draw.rect(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    temp_rect,
+                    1), False
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -477,7 +725,13 @@ class Pixel:
         return returnable
 
 class Curved_Lines:
-    def __init__(self, color=None, points=None, steps=2, canvas=None):
+    def __init__(
+            self,
+            color=None,
+            points=None,
+            steps=2,
+            canvas=None):
+
         if Registry.display_mode == Constants.PYGAME:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")
 
@@ -486,7 +740,13 @@ class Curved_Lines:
         self.steps = steps
         self.canvas = canvas
 
-    def draw(self, color=None, points=None, steps=None, canvas=None):
+    def draw(
+            self,
+            color=None,
+            points=None,
+            steps=None,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if color is None:
@@ -502,13 +762,24 @@ class Curved_Lines:
         if Registry.display_mode == Constants.PYGAME:
             if len(points) > 2:
                 try:
-                    returnable = self.drawing_extension.bezier(canvas.pygame_surface.pygame_surface, points, steps, color), True
+                    returnable = self.drawing_extension.bezier(
+                        canvas.pygame_surface.pygame_surface,
+                        points,
+                        steps,
+                        color), True
+
                     end = time.perf_counter()
                     DrawIntermediary.total_time_spent_drawing += end-start
                     return returnable
                 except:
                     pass
-            returnable = self.lines(canvas, color, points, width=1, closed=False), False
+            returnable = self.lines(
+                canvas,
+                color,
+                points,
+                width=1,
+                closed=False), False
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
@@ -516,13 +787,23 @@ class Curved_Lines:
         return returnable
 
 class Draw:
-    def __init__(self, canvas=None):
+    def __init__(
+            self,
+            canvas=None):
+
         if Registry.display_mode == Constants.PYGAME:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")
 
         self.canvas = canvas
 
-    def line(self, color, start, end, width, canvas=None):
+    def line(
+            self,
+            color,
+            start,
+            end,
+            width,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -531,16 +812,35 @@ class Draw:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
-                returnable = Registry.graphics_backend.draw.aaline(canvas.pygame_surface.pygame_surface, color, start, end, width)
+                returnable = Registry.graphics_backend.draw.aaline(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    start,
+                    end,
+                    width)
+
             else:
-                returnable = Registry.graphics_backend.draw.line(canvas.pygame_surface.pygame_surface, color, start, end, width)
+                returnable = Registry.graphics_backend.draw.line(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    start,
+                    end,
+                    width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def lines(self, color, points, width=1, closed=False, canvas=None):
+    def lines(
+            self,
+            color,
+            points,
+            width=1,
+            closed=False,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -553,16 +853,39 @@ class Draw:
                 DrawIntermediary.total_time_spent_drawing += end-start
                 return
             if Registry.anti_aliasing:
-                returnable = Registry.graphics_backend.draw.aalines(canvas.pygame_surface.pygame_surface, color, closed, points, width)
+                returnable = Registry.graphics_backend.draw.aalines(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    closed,
+                    points,
+                    width)
+
             else:
-                returnable = Registry.graphics_backend.draw.lines(canvas.pygame_surface.pygame_surface, color, closed, points, width)
+                returnable = Registry.graphics_backend.draw.lines(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    closed,
+                    points,
+                    width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def advanced_polygon(self, color, centre, radius, number_of_sides, rotation_angle=0, width=0, cache=None, wire_frame=False, canvas=None):
+    def advanced_polygon(
+            self,
+            color,
+            centre,
+            radius,
+            number_of_sides,
+            rotation_angle=0,
+            width=0,
+            cache=None,
+            wire_frame=False,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -571,7 +894,12 @@ class Draw:
             canvas = self.canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
-                returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width), cache
+                returnable = Registry.graphics_backend.draw.polygon(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    points,
+                    width=width), cache
+
                 end = time.perf_counter()
                 DrawIntermediary.total_time_spent_drawing += end-start
                 return returnable
@@ -599,7 +927,11 @@ class Draw:
             width = 1
 
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width), points
+            returnable = Registry.graphics_backend.draw.polygon(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                points,
+                width=width), points
         else:
             end = time.perf_counter()
             DrawIntermediary.total_time_spent_drawing += end-start
@@ -608,7 +940,17 @@ class Draw:
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def rotated_rect(self, color, center_of_rect, radius, height, rotation_angle=0, cache=None, width=0, canvas=None): # https://stackoverflow.com/a/73855696
+    def rotated_rect(
+            self,
+            color,
+            center_of_rect,
+            radius,
+            height,
+            rotation_angle=0,
+            cache=None,
+            width=0,
+            canvas=None): # https://stackoverflow.com/a/73855696
+
         """Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!
 
@@ -632,7 +974,12 @@ class Draw:
             canvas = self.canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
-                returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width), cache
+                returnable = Registry.graphics_backend.draw.polygon(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    points,
+                    width=width), cache
+
                 end = time.perf_counter()
                 DrawIntermediary.total_time_spent_drawing += end-start
                 return returnable
@@ -665,14 +1012,30 @@ class Draw:
             points.append((x + x_offset, y + y_offset))
 
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width=width)
+            returnable = Registry.graphics_backend.draw.polygon(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                points,
+                width=width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def rect(self, color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None):
+    def rect(
+            self,
+            color,
+            rect,
+            width,
+            border_radius=-1,
+            border_top_left_radius=-1,
+            border_top_right_radius=-1,
+            border_bottom_left_radius=-1,
+            border_bottom_right_radius=-1,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -680,14 +1043,31 @@ class Draw:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.rect(canvas.pygame_surface.pygame_surface, color, rect, width, border_radius, border_top_left_radius, border_top_right_radius, border_bottom_left_radius, border_bottom_right_radius)
+            returnable = Registry.graphics_backend.draw.rect(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                rect,
+                width,
+                border_radius,
+                border_top_left_radius,
+                border_top_right_radius,
+                border_bottom_left_radius,
+                border_bottom_right_radius)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def circle(self, color, center, radius, width=0, canvas=None):
+    def circle(
+            self,
+            color,
+            center,
+            radius,
+            width=0,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -699,14 +1079,28 @@ class Draw:
             DrawIntermediary.total_time_spent_drawing += end-start
             return
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.circle(canvas.pygame_surface.pygame_surface, color, center, abs(radius), width)
+            returnable = Registry.graphics_backend.draw.circle(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                center,
+                abs(radius),
+                width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def arc(self, color, rect, start_angle, stop_angle, width=1, canvas=None):
+    def arc(
+            self,
+            color,
+            rect,
+            start_angle,
+            stop_angle,
+            width=1,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -714,14 +1108,27 @@ class Draw:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.arc(canvas.pygame_surface.pygame_surface, color, rect, start_angle, stop_angle, width)
+            returnable = Registry.graphics_backend.draw.arc(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                rect,
+                start_angle,
+                stop_angle,
+                width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def polygon(self, color, points, width=0, canvas=None):
+    def polygon(
+            self,
+            color,
+            points,
+            width=0,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -729,14 +1136,25 @@ class Draw:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.polygon(canvas.pygame_surface.pygame_surface, color, points, width)
+            returnable = Registry.graphics_backend.draw.polygon(
+            canvas.pygame_surface.pygame_surface,
+            color,
+            points,
+            width)
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def ellipse(self, color, rect, width=0, canvas=None):
+    def ellipse(
+            self,
+            color,
+            rect,
+            width=0,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -744,14 +1162,23 @@ class Draw:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
-            returnable = Registry.graphics_backend.draw.ellipse(canvas.pygame_surface.pygame_surface, color, rect, width)
+            returnable = Registry.graphics_backend.draw.ellipse(
+                canvas.pygame_surface.pygame_surface,
+                color,
+                rect,
+                width)
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def pixel(self, color, point, canvas=None):
+    def pixel(
+            self,
+            color,
+            point,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -760,17 +1187,36 @@ class Draw:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
             try:
-                returnable = self.drawing_extension.pixel(canvas.pygame_surface.pygame_surface, color, point), True
+                returnable = self.drawing_extension.pixel(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    point), True
+
             except:
-                temp_rect = Registry.graphics_backend.rect.Rect(*point, 1, 1)
-                returnable = Registry.graphics_backend.draw.rect(canvas.pygame_surface.pygame_surface, color, temp_rect, 1), False
+                temp_rect = Registry.graphics_backend.rect.Rect(
+                    *point,
+                    1,
+                    1)
+
+                returnable = Registry.graphics_backend.draw.rect(
+                    canvas.pygame_surface.pygame_surface,
+                    color,
+                    temp_rect,
+                    1), False
+
         else:
             raise NotImplementedError
         end = time.perf_counter()
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-    def curved_lines(self, color, points, steps=2, canvas=None):
+    def curved_lines(
+            self,
+            color,
+            points,
+            steps=2,
+            canvas=None):
+
         start = time.perf_counter()
         DrawIntermediary.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
@@ -780,13 +1226,24 @@ class Draw:
         if Registry.display_mode == Constants.PYGAME:
             if len(points) > 2:
                 try:
-                    returnable = self.drawing_extension.bezier(canvas.pygame_surface.pygame_surface, points, steps, color), True
+                    returnable = self.drawing_extension.bezier(
+                        canvas.pygame_surface.pygame_surface,
+                        points,
+                        steps,
+                        color), True
+
                     end = time.perf_counter()
                     DrawIntermediary.total_time_spent_drawing += end-start
                     return returnable
                 except:
                     pass
-            returnable = self.lines(canvas, color, points, width=1, closed=False), False
+            returnable = self.lines(
+                canvas,
+                color,
+                points,
+                width=1,
+                closed=False), False
+
         else:
             raise NotImplementedError
         end = time.perf_counter()

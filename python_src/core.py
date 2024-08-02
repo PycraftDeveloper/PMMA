@@ -23,25 +23,37 @@ def environ_to_registry():
 
 def log_development(message, do_traceback=False, repeat_for_effect=False):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_development(message, do_traceback=do_traceback, repeat_for_effect=repeat_for_effect)
+        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_development(
+            message,
+            do_traceback=do_traceback,
+            repeat_for_effect=repeat_for_effect)
+
         return True
     return False
 
 def log_information(message, do_traceback=False):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_information(message, do_traceback=do_traceback)
+        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_information(
+            message,
+            do_traceback=do_traceback)
+
         return True
     return False
 
 def log_warning(message, do_traceback=False):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_warning(message, do_traceback=do_traceback)
+        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_warning(
+            message,
+            do_traceback=do_traceback)
+
         return True
     return False
 
 def log_error(message, do_traceback=True):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_error(message, do_traceback=do_traceback)
+        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_error(
+            message,
+            do_traceback=do_traceback)
         return True
     return False
 
@@ -52,10 +64,16 @@ def compute():
     DrawIntermediary.total_time_spent_drawing = 0
 
     if number_of_draw_calls > 600:
-        log_development(f"Your application performance might soon be degraded by the time spent handling draw calls. Consider switching to the more optimized Render Pipeline through PMMA to avoid any potential slowdowns.")
+        log_development(f"Your application performance might soon be degraded by \
+the time spent handling draw calls. Consider switching to the more optimized Render \
+Pipeline through PMMA to avoid any potential slowdowns.")
 
     if total_time_spent_drawing == 0:
         return
 
     if 1/(total_time_spent_drawing) < Registry.refresh_rate:
-        log_development(f"Your application performance is limited by the total number of draw calls being made. The program spent {total_time_spent_drawing}s on {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will likely improve application performance.")
+        log_development(f"Your application performance is limited by the total \
+number of draw calls being made. The program spent {total_time_spent_drawing}s on \
+{number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
+{1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
+likely improve application performance.")

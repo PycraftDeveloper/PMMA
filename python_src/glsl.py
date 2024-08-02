@@ -10,7 +10,9 @@ class Shader:
     def __init__(self):
         if not Constants.OPENGL_OBJECT in Registry.pmma_module_spine.keys():
             core.log_warning("OpenGL object does not exist.")
-            core.log_development("In rare cases PMMA objects can only be initialized after others. In this case you need to already have instantiated the 'OpenGL' class before instantiating this.")
+            core.log_development("In rare cases PMMA objects can only be \
+initialized after others. In this case you need to already have instantiated \
+the 'OpenGL' class before instantiating this.")
             raise Exception("OpenGL object does not exist.")
 
         self.vertex_shader = None
@@ -20,12 +22,23 @@ class Shader:
     def get(self):
         return self.program
 
-    def create_from_string(self, vertex_shader, fragment_shader):
+    def create_from_string(
+            self,
+            vertex_shader,
+            fragment_shader):
+
         self.vertex_shader = vertex_shader
         self.fragment_shader = fragment_shader
-        self.program = Registry.context.program(vertex_shader=self.vertex_shader, fragment_shader=self.fragment_shader)
 
-    def create_from_file(self, vertex_shader_file, fragment_shader_file):
+        self.program = Registry.context.program(
+            vertex_shader=self.vertex_shader,
+            fragment_shader=self.fragment_shader)
+
+    def create_from_file(
+            self,
+            vertex_shader_file,
+            fragment_shader_file):
+
         with open(vertex_shader_file, "r") as file:
             vertex_shader = file.read()
 
