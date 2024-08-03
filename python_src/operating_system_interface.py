@@ -46,54 +46,32 @@ def get_language():
         except subprocess.CalledProcessError:
             return None
 
-def __fallback_is_battery_saver_enabled(
-        fallback_battery_power_saving_threshold_percentage):
-
-    battery = psutil.sensors_battery()
-    if battery is None:
-        return False
-    # You might consider a threshold to determine battery saver mode
-    return (battery.power_plugged == False and
-                battery.percent < fallback_battery_power_saving_threshold_percentage)  # Example threshold
-
 def is_battery_saver_enabled(
-        fallback_battery_power_saving_threshold_percentage=30):
+        fallback_battery_power_saving_threshold_percentage=30,
+        care_if_running_on_battery=True):
     try:
+        battery = psutil.sensors_battery()
+        if battery is None:
+            return False
+
+        using_battery = battery.power_plugged == False
+
+        if care_if_running_on_battery is False:
+            using_battery = True
+
         if get_operating_system() == Constants.WINDOWS:
-            # Define the necessary constants and structures
-            SYSTEM_POWER_STATUS_BATTERY_SAVER_ON = 0x00000010
+            result = subprocess.check_output(['powercfg', '/getactivescheme'], text=True)
+            result = result.lower()
 
-            class SYSTEM_POWER_STATUS(ctypes.Structure):
-                _fields_ = [
-                    ('ACLineStatus', wintypes.BYTE),
-                    ('BatteryFlag', wintypes.BYTE),
-                    ('BatteryLifePercent', wintypes.BYTE),
-                    ('Reserved1', wintypes.BYTE),
-                    ('BatteryLifeTime', wintypes.DWORD),
-                    ('BatteryFullLifeTime', wintypes.DWORD),
-                ]
-
-            SYSTEM_POWER_STATUS_P = ctypes.POINTER(SYSTEM_POWER_STATUS)
-
-            GetSystemPowerStatus = ctypes.windll.kernel32.GetSystemPowerStatus
-            GetSystemPowerStatus.argtypes = [SYSTEM_POWER_STATUS_P]
-            GetSystemPowerStatus.restype = wintypes.BOOL
-
-            status = SYSTEM_POWER_STATUS()
-            if not GetSystemPowerStatus(ctypes.pointer(status)):
-                raise ctypes.WinError()
-
-            # Check if battery saver is on
-            return bool(status.BatteryFlag & SYSTEM_POWER_STATUS_BATTERY_SAVER_ON)
+            if ("saver" in result or "efficiency" in result) and using_battery:
+                return True
 
         elif get_operating_system() == Constants.MACOS:
             output = subprocess.check_output(['pmset', '-g', 'batt'], text=True)
             # Check if battery saver is mentioned in the output
-            return "Power Source: Battery" in output and "Low Power Mode: 1" in output
+            return using_battery and "Low Power Mode: 1" in output
         else:
-            return __fallback_is_battery_saver_enabled(
-                fallback_battery_power_saving_threshold_percentage)
+            return battery.percent < fallback_battery_power_saving_threshold_percentage and using_battery
     except Exception as error:
         print(error)
-        return __fallback_is_battery_saver_enabled(
-            fallback_battery_power_saving_threshold_percentage)
+        return battery.percent < fallback_battery_power_saving_threshold_percentage and using_battery

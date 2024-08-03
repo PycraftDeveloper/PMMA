@@ -8,6 +8,7 @@ import moderngl
 
 from pmma.python_src.surface import Surface
 from pmma.python_src.opengl import OpenGL
+from pmma.python_src.draw import DrawIntermediary
 
 import pmma.python_src.core as core
 from pmma.python_src.registry import Registry
@@ -163,6 +164,14 @@ This is to avoid creating unexpected behavior.")
             raise NotImplementedError
 
     def refresh(self, refresh_rate=None):
+        if DrawIntermediary.number_of_draw_calls != 0:
+            core.log_warning("PMMA compute operation not called! Please call \
+this function before ending the game loop with this!")
+            core.log_development("PMMA compute operation not called! Calling \
+this allows PMMA to perform more self-optimization and improve development \
+messages. Please place this compute function 'pmma.compute()' just before \
+this method call to ensure optimal performance and support!")
+
         if refresh_rate is None:
             if Registry.power_saving_mode:
                 refresh_rate = 45
