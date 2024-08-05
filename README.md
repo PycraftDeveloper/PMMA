@@ -43,7 +43,7 @@ Bear with me, there are a fair few!
 * Efficient text rendering - PMMA can render and format text easily, with its own formatting language and powerful appearance controls.
 * Video playback - PMMA can play back videos from a file, in your application.
 
-_Note: GPU acceleration is only available with OpenGL applications, or in the render pipeline with the Pyglet graphics backend_
+_Note: GPU acceleration is only available when using the rendering pipeline with either the default (Pygame) or Pyglet graphics API._
 _Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible_
 
 ## Optional Dependencies
