@@ -4,8 +4,8 @@
 </div>
 
 
-# Python Multi-Media API (PMMA)
-PMMA is a Python library aimed at simplifying and expediting application development in Python. Typically, developing applications in Python necessitates familiarity with a variety of different libraries such as [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy). PMMA seeks to revolutionize application development by consolidating these libraries and more, along with optimized implementations of basic and advanced concepts. This includes window management, event management, and advanced OpenGL techniques like shadow-mapping.
+# PMMA (Python Multi-Media API)
+PMMA is a Python library aimed at improving application development in Python. Typically, developing applications in Python necessitates familiarity with a variety of different libraries such as [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy). PMMA seeks to revolutionize application development by consolidating their more commonly used functions and interactions, along with optimized implementations of basic and advanced software concepts. This includes window management, event management, and advanced OpenGL techniques like shadow-mapping.
 
 ## Contents
 
