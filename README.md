@@ -44,7 +44,7 @@ Bear with me, there are a fair few!
 * Video playback - PMMA can play back videos from a file, in your application.
 
 _Note: GPU acceleration is only available when using the rendering pipeline with either the default (Pygame) or Pyglet graphics API._
-_Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible_
+_Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible._
 
 ## Optional Dependencies
 
