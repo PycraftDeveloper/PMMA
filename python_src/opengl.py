@@ -1,3 +1,5 @@
+import gc
+
 import moderngl
 import numpy
 
@@ -7,6 +9,19 @@ from pmma.python_src.file import path_builder
 import pmma.python_src.core as core
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+
+class OpenGLObject:
+    def __init__(self, _object):
+        self.object = _object
+
+    def get(self):
+        return self.object
+
+    def __del__(self, do_garbage_collection=True):
+        self.object.release()
+        del self.object
+        if do_garbage_collection:
+            gc.collect()
 
 class OpenGL:
     def __init__(self):
