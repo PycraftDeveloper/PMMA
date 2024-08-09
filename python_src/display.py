@@ -10,15 +10,15 @@ from pmma.python_src.surface import Surface
 from pmma.python_src.opengl import OpenGL
 from pmma.python_src.draw import DrawIntermediary
 
-import pmma.python_src.core as core
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            core.log_warning("Display object already exists")
-            core.log_development("Some PMMA objects can only be initialized once. \
+            log_warning("Display object already exists")
+            log_development("Some PMMA objects can only be initialized once. \
 This is to avoid creating unexpected behavior.")
             raise Exception("Display object already exists")
 
@@ -29,7 +29,7 @@ This is to avoid creating unexpected behavior.")
             with contextlib.redirect_stdout(buffer):
                 Registry.graphics_backend = importlib.import_module(display_mode)
             message = buffer.getvalue()
-            if core.log_information(message) is False:
+            if log_information(message) is False:
                 print(message)
 
             Registry.graphics_backend.init()
@@ -177,9 +177,9 @@ This is to avoid creating unexpected behavior.")
 
     def refresh(self, refresh_rate=None):
         if DrawIntermediary.number_of_draw_calls != 0:
-            core.log_warning("PMMA compute operation not called! Please call \
+            log_warning("PMMA compute operation not called! Please call \
 this function before ending the game loop with this!")
-            core.log_development("PMMA compute operation not called! Calling \
+            log_development("PMMA compute operation not called! Calling \
 this allows PMMA to perform more self-optimization and improve development \
 messages. Please place this compute function 'pmma.compute()' just before \
 this method call to ensure optimal performance and support!")

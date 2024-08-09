@@ -6,7 +6,7 @@ import numpy
 from pmma.python_src.glsl import Shader, ShaderAnalyzer
 from pmma.python_src.file import path_builder
 
-import pmma.python_src.core as core
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -29,15 +29,15 @@ class OpenGL:
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT] = self
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             if Registry.display_initialized is False:
-                core.log_warning("No OpenGL ready display available.")
+                log_warning("No OpenGL ready display available.")
 
-                core.log_development("The OpenGL module requires a PMMA \
+                log_development("The OpenGL module requires a PMMA \
 display object to have already been created, with OpenGL support. Make \
 sure to also call the 'create' function in the 'Display' class to create it.")
 
                 raise Exception("No OpenGL ready display available.")
         else:
-            core.log_development("The OpenGL module requires a PMMA display \
+            log_development("The OpenGL module requires a PMMA display \
 object to have already been created, with OpenGL support. Make sure to \
 instantiate the 'Display' class first!")
 
@@ -47,8 +47,8 @@ instantiate the 'Display' class first!")
             if Registry.context is None:
                 Registry.context = moderngl.create_context()
         except Exception as error:
-            core.log_error("Failed to create OpenGL context.")
-            core.log_development("Failed to create OpenGL context. The most \
+            log_error("Failed to create OpenGL context.")
+            log_development("Failed to create OpenGL context. The most \
 likely cause for this error is that there is no available display with OpenGL \
 support initiated; make sure to also call the 'create' function in the 'Display' \
 class to create it. Should that also not work, make sure that you have the \

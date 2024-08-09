@@ -2,15 +2,15 @@ import os
 
 from pmma.python_src.file import path_builder
 
-import pmma.python_src.core as core
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Shader:
     def __init__(self):
         if not Constants.OPENGL_OBJECT in Registry.pmma_module_spine.keys():
-            core.log_warning("OpenGL object does not exist.")
-            core.log_development("In rare cases PMMA objects can only be \
+            log_warning("OpenGL object does not exist.")
+            log_development("In rare cases PMMA objects can only be \
 initialized after others. In this case you need to already have instantiated \
 the 'OpenGL' class before instantiating this.")
             raise Exception("OpenGL object does not exist.")
@@ -101,7 +101,7 @@ the 'OpenGL' class before instantiating this.")
                 fragment_shader = file.read()
 
         if vertex_shader is None or fragment_shader is None:
-            core.log_warning("Vertex shader or fragment shader not found.")
+            log_warning("Vertex shader or fragment shader not found.")
             raise Exception("Vertex shader or fragment shader not found.")
 
         else:

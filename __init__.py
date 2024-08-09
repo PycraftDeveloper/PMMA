@@ -19,12 +19,10 @@ from pmma.python_src.constants import *
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
 
-from pmma.python_src.core import *
+from pmma.python_src.general import *
 
 environ_to_registry()
 
-from pmma.python_src.operating_system_interface import *
-from pmma.python_src.helper_functions import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.advthreading import *
 from pmma.python_src.advtkinter import *

@@ -1,7 +1,7 @@
 import datetime
 import traceback
 
-import pmma.python_src.core as core
+import pmma.python_src.general as general
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -17,8 +17,8 @@ class Logger:
             log_to_terminal=True):
 
         if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-            core.log_warning("Logging object already exists")
-            core.log_development("Some PMMA objects can only be \
+            general.log_warning("Logging object already exists")
+            general.log_development("Some PMMA objects can only be \
 initialized once. This is to avoid creating unexpected behavior.")
             raise Exception("Logging object already exists")
 
