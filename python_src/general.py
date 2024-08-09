@@ -12,7 +12,26 @@ import psutil
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
-def __create_cache_id(*args):
+class OpenGLObject:
+    def __init__(self, _object):
+        self.object = _object
+        self.shutdown = False
+        Registry.pmma_object_instances[id(self)] = self
+
+    def get(self):
+        return self.object
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
+    def __del__(self, do_garbage_collection=True):
+        self.object.release()
+        del self.object
+        if do_garbage_collection:
+            gc.collect()
+
+def create_cache_id(*args):
     cache_id = ""
     for arg in args:
         if callable(arg):

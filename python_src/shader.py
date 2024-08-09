@@ -55,7 +55,7 @@ the 'OpenGL' class before instantiating this.")
         self.shut_down = True
 
     def get(self):
-        return self.program
+        return self.program.get()
 
     def create_from_string(
             self,
@@ -65,9 +65,11 @@ the 'OpenGL' class before instantiating this.")
         self.vertex_shader = vertex_shader
         self.fragment_shader = fragment_shader
 
-        self.program = Registry.context.program(
+        program = Registry.context.program(
             vertex_shader=self.vertex_shader,
             fragment_shader=self.fragment_shader)
+
+        self.program = OpenGLObject(program)
 
         self.analyze()
 

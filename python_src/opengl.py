@@ -10,25 +10,6 @@ from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
-class OpenGLObject:
-    def __init__(self, _object):
-        self.object = _object
-        self.shutdown = False
-        Registry.pmma_object_instances[id(self)] = self
-
-    def get(self):
-        return self.object
-
-    def quit(self):
-        self.__del__()
-        self.shut_down = True
-
-    def __del__(self, do_garbage_collection=True):
-        self.object.release()
-        del self.object
-        if do_garbage_collection:
-            gc.collect()
-
 class OpenGL:
     def __init__(self):
         if Constants.OPENGL_OBJECT not in Registry.pmma_module_spine.keys():
@@ -112,7 +93,11 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 color_format)
 
         else:
-            fbo_texture = texture
+            if type(texture) == OpenGLObject:
+                fbo_texture = texture.get()
+            else:
+                fbo_texture = texture
+
         fbo = Registry.context.framebuffer(
             color_attachments=[fbo_texture])
 
@@ -170,7 +155,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if type(data_or_vbo) == moderngl.Buffer:
             vbo = data_or_vbo
         elif type(data_or_vbo) == OpenGLObject:
-            vbo = data_or_vbo
+            vbo = data_or_vbo.get()
         else:
             data = data_or_vbo
             vbo = self.create_vbo(data)
@@ -183,6 +168,9 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 attributes = program.get_in_attributes()
             else:
                 attributes = []
+
+        if type(index_buffer) == OpenGLObject:
+            index_buffer = index_buffer.get()
 
         vao = Registry.context.simple_vertex_array(
             shader_program,

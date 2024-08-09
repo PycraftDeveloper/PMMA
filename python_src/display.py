@@ -14,7 +14,6 @@ import pyglet
 
 from pmma.python_src.surface import Surface
 from pmma.python_src.opengl import OpenGL
-from pmma.python_src.draw import DrawIntermediary
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -63,12 +62,11 @@ This is to avoid creating unexpected behavior.")
 
     def create(
             self,
-            width,
-            height,
-            fullscreen=False,
+            width=None,
+            height=None,
+            fullscreen=True,
             resizable=False,
             caption="PMMA Canvas",
-            native_fullscreen=True,
             vsync=True,
             alpha=False):
 
@@ -76,13 +74,21 @@ This is to avoid creating unexpected behavior.")
         if Registry.display_mode == Constants.PYGAME:
             flags = pygame.OPENGL | pygame.DOUBLEBUF
             if fullscreen:
-                self.flags = flags | pygame.FULLSCREEN | pygame.NOFRAME
-                if native_fullscreen:
-                    width, height = 0, 0
-
+                if width is None:
+                    width = 0
+                if height is None:
+                    height = 0
+                flags = flags | pygame.FULLSCREEN | pygame.NOFRAME
             else:
-                if resizable:
-                    flags = flags | pygame.RESIZABLE
+                if width is None:
+                    width = 1280
+                if height is None:
+                    height = 720
+
+            if resizable:
+                flags = flags | pygame.RESIZABLE
+
+            self.flags = flags
 
             display_size = width, height
             self.display_attributes = [display_size, flags, self.vsync]
@@ -169,16 +175,16 @@ This is to avoid creating unexpected behavior.")
         if not (type(args[0]) == int or type(args[0]) == float):
             args = args[0]
         if Registry.display_mode == Constants.PYGAME:
-            self.two_dimension_frame_buffer.use()
-            self.two_dimension_frame_buffer.clear(*args[0:3], 0.0)
-            self.three_dimension_frame_buffer.use()
-            self.three_dimension_frame_buffer.clear(*args[0:3], 0.0)
+            self.two_dimension_frame_buffer.get().use()
+            self.two_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
+            self.three_dimension_frame_buffer.get().use()
+            self.three_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
             self.pygame_surface.clear(*args[0:3], 0.0)
         else:
             raise NotImplementedError
 
     def refresh(self, refresh_rate=None):
-        if DrawIntermediary.number_of_draw_calls != 0:
+        if Registry.number_of_draw_calls != 0:
             log_warning("PMMA compute operation not called! Please call \
 this function before ending the game loop with this!")
             log_development("PMMA compute operation not called! Calling \
@@ -205,14 +211,14 @@ this method call to ensure optimal performance and support!")
                 0,
                 0)
 
-            self.two_dimension_texture.use(location=0)
-            self.three_dimension_texture.use(location=1)
-            self.pygame_surface_texture.use(location=2)
+            self.two_dimension_texture.get().use(location=0)
+            self.three_dimension_texture.get().use(location=1)
+            self.pygame_surface_texture.get().use(location=2)
             aggregation_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program().get()
             aggregation_program["texture2d"].value = 0
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
-            self.quad_vao.render(moderngl.TRIANGLES)
+            self.quad_vao.get().render(moderngl.TRIANGLES)
             pygame.display.flip()
             if refresh_rate > 0:
                 self.clock.tick(refresh_rate)

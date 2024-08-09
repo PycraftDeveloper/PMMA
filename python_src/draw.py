@@ -8,7 +8,7 @@ import pyglet
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
-from pmma.python_src.general import __create_cache_id
+from pmma.python_src.general import create_cache_id
 
 def generate_rect_from_points(x, y, width, height):
     return pygame.Rect(x, y, width, height)
@@ -31,7 +31,7 @@ class Line:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.start, self.end, self.width, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.start, self.end, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -106,7 +106,7 @@ class Lines:
         self.closed = closed
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.points, self.width, self.closed, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.points, self.width, self.closed, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -192,7 +192,7 @@ class AdvancedPolygon:
         self.wire_frame = wire_frame
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.centre, self.radius, self.number_of_sides, self.rotation_angle, self.width, self.cache, self.wire_frame, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.centre, self.radius, self.number_of_sides, self.rotation_angle, self.width, self.cache, self.wire_frame, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -318,7 +318,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.center_of_rect, self.radius, self.height, self.rotation_angle, self.cache, self.width, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.center_of_rect, self.radius, self.height, self.rotation_angle, self.cache, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -437,7 +437,7 @@ class Rect:
         self.border_bottom_right_radius = border_bottom_right_radius
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.rect, self.width, self.border_radius, self.border_top_left_radius, self.border_top_right_radius, self.border_bottom_left_radius, self.border_bottom_right_radius, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.rect, self.width, self.border_radius, self.border_top_left_radius, self.border_top_right_radius, self.border_bottom_left_radius, self.border_bottom_right_radius, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -521,7 +521,7 @@ class Circle:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.center, self.radius, self.width, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.center, self.radius, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -596,7 +596,7 @@ class Arc:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.rect, self.start_angle, self.stop_angle, self.width, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.rect, self.start_angle, self.stop_angle, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -666,7 +666,7 @@ class Polygon:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.points, self.width, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.points, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -728,7 +728,7 @@ class Ellipse:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.rect, self.width, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.rect, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -788,7 +788,7 @@ class Pixel:
         self.point = point
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.point, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.point, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -859,7 +859,7 @@ class CurvedLines:
         self.steps = steps
         self.canvas = canvas
 
-        self.cache_id = __create_cache_id(self.color, self.points, self.steps, self.canvas)
+        self.cache_id = create_cache_id(self.color, self.points, self.steps, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
