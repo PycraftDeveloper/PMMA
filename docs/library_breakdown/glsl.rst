@@ -12,13 +12,13 @@ Object
 Methods
 ++++++
 
-Shader Intermediary (``pmma.ShaderAnalyzer``)
+Shader Analyzer (``pmma.ShaderAnalyzer``)
 =======
 
 Object
 ++++++
 
-.. py:class:: ShaderIntermediary
+.. py:class:: ShaderAnalyzer
 
     Work In Progress
 
