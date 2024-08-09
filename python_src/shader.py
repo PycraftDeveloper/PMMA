@@ -19,8 +19,31 @@ the 'OpenGL' class before instantiating this.")
         self.fragment_shader = None
         self.program = None
 
+        self.in_attributes = []
+        self.out_attributes = []
+        self.uniform_attributes = []
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def analyze(self):
+        self.in_attributes = []
+        self.out_attributes = []
+        self.uniform_attributes = []
+
+        vertex_shader = self.vertex_shader.replace(";", " ")
+        for line in vertex_shader.split("\n"):
+            if "in " in line:
+                self.in_attributes.append(line.split(" ")[2])
+
+    def get_out_attributes(self):
+        return self.out_attributes
+
+    def get_in_attributes(self):
+        return self.in_attributes
+
+    def get_uniform_attributes(self):
+        return self.uniform_attributes
 
     def __del__(self):
         if self.shut_down is False:
@@ -45,6 +68,8 @@ the 'OpenGL' class before instantiating this.")
         self.program = Registry.context.program(
             vertex_shader=self.vertex_shader,
             fragment_shader=self.fragment_shader)
+
+        self.analyze()
 
     def create_from_file(
             self,
@@ -106,46 +131,3 @@ the 'OpenGL' class before instantiating this.")
 
         else:
             self.create_from_string(vertex_shader, fragment_shader)
-
-class ShaderAnalyzer:
-    def __init__(self, shader):
-        self.shader = shader
-
-        self.in_attributes = []
-        self.out_attributes = []
-        self.uniform_attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
-
-    def __del__(self):
-        if self.shut_down is False:
-            # do something
-            pass
-
-    def quit(self):
-        self.__del__()
-        self.shut_down = True
-
-    def shader_changed(self):
-        self.in_attributes = []
-        self.out_attributes = []
-        self.uniform_attributes = []
-
-    def get_in(self):
-        if self.in_attributes != []:
-            return self.in_attributes
-
-        vertex_shader = self.shader.vertex_shader
-        vertex_shader = vertex_shader.replace(";", " ")
-        for line in self.shader.vertex_shader.split("\n"):
-            if "in " in line:
-                self.in_attributes.append(line.split(" ")[2])
-
-    def get_out(self):
-        if self.out_attributes != []:
-            return self.out_attributes
-
-    def get_uniform(self):
-        if self.uniform_attributes != []:
-            return self.uniform_attributes

@@ -11,16 +11,3 @@ Object
 
 Methods
 ++++++
-
-Shader Analyzer (``pmma.ShaderAnalyzer``)
-=======
-
-Object
-++++++
-
-.. py:class:: ShaderAnalyzer
-
-    Work In Progress
-
-Methods
-++++++

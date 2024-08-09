@@ -3,7 +3,7 @@ import gc
 import moderngl
 import numpy
 
-from pmma.python_src.glsl import Shader, ShaderAnalyzer
+from pmma.python_src.shader import Shader
 from pmma.python_src.file import path_builder
 
 from pmma.python_src.general import *
@@ -164,7 +164,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             vbo = data_or_vbo
         if attributes is None:
             if type(program) == Shader:
-                attributes = ShaderAnalyzer(program).get_in()
+                attributes = program.get_in_attributes()
                 program = program.get()
             else:
                 attributes = []
