@@ -844,7 +844,7 @@ class Pixel:
         DrawIntermediary.total_time_spent_drawing += end-start
         return returnable
 
-class Curved_Lines:
+class CurvedLines:
     def __init__(
             self,
             color=None,

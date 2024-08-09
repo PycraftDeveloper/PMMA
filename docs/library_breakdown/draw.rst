@@ -148,7 +148,7 @@ Curved_Lines (``pmma.Curved_Lines``)
 Object
 ++++++
 
-.. py:class:: Curved_Lines
+.. py:class:: CurvedLines
 
     Work In Progress
 
