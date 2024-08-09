@@ -194,7 +194,7 @@ This is to avoid creating unexpected behavior.")
             raise NotImplementedError
 
     def clear(self, *args):
-        if args == ():
+        if args == () or args == (None,):
             args = (0, 0, 0)
         if not (type(args[0]) == int or type(args[0]) == float):
             args = args[0]

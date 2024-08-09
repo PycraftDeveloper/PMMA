@@ -27,12 +27,17 @@ from pmma.python_src.render_pipeline import *
 from pmma.python_src.advthreading import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.coordinate import *
+from pmma.python_src.quickstart import *
 from pmma.python_src.optimizer import *
 from pmma.python_src.recorder import *
+from pmma.python_src.backpack import *
 from pmma.python_src.passport import *
 from pmma.python_src.display import *
+from pmma.python_src.surface import *
 from pmma.python_src.advmath import *
+from pmma.python_src.opengl import *
 from pmma.python_src.events import *
+from pmma.python_src.shader import *
 from pmma.python_src.noise import *
 from pmma.python_src.color import *
 from pmma.python_src.image import *
@@ -61,6 +66,7 @@ def init(
     root = tkinter.Tk()
     root.withdraw()
 
+    Registry.pmma_initialized = True
     Registry.python_acceleration_enabled = optimize_python_extensions
     Registry.cython_acceleration_enabled = compile_c_extensions
     Registry.power_saving_mode = is_battery_saver_enabled()

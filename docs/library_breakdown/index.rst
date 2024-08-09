@@ -26,6 +26,7 @@ The full breakdown of what everything does!
     opengl.rst
     optimizer.rst
     passport.rst
+    quickstart.rst
     recorder.rst
     registry.rst
     render_pipeline.rst
