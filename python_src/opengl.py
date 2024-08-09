@@ -13,9 +13,15 @@ from pmma.python_src.constants import Constants
 class OpenGLObject:
     def __init__(self, _object):
         self.object = _object
+        self.shutdown = False
+        Registry.pmma_object_instances[id(self)] = self
 
     def get(self):
         return self.object
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def __del__(self, do_garbage_collection=True):
         self.object.release()
@@ -110,7 +116,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         fbo = Registry.context.framebuffer(
             color_attachments=[fbo_texture])
 
-        return fbo
+        return OpenGLObject(fbo)
 
     def create_texture(
             self,
@@ -127,9 +133,11 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             color_component)
 
         texture.filter = (x_scaling_method, y_scaling_method)
-        return texture
+        return OpenGLObject(texture)
 
     def blit_image_to_texture(self, image, texture):
+        if type(texture) == OpenGLObject:
+            texture = texture.get()
         texture.write(image)
 
     def create_vbo(self, data):
@@ -139,7 +147,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         else:
             data = numpy.array(data, dtype=numpy.float32)
 
-        return Registry.context.buffer(data)
+        buffer = Registry.context.buffer(data)
+        return OpenGLObject(buffer)
 
     def create_ibo(self, data):
         if type(data) == numpy.ndarray:
@@ -148,7 +157,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         else:
             data = numpy.array(data, dtype=numpy.int32)
 
-        return Registry.context.buffer(data)
+        buffer = Registry.context.buffer(data)
+        return OpenGLObject(buffer)
 
     def create_vao(
             self,
@@ -157,23 +167,26 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             attributes=None,
             index_buffer=None):
 
-        if type(data_or_vbo) != moderngl.Buffer:
+        if type(data_or_vbo) == moderngl.Buffer:
+            vbo = data_or_vbo
+        elif type(data_or_vbo) == OpenGLObject:
+            vbo = data_or_vbo
+        else:
             data = data_or_vbo
             vbo = self.create_vbo(data)
-        else:
-            vbo = data_or_vbo
+
+        if type(program) == Shader:
+            shader_program = program.get()
+
         if attributes is None:
             if type(program) == Shader:
                 attributes = program.get_in_attributes()
-                program = program.get()
             else:
                 attributes = []
 
-        if type(program) == Shader:
-            program = program.get()
-
-        return Registry.context.simple_vertex_array(
-            program,
+        vao = Registry.context.simple_vertex_array(
+            shader_program,
             vbo,
             *attributes,
             index_buffer=index_buffer)
+        return OpenGLObject(vao)

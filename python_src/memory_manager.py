@@ -101,6 +101,9 @@ leaving the target size variable can be dangerous.")
 
             os.mkdir(self.memory_management_directory)
 
+            self.linker = {}
+            self.objects = {}
+
     def quit(self):
         self.__del__()
         self.shut_down = True
