@@ -28,6 +28,7 @@ class OpenGLObject:
     def __del__(self, do_garbage_collection=True):
         self.object.release()
         del self.object
+        del self
         if do_garbage_collection:
             gc.collect()
 
@@ -123,6 +124,12 @@ def compute():
     total_time_spent_drawing = Registry.total_time_spent_drawing
     Registry.number_of_draw_calls = 0
     Registry.total_time_spent_drawing = 0
+
+    if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys() and not Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
+        log_development("You have created a display through PMMA, but haven't \
+created an events object. Handling events for your PMMA display is important as \
+it tells the operating system that the application is still running and allows the \
+user to interact with your application.")
 
     if number_of_draw_calls > 600:
         log_development(f"Your application performance might soon be degraded by \

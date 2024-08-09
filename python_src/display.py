@@ -43,6 +43,18 @@ This is to avoid creating unexpected behavior.")
         self.display_attributes = []
         self.vsync = True
 
+        self.display_creation_attributes = []
+
+        self.quad_vertices = numpy.array([
+                # x, y, u, v
+                -1.0, -1.0, 0.0, 0.0,
+                1.0, -1.0, 1.0, 0.0,
+                1.0,  1.0, 1.0, 1.0,
+                -1.0,  1.0, 0.0, 1.0,
+            ], dtype='f4')
+
+        self.quad_indices = numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
+
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = self
 
         Registry.pmma_object_instances[id(self)] = self
@@ -60,13 +72,22 @@ This is to avoid creating unexpected behavior.")
     def destroy(self):
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
+    def __setup_layers(self, size):
+        self.pygame_surface = Surface()
+        self.pygame_surface.create(*size, alpha=True)
+        self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
+        self.two_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
+        self.two_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.two_dimension_texture)
+        self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
+        self.three_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.three_dimension_texture)
+
     def create(
             self,
             width=None,
             height=None,
             fullscreen=True,
             resizable=False,
-            caption="PMMA Canvas",
+            caption="PMMA Display",
             vsync=True,
             alpha=False):
 
@@ -90,35 +111,24 @@ This is to avoid creating unexpected behavior.")
 
             self.flags = flags
 
-            display_size = width, height
-            self.display_attributes = [display_size, flags, self.vsync]
+            size = width, height
+            self.display_attributes = [size, flags, self.vsync]
+
             self.display = pygame.display.set_mode(
-                display_size,
+                size,
                 flags,
                 vsync=self.vsync)
 
-            display_size = self.display.get_size()
+            size = pygame.display.get_window_size()
             Registry.display_initialized = True
             OpenGL()
-            self.pygame_surface = Surface()
-            self.pygame_surface.create(*display_size, alpha=True)
-            self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*display_size)
-            self.two_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*display_size)
-            self.two_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*display_size, texture=self.two_dimension_texture)
-            self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*display_size)
-            self.three_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*display_size, texture=self.three_dimension_texture)
-            combine_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program()
-            quad_vertices = numpy.array([
-                # x, y, u, v
-                -1.0, -1.0, 0.0, 0.0,
-                1.0, -1.0, 1.0, 0.0,
-                1.0,  1.0, 1.0, 1.0,
-                -1.0,  1.0, 0.0, 1.0,
-            ], dtype='f4')
 
-            quad_indices = numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
-            quad_vbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vbo(quad_vertices)
-            quad_ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(quad_indices)
+            self.__setup_layers(size)
+
+            combine_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program()
+
+            quad_vbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vbo(self.quad_vertices)
+            quad_ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(self.quad_indices)
             self.quad_vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(
                 combine_program,
                 quad_vbo,
@@ -132,28 +142,42 @@ This is to avoid creating unexpected behavior.")
     def set_caption(self, caption):
         pygame.display.set_caption(caption)
 
+    def display_resize(self):
+        size = pygame.display.get_window_size()
+
+        self.pygame_surface.quit()
+
+        self.pygame_surface_texture.quit()
+        self.two_dimension_texture.quit()
+        self.two_dimension_frame_buffer.quit()
+        self.three_dimension_texture.quit()
+        self.three_dimension_frame_buffer.quit()
+
+        self.__setup_layers(size)
+
+        Registry.context.viewport = (0, 0, *size)
+
     def toggle_fullscreen(self):
         self.fullscreen = not self.fullscreen
-        if self.fullscreen:
-            if Registry.display_mode == Constants.PYGAME:
-                self.surface = pygame.display.set_mode(
-                    (0, 0),
-                    self.display_attributes[1],
-                    vsync=self.display_attributes[2])
-        else:
-            if Registry.display_mode == Constants.PYGAME:
-                self.surface = pygame.display.set_mode(
-                    self.display_attributes[0],
-                    self.display_attributes[1],
-                    vsync=self.display_attributes[2])
+        if Registry.display_mode == Constants.PYGAME:
+            if self.fullscreen:
+                size = (0, 0)
+            else:
+                size = self.display_attributes[0]
 
+            self.display = pygame.display.set_mode(
+                size,
+                self.display_attributes[1],
+                vsync=self.display_attributes[2])
+
+        Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = True
 
     def blit(self, content, position=[0, 0]):
         self.pygame_surface.blit(content, position)
 
     def get_size(self):
         if Registry.display_mode == Constants.PYGAME:
-            return self.display.get_size()
+            return pygame.display.get_window_size()
         else:
             raise NotImplementedError
 
@@ -174,6 +198,7 @@ This is to avoid creating unexpected behavior.")
             args = (0, 0, 0)
         if not (type(args[0]) == int or type(args[0]) == float):
             args = args[0]
+
         if Registry.display_mode == Constants.PYGAME:
             self.two_dimension_frame_buffer.get().use()
             self.two_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
@@ -205,11 +230,8 @@ this method call to ensure optimal performance and support!")
                 byte_data,
                 self.pygame_surface_texture)
 
-            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().screen.use()
-            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_context().clear(
-                0,
-                0,
-                0)
+            Registry.context.screen.use()
+            Registry.context.clear(0, 0, 0)
 
             self.two_dimension_texture.get().use(location=0)
             self.three_dimension_texture.get().use(location=1)
@@ -219,7 +241,14 @@ this method call to ensure optimal performance and support!")
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
             self.quad_vao.get().render(moderngl.TRIANGLES)
+
             pygame.display.flip()
+
+            if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
+                if Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize:
+                    Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = False
+                    self.display_resize()
+
             if refresh_rate > 0:
                 self.clock.tick(refresh_rate)
         else:

@@ -10,5 +10,10 @@ void main() {
     vec4 color2d = texture(texture2d, v_uv);
     vec4 color3d = texture(texture3d, v_uv);
     vec4 pygame_color = texture(pygame_texture, v_uv);
-    frag_color = mix(mix(color2d, color3d, 0.5), pygame_color, 0.5);  // Simple blending
+
+    // Alpha blending for layering textures
+    vec4 blended_color = mix(color3d, color2d, color2d.a);   // Layer 2D over 3D using 2D texture's alpha
+    blended_color = mix(blended_color, pygame_color, pygame_color.a); // Layer Pygame texture over the previous result
+
+    frag_color = blended_color;  // Final color output
 }

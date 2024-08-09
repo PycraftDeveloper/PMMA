@@ -17,8 +17,10 @@ class Surface:
 
     def __del__(self):
         if self.shut_down is False:
-            # do something
-            pass
+            if self.surface_initialized:
+                if Registry.display_mode == Constants.PYGAME:
+                    self.pygame_surface = None
+                    del self.pygame_surface
 
     def quit(self):
         self.__del__()

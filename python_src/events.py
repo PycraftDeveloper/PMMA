@@ -17,6 +17,8 @@ initialized once. This is to avoid creating unexpected behavior.")
         self.raw_events = []
         self.canvas = canvas
 
+        self.display_needs_resize = False
+
         Registry.pmma_module_spine[Constants.EVENTS_OBJECT] = self
 
         Registry.pmma_object_instances[id(self)] = self
@@ -59,6 +61,10 @@ initialized once. This is to avoid creating unexpected behavior.")
                         if enable_close:
                             Registry.running = False
                             Backpack.running = False
+
+                    elif event.type == pygame.VIDEORESIZE:
+                        self.display_needs_resize = True
+
                     elif event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             if enable_close:
@@ -66,6 +72,7 @@ initialized once. This is to avoid creating unexpected behavior.")
                                 Backpack.running = False
                         elif event.key == pygame.K_F11:
                             if enable_toggle_fullscreen:
+                                self.display_needs_resize = True
                                 canvas.toggle_fullscreen()
 
         if return_events:
