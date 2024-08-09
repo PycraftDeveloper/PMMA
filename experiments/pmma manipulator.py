@@ -11,7 +11,7 @@ base = _up(_up(__file__))
 files = []
 for r, d, f in os.walk(base):
     for file in f:
-        if file.endswith(".py"):
+        if file.endswith(".py") or file.endswith(".md") or file.endswith(".rst") or file.endswith(".glsl") or file.endswith(".txt"):
             files.append(os.path.join(r, file))
 
 line_count = 0
