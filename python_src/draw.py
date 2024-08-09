@@ -8,6 +8,11 @@ import pyglet
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
+from pmma.python_src.general import __create_cache_id
+
+def generate_rect_from_points(x, y, width, height):
+    return pygame.Rect(x, y, width, height)
+
 class DrawIntermediary:
     number_of_draw_calls = 0
     total_time_spent_drawing = 0
@@ -30,8 +35,28 @@ class Line:
         self.width = width
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.start, self.end, self.width, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_start(self, start):
+        self.start = start
+
+    def set_end(self, end):
+        self.end = end
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -85,8 +110,28 @@ class Lines:
         self.closed = closed
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.points, self.width, self.closed, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_points(self, points):
+        self.points = points
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_closed(self, closed):
+        self.closed = closed
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -136,7 +181,6 @@ class AdvancedPolygon:
             number_of_sides=None,
             rotation_angle=0,
             width=0,
-            cache=None,
             wire_frame=False,
             canvas=None):
 
@@ -149,12 +193,40 @@ class AdvancedPolygon:
         self.number_of_sides = number_of_sides
         self.rotation_angle = rotation_angle
         self.width = width
-        self.cache = cache
         self.wire_frame = wire_frame
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.centre, self.radius, self.number_of_sides, self.rotation_angle, self.width, self.cache, self.wire_frame, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_centre(self, centre):
+        self.centre = centre
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def set_number_of_sides(self, number_of_sides):
+        self.number_of_sides = number_of_sides
+
+    def set_rotation_angle(self, rotation_angle):
+        self.rotation_angle = rotation_angle
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_wire_frame(self, wire_frame):
+        self.wire_frame = wire_frame
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -221,10 +293,8 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             radius=None,
             height=None,
             rotation_angle=0,
-            cache=None,
             width=0,
             canvas=None):
-
         """
         Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!
@@ -249,12 +319,37 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.radius = radius
         self.height = height
         self.rotation_angle = rotation_angle
-        self.cache = cache
         self.width = width
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.center_of_rect, self.radius, self.height, self.rotation_angle, self.cache, self.width, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_center_of_rect(self, center_of_rect):
+        self.center_of_rect = center_of_rect
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def set_height(self, height):
+        self.height = height
+
+    def set_rotation_angle(self, rotation_angle):
+        self.rotation_angle = rotation_angle
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -346,8 +441,40 @@ class Rect:
         self.border_bottom_right_radius = border_bottom_right_radius
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.rect, self.width, self.border_radius, self.border_top_left_radius, self.border_top_right_radius, self.border_bottom_left_radius, self.border_bottom_right_radius, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_rect(self, rect):
+        self.rect = rect
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_border_radius(self, border_radius):
+        self.border_radius = border_radius
+
+    def set_border_top_left_radius(self, border_top_left_radius):
+        self.border_top_left_radius = border_top_left_radius
+
+    def set_border_top_right_radius(self, border_top_right_radius):
+        self.border_top_right_radius = border_top_right_radius
+
+    def set_border_bottom_left_radius(self, border_bottom_left_radius):
+        self.border_bottom_left_radius = border_bottom_left_radius
+
+    def set_border_bottom_right_radius(self, border_bottom_right_radius):
+        self.border_bottom_right_radius = border_bottom_right_radius
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -398,8 +525,28 @@ class Circle:
         self.width = width
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.center, self.radius, self.width, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_center(self, center):
+        self.center = center
+
+    def set_radius(self, radius):
+        self.radius = radius
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -453,8 +600,31 @@ class Arc:
         self.width = width
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.rect, self.start_angle, self.stop_angle, self.width, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_rect(self, rect):
+        self.rect = rect
+
+    def set_start_angle(self, start_angle):
+        self.start_angle = start_angle
+
+    def set_stop_angle(self, stop_angle):
+        self.stop_angle = stop_angle
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -500,8 +670,25 @@ class Polygon:
         self.width = width
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.points, self.width, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_points(self, points):
+        self.points = points
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -545,8 +732,25 @@ class Ellipse:
         self.width = width
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.rect, self.width, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_rect(self, rect):
+        self.rect = rect
+
+    def set_width(self, width):
+        self.width = width
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -588,8 +792,22 @@ class Pixel:
         self.point = point
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.point, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_point(self, point):
+        self.point = point
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:
@@ -645,8 +863,25 @@ class CurvedLines:
         self.steps = steps
         self.canvas = canvas
 
+        self.cache_id = __create_cache_id(self.color, self.points, self.steps, self.canvas)
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
+
+    def set_color(self, color):
+        self.color = color
+
+    def set_points(self, points):
+        self.points = points
+
+    def set_steps(self, steps):
+        self.steps = steps
+
+    def set_canvas(self, canvas):
+        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
+            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.canvas = canvas
 
     def __del__(self):
         if self.shut_down is False:

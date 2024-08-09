@@ -14,6 +14,15 @@ from pmma.python_src.constants import Constants
 
 from pmma.python_src.draw import DrawIntermediary
 
+def __create_cache_id(*args):
+    cache_id = ""
+    for arg in args:
+        if callable(arg):
+            cache_id += id(arg)
+        else:
+            cache_id += str(arg)
+    return cache_id
+
 def swizzle(in_format, data, out_format, handle_alpha=False):
     if in_format == out_format:
         return data
