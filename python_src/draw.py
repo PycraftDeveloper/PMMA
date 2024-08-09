@@ -13,10 +13,6 @@ from pmma.python_src.general import __create_cache_id
 def generate_rect_from_points(x, y, width, height):
     return pygame.Rect(x, y, width, height)
 
-class DrawIntermediary:
-    number_of_draw_calls = 0
-    total_time_spent_drawing = 0
-
 class Line:
     def __init__(
             self,
@@ -69,7 +65,7 @@ class Line:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
                 returnable = pygame.draw.aaline(
@@ -89,7 +85,7 @@ class Line:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Lines:
@@ -144,12 +140,12 @@ class Lines:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             if len(self.points) < 2:
                 end_time = time.perf_counter()
-                DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                Registry.total_time_spent_drawing += end_time - start_time
                 return
             if Registry.anti_aliasing:
                 returnable = pygame.draw.aalines(
@@ -169,7 +165,7 @@ class Lines:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class AdvancedPolygon:
@@ -239,7 +235,7 @@ class AdvancedPolygon:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.wire_frame:
             for i in range(0, self.number_of_sides):
                 if Registry.display_mode == Constants.PYGAME:
@@ -266,7 +262,7 @@ class AdvancedPolygon:
         else:
             return None, self.cache
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class RotatedRect: # https://stackoverflow.com/a/73855696
@@ -378,7 +374,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             Name of the fill color, in HTML format.
         """
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         x, y = self.center_of_rect
         points = []
 
@@ -412,7 +408,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Rect:
@@ -487,7 +483,7 @@ class Rect:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = pygame.draw.rect(
@@ -504,7 +500,7 @@ class Rect:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Circle:
@@ -559,11 +555,11 @@ class Circle:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if abs(self.radius) < 1:
             end_time = time.perf_counter()
-            DrawIntermediary.total_time_spent_drawing += end_time - start_time
+            Registry.total_time_spent_drawing += end_time - start_time
             return
 
         if Registry.display_mode == Constants.PYGAME:
@@ -577,7 +573,7 @@ class Circle:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Arc:
@@ -637,7 +633,7 @@ class Arc:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = pygame.draw.arc(
@@ -651,7 +647,7 @@ class Arc:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Polygon:
@@ -701,7 +697,7 @@ class Polygon:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = pygame.draw.polygon(
@@ -713,7 +709,7 @@ class Polygon:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Ellipse:
@@ -763,7 +759,7 @@ class Ellipse:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = pygame.draw.ellipse(
@@ -775,7 +771,7 @@ class Ellipse:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Pixel:
@@ -820,7 +816,7 @@ class Pixel:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             try:
@@ -844,7 +840,7 @@ class Pixel:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class CurvedLines:
@@ -894,7 +890,7 @@ class CurvedLines:
 
     def draw(self):
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
             if len(self.points) > 2:
@@ -906,7 +902,7 @@ class CurvedLines:
                         self.color), True
 
                     end_time = time.perf_counter()
-                    DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                    Registry.total_time_spent_drawing += end_time - start_time
                     return returnable
                 except:
                     pass
@@ -921,7 +917,7 @@ class CurvedLines:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Draw:
@@ -955,7 +951,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -980,7 +976,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def lines(
@@ -992,7 +988,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1000,7 +996,7 @@ class Draw:
         if Registry.display_mode == Constants.PYGAME:
             if len(points) < 2:
                 end_time = time.perf_counter()
-                DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                Registry.total_time_spent_drawing += end_time - start_time
                 return
             if Registry.anti_aliasing:
                 returnable = pygame.draw.aalines(
@@ -1021,7 +1017,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def advanced_polygon(
@@ -1037,7 +1033,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1051,16 +1047,16 @@ class Draw:
                     width=width), cache
 
                 end_time = time.perf_counter()
-                DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                Registry.total_time_spent_drawing += end_time - start_time
                 return returnable
             else:
                 end_time = time.perf_counter()
-                DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                Registry.total_time_spent_drawing += end_time - start_time
                 return None, cache
 
         if wire_frame:
             for i in range(0, number_of_sides):
-                DrawIntermediary.number_of_draw_calls += 1
+                Registry.number_of_draw_calls += 1
                 if Registry.display_mode == Constants.PYGAME:
                     pygame.draw.line(
                         canvas.pygame_surface.pygame_surface,
@@ -1084,10 +1080,10 @@ class Draw:
                 width=width), points
         else:
             end_time = time.perf_counter()
-            DrawIntermediary.total_time_spent_drawing += end_time - start_time
+            Registry.total_time_spent_drawing += end_time - start_time
             return None, cache
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def rotated_rect(
@@ -1117,7 +1113,7 @@ class Draw:
             Name of the fill color, in HTML format.
         """
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1131,11 +1127,11 @@ class Draw:
                     width=width), cache
 
                 end_time = time.perf_counter()
-                DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                Registry.total_time_spent_drawing += end_time - start_time
                 return returnable
             else:
                 end_time = time.perf_counter()
-                DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                Registry.total_time_spent_drawing += end_time - start_time
                 return None, cache
 
         x, y = center_of_rect
@@ -1171,7 +1167,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def rect(
@@ -1187,7 +1183,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1207,7 +1203,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def circle(
@@ -1219,14 +1215,14 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self.canvas
         if abs(radius) < 1:
             end_time = time.perf_counter()
-            DrawIntermediary.total_time_spent_drawing += end_time - start_time
+            Registry.total_time_spent_drawing += end_time - start_time
             return
         if Registry.display_mode == Constants.PYGAME:
             returnable = pygame.draw.circle(
@@ -1239,7 +1235,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def arc(
@@ -1252,7 +1248,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1269,7 +1265,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def polygon(
@@ -1280,7 +1276,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1295,7 +1291,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def ellipse(
@@ -1306,7 +1302,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1320,7 +1316,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def pixel(
@@ -1330,7 +1326,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1357,7 +1353,7 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def curved_lines(
@@ -1368,7 +1364,7 @@ class Draw:
             canvas=None):
 
         start_time = time.perf_counter()
-        DrawIntermediary.number_of_draw_calls += 1
+        Registry.number_of_draw_calls += 1
         if self.canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
@@ -1383,7 +1379,7 @@ class Draw:
                         color), True
 
                     end_time = time.perf_counter()
-                    DrawIntermediary.total_time_spent_drawing += end_time - start_time
+                    Registry.total_time_spent_drawing += end_time - start_time
                     return returnable
                 except:
                     pass
@@ -1397,5 +1393,5 @@ class Draw:
         else:
             raise NotImplementedError
         end_time = time.perf_counter()
-        DrawIntermediary.total_time_spent_drawing += end_time - start_time
+        Registry.total_time_spent_drawing += end_time - start_time
         return returnable
