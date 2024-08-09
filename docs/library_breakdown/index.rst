@@ -19,7 +19,6 @@ The full breakdown of what everything does!
     events.rst
     file.rst
     general.rst
-    glsl.rst
     image.rst
     logging.rst
     memory_manager.rst
@@ -30,6 +29,7 @@ The full breakdown of what everything does!
     recorder.rst
     registry.rst
     render_pipeline.rst
+    shader.rst
     surface.rst
     text.rst
     video.rst
