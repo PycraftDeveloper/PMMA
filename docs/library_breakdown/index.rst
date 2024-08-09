@@ -14,20 +14,17 @@ The full breakdown of what everything does!
     color.rst
     constants.rst
     coordinate.rst
-    core.rst
     display.rst
     draw.rst
     events.rst
     file.rst
     general.rst
     glsl.rst
-    helper_functions.rst
     image.rst
     logging.rst
     memory_manager.rst
     noise.rst
     opengl.rst
-    operating_system_interface.rst
     optimizer.rst
     passport.rst
     pmma.rst

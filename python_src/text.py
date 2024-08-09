@@ -14,6 +14,18 @@ class Text:
 
         self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def get_system_font(self, size=None, bold=None, italic=None):
         system_font = font.nametofont("TkTextFont")
         system_font_dictionary = system_font.actual()

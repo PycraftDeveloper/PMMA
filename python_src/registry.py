@@ -17,3 +17,4 @@ class Registry:
     display_initialized = False
     context = None
     power_saving_mode = False
+    pmma_object_instances = {}

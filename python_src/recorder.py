@@ -18,6 +18,18 @@ class Sampler:
         self.pyaudio = pyaudio.PyAudio()
         self.sampling = False
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def get_default_input_device(self):
         try:
             return self.pyaudio.get_default_input_device_info()["index"]

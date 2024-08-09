@@ -1,11 +1,9 @@
-from functools import reduce
-
 import colorsys
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
-from pmma.python_src.general import swizzle, can_swizzle
+from pmma.python_src.general import swizzle
 
 class ColorIntermediary:
     def detect_color_type(self, color):
@@ -108,6 +106,18 @@ class ColorIntermediary:
         elif in_type == Constants.TEXT:
             self.color = Constants.TEXT_BASED_COLORS[color.upper()] + [255]
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def __convert_rgb_to_hsv(self, red, green, blue, per_maximum=100, do_round=True):
         #get rgb percentage: range (0-1, 0-1, 0-1 )
         red_percentage = red / float(255)
@@ -180,6 +190,18 @@ class ColorIntermediary:
 class Color:
     def __init__(self, color, in_type=Constants.AUTODETECT):
         self.__color_backend = ColorIntermediary(in_type, color)
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def convert_format(self, out_type):
         return self.__color_backend.out(out_type)

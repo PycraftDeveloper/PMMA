@@ -19,6 +19,18 @@ the 'OpenGL' class before instantiating this.")
         self.fragment_shader = None
         self.program = None
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def get(self):
         return self.program
 
@@ -102,6 +114,18 @@ class ShaderAnalyzer:
         self.in_attributes = []
         self.out_attributes = []
         self.uniform_attributes = []
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def shader_changed(self):
         self.in_attributes = []

@@ -86,6 +86,18 @@ class Perlin:
             NoiseIntermediary.prefill = True
             self.prefill_thread.start()
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def prefill(self, number_of_single_samples):
         try:
             for x in range(1, number_of_single_samples):

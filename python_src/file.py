@@ -22,6 +22,18 @@ class File:
     def __init__(self, file_path):
         self.file_path = file_path
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def exists(self):
         return os.path.exists(self.file_path)
 
@@ -82,6 +94,18 @@ class FileCore:
         self.scan()
 
         Registry.pmma_module_spine[Constants.FILECORE_OBJECT] = self
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def update_locations(self, project_directory=None, force_refresh=True):
         self.locations = [Registry.base_path]

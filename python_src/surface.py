@@ -9,6 +9,18 @@ class Surface:
         self.alpha = None
         self.surface_initialized = False
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def create(self, width, height, alpha=False):
         self.alpha = alpha
         if Registry.display_mode == Constants.PYGAME:

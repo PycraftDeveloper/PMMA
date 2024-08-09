@@ -88,14 +88,22 @@ leaving the target size variable can be dangerous.")
 
         Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT] = self
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            self.enable_memory_management = False
+
+            shutil.rmtree(
+                self.memory_management_directory,
+                ignore_errors=True)
+
+            os.mkdir(self.memory_management_directory)
+
     def quit(self):
-        self.enable_memory_management = False
-
-        shutil.rmtree(
-            self.memory_management_directory,
-            ignore_errors=True)
-
-        os.mkdir(self.memory_management_directory)
+        self.__del__()
+        self.shut_down = True
 
     def add_object(
             self,

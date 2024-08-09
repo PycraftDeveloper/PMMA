@@ -39,6 +39,18 @@ initialized once. This is to avoid creating unexpected behavior.")
         self.log_information("Logging object initialized")
         self.log_information("Date format: DD/MM/YYYY @ HH:MM:SS:μS")
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def initial_formatting(self, log_level):
         message = ""
         now = datetime.datetime.now()

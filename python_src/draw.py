@@ -24,6 +24,18 @@ class Line:
         self.width = width
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -83,6 +95,18 @@ class Lines:
         self.width = width
         self.closed = closed
         self.canvas = canvas
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def draw(
             self,
@@ -155,6 +179,18 @@ class AdvancedPolygon:
         self.cache = cache
         self.wire_frame = wire_frame
         self.canvas = canvas
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def draw(
             self,
@@ -289,6 +325,18 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.width = width
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -411,6 +459,18 @@ class Rect:
         self.border_bottom_right_radius = border_bottom_right_radius
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -479,6 +539,18 @@ class Circle:
         self.width = width
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -538,6 +610,18 @@ class Arc:
         self.width = width
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -592,6 +676,18 @@ class Polygon:
         self.width = width
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -636,6 +732,18 @@ class Ellipse:
         self.rect = rect
         self.width = width
         self.canvas = canvas
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def draw(
             self,
@@ -682,6 +790,18 @@ class Pixel:
         self.color = color
         self.point = point
         self.canvas = canvas
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def draw(
             self,
@@ -740,6 +860,18 @@ class Curved_Lines:
         self.steps = steps
         self.canvas = canvas
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def draw(
             self,
             color=None,
@@ -795,6 +927,18 @@ class Draw:
             self.drawing_extension = importlib.import_module("pygame.gfxdraw")
 
         self.canvas = canvas
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def line(
             self,

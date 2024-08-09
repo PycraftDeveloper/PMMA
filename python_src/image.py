@@ -12,6 +12,18 @@ class Image:
 
         self.pil_image_address = None
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def create_from_file(self, image_path):
         if self.pil_image_address is not None:
             self.memory_manager_instance.remove_object(

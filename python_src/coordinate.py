@@ -14,6 +14,18 @@ class CoordinateIntermediary:
 
         self.math = Math()
 
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def out(self, out_type):
         return self.points
 
@@ -38,6 +50,18 @@ class Coordinate:
         self.points = args
 
         self.intermediary = CoordinateIntermediary(in_type, *args)
+
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
 
     def out(self, out_type):
         return self.intermediary.out(out_type)

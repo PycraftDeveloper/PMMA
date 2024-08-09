@@ -5,6 +5,19 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Tkinter:
+    def __init__(self):
+        Registry.pmma_object_instances[id(self)] = self
+        self.shut_down = False
+
+    def __del__(self):
+        if self.shut_down is False:
+            # do something
+            pass
+
+    def quit(self):
+        self.__del__()
+        self.shut_down = True
+
     def style(self, widget):
         style = ttk.Style()
         style.configure(
