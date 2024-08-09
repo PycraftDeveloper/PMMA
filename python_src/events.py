@@ -1,8 +1,10 @@
-from pmma.python_src.backpack import Backpack
+import pygame
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+
+from pmma.python_src.backpack import Backpack
 
 class Events:
     def __init__(self, canvas=None):
@@ -35,7 +37,7 @@ initialized once. This is to avoid creating unexpected behavior.")
     def __get(self):
         self.raw_events = []
         if Registry.display_mode == Constants.PYGAME:
-            self.raw_events += Registry.graphics_backend.event.get()
+            self.raw_events += pygame.event.get()
 
     def handle(
             self,
@@ -53,16 +55,16 @@ initialized once. This is to avoid creating unexpected behavior.")
         if enable_toggle_fullscreen or enable_close:
             for event in self.raw_events:
                 if Registry.display_mode == Constants.PYGAME:
-                    if event.type == Registry.graphics_backend.QUIT:
+                    if event.type == pygame.QUIT:
                         if enable_close:
                             Registry.running = False
                             Backpack.running = False
-                    elif event.type == Registry.graphics_backend.KEYDOWN:
-                        if event.key == Registry.graphics_backend.K_ESCAPE:
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
                             if enable_close:
                                 Registry.running = False
                                 Backpack.running = False
-                        elif event.key == Registry.graphics_backend.K_F11:
+                        elif event.key == pygame.K_F11:
                             if enable_toggle_fullscreen:
                                 canvas.toggle_fullscreen()
 

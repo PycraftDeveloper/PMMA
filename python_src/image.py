@@ -1,5 +1,7 @@
-from PIL import Image as ImageModule
 import time
+
+from PIL import Image as ImageModule
+import pygame
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -66,7 +68,7 @@ class Image:
                 self.pil_image_address)
 
         if Registry.display_mode == Constants.PYGAME:
-            graphics_backend_image = Registry.graphics_backend.image.fromstring(
+            graphics_backend_image = pygame.image.fromstring(
                 pil_image.tobytes(),
                 pil_image.size,
                 pil_image.mode)

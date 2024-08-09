@@ -1,3 +1,6 @@
+import pygame
+import pyglet
+
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -25,11 +28,11 @@ class Surface:
         self.alpha = alpha
         if Registry.display_mode == Constants.PYGAME:
             if alpha:
-                flags = Registry.graphics_backend.SRCALPHA
+                flags = pygame.SRCALPHA
             else:
                 flags = 0
 
-            self.pygame_surface = Registry.graphics_backend.Surface(
+            self.pygame_surface = pygame.Surface(
                 (width, height),
                 flags)
 
@@ -89,7 +92,7 @@ class Surface:
                     color_format = "RGB"
 
             if Registry.display_mode == Constants.PYGAME:
-                return Registry.graphics_backend.image.tostring(
+                return pygame.image.tostring(
                     self.pygame_surface,
                     color_format,
                     flipped)

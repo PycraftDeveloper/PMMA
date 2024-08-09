@@ -6,6 +6,13 @@ import contextlib
 import numpy
 import moderngl
 
+buffer = io.StringIO()
+with contextlib.redirect_stdout(buffer):
+    import pygame
+pygame_initialization_message = buffer.getvalue()
+
+import pyglet
+
 from pmma.python_src.surface import Surface
 from pmma.python_src.opengl import OpenGL
 from pmma.python_src.draw import DrawIntermediary
@@ -25,18 +32,14 @@ This is to avoid creating unexpected behavior.")
         if display_mode == Constants.PYGAME:
             os.environ["SDL_VIDEO_CENTERED"] = "1"
 
-            buffer = io.StringIO()
-            with contextlib.redirect_stdout(buffer):
-                Registry.graphics_backend = importlib.import_module(display_mode)
-            message = buffer.getvalue()
-            if log_information(message) is False:
-                print(message)
+            if log_information(pygame_initialization_message) is False:
+                print(pygame_initialization_message)
 
-            Registry.graphics_backend.init()
+            pygame.init()
 
         Registry.display_mode = display_mode
         if Registry.display_mode == Constants.PYGAME:
-            self.clock = Registry.graphics_backend.time.Clock()
+            self.clock = pygame.time.Clock()
 
         self.fullscreen = None
         self.display_attributes = []
@@ -72,19 +75,19 @@ This is to avoid creating unexpected behavior.")
 
         self.vsync = vsync
         if Registry.display_mode == Constants.PYGAME:
-            flags = Registry.graphics_backend.OPENGL | Registry.graphics_backend.DOUBLEBUF
+            flags = pygame.OPENGL | pygame.DOUBLEBUF
             if fullscreen:
-                self.flags = flags | Registry.graphics_backend.FULLSCREEN | Registry.graphics_backend.NOFRAME
+                self.flags = flags | pygame.FULLSCREEN | pygame.NOFRAME
                 if native_fullscreen:
                     width, height = 0, 0
 
             else:
                 if resizable:
-                    flags = flags | Registry.graphics_backend.RESIZABLE
+                    flags = flags | pygame.RESIZABLE
 
             display_size = width, height
             self.display_attributes = [display_size, flags, self.vsync]
-            self.display = Registry.graphics_backend.display.set_mode(
+            self.display = pygame.display.set_mode(
                 display_size,
                 flags,
                 vsync=self.vsync)
@@ -117,24 +120,24 @@ This is to avoid creating unexpected behavior.")
                 attributes=["in_vert", "in_uv"],
                 index_buffer=quad_ibo)
 
-            Registry.graphics_backend.display.set_caption(caption)
+            pygame.display.set_caption(caption)
         else:
             raise NotImplementedError
 
     def set_caption(self, caption):
-        Registry.graphics_backend.display.set_caption(caption)
+        pygame.display.set_caption(caption)
 
     def toggle_fullscreen(self):
         self.fullscreen = not self.fullscreen
         if self.fullscreen:
             if Registry.display_mode == Constants.PYGAME:
-                self.surface = Registry.graphics_backend.display.set_mode(
+                self.surface = pygame.display.set_mode(
                     (0, 0),
                     self.display_attributes[1],
                     vsync=self.display_attributes[2])
         else:
             if Registry.display_mode == Constants.PYGAME:
-                self.surface = Registry.graphics_backend.display.set_mode(
+                self.surface = pygame.display.set_mode(
                     self.display_attributes[0],
                     self.display_attributes[1],
                     vsync=self.display_attributes[2])
@@ -211,7 +214,7 @@ this method call to ensure optimal performance and support!")
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
             self.quad_vao.render(moderngl.TRIANGLES)
-            Registry.graphics_backend.display.flip()
+            pygame.display.flip()
             if refresh_rate > 0:
                 self.clock.tick(refresh_rate)
         else:
@@ -219,7 +222,7 @@ this method call to ensure optimal performance and support!")
 
     def close(self):
         if Registry.display_mode == Constants.PYGAME:
-            Registry.graphics_backend.quit()
+            pygame.quit()
         else:
             raise NotImplementedError
 
