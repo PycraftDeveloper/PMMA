@@ -135,12 +135,12 @@ This is to avoid creating unexpected behavior.")
                 attributes=["in_vert", "in_uv"],
                 index_buffer=quad_ibo)
 
-            pygame.display.set_caption(caption)
+            pygame.display.set_caption(str(caption))
         else:
             raise NotImplementedError
 
     def set_caption(self, caption):
-        pygame.display.set_caption(caption)
+        pygame.display.set_caption(str(caption))
 
     def display_resize(self):
         size = pygame.display.get_window_size()
@@ -265,6 +265,9 @@ this method call to ensure optimal performance and support!")
             return self.clock.get_fps()
         else:
             raise NotImplementedError
+
+    def get_refresh_rate(self):
+        return self.get_fps()
 
     def get_center(self, as_integer=True):
         if Registry.display_mode == Constants.PYGAME:
