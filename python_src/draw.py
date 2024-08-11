@@ -1097,7 +1097,8 @@ class Draw:
             width=0,
             canvas=None): # https://stackoverflow.com/a/73855696
 
-        """Draw a rectangle, centered at x, y.
+        """
+        Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!
 
         Arguments:
