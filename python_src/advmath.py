@@ -4,6 +4,12 @@ from pmma.python_src.constants import Constants
 import pmma.python_src.utility.math_utils as math_utils
 
 class Math:
+    """
+    🟩 **R** - A standalone class that extends the range of built-in mathematical operations to expose all of the advanced mathematical operations used within PMMA.
+    This class also currently uses Numba for JIT (just-in-time) compilation (in no-python mode) as required.
+
+    Required 3rd-party modules: Numba, Numpy and Pyrr.
+    """
     def __init__(self):
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -18,6 +24,11 @@ class Math:
         self.shut_down = True
 
     def get_function_pythag(self):
+        """
+        🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
+        This depends on the state of PMMA's registry entry: ``Registry.custom_compiled_behavior["raw_pythag"]``.
+        For more information on this behavior, check out the Registry section, or look at the welcome page.
+        """
         if Registry.compile_math_functions:
             if "raw_pythag" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_pythag"]:
@@ -30,15 +41,12 @@ class Math:
             return math_utils.raw_pythag.py_func
 
     def pythag(self, points):
-        """🟩 RN - Performs the Pythagorean Theorem over a set of points. This isn’t limited to sets of a set size, so works for n-dimensions."""
         return self.get_function_pythag()(points)
 
     def get_function_ranger(self):
-        """🟩 R - Exposes the raw Python range function in PMMA’s utility library."""
         return math_utils.raw_ranger
 
     def ranger(self, value, old, new):
-        """🟩 R - Allows for a value within a range to be converted to a new range through linear interpolation."""
         return self.get_function_ranger()(value, old, new)
 
     def get_function_nparray_ranger(self):

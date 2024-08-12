@@ -71,8 +71,10 @@ class Text:
             underline=False,
             strikethrough=False,
             canvas=None,
-            word_separator = r"(\s+)"):
+            word_separator=None):
 
+        if word_separator is None:
+            word_separator = r"(\s+)"
         if "\n" in text:
             text = text.replace("\n", "${nln}")
 
