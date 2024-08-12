@@ -26,5 +26,4 @@ class QuickStart:
     def end(self,refresh_rate=None):
         compute()
         self.display.refresh(refresh_rate=refresh_rate)
-        if Registry.running is False or Backpack.running is False:
-            break
+        return Registry.running is False or Backpack.running is False
