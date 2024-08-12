@@ -4,12 +4,6 @@ from pmma.python_src.constants import Constants
 import pmma.python_src.utility.math_utils as math_utils
 
 class Math:
-    """
-    🟩 **R** - A standalone class that extends the range of built-in mathematical operations to expose all of the advanced mathematical operations used within PMMA.
-    This class also currently uses Numba for JIT (just-in-time) compilation (in no-python mode) as required.
-
-    Required 3rd-party modules: Numba, Numpy and Pyrr.
-    """
     def __init__(self):
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -24,11 +18,6 @@ class Math:
         self.shut_down = True
 
     def get_function_pythag(self):
-        """
-        🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
-        This depends on the state of PMMA's registry entry: ``Registry.custom_compiled_behavior["raw_pythag"]``.
-        For more information on this behavior, check out the Registry section, or look at the welcome page.
-        """
         if Registry.compile_math_functions:
             if "raw_pythag" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_pythag"]:
