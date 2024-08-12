@@ -63,6 +63,11 @@ def init(
             log_file=None,
             log_to_terminal=True):
 
+    removable_media = [
+        "extended_perlin_noise.cp310-win_amd64.pyd",
+        "perlin_noise.cp310-win_amd64.pyd"
+    ]
+
     root = tkinter.Tk()
     root.withdraw()
 
@@ -80,6 +85,13 @@ def init(
         if wait_for_initialization:
             cython_thread.join()
 
+    for file in removable_media:
+        try:
+            os.remove(path_builder(Registry.base_path, file))
+        except Exception as error:
+            print(error)
+            pass
+
     MemoryManager(
         object_lifetime=memory_management_max_object_lifetime,
         target_size=memory_management_max_size)
@@ -96,6 +108,5 @@ def init(
 del base_path
 del temporary_files_path
 del sys
-del os
 del numba
 del environ_to_registry
