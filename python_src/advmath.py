@@ -41,12 +41,15 @@ class Math:
             return math_utils.raw_pythag.py_func
 
     def pythag(self, points):
+        """🟩 RN - Performs the Pythagorean Theorem over a set of points. This isn’t limited to sets of a set size, so works for n-dimensions."""
         return self.get_function_pythag()(points)
 
     def get_function_ranger(self):
+        """🟩 R - Exposes the raw Python range function in PMMA’s utility library."""
         return math_utils.raw_ranger
 
     def ranger(self, value, old, new):
+        """🟩 R - Allows for a value within a range to be converted to a new range through linear interpolation."""
         return self.get_function_ranger()(value, old, new)
 
     def get_function_nparray_ranger(self):
