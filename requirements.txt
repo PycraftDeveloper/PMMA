@@ -1,0 +1,11 @@
+cython
+getostheme
+moderngl
+numba
+Pillow
+psutil
+pygame
+pyrr
+requests
+send2trash
+watchdog
