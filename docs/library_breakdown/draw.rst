@@ -1,5 +1,5 @@
 Methods
--------
+=======
 
 .. py:method:: pmma.generate_rect_from_points() -> None
 

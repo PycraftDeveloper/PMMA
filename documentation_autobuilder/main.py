@@ -294,7 +294,7 @@ index_start = """Library Breakdown
 The full breakdown of what everything does!
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
 """
 for file in files:
@@ -338,8 +338,12 @@ for file in files:
             if methods_header_written is False:
                 methods_header_written = True
                 ln = "Methods\n"
+                if class_name == "pmma":
+                    section_marker = "="
+                else:
+                    section_marker = "-"
                 documentation += "Methods\n"
-                documentation += "-"*(len(ln)-1) + "\n\n"
+                documentation += section_marker*(len(ln)-1) + "\n\n"
             documentation += f".. py:method:: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
             documentation += docstring + "\n"
 

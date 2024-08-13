@@ -1,5 +1,5 @@
 Methods
--------
+=======
 
 .. py:method:: pmma.path_builder() -> None
 

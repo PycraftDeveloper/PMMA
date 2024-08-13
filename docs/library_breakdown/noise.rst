@@ -1,5 +1,5 @@
 Methods
--------
+=======
 
 .. py:method:: pmma.prefill_optimizer() -> None
 
