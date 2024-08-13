@@ -1,6 +1,5 @@
 import os
 import glob
-import time
 
 def _up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
@@ -321,10 +320,6 @@ for file in files:
     line_no = 0
 
     for line in content:
-        ### tmp
-        if file_name == "draw":
-            time.sleep(0)
-        ### tmp end
         indent_whitespace = len(line[:-len(line.lstrip())]) // 4
         if "def " in line and not "__" in line:
             if in_class != in_class and indent_whitespace == 1:
@@ -366,7 +361,7 @@ for file in files:
             class_name = name
             ln = f"{formatted_name} (``pmma.{name}``)\n"
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
-            documentation += "="*(len(ln)-1)+"\n\n"
+            documentation += "="*(len(ln)-1) + "\n\n"
             documentation += docstring.strip() + "\n\n"
 
             ln = "Create\n"
