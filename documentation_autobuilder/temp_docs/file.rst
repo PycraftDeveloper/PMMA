@@ -1,62 +1,67 @@
-
 Methods
-++++++
-.. py:method:: path_builder(*args) -> NYD:
++++++++
+
+..py:method: pmma.path_builder() -> None
 
 File (``pmma.File``)
 =======
 
-Object
-++++++
-.. py:class:: File
+Create
++++++++
+
+..py:method:: pmma.File() -> pmma.File
 
 Methods
-++++++
-.. py:method:: File.quit() -> NYD:
++++++++
 
-.. py:method:: File.exists() -> NYD:
+..py:method: File.quit() -> None
 
-.. py:method:: File.get_path() -> NYD:
+..py:method: File.exists() -> None
 
-.. py:method:: File.get_directory() -> NYD:
+..py:method: File.get_path() -> None
 
-.. py:method:: File.get_file_name_and_type() -> NYD:
+..py:method: File.get_directory() -> None
 
-.. py:method:: File.get_file_name() -> NYD:
+..py:method: File.get_file_name_and_type() -> None
 
-.. py:method:: File.get_file_type() -> NYD:
+..py:method: File.get_file_name() -> None
 
-.. py:method:: File.move(new_path) -> NYD:
+..py:method: File.get_file_type() -> None
 
-.. py:method:: File.delete() -> NYD:
+..py:method: File.move() -> None
 
-.. py:method:: File.recycle() -> NYD:
+..py:method: File.delete() -> None
 
-.. py:method:: File.rename(new_name) -> NYD:
+..py:method: File.recycle() -> None
 
-.. py:method:: File.read() -> NYD:
+..py:method: File.rename() -> None
 
-.. py:method:: File.write(content) -> NYD:
+..py:method: File.read() -> None
+
+..py:method: File.write() -> None
 
 File Core (``pmma.FileCore``)
 =======
 
-Object
-++++++
-.. py:class:: FileCore
+Create
++++++++
+
+..py:method:: pmma.FileCore() -> pmma.FileCore
 
 Methods
-++++++
-.. py:method:: FileCore.quit() -> NYD:
++++++++
 
-.. py:method:: FileCore.update_locations(project_directory=None, force_refresh=True) -> NYD:
+..py:method: FileCore.quit() -> None
 
-.. py:method:: FileCore.scan() -> NYD:
+..py:method: FileCore.update_locations() -> None
 
-.. py:method:: FileCore.refresh(force=False) -> NYD:
+..py:method: FileCore.scan() -> None
 
-.. py:method:: FileCore.stop_passively_refreshing() -> NYD:
+..py:method: FileCore.refresh() -> None
 
-.. py:method:: FileCore.start_passively_refreshing() -> NYD:
+..py:method: FileCore.stop_passively_refreshing() -> None
 
-.. py:method:: FileCore.identify(identifier) -> NYD:
+..py:method: FileCore.start_passively_refreshing() -> None
+
+..py:method: FileCore.identify() -> None
+

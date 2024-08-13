@@ -1,27 +1,29 @@
-
 Surface (``pmma.Surface``)
 =======
 
-Object
-++++++
-.. py:class:: Surface
+Create
++++++++
+
+..py:method:: pmma.Surface() -> pmma.Surface
 
 Methods
-++++++
-.. py:method:: Surface.quit() -> NYD:
++++++++
 
-.. py:method:: Surface.create(width, height, alpha=False) -> NYD:
+..py:method: Surface.quit() -> None
 
-.. py:method:: Surface.blit(content, position=[0, 0]) -> NYD:
+..py:method: Surface.create() -> None
 
-.. py:method:: Surface.get_size() -> NYD:
+..py:method: Surface.blit() -> None
 
-.. py:method:: Surface.get_height() -> NYD:
+..py:method: Surface.get_size() -> None
 
-.. py:method:: Surface.get_width() -> NYD:
+..py:method: Surface.get_height() -> None
 
-.. py:method:: Surface.clear(*args) -> NYD:
+..py:method: Surface.get_width() -> None
 
-.. py:method:: Surface.get_center(as_integer=True) -> NYD:
+..py:method: Surface.clear() -> None
 
-.. py:method:: Surface.to_string(color_format=None, flipped=False) -> NYD:
+..py:method: Surface.get_center() -> None
+
+..py:method: Surface.to_string() -> None
+

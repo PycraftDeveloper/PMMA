@@ -1,7 +1,8 @@
-
 Constants (``pmma.Constants``)
 =======
 
-Object
-++++++
-.. py:class:: Constants
+Create
++++++++
+
+..py:method:: pmma.Constants() -> pmma.Constants
+

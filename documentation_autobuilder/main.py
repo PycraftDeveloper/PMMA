@@ -12,16 +12,251 @@ def path_builder(*args):
     result = result[:-1]
     return result
 
-alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def capture_docstring(name, content, is_class=False):
+    if is_class:
+        look_for = f"class {name}"
+    else:
+        look_for = f"def {name}"
 
+    docstring = ""
+    found_definition = False
+    found_docstring = False
+    indent_level = 1
+    found_args = False
+    found_returns = False
+    args = []
+    returns = []
+    for line in content:
+        if found_definition:
+            if ('"""' in line or "'''" in line):
+                found_docstring = True
+
+        if found_docstring:
+            if "arguments:" in line:
+                line = line.replace("arguments:", "Arguments:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "Arguments:" in line:
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "ARGUMENTS:" in line:
+                line = line.replace("ARGUMENTS:", "Arguments:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "args:" in line:
+                line = line.replace("args:", "Arguments:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "Args:" in line:
+                line = line.replace("Args:", "Arguments:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "ARGS:" in line:
+                line = line.replace("ARGS:", "Arguments:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "parameters:" in line:
+                line = line.replace("parameters:", "Arguments:")
+                indent_level = 2
+                found_args = False
+                found_returns = False
+            if "Parameters:" in line:
+                line = line.replace("Parameters:", "Arguments:")
+                indent_level = 2
+                found_args = False
+                found_returns = False
+            if "PARAMETERS:" in line:
+                line = line.replace("PARAMETERS:", "Arguments:")
+                indent_level = 2
+                found_args = False
+                found_returns = False
+            if "params:" in line:
+                line = line.replace("params:", "Arguments:")
+                indent_level = 2
+                found_args = False
+                found_returns = False
+            if "Params:" in line:
+                line = line.replace("Params:", "Arguments:")
+                indent_level = 2
+                found_args = False
+                found_returns = False
+            if "PARAMS:" in line:
+                line = line.replace("PARAMS:", "Arguments:")
+                indent_level = 2
+                found_args = False
+                found_returns = False
+
+            if "returns:" in line:
+                line = line.replace("returns:", "Returns:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "Returns:" in line:
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "RETURNS:" in line:
+                line = line.replace("RETURNS:", "Returns:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "returns:" in line:
+                line = line.replace("returns:", "Returns:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "Params:" in line:
+                line = line.replace("Params:", "Returns:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+            if "PARAMS:" in line:
+                line = line.replace("PARAMS:", "Returns:")
+                indent_level = 1
+                found_args = False
+                found_returns = False
+
+            if ('"""' in line or "'''" in line) and docstring != "":
+                docstring += "    "*indent_level + line.strip() + "\n"
+                break
+
+            docstring += "    "*indent_level + line.strip() + "\n"
+            if (found_args or found_returns) and line.strip() != "":
+                #   points (list) -
+                try:
+                    arg = line.strip()
+                    arg_start = arg.split("(")[0].strip()
+                    arg_end = arg.split("(")[1].strip()
+                    arg_end = arg_end.split(")")[0].strip()
+
+                    if found_args:
+                        args.append(f"{arg_start}: {arg_end}")
+                    if found_returns:
+                        returns.append(f"{arg_end}")
+                except Exception as error:
+                    print(error)
+                    print(line)
+
+            if "arguments:" in line:
+                line = line.replace("arguments:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "Arguments:" in line:
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "ARGUMENTS:" in line:
+                line = line.replace("ARGUMENTS:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "args:" in line:
+                line = line.replace("args:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "Args:" in line:
+                line = line.replace("Args:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "ARGS:" in line:
+                line = line.replace("ARGS:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "parameters:" in line:
+                line = line.replace("parameters:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "Parameters:" in line:
+                line = line.replace("Parameters:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "PARAMETERS:" in line:
+                line = line.replace("PARAMETERS:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "params:" in line:
+                line = line.replace("params:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "Params:" in line:
+                line = line.replace("Params:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            elif "PARAMS:" in line:
+                line = line.replace("PARAMS:", "Arguments:")
+                indent_level = 2
+                found_args = True
+                found_returns = False
+            else:
+                found_args = False
+
+            if "returns:" in line:
+                line = line.replace("returns:", "Returns:")
+                indent_level = 2
+                found_args = False
+                found_returns = True
+            elif "Returns:" in line:
+                indent_level = 2
+                found_args = False
+                found_returns = True
+            elif "RETURNS:" in line:
+                line = line.replace("RETURNS:", "Returns:")
+                indent_level = 2
+                found_args = False
+                found_returns = True
+            elif "returns:" in line:
+                line = line.replace("returns:", "Returns:")
+                indent_level = 2
+                found_args = False
+                found_returns = True
+            elif "Params:" in line:
+                line = line.replace("Params:", "Returns:")
+                indent_level = 2
+                found_args = False
+                found_returns = True
+            elif "PARAMS:" in line:
+                line = line.replace("PARAMS:", "Returns:")
+                indent_level = 2
+                found_args = False
+                found_returns = True
+            else:
+                found_returns = False
+
+        if look_for in line:
+            found_definition = True
+
+    docstring = docstring.replace('"""', '').replace("'''", '')
+    return docstring, args, returns
+
+### setup
 base_path = _up(_up(__file__))
 
 python_source_code_path = path_builder(base_path, "python_src")
-documentation_path = path_builder(base_path, "docs")
+documentation_path = path_builder(base_path, "docs", "library_breakdown")
 temporary_documentation_path = path_builder(base_path, "documentation_autobuilder", "temp_docs")
 
 files = glob.glob(python_source_code_path + os.sep + "*.py")
 
+SEPARATOR = os.sep
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+### end
+
+### write index.rst
 index_start = """Library Breakdown
 =========
 
@@ -31,169 +266,80 @@ The full breakdown of what everything does!
     :maxdepth: 2
 
 """
-
-with open(path_builder(temporary_documentation_path, "index.rst"), "w") as open_file:
-    open_file.write(index_start)
-
 for file in files:
-    #print(file)
-    filename = os.path.basename(file).split(".")[0]
-    doc_file = filename + ".rst"
-    doc_component_file = path_builder(temporary_documentation_path, filename+".rst")
-    open(doc_component_file, "w").close()
-    with open(path_builder(temporary_documentation_path, "index.rst"), "a") as open_file:
-        open_file.write("    " + doc_file + "\n")
+    file_name = os.path.basename(file).split(".")[0]
+    index_start += f"    {file_name}.rst\n"
 
-    with open(file, "r") as open_file:
-        content = open_file.readlines()
+index_file_path = path_builder(documentation_path, "index.rst")
+with open(index_file_path, "w") as index_file:
+    index_file.write(index_start)
 
+### end
+
+### write documentation
+for file in files:
+    with open(file, "r") as original_file:
+        content = original_file.readlines()
+
+    file_name = os.path.basename(file).split(".")[0]
     in_class = False
-    written_methods_data = False
-    capture_docstring = False
-    initial_capture_docstring = False
-    docstring = ""
-    class_name = ""
-    function_name = ""
+    documentation = ""
+    methods_header_written = False
+
     for line in content:
-        if (initial_capture_docstring and ('"""' in line or "'''" in line)) or (capture_docstring and not initial_capture_docstring):
-            docstring += line.strip() + "\n    "
-            if ('"""' in line or "'''" in line) and initial_capture_docstring is False:
-                capture_docstring = False
-                docstring = docstring.replace('"""', '').replace("'''", '')
-                docstring = docstring[:-7]
-                with open(doc_component_file, "a") as file:
-                    file.write(docstring)
-                docstring = ""
-            initial_capture_docstring = False
+        indent_whitespace = len(line[:-len(line.lstrip())]) // 4
+        #print(indent_whitespace)
+        if "def " in line and not "__" in line:
+            if in_class != in_class and indent_whitespace == 1:
+                methods_header_written = False
+            in_class = in_class and indent_whitespace == 1
+            if in_class is False:
+                class_name = "pmma"
+            name = line.split("def ")[-1].split("(")[0].strip()
+            #if in_class:
+                #print("method", name)
+            #else:
+                #print("function", name)
+            docstring, args, returns = capture_docstring(name, content, is_class=False)
+            formatted_args = ", ".join(args)
+            formatted_returns = ", ".join(returns)
+            if formatted_returns == "":
+                formatted_returns = "None"
 
-        if "class " in line and ":" in line:
-            class_name = line.split(" ")[1].split(":")[0]
-            class_name = class_name.strip()
-            formatted_class_name = ""
+            if methods_header_written is False:
+                methods_header_written = True
+                documentation += "Methods\n"
+                documentation += "+++++++\n\n"
+            documentation += f"..py:method: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n"
+            documentation += docstring + "\n"
 
-            for index in range(len(class_name)):
-                if class_name[index] in alphabet and formatted_class_name != "":
-                    formatted_class_name += " "
+        elif "class " in line and ":" in line:
+            name = line.split("class ")[-1].split("(")[0]
+            name = name.split(":")[0].strip()
+            formatted_name = ""
+            for character in name:
+                if character in ALPHABET:
+                    formatted_name += " "
+                formatted_name += character
 
-                formatted_class_name += class_name[index]
-
-            formatted_class_name = formatted_class_name.replace("Open G L ", "OpenGL ")
-
+            formatted_name = formatted_name.replace("Open G L", "OpenGL").strip()
+            #print("class", name)
             in_class = True
-            written_methods_data = False
-            #print("class: ", class_name)
-            capture_docstring = True
-            initial_capture_docstring = True
+            methods_header_written = False
+            docstring, args, returns = capture_docstring(name, content, is_class=True)
+            init_docstring, init_args, init_returns = capture_docstring("__init__", content, is_class=True)
+            formatted_init_args = ", ".join(init_args)
+            class_name = name
+            documentation += f"{formatted_name} (``pmma.{name}``)\n"
+            documentation += "=======\n"
+            documentation += docstring + "\n"
 
-###################################################################
-            class_data = f"""
-{formatted_class_name} (``pmma.{class_name}``)
-=======
+            documentation += "Create\n"
+            documentation += "+++++++\n\n"
+            documentation += f"..py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}"
+            documentation += init_docstring + "\n\n"
 
-Object
-++++++
-.. py:class:: {class_name}
-"""
-###################################################################
-
-            with open(doc_component_file, "a") as open_file:
-                open_file.write(class_data)
-
-        if "def " in line:
-            function_name = line.split("def ")[1].split(":")[0]
-            if function_name[:2] == "__":
-                continue
-            indent_level = line.split("def")[0]
-            indent_level_count = len(indent_level) // 4
-            function = function_name.strip()
-            function_name = function_name.split("(")[0]
-            function_arguments = []
-            if "(" in line and "):" in line:
-                arg = ""
-                open_brackets = 0
-                useful_data = line.split("(", maxsplit=1)[-1]
-                for character in useful_data:
-                    if character == "(" or character == "[":
-                        open_brackets += 1
-                    if character == ")" or character == "]":
-                        open_brackets -= 1
-                    if (open_brackets == 0 and character == ","):
-                        function_arguments.append(arg.strip())
-                        arg = ""
-                    else:
-                        arg += character
-
-                function_arguments.append(arg.strip())
-
-                for index in range(len(function_arguments)):
-                    function_arguments[index] = function_arguments[index].strip()
-
-                function_arguments[-1] = function_arguments[-1][:-2]
-
-            else:
-                at_point = False
-                caught = False
-                for new_line in content:
-                    if new_line == line:
-                        at_point = True
-
-                    if at_point:
-                        if "(" in new_line and not caught:
-                            caught = True
-                            line_data = new_line.split("(")[-1].strip()
-                            if line_data != "":
-                                function_arguments.append(line_data[:-1])
-                        elif ")" in new_line and not "," in new_line:
-                            line_data = new_line.split(")")[0].strip() + ")"
-                            if line_data != "":
-                                function_arguments.append(line_data[:-1])
-                            break
-                        else:
-                            function_arguments.append(new_line.strip()[:-1])
-
-            if function_arguments != [] and function_arguments[0] == "self":
-                function_arguments.pop(0)
-
-            #print(function_arguments)
-
-            ###
-            refined_function_arguments = ""
-            for arg in function_arguments:
-                ### IN LINE BELOW ADD TYPES BY DOCSTRING INTERENCE - BUT WRITE DOCSTRING FIRST!!!
-                refined_function_arguments += f"{arg}, "
-            refined_function_arguments = refined_function_arguments[:-2]
-            ###
-
-            capture_docstring = True
-            initial_capture_docstring = True
-            if not written_methods_data:
-###################################################################
-                methods_header = """
-Methods
-++++++"""
-###################################################################
-
-                with open(doc_component_file, "a") as open_file:
-                    open_file.write(methods_header)
-
-                written_methods_data = True
-
-            if in_class and indent_level_count == 1:
-###################################################################
-                methods_data = f"""
-.. py:method:: {class_name}.{function_name}({refined_function_arguments}) -> NYD:
-"""
-###################################################################
-
-                with open(doc_component_file, "a") as open_file:
-                    open_file.write(methods_data)
-                #print("method: ", function_name)
-            else:
-###################################################################
-                methods_data = f"""
-.. py:method:: {function_name}({refined_function_arguments}) -> NYD:
-"""
-###################################################################
-
-                with open(doc_component_file, "a") as open_file:
-                    open_file.write(methods_data)
+    with open(path_builder(documentation_path, f"{file_name}.rst"), "w") as documentation_file:
+        documentation_file.write(documentation)
+    print(documentation)
+### end

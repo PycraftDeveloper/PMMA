@@ -1,13 +1,15 @@
-
 Quick Start (``pmma.QuickStart``)
 =======
 
-Object
-++++++
+Create
++++++++
 
-.. py:class:: QuickStart
-
-    Work In Progress
+..py:method:: pmma.QuickStart() -> pmma.QuickStart
 
 Methods
-++++++
++++++++
+
+..py:method: QuickStart.start() -> None
+
+..py:method: QuickStart.end() -> None
+

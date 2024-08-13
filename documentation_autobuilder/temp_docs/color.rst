@@ -1,30 +1,34 @@
-
 Color Intermediary (``pmma.ColorIntermediary``)
 =======
 
-Object
-++++++
-.. py:class:: ColorIntermediary
+Create
++++++++
+
+..py:method:: pmma.ColorIntermediary() -> pmma.ColorIntermediary
 
 Methods
-++++++
-.. py:method:: ColorIntermediary.detect_color_type(color) -> NYD:
++++++++
 
-.. py:method:: ColorIntermediary.quit() -> NYD:
+..py:method: ColorIntermediary.detect_color_type() -> None
 
-.. py:method:: ColorIntermediary.out(out_type) -> NYD:
+..py:method: ColorIntermediary.quit() -> None
+
+..py:method: ColorIntermediary.out() -> None
 
 Color (``pmma.Color``)
 =======
 
-Object
-++++++
-.. py:class:: Color
+Create
++++++++
+
+..py:method:: pmma.Color() -> pmma.Color
 
 Methods
-++++++
-.. py:method:: Color.quit() -> NYD:
++++++++
 
-.. py:method:: Color.convert_format(out_type) -> NYD:
+..py:method: Color.quit() -> None
 
-.. py:method:: Color.generate_perlin_color(generate_alpha=False) -> NYD:
+..py:method: Color.convert_format() -> None
+
+..py:method: Color.generate_perlin_color() -> None
+

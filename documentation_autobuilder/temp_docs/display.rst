@@ -1,41 +1,43 @@
-
 Display (``pmma.Display``)
 =======
 
-Object
-++++++
-.. py:class:: Display
+Create
++++++++
+
+..py:method:: pmma.Display() -> pmma.Display
 
 Methods
-++++++
-.. py:method:: Display.quit() -> NYD:
++++++++
 
-.. py:method:: Display.destroy() -> NYD:
+..py:method: Display.quit() -> None
 
-.. py:method:: Display.create(width=None, height=None, fullscreen=True, resizable=False, caption="PMMA Display", vsync=True, alpha=False) -> NYD:
+..py:method: Display.destroy() -> None
 
-.. py:method:: Display.set_caption(caption) -> NYD:
+..py:method: Display.create() -> None
 
-.. py:method:: Display.display_resize() -> NYD:
+..py:method: Display.set_caption() -> None
 
-.. py:method:: Display.toggle_fullscreen() -> NYD:
+..py:method: Display.display_resize() -> None
 
-.. py:method:: Display.blit(content, position=[0, 0]) -> NYD:
+..py:method: Display.toggle_fullscreen() -> None
 
-.. py:method:: Display.get_size() -> NYD:
+..py:method: Display.blit() -> None
 
-.. py:method:: Display.get_height() -> NYD:
+..py:method: Display.get_size() -> None
 
-.. py:method:: Display.get_width() -> NYD:
+..py:method: Display.get_height() -> None
 
-.. py:method:: Display.clear(*args) -> NYD:
+..py:method: Display.get_width() -> None
 
-.. py:method:: Display.refresh(refresh_rate=None) -> NYD:
+..py:method: Display.clear() -> None
 
-.. py:method:: Display.close() -> NYD:
+..py:method: Display.refresh() -> None
 
-.. py:method:: Display.get_fps() -> NYD:
+..py:method: Display.close() -> None
 
-.. py:method:: Display.get_refresh_rate() -> NYD:
+..py:method: Display.get_fps() -> None
 
-.. py:method:: Display.get_center(as_integer=True) -> NYD:
+..py:method: Display.get_refresh_rate() -> None
+
+..py:method: Display.get_center() -> None
+

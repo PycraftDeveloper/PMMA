@@ -1,13 +1,19 @@
-
-Advanced-Threading (``pmma.Thread``)
+Thread (``pmma.Thread``)
 =======
 
-Object
-++++++
+Create
++++++++
 
-.. py:class:: Thread
-
-    Work In Progress
+..py:method:: pmma.Thread() -> pmma.Thread
 
 Methods
-++++++
++++++++
+
+..py:method: pmma.start() -> None
+
+..py:method: pmma.globaltrace() -> None
+
+..py:method: pmma.localtrace() -> None
+
+..py:method: pmma.kill() -> None
+

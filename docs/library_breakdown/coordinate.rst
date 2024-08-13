@@ -1,26 +1,34 @@
+Coordinate Intermediary (``pmma.CoordinateIntermediary``)
+=======
+
+Create
++++++++
+
+..py:method:: pmma.CoordinateIntermediary() -> pmma.CoordinateIntermediary
+
+Methods
++++++++
+
+..py:method: CoordinateIntermediary.quit() -> None
+
+..py:method: CoordinateIntermediary.out() -> None
+
+..py:method: CoordinateIntermediary.convert_range() -> None
 
 Coordinate (``pmma.Coordinate``)
 =======
 
-Object
-++++++
+Create
++++++++
 
-.. py:class:: Coordinate
-
-    Work In Progress
+..py:method:: pmma.Coordinate() -> pmma.Coordinate
 
 Methods
-++++++
++++++++
 
-Coordinate Intermediary (``pmma.CoordinateIntermediary``)
-=======
+..py:method: Coordinate.quit() -> None
 
-Object
-++++++
+..py:method: Coordinate.out() -> None
 
-.. py:class:: CoordinateIntermediary
+..py:method: Coordinate.convert_range() -> None
 
-    Work In Progress
-
-Methods
-++++++

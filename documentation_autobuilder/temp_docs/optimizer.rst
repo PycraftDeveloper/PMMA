@@ -1,15 +1,17 @@
-
 Benchmark (``pmma.Benchmark``)
 =======
 
-Object
-++++++
-.. py:class:: Benchmark
+Create
++++++++
+
+..py:method:: pmma.Benchmark() -> pmma.Benchmark
 
 Methods
-++++++
-.. py:method:: Benchmark.quit() -> NYD:
++++++++
 
-.. py:method:: Benchmark.test_all() -> NYD:
+..py:method: Benchmark.quit() -> None
 
-.. py:method:: Benchmark.test_pythag() -> NYD:
+..py:method: Benchmark.test_all() -> None
+
+..py:method: Benchmark.test_pythag() -> None
+

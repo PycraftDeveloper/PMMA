@@ -1,10 +1,8 @@
-
 Backpack (``pmma.Backpack``)
 =======
 
-Object
-++++++
+Create
++++++++
 
-.. py:class:: Backpack
+..py:method:: pmma.Backpack() -> pmma.Backpack
 
-    Work In Progress

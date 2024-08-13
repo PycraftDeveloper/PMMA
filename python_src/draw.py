@@ -14,6 +14,9 @@ def generate_rect_from_points(x, y, width, height):
     return pygame.Rect(x, y, width, height)
 
 class Line:
+    """
+    Draws a line.
+    """
     def __init__(
             self,
             color=None,

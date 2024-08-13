@@ -1,17 +1,19 @@
-
 Events (``pmma.Events``)
 =======
 
-Object
-++++++
-.. py:class:: Events
+Create
++++++++
+
+..py:method:: pmma.Events() -> pmma.Events
 
 Methods
-++++++
-.. py:method:: Events.quit() -> NYD:
++++++++
 
-.. py:method:: Events.destroy() -> NYD:
+..py:method: Events.quit() -> None
 
-.. py:method:: Events.handle(enable_toggle_fullscreen=True, enable_close=True, return_events=True, canvas=None) -> NYD:
+..py:method: Events.destroy() -> None
 
-.. py:method:: Events.get_events(update_events=False) -> NYD:
+..py:method: Events.handle() -> None
+
+..py:method: Events.get_events() -> None
+

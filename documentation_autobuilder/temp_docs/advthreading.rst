@@ -1,17 +1,19 @@
-
-Thread(threading. Thread) (``pmma.Thread(threading.Thread)``)
+Thread (``pmma.Thread``)
 =======
 
-Object
-++++++
-.. py:class:: Thread(threading.Thread)
+Create
++++++++
+
+..py:method:: pmma.Thread() -> pmma.Thread
 
 Methods
-++++++
-.. py:method:: start() -> NYD:
++++++++
 
-.. py:method:: globaltrace(frame, event, arg) -> NYD:
+..py:method: pmma.start() -> None
 
-.. py:method:: localtrace(frame, event, arg) -> NYD:
+..py:method: pmma.globaltrace() -> None
 
-.. py:method:: kill() -> NYD:
+..py:method: pmma.localtrace() -> None
+
+..py:method: pmma.kill() -> None
+

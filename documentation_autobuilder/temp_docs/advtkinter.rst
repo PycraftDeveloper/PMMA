@@ -1,17 +1,19 @@
-
 Tkinter (``pmma.Tkinter``)
 =======
 
-Object
-++++++
-.. py:class:: Tkinter
+Create
++++++++
+
+..py:method:: pmma.Tkinter() -> pmma.Tkinter
 
 Methods
-++++++
-.. py:method:: Tkinter.quit() -> NYD:
++++++++
 
-.. py:method:: Tkinter.style(widget) -> NYD:
+..py:method: Tkinter.quit() -> None
 
-.. py:method:: Tkinter.get_display_size() -> NYD:
+..py:method: Tkinter.style() -> None
 
-.. py:method:: Tkinter.set_size(x, y, root=None) -> NYD:
+..py:method: Tkinter.get_display_size() -> None
+
+..py:method: Tkinter.set_size() -> None
+

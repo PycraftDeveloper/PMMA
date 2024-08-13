@@ -1,18 +1,21 @@
-
 Passport Intermediary (``pmma.PassportIntermediary``)
 =======
 
-Object
-++++++
-.. py:class:: PassportIntermediary
+Create
++++++++
+
+..py:method:: pmma.PassportIntermediary() -> pmma.PassportIntermediary
 
 Passport (``pmma.Passport``)
 =======
 
-Object
-++++++
-.. py:class:: Passport
+Create
++++++++
+
+..py:method:: pmma.Passport() -> pmma.Passport
 
 Methods
-++++++
-.. py:method:: Passport.quit() -> NYD:
++++++++
+
+..py:method: Passport.quit() -> None
+

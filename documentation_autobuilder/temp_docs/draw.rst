@@ -1,345 +1,1899 @@
-
 Methods
-++++++
-.. py:method:: generate_rect_from_points(x, y, width, height) -> NYD:
++++++++
+
+..py:method: pmma.generate_rect_from_points() -> None
+    
+    Draws a line.
+    
 
 Line (``pmma.Line``)
 =======
+    
+    Draws a line.
+    
 
-Object
-++++++
-.. py:class:: Line
+Create
++++++++
+
+..py:method:: pmma.Line() -> pmma.Line
 
 Methods
-++++++
-.. py:method:: Line.set_color(color) -> NYD:
++++++++
 
-.. py:method:: Line.set_start(start) -> NYD:
+..py:method: Line.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Line.set_end(end) -> NYD:
+..py:method: Line.set_start(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Line.set_width(width) -> NYD:
+..py:method: Line.set_end(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Line.set_canvas(canvas) -> NYD:
+..py:method: Line.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Line.quit() -> NYD:
+..py:method: Line.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Line.draw() -> NYD:
+..py:method: Line.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Line.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
 Lines (``pmma.Lines``)
 =======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-Object
-++++++
-.. py:class:: Lines
+Create
++++++++
+
+..py:method:: pmma.Lines() -> pmma.Lines
 
 Methods
-++++++
-.. py:method:: Lines.set_color(color) -> NYD:
++++++++
 
-.. py:method:: Lines.set_points(points) -> NYD:
+..py:method: Lines.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Lines.set_width(width) -> NYD:
+..py:method: Lines.set_points(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Lines.set_closed(closed) -> NYD:
+..py:method: Lines.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Lines.set_canvas(canvas) -> NYD:
+..py:method: Lines.set_closed(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Lines.quit() -> NYD:
+..py:method: Lines.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Lines.draw() -> NYD:
+..py:method: Lines.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Lines.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
 Advanced Polygon (``pmma.AdvancedPolygon``)
 =======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-Object
-++++++
-.. py:class:: AdvancedPolygon
+Create
++++++++
+
+..py:method:: pmma.AdvancedPolygon() -> pmma.AdvancedPolygon
 
 Methods
-++++++
-.. py:method:: AdvancedPolygon.set_color(color) -> NYD:
++++++++
 
-.. py:method:: AdvancedPolygon.set_centre(centre) -> NYD:
+..py:method: AdvancedPolygon.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.set_radius(radius) -> NYD:
+..py:method: AdvancedPolygon.set_centre(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.set_number_of_sides(number_of_sides) -> NYD:
+..py:method: AdvancedPolygon.set_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.set_rotation_angle(rotation_angle) -> NYD:
+..py:method: AdvancedPolygon.set_number_of_sides(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.set_width(width) -> NYD:
+..py:method: AdvancedPolygon.set_rotation_angle(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.set_wire_frame(wire_frame) -> NYD:
+..py:method: AdvancedPolygon.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.set_canvas(canvas) -> NYD:
+..py:method: AdvancedPolygon.set_wire_frame(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.quit() -> NYD:
+..py:method: AdvancedPolygon.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: AdvancedPolygon.draw() -> NYD:
+..py:method: AdvancedPolygon.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: AdvancedPolygon.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
 Rotated Rect (``pmma.RotatedRect``)
 =======
-
-Object
-++++++
-.. py:class:: RotatedRect
-
+    
     Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
-    x (int/float):
-    The x coordinate of the center of the shape.
-    y (int/float):
-    The y coordinate of the center of the shape.
-    radius (int/float):
-    The radius of the rectangle.
-    height (int/float):
-    The height of the rectangle.
-    color (str):
-    Name of the fill color, in HTML format.
-  
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.RotatedRect() -> pmma.RotatedRect
+
 Methods
-++++++
-.. py:method:: RotatedRect.set_color(color) -> NYD:
++++++++
 
-.. py:method:: RotatedRect.set_center_of_rect(center_of_rect) -> NYD:
-
-.. py:method:: RotatedRect.set_radius(radius) -> NYD:
-
-.. py:method:: RotatedRect.set_height(height) -> NYD:
-
-.. py:method:: RotatedRect.set_rotation_angle(rotation_angle) -> NYD:
-
-.. py:method:: RotatedRect.set_width(width) -> NYD:
-
-.. py:method:: RotatedRect.set_canvas(canvas) -> NYD:
-
-.. py:method:: RotatedRect.quit() -> NYD:
-
-.. py:method:: RotatedRect.draw() -> NYD:
-
+..py:method: RotatedRect.set_color(x: int/float) -> None
+    
     Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
-    x (int/float):
-    The x coordinate of the center of the shape.
-    y (int/float):
-    The y coordinate of the center of the shape.
-    radius (int/float):
-    The radius of the rectangle.
-    height (int/float):
-    The height of the rectangle.
-    color (str):
-    Name of the fill color, in HTML format.
-  
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.set_center_of_rect(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.set_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.set_height(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.set_rotation_angle(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: RotatedRect.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
 Rect (``pmma.Rect``)
 =======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-Object
-++++++
-.. py:class:: Rect
+Create
++++++++
+
+..py:method:: pmma.Rect() -> pmma.Rect
 
 Methods
-++++++
-.. py:method:: Rect.set_color(color) -> NYD:
++++++++
 
-.. py:method:: Rect.set_rect(rect) -> NYD:
+..py:method: Rect.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_width(width) -> NYD:
+..py:method: Rect.set_rect(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_border_radius(border_radius) -> NYD:
+..py:method: Rect.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_border_top_left_radius(border_top_left_radius) -> NYD:
+..py:method: Rect.set_border_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_border_top_right_radius(border_top_right_radius) -> NYD:
+..py:method: Rect.set_border_top_left_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_border_bottom_left_radius(border_bottom_left_radius) -> NYD:
+..py:method: Rect.set_border_top_right_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_border_bottom_right_radius(border_bottom_right_radius) -> NYD:
+..py:method: Rect.set_border_bottom_left_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.set_canvas(canvas) -> NYD:
+..py:method: Rect.set_border_bottom_right_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.quit() -> NYD:
+..py:method: Rect.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Rect.draw() -> NYD:
+..py:method: Rect.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Rect.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
 Circle (``pmma.Circle``)
 =======
-
-Object
-++++++
-.. py:class:: Circle
-
-Methods
-++++++
-.. py:method:: Circle.set_color(color) -> NYD:
-
-.. py:method:: Circle.set_center(center) -> NYD:
-
-.. py:method:: Circle.set_radius(radius) -> NYD:
-
-.. py:method:: Circle.set_width(width) -> NYD:
-
-.. py:method:: Circle.set_canvas(canvas) -> NYD:
-
-.. py:method:: Circle.quit() -> NYD:
-
-.. py:method:: Circle.draw() -> NYD:
-
-Arc (``pmma.Arc``)
-=======
-
-Object
-++++++
-.. py:class:: Arc
-
-Methods
-++++++
-.. py:method:: Arc.set_color(color) -> NYD:
-
-.. py:method:: Arc.set_rect(rect) -> NYD:
-
-.. py:method:: Arc.set_start_angle(start_angle) -> NYD:
-
-.. py:method:: Arc.set_stop_angle(stop_angle) -> NYD:
-
-.. py:method:: Arc.set_width(width) -> NYD:
-
-.. py:method:: Arc.set_canvas(canvas) -> NYD:
-
-.. py:method:: Arc.quit() -> NYD:
-
-.. py:method:: Arc.draw() -> NYD:
-
-Polygon (``pmma.Polygon``)
-=======
-
-Object
-++++++
-.. py:class:: Polygon
-
-Methods
-++++++
-.. py:method:: Polygon.set_color(color) -> NYD:
-
-.. py:method:: Polygon.set_points(points) -> NYD:
-
-.. py:method:: Polygon.set_width(width) -> NYD:
-
-.. py:method:: Polygon.set_canvas(canvas) -> NYD:
-
-.. py:method:: Polygon.quit() -> NYD:
-
-.. py:method:: Polygon.draw() -> NYD:
-
-Ellipse (``pmma.Ellipse``)
-=======
-
-Object
-++++++
-.. py:class:: Ellipse
-
-Methods
-++++++
-.. py:method:: Ellipse.set_color(color) -> NYD:
-
-.. py:method:: Ellipse.set_rect(rect) -> NYD:
-
-.. py:method:: Ellipse.set_width(width) -> NYD:
-
-.. py:method:: Ellipse.set_canvas(canvas) -> NYD:
-
-.. py:method:: Ellipse.quit() -> NYD:
-
-.. py:method:: Ellipse.draw() -> NYD:
-
-Pixel (``pmma.Pixel``)
-=======
-
-Object
-++++++
-.. py:class:: Pixel
-
-Methods
-++++++
-.. py:method:: Pixel.set_color(color) -> NYD:
-
-.. py:method:: Pixel.set_point(point) -> NYD:
-
-.. py:method:: Pixel.set_canvas(canvas) -> NYD:
-
-.. py:method:: Pixel.quit() -> NYD:
-
-.. py:method:: Pixel.draw() -> NYD:
-
-Curved Lines (``pmma.CurvedLines``)
-=======
-
-Object
-++++++
-.. py:class:: CurvedLines
-
-Methods
-++++++
-.. py:method:: CurvedLines.set_color(color) -> NYD:
-
-.. py:method:: CurvedLines.set_points(points) -> NYD:
-
-.. py:method:: CurvedLines.set_steps(steps) -> NYD:
-
-.. py:method:: CurvedLines.set_canvas(canvas) -> NYD:
-
-.. py:method:: CurvedLines.quit() -> NYD:
-
-.. py:method:: CurvedLines.draw() -> NYD:
-
-Draw (``pmma.Draw``)
-=======
-
-Object
-++++++
-.. py:class:: Draw
-
-Methods
-++++++
-.. py:method:: Draw.quit() -> NYD:
-
-.. py:method:: Draw.line(color, start, end, width, canvas=None) -> NYD:
-
-.. py:method:: Draw.lines(color, points, width=1, closed=False, canvas=None) -> NYD:
-
-.. py:method:: Draw.advanced_polygon(color, centre, radius, number_of_sides, rotation_angle=0, width=0, cache=None, wire_frame=False, canvas=None) -> NYD:
-
-.. py:method:: Draw.rotated_rect(color, center_of_rect, radius, height, rotation_angle=0, cache=None, width=0, canvas=None) -> NYD:
-
+    
     Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
-    x (int/float):
-    The x coordinate of the center of the shape.
-    y (int/float):
-    The y coordinate of the center of the shape.
-    radius (int/float):
-    The radius of the rectangle.
-    height (int/float):
-    The height of the rectangle.
-    color (str):
-    Name of the fill color, in HTML format.
-  
-.. py:method:: Draw.rect(color, rect, width, border_radius=-1, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1, canvas=None) -> NYD:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Draw.circle(color, center, radius, width=0, canvas=None) -> NYD:
+Create
++++++++
 
-.. py:method:: Draw.arc(color, rect, start_angle, stop_angle, width=1, canvas=None) -> NYD:
+..py:method:: pmma.Circle() -> pmma.Circle
 
-.. py:method:: Draw.polygon(color, points, width=0, canvas=None) -> NYD:
+Methods
++++++++
 
-.. py:method:: Draw.ellipse(color, rect, width=0, canvas=None) -> NYD:
+..py:method: Circle.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Draw.pixel(color, point, canvas=None) -> NYD:
+..py:method: Circle.set_center(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
 
-.. py:method:: Draw.curved_lines(color, points, steps=2, canvas=None) -> NYD:
+..py:method: Circle.set_radius(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Circle.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Circle.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Circle.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Circle.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Arc (``pmma.Arc``)
+=======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.Arc() -> pmma.Arc
+
+Methods
++++++++
+
+..py:method: Arc.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.set_rect(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.set_start_angle(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.set_stop_angle(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Arc.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Polygon (``pmma.Polygon``)
+=======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.Polygon() -> pmma.Polygon
+
+Methods
++++++++
+
+..py:method: Polygon.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Polygon.set_points(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Polygon.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Polygon.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Polygon.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Polygon.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Ellipse (``pmma.Ellipse``)
+=======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.Ellipse() -> pmma.Ellipse
+
+Methods
++++++++
+
+..py:method: Ellipse.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Ellipse.set_rect(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Ellipse.set_width(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Ellipse.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Ellipse.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Ellipse.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Pixel (``pmma.Pixel``)
+=======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.Pixel() -> pmma.Pixel
+
+Methods
++++++++
+
+..py:method: Pixel.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Pixel.set_point(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Pixel.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Pixel.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Pixel.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Curved Lines (``pmma.CurvedLines``)
+=======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.CurvedLines() -> pmma.CurvedLines
+
+Methods
++++++++
+
+..py:method: CurvedLines.set_color(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: CurvedLines.set_points(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: CurvedLines.set_steps(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: CurvedLines.set_canvas(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: CurvedLines.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: CurvedLines.draw(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Draw (``pmma.Draw``)
+=======
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+Create
++++++++
+
+..py:method:: pmma.Draw() -> pmma.Draw
+
+Methods
++++++++
+
+..py:method: Draw.quit(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Draw.line(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Draw.lines(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Draw.advanced_polygon(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Draw.rotated_rect(x: int/float) -> None
+    
+    Draw a rectangle, centered at x, y.
+    All credit to Tim Swast for this function!
+    
+    Arguments:
+        x (int/float):
+        The x coordinate of the center of the shape.
+        y (int/float):
+        The y coordinate of the center of the shape.
+        radius (int/float):
+        The radius of the rectangle.
+        height (int/float):
+        The height of the rectangle.
+        color (str):
+        Name of the fill color, in HTML format.
+        
+
+..py:method: Draw.rect() -> None
+
+..py:method: Draw.circle() -> None
+
+..py:method: Draw.arc() -> None
+
+..py:method: Draw.polygon() -> None
+
+..py:method: Draw.ellipse() -> None
+
+..py:method: Draw.pixel() -> None
+
+..py:method: Draw.curved_lines() -> None
+

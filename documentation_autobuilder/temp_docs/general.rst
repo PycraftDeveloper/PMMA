@@ -1,43 +1,45 @@
-
 OpenGL Object (``pmma.OpenGLObject``)
 =======
 
-Object
-++++++
-.. py:class:: OpenGLObject
+Create
++++++++
+
+..py:method:: pmma.OpenGLObject() -> pmma.OpenGLObject
 
 Methods
-++++++
-.. py:method:: OpenGLObject.get() -> NYD:
++++++++
 
-.. py:method:: OpenGLObject.quit() -> NYD:
+..py:method: OpenGLObject.get() -> None
 
-.. py:method:: create_cache_id(*args) -> NYD:
+..py:method: OpenGLObject.quit() -> None
 
-.. py:method:: swizzle(in_format, data, out_format, handle_alpha=False) -> NYD:
+..py:method: pmma.create_cache_id() -> None
 
-.. py:method:: can_swizzle(in_format, data, out_format) -> NYD:
+..py:method: pmma.swizzle() -> None
 
-.. py:method:: environ_to_registry() -> NYD:
+..py:method: pmma.can_swizzle() -> None
 
-.. py:method:: log_development(message, do_traceback=False, repeat_for_effect=False) -> NYD:
+..py:method: pmma.environ_to_registry() -> None
 
-.. py:method:: log_information(message, do_traceback=False) -> NYD:
+..py:method: pmma.log_development() -> None
 
-.. py:method:: log_warning(message, do_traceback=False) -> NYD:
+..py:method: pmma.log_information() -> None
 
-.. py:method:: log_error(message, do_traceback=True) -> NYD:
+..py:method: pmma.log_warning() -> None
 
-.. py:method:: compute() -> NYD:
+..py:method: pmma.log_error() -> None
 
-.. py:method:: quit() -> NYD:
+..py:method: pmma.compute() -> None
 
-.. py:method:: check_if_object_is_class_or_function(param) -> NYD:
+..py:method: pmma.quit() -> None
 
-.. py:method:: get_operating_system() -> NYD:
+..py:method: pmma.check_if_object_is_class_or_function() -> None
 
-.. py:method:: get_theme() -> NYD:
+..py:method: pmma.get_operating_system() -> None
 
-.. py:method:: get_language() -> NYD:
+..py:method: pmma.get_theme() -> None
 
-.. py:method:: is_battery_saver_enabled(fallback_battery_power_saving_threshold_percentage=30, care_if_running_on_battery=True) -> NYD:
+..py:method: pmma.get_language() -> None
+
+..py:method: pmma.is_battery_saver_enabled() -> None
+

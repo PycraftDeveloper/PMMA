@@ -11,6 +11,9 @@ class Math:
     Required 3rd-party modules: Numba, Numpy and Pyrr.
     """
     def __init__(self):
+        """
+        Constructor for the Math class.
+        """
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
 
@@ -20,6 +23,9 @@ class Math:
             pass
 
     def quit(self):
+        """
+        Exit function.
+        """
         self.__del__()
         self.shut_down = True
 
@@ -28,6 +34,9 @@ class Math:
         🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
         This depends on the state of PMMA's registry entry: ``Registry.custom_compiled_behavior["raw_pythag"]``.
         For more information on this behavior, check out the Registry section, or look at the welcome page.
+
+        Returns:
+            Pythag function (Callable) - The requested function.
         """
         if Registry.compile_math_functions:
             if "raw_pythag" in Registry.custom_compiled_behavior.keys():
@@ -41,6 +50,15 @@ class Math:
             return math_utils.raw_pythag.py_func
 
     def pythag(self, points):
+        """
+        **R** - Calculates the pythagorean distance between two points.
+
+        Parameters:
+            points (list) - A list containing two tuples, each representing a point in 3D space.
+
+        Returns:
+            distance (float) - The calculated pythagorean distance between the two points.
+        """
         return self.get_function_pythag()(points)
 
     def get_function_ranger(self):

@@ -1,11 +1,13 @@
-
 Render Pipeline (``pmma.RenderPipeline``)
 =======
 
-Object
-++++++
-.. py:class:: RenderPipeline
+Create
++++++++
+
+..py:method:: pmma.RenderPipeline() -> pmma.RenderPipeline
 
 Methods
-++++++
-.. py:method:: RenderPipeline.quit() -> NYD:
++++++++
+
+..py:method: RenderPipeline.quit() -> None
+

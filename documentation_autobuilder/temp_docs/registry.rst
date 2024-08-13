@@ -1,7 +1,8 @@
-
 Registry (``pmma.Registry``)
 =======
 
-Object
-++++++
-.. py:class:: Registry
+Create
++++++++
+
+..py:method:: pmma.Registry() -> pmma.Registry
+
