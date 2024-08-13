@@ -241,6 +241,8 @@ def capture_docstring(name, content, is_class=False):
             found_definition = True
 
     docstring = docstring.replace('"""', '').replace("'''", '')
+    if docstring == "":
+        docstring = "   Not Yet Written\n"
     return docstring, args, returns
 
 ### setup
@@ -310,7 +312,7 @@ for file in files:
                 methods_header_written = True
                 documentation += "Methods\n"
                 documentation += "+++++++\n\n"
-            documentation += f"..py:method: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n"
+            documentation += f"..py:method: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
             documentation += docstring + "\n"
 
         elif "class " in line and ":" in line:
@@ -331,13 +333,13 @@ for file in files:
             formatted_init_args = ", ".join(init_args)
             class_name = name
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
-            documentation += "=======\n"
+            documentation += "=======\n\n"
             documentation += docstring + "\n"
 
             documentation += "Create\n"
             documentation += "+++++++\n\n"
-            documentation += f"..py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}"
-            documentation += init_docstring + "\n\n"
+            documentation += f"..py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}\n\n"
+            documentation += init_docstring + "\n"
 
     with open(path_builder(documentation_path, f"{file_name}.rst"), "w") as documentation_file:
         documentation_file.write(documentation)
