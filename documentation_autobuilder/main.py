@@ -312,7 +312,7 @@ for file in files:
                 methods_header_written = True
                 documentation += "Methods\n"
                 documentation += "+++++++\n\n"
-            documentation += f".. py:method: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
+            documentation += f".. py:method:: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
             documentation += docstring + "\n"
 
         elif "class " in line and ":" in line:

@@ -13,31 +13,31 @@ Create
 Methods
 +++++++
 
-.. py:method: Logger.quit() -> None
+.. py:method:: Logger.quit() -> None
 
    Not Yet Written
 
-.. py:method: Logger.initial_formatting() -> None
+.. py:method:: Logger.initial_formatting() -> None
 
    Not Yet Written
 
-.. py:method: Logger.logger_core() -> None
+.. py:method:: Logger.logger_core() -> None
 
    Not Yet Written
 
-.. py:method: Logger.log_development() -> None
+.. py:method:: Logger.log_development() -> None
 
    Not Yet Written
 
-.. py:method: Logger.log_information() -> None
+.. py:method:: Logger.log_information() -> None
 
    Not Yet Written
 
-.. py:method: Logger.log_warning() -> None
+.. py:method:: Logger.log_warning() -> None
 
    Not Yet Written
 
-.. py:method: Logger.log_error() -> None
+.. py:method:: Logger.log_error() -> None
 
    Not Yet Written
 

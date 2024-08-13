@@ -13,15 +13,15 @@ Create
 Methods
 +++++++
 
-.. py:method: CoordinateIntermediary.quit() -> None
+.. py:method:: CoordinateIntermediary.quit() -> None
 
    Not Yet Written
 
-.. py:method: CoordinateIntermediary.out() -> None
+.. py:method:: CoordinateIntermediary.out() -> None
 
    Not Yet Written
 
-.. py:method: CoordinateIntermediary.convert_range() -> None
+.. py:method:: CoordinateIntermediary.convert_range() -> None
 
    Not Yet Written
 
@@ -40,15 +40,15 @@ Create
 Methods
 +++++++
 
-.. py:method: Coordinate.quit() -> None
+.. py:method:: Coordinate.quit() -> None
 
    Not Yet Written
 
-.. py:method: Coordinate.out() -> None
+.. py:method:: Coordinate.out() -> None
 
    Not Yet Written
 
-.. py:method: Coordinate.convert_range() -> None
+.. py:method:: Coordinate.convert_range() -> None
 
    Not Yet Written
 

@@ -1,7 +1,7 @@
 Methods
 +++++++
 
-.. py:method: pmma.prefill_optimizer() -> None
+.. py:method:: pmma.prefill_optimizer() -> None
 
    Not Yet Written
 
@@ -32,55 +32,55 @@ Create
 Methods
 +++++++
 
-.. py:method: Perlin.quit() -> None
+.. py:method:: Perlin.quit() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.prefill() -> None
+.. py:method:: Perlin.prefill() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_1D_perlin_noise() -> None
+.. py:method:: Perlin.generate_1D_perlin_noise() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_2D_perlin_noise() -> None
+.. py:method:: Perlin.generate_2D_perlin_noise() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_3D_perlin_noise() -> None
+.. py:method:: Perlin.generate_3D_perlin_noise() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_1D_perlin_noise_from_array() -> None
+.. py:method:: Perlin.generate_1D_perlin_noise_from_array() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_2D_perlin_noise_from_array() -> None
+.. py:method:: Perlin.generate_2D_perlin_noise_from_array() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_3D_perlin_noise_from_array() -> None
+.. py:method:: Perlin.generate_3D_perlin_noise_from_array() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_1D_perlin_noise_from_range() -> None
+.. py:method:: Perlin.generate_1D_perlin_noise_from_range() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_2D_perlin_noise_from_range() -> None
+.. py:method:: Perlin.generate_2D_perlin_noise_from_range() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.generate_3D_perlin_noise_from_range() -> None
+.. py:method:: Perlin.generate_3D_perlin_noise_from_range() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.set_seed() -> None
+.. py:method:: Perlin.set_seed() -> None
 
    Not Yet Written
 
-.. py:method: Perlin.get_seed() -> None
+.. py:method:: Perlin.get_seed() -> None
 
    Not Yet Written
 

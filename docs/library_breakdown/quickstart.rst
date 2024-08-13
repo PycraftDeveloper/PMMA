@@ -13,11 +13,11 @@ Create
 Methods
 +++++++
 
-.. py:method: QuickStart.start() -> None
+.. py:method:: QuickStart.start() -> None
 
    Not Yet Written
 
-.. py:method: QuickStart.end() -> None
+.. py:method:: QuickStart.end() -> None
 
    Not Yet Written
 

@@ -13,7 +13,7 @@ Create
 Methods
 +++++++
 
-.. py:method: RenderPipeline.quit() -> None
+.. py:method:: RenderPipeline.quit() -> None
 
    Not Yet Written
 

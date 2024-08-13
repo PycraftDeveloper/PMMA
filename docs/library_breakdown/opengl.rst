@@ -13,43 +13,43 @@ Create
 Methods
 +++++++
 
-.. py:method: OpenGL.quit() -> None
+.. py:method:: OpenGL.quit() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.get_simple_texture_rendering_program() -> None
+.. py:method:: OpenGL.get_simple_texture_rendering_program() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.get_texture_aggregation_program() -> None
+.. py:method:: OpenGL.get_texture_aggregation_program() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.get_context() -> None
+.. py:method:: OpenGL.get_context() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.create_fbo() -> None
+.. py:method:: OpenGL.create_fbo() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.create_texture() -> None
+.. py:method:: OpenGL.create_texture() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.blit_image_to_texture() -> None
+.. py:method:: OpenGL.blit_image_to_texture() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.create_vbo() -> None
+.. py:method:: OpenGL.create_vbo() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.create_ibo() -> None
+.. py:method:: OpenGL.create_ibo() -> None
 
    Not Yet Written
 
-.. py:method: OpenGL.create_vao() -> None
+.. py:method:: OpenGL.create_vao() -> None
 
    Not Yet Written
 

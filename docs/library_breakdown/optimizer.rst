@@ -13,15 +13,15 @@ Create
 Methods
 +++++++
 
-.. py:method: Benchmark.quit() -> None
+.. py:method:: Benchmark.quit() -> None
 
    Not Yet Written
 
-.. py:method: Benchmark.test_all() -> None
+.. py:method:: Benchmark.test_all() -> None
 
    Not Yet Written
 
-.. py:method: Benchmark.test_pythag() -> None
+.. py:method:: Benchmark.test_pythag() -> None
 
    Not Yet Written
 

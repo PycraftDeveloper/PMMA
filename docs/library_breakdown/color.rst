@@ -13,15 +13,15 @@ Create
 Methods
 +++++++
 
-.. py:method: ColorIntermediary.detect_color_type() -> None
+.. py:method:: ColorIntermediary.detect_color_type() -> None
 
    Not Yet Written
 
-.. py:method: ColorIntermediary.quit() -> None
+.. py:method:: ColorIntermediary.quit() -> None
 
    Not Yet Written
 
-.. py:method: ColorIntermediary.out() -> None
+.. py:method:: ColorIntermediary.out() -> None
 
    Not Yet Written
 
@@ -40,15 +40,15 @@ Create
 Methods
 +++++++
 
-.. py:method: Color.quit() -> None
+.. py:method:: Color.quit() -> None
 
    Not Yet Written
 
-.. py:method: Color.convert_format() -> None
+.. py:method:: Color.convert_format() -> None
 
    Not Yet Written
 
-.. py:method: Color.generate_perlin_color() -> None
+.. py:method:: Color.generate_perlin_color() -> None
 
    Not Yet Written
 

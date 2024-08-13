@@ -25,7 +25,7 @@ Create
 Methods
 +++++++
 
-.. py:method: Passport.quit() -> None
+.. py:method:: Passport.quit() -> None
 
    Not Yet Written
 
