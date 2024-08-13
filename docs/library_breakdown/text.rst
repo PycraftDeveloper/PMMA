@@ -4,14 +4,14 @@ Text (``pmma.Text``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Text() -> pmma.Text
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Text.quit() -> None
 

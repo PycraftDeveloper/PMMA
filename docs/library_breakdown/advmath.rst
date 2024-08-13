@@ -7,7 +7,7 @@ This class also currently uses Numba for JIT (just-in-time) compilation (in no-p
 Required 3rd-party modules: Numba, Numpy and Pyrr.
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Math() -> pmma.Math
 
@@ -15,7 +15,7 @@ Create
     
 
 Methods
-+++++++
+-------
 
 .. py:method:: Math.quit() -> None
 

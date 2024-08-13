@@ -4,14 +4,14 @@ Tkinter (``pmma.Tkinter``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Tkinter() -> pmma.Tkinter
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Tkinter.quit() -> None
 

@@ -4,14 +4,14 @@ Logger (``pmma.Logger``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Logger() -> pmma.Logger
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Logger.quit() -> None
 

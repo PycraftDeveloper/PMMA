@@ -4,14 +4,14 @@ Coordinate Intermediary (``pmma.CoordinateIntermediary``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.CoordinateIntermediary() -> pmma.CoordinateIntermediary
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: CoordinateIntermediary.quit() -> None
 
@@ -31,14 +31,14 @@ Coordinate (``pmma.Coordinate``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Coordinate() -> pmma.Coordinate
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Coordinate.quit() -> None
 

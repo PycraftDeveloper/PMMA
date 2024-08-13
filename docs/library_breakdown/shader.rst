@@ -4,14 +4,14 @@ Shader (``pmma.Shader``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Shader() -> pmma.Shader
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Shader.analyze() -> None
 

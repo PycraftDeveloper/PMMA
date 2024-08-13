@@ -4,14 +4,14 @@ Sampler (``pmma.Sampler``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Sampler() -> pmma.Sampler
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Sampler.quit() -> None
 

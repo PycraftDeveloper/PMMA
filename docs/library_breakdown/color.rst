@@ -4,14 +4,14 @@ Color Intermediary (``pmma.ColorIntermediary``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.ColorIntermediary() -> pmma.ColorIntermediary
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: ColorIntermediary.detect_color_type() -> None
 
@@ -31,14 +31,14 @@ Color (``pmma.Color``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Color() -> pmma.Color
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Color.quit() -> None
 

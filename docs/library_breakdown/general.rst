@@ -4,14 +4,14 @@ OpenGL Object (``pmma.OpenGLObject``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.OpenGLObject() -> pmma.OpenGLObject
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: OpenGLObject.get() -> None
 

@@ -1,5 +1,5 @@
 Methods
-+++++++
+-------
 
 .. py:method:: pmma.path_builder() -> None
 
@@ -11,14 +11,14 @@ File (``pmma.File``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.File() -> pmma.File
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: File.quit() -> None
 
@@ -78,14 +78,14 @@ File Core (``pmma.FileCore``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.FileCore() -> pmma.FileCore
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: FileCore.quit() -> None
 

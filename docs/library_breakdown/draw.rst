@@ -1,5 +1,5 @@
 Methods
-+++++++
+-------
 
 .. py:method:: pmma.generate_rect_from_points() -> None
 
@@ -11,14 +11,14 @@ Line (``pmma.Line``)
 Draws a line.
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Line() -> pmma.Line
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Line.set_color() -> None
 
@@ -54,14 +54,14 @@ Lines (``pmma.Lines``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Lines() -> pmma.Lines
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Lines.set_color() -> None
 
@@ -97,14 +97,14 @@ Advanced Polygon (``pmma.AdvancedPolygon``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.AdvancedPolygon() -> pmma.AdvancedPolygon
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: AdvancedPolygon.set_color() -> None
 
@@ -165,14 +165,14 @@ Arguments:
     Name of the fill color, in HTML format.
 
 Create
-++++++
+------
 
 .. py:method:: pmma.RotatedRect() -> pmma.RotatedRect
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: RotatedRect.set_color() -> None
 
@@ -230,14 +230,14 @@ Rect (``pmma.Rect``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Rect() -> pmma.Rect
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Rect.set_color() -> None
 
@@ -289,14 +289,14 @@ Circle (``pmma.Circle``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Circle() -> pmma.Circle
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Circle.set_color() -> None
 
@@ -332,14 +332,14 @@ Arc (``pmma.Arc``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Arc() -> pmma.Arc
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Arc.set_color() -> None
 
@@ -379,14 +379,14 @@ Polygon (``pmma.Polygon``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Polygon() -> pmma.Polygon
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Polygon.set_color() -> None
 
@@ -418,14 +418,14 @@ Ellipse (``pmma.Ellipse``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Ellipse() -> pmma.Ellipse
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Ellipse.set_color() -> None
 
@@ -457,14 +457,14 @@ Pixel (``pmma.Pixel``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Pixel() -> pmma.Pixel
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Pixel.set_color() -> None
 
@@ -492,14 +492,14 @@ Curved Lines (``pmma.CurvedLines``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.CurvedLines() -> pmma.CurvedLines
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: CurvedLines.set_color() -> None
 
@@ -531,14 +531,14 @@ Draw (``pmma.Draw``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Draw() -> pmma.Draw
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Draw.quit() -> None
 

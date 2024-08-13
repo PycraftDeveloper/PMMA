@@ -339,7 +339,7 @@ for file in files:
                 methods_header_written = True
                 ln = "Methods\n"
                 documentation += "Methods\n"
-                documentation += "+"*(len(ln)-1) + "\n\n"
+                documentation += "-"*(len(ln)-1) + "\n\n"
             documentation += f".. py:method:: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
             documentation += docstring + "\n"
 
@@ -366,7 +366,7 @@ for file in files:
 
             ln = "Create\n"
             documentation += "Create\n"
-            documentation += "+"*(len(ln)-1) + "\n\n"
+            documentation += "-"*(len(ln)-1) + "\n\n"
             documentation += f".. py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}\n\n"
             documentation += init_docstring + "\n"
 

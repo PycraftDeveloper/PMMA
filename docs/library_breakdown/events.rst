@@ -4,14 +4,14 @@ Events (``pmma.Events``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Events() -> pmma.Events
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Events.quit() -> None
 

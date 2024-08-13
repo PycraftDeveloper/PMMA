@@ -4,14 +4,14 @@ Display (``pmma.Display``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.Display() -> pmma.Display
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: Display.quit() -> None
 

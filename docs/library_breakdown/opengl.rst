@@ -4,14 +4,14 @@ OpenGL (``pmma.OpenGL``)
 Not Yet Written
 
 Create
-++++++
+------
 
 .. py:method:: pmma.OpenGL() -> pmma.OpenGL
 
    Not Yet Written
 
 Methods
-+++++++
+-------
 
 .. py:method:: OpenGL.quit() -> None
 
