@@ -1,7 +1,7 @@
 Image (``pmma.Image``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

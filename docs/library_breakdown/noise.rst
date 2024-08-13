@@ -8,7 +8,7 @@ Methods
 Noise Intermediary (``pmma.NoiseIntermediary``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++
@@ -20,7 +20,7 @@ Create
 Perlin (``pmma.Perlin``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

@@ -1,7 +1,7 @@
 Logger (``pmma.Logger``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

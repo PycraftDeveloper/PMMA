@@ -10,9 +10,7 @@ Methods
 Line (``pmma.Line``)
 =======
 
-    
-    Draws a line.
-    
+Draws a line.
 
 Create
 +++++++
@@ -160,8 +158,7 @@ Methods
 Lines (``pmma.Lines``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -175,7 +172,6 @@ Lines (``pmma.Lines``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -323,8 +319,7 @@ Methods
 Advanced Polygon (``pmma.AdvancedPolygon``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -338,7 +333,6 @@ Advanced Polygon (``pmma.AdvancedPolygon``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -543,8 +537,7 @@ Methods
 Rotated Rect (``pmma.RotatedRect``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -558,7 +551,6 @@ Rotated Rect (``pmma.RotatedRect``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -744,8 +736,7 @@ Methods
 Rect (``pmma.Rect``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -759,7 +750,6 @@ Rect (``pmma.Rect``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -983,8 +973,7 @@ Methods
 Circle (``pmma.Circle``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -998,7 +987,6 @@ Circle (``pmma.Circle``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -1146,8 +1134,7 @@ Methods
 Arc (``pmma.Arc``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -1161,7 +1148,6 @@ Arc (``pmma.Arc``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -1328,8 +1314,7 @@ Methods
 Polygon (``pmma.Polygon``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -1343,7 +1328,6 @@ Polygon (``pmma.Polygon``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -1472,8 +1456,7 @@ Methods
 Ellipse (``pmma.Ellipse``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -1487,7 +1470,6 @@ Ellipse (``pmma.Ellipse``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -1616,8 +1598,7 @@ Methods
 Pixel (``pmma.Pixel``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -1631,7 +1612,6 @@ Pixel (``pmma.Pixel``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -1741,8 +1721,7 @@ Methods
 Curved Lines (``pmma.CurvedLines``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -1756,7 +1735,6 @@ Curved Lines (``pmma.CurvedLines``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++
@@ -1885,8 +1863,7 @@ Methods
 Draw (``pmma.Draw``)
 =======
 
-    
-    Draw a rectangle, centered at x, y.
+Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -1900,7 +1877,6 @@ Draw (``pmma.Draw``)
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
-        
 
 Create
 +++++++

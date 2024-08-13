@@ -334,7 +334,7 @@ for file in files:
             class_name = name
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
             documentation += "=======\n\n"
-            documentation += docstring + "\n"
+            documentation += docstring.strip() + "\n\n"
 
             documentation += "Create\n"
             documentation += "+++++++\n\n"

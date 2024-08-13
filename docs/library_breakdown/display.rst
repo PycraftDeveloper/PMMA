@@ -1,7 +1,7 @@
 Display (``pmma.Display``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

@@ -1,7 +1,7 @@
 Registry (``pmma.Registry``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

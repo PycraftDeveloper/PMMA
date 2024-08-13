@@ -1,7 +1,7 @@
 Sampler (``pmma.Sampler``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++
