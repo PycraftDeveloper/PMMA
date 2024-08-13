@@ -1,10 +1,10 @@
 Quick Start (``pmma.QuickStart``)
-=======
+=================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.QuickStart() -> pmma.QuickStart
 

@@ -6,12 +6,12 @@ Methods
    Not Yet Written
 
 Line (``pmma.Line``)
-=======
+====================
 
 Draws a line.
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Line() -> pmma.Line
 
@@ -49,12 +49,12 @@ Methods
    Not Yet Written
 
 Lines (``pmma.Lines``)
-=======
+======================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Lines() -> pmma.Lines
 
@@ -92,12 +92,12 @@ Methods
    Not Yet Written
 
 Advanced Polygon (``pmma.AdvancedPolygon``)
-=======
+===========================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.AdvancedPolygon() -> pmma.AdvancedPolygon
 
@@ -147,7 +147,7 @@ Methods
    Not Yet Written
 
 Rotated Rect (``pmma.RotatedRect``)
-=======
+===================================
 
 Draw a rectangle, centered at x, y.
 All credit to Tim Swast for this function!
@@ -165,7 +165,7 @@ Arguments:
     Name of the fill color, in HTML format.
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.RotatedRect() -> pmma.RotatedRect
 
@@ -225,12 +225,12 @@ Methods
         
 
 Rect (``pmma.Rect``)
-=======
+====================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Rect() -> pmma.Rect
 
@@ -284,12 +284,12 @@ Methods
    Not Yet Written
 
 Circle (``pmma.Circle``)
-=======
+========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Circle() -> pmma.Circle
 
@@ -327,12 +327,12 @@ Methods
    Not Yet Written
 
 Arc (``pmma.Arc``)
-=======
+==================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Arc() -> pmma.Arc
 
@@ -374,12 +374,12 @@ Methods
    Not Yet Written
 
 Polygon (``pmma.Polygon``)
-=======
+==========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Polygon() -> pmma.Polygon
 
@@ -413,12 +413,12 @@ Methods
    Not Yet Written
 
 Ellipse (``pmma.Ellipse``)
-=======
+==========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Ellipse() -> pmma.Ellipse
 
@@ -452,12 +452,12 @@ Methods
    Not Yet Written
 
 Pixel (``pmma.Pixel``)
-=======
+======================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Pixel() -> pmma.Pixel
 
@@ -487,12 +487,12 @@ Methods
    Not Yet Written
 
 Curved Lines (``pmma.CurvedLines``)
-=======
+===================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.CurvedLines() -> pmma.CurvedLines
 
@@ -526,12 +526,12 @@ Methods
    Not Yet Written
 
 Draw (``pmma.Draw``)
-=======
+====================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Draw() -> pmma.Draw
 

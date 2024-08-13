@@ -1,10 +1,10 @@
 Sampler (``pmma.Sampler``)
-=======
+==========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Sampler() -> pmma.Sampler
 

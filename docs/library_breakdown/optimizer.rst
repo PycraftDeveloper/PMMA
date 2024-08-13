@@ -1,10 +1,10 @@
 Benchmark (``pmma.Benchmark``)
-=======
+==============================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Benchmark() -> pmma.Benchmark
 

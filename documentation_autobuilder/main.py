@@ -342,8 +342,9 @@ for file in files:
 
             if methods_header_written is False:
                 methods_header_written = True
+                ln = "Methods\n"
                 documentation += "Methods\n"
-                documentation += "+++++++\n\n"
+                documentation += "+"*(len(ln)-1) + "\n\n"
             documentation += f".. py:method:: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
             documentation += docstring + "\n"
 
@@ -363,12 +364,14 @@ for file in files:
             init_docstring, init_args, init_returns = capture_docstring("__init__", content, line_no)
             formatted_init_args = ", ".join(init_args)
             class_name = name
+            ln = f"{formatted_name} (``pmma.{name}``)\n"
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
-            documentation += "=======\n\n"
+            documentation += "="*(len(ln)-1)+"\n\n"
             documentation += docstring.strip() + "\n\n"
 
+            ln = "Create\n"
             documentation += "Create\n"
-            documentation += "+++++++\n\n"
+            documentation += "+"*(len(ln)-1) + "\n\n"
             documentation += f".. py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}\n\n"
             documentation += init_docstring + "\n"
 

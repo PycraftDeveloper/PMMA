@@ -1,10 +1,10 @@
 Logger (``pmma.Logger``)
-=======
+========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Logger() -> pmma.Logger
 

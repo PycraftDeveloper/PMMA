@@ -1,10 +1,10 @@
 OpenGL (``pmma.OpenGL``)
-=======
+========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.OpenGL() -> pmma.OpenGL
 

@@ -6,24 +6,24 @@ Methods
    Not Yet Written
 
 Noise Intermediary (``pmma.NoiseIntermediary``)
-=======
+===============================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.NoiseIntermediary() -> pmma.NoiseIntermediary
 
    Not Yet Written
 
 Perlin (``pmma.Perlin``)
-=======
+========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Perlin() -> pmma.Perlin
 

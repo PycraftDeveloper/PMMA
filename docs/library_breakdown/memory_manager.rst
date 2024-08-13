@@ -1,10 +1,10 @@
 Memory Manager (``pmma.MemoryManager``)
-=======
+=======================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.MemoryManager() -> pmma.MemoryManager
 

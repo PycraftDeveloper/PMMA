@@ -6,12 +6,12 @@ Methods
    Not Yet Written
 
 File (``pmma.File``)
-=======
+====================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.File() -> pmma.File
 
@@ -73,12 +73,12 @@ Methods
    Not Yet Written
 
 File Core (``pmma.FileCore``)
-=======
+=============================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.FileCore() -> pmma.FileCore
 

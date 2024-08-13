@@ -1,5 +1,5 @@
 Math (``pmma.Math``)
-=======
+====================
 
 🟩 **R** - A standalone class that extends the range of built-in mathematical operations to expose all of the advanced mathematical operations used within PMMA.
 This class also currently uses Numba for JIT (just-in-time) compilation (in no-python mode) as required.
@@ -7,7 +7,7 @@ This class also currently uses Numba for JIT (just-in-time) compilation (in no-p
 Required 3rd-party modules: Numba, Numpy and Pyrr.
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Math() -> pmma.Math
 

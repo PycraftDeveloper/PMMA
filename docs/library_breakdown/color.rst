@@ -1,10 +1,10 @@
 Color Intermediary (``pmma.ColorIntermediary``)
-=======
+===============================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.ColorIntermediary() -> pmma.ColorIntermediary
 
@@ -26,12 +26,12 @@ Methods
    Not Yet Written
 
 Color (``pmma.Color``)
-=======
+======================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Color() -> pmma.Color
 

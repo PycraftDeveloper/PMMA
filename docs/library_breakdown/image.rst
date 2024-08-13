@@ -1,10 +1,10 @@
 Image (``pmma.Image``)
-=======
+======================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Image() -> pmma.Image
 

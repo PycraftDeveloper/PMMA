@@ -1,10 +1,10 @@
 Coordinate Intermediary (``pmma.CoordinateIntermediary``)
-=======
+=========================================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.CoordinateIntermediary() -> pmma.CoordinateIntermediary
 
@@ -26,12 +26,12 @@ Methods
    Not Yet Written
 
 Coordinate (``pmma.Coordinate``)
-=======
+================================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Coordinate() -> pmma.Coordinate
 

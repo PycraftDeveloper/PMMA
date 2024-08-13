@@ -1,10 +1,10 @@
 Thread (``pmma.Thread``)
-=======
+========================
 
 Not Yet Written
 
 Create
-+++++++
+++++++
 
 .. py:method:: pmma.Thread() -> pmma.Thread
 
