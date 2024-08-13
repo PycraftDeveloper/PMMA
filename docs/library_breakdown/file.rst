@@ -8,7 +8,7 @@ Methods
 File (``pmma.File``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++
@@ -75,7 +75,7 @@ Methods
 File Core (``pmma.FileCore``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

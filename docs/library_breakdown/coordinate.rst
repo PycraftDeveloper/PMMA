@@ -1,7 +1,7 @@
 Coordinate Intermediary (``pmma.CoordinateIntermediary``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++
@@ -28,7 +28,7 @@ Methods
 Coordinate (``pmma.Coordinate``)
 =======
 
-   Not Yet Written
+Not Yet Written
 
 Create
 +++++++

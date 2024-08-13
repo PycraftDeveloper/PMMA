@@ -129,10 +129,18 @@ def capture_docstring(name, content, line_no, is_class=False):
                 found_returns = False
 
             if ('"""' in line or "'''" in line) and docstring != "":
-                docstring += "    "*indent_level + line.strip() + "\n"
+                if is_class:
+                    _indent_level = indent_level-1
+                else:
+                    _indent_level = indent_level
+                docstring += "    "*_indent_level + line.strip() + "\n"
                 break
 
-            docstring += "    "*indent_level + line.strip() + "\n"
+            if is_class:
+                _indent_level = indent_level-1
+            else:
+                _indent_level = indent_level
+            docstring += "    "*_indent_level + line.strip() + "\n"
             if (found_args or found_returns) and line.strip() != "":
                 #   points (list) -
                 try:
@@ -258,9 +266,13 @@ def capture_docstring(name, content, line_no, is_class=False):
 
     docstring = docstring.replace('"""', '').replace("'''", '')
     if docstring == "":
-        docstring = "   Not Yet Written\n"
+        if is_class is False:
+            docstring = "   Not Yet Written\n"
+        else:
+            docstring = "Not Yet Written\n"
     else:
-        docstring = " " + docstring[6:]
+        if is_class is False:
+            docstring = " " + docstring[6:]
     return docstring, args, returns
 
 ### setup
@@ -348,12 +360,12 @@ for file in files:
             in_class = True
             methods_header_written = False
             docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)
-            init_docstring, init_args, init_returns = capture_docstring("__init__", content, line_no, is_class=False)
+            init_docstring, init_args, init_returns = capture_docstring("__init__", content, line_no)
             formatted_init_args = ", ".join(init_args)
             class_name = name
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
             documentation += "=======\n\n"
-            documentation += docstring + "\n"
+            documentation += docstring.strip() + "\n\n"
 
             documentation += "Create\n"
             documentation += "+++++++\n\n"
