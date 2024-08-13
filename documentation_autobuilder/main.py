@@ -314,7 +314,6 @@ for file in files:
             time.sleep(0)
         ### tmp end
         indent_whitespace = len(line[:-len(line.lstrip())]) // 4
-        #print(indent_whitespace)
         if "def " in line and not "__" in line:
             if in_class != in_class and indent_whitespace == 1:
                 methods_header_written = False
@@ -346,7 +345,6 @@ for file in files:
                 formatted_name += character
 
             formatted_name = formatted_name.replace("Open G L", "OpenGL").strip()
-            #print("class", name)
             in_class = True
             methods_header_written = False
             docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)
@@ -366,7 +364,6 @@ for file in files:
 
     with open(path_builder(documentation_path, f"{file_name}.rst"), "w") as documentation_file:
         documentation_file.write(documentation)
-    #print(documentation)
-    if file_name == "draw":
-        quit()
+
+    print(documentation)
 ### end
