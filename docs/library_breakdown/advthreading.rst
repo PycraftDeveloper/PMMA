@@ -11,21 +11,21 @@ Create
    Not Yet Written
 
 Methods
-=======
+-------
 
-.. py:method:: pmma.start() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.globaltrace() -> None
+.. py:method:: Thread.start() -> None
 
    Not Yet Written
 
-.. py:method:: pmma.localtrace() -> None
+.. py:method:: Thread.globaltrace() -> None
 
    Not Yet Written
 
-.. py:method:: pmma.kill() -> None
+.. py:method:: Thread.localtrace() -> None
+
+   Not Yet Written
+
+.. py:method:: Thread.kill() -> None
 
    Not Yet Written
 

@@ -324,6 +324,7 @@ for file in files:
         if "def " in line and not "__" in line:
             if in_class != in_class and indent_whitespace == 1:
                 methods_header_written = False
+
             in_class = in_class and indent_whitespace == 1
             if in_class is False:
                 class_name = "pmma"
