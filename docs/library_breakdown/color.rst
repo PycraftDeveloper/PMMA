@@ -1,7 +1,7 @@
 Color Intermediary (``pmma.ColorIntermediary``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -28,7 +28,7 @@ Methods
 Color (``pmma.Color``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++

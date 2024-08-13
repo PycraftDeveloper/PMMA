@@ -8,7 +8,8 @@ Methods
 Line (``pmma.Line``)
 =======
 
-Draws a line.
+    Draws a line.
+    
 
 Create
 +++++++
@@ -51,7 +52,7 @@ Methods
 Lines (``pmma.Lines``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -94,7 +95,7 @@ Methods
 Advanced Polygon (``pmma.AdvancedPolygon``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -149,7 +150,7 @@ Methods
 Rotated Rect (``pmma.RotatedRect``)
 =======
 
-Draw a rectangle, centered at x, y.
+    Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -163,6 +164,7 @@ Draw a rectangle, centered at x, y.
         The height of the rectangle.
         color (str):
         Name of the fill color, in HTML format.
+        
 
 Create
 +++++++
@@ -208,7 +210,7 @@ Methods
 
 .. py:method:: RotatedRect.draw(x: int/float) -> None
 
-   Draw a rectangle, centered at x, y.
+    Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:
@@ -227,7 +229,7 @@ Methods
 Rect (``pmma.Rect``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -286,7 +288,7 @@ Methods
 Circle (``pmma.Circle``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -329,7 +331,7 @@ Methods
 Arc (``pmma.Arc``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -376,7 +378,7 @@ Methods
 Polygon (``pmma.Polygon``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -415,7 +417,7 @@ Methods
 Ellipse (``pmma.Ellipse``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -454,7 +456,7 @@ Methods
 Pixel (``pmma.Pixel``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -489,7 +491,7 @@ Methods
 Curved Lines (``pmma.CurvedLines``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -528,7 +530,7 @@ Methods
 Draw (``pmma.Draw``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -558,7 +560,7 @@ Methods
 
 .. py:method:: Draw.rotated_rect(x: int/float) -> None
 
-   Draw a rectangle, centered at x, y.
+    Draw a rectangle, centered at x, y.
     All credit to Tim Swast for this function!
     
     Arguments:

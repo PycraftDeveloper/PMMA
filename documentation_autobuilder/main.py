@@ -69,32 +69,32 @@ def capture_docstring(name, content, line_no, is_class=False):
                 found_returns = False
             if "parameters:" in line:
                 line = line.replace("parameters:", "Arguments:")
-                indent_level = 2
+                indent_level = 1
                 found_args = False
                 found_returns = False
             if "Parameters:" in line:
                 line = line.replace("Parameters:", "Arguments:")
-                indent_level = 2
+                indent_level = 1
                 found_args = False
                 found_returns = False
             if "PARAMETERS:" in line:
                 line = line.replace("PARAMETERS:", "Arguments:")
-                indent_level = 2
+                indent_level = 1
                 found_args = False
                 found_returns = False
             if "params:" in line:
                 line = line.replace("params:", "Arguments:")
-                indent_level = 2
+                indent_level = 1
                 found_args = False
                 found_returns = False
             if "Params:" in line:
                 line = line.replace("Params:", "Arguments:")
-                indent_level = 2
+                indent_level = 1
                 found_args = False
                 found_returns = False
             if "PARAMS:" in line:
                 line = line.replace("PARAMS:", "Arguments:")
-                indent_level = 2
+                indent_level = 1
                 found_args = False
                 found_returns = False
 
@@ -260,7 +260,7 @@ def capture_docstring(name, content, line_no, is_class=False):
     if docstring == "":
         docstring = "   Not Yet Written\n"
     else:
-        docstring = docstring[6:]
+        docstring = " " + docstring[6:]
     return docstring, args, returns
 
 ### setup
@@ -353,7 +353,7 @@ for file in files:
             class_name = name
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
             documentation += "=======\n\n"
-            documentation += docstring.strip() + "\n\n"
+            documentation += docstring + "\n"
 
             documentation += "Create\n"
             documentation += "+++++++\n\n"

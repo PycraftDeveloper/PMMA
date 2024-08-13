@@ -1,7 +1,7 @@
 Passport Intermediary (``pmma.PassportIntermediary``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
@@ -13,7 +13,7 @@ Create
 Passport (``pmma.Passport``)
 =======
 
-Not Yet Written
+   Not Yet Written
 
 Create
 +++++++
