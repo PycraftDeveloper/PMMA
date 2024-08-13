@@ -6,7 +6,7 @@ Passport Intermediary (``pmma.PassportIntermediary``)
 Create
 +++++++
 
-..py:method:: pmma.PassportIntermediary() -> pmma.PassportIntermediary
+.. py:method:: pmma.PassportIntermediary() -> pmma.PassportIntermediary
 
    Not Yet Written
 
@@ -18,14 +18,14 @@ Passport (``pmma.Passport``)
 Create
 +++++++
 
-..py:method:: pmma.Passport() -> pmma.Passport
+.. py:method:: pmma.Passport() -> pmma.Passport
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Passport.quit() -> None
+.. py:method: Passport.quit() -> None
 
    Not Yet Written
 

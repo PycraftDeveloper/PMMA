@@ -6,46 +6,46 @@ Shader (``pmma.Shader``)
 Create
 +++++++
 
-..py:method:: pmma.Shader() -> pmma.Shader
+.. py:method:: pmma.Shader() -> pmma.Shader
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Shader.analyze() -> None
+.. py:method: Shader.analyze() -> None
 
    Not Yet Written
 
-..py:method: Shader.get_out_attributes() -> None
+.. py:method: Shader.get_out_attributes() -> None
 
    Not Yet Written
 
-..py:method: Shader.get_in_attributes() -> None
+.. py:method: Shader.get_in_attributes() -> None
 
    Not Yet Written
 
-..py:method: Shader.get_uniform_attributes() -> None
+.. py:method: Shader.get_uniform_attributes() -> None
 
    Not Yet Written
 
-..py:method: Shader.quit() -> None
+.. py:method: Shader.quit() -> None
 
    Not Yet Written
 
-..py:method: Shader.get() -> None
+.. py:method: Shader.get() -> None
 
    Not Yet Written
 
-..py:method: Shader.create_from_string() -> None
+.. py:method: Shader.create_from_string() -> None
 
    Not Yet Written
 
-..py:method: Shader.create_from_file() -> None
+.. py:method: Shader.create_from_file() -> None
 
    Not Yet Written
 
-..py:method: Shader.create_from_location() -> None
+.. py:method: Shader.create_from_location() -> None
 
    Not Yet Written
 

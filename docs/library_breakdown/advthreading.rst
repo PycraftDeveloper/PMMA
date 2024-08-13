@@ -6,26 +6,26 @@ Thread (``pmma.Thread``)
 Create
 +++++++
 
-..py:method:: pmma.Thread() -> pmma.Thread
+.. py:method:: pmma.Thread() -> pmma.Thread
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: pmma.start() -> None
+.. py:method: pmma.start() -> None
 
    Not Yet Written
 
-..py:method: pmma.globaltrace() -> None
+.. py:method: pmma.globaltrace() -> None
 
    Not Yet Written
 
-..py:method: pmma.localtrace() -> None
+.. py:method: pmma.localtrace() -> None
 
    Not Yet Written
 
-..py:method: pmma.kill() -> None
+.. py:method: pmma.kill() -> None
 
    Not Yet Written
 

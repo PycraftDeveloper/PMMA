@@ -6,22 +6,22 @@ Color Intermediary (``pmma.ColorIntermediary``)
 Create
 +++++++
 
-..py:method:: pmma.ColorIntermediary() -> pmma.ColorIntermediary
+.. py:method:: pmma.ColorIntermediary() -> pmma.ColorIntermediary
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: ColorIntermediary.detect_color_type() -> None
+.. py:method: ColorIntermediary.detect_color_type() -> None
 
    Not Yet Written
 
-..py:method: ColorIntermediary.quit() -> None
+.. py:method: ColorIntermediary.quit() -> None
 
    Not Yet Written
 
-..py:method: ColorIntermediary.out() -> None
+.. py:method: ColorIntermediary.out() -> None
 
    Not Yet Written
 
@@ -33,22 +33,22 @@ Color (``pmma.Color``)
 Create
 +++++++
 
-..py:method:: pmma.Color() -> pmma.Color
+.. py:method:: pmma.Color() -> pmma.Color
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Color.quit() -> None
+.. py:method: Color.quit() -> None
 
    Not Yet Written
 
-..py:method: Color.convert_format() -> None
+.. py:method: Color.convert_format() -> None
 
    Not Yet Written
 
-..py:method: Color.generate_perlin_color() -> None
+.. py:method: Color.generate_perlin_color() -> None
 
    Not Yet Written
 

@@ -6,7 +6,7 @@ Registry (``pmma.Registry``)
 Create
 +++++++
 
-..py:method:: pmma.Registry() -> pmma.Registry
+.. py:method:: pmma.Registry() -> pmma.Registry
 
    Not Yet Written
 

@@ -6,22 +6,22 @@ Coordinate Intermediary (``pmma.CoordinateIntermediary``)
 Create
 +++++++
 
-..py:method:: pmma.CoordinateIntermediary() -> pmma.CoordinateIntermediary
+.. py:method:: pmma.CoordinateIntermediary() -> pmma.CoordinateIntermediary
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: CoordinateIntermediary.quit() -> None
+.. py:method: CoordinateIntermediary.quit() -> None
 
    Not Yet Written
 
-..py:method: CoordinateIntermediary.out() -> None
+.. py:method: CoordinateIntermediary.out() -> None
 
    Not Yet Written
 
-..py:method: CoordinateIntermediary.convert_range() -> None
+.. py:method: CoordinateIntermediary.convert_range() -> None
 
    Not Yet Written
 
@@ -33,22 +33,22 @@ Coordinate (``pmma.Coordinate``)
 Create
 +++++++
 
-..py:method:: pmma.Coordinate() -> pmma.Coordinate
+.. py:method:: pmma.Coordinate() -> pmma.Coordinate
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Coordinate.quit() -> None
+.. py:method: Coordinate.quit() -> None
 
    Not Yet Written
 
-..py:method: Coordinate.out() -> None
+.. py:method: Coordinate.out() -> None
 
    Not Yet Written
 
-..py:method: Coordinate.convert_range() -> None
+.. py:method: Coordinate.convert_range() -> None
 
    Not Yet Written
 

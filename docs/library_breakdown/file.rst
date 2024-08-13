@@ -1,7 +1,7 @@
 Methods
 +++++++
 
-..py:method: pmma.path_builder() -> None
+.. py:method: pmma.path_builder() -> None
 
    Not Yet Written
 
@@ -13,62 +13,62 @@ File (``pmma.File``)
 Create
 +++++++
 
-..py:method:: pmma.File() -> pmma.File
+.. py:method:: pmma.File() -> pmma.File
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: File.quit() -> None
+.. py:method: File.quit() -> None
 
    Not Yet Written
 
-..py:method: File.exists() -> None
+.. py:method: File.exists() -> None
 
    Not Yet Written
 
-..py:method: File.get_path() -> None
+.. py:method: File.get_path() -> None
 
    Not Yet Written
 
-..py:method: File.get_directory() -> None
+.. py:method: File.get_directory() -> None
 
    Not Yet Written
 
-..py:method: File.get_file_name_and_type() -> None
+.. py:method: File.get_file_name_and_type() -> None
 
    Not Yet Written
 
-..py:method: File.get_file_name() -> None
+.. py:method: File.get_file_name() -> None
 
    Not Yet Written
 
-..py:method: File.get_file_type() -> None
+.. py:method: File.get_file_type() -> None
 
    Not Yet Written
 
-..py:method: File.move() -> None
+.. py:method: File.move() -> None
 
    Not Yet Written
 
-..py:method: File.delete() -> None
+.. py:method: File.delete() -> None
 
    Not Yet Written
 
-..py:method: File.recycle() -> None
+.. py:method: File.recycle() -> None
 
    Not Yet Written
 
-..py:method: File.rename() -> None
+.. py:method: File.rename() -> None
 
    Not Yet Written
 
-..py:method: File.read() -> None
+.. py:method: File.read() -> None
 
    Not Yet Written
 
-..py:method: File.write() -> None
+.. py:method: File.write() -> None
 
    Not Yet Written
 
@@ -80,38 +80,38 @@ File Core (``pmma.FileCore``)
 Create
 +++++++
 
-..py:method:: pmma.FileCore() -> pmma.FileCore
+.. py:method:: pmma.FileCore() -> pmma.FileCore
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: FileCore.quit() -> None
+.. py:method: FileCore.quit() -> None
 
    Not Yet Written
 
-..py:method: FileCore.update_locations() -> None
+.. py:method: FileCore.update_locations() -> None
 
    Not Yet Written
 
-..py:method: FileCore.scan() -> None
+.. py:method: FileCore.scan() -> None
 
    Not Yet Written
 
-..py:method: FileCore.refresh() -> None
+.. py:method: FileCore.refresh() -> None
 
    Not Yet Written
 
-..py:method: FileCore.stop_passively_refreshing() -> None
+.. py:method: FileCore.stop_passively_refreshing() -> None
 
    Not Yet Written
 
-..py:method: FileCore.start_passively_refreshing() -> None
+.. py:method: FileCore.start_passively_refreshing() -> None
 
    Not Yet Written
 
-..py:method: FileCore.identify() -> None
+.. py:method: FileCore.identify() -> None
 
    Not Yet Written
 

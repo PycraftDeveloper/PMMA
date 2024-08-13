@@ -6,74 +6,74 @@ Display (``pmma.Display``)
 Create
 +++++++
 
-..py:method:: pmma.Display() -> pmma.Display
+.. py:method:: pmma.Display() -> pmma.Display
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Display.quit() -> None
+.. py:method: Display.quit() -> None
 
    Not Yet Written
 
-..py:method: Display.destroy() -> None
+.. py:method: Display.destroy() -> None
 
    Not Yet Written
 
-..py:method: Display.create() -> None
+.. py:method: Display.create() -> None
 
    Not Yet Written
 
-..py:method: Display.set_caption() -> None
+.. py:method: Display.set_caption() -> None
 
    Not Yet Written
 
-..py:method: Display.display_resize() -> None
+.. py:method: Display.display_resize() -> None
 
    Not Yet Written
 
-..py:method: Display.toggle_fullscreen() -> None
+.. py:method: Display.toggle_fullscreen() -> None
 
    Not Yet Written
 
-..py:method: Display.blit() -> None
+.. py:method: Display.blit() -> None
 
    Not Yet Written
 
-..py:method: Display.get_size() -> None
+.. py:method: Display.get_size() -> None
 
    Not Yet Written
 
-..py:method: Display.get_height() -> None
+.. py:method: Display.get_height() -> None
 
    Not Yet Written
 
-..py:method: Display.get_width() -> None
+.. py:method: Display.get_width() -> None
 
    Not Yet Written
 
-..py:method: Display.clear() -> None
+.. py:method: Display.clear() -> None
 
    Not Yet Written
 
-..py:method: Display.refresh() -> None
+.. py:method: Display.refresh() -> None
 
    Not Yet Written
 
-..py:method: Display.close() -> None
+.. py:method: Display.close() -> None
 
    Not Yet Written
 
-..py:method: Display.get_fps() -> None
+.. py:method: Display.get_fps() -> None
 
    Not Yet Written
 
-..py:method: Display.get_refresh_rate() -> None
+.. py:method: Display.get_refresh_rate() -> None
 
    Not Yet Written
 
-..py:method: Display.get_center() -> None
+.. py:method: Display.get_center() -> None
 
    Not Yet Written
 

@@ -11,20 +11,20 @@ Math (``pmma.Math``)
 Create
 +++++++
 
-..py:method:: pmma.Math() -> pmma.Math
+.. py:method:: pmma.Math() -> pmma.Math
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Math.quit() -> None
+.. py:method: Math.quit() -> None
 
     
     Exit function.
     
 
-..py:method: Math.get_function_pythag() -> Callable
+.. py:method: Math.get_function_pythag() -> Callable
 
     
     🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
@@ -35,7 +35,7 @@ Methods
         Pythag function (Callable) - The requested function.
         
 
-..py:method: Math.pythag(points: list) -> float
+.. py:method: Math.pythag(points: list) -> float
 
     
     **R** - Calculates the pythagorean distance between two points.
@@ -47,59 +47,59 @@ Methods
         distance (float) - The calculated pythagorean distance between the two points.
         
 
-..py:method: Math.get_function_ranger() -> None
+.. py:method: Math.get_function_ranger() -> None
 
    Not Yet Written
 
-..py:method: Math.ranger() -> None
+.. py:method: Math.ranger() -> None
 
    Not Yet Written
 
-..py:method: Math.get_function_nparray_ranger() -> None
+.. py:method: Math.get_function_nparray_ranger() -> None
 
    Not Yet Written
 
-..py:method: Math.nparray_ranger() -> None
+.. py:method: Math.nparray_ranger() -> None
 
    Not Yet Written
 
-..py:method: Math.get_function_gl_look_at() -> None
+.. py:method: Math.get_function_gl_look_at() -> None
 
    Not Yet Written
 
-..py:method: Math.gl_look_at() -> None
+.. py:method: Math.gl_look_at() -> None
 
    Not Yet Written
 
-..py:method: Math.get_function_compute_position() -> None
+.. py:method: Math.get_function_compute_position() -> None
 
    Not Yet Written
 
-..py:method: Math.compute_position() -> None
+.. py:method: Math.compute_position() -> None
 
    Not Yet Written
 
-..py:method: Math.get_function_perspective_fov() -> None
+.. py:method: Math.get_function_perspective_fov() -> None
 
    Not Yet Written
 
-..py:method: Math.perspective_fov() -> None
+.. py:method: Math.perspective_fov() -> None
 
    Not Yet Written
 
-..py:method: Math.get_function_look_at() -> None
+.. py:method: Math.get_function_look_at() -> None
 
    Not Yet Written
 
-..py:method: Math.look_at() -> None
+.. py:method: Math.look_at() -> None
 
    Not Yet Written
 
-..py:method: Math.get_function_multiply() -> None
+.. py:method: Math.get_function_multiply() -> None
 
    Not Yet Written
 
-..py:method: Math.multiply() -> None
+.. py:method: Math.multiply() -> None
 
    Not Yet Written
 

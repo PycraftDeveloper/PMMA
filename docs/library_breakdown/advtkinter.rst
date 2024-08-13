@@ -6,26 +6,26 @@ Tkinter (``pmma.Tkinter``)
 Create
 +++++++
 
-..py:method:: pmma.Tkinter() -> pmma.Tkinter
+.. py:method:: pmma.Tkinter() -> pmma.Tkinter
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: Tkinter.quit() -> None
+.. py:method: Tkinter.quit() -> None
 
    Not Yet Written
 
-..py:method: Tkinter.style() -> None
+.. py:method: Tkinter.style() -> None
 
    Not Yet Written
 
-..py:method: Tkinter.get_display_size() -> None
+.. py:method: Tkinter.get_display_size() -> None
 
    Not Yet Written
 
-..py:method: Tkinter.set_size() -> None
+.. py:method: Tkinter.set_size() -> None
 
    Not Yet Written
 

@@ -6,14 +6,14 @@ Render Pipeline (``pmma.RenderPipeline``)
 Create
 +++++++
 
-..py:method:: pmma.RenderPipeline() -> pmma.RenderPipeline
+.. py:method:: pmma.RenderPipeline() -> pmma.RenderPipeline
 
    Not Yet Written
 
 Methods
 +++++++
 
-..py:method: RenderPipeline.quit() -> None
+.. py:method: RenderPipeline.quit() -> None
 
    Not Yet Written
 

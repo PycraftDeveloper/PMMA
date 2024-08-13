@@ -6,7 +6,7 @@ Backpack (``pmma.Backpack``)
 Create
 +++++++
 
-..py:method:: pmma.Backpack() -> pmma.Backpack
+.. py:method:: pmma.Backpack() -> pmma.Backpack
 
    Not Yet Written
 
