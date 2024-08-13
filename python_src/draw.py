@@ -1098,8 +1098,7 @@ class Draw:
             rotation_angle=0,
             cache=None,
             width=0,
-            canvas=None): # https://stackoverflow.com/a/73855696
-
+            canvas=None):
         """
         Draw a rectangle, centered at x, y.
         All credit to Tim Swast for this function!

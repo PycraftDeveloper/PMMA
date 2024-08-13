@@ -1,5 +1,6 @@
 import os
 import glob
+import time
 
 def _up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
@@ -12,7 +13,7 @@ def path_builder(*args):
     result = result[:-1]
     return result
 
-def capture_docstring(name, content, is_class=False):
+def capture_docstring(name, content, line_no, is_class=False):
     if is_class:
         look_for = f"class {name}"
     else:
@@ -26,6 +27,11 @@ def capture_docstring(name, content, is_class=False):
     found_returns = False
     args = []
     returns = []
+
+    content = content[line_no:]
+
+    doc_parse_line_no = 0
+
     for line in content:
         if found_definition:
             if ('"""' in line or "'''" in line):
@@ -239,10 +245,22 @@ def capture_docstring(name, content, is_class=False):
 
         if look_for in line:
             found_definition = True
+            n = doc_parse_line_no
+            for test_line in content:
+                n += 1
+                if ":" in test_line:
+                    break
+
+            if not ('"""' in content[n] or "'''" in content[n]):
+                break
+
+        doc_parse_line_no += 1
 
     docstring = docstring.replace('"""', '').replace("'''", '')
     if docstring == "":
         docstring = "   Not Yet Written\n"
+    else:
+        docstring = docstring[6:]
     return docstring, args, returns
 
 ### setup
@@ -288,7 +306,13 @@ for file in files:
     documentation = ""
     methods_header_written = False
 
+    line_no = 0
+
     for line in content:
+        ### tmp
+        if file_name == "draw":
+            time.sleep(0)
+        ### tmp end
         indent_whitespace = len(line[:-len(line.lstrip())]) // 4
         #print(indent_whitespace)
         if "def " in line and not "__" in line:
@@ -298,11 +322,8 @@ for file in files:
             if in_class is False:
                 class_name = "pmma"
             name = line.split("def ")[-1].split("(")[0].strip()
-            #if in_class:
-                #print("method", name)
-            #else:
-                #print("function", name)
-            docstring, args, returns = capture_docstring(name, content, is_class=False)
+
+            docstring, args, returns = capture_docstring(name, content, line_no, is_class=False)
             formatted_args = ", ".join(args)
             formatted_returns = ", ".join(returns)
             if formatted_returns == "":
@@ -328,8 +349,8 @@ for file in files:
             #print("class", name)
             in_class = True
             methods_header_written = False
-            docstring, args, returns = capture_docstring(name, content, is_class=True)
-            init_docstring, init_args, init_returns = capture_docstring("__init__", content, is_class=True)
+            docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)
+            init_docstring, init_args, init_returns = capture_docstring("__init__", content, line_no, is_class=False)
             formatted_init_args = ", ".join(init_args)
             class_name = name
             documentation += f"{formatted_name} (``pmma.{name}``)\n"
@@ -341,7 +362,11 @@ for file in files:
             documentation += f".. py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}\n\n"
             documentation += init_docstring + "\n"
 
+        line_no += 1
+
     with open(path_builder(documentation_path, f"{file_name}.rst"), "w") as documentation_file:
         documentation_file.write(documentation)
-    print(documentation)
+    #print(documentation)
+    if file_name == "draw":
+        quit()
 ### end
