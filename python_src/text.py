@@ -1,6 +1,10 @@
 from tkinter import font
 import re
 import time
+import gc
+
+import pygame
+import pyglet
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -26,8 +30,8 @@ class Text:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_system_font(self, size=None, bold=None, italic=None):
@@ -45,14 +49,19 @@ class Text:
             italic = system_font_dictionary["slant"] == "italic"
 
         if Registry.display_mode == Constants.PYGAME:
-            return Registry.graphics_backend.font.SysFont(name, size), [name, size]
+            return pygame.font.SysFont(name, size), [name, size]
+        else:
+            raise NotImplementedError
 
     def render_text_with_transparent_background(self, in_text, bg_color):
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
-        alpha_surface = Registry.graphics_backend.Surface(
-            (width, height),
-            Registry.graphics_backend.SRCALPHA)
+        if Registry.display_mode == Constants.PYGAME:
+            alpha_surface = pygame.Surface(
+                (width, height),
+                pygame.SRCALPHA)
+        else:
+            raise NotImplementedError
 
         # Fill this surface with the background color and set alpha transparency
         alpha_surface.fill(bg_color)
@@ -97,10 +106,13 @@ class Text:
             font_identifiable_data = [font, size]
             file_object = File(font)
             font_argument_is_path = file_object.exists()
-            if font_argument_is_path:
-                font = Registry.graphics_backend.font.Font(font, size)
+            if Registry.display_mode == Constants.PYGAME:
+                if font_argument_is_path:
+                    font = pygame.font.Font(font, size)
+                else:
+                    font = pygame.font.SysFont(font, size)
             else:
-                font = Registry.graphics_backend.font.SysFont(font, size)
+                raise NotImplementedError
 
         if position is None:
             position = (0, 0)
@@ -149,9 +161,12 @@ class Text:
         if result is None:
             start = time.perf_counter()
             x, y = 0, 0
-            surface = Registry.graphics_backend.Surface(
-                (canvas.get_width(), canvas.get_height()),
-                Registry.graphics_backend.SRCALPHA)
+            if Registry.display_mode == Constants.PYGAME:
+                surface = pygame.Surface(
+                    canvas.get_size(),
+                    pygame.SRCALPHA)
+            else:
+                raise NotImplementedError
 
             pattern = "(\$\{[a-zA-Z =\()\0-9]+})|"+word_separator
 

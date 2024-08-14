@@ -1,5 +1,6 @@
 import datetime
 import traceback
+import gc
 
 import pmma.python_src.general as general
 from pmma.python_src.registry import Registry
@@ -50,8 +51,8 @@ initialized once. This is to avoid creating unexpected behavior.")
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def initial_formatting(self, log_level):
@@ -82,12 +83,19 @@ initialized once. This is to avoid creating unexpected behavior.")
         finished_message = start_of_message + message + trace
         finished_message = finished_message.strip()
 
+        conveyed_message = False
+
         if self.do_log_to_terminal:
             print(finished_message)
+            conveyed_message = True
 
         if self.do_log_to_file:
             with open(self.log_file, "a") as log_file:
                 log_file.write(finished_message + "\n")
+
+            conveyed_message = True
+
+        return conveyed_message
 
     def log_development(
             self,
@@ -97,18 +105,22 @@ initialized once. This is to avoid creating unexpected behavior.")
 
         if self.do_log_development and message.strip() != "":
             if repeat_for_effect is False and message in self.development_messages:
-                return
+                return False
             self.development_messages.append(message)
-            self.logger_core(message, do_traceback, Constants.DEVELOPMENT)
+            return self.logger_core(message, do_traceback, Constants.DEVELOPMENT)
+        return False
 
     def log_information(self, message, do_traceback=False):
         if self.do_log_information and message.strip() != "":
-            self.logger_core(message, do_traceback, Constants.INFORMATION)
+            return self.logger_core(message, do_traceback, Constants.INFORMATION)
+        return False
 
     def log_warning(self, message, do_traceback=False):
         if self.do_log_warning and message.strip() != "":
-            self.logger_core(message, do_traceback, Constants.WARNING)
+            return self.logger_core(message, do_traceback, Constants.WARNING)
+        return False
 
     def log_error(self, message, do_traceback=True):
         if self.do_log_error and message.strip() != "":
-            self.logger_core(message, do_traceback, Constants.ERROR)
+            return self.logger_core(message, do_traceback, Constants.ERROR)
+        return False

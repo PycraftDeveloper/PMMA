@@ -1,4 +1,5 @@
 import threading
+import gc
 
 import pyaudio
 import numpy as np
@@ -30,8 +31,8 @@ class Sampler:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_default_input_device(self):

@@ -1,3 +1,5 @@
+import gc
+
 import moderngl
 import numpy
 
@@ -67,8 +69,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_simple_texture_rendering_program(self):

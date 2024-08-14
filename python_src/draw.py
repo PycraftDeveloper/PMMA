@@ -1,5 +1,6 @@
 import math
 import time
+import gc
 
 import pygame
 import pygame.gfxdraw as gfxdraw
@@ -66,8 +67,8 @@ class Line:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -144,8 +145,8 @@ class Lines:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -242,8 +243,8 @@ class AdvancedPolygon:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -368,8 +369,8 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -496,8 +497,8 @@ class Rect:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -571,8 +572,8 @@ class Circle:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -652,8 +653,8 @@ class Arc:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -719,8 +720,8 @@ class Polygon:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -784,8 +785,8 @@ class Ellipse:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -844,8 +845,8 @@ class Pixel:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -921,8 +922,8 @@ class CurvedLines:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def draw(self):
@@ -978,8 +979,8 @@ class Draw:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def line(

@@ -1,4 +1,5 @@
 import time
+import gc
 
 from PIL import Image as ImageModule
 import pygame
@@ -26,8 +27,8 @@ class Image:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def create_from_file(self, image_path):

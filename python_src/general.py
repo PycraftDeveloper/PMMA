@@ -8,6 +8,8 @@ import os
 
 import getostheme
 import psutil
+import pygame
+import pyglet
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -90,38 +92,34 @@ def environ_to_registry():
 
 def log_development(message, do_traceback=False, repeat_for_effect=False):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_development(
+        return Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_development(
             message,
             do_traceback=do_traceback,
             repeat_for_effect=repeat_for_effect)
 
-        return True
     return False
 
 def log_information(message, do_traceback=False):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_information(
+        return Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_information(
             message,
             do_traceback=do_traceback)
 
-        return True
     return False
 
 def log_warning(message, do_traceback=False):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_warning(
+        return Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_warning(
             message,
             do_traceback=do_traceback)
 
-        return True
     return False
 
 def log_error(message, do_traceback=True):
     if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_error(
+        return Registry.pmma_module_spine[Constants.LOGGING_OBJECT].log_error(
             message,
             do_traceback=do_traceback)
-        return True
     return False
 
 def compute():
@@ -147,17 +145,23 @@ Pipeline through PMMA to avoid any potential slowdowns.")
         return
 
     if 1/(total_time_spent_drawing) < Registry.refresh_rate:
-        log_development(f"Your application performance is limited by the total \
+        if not "render performance is limiting" in Registry.formatted_developer_messages:
+            Registry.formatted_developer_messages.append("render performance is limiting")
+            log_development(f"Your application performance is limited by the total \
 number of draw calls being made. The program spent {total_time_spent_drawing}s on \
 {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
 {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
-likely improve application performance.")
+likely improve application performance. Note that this message will only appear once, but \
+may reflect any degraded performance beyond this point.")
 
 def quit():
     keys = list(Registry.pmma_object_instances.keys())
     for key in keys:
         Registry.pmma_object_instances[key].quit()
         del Registry.pmma_object_instances[key]
+
+    if Registry.display_mode == Constants.PYGAME:
+        pygame.quit()
 
     gc.collect()
 

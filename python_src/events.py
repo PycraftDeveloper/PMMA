@@ -1,3 +1,5 @@
+import gc
+
 import pygame
 
 from pmma.python_src.general import *
@@ -32,8 +34,8 @@ initialized once. This is to avoid creating unexpected behavior.")
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def destroy(self):

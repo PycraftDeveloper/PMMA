@@ -1,4 +1,5 @@
 import os
+import gc
 
 from pmma.python_src.file import path_builder
 
@@ -53,8 +54,8 @@ the 'OpenGL' class before instantiating this.")
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get(self):

@@ -1,6 +1,7 @@
 import os
 import io
 import contextlib
+import gc
 
 import numpy
 import moderngl
@@ -64,12 +65,14 @@ This is to avoid creating unexpected behavior.")
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
+            if Registry.display_mode == Constants.PYGAME:
+                pygame.display.quit()
             del self
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def destroy(self):

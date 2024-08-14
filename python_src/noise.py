@@ -1,6 +1,7 @@
 import random
 import importlib
 import threading
+import gc
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -98,8 +99,8 @@ class Perlin:
             if do_garbage_collection:
                 gc.collect()
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def prefill(self, number_of_single_samples):

@@ -1,3 +1,5 @@
+import gc
+
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants

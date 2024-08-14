@@ -20,3 +20,4 @@ class Registry:
     number_of_draw_calls = 0
     total_time_spent_drawing = 0
     pmma_initialized = False
+    formatted_developer_messages = []

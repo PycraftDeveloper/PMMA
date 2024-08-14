@@ -1,3 +1,5 @@
+import gc
+
 import pygame
 import pyglet
 
@@ -24,8 +26,8 @@ class Surface:
                     self.pygame_surface = None
                     del self.pygame_surface
 
-    def quit(self):
-        self.__del__()
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def create(self, width, height, alpha=False):
