@@ -9,6 +9,8 @@ from pmma.__init__ import init
 
 class QuickStart:
     def __init__(self, width=None, height=None, fullscreen=True, resizable=False, caption="PMMA Display", vsync=True, alpha=False):
+        self.attributes = []
+
         if Registry.pmma_initialized is False:
             init()
 

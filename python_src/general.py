@@ -5,16 +5,23 @@ import platform
 import ctypes
 import subprocess
 import locale
+import os
 
 import getostheme
 import psutil
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+
+def up(path: str) -> str:
+    return path[::-1].split(os.sep, 1)[-1][::-1]
 
 class OpenGLObject:
     def __init__(self, _object):
         self.object = _object
+
+        self.attributes = []
         self.shutdown = False
         Registry.pmma_object_instances[id(self)] = self
 

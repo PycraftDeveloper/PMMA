@@ -2,6 +2,7 @@ from tkinter import font
 import re
 import time
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -13,6 +14,8 @@ class Text:
         self.canvas = canvas
 
         self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
+
+        self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -127,19 +130,19 @@ class Text:
             "position": (x, y)
         }
 
-        identifier = (
-            str(font_identifiable_data)+\
-            str(canvas_identifiable_data)+\
-            str(text)+\
-            str(position)+\
-            str(foreground_color)+\
-            str(background_color)+\
-            str(bold)+\
-            str(italic)+\
-            str(underline)+\
-            str(strikethrough)+\
-            str(word_separator)+\
-            str(canvas.get_size))
+        identifier = create_cache_id(
+            font_identifiable_data,
+            canvas_identifiable_data,
+            text,
+            position,
+            foreground_color,
+            background_color,
+            bold,
+            italic,
+            underline,
+            strikethrough,
+            word_separator,
+            canvas.get_size())
 
         result = self.memory_manager_instance.get_object(identifier)
         if result is None:

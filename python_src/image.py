@@ -3,12 +3,15 @@ import time
 from PIL import Image as ImageModule
 import pygame
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
 class Image:
     def __init__(self):
         self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
+
+        self.attributes = []
 
         self.graphics_backend_image_address = None
 

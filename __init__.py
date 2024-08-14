@@ -21,6 +21,14 @@ Registry.base_path = base_path
 
 from pmma.python_src.general import *
 
+if get_operating_system() == Constants.LINUX:
+    try:
+        import pyaudio
+    except ModuleNotFoundError:
+        log_development("Pyaudio hasn't been installed yet. Because your running on a \
+Linux platform make sure to run this command first: 'sudo apt-get install portaudio19-dev' \
+first otherwise attempting to install the 'PyAudio' module may fail.")
+
 environ_to_registry()
 
 from pmma.python_src.render_pipeline import *
@@ -88,6 +96,8 @@ def init(
     for file in removable_media:
         try:
             os.remove(path_builder(Registry.base_path, file))
+        except FileNotFoundError:
+            pass
         except Exception as error:
             print(error)
             pass

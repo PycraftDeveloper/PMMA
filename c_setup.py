@@ -1,5 +1,6 @@
 from setuptools import setup, Extension
 import os
+import distutils.ccompiler
 
 import numpy
 from Cython.Build import cythonize
@@ -11,19 +12,48 @@ base_path = _up(__file__)
 
 cython_src_path = base_path+os.sep+"cython_src"+os.sep+"utility"+os.sep
 
-extensions = [
-    Extension(
-        "perlin_noise",
-        [cython_src_path+"perlin_noise.pyx"],
-        extra_compile_args=["-O3", "/O2"],  # Use optimization flag DEBUG THIS
-    ),
-    Extension(
-        "extended_perlin_noise",
-        [cython_src_path+"extended_perlin_noise.pyx"],
-        include_dirs=[numpy.get_include()],
-        extra_compile_args=["-O3", "/O2"],  # Use optimization flag
-    )
-]
+compiler = distutils.ccompiler.get_default_compiler()
+
+if compiler == "msvc":
+    extensions = [
+        Extension(
+            "perlin_noise",
+            [cython_src_path+"perlin_noise.pyx"],
+            extra_compile_args=["-O3", "/O2"],
+        ),
+        Extension(
+            "extended_perlin_noise",
+            [cython_src_path+"extended_perlin_noise.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["-O3", "/O2"],
+        )
+    ]
+elif compiler == "gcc" or compiler == "unix":
+    extensions = [
+        Extension(
+            "perlin_noise",
+            [cython_src_path+"perlin_noise.pyx"],
+            extra_compile_args=["-O3"],
+        ),
+        Extension(
+            "extended_perlin_noise",
+            [cython_src_path+"extended_perlin_noise.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["-O3"],
+        )
+    ]
+else:
+    extensions = [
+        Extension(
+            "perlin_noise",
+            [cython_src_path+"perlin_noise.pyx"],
+        ),
+        Extension(
+            "extended_perlin_noise",
+            [cython_src_path+"extended_perlin_noise.pyx"],
+            include_dirs=[numpy.get_include()],
+        )
+    ]
 
 setup(
     ext_modules=cythonize(extensions),

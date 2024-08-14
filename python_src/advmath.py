@@ -1,3 +1,4 @@
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -14,6 +15,8 @@ class Math:
         """
         Constructor for the Math class.
         """
+        self.attributes = []
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
 

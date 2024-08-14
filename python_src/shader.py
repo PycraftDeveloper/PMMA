@@ -19,6 +19,8 @@ the 'OpenGL' class before instantiating this.")
         self.fragment_shader = None
         self.program = None
 
+        self.attributes = []
+
         self.in_attributes = []
         self.out_attributes = []
         self.uniform_attributes = []

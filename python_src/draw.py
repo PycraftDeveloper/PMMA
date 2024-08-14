@@ -5,6 +5,7 @@ import pygame
 import pygame.gfxdraw as gfxdraw
 import pyglet
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -27,6 +28,8 @@ class Line:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.start = start
@@ -102,6 +105,8 @@ class Lines:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.points = points
@@ -185,6 +190,8 @@ class AdvancedPolygon:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.centre = centre
@@ -313,6 +320,8 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
+
         self.color = color
         self.center_of_rect = center_of_rect
         self.radius = radius
@@ -430,6 +439,8 @@ class Rect:
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
+
         self.color = color
         self.rect = rect
         self.width = width
@@ -518,6 +529,8 @@ class Circle:
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
+
         self.color = color
         self.center = center
         self.radius = radius
@@ -592,6 +605,8 @@ class Arc:
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
+
         self.color = color
         self.rect = rect
         self.start_angle = start_angle
@@ -664,6 +679,8 @@ class Polygon:
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
+
         self.color = color
         self.points = points
         self.width = width
@@ -726,6 +743,8 @@ class Ellipse:
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
+
         self.color = color
         self.rect = rect
         self.width = width
@@ -786,6 +805,8 @@ class Pixel:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.point = point
@@ -856,6 +877,8 @@ class CurvedLines:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.points = points
@@ -930,6 +953,8 @@ class Draw:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self.attributes = []
 
         self.canvas = canvas
 

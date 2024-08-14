@@ -1,5 +1,6 @@
 import time
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -7,6 +8,8 @@ from pmma.python_src.utility.math_utils import *
 
 class Benchmark:
     def __init__(self, n=None):
+        self.attributes = []
+
         if n is None:
             if Registry.power_saving_mode:
                 n = 1_000

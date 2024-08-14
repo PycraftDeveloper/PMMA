@@ -1,5 +1,6 @@
 import colorsys
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -54,6 +55,8 @@ class ColorIntermediary:
         return in_type
 
     def __init__(self, color, in_type=Constants.AUTODETECT):
+        self.attributes = []
+
         if type(color) == str:
             color = color.lower()
         if in_type == Constants.AUTODETECT:
@@ -190,6 +193,8 @@ class ColorIntermediary:
 class Color:
     def __init__(self, color, in_type=Constants.AUTODETECT):
         self.__color_backend = ColorIntermediary(in_type, color)
+
+        self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False

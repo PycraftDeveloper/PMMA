@@ -1,8 +1,8 @@
 import random
 import importlib
 import threading
-import traceback
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -44,6 +44,8 @@ class Perlin:
             persistence=0.5,
             do_prefill=None,
             number_of_single_samples=10_000):
+
+        self.attributes = []
 
         if Registry.cython_acceleration_available:
             self.noise_module = importlib.import_module(

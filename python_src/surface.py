@@ -12,6 +12,8 @@ class Surface:
         self.alpha = None
         self.surface_initialized = False
 
+        self.attributes = []
+
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
 

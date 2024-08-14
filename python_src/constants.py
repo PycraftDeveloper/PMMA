@@ -1,13 +1,13 @@
 import math
 import os
 
-from pmma.python_src.registry import Registry
-
 class Constants:
     WINDOWS = "windows"
     LINUX = "linux"
     MACOS = "macOS"
     JAVA = "java"
+
+    RENDER_PIPELINE_ABLE = "usable in render pipeline"
 
     LIGHT = "light"
     DARK = "dark"

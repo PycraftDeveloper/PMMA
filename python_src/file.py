@@ -3,6 +3,7 @@ import shutil
 
 import send2trash
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -21,6 +22,8 @@ def path_builder(*args):
 class File:
     def __init__(self, file_path):
         self.file_path = file_path
+
+        self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False
@@ -80,6 +83,8 @@ class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
         if Constants.FILECORE_OBJECT in Registry.pmma_module_spine.keys():
             raise Exception("FileCore object already exists")
+
+        self.attributes = []
 
         self.locations = []
         self.file_matrix = {}

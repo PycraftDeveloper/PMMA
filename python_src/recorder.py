@@ -3,6 +3,7 @@ import threading
 import pyaudio
 import numpy as np
 
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -17,6 +18,8 @@ class Sampler:
     def __init__(self):
         self.pyaudio = pyaudio.PyAudio()
         self.sampling = False
+
+        self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False

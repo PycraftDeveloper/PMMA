@@ -17,6 +17,8 @@ initialized once. This is to avoid creating unexpected behavior.")
         self.raw_events = []
         self.canvas = canvas
 
+        self.attributes = []
+
         self.display_needs_resize = False
 
         Registry.pmma_module_spine[Constants.EVENTS_OBJECT] = self

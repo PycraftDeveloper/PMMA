@@ -1,3 +1,4 @@
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -38,6 +39,8 @@ class Passport:
             version=None,
             supported_python_versions=None,
             project_size=None):
+
+        self.attributes = []
 
         PassportIntermediary.name = name
         PassportIntermediary.short_description = short_description

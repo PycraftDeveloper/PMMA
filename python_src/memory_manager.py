@@ -27,6 +27,8 @@ class MemoryManager:
         if Constants.MEMORYMANAGER_OBJECT in Registry.pmma_module_spine.keys():
             raise Exception("MemoryManager object already exists")
 
+        self.attributes = []
+
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:
             target_size = (1/8) * psutil.virtual_memory().available

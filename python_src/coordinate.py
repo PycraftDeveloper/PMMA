@@ -1,3 +1,4 @@
+from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 
@@ -8,6 +9,8 @@ class CoordinateIntermediary:
             self,
             in_type=Constants.CARTESIAN,
             *args):
+
+        self.attributes = []
 
         self.in_type = in_type
         self.points = args
@@ -48,6 +51,8 @@ class Coordinate:
     def __init__(self, in_type=Constants.CARTESIAN, *args):
         self.in_type = in_type
         self.points = args
+
+        self.attributes = []
 
         self.intermediary = CoordinateIntermediary(in_type, *args)
 

@@ -1,5 +1,3 @@
-import gc
-
 import moderngl
 import numpy
 
@@ -57,6 +55,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 Registry.base_path,
                 "shaders",
                 "texture_aggregation"))
+
+        self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
         self.shut_down = False

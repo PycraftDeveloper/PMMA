@@ -1,9 +1,17 @@
 import sys
 import threading
 
+from pmma.python_src.general import *
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
+
 class Thread(threading.Thread):
     def __init__(self, *args, **keywords):
         threading.Thread.__init__(self, *args, **keywords)
+
+        self.attributes = []
+
+        Registry.pmma_object_instances[id(self)] = self
         self.killed = False
 
     def start(self):
