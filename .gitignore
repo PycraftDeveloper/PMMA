@@ -165,5 +165,5 @@ temporary
 
 # PMMA runtime generated binaries
 bin
-#/*.so
-#/*.pyd
+/*.so
+/*.pyd
