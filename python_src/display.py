@@ -1,16 +1,9 @@
 import os
-import io
-import contextlib
 import gc
 
 import numpy
 import moderngl
-
-buffer = io.StringIO()
-with contextlib.redirect_stdout(buffer):
-    import pygame
-pygame_initialization_message = buffer.getvalue()
-
+import pygame
 import pyglet
 
 from pmma.python_src.surface import Surface
@@ -31,8 +24,8 @@ This is to avoid creating unexpected behavior.")
         if display_mode == Constants.PYGAME:
             os.environ["SDL_VIDEO_CENTERED"] = "1"
 
-            if log_information(pygame_initialization_message) is False:
-                print(pygame_initialization_message)
+            if log_information(Registry.pygame_launch_message) is False:
+                print(Registry.pygame_launch_message)
 
             pygame.init()
 

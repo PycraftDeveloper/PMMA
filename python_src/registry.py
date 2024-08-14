@@ -21,3 +21,4 @@ class Registry:
     total_time_spent_drawing = 0
     pmma_initialized = False
     formatted_developer_messages = []
+    pygame_launch_message = ""

@@ -5,15 +5,23 @@ import ctypes
 import subprocess
 import locale
 import os
+import io
+import contextlib
 
 import getostheme
 import psutil
-import pygame
 import pyglet
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+
+buffer = io.StringIO()
+
+with contextlib.redirect_stdout(buffer):
+    import pygame
+
+Registry.pygame_launch_message = buffer.getvalue().strip()
 
 def up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
