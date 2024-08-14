@@ -19,7 +19,7 @@ def compile_libraries():
         Registry.cython_acceleration_available = True
     except ImportError:
         try:
-            exit_code = subprocess.call([sys.executable, f"{Registry.base_path}{Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--inplace", "--build-lib", f"{Registry.base_path}{Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"])
+            exit_code = subprocess.call([sys.executable, f"{Registry.base_path}{Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{Registry.base_path}{Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"])
             Registry.cython_acceleration_available = exit_code == 0
         except:
             Registry.cython_acceleration_available = False
