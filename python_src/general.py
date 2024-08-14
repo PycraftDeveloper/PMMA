@@ -27,16 +27,17 @@ class OpenGLObject:
     def get(self):
         return self.object
 
-    def quit(self):
-        self.__del__()
-        self.shut_down = True
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
-    def __del__(self, do_garbage_collection=True):
-        self.object.release()
-        del self.object
-        del self
-        if do_garbage_collection:
-            gc.collect()
+    def __del__(self, do_garbage_collection=False):
+        if self.shutdown is False:
+            self.object.release()
+            del self.object
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
 def create_cache_id(*args):
     cache_id = ""

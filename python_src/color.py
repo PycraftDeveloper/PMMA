@@ -110,16 +110,16 @@ class ColorIntermediary:
             self.color = Constants.TEXT_BASED_COLORS[color.upper()] + [255]
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def __convert_rgb_to_hsv(self, red, green, blue, per_maximum=100, do_round=True):
         #get rgb percentage: range (0-1, 0-1, 0-1 )
@@ -197,16 +197,16 @@ class Color:
         self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def convert_format(self, out_type):
         return self.__color_backend.out(out_type)

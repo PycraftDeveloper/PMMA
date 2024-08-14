@@ -18,19 +18,17 @@ class Math:
         self.attributes = []
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
-    def __del__(self):
-        if self.shut_down is False:
-            # do something
-            pass
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
-    def quit(self):
-        """
-        Exit function.
-        """
-        self.__del__()
-        self.shut_down = True
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def get_function_pythag(self):
         """

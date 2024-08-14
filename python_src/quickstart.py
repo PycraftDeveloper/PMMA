@@ -15,7 +15,7 @@ class QuickStart:
             init()
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
         self.display = Display()
         self.display.create(width=width, height=height, fullscreen=fullscreen, resizable=resizable, caption=caption, vsync=vsync, alpha=alpha)

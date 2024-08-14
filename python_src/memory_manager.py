@@ -91,10 +91,10 @@ leaving the target size variable can be dangerous.")
         Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT] = self
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             self.enable_memory_management = False
 
             shutil.rmtree(
@@ -108,7 +108,7 @@ leaving the target size variable can be dangerous.")
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def add_object(
             self,

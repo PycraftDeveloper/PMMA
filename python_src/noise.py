@@ -90,16 +90,16 @@ class Perlin:
             self.prefill_thread.start()
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def prefill(self, number_of_single_samples):
         try:

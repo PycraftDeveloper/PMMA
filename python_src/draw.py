@@ -40,7 +40,7 @@ class Line:
         self.cache_id = create_cache_id(self.color, self.start, self.end, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -61,13 +61,13 @@ class Line:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -117,7 +117,7 @@ class Lines:
         self.cache_id = create_cache_id(self.color, self.points, self.width, self.closed, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -138,13 +138,13 @@ class Lines:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -205,7 +205,7 @@ class AdvancedPolygon:
         self.cache_id = create_cache_id(self.color, self.centre, self.radius, self.number_of_sides, self.rotation_angle, self.width, self.cache, self.wire_frame, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -235,13 +235,13 @@ class AdvancedPolygon:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -333,7 +333,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.cache_id = create_cache_id(self.color, self.center_of_rect, self.radius, self.height, self.rotation_angle, self.cache, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -360,13 +360,13 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         """
@@ -454,7 +454,7 @@ class Rect:
         self.cache_id = create_cache_id(self.color, self.rect, self.width, self.border_radius, self.border_top_left_radius, self.border_top_right_radius, self.border_bottom_left_radius, self.border_bottom_right_radius, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -487,13 +487,13 @@ class Rect:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -540,7 +540,7 @@ class Circle:
         self.cache_id = create_cache_id(self.color, self.center, self.radius, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -561,13 +561,13 @@ class Circle:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -617,7 +617,7 @@ class Arc:
         self.cache_id = create_cache_id(self.color, self.rect, self.start_angle, self.stop_angle, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -641,13 +641,13 @@ class Arc:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -689,7 +689,7 @@ class Polygon:
         self.cache_id = create_cache_id(self.color, self.points, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -707,13 +707,13 @@ class Polygon:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -753,7 +753,7 @@ class Ellipse:
         self.cache_id = create_cache_id(self.color, self.rect, self.width, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -771,13 +771,13 @@ class Ellipse:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -815,7 +815,7 @@ class Pixel:
         self.cache_id = create_cache_id(self.color, self.point, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -830,13 +830,13 @@ class Pixel:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -888,7 +888,7 @@ class CurvedLines:
         self.cache_id = create_cache_id(self.color, self.points, self.steps, self.canvas)
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -906,13 +906,13 @@ class CurvedLines:
         self.canvas = canvas
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def draw(self):
         start_time = time.perf_counter()
@@ -959,16 +959,16 @@ class Draw:
         self.canvas = canvas
 
         Registry.pmma_object_instances[id(self)] = self
-        self.shut_down = False
+        self._shut_down = False
 
     def __del__(self):
-        if self.shut_down is False:
+        if self._shut_down is False:
             # do something
             pass
 
     def quit(self):
         self.__del__()
-        self.shut_down = True
+        self._shut_down = True
 
     def line(
             self,
