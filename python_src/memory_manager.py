@@ -15,6 +15,7 @@ from pmma.python_src.file import path_builder
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.passport import PassportIntermediary
 
@@ -24,8 +25,7 @@ class MemoryManager:
             object_lifetime=2.5,
             target_size=Constants.AUTOMATIC):
 
-        if Constants.MEMORYMANAGER_OBJECT in Registry.pmma_module_spine.keys():
-            raise Exception("MemoryManager object already exists")
+        initialize(self, unique_instance=Constants.MEMORYMANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.attributes = []
 
@@ -87,11 +87,6 @@ leaving the target size variable can be dangerous.")
             ignore_errors=True)
 
         os.mkdir(self.memory_management_directory)
-
-        Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT] = self
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self):
         if self._shut_down is False:

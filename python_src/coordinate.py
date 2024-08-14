@@ -3,6 +3,7 @@ import gc
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.advmath import Math
 
@@ -12,15 +13,14 @@ class CoordinateIntermediary:
             in_type=Constants.CARTESIAN,
             *args):
 
+        initialize(self)
+
         self.attributes = []
 
         self.in_type = in_type
         self.points = args
 
         self.math = Math()
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -52,15 +52,14 @@ class CoordinateIntermediary:
 
 class Coordinate:
     def __init__(self, in_type=Constants.CARTESIAN, *args):
+        initialize(self)
+
         self.in_type = in_type
         self.points = args
 
         self.attributes = []
 
         self.intermediary = CoordinateIntermediary(in_type, *args)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

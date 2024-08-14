@@ -6,9 +6,12 @@ from pmma.python_src.file import path_builder
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class Shader:
     def __init__(self):
+        initialize(self)
+
         if not Constants.OPENGL_OBJECT in Registry.pmma_module_spine.keys():
             log_warning("OpenGL object does not exist.")
             log_development("In rare cases PMMA objects can only be \
@@ -25,9 +28,6 @@ the 'OpenGL' class before instantiating this.")
         self.in_attributes = []
         self.out_attributes = []
         self.uniform_attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def analyze(self):
         self.in_attributes = []

@@ -5,16 +5,13 @@ import pygame
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.backpack import Backpack
 
 class Events:
     def __init__(self, canvas=None):
-        if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
-            log_warning("Events object already exists")
-            log_development("Some PMMA objects can only be \
-initialized once. This is to avoid creating unexpected behavior.")
-            raise Exception("Events object already exists")
+        initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
 
         self.raw_events = []
         self.canvas = canvas
@@ -23,14 +20,10 @@ initialized once. This is to avoid creating unexpected behavior.")
 
         self.display_needs_resize = False
 
-        Registry.pmma_module_spine[Constants.EVENTS_OBJECT] = self
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
-
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
+            del Registry.pmma_module_spine[Constants.EVENTS_OBJECT]
             if do_garbage_collection:
                 gc.collect()
 

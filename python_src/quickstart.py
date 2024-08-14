@@ -3,21 +3,17 @@ import gc
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.backpack import Backpack
 from pmma.python_src.display import Display
 from pmma.python_src.events import Events
-from pmma.__init__ import init
 
 class QuickStart:
     def __init__(self, width=None, height=None, fullscreen=True, resizable=False, caption="PMMA Display", vsync=True, alpha=False):
+        initialize(self)
+
         self.attributes = []
-
-        if Registry.pmma_initialized is False:
-            init()
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
         self.display = Display()
         self.display.create(width=width, height=height, fullscreen=fullscreen, resizable=resizable, caption=caption, vsync=vsync, alpha=alpha)

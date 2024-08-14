@@ -9,11 +9,15 @@ from pmma.python_src.file import path_builder
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class OpenGL:
     def __init__(self):
+        initialize(self)
+
         if Constants.OPENGL_OBJECT not in Registry.pmma_module_spine.keys():
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT] = self
+
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             if Registry.display_initialized is False:
                 log_warning("No OpenGL ready display available.")
@@ -59,9 +63,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 "texture_aggregation"))
 
         self.attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

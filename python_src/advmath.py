@@ -2,7 +2,7 @@ import gc
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 import pmma.python_src.utility.math_utils as math_utils
 
@@ -17,10 +17,9 @@ class Math:
         """
         Constructor for the Math class.
         """
-        self.attributes = []
+        initialize(self)
 
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
+        self.attributes = []
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

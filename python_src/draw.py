@@ -9,6 +9,7 @@ import pyglet
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.general import create_cache_id
 
@@ -27,6 +28,8 @@ class Line:
             width=1,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -39,9 +42,6 @@ class Line:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.start, self.end, self.width, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -105,6 +105,8 @@ class Lines:
             closed=False,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -117,9 +119,6 @@ class Lines:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.points, self.width, self.closed, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -191,6 +190,8 @@ class AdvancedPolygon:
             wire_frame=False,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -206,9 +207,6 @@ class AdvancedPolygon:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.centre, self.radius, self.number_of_sides, self.rotation_angle, self.width, self.cache, self.wire_frame, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -321,6 +319,8 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         color (str):
             Name of the fill color, in HTML format.
         """
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -335,9 +335,6 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.center_of_rect, self.radius, self.height, self.rotation_angle, self.cache, self.width, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -441,6 +438,8 @@ class Rect:
             border_bottom_right_radius=-1,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -456,10 +455,16 @@ class Rect:
         self.border_bottom_right_radius = border_bottom_right_radius
         self.canvas = canvas
 
-        self.cache_id = create_cache_id(self.color, self.rect, self.width, self.border_radius, self.border_top_left_radius, self.border_top_right_radius, self.border_bottom_left_radius, self.border_bottom_right_radius, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
+        self.cache_id = create_cache_id(
+            self.color,
+            self.rect,
+            self.width,
+            self.border_radius,
+            self.border_top_left_radius,
+            self.border_top_right_radius,
+            self.border_bottom_left_radius,
+            self.border_bottom_right_radius,
+            self.canvas)
 
     def set_color(self, color):
         self.color = color
@@ -532,6 +537,8 @@ class Circle:
             width=0,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -544,9 +551,6 @@ class Circle:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.center, self.radius, self.width, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -609,6 +613,8 @@ class Arc:
             width=1,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -622,9 +628,6 @@ class Arc:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.rect, self.start_angle, self.stop_angle, self.width, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -684,6 +687,8 @@ class Polygon:
             width=0,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -695,9 +700,6 @@ class Polygon:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.points, self.width, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -749,6 +751,8 @@ class Ellipse:
             width=0,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -760,9 +764,6 @@ class Ellipse:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.rect, self.width, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -813,6 +814,8 @@ class Pixel:
             point=None,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -823,9 +826,6 @@ class Pixel:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.point, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -886,6 +886,8 @@ class CurvedLines:
             steps=2,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
@@ -897,9 +899,6 @@ class CurvedLines:
         self.canvas = canvas
 
         self.cache_id = create_cache_id(self.color, self.points, self.steps, self.canvas)
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def set_color(self, color):
         self.color = color
@@ -963,15 +962,14 @@ class Draw:
             self,
             canvas=None):
 
+        initialize(self)
+
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self.attributes = []
 
         self.canvas = canvas
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

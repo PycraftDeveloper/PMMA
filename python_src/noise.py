@@ -6,6 +6,7 @@ import gc
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.utility.math_utils import *
 
@@ -45,6 +46,8 @@ class Perlin:
             persistence=0.5,
             do_prefill=None,
             number_of_single_samples=10_000):
+
+        initialize(self)
 
         self.attributes = []
 
@@ -89,9 +92,6 @@ class Perlin:
             self.prefill_thread.daemon = True
             NoiseIntermediary.prefill = True
             self.prefill_thread.start()
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

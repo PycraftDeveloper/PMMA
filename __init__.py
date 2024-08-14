@@ -1,6 +1,8 @@
 import sys
 import os
 import tkinter
+import io
+import contextlib
 
 import numba
 
@@ -18,6 +20,13 @@ from pmma.python_src.constants import *
 
 Registry.temporary_files_path = temporary_files_path
 Registry.base_path = base_path
+
+buffer = io.StringIO()
+
+with contextlib.redirect_stdout(buffer):
+    import pygame
+
+Registry.pygame_launch_message = buffer.getvalue().strip()
 
 from pmma.python_src.general import *
 
@@ -85,8 +94,6 @@ def init(
 
     if compile_c_extensions:
         cython_thread = cython_utils.compile()
-        if wait_for_initialization:
-            cython_thread.join()
 
     MemoryManager(
         object_lifetime=memory_management_max_object_lifetime,
@@ -100,6 +107,11 @@ def init(
         log_to_file=log_to_file,
         log_file=log_file,
         log_to_terminal=log_to_terminal)
+
+    register_application()
+
+    if wait_for_initialization:
+        cython_thread.join()
 
 del base_path
 del temporary_files_path

@@ -4,6 +4,7 @@ import gc
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.general import swizzle
 
@@ -56,6 +57,8 @@ class ColorIntermediary:
         return in_type
 
     def __init__(self, color, in_type=Constants.AUTODETECT):
+        initialize(self)
+
         self.attributes = []
 
         if type(color) == str:
@@ -110,7 +113,6 @@ class ColorIntermediary:
         elif in_type == Constants.TEXT:
             self.color = Constants.TEXT_BASED_COLORS[color.upper()] + [255]
 
-        Registry.pmma_object_instances[id(self)] = self
         self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
@@ -194,12 +196,11 @@ class ColorIntermediary:
 
 class Color:
     def __init__(self, color, in_type=Constants.AUTODETECT):
+        initialize(self)
+
         self.__color_backend = ColorIntermediary(in_type, color)
 
         self.attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

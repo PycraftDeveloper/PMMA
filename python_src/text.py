@@ -9,20 +9,20 @@ import pyglet
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.color import Color
 from pmma.python_src.file import File
 
 class Text:
     def __init__(self, canvas=None):
+        initialize(self)
+
         self.canvas = canvas
 
         self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
 
         self.attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

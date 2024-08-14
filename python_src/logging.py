@@ -5,6 +5,7 @@ import gc
 import pmma.python_src.general as general
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class Logger:
     def __init__(
@@ -17,11 +18,7 @@ class Logger:
             log_file=None,
             log_to_terminal=True):
 
-        if Constants.LOGGING_OBJECT in Registry.pmma_module_spine.keys():
-            general.log_warning("Logging object already exists")
-            general.log_development("Some PMMA objects can only be \
-initialized once. This is to avoid creating unexpected behavior.")
-            raise Exception("Logging object already exists")
+        general.initialize(self, unique_instance=Constants.LOGGING_OBJECT, add_to_pmma_module_spine=True)
 
         if log_development is None:
             log_development = Registry.development_mode
@@ -37,13 +34,8 @@ initialized once. This is to avoid creating unexpected behavior.")
         self.log_file = log_file
         self.development_messages = []
 
-        Registry.pmma_module_spine[Constants.LOGGING_OBJECT] = self
-
         self.log_information("Logging object initialized")
         self.log_information("Date format: DD/MM/YYYY @ HH:MM:SS:μS")
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

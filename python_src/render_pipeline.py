@@ -3,15 +3,15 @@ import gc
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class RenderPipeline:
     def __init__(self):
+        initialize(self)
+
         self.render_points = []
 
         self.attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

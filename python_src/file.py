@@ -7,6 +7,7 @@ import send2trash
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.passport import PassportIntermediary
 
@@ -22,12 +23,11 @@ def path_builder(*args):
 
 class File:
     def __init__(self, file_path):
+        initialize(self)
+
         self.file_path = file_path
 
         self.attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -83,8 +83,7 @@ class File:
 
 class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
-        if Constants.FILECORE_OBJECT in Registry.pmma_module_spine.keys():
-            raise Exception("FileCore object already exists")
+        initialize(self, unique_instance=Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
 
         self.attributes = []
 
@@ -99,11 +98,6 @@ class FileCore:
             self.watcher.start()
 
         self.scan()
-
-        Registry.pmma_module_spine[Constants.FILECORE_OBJECT] = self
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

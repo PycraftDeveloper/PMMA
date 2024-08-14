@@ -5,34 +5,29 @@ import ctypes
 import subprocess
 import locale
 import os
-import io
-import contextlib
 
 import getostheme
 import psutil
 import pyglet
+import pygame
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
-buffer = io.StringIO()
-
-with contextlib.redirect_stdout(buffer):
-    import pygame
-
-Registry.pygame_launch_message = buffer.getvalue().strip()
+from pmma.python_src.passport import PassportIntermediary
 
 def up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
 
 class OpenGLObject:
     def __init__(self, _object):
+        initialize(self)
+
         self.object = _object
 
         self.attributes = []
-        self.shutdown = False
-        Registry.pmma_object_instances[id(self)] = self
 
     def get(self):
         return self.object
@@ -48,6 +43,36 @@ class OpenGLObject:
             del self
             if do_garbage_collection:
                 gc.collect()
+
+def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False):
+    instance._shut_down = False
+
+    if Registry.pmma_initialized is False:
+        log_development("You haven't yet initialized PMMA. This can be \
+done by calling 'pmma.init()' any time before using any of PMMA functions. It \
+is vital that you do this prior to using PMMA as it ensures optimal configuration \
+with your machine, and gets PMMA ready to be used.")
+        log_error("PMMA has not been initialized. Call 'pmma.init()' before using PMMA.")
+        raise DidNotInitializeError("Call 'pmma.init()' before using PMMA")
+
+    if unique_instance is not None:
+        if unique_instance in Constants.OBJECT_IDENTIFIERS:
+            if unique_instance in Registry.pmma_module_spine.keys():
+                log_warning(f"{unique_instance.capitalize()} object already exists.")
+
+                log_development("Some PMMA objects can only be initialized once. \
+This is to avoid creating unexpected behavior.")
+
+                raise TooManyInstancesError(f"{unique_instance.capitalize()} object already exists.")
+        else:
+            log_development(f"{unique_instance.capitalize()} name was not recognized to \
+PMMA. To register it, make sure it exists in the 'Constants' object, and in its attribute \
+'OBJECT_IDENTIFIERS' list.")
+
+    if add_to_pmma_module_spine:
+        Registry.pmma_module_spine[unique_instance] = instance
+
+    Registry.pmma_object_instances[id(instance)] = instance
 
 def create_cache_id(*args):
     cache_id = ""
@@ -130,6 +155,15 @@ def log_error(message, do_traceback=True):
             do_traceback=do_traceback)
     return False
 
+def register_application():
+    if get_operating_system() == Constants.WINDOWS:
+        VERSION = PassportIntermediary.version
+        AUTHOR = PassportIntermediary.author
+        APPLICATION_NAME = PassportIntermediary.name
+        SUB_APPLICATION_NAME = PassportIntermediary.sub_name
+        myappid = f"{AUTHOR}.{APPLICATION_NAME}.{SUB_APPLICATION_NAME}.{VERSION}"
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
 def compute():
     Registry.power_saving_mode = is_battery_saver_enabled()
 
@@ -137,6 +171,10 @@ def compute():
     total_time_spent_drawing = Registry.total_time_spent_drawing
     Registry.number_of_draw_calls = 0
     Registry.total_time_spent_drawing = 0
+
+    if PassportIntermediary.passport_changed:
+        PassportIntermediary.passport_changed = False
+        register_application()
 
     if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys() and not Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
         log_development("You have created a display through PMMA, but haven't \

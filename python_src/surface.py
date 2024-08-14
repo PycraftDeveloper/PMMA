@@ -6,18 +6,19 @@ import pyglet
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class Surface:
     def __init__(self):
+        initialize(self)
+
         if Registry.display_mode is None:
             raise Exception("Display mode not set")
+
         self.alpha = None
         self.surface_initialized = False
 
         self.attributes = []
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
 
     def __del__(self):
         if self._shut_down is False:

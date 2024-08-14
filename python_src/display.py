@@ -12,14 +12,11 @@ from pmma.python_src.opengl import OpenGL
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
-        if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            log_warning("Display object already exists")
-            log_development("Some PMMA objects can only be initialized once. \
-This is to avoid creating unexpected behavior.")
-            raise Exception("Display object already exists")
+        initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
 
         if display_mode == Constants.PYGAME:
             os.environ["SDL_VIDEO_CENTERED"] = "1"
@@ -51,16 +48,12 @@ This is to avoid creating unexpected behavior.")
 
         self.quad_indices = numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
 
-        Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = self
-
-        Registry.pmma_object_instances[id(self)] = self
-        self._shut_down = False
-
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             if Registry.display_mode == Constants.PYGAME:
                 pygame.display.quit()
             del self
+            del Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
             if do_garbage_collection:
                 gc.collect()
 
