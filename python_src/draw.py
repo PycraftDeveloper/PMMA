@@ -60,10 +60,11 @@ class Line:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -137,10 +138,11 @@ class Lines:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -234,10 +236,11 @@ class AdvancedPolygon:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -359,10 +362,11 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -486,10 +490,11 @@ class Rect:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -560,10 +565,11 @@ class Circle:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -640,10 +646,11 @@ class Arc:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -706,10 +713,11 @@ class Polygon:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -770,10 +778,11 @@ class Ellipse:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -829,10 +838,11 @@ class Pixel:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -905,10 +915,11 @@ class CurvedLines:
 
         self.canvas = canvas
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
@@ -961,10 +972,11 @@ class Draw:
         Registry.pmma_object_instances[id(self)] = self
         self._shut_down = False
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()

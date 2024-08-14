@@ -62,10 +62,11 @@ This is to avoid creating unexpected behavior.")
         Registry.pmma_object_instances[id(self)] = self
         self._shut_down = False
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            # do something
-            pass
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self):
         self.__del__()
