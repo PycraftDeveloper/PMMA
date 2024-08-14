@@ -1,4 +1,3 @@
-from os import environ
 import gc
 import inspect
 import platform
@@ -75,8 +74,8 @@ def can_swizzle(in_format, data, out_format):
 def environ_to_registry():
     for key in Registry.__dict__:
         check_key = f"PMMA_{key}"
-        if check_key in environ:
-            value = environ[check_key]
+        if check_key in os.environ:
+            value = os.environ[check_key]
             if "." in value:
                 data_type, value = value.split(".")
                 data_type = data_type.lower()
