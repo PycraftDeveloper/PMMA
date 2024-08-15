@@ -9,3 +9,11 @@ class DidNotInitializeError(Exception):
 class TooManyInstancesError(Exception):
     """Too many instances of a PMMA object were created!"""
     pass
+
+class NoInputDevicesFoundError(Exception):
+    """No input devices were found!"""
+    pass
+
+class UnableToReadAudioSampleError(Exception):
+    """Unable to read audio sample!"""
+    pass

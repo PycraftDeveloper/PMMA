@@ -10,8 +10,6 @@ class Thread(threading.Thread):
 
         initialize(self)
 
-        self.attributes = []
-
         self.killed = False
 
     def start(self):

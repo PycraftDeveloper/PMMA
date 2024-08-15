@@ -59,8 +59,6 @@ class ColorIntermediary:
     def __init__(self, color, in_type=Constants.AUTODETECT):
         initialize(self)
 
-        self.attributes = []
-
         if type(color) == str:
             color = color.lower()
         if in_type == Constants.AUTODETECT:
@@ -199,8 +197,6 @@ class Color:
         initialize(self)
 
         self.__color_backend = ColorIntermediary(in_type, color)
-
-        self.attributes = []
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

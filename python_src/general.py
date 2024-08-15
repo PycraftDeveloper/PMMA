@@ -27,8 +27,6 @@ class OpenGLObject:
 
         self.object = _object
 
-        self.attributes = []
-
     def get(self):
         return self.object
 

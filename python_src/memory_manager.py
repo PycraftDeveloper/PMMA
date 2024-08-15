@@ -27,8 +27,6 @@ class MemoryManager:
 
         initialize(self, unique_instance=Constants.MEMORYMANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        self.attributes = []
-
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:
             target_size = (1/8) * psutil.virtual_memory().available
@@ -88,9 +86,11 @@ leaving the target size variable can be dangerous.")
 
         os.mkdir(self.memory_management_directory)
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             self.enable_memory_management = False
+
+            self.manager_thread.join()
 
             shutil.rmtree(
                 self.memory_management_directory,
@@ -100,6 +100,9 @@ leaving the target size variable can be dangerous.")
 
             self.linker = {}
             self.objects = {}
+            del self
+            if do_garbage_collection:
+                gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

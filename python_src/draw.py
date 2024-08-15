@@ -29,11 +29,10 @@ class Line:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.start = start
@@ -106,11 +105,10 @@ class Lines:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.points = points
@@ -191,11 +189,10 @@ class AdvancedPolygon:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.centre = centre
@@ -320,11 +317,10 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             Name of the fill color, in HTML format.
         """
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.center_of_rect = center_of_rect
@@ -439,11 +435,10 @@ class Rect:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.rect = rect
@@ -538,11 +533,10 @@ class Circle:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.center = center
@@ -614,11 +608,10 @@ class Arc:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.rect = rect
@@ -688,11 +681,10 @@ class Polygon:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.points = points
@@ -752,11 +744,10 @@ class Ellipse:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.rect = rect
@@ -815,11 +806,10 @@ class Pixel:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.point = point
@@ -887,11 +877,10 @@ class CurvedLines:
             canvas=None):
 
         initialize(self)
+        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = [Constants.RENDER_PIPELINE_ABLE]
 
         self.color = color
         self.points = points
@@ -966,8 +955,6 @@ class Draw:
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self.attributes = []
 
         self.canvas = canvas
 

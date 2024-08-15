@@ -27,8 +27,6 @@ class File:
 
         self.file_path = file_path
 
-        self.attributes = []
-
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
@@ -85,8 +83,6 @@ class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
         initialize(self, unique_instance=Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
 
-        self.attributes = []
-
         self.locations = []
         self.file_matrix = {}
 
@@ -101,6 +97,8 @@ class FileCore:
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
+            self.watcher.stop()
+
             del self
             if do_garbage_collection:
                 gc.collect()

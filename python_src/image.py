@@ -15,8 +15,6 @@ class Image:
 
         self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
 
-        self.attributes = []
-
         self.graphics_backend_image_address = None
 
         self.pil_image_address = None

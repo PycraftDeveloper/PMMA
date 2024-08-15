@@ -34,8 +34,6 @@ class Display:
         self.display_attributes = []
         self.vsync = True
 
-        self.attributes = []
-
         self.display_creation_attributes = []
 
         self.quad_vertices = numpy.array([

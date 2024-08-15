@@ -13,8 +13,6 @@ class QuickStart:
     def __init__(self, width=None, height=None, fullscreen=True, resizable=False, caption="PMMA Display", vsync=True, alpha=False):
         initialize(self)
 
-        self.attributes = []
-
         self.display = Display()
         self.display.create(width=width, height=height, fullscreen=fullscreen, resizable=resizable, caption=caption, vsync=vsync, alpha=alpha)
         self.events = Events()

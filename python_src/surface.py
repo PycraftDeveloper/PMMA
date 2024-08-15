@@ -18,8 +18,6 @@ class Surface:
         self.alpha = None
         self.surface_initialized = False
 
-        self.attributes = []
-
     def __del__(self):
         if self._shut_down is False:
             if self.surface_initialized:

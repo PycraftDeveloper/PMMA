@@ -16,8 +16,6 @@ class Events:
         self.raw_events = []
         self.canvas = canvas
 
-        self.attributes = []
-
         self.display_needs_resize = False
 
     def __del__(self, do_garbage_collection=False):

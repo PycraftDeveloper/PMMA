@@ -49,8 +49,6 @@ class Perlin:
 
         initialize(self)
 
-        self.attributes = []
-
         if Registry.cython_acceleration_available:
             self.noise_module = importlib.import_module(
                 "pmma.bin.perlin_noise")

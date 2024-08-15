@@ -57,8 +57,6 @@ afterwards may cause unintentional or unexpected behavior as some changes may no
 This will only be true where limited by the capabilities of the operating system, as PMMA will \
 try and work around this.")
 
-        self.attributes = []
-
         PassportIntermediary.passport_changed = True
 
         PassportIntermediary.name = name

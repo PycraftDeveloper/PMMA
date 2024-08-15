@@ -23,8 +23,6 @@ class Logger:
         if log_development is None:
             log_development = Registry.development_mode
 
-        self.attributes = []
-
         self.do_log_development = log_development
         self.do_log_information = log_information
         self.do_log_warning = log_warning

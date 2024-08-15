@@ -15,8 +15,6 @@ class CoordinateIntermediary:
 
         initialize(self)
 
-        self.attributes = []
-
         self.in_type = in_type
         self.points = args
 
@@ -56,8 +54,6 @@ class Coordinate:
 
         self.in_type = in_type
         self.points = args
-
-        self.attributes = []
 
         self.intermediary = CoordinateIntermediary(in_type, *args)
 

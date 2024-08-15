@@ -11,7 +11,6 @@ from pmma.python_src.utility.math_utils import *
 class Benchmark:
     def __init__(self, n=None):
         initialize(self)
-        self.attributes = []
 
         if n is None:
             if Registry.power_saving_mode:

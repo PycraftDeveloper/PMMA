@@ -10,8 +10,6 @@ class Tkinter:
     def __init__(self):
         initialize(self)
 
-        self.attributes = []
-
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self

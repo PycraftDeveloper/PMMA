@@ -11,8 +11,6 @@ class RenderPipeline:
 
         self.render_points = []
 
-        self.attributes = []
-
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
