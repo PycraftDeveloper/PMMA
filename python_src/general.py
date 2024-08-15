@@ -46,6 +46,7 @@ class OpenGLObject:
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False):
     instance._shut_down = False
+    instance.attributes = []
 
     if Registry.pmma_initialized is False:
         log_development("You haven't yet initialized PMMA. This can be \
