@@ -65,6 +65,7 @@ class Constants:
     LOGGING_OBJECT = "logging"
     OPENGL_OBJECT = "opengl"
     OPENGL_INTERMEDIARY_OBJECT = "opengl intermediary"
+    GPUS_OBJECT = "GPUs"
 
     OBJECT_IDENTIFIERS = [
         DISPLAY_OBJECT,
@@ -92,7 +93,8 @@ class Constants:
         IMAGE_OBJECT,
         LOGGING_OBJECT,
         OPENGL_OBJECT,
-        OPENGL_INTERMEDIARY_OBJECT
+        OPENGL_INTERMEDIARY_OBJECT,
+        GPUS_OBJECT
     ]
 
     CARTESIAN = "cartesian"
