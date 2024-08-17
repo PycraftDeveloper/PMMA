@@ -7,6 +7,10 @@ class Constants:
     MACOS = "macOS"
     JAVA = "java"
 
+    SMI = "nvidia-smi"
+    WMI = "wmi"
+    PYADL = "pyadl"
+
     RENDER_PIPELINE_ABLE = "usable in render pipeline"
 
     LIGHT = "light"
