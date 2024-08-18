@@ -1437,617 +1437,1229 @@ class GPU:
     def get_video_processor(self):
             return self.video_processor
 
-    def set_accelerator_capabilities(self):
-        return self.accelerator_capabilities
-
-    def set_accounting_mode_enabled(self):
-            return self.accounting_mode_enabled
-
-    def set_accounting_mode_buffer_size(self):
-            return self.accounting_mode_buffer_size
-
-    def set_adapter_compatibility(self):
-            return self.adapter_compatibility
-
-    def set_adapter_DAC_type(self):
-            return self.adapter_DAC_type
-
-    def set_adapter_id(self):
-            return self.adapter_id
-
-    def set_adapter_index(self):
-            return self.adapter_index
-
-    def set_adapter_name(self):
-            return self.adapter_name
-
-    def set_addressing_mode(self):
-            return self.addressing_mode
-
-    def set_availability(self):
-            return self.availability
-
-    def set_bus_number(self):
-            return self.bus_number
-
-    def set_capability_descriptions(self):
-            return self.capability_descriptions
-
-    def set_caption(self):
-            return self.caption
-
-    def set_chip_to_chip_interconnect_mode(self):
-            return self.chip_to_chip_interconnect_mode
-
-    def set_clock_event_reasons_activity_limited(self):
-            return self.clock_event_reasons_activity_limited
-
-    def set_clock_event_reasons_application_setting(self):
-            return self.clock_event_reasons_application_setting
-
-    def set_clock_event_reasons_is_hardware_limited(self):
-            return self.clock_event_reasons_is_hardware_limited
-
-    def set_clock_event_reasons_gpu_idle_limited(self):
-            return self.clock_event_reasons_gpu_idle_limited
-
-    def set_clock_event_reasons_software_power_limited(self):
-            return self.clock_event_reasons_software_power_limited
-
-    def set_clock_event_reasons_software_thermal_limited(self):
-            return self.clock_event_reasons_software_thermal_limited
-
-    def set_clock_event_reasons_power_break_slowdown_limited(self):
-            return self.clock_event_reasons_power_break_slowdown_limited
-
-    def set_clock_event_reasons_supported(self):
-            return self.clock_event_reasons_supported
-
-    def set_clock_event_reasons_sync_boost(self):
-            return self.clock_event_reasons_sync_boost
-
-    def set_clock_event_reasons_thermal_limited(self):
-            return self.clock_event_reasons_thermal_limited
-
-    def set_color_table_entries(self):
-            return self.color_table_entries
-
-    def set_compute_cap(self):
-            return self.compute_cap
-
-    def set_compute_mode(self):
-            return self.compute_mode
-
-    def set_config_manager_error_code(self):
-            return self.config_manager_error_code
-
-    def set_config_manager_user_config(self):
-            return self.config_manager_user_config
-
-    def set_core_voltage(self):
-            return self.core_voltage
-
-    def set_core_voltage_range(self):
-            return self.core_voltage_range
-
-    def set_creation_class_name(self):
-            return self.creation_class_name
-
-    def set_current_bits_per_pixel(self):
-            return self.current_bits_per_pixel
-
-    def set_current_horizontal_resolution(self):
-            return self.current_horizontal_resolution
-
-    def set_current_number_of_colors(self):
-            return self.current_number_of_colors
-
-    def set_current_number_of_columns(self):
-            return self.current_number_of_columns
-
-    def set_current_number_of_rows(self):
-            return self.current_number_of_rows
-
-    def set_current_refresh_rate(self):
-            return self.current_refresh_rate
-
-    def set_current_scan_mode(self):
-            return self.current_scan_mode
-
-    def set_current_vertical_resolution(self):
-            return self.current_vertical_resolution
-
-    def set_description(self):
-            return self.description
-
-    def set_device_id(self):
-            return self.device_id
-
-    def set_device_specific_pens(self):
-            return self.device_specific_pens
-
-    def set_display_active(self):
-            return self.display_active
-
-    def set_display_mode(self):
-            return self.display_mode
-
-    def set_dither_type(self):
-            return self.dither_type
-
-    def set_driver_date(self):
-            return self.driver_date
-
-    def set_driver_model_current(self):
-            return self.driver_model_current
-
-    def set_driver_model_pending(self):
-            return self.driver_model_pending
-
-    def set_driver_version(self):
-            return self.driver_version
-
-    def set_ecc_errors_corrected_all_time_in_cbu(self):
-            return self.ecc_errors_corrected_all_time_in_cbu
-
-    def set_ecc_errors_corrected_all_time_in_primary_cache(self):
-            return self.ecc_errors_corrected_all_time_in_primary_cache
-
-    def set_ecc_errors_corrected_all_time_in_register_file(self):
-            return self.ecc_errors_corrected_all_time_in_register_file
-
-    def set_ecc_errors_corrected_all_time_in_secondary_cache(self):
-            return self.ecc_errors_corrected_all_time_in_secondary_cache
-
-    def set_ecc_errors_corrected_all_time_in_shared_memory(self):
-            return self.ecc_errors_corrected_all_time_in_shared_memory
-
-    def set_ecc_errors_corrected_all_time_in_sram(self):
-            return self.ecc_errors_corrected_all_time_in_sram
-
-    def set_ecc_errors_corrected_all_time_in_texture_memory(self):
-            return self.ecc_errors_corrected_all_time_in_texture_memory
-
-    def set_ecc_errors_corrected_all_time_in_total(self):
-            return self.ecc_errors_corrected_all_time_in_total
-
-    def set_ecc_errors_corrected_all_time_in_video_memory(self):
-            return self.ecc_errors_corrected_all_time_in_video_memory
-
-    def set_ecc_errors_corrected_since_reboot_in_cbu(self):
-            return self.ecc_errors_corrected_since_reboot_in_cbu
-
-    def set_ecc_errors_corrected_since_reboot_in_primary_cache(self):
-            return self.ecc_errors_corrected_since_reboot_in_primary_cache
-
-    def set_ecc_errors_corrected_since_reboot_in_register_file(self):
-            return self.ecc_errors_corrected_since_reboot_in_register_file
-
-    def set_ecc_errors_corrected_since_reboot_in_secondary_cache(self):
-            return self.ecc_errors_corrected_since_reboot_in_secondary_cache
-
-    def set_ecc_errors_corrected_since_reboot_in_shared_memory(self):
-            return self.ecc_errors_corrected_since_reboot_in_shared_memory
-
-    def set_ecc_errors_corrected_since_reboot_in_sram(self):
-            return self.ecc_errors_corrected_since_reboot_in_sram
-
-    def set_ecc_errors_corrected_since_reboot_in_texture_memory(self):
-            return self.ecc_errors_corrected_since_reboot_in_texture_memory
-
-    def set_ecc_errors_corrected_since_reboot_in_total(self):
-            return self.ecc_errors_corrected_since_reboot_in_total
-
-    def set_ecc_errors_corrected_since_reboot_in_video_memory(self):
-            return self.ecc_errors_corrected_since_reboot_in_video_memory
-
-    def set_ecc_errors_uncorrected_all_time_in_cbu(self):
-            return self.ecc_errors_uncorrected_all_time_in_cbu
-
-    def set_ecc_errors_uncorrected_all_time_in_primary_cache(self):
-            return self.ecc_errors_uncorrected_all_time_in_primary_cache
-
-    def set_ecc_errors_uncorrected_all_time_in_register_file(self):
-            return self.ecc_errors_uncorrected_all_time_in_register_file
-
-    def set_ecc_errors_uncorrected_all_time_in_secondary_cache(self):
-            return self.ecc_errors_uncorrected_all_time_in_secondary_cache
-
-    def set_ecc_errors_uncorrected_all_time_in_shared_memory(self):
-            return self.ecc_errors_uncorrected_all_time_in_shared_memory
-
-    def set_ecc_errors_uncorrected_all_time_in_sram(self):
-            return self.ecc_errors_uncorrected_all_time_in_sram
-
-    def set_ecc_errors_uncorrected_all_time_in_texture_memory(self):
-            return self.ecc_errors_uncorrected_all_time_in_texture_memory
-
-    def set_ecc_errors_uncorrected_all_time_in_total(self):
-            return self.ecc_errors_uncorrected_all_time_in_total
-
-    def set_ecc_errors_uncorrected_all_time_in_video_memory(self):
-            return self.ecc_errors_uncorrected_all_time_in_video_memory
-
-    def set_ecc_errors_uncorrected_since_reboot_in_cbu(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_cbu
-
-    def set_ecc_errors_uncorrected_since_reboot_in_primary_cache(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_primary_cache
-
-    def set_ecc_errors_uncorrected_since_reboot_in_register_file(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_register_file
-
-    def set_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_secondary_cache
-
-    def set_ecc_errors_uncorrected_since_reboot_in_shared_memory(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_shared_memory
-
-    def set_ecc_errors_uncorrected_since_reboot_in_sram(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_sram
-
-    def set_ecc_errors_uncorrected_since_reboot_in_texture_memory(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_texture_memory
-
-    def set_ecc_errors_uncorrected_since_reboot_in_total(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_total
-
-    def set_ecc_errors_uncorrected_since_reboot_in_video_memory(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_video_memory
-
-    def set_ecc_mode_current(self):
-            return self.ecc_mode_current
-
-    def set_ecc_mode_pending(self):
-            return self.ecc_mode_pending
-
-    def set_encoder_average_FPS(self):
-            return self.encoder_average_FPS
-
-    def set_encoder_average_latency(self):
-            return self.encoder_average_latency
-
-    def set_encoder_session_count(self):
-            return self.encoder_session_count
-
-    def set_engine_clock_range(self):
-            return self.engine_clock_range
-
-    def set_error_cleared(self):
-            return self.error_cleared
-
-    def set_error_description(self):
-            return self.error_description
-
-    def set_fabric_state(self):
-            return self.fabric_state
-
-    def set_fabric_status(self):
-            return self.fabric_status
-
-    def set_fan_speed_percentage(self):
-            return self.fan_speed_percentage
-
-    def set_fan_speed_percentage_range(self):
-            return self.fan_speed_percentage_range
-
-    def set_fan_speed_RPM(self):
-            return self.fan_speed_RPM
-
-    def set_fan_speed_RPM_range(self):
-            return self.fan_speed_RPM_range
-
-    def set_fractional_multi_vGPU(self):
-            return self.fractional_multi_vGPU
-
-    def set_frequency_application_default_shader_clock(self):
-            return self.frequency_application_default_shader_clock
-
-    def set_frequency_application_default_memory_clock(self):
-            return self.frequency_application_default_memory_clock
-
-    def set_frequency_application_memory_clock(self):
-            return self.frequency_application_memory_clock
-
-    def set_frequency_application_shader_clock(self):
-            return self.frequency_application_shader_clock
-
-    def set_frequency_maximum_memory_clock(self):
-            return self.frequency_maximum_memory_clock
-
-    def set_frequency_maximum_shader_clock(self):
-            return self.frequency_maximum_shader_clock
-
-    def set_frequency_maximum_streaming_multiprocessor_clock(self):
-            return self.frequency_maximum_streaming_multiprocessor_clock
-
-    def set_frequency_memory_clock(self):
-            return self.frequency_memory_clock
-
-    def set_frequency_shader_clock(self):
-            return self.frequency_shader_clock
-
-    def set_frequency_streaming_multiprocessor_clock(self):
-            return self.frequency_streaming_multiprocessor_clock
-
-    def set_frequency_video_clock(self):
-            return self.frequency_video_clock
-
-    def set_heterogenous_multi_vGPU(self):
-            return self.heterogenous_multi_vGPU
-
-    def set_heterogenous_time_slice_profile(self):
-            return self.heterogenous_time_slice_profile
-
-    def set_heterogenous_time_slice_sizes(self):
-            return self.heterogenous_time_slice_sizes
-
-    def set_ICM_indent(self):
-            return self.ICM_indent
-
-    def set_ICM_method(self):
-            return self.ICM_method
-
-    def set_inf_filename(self):
-            return self.inf_filename
-
-    def set_inf_section(self):
-            return self.inf_section
-
-    def set_info_ROM_ecc(self):
-            return self.info_ROM_ecc
-
-    def set_info_ROM_oem(self):
-            return self.info_ROM_oem
-
-    def set_info_ROM_power(self):
-            return self.info_ROM_power
-
-    def set_info_ROM_version(self):
-            return self.info_ROM_version
-
-    def set_install_date(self):
-            return self.install_date
-
-    def set_installed_display_drivers(self):
-            return self.installed_display_drivers
-
-    def set_last_error_code(self):
-            return self.last_error_code
-
-    def set_max_memory_supported(self):
-            return self.max_memory_supported
-
-    def set_max_number_controlled(self):
-            return self.max_number_controlled
-
-    def set_max_refresh_rate(self):
-            return self.max_refresh_rate
-
-    def set_memory_clock_range(self):
-            return self.memory_clock_range
-
-    def set_memory_free(self):
-            return self.memory_free
-
-    def set_memory_reserved(self):
-            return self.memory_reserved
-
-    def set_memory_total(self):
-            return self.memory_total
-
-    def set_memory_used(self):
-            return self.memory_used
-
-    def set_min_refresh_rate(self):
-            return self.min_refresh_rate
-
-    def set_monochrome(self):
-            return self.monochrome
-
-    def set_multi_instance_GPU_mode_current(self):
-            return self.multi_instance_GPU_mode_current
-
-    def set_multi_instance_GPU_mode_pending(self):
-            return self.multi_instance_GPU_mode_pending
-
-    def set_name(self):
-            return self.name
-
-    def set_number_of_color_planes(self):
-            return self.number_of_color_planes
-
-    def set_number_of_video_pages(self):
-            return self.number_of_video_pages
-
-    def set_operating_mode_current(self):
-            return self.operating_mode_current
-
-    def set_operating_mode_pending(self):
-            return self.operating_mode_pending
-
-    def set_pci_bus(self):
-            return self.pci_bus
-
-    def set_pci_bus_id(self):
-            return self.pci_bus_id
-
-    def set_pci_device(self):
-            return self.pci_device
-
-    def set_pci_device_id(self):
-            return self.pci_device_id
-
-    def set_pci_domain(self):
-            return self.pci_domain
-
-    def set_pci_link_generation_current(self):
-            return self.pci_link_generation_current
-
-    def set_pci_link_generation_device_host_maximum(self):
-            return self.pci_link_generation_device_host_maximum
-
-    def set_pci_link_generation_gpu_maximum(self):
-            return self.pci_link_generation_gpu_maximum
-
-    def set_pci_link_generation_maximum(self):
-            return self.pci_link_generation_maximum
-
-    def set_pci_link_width_current(self):
-            return self.pci_link_width_current
-
-    def set_pci_link_width_maximum(self):
-            return self.pci_link_width_maximum
-
-    def set_pci_sub_device_id(self):
-            return self.pci_sub_device_id
-
-    def set_persistence_mode(self):
-            return self.persistence_mode
-
-    def set_PNP_device_id(self):
-            return self.PNP_device_id
-
-    def set_power_draw(self):
-            return self.power_draw
-
-    def set_power_draw_average(self):
-            return self.power_draw_average
-
-    def set_power_draw_default_limit(self):
-            return self.power_draw_default_limit
-
-    def set_power_draw_enforced_limit(self):
-            return self.power_draw_enforced_limit
-
-    def set_power_draw_instant(self):
-            return self.power_draw_instant
-
-    def set_power_draw_limit(self):
-            return self.power_draw_limit
-
-    def set_power_draw_maximum(self):
-            return self.power_draw_maximum
-
-    def set_power_draw_minimum(self):
-            return self.power_draw_minimum
-
-    def set_power_management_capabilities(self):
-            return self.power_management_capabilities
-
-    def set_power_management_supported(self):
-            return self.power_management_supported
-
-    def set_protected_memory_free(self):
-            return self.protected_memory_free
-
-    def set_protected_memory_total(self):
-            return self.protected_memory_total
-
-    def set_protected_memory_used(self):
-            return self.protected_memory_used
-
-    def set_protocol_supported(self):
-            return self.protocol_supported
-
-    def set_performance_state(self):
-            return self.performance_state
-
-    def set_retired_pages_double_bit_ecc_errors_count(self):
-            return self.retired_pages_double_bit_ecc_errors_count
-
-    def set_retired_pages_single_bit_ecc_errors_count(self):
-            return self.retired_pages_single_bit_ecc_errors_count
-
-    def set_retired_pages_pending(self):
-            return self.retired_pages_pending
-
-    def set_reserved_system_palette_entries(self):
-            return self.reserved_system_palette_entries
-
-    def set_reset_required(self):
-            return self.reset_required
-
-    def set_reset_and_drain_recommended(self):
-            return self.reset_and_drain_recommended
-
-    def set_serial(self):
-            return self.serial
-
-    def set_specification_version(self):
-            return self.specification_version
-
-    def set_status(self):
-            return self.status
-
-    def set_status_info(self):
-            return self.status_info
-
-    def set_system_creation_class_name(self):
-            return self.system_creation_class_name
-
-    def set_system_name(self):
-            return self.system_name
-
-    def set_system_palette_entries(self):
-            return self.system_palette_entries
-
-    def set_GPU_system_processor_mode_current(self):
-            return self.GPU_system_processor_mode_current
-
-    def set_GPU_system_processor_mode_pending(self):
-            return self.GPU_system_processor_mode_pending
-
-    def set_temperature_core(self):
-            return self.temperature_core
-
-    def set_temperature_core_limit(self):
-            return self.temperature_core_limit
-
-    def set_temperature_memory(self):
-            return self.temperature_memory
-
-    def set_time_of_last_reset(self):
-            return self.time_of_last_reset
-
-    def set_utilization_decoder(self):
-            return self.utilization_decoder
-
-    def set_utilization_encoder(self):
-            return self.utilization_encoder
-
-    def set_utilization_gpu(self):
-            return self.utilization_gpu
-
-    def set_utilization_jpeg(self):
-            return self.utilization_jpeg
-
-    def set_utilization_memory(self):
-            return self.utilization_memory
-
-    def set_utilization_optical_flow(self):
-            return self.utilization_optical_flow
-
-    def set_uuid(self):
-            return self.uuid
-
-    def set_vbios_version(self):
-            return self.vbios_version
-
-    def set_video_architecture(self):
-            return self.video_architecture
-
-    def set_video_memory_type(self):
-            return self.video_memory_type
-
-    def set_video_mode(self):
-            return self.video_mode
-
-    def set_video_mode_description(self):
-            return self.video_mode_description
-
-    def set_video_processor(self):
-            return self.video_processor
+    def set_accelerator_capabilities(self, value=None):
+        if value != None:
+            self.manually_set__accelerator_capabilities = True
+        else:
+            self.manually_set__accelerator_capabilities = False
+
+    def set_accounting_mode_enabled(self, value=None):
+        if value != None:
+            self.manually_set__accounting_mode_enabled = True
+        else:
+            self.manually_set__accounting_mode_enabled = False
+
+    def set_accounting_mode_buffer_size(self, value=None):
+        if value != None:
+            self.manually_set__accounting_mode_buffer_size = True
+        else:
+            self.manually_set__accounting_mode_buffer_size = False
+
+    def set_adapter_compatibility(self, value=None):
+        if value != None:
+            self.manually_set__adapter_compatibility = True
+        else:
+            self.manually_set__adapter_compatibility = False
+
+    def set_adapter_DAC_type(self, value=None):
+        if value != None:
+            self.manually_set__adapter_DAC_type = True
+        else:
+            self.manually_set__adapter_DAC_type = False
+
+    def set_adapter_id(self, value=None):
+        if value != None:
+            self.manually_set__adapter_id = True
+        else:
+            self.manually_set__adapter_id = False
+
+    def set_adapter_index(self, value=None):
+        if value != None:
+            self.manually_set__adapter_index = True
+        else:
+            self.manually_set__adapter_index = False
+
+    def set_adapter_name(self, value=None):
+        if value != None:
+            self.manually_set__adapter_name = True
+        else:
+            self.manually_set__adapter_name = False
+
+    def set_addressing_mode(self, value=None):
+        if value != None:
+            self.manually_set__addressing_mode = True
+        else:
+            self.manually_set__addressing_mode = False
+
+    def set_availability(self, value=None):
+        if value != None:
+            self.manually_set__availability = True
+        else:
+            self.manually_set__availability = False
+
+    def set_bus_number(self, value=None):
+        if value != None:
+            self.manually_set__bus_number = True
+        else:
+            self.manually_set__bus_number = False
+
+    def set_capability_descriptions(self, value=None):
+        if value != None:
+            self.manually_set__capability_descriptions = True
+        else:
+            self.manually_set__capability_descriptions = False
+
+    def set_caption(self, value=None):
+        if value != None:
+            self.manually_set__caption = True
+        else:
+            self.manually_set__caption = False
+
+    def set_chip_to_chip_interconnect_mode(self, value=None):
+        if value != None:
+            self.manually_set__chip_to_chip_interconnect_mode = True
+        else:
+            self.manually_set__chip_to_chip_interconnect_mode = False
+
+    def set_clock_event_reasons_activity_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_activity_limited = True
+        else:
+            self.manually_set__clock_event_reasons_activity_limited = False
+
+    def set_clock_event_reasons_application_setting(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_application_setting = True
+        else:
+            self.manually_set__clock_event_reasons_application_setting = False
+
+    def set_clock_event_reasons_is_hardware_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_is_hardware_limited = True
+        else:
+            self.manually_set__clock_event_reasons_is_hardware_limited = False
+
+    def set_clock_event_reasons_gpu_idle_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_gpu_idle_limited = True
+        else:
+            self.manually_set__clock_event_reasons_gpu_idle_limited = False
+
+    def set_clock_event_reasons_software_power_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_software_power_limited = True
+        else:
+            self.manually_set__clock_event_reasons_software_power_limited = False
+
+    def set_clock_event_reasons_software_thermal_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_software_thermal_limited = True
+        else:
+            self.manually_set__clock_event_reasons_software_thermal_limited = False
+
+    def set_clock_event_reasons_power_break_slowdown_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_power_break_slowdown_limited = True
+        else:
+            self.manually_set__clock_event_reasons_power_break_slowdown_limited = False
+
+    def set_clock_event_reasons_supported(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_supported = True
+        else:
+            self.manually_set__clock_event_reasons_supported = False
+
+    def set_clock_event_reasons_sync_boost(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_sync_boost = True
+        else:
+            self.manually_set__clock_event_reasons_sync_boost = False
+
+    def set_clock_event_reasons_thermal_limited(self, value=None):
+        if value != None:
+            self.manually_set__clock_event_reasons_thermal_limited = True
+        else:
+            self.manually_set__clock_event_reasons_thermal_limited = False
+
+    def set_color_table_entries(self, value=None):
+        if value != None:
+            self.manually_set__color_table_entries = True
+        else:
+            self.manually_set__color_table_entries = False
+
+    def set_compute_cap(self, value=None):
+        if value != None:
+            self.manually_set__compute_cap = True
+        else:
+            self.manually_set__compute_cap = False
+
+    def set_compute_mode(self, value=None):
+        if value != None:
+            self.manually_set__compute_mode = True
+        else:
+            self.manually_set__compute_mode = False
+
+    def set_config_manager_error_code(self, value=None):
+        if value != None:
+            self.manually_set__config_manager_error_code = True
+        else:
+            self.manually_set__config_manager_error_code = False
+
+    def set_config_manager_user_config(self, value=None):
+        if value != None:
+            self.manually_set__config_manager_user_config = True
+        else:
+            self.manually_set__config_manager_user_config = False
+
+    def set_core_voltage(self, value=None):
+        if value != None:
+            self.manually_set__core_voltage = True
+        else:
+            self.manually_set__core_voltage = False
+
+    def set_core_voltage_range(self, value=None):
+        if value != None:
+            self.manually_set__core_voltage_range = True
+        else:
+            self.manually_set__core_voltage_range = False
+
+    def set_creation_class_name(self, value=None):
+        if value != None:
+            self.manually_set__creation_class_name = True
+        else:
+            self.manually_set__creation_class_name = False
+
+    def set_current_bits_per_pixel(self, value=None):
+        if value != None:
+            self.manually_set__current_bits_per_pixel = True
+        else:
+            self.manually_set__current_bits_per_pixel = False
+
+    def set_current_horizontal_resolution(self, value=None):
+        if value != None:
+            self.manually_set__current_horizontal_resolution = True
+        else:
+            self.manually_set__current_horizontal_resolution = False
+
+    def set_current_number_of_colors(self, value=None):
+        if value != None:
+            self.manually_set__current_number_of_colors = True
+        else:
+            self.manually_set__current_number_of_colors = False
+
+    def set_current_number_of_columns(self, value=None):
+        if value != None:
+            self.manually_set__current_number_of_columns = True
+        else:
+            self.manually_set__current_number_of_columns = False
+
+    def set_current_number_of_rows(self, value=None):
+        if value != None:
+            self.manually_set__current_number_of_rows = True
+        else:
+            self.manually_set__current_number_of_rows = False
+
+    def set_current_refresh_rate(self, value=None):
+        if value != None:
+            self.manually_set__current_refresh_rate = True
+        else:
+            self.manually_set__current_refresh_rate = False
+
+    def set_current_scan_mode(self, value=None):
+        if value != None:
+            self.manually_set__current_scan_mode = True
+        else:
+            self.manually_set__current_scan_mode = False
+
+    def set_current_vertical_resolution(self, value=None):
+        if value != None:
+            self.manually_set__current_vertical_resolution = True
+        else:
+            self.manually_set__current_vertical_resolution = False
+
+    def set_description(self, value=None):
+        if value != None:
+            self.manually_set__description = True
+        else:
+            self.manually_set__description = False
+
+    def set_device_id(self, value=None):
+        if value != None:
+            self.manually_set__device_id = True
+        else:
+            self.manually_set__device_id = False
+
+    def set_device_specific_pens(self, value=None):
+        if value != None:
+            self.manually_set__device_specific_pens = True
+        else:
+            self.manually_set__device_specific_pens = False
+
+    def set_display_active(self, value=None):
+        if value != None:
+            self.manually_set__display_active = True
+        else:
+            self.manually_set__display_active = False
+
+    def set_display_mode(self, value=None):
+        if value != None:
+            self.manually_set__display_mode = True
+        else:
+            self.manually_set__display_mode = False
+
+    def set_dither_type(self, value=None):
+        if value != None:
+            self.manually_set__dither_type = True
+        else:
+            self.manually_set__dither_type = False
+
+    def set_driver_date(self, value=None):
+        if value != None:
+            self.manually_set__driver_date = True
+        else:
+            self.manually_set__driver_date = False
+
+    def set_driver_model_current(self, value=None):
+        if value != None:
+            self.manually_set__driver_model_current = True
+        else:
+            self.manually_set__driver_model_current = False
+
+    def set_driver_model_pending(self, value=None):
+        if value != None:
+            self.manually_set__driver_model_pending = True
+        else:
+            self.manually_set__driver_model_pending = False
+
+    def set_driver_version(self, value=None):
+        if value != None:
+            self.manually_set__driver_version = True
+        else:
+            self.manually_set__driver_version = False
+
+    def set_ecc_errors_corrected_all_time_in_cbu(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_cbu = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_cbu = False
+
+    def set_ecc_errors_corrected_all_time_in_primary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_primary_cache = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_primary_cache = False
+
+    def set_ecc_errors_corrected_all_time_in_register_file(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_register_file = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_register_file = False
+
+    def set_ecc_errors_corrected_all_time_in_secondary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_secondary_cache = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_secondary_cache = False
+
+    def set_ecc_errors_corrected_all_time_in_shared_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_shared_memory = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_shared_memory = False
+
+    def set_ecc_errors_corrected_all_time_in_sram(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_sram = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_sram = False
+
+    def set_ecc_errors_corrected_all_time_in_texture_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_texture_memory = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_texture_memory = False
+
+    def set_ecc_errors_corrected_all_time_in_total(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_total = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_total = False
+
+    def set_ecc_errors_corrected_all_time_in_video_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_all_time_in_video_memory = True
+        else:
+            self.manually_set__ecc_errors_corrected_all_time_in_video_memory = False
+
+    def set_ecc_errors_corrected_since_reboot_in_cbu(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_cbu = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_cbu = False
+
+    def set_ecc_errors_corrected_since_reboot_in_primary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_primary_cache = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_primary_cache = False
+
+    def set_ecc_errors_corrected_since_reboot_in_register_file(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_register_file = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_register_file = False
+
+    def set_ecc_errors_corrected_since_reboot_in_secondary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_secondary_cache = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_secondary_cache = False
+
+    def set_ecc_errors_corrected_since_reboot_in_shared_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_shared_memory = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_shared_memory = False
+
+    def set_ecc_errors_corrected_since_reboot_in_sram(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_sram = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_sram = False
+
+    def set_ecc_errors_corrected_since_reboot_in_texture_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_texture_memory = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_texture_memory = False
+
+    def set_ecc_errors_corrected_since_reboot_in_total(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_total = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_total = False
+
+    def set_ecc_errors_corrected_since_reboot_in_video_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_video_memory = True
+        else:
+            self.manually_set__ecc_errors_corrected_since_reboot_in_video_memory = False
+
+    def set_ecc_errors_uncorrected_all_time_in_cbu(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_cbu = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_cbu = False
+
+    def set_ecc_errors_uncorrected_all_time_in_primary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_primary_cache = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_primary_cache = False
+
+    def set_ecc_errors_uncorrected_all_time_in_register_file(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_register_file = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_register_file = False
+
+    def set_ecc_errors_uncorrected_all_time_in_secondary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_secondary_cache = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_secondary_cache = False
+
+    def set_ecc_errors_uncorrected_all_time_in_shared_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_shared_memory = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_shared_memory = False
+
+    def set_ecc_errors_uncorrected_all_time_in_sram(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_sram = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_sram = False
+
+    def set_ecc_errors_uncorrected_all_time_in_texture_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_texture_memory = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_texture_memory = False
+
+    def set_ecc_errors_uncorrected_all_time_in_total(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_total = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_total = False
+
+    def set_ecc_errors_uncorrected_all_time_in_video_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_video_memory = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_all_time_in_video_memory = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_cbu(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_cbu = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_cbu = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_primary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_primary_cache = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_primary_cache = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_register_file(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_register_file = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_register_file = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_secondary_cache = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_secondary_cache = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_shared_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_shared_memory = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_shared_memory = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_sram(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_sram = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_sram = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_texture_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_texture_memory = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_texture_memory = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_total(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_total = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_total = False
+
+    def set_ecc_errors_uncorrected_since_reboot_in_video_memory(self, value=None):
+        if value != None:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_video_memory = True
+        else:
+            self.manually_set__ecc_errors_uncorrected_since_reboot_in_video_memory = False
+
+    def set_ecc_mode_current(self, value=None):
+        if value != None:
+            self.manually_set__ecc_mode_current = True
+        else:
+            self.manually_set__ecc_mode_current = False
+
+    def set_ecc_mode_pending(self, value=None):
+        if value != None:
+            self.manually_set__ecc_mode_pending = True
+        else:
+            self.manually_set__ecc_mode_pending = False
+
+    def set_encoder_average_FPS(self, value=None):
+        if value != None:
+            self.manually_set__encoder_average_FPS = True
+        else:
+            self.manually_set__encoder_average_FPS = False
+
+    def set_encoder_average_latency(self, value=None):
+        if value != None:
+            self.manually_set__encoder_average_latency = True
+        else:
+            self.manually_set__encoder_average_latency = False
+
+    def set_encoder_session_count(self, value=None):
+        if value != None:
+            self.manually_set__encoder_session_count = True
+        else:
+            self.manually_set__encoder_session_count = False
+
+    def set_engine_clock_range(self, value=None):
+        if value != None:
+            self.manually_set__engine_clock_range = True
+        else:
+            self.manually_set__engine_clock_range = False
+
+    def set_error_cleared(self, value=None):
+        if value != None:
+            self.manually_set__error_cleared = True
+        else:
+            self.manually_set__error_cleared = False
+
+    def set_error_description(self, value=None):
+        if value != None:
+            self.manually_set__error_description = True
+        else:
+            self.manually_set__error_description = False
+
+    def set_fabric_state(self, value=None):
+        if value != None:
+            self.manually_set__fabric_state = True
+        else:
+            self.manually_set__fabric_state = False
+
+    def set_fabric_status(self, value=None):
+        if value != None:
+            self.manually_set__fabric_status = True
+        else:
+            self.manually_set__fabric_status = False
+
+    def set_fan_speed_percentage(self, value=None):
+        if value != None:
+            self.manually_set__fan_speed_percentage = True
+        else:
+            self.manually_set__fan_speed_percentage = False
+
+    def set_fan_speed_percentage_range(self, value=None):
+        if value != None:
+            self.manually_set__fan_speed_percentage_range = True
+        else:
+            self.manually_set__fan_speed_percentage_range = False
+
+    def set_fan_speed_RPM(self, value=None):
+        if value != None:
+            self.manually_set__fan_speed_RPM = True
+        else:
+            self.manually_set__fan_speed_RPM = False
+
+    def set_fan_speed_RPM_range(self, value=None):
+        if value != None:
+            self.manually_set__fan_speed_RPM_range = True
+        else:
+            self.manually_set__fan_speed_RPM_range = False
+
+    def set_fractional_multi_vGPU(self, value=None):
+        if value != None:
+            self.manually_set__fractional_multi_vGPU = True
+        else:
+            self.manually_set__fractional_multi_vGPU = False
+
+    def set_frequency_application_default_shader_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_application_default_shader_clock = True
+        else:
+            self.manually_set__frequency_application_default_shader_clock = False
+
+    def set_frequency_application_default_memory_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_application_default_memory_clock = True
+        else:
+            self.manually_set__frequency_application_default_memory_clock = False
+
+    def set_frequency_application_memory_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_application_memory_clock = True
+        else:
+            self.manually_set__frequency_application_memory_clock = False
+
+    def set_frequency_application_shader_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_application_shader_clock = True
+        else:
+            self.manually_set__frequency_application_shader_clock = False
+
+    def set_frequency_maximum_memory_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_maximum_memory_clock = True
+        else:
+            self.manually_set__frequency_maximum_memory_clock = False
+
+    def set_frequency_maximum_shader_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_maximum_shader_clock = True
+        else:
+            self.manually_set__frequency_maximum_shader_clock = False
+
+    def set_frequency_maximum_streaming_multiprocessor_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_maximum_streaming_multiprocessor_clock = True
+        else:
+            self.manually_set__frequency_maximum_streaming_multiprocessor_clock = False
+
+    def set_frequency_memory_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_memory_clock = True
+        else:
+            self.manually_set__frequency_memory_clock = False
+
+    def set_frequency_shader_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_shader_clock = True
+        else:
+            self.manually_set__frequency_shader_clock = False
+
+    def set_frequency_streaming_multiprocessor_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_streaming_multiprocessor_clock = True
+        else:
+            self.manually_set__frequency_streaming_multiprocessor_clock = False
+
+    def set_frequency_video_clock(self, value=None):
+        if value != None:
+            self.manually_set__frequency_video_clock = True
+        else:
+            self.manually_set__frequency_video_clock = False
+
+    def set_heterogenous_multi_vGPU(self, value=None):
+        if value != None:
+            self.manually_set__heterogenous_multi_vGPU = True
+        else:
+            self.manually_set__heterogenous_multi_vGPU = False
+
+    def set_heterogenous_time_slice_profile(self, value=None):
+        if value != None:
+            self.manually_set__heterogenous_time_slice_profile = True
+        else:
+            self.manually_set__heterogenous_time_slice_profile = False
+
+    def set_heterogenous_time_slice_sizes(self, value=None):
+        if value != None:
+            self.manually_set__heterogenous_time_slice_sizes = True
+        else:
+            self.manually_set__heterogenous_time_slice_sizes = False
+
+    def set_ICM_indent(self, value=None):
+        if value != None:
+            self.manually_set__ICM_indent = True
+        else:
+            self.manually_set__ICM_indent = False
+
+    def set_ICM_method(self, value=None):
+        if value != None:
+            self.manually_set__ICM_method = True
+        else:
+            self.manually_set__ICM_method = False
+
+    def set_inf_filename(self, value=None):
+        if value != None:
+            self.manually_set__inf_filename = True
+        else:
+            self.manually_set__inf_filename = False
+
+    def set_inf_section(self, value=None):
+        if value != None:
+            self.manually_set__inf_section = True
+        else:
+            self.manually_set__inf_section = False
+
+    def set_info_ROM_ecc(self, value=None):
+        if value != None:
+            self.manually_set__info_ROM_ecc = True
+        else:
+            self.manually_set__info_ROM_ecc = False
+
+    def set_info_ROM_oem(self, value=None):
+        if value != None:
+            self.manually_set__info_ROM_oem = True
+        else:
+            self.manually_set__info_ROM_oem = False
+
+    def set_info_ROM_power(self, value=None):
+        if value != None:
+            self.manually_set__info_ROM_power = True
+        else:
+            self.manually_set__info_ROM_power = False
+
+    def set_info_ROM_version(self, value=None):
+        if value != None:
+            self.manually_set__info_ROM_version = True
+        else:
+            self.manually_set__info_ROM_version = False
+
+    def set_install_date(self, value=None):
+        if value != None:
+            self.manually_set__install_date = True
+        else:
+            self.manually_set__install_date = False
+
+    def set_installed_display_drivers(self, value=None):
+        if value != None:
+            self.manually_set__installed_display_drivers = True
+        else:
+            self.manually_set__installed_display_drivers = False
+
+    def set_last_error_code(self, value=None):
+        if value != None:
+            self.manually_set__last_error_code = True
+        else:
+            self.manually_set__last_error_code = False
+
+    def set_max_memory_supported(self, value=None):
+        if value != None:
+            self.manually_set__max_memory_supported = True
+        else:
+            self.manually_set__max_memory_supported = False
+
+    def set_max_number_controlled(self, value=None):
+        if value != None:
+            self.manually_set__max_number_controlled = True
+        else:
+            self.manually_set__max_number_controlled = False
+
+    def set_max_refresh_rate(self, value=None):
+        if value != None:
+            self.manually_set__max_refresh_rate = True
+        else:
+            self.manually_set__max_refresh_rate = False
+
+    def set_memory_clock_range(self, value=None):
+        if value != None:
+            self.manually_set__memory_clock_range = True
+        else:
+            self.manually_set__memory_clock_range = False
+
+    def set_memory_free(self, value=None):
+        if value != None:
+            self.manually_set__memory_free = True
+        else:
+            self.manually_set__memory_free = False
+
+    def set_memory_reserved(self, value=None):
+        if value != None:
+            self.manually_set__memory_reserved = True
+        else:
+            self.manually_set__memory_reserved = False
+
+    def set_memory_total(self, value=None):
+        if value != None:
+            self.manually_set__memory_total = True
+        else:
+            self.manually_set__memory_total = False
+
+    def set_memory_used(self, value=None):
+        if value != None:
+            self.manually_set__memory_used = True
+        else:
+            self.manually_set__memory_used = False
+
+    def set_min_refresh_rate(self, value=None):
+        if value != None:
+            self.manually_set__min_refresh_rate = True
+        else:
+            self.manually_set__min_refresh_rate = False
+
+    def set_monochrome(self, value=None):
+        if value != None:
+            self.manually_set__monochrome = True
+        else:
+            self.manually_set__monochrome = False
+
+    def set_multi_instance_GPU_mode_current(self, value=None):
+        if value != None:
+            self.manually_set__multi_instance_GPU_mode_current = True
+        else:
+            self.manually_set__multi_instance_GPU_mode_current = False
+
+    def set_multi_instance_GPU_mode_pending(self, value=None):
+        if value != None:
+            self.manually_set__multi_instance_GPU_mode_pending = True
+        else:
+            self.manually_set__multi_instance_GPU_mode_pending = False
+
+    def set_name(self, value=None):
+        if value != None:
+            self.manually_set__name = True
+        else:
+            self.manually_set__name = False
+
+    def set_number_of_color_planes(self, value=None):
+        if value != None:
+            self.manually_set__number_of_color_planes = True
+        else:
+            self.manually_set__number_of_color_planes = False
+
+    def set_number_of_video_pages(self, value=None):
+        if value != None:
+            self.manually_set__number_of_video_pages = True
+        else:
+            self.manually_set__number_of_video_pages = False
+
+    def set_operating_mode_current(self, value=None):
+        if value != None:
+            self.manually_set__operating_mode_current = True
+        else:
+            self.manually_set__operating_mode_current = False
+
+    def set_operating_mode_pending(self, value=None):
+        if value != None:
+            self.manually_set__operating_mode_pending = True
+        else:
+            self.manually_set__operating_mode_pending = False
+
+    def set_pci_bus(self, value=None):
+        if value != None:
+            self.manually_set__pci_bus = True
+        else:
+            self.manually_set__pci_bus = False
+
+    def set_pci_bus_id(self, value=None):
+        if value != None:
+            self.manually_set__pci_bus_id = True
+        else:
+            self.manually_set__pci_bus_id = False
+
+    def set_pci_device(self, value=None):
+        if value != None:
+            self.manually_set__pci_device = True
+        else:
+            self.manually_set__pci_device = False
+
+    def set_pci_device_id(self, value=None):
+        if value != None:
+            self.manually_set__pci_device_id = True
+        else:
+            self.manually_set__pci_device_id = False
+
+    def set_pci_domain(self, value=None):
+        if value != None:
+            self.manually_set__pci_domain = True
+        else:
+            self.manually_set__pci_domain = False
+
+    def set_pci_link_generation_current(self, value=None):
+        if value != None:
+            self.manually_set__pci_link_generation_current = True
+        else:
+            self.manually_set__pci_link_generation_current = False
+
+    def set_pci_link_generation_device_host_maximum(self, value=None):
+        if value != None:
+            self.manually_set__pci_link_generation_device_host_maximum = True
+        else:
+            self.manually_set__pci_link_generation_device_host_maximum = False
+
+    def set_pci_link_generation_gpu_maximum(self, value=None):
+        if value != None:
+            self.manually_set__pci_link_generation_gpu_maximum = True
+        else:
+            self.manually_set__pci_link_generation_gpu_maximum = False
+
+    def set_pci_link_generation_maximum(self, value=None):
+        if value != None:
+            self.manually_set__pci_link_generation_maximum = True
+        else:
+            self.manually_set__pci_link_generation_maximum = False
+
+    def set_pci_link_width_current(self, value=None):
+        if value != None:
+            self.manually_set__pci_link_width_current = True
+        else:
+            self.manually_set__pci_link_width_current = False
+
+    def set_pci_link_width_maximum(self, value=None):
+        if value != None:
+            self.manually_set__pci_link_width_maximum = True
+        else:
+            self.manually_set__pci_link_width_maximum = False
+
+    def set_pci_sub_device_id(self, value=None):
+        if value != None:
+            self.manually_set__pci_sub_device_id = True
+        else:
+            self.manually_set__pci_sub_device_id = False
+
+    def set_persistence_mode(self, value=None):
+        if value != None:
+            self.manually_set__persistence_mode = True
+        else:
+            self.manually_set__persistence_mode = False
+
+    def set_PNP_device_id(self, value=None):
+        if value != None:
+            self.manually_set__PNP_device_id = True
+        else:
+            self.manually_set__PNP_device_id = False
+
+    def set_power_draw(self, value=None):
+        if value != None:
+            self.manually_set__power_draw = True
+        else:
+            self.manually_set__power_draw = False
+
+    def set_power_draw_average(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_average = True
+        else:
+            self.manually_set__power_draw_average = False
+
+    def set_power_draw_default_limit(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_default_limit = True
+        else:
+            self.manually_set__power_draw_default_limit = False
+
+    def set_power_draw_enforced_limit(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_enforced_limit = True
+        else:
+            self.manually_set__power_draw_enforced_limit = False
+
+    def set_power_draw_instant(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_instant = True
+        else:
+            self.manually_set__power_draw_instant = False
+
+    def set_power_draw_limit(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_limit = True
+        else:
+            self.manually_set__power_draw_limit = False
+
+    def set_power_draw_maximum(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_maximum = True
+        else:
+            self.manually_set__power_draw_maximum = False
+
+    def set_power_draw_minimum(self, value=None):
+        if value != None:
+            self.manually_set__power_draw_minimum = True
+        else:
+            self.manually_set__power_draw_minimum = False
+
+    def set_power_management_capabilities(self, value=None):
+        if value != None:
+            self.manually_set__power_management_capabilities = True
+        else:
+            self.manually_set__power_management_capabilities = False
+
+    def set_power_management_supported(self, value=None):
+        if value != None:
+            self.manually_set__power_management_supported = True
+        else:
+            self.manually_set__power_management_supported = False
+
+    def set_protected_memory_free(self, value=None):
+        if value != None:
+            self.manually_set__protected_memory_free = True
+        else:
+            self.manually_set__protected_memory_free = False
+
+    def set_protected_memory_total(self, value=None):
+        if value != None:
+            self.manually_set__protected_memory_total = True
+        else:
+            self.manually_set__protected_memory_total = False
+
+    def set_protected_memory_used(self, value=None):
+        if value != None:
+            self.manually_set__protected_memory_used = True
+        else:
+            self.manually_set__protected_memory_used = False
+
+    def set_protocol_supported(self, value=None):
+        if value != None:
+            self.manually_set__protocol_supported = True
+        else:
+            self.manually_set__protocol_supported = False
+
+    def set_performance_state(self, value=None):
+        if value != None:
+            self.manually_set__performance_state = True
+        else:
+            self.manually_set__performance_state = False
+
+    def set_retired_pages_double_bit_ecc_errors_count(self, value=None):
+        if value != None:
+            self.manually_set__retired_pages_double_bit_ecc_errors_count = True
+        else:
+            self.manually_set__retired_pages_double_bit_ecc_errors_count = False
+
+    def set_retired_pages_single_bit_ecc_errors_count(self, value=None):
+        if value != None:
+            self.manually_set__retired_pages_single_bit_ecc_errors_count = True
+        else:
+            self.manually_set__retired_pages_single_bit_ecc_errors_count = False
+
+    def set_retired_pages_pending(self, value=None):
+        if value != None:
+            self.manually_set__retired_pages_pending = True
+        else:
+            self.manually_set__retired_pages_pending = False
+
+    def set_reserved_system_palette_entries(self, value=None):
+        if value != None:
+            self.manually_set__reserved_system_palette_entries = True
+        else:
+            self.manually_set__reserved_system_palette_entries = False
+
+    def set_reset_required(self, value=None):
+        if value != None:
+            self.manually_set__reset_required = True
+        else:
+            self.manually_set__reset_required = False
+
+    def set_reset_and_drain_recommended(self, value=None):
+        if value != None:
+            self.manually_set__reset_and_drain_recommended = True
+        else:
+            self.manually_set__reset_and_drain_recommended = False
+
+    def set_serial(self, value=None):
+        if value != None:
+            self.manually_set__serial = True
+        else:
+            self.manually_set__serial = False
+
+    def set_specification_version(self, value=None):
+        if value != None:
+            self.manually_set__specification_version = True
+        else:
+            self.manually_set__specification_version = False
+
+    def set_status(self, value=None):
+        if value != None:
+            self.manually_set__status = True
+        else:
+            self.manually_set__status = False
+
+    def set_status_info(self, value=None):
+        if value != None:
+            self.manually_set__status_info = True
+        else:
+            self.manually_set__status_info = False
+
+    def set_system_creation_class_name(self, value=None):
+        if value != None:
+            self.manually_set__system_creation_class_name = True
+        else:
+            self.manually_set__system_creation_class_name = False
+
+    def set_system_name(self, value=None):
+        if value != None:
+            self.manually_set__system_name = True
+        else:
+            self.manually_set__system_name = False
+
+    def set_system_palette_entries(self, value=None):
+        if value != None:
+            self.manually_set__system_palette_entries = True
+        else:
+            self.manually_set__system_palette_entries = False
+
+    def set_GPU_system_processor_mode_current(self, value=None):
+        if value != None:
+            self.manually_set__GPU_system_processor_mode_current = True
+        else:
+            self.manually_set__GPU_system_processor_mode_current = False
+
+    def set_GPU_system_processor_mode_pending(self, value=None):
+        if value != None:
+            self.manually_set__GPU_system_processor_mode_pending = True
+        else:
+            self.manually_set__GPU_system_processor_mode_pending = False
+
+    def set_temperature_core(self, value=None):
+        if value != None:
+            self.manually_set__temperature_core = True
+        else:
+            self.manually_set__temperature_core = False
+
+    def set_temperature_core_limit(self, value=None):
+        if value != None:
+            self.manually_set__temperature_core_limit = True
+        else:
+            self.manually_set__temperature_core_limit = False
+
+    def set_temperature_memory(self, value=None):
+        if value != None:
+            self.manually_set__temperature_memory = True
+        else:
+            self.manually_set__temperature_memory = False
+
+    def set_time_of_last_reset(self, value=None):
+        if value != None:
+            self.manually_set__time_of_last_reset = True
+        else:
+            self.manually_set__time_of_last_reset = False
+
+    def set_utilization_decoder(self, value=None):
+        if value != None:
+            self.manually_set__utilization_decoder = True
+        else:
+            self.manually_set__utilization_decoder = False
+
+    def set_utilization_encoder(self, value=None):
+        if value != None:
+            self.manually_set__utilization_encoder = True
+        else:
+            self.manually_set__utilization_encoder = False
+
+    def set_utilization_gpu(self, value=None):
+        if value != None:
+            self.manually_set__utilization_gpu = True
+        else:
+            self.manually_set__utilization_gpu = False
+
+    def set_utilization_jpeg(self, value=None):
+        if value != None:
+            self.manually_set__utilization_jpeg = True
+        else:
+            self.manually_set__utilization_jpeg = False
+
+    def set_utilization_memory(self, value=None):
+        if value != None:
+            self.manually_set__utilization_memory = True
+        else:
+            self.manually_set__utilization_memory = False
+
+    def set_utilization_optical_flow(self, value=None):
+        if value != None:
+            self.manually_set__utilization_optical_flow = True
+        else:
+            self.manually_set__utilization_optical_flow = False
+
+    def set_uuid(self, value=None):
+        if value != None:
+            self.manually_set__uuid = True
+        else:
+            self.manually_set__uuid = False
+
+    def set_vbios_version(self, value=None):
+        if value != None:
+            self.manually_set__vbios_version = True
+        else:
+            self.manually_set__vbios_version = False
+
+    def set_video_architecture(self, value=None):
+        if value != None:
+            self.manually_set__video_architecture = True
+        else:
+            self.manually_set__video_architecture = False
+
+    def set_video_memory_type(self, value=None):
+        if value != None:
+            self.manually_set__video_memory_type = True
+        else:
+            self.manually_set__video_memory_type = False
+
+    def set_video_mode(self, value=None):
+        if value != None:
+            self.manually_set__video_mode = True
+        else:
+            self.manually_set__video_mode = False
+
+    def set_video_mode_description(self, value=None):
+        if value != None:
+            self.manually_set__video_mode_description = True
+        else:
+            self.manually_set__video_mode_description = False
+
+    def set_video_processor(self, value=None):
+        if value != None:
+            self.manually_set__video_processor = True
+        else:
+            self.manually_set__video_processor = False
 
     def update_accelerator_capabilities(self):
         return self.accelerator_capabilities
