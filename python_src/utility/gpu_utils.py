@@ -3189,11 +3189,11 @@ class GPU:
     def update_reserved_system_palette_entries(self):
             return self.reserved_system_palette_entries
 
-    def update_reupdate_required(self):
-            return self.reupdate_required
+    def update_reset_required(self):
+            return self.reset_required
 
-    def update_reupdate_and_drain_recommended(self):
-            return self.reupdate_and_drain_recommended
+    def update_reset_and_drain_recommended(self):
+            return self.reset_and_drain_recommended
 
     def update_serial(self):
             return self.serial
@@ -3231,8 +3231,8 @@ class GPU:
     def update_temperature_memory(self):
             return self.temperature_memory
 
-    def update_time_of_last_reupdate(self):
-            return self.time_of_last_reupdate
+    def update_time_of_last_reset(self):
+            return self.time_of_last_reset
 
     def update_utilization_decoder(self):
             return self.utilization_decoder
