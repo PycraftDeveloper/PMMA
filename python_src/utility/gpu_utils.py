@@ -7,6 +7,16 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
+"""
+nvidia-smi --help-query-gpu # used to get all query commands.
+-i <n>                      # used to specify specific nvidia device.
+
+-------
+Link NVIDIA-SMI by UUID
+Link PyAdl by UUID
+Link WMI by {hwinterface}_{VENdorID}_{DEViceID}&{SUBSYStemID}&{REVisionID}&
+"""
+
 class GPU:
     def __init__(self):
         self.accelerator_capabilities = None
@@ -23,7 +33,7 @@ class GPU:
         self.capability_descriptions = None
         self.caption = None
         self.chip_to_chip_interconnect_mode = None
-        self.clock_event_reasons_activity_limited = None
+        self.clock_event_reasons_as_bitmap = None
         self.clock_event_reasons_application_setting = None
         self.clock_event_reasons_is_hardware_limited = None
         self.clock_event_reasons_gpu_idle_limited = None
@@ -195,7 +205,7 @@ class GPU:
         self.system_name = None
         self.system_palette_entries = None
         self.GPU_system_processor_mode_current = None
-        self.GPU_system_processor_mode_pending = None
+        self.GPU_system_processor_mode_default = None
         self.temperature_core = None
         self.temperature_core_limit = None
         self.temperature_memory = None
@@ -229,7 +239,7 @@ class GPU:
         self.manually_set__capability_descriptions = False
         self.manually_set__caption = False
         self.manually_set__chip_to_chip_interconnect_mode = False
-        self.manually_set__clock_event_reasons_activity_limited = False
+        self.manually_set__clock_event_reasons_as_bitmap = False
         self.manually_set__clock_event_reasons_application_setting = False
         self.manually_set__clock_event_reasons_is_hardware_limited = False
         self.manually_set__clock_event_reasons_gpu_idle_limited = False
@@ -401,7 +411,7 @@ class GPU:
         self.manually_set__system_name = False
         self.manually_set__system_palette_entries = False
         self.manually_set__GPU_system_processor_mode_current = False
-        self.manually_set__GPU_system_processor_mode_pending = False
+        self.manually_set__GPU_system_processor_mode_default = False
         self.manually_set__temperature_core = False
         self.manually_set__temperature_core_limit = False
         self.manually_set__temperature_memory = False
@@ -421,416 +431,210 @@ class GPU:
         self.manually_set__video_processor = False
 
 
-        self.operating_system_compatibility__accelerator_capabilities = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__accounting_mode_enabled = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__accounting_mode_buffer_size = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__adapter_compatibility = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__adapter_DAC_type = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__adapter_id = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__adapter_index = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__adapter_name = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__addressing_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__availability = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__bus_number = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__capability_descriptions = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__caption = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__chip_to_chip_interconnect_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_activity_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_application_setting = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_is_hardware_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_gpu_idle_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_software_power_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_software_thermal_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_power_break_slowdown_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_supported = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_sync_boost = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__clock_event_reasons_thermal_limited = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__color_table_entries = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__compute_cap = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__compute_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__config_manager_error_code = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__config_manager_user_config = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__core_voltage = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__core_voltage_range = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__creation_class_name = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_bits_per_pixel = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_horizontal_resolution = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_number_of_colors = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_number_of_columns = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_number_of_rows = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_refresh_rate = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_scan_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__current_vertical_resolution = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__description = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__device_id = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__device_specific_pens = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__display_active = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__display_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__dither_type = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__driver_date = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__driver_model_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__driver_model_pending = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__driver_version = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_cbu = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_primary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_register_file = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_secondary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_shared_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_sram = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_texture_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_total = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_all_time_in_video_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_cbu = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_primary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_register_file = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_secondary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_shared_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_sram = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_texture_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_total = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_corrected_since_reboot_in_video_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_cbu = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_primary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_register_file = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_secondary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_shared_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_sram = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_texture_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_total = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_all_time_in_video_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_cbu = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_primary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_register_file = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_secondary_cache = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_shared_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_sram = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_texture_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_total = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_errors_uncorrected_since_reboot_in_video_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_mode_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ecc_mode_pending = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__encoder_average_FPS = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__encoder_average_latency = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__encoder_session_count = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__engine_clock_range = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__error_cleared = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__error_description = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fabric_state = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fabric_status = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fan_speed_percentage = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fan_speed_percentage_range = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fan_speed_RPM = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fan_speed_RPM_range = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__fractional_multi_vGPU = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_application_default_shader_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_application_default_memory_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_application_memory_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_application_shader_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_maximum_memory_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_maximum_shader_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_maximum_streaming_multiprocessor_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_memory_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_shader_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_streaming_multiprocessor_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__frequency_video_clock = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__heterogenous_multi_vGPU = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__heterogenous_time_slice_profile = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__heterogenous_time_slice_sizes = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ICM_indent = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__ICM_method = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__inf_filename = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__inf_section = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__info_ROM_ecc = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__info_ROM_oem = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__info_ROM_power = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__info_ROM_version = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__install_date = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__installed_display_drivers = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__last_error_code = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__max_memory_supported = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__max_number_controlled = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__max_refresh_rate = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__memory_clock_range = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__memory_free = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__memory_reserved = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__memory_total = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__memory_used = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__min_refresh_rate = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__monochrome = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__multi_instance_GPU_mode_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__multi_instance_GPU_mode_pending = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__name = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__number_of_color_planes = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__number_of_video_pages = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__operating_mode_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__operating_mode_pending = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_bus = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_bus_id = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_device = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_device_id = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_domain = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_link_generation_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_link_generation_device_host_maximum = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_link_generation_gpu_maximum = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_link_generation_maximum = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_link_width_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_link_width_maximum = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__pci_sub_device_id = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__persistence_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__PNP_device_id = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_average = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_default_limit = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_enforced_limit = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_instant = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_limit = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_maximum = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_draw_minimum = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_management_capabilities = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__power_management_supported = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__protected_memory_free = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__protected_memory_total = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__protected_memory_used = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__protocol_supported = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__performance_state = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__retired_pages_double_bit_ecc_errors_count = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__retired_pages_single_bit_ecc_errors_count = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__retired_pages_pending = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__reserved_system_palette_entries = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__reset_required = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__reset_and_drain_recommended = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__serial = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__specification_version = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__status = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__status_info = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__system_creation_class_name = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__system_name = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__system_palette_entries = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__GPU_system_processor_mode_current = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__GPU_system_processor_mode_pending = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__temperature_core = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__temperature_core_limit = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__temperature_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__time_of_last_reset = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__utilization_decoder = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__utilization_encoder = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__utilization_gpu = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__utilization_jpeg = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__utilization_memory = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__utilization_optical_flow = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__uuid = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__vbios_version = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__video_architecture = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__video_memory_type = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__video_mode = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__video_mode_description = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-        self.operating_system_compatibility__video_processor = {Constants.WINDOWS: None, Constants.LINUX: None, Constants.MACOS: None, Constants.JAVA: None}
-
-
-        self.internal_name__accelerator_capabilities = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__accounting_mode_enabled = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__accounting_mode_buffer_size = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__adapter_compatibility = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__adapter_DAC_type = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__adapter_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__adapter_index = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__adapter_name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__addressing_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__availability = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__bus_number = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__capability_descriptions = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__caption = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__chip_to_chip_interconnect_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_activity_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_application_setting = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_is_hardware_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_gpu_idle_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_software_power_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_software_thermal_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_power_break_slowdown_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_supported = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_sync_boost = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__clock_event_reasons_thermal_limited = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__color_table_entries = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__compute_cap = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__compute_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__config_manager_error_code = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__config_manager_user_config = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__core_voltage = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__core_voltage_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__creation_class_name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_bits_per_pixel = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_horizontal_resolution = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_number_of_colors = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_number_of_columns = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_number_of_rows = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_refresh_rate = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_scan_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__current_vertical_resolution = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__description = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__device_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__device_specific_pens = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__display_active = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__display_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__dither_type = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__driver_date = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__driver_model_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__driver_model_pending = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__driver_version = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_cbu = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_primary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_register_file = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_secondary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_shared_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_sram = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_texture_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_total = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_all_time_in_video_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_cbu = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_primary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_register_file = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_secondary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_shared_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_sram = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_texture_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_total = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_corrected_since_reboot_in_video_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_cbu = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_primary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_register_file = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_secondary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_shared_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_sram = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_texture_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_total = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_all_time_in_video_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_cbu = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_primary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_register_file = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_secondary_cache = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_shared_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_sram = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_texture_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_total = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_errors_uncorrected_since_reboot_in_video_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_mode_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ecc_mode_pending = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__encoder_average_FPS = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__encoder_average_latency = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__encoder_session_count = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__engine_clock_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__error_cleared = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__error_description = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fabric_state = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fabric_status = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fan_speed_percentage = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fan_speed_percentage_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fan_speed_RPM = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fan_speed_RPM_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__fractional_multi_vGPU = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_application_default_shader_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_application_default_memory_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_application_memory_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_application_shader_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_maximum_memory_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_maximum_shader_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_maximum_streaming_multiprocessor_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_memory_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_shader_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_streaming_multiprocessor_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__frequency_video_clock = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__heterogenous_multi_vGPU = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__heterogenous_time_slice_profile = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__heterogenous_time_slice_sizes = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ICM_indent = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__ICM_method = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__inf_filename = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__inf_section = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__info_ROM_ecc = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__info_ROM_oem = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__info_ROM_power = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__info_ROM_version = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__install_date = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__installed_display_drivers = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__last_error_code = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__max_memory_supported = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__max_number_controlled = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__max_refresh_rate = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__memory_clock_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__memory_free = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__memory_reserved = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__memory_total = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__memory_used = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__min_refresh_rate = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__monochrome = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__multi_instance_GPU_mode_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__multi_instance_GPU_mode_pending = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__number_of_color_planes = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__number_of_video_pages = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__operating_mode_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__operating_mode_pending = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_bus = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_bus_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_device = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_device_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_domain = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_link_generation_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_link_generation_device_host_maximum = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_link_generation_gpu_maximum = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_link_generation_maximum = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_link_width_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_link_width_maximum = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_sub_device_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__persistence_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__PNP_device_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_average = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_default_limit = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_enforced_limit = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_instant = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_limit = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_maximum = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_draw_minimum = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_management_capabilities = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__power_management_supported = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__protected_memory_free = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__protected_memory_total = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__protected_memory_used = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__protocol_supported = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__performance_state = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__retired_pages_double_bit_ecc_errors_count = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__retired_pages_single_bit_ecc_errors_count = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__retired_pages_pending = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__reserved_system_palette_entries = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__reset_required = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__reset_and_drain_recommended = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__serial = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__specification_version = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__status = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__status_info = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__system_creation_class_name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__system_name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__system_palette_entries = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__GPU_system_processor_mode_current = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__GPU_system_processor_mode_pending = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__temperature_core = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__temperature_core_limit = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__temperature_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__time_of_last_reset = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__utilization_decoder = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__utilization_encoder = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__utilization_gpu = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__utilization_jpeg = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__utilization_memory = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__utilization_optical_flow = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__uuid = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__vbios_version = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__video_architecture = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__video_memory_type = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__video_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__video_mode_description = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__video_processor = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__accelerator_capabilities = {Constants.SMI: [], Constants.WMI: ["AcceleratorCapabilities"], Constants.PYADL: []}
+        self.internal_name__accounting_mode_enabled = {Constants.SMI: ["accounting.mode"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__accounting_mode_buffer_size = {Constants.SMI: ["accounting.buffer_size"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__adapter_compatibility = {Constants.SMI: [], Constants.WMI: ["AdapterCompatibility"], Constants.PYADL: []}
+        self.internal_name__adapter_DAC_type = {Constants.SMI: [], Constants.WMI: ["AdapterDACType"], Constants.PYADL: []}
+        self.internal_name__adapter_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["adapterID"]}
+        self.internal_name__adapter_index = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["adapterIndex"]}
+        self.internal_name__adapter_name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["adapterName"]}
+        self.internal_name__addressing_mode = {Constants.SMI: ["addressing_mode"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__availability = {Constants.SMI: [], Constants.WMI: ["Availability"], Constants.PYADL: []}
+        self.internal_name__bus_number = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["busNumber"]}
+        self.internal_name__capability_descriptions = {Constants.SMI: [], Constants.WMI: ["CapabilityDescriptions"], Constants.PYADL: []}
+        self.internal_name__caption = {Constants.SMI: [], Constants.WMI: ["Caption"], Constants.PYADL: []}
+        self.internal_name__chip_to_chip_interconnect_mode = {Constants.SMI: ["c2c.mode"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_as_bitmap = {Constants.SMI: ["clocks_event_reasons.active", "clocks_throttle_reasons.active"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_application_setting = {Constants.SMI: ["clocks_event_reasons.applications_clocks_setting", "clocks_throttle_reasons.applications_clocks_setting"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_is_hardware_limited = {Constants.SMI: ["clocks_event_reasons.hw_slowdown", "clocks_throttle_reasons.hw_slowdown"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_gpu_idle_limited = {Constants.SMI: ["clocks_event_reasons.gpu_idle", "clocks_throttle_reasons.gpu_idle"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_software_power_limited = {Constants.SMI: ["clocks_event_reasons.sw_power_cap", "clocks_throttle_reasons.sw_power_cap"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_software_thermal_limited = {Constants.SMI: ["clocks_event_reasons.sw_thermal_slowdown", "clocks_throttle_reasons.sw_thermal_slowdown"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_power_break_slowdown_limited = {Constants.SMI: ["clocks_event_reasons.hw_power_brake_slowdown", "clocks_throttle_reasons.hw_power_brake_slowdown"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_supported = {Constants.SMI: ["clocks_event_reasons.supported", "clocks_throttle_reasons.supported"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_sync_boost = {Constants.SMI: ["clocks_event_reasons.sync_boost", "clocks_throttle_reasons.sync_boost"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__clock_event_reasons_thermal_limited = {Constants.SMI: ["clocks_event_reasons.hw_thermal_slowdown", "clocks_throttle_reasons.hw_thermal_slowdown"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__color_table_entries = {Constants.SMI: [], Constants.WMI: ["ColorTableEntries"], Constants.PYADL: []}
+        self.internal_name__compute_cap = {Constants.SMI: ["compute_cap"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__compute_mode = {Constants.SMI: ["compute_mode"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__config_manager_error_code = {Constants.SMI: [], Constants.WMI: ["ConfigManagerErrorCode"], Constants.PYADL: []}
+        self.internal_name__config_manager_user_config = {Constants.SMI: [], Constants.WMI: ["ConfigManagerUserConfig"], Constants.PYADL: []}
+        self.internal_name__core_voltage = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["getCurrentCoreVoltage"]}
+        self.internal_name__core_voltage_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["coreVoltageRange"]}
+        self.internal_name__creation_class_name = {Constants.SMI: [], Constants.WMI: ["CreationClassName"], Constants.PYADL: []}
+        self.internal_name__current_bits_per_pixel = {Constants.SMI: [], Constants.WMI: ["CurrentBitsPerPixel"], Constants.PYADL: []}
+        self.internal_name__current_horizontal_resolution = {Constants.SMI: [], Constants.WMI: ["CurrentHorizontalResolution"], Constants.PYADL: []}
+        self.internal_name__current_number_of_colors = {Constants.SMI: [], Constants.WMI: ["CurrentNumberOfColors"], Constants.PYADL: []}
+        self.internal_name__current_number_of_columns = {Constants.SMI: [], Constants.WMI: ["CurrentNumberOfColumns"], Constants.PYADL: []}
+        self.internal_name__current_number_of_rows = {Constants.SMI: [], Constants.WMI: ["CurrentNumberOfRows"], Constants.PYADL: []}
+        self.internal_name__current_refresh_rate = {Constants.SMI: [], Constants.WMI: ["CurrentRefreshRate"], Constants.PYADL: []}
+        self.internal_name__current_scan_mode = {Constants.SMI: [], Constants.WMI: ["CurrentScanMode"], Constants.PYADL: []}
+        self.internal_name__current_vertical_resolution = {Constants.SMI: [], Constants.WMI: ["CurrentVerticalResolution"], Constants.PYADL: []}
+        self.internal_name__description = {Constants.SMI: [], Constants.WMI: ["Description"], Constants.PYADL: []}
+        self.internal_name__device_id = {Constants.SMI: [], Constants.WMI: ["DeviceID"], Constants.PYADL: []}
+        self.internal_name__device_specific_pens = {Constants.SMI: [], Constants.WMI: ["DeviceSpecificPens"], Constants.PYADL: []}
+        self.internal_name__display_active = {Constants.SMI: ["display_active"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__display_mode = {Constants.SMI: ["display_mode"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__dither_type = {Constants.SMI: [], Constants.WMI: ["DitherType"], Constants.PYADL: []}
+        self.internal_name__driver_date = {Constants.SMI: [], Constants.WMI: ["DriverDate"], Constants.PYADL: []}
+        self.internal_name__driver_model_current = {Constants.SMI: ["driver_model.current"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__driver_model_pending = {Constants.SMI: ["driver_model.pending"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__driver_version = {Constants.SMI: ["driver_version"], Constants.WMI: ["DriverVersion"], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_cbu = {Constants.SMI: ["ecc.errors.corrected.aggregate.cbu"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_primary_cache = {Constants.SMI: ["ecc.errors.corrected.aggregate.l1_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_register_file = {Constants.SMI: ["ecc.errors.corrected.aggregate.register_file"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_secondary_cache = {Constants.SMI: ["ecc.errors.corrected.aggregate.l2_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_shared_memory = {Constants.SMI: ["ecc.errors.corrected.aggregate.dram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_sram = {Constants.SMI: ["ecc.errors.corrected.aggregate.sram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_texture_memory = {Constants.SMI: ["ecc.errors.corrected.aggregate.texture_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_total = {Constants.SMI: ["ecc.errors.corrected.aggregate.total"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_all_time_in_video_memory = {Constants.SMI: ["ecc.errors.corrected.aggregate.device_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_cbu = {Constants.SMI: ["ecc.errors.corrected.volatile.cbu"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_primary_cache = {Constants.SMI: ["ecc.errors.corrected.volatile.l1_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_register_file = {Constants.SMI: ["ecc.errors.corrected.volatile.register_file"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_secondary_cache = {Constants.SMI: ["ecc.errors.corrected.volatile.l2_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_shared_memory = {Constants.SMI: ["ecc.errors.corrected.volatile.dram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_sram = {Constants.SMI: ["ecc.errors.corrected.volatile.sram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_texture_memory = {Constants.SMI: ["ecc.errors.corrected.volatile.texture_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_total = {Constants.SMI: ["ecc.errors.corrected.volatile.total"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_corrected_since_reboot_in_video_memory = {Constants.SMI: ["ecc.errors.corrected.volatile.device_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_cbu = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.cbu"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_primary_cache = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.l1_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_register_file = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.register_file"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_secondary_cache = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.l2_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_shared_memory = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.dram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_sram = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.sram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_texture_memory = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.texture_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_total = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.total"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_all_time_in_video_memory = {Constants.SMI: ["ecc.errors.uncorrected.aggregate.device_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_cbu = {Constants.SMI: ["ecc.errors.uncorrected.volatile.cbu"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_primary_cache = {Constants.SMI: ["ecc.errors.uncorrected.volatile.l1_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_register_file = {Constants.SMI: ["ecc.errors.uncorrected.volatile.register_file"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_secondary_cache = {Constants.SMI: ["ecc.errors.uncorrected.volatile.l2_cache"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_shared_memory = {Constants.SMI: ["ecc.errors.uncorrected.volatile.dram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_sram = {Constants.SMI: ["ecc.errors.uncorrected.volatile.sram"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_texture_memory = {Constants.SMI: ["ecc.errors.uncorrected.volatile.texture_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_total = {Constants.SMI: ["ecc.errors.uncorrected.volatile.total"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_errors_uncorrected_since_reboot_in_video_memory = {Constants.SMI: ["ecc.errors.uncorrected.volatile.device_memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_mode_current = {Constants.SMI: ["ecc.mode.current"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ecc_mode_pending = {Constants.SMI: ["ecc.mode.pending"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__encoder_average_FPS = {Constants.SMI: ["encoder.stats.averageFps"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__encoder_average_latency = {Constants.SMI: ["encoder.stats.averageLatency"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__encoder_session_count = {Constants.SMI: ["encoder.stats.sessionCount"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__engine_clock_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["engineClockRange"]}
+        self.internal_name__error_cleared = {Constants.SMI: [], Constants.WMI: ["ErrorCleared"], Constants.PYADL: []}
+        self.internal_name__error_description = {Constants.SMI: [], Constants.WMI: ["ErrorDescription"], Constants.PYADL: []}
+        self.internal_name__fabric_state = {Constants.SMI: ["fabric.state"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__fabric_status = {Constants.SMI: ["fabric.status"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__fan_speed_percentage = {Constants.SMI: ["fan.speed"], Constants.WMI: [], Constants.PYADL: ["getCurrentFanSpeed:ADL_DEVICE_FAN_SPEED_TYPE_PERCENTAGE"]}
+        self.internal_name__fan_speed_percentage_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["getFanSpeedRange:ADL_DEVICE_FAN_SPEED_TYPE_PERCENTAGE"]}
+        self.internal_name__fan_speed_RPM = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["getCurrentFanSpeed:ADL_DEVICE_FAN_SPEED_TYPE_RPM"]}
+        self.internal_name__fan_speed_RPM_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["getFanSpeedRange:ADL_DEVICE_FAN_SPEED_TYPE_RPM"]}
+        self.internal_name__fractional_multi_vGPU = {Constants.SMI: ["vgpu_device_capability.fractional_multiVgpu"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_application_default_shader_clock = {Constants.SMI: ["clocks.default_applications.graphics", "clocks.default_applications.gr"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_application_default_memory_clock = {Constants.SMI: ["clocks.default_applications.memory", "clocks.default_applications.mem"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_application_memory_clock = {Constants.SMI: ["clocks.applications.memory", "clocks.applications.mem"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_application_shader_clock = {Constants.SMI: ["clocks.applications.graphics", "clocks.applications.gr"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_maximum_memory_clock = {Constants.SMI: ["clocks.max.memory", "clocks.max.mem"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_maximum_shader_clock = {Constants.SMI: ["clocks.max.graphics", "clocks.max.gr"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_maximum_streaming_multiprocessor_clock = {Constants.SMI: ["clocks.max.sm", "clocks.max.sm"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_memory_clock = {Constants.SMI: ["clocks.current.memory", "clocks.mem"], Constants.WMI: [], Constants.PYADL: ["getCurrentMemoryClock"]}
+        self.internal_name__frequency_shader_clock = {Constants.SMI: ["clocks.current.graphics", "clocks.gr"], Constants.WMI: [], Constants.PYADL: ["getCurrentEngineClock"]}
+        self.internal_name__frequency_streaming_multiprocessor_clock = {Constants.SMI: ["clocks.current.sm", "clocks.sm"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__frequency_video_clock = {Constants.SMI: ["clocks.current.video", "clocks.video"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__heterogenous_multi_vGPU = {Constants.SMI: ["vgpu_driver_capability.heterogenous_multivGPU"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__heterogenous_time_slice_profile = {Constants.SMI: ["vgpu_device_capability.heterogeneous_timeSlice_profile"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__heterogenous_time_slice_sizes = {Constants.SMI: ["vgpu_device_capability.heterogeneous_timeSlice_sizes"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__ICM_indent = {Constants.SMI: [], Constants.WMI: ["ICMIntent"], Constants.PYADL: []}
+        self.internal_name__ICM_method = {Constants.SMI: [], Constants.WMI: ["ICMMethod"], Constants.PYADL: []}
+        self.internal_name__inf_filename = {Constants.SMI: [], Constants.WMI: ["InfFilename"], Constants.PYADL: []}
+        self.internal_name__inf_section = {Constants.SMI: [], Constants.WMI: ["InfSection"], Constants.PYADL: []}
+        self.internal_name__info_ROM_ecc = {Constants.SMI: ["inforom.ecc"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__info_ROM_oem = {Constants.SMI: ["inforom.oem"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__info_ROM_power = {Constants.SMI: ["inforom.pwr", "inforom.power"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__info_ROM_version = {Constants.SMI: ["inforom.img", "inforom.image"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__install_date = {Constants.SMI: [], Constants.WMI: ["InstallDate"], Constants.PYADL: []}
+        self.internal_name__installed_display_drivers = {Constants.SMI: [], Constants.WMI: ["InstalledDisplayDrivers"], Constants.PYADL: []}
+        self.internal_name__last_error_code = {Constants.SMI: [], Constants.WMI: ["LastErrorCode"], Constants.PYADL: []}
+        self.internal_name__max_memory_supported = {Constants.SMI: [], Constants.WMI: ["MaxMemorySupported"], Constants.PYADL: []}
+        self.internal_name__max_number_controlled = {Constants.SMI: [], Constants.WMI: ["MaxNumberControlled"], Constants.PYADL: []}
+        self.internal_name__max_refresh_rate = {Constants.SMI: [], Constants.WMI: ["MaxRefreshRate"], Constants.PYADL: []}
+        self.internal_name__memory_clock_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["getMemoryClockRange"]}
+        self.internal_name__memory_free = {Constants.SMI: ["memory.free"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__memory_reserved = {Constants.SMI: ["memory.reserved"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__memory_total = {Constants.SMI: ["memory.total"], Constants.WMI: ["AdapterRAM"], Constants.PYADL: []}
+        self.internal_name__memory_used = {Constants.SMI: ["memory.used"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__min_refresh_rate = {Constants.SMI: [], Constants.WMI: ["MinRefreshRate"], Constants.PYADL: []}
+        self.internal_name__monochrome = {Constants.SMI: [], Constants.WMI: ["Monochrome"], Constants.PYADL: []}
+        self.internal_name__multi_instance_GPU_mode_current = {Constants.SMI: ["mig.mode.current"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__multi_instance_GPU_mode_pending = {Constants.SMI: ["mig.mode.pending"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__name = {Constants.SMI: ["name", "gpu_name"], Constants.WMI: ["Name"], Constants.PYADL: []}
+        self.internal_name__number_of_color_planes = {Constants.SMI: [], Constants.WMI: ["NumberOfColorPlanes"], Constants.PYADL: []}
+        self.internal_name__number_of_video_pages = {Constants.SMI: [], Constants.WMI: ["NumberOfVideoPages"], Constants.PYADL: []}
+        self.internal_name__operating_mode_current = {Constants.SMI: ["gom.current", "gpu_operation_mode.current"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__operating_mode_pending = {Constants.SMI: ["gom.pending", "gpu_operation_mode.pending"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_bus = {Constants.SMI: ["pci.bus"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_bus_id = {Constants.SMI: ["pci.bus_id", "gpu_bus_id"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_device = {Constants.SMI: ["pci.device"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_device_id = {Constants.SMI: ["pci.device_id"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_domain = {Constants.SMI: ["pci.domain"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_link_generation_current = {Constants.SMI: ["pcie.link.gen.gpucurrent"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_link_generation_device_host_maximum = {Constants.SMI: ["pcie.link.gen.max"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_link_generation_gpu_maximum = {Constants.SMI: ["pcie.link.gen.gpumax"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_link_generation_maximum = {Constants.SMI: ["pcie.link.gen.hostmax"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_link_width_current = {Constants.SMI: ["pcie.link.width.current"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_link_width_maximum = {Constants.SMI: ["pcie.link.width.max"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_sub_device_id = {Constants.SMI: ["pci.sub_device_id"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__persistence_mode = {Constants.SMI: ["persistence_mode"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__PNP_device_id = {Constants.SMI: [], Constants.WMI: ["PNPDeviceID"], Constants.PYADL: []}
+        self.internal_name__power_draw = {Constants.SMI: ["power.draw"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_average = {Constants.SMI: ["power.draw.average"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_default_limit = {Constants.SMI: ["power.default_limit"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_enforced_limit = {Constants.SMI: ["enforced.power.limit"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_instant = {Constants.SMI: ["power.draw.instant"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_limit = {Constants.SMI: ["power.limit"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_maximum = {Constants.SMI: ["power.max_limit"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_draw_minimum = {Constants.SMI: ["power.min_limit"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__power_management_capabilities = {Constants.SMI: [], Constants.WMI: ["PowerManagementCapabilities"], Constants.PYADL: []}
+        self.internal_name__power_management_supported = {Constants.SMI: ["power.management"], Constants.WMI: ["PowerManagementSupported"], Constants.PYADL: []}
+        self.internal_name__protected_memory_free = {Constants.SMI: ["protected_memory.free"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__protected_memory_total = {Constants.SMI: ["protected_memory.total"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__protected_memory_used = {Constants.SMI: ["protected_memory.used"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__protocol_supported = {Constants.SMI: [], Constants.WMI: ["ProtocolSupported"], Constants.PYADL: []}
+        self.internal_name__performance_state = {Constants.SMI: ["pstate"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__retired_pages_double_bit_ecc_errors_count = {Constants.SMI: ["retired_pages.double_bit.count", "retired_pages.dbe"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__retired_pages_single_bit_ecc_errors_count = {Constants.SMI: ["retired_pages.single_bit_ecc.count", "retired_pages.sbe"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__retired_pages_pending = {Constants.SMI: ["retired_pages.pending"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__reserved_system_palette_entries = {Constants.SMI: [], Constants.WMI: ["ReservedSystemPaletteEntries"], Constants.PYADL: []}
+        self.internal_name__reset_required = {Constants.SMI: ["reset_status.reset_required"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__reset_and_drain_recommended = {Constants.SMI: ["reset_status.drain_and_reset_recommended"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__serial = {Constants.SMI: ["serial", "gpu_serial"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__specification_version = {Constants.SMI: [], Constants.WMI: ["SpecificationVersion"], Constants.PYADL: []}
+        self.internal_name__status = {Constants.SMI: [], Constants.WMI: ["Status"], Constants.PYADL: []}
+        self.internal_name__status_info = {Constants.SMI: [], Constants.WMI: ["StatusInfo"], Constants.PYADL: []}
+        self.internal_name__system_creation_class_name = {Constants.SMI: [], Constants.WMI: ["SystemCreationClassName"], Constants.PYADL: []}
+        self.internal_name__system_name = {Constants.SMI: [], Constants.WMI: ["SystemName"], Constants.PYADL: []}
+        self.internal_name__system_palette_entries = {Constants.SMI: [], Constants.WMI: ["SystemPaletteEntries"], Constants.PYADL: []}
+        self.internal_name__GPU_system_processor_mode_current = {Constants.SMI: ["gsp.mode.current"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__GPU_system_processor_mode_default = {Constants.SMI: ["gsp.mode.default"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__temperature_core = {Constants.SMI: ["temperature.gpu"], Constants.WMI: [], Constants.PYADL: ["getCurrentTemperature"]}
+        self.internal_name__temperature_core_limit = {Constants.SMI: ["temperature.gpu.tlimit"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__temperature_memory = {Constants.SMI: ["temperature.memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__time_of_last_reset = {Constants.SMI: [], Constants.WMI: ["TimeOfLastReset"], Constants.PYADL: []}
+        self.internal_name__utilization_decoder = {Constants.SMI: ["utilization.decoder"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__utilization_encoder = {Constants.SMI: ["utilization.encoder"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__utilization_gpu = {Constants.SMI: ["utilization.gpu"], Constants.WMI: [], Constants.PYADL: ["getCurrentUsage"]}
+        self.internal_name__utilization_jpeg = {Constants.SMI: ["utilization.jpeg"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__utilization_memory = {Constants.SMI: ["utilization.memory"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__utilization_optical_flow = {Constants.SMI: ["utilization.ofa"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__uuid = {Constants.SMI: ["uuid", "gpu_uuid"], Constants.WMI: [], Constants.PYADL: ["uuid"]}
+        self.internal_name__vbios_version = {Constants.SMI: ["vbios_version"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__video_architecture = {Constants.SMI: [], Constants.WMI: ["VideoArchitecture"], Constants.PYADL: []}
+        self.internal_name__video_memory_type = {Constants.SMI: [], Constants.WMI: ["VideoMemoryType"], Constants.PYADL: []}
+        self.internal_name__video_mode = {Constants.SMI: [], Constants.WMI: ["VideoMode"], Constants.PYADL: []}
+        self.internal_name__video_mode_description = {Constants.SMI: [], Constants.WMI: ["VideoModeDescription"], Constants.PYADL: []}
+        self.internal_name__video_processor = {Constants.SMI: [], Constants.WMI: ["VideoProcessor"], Constants.PYADL: []}
 
         self.gpu_data_points = [
             "accelerator_capabilities",
@@ -847,7 +651,7 @@ class GPU:
             "capability_descriptions",
             "caption",
             "chip_to_chip_interconnect_mode",
-            "clock_event_reasons_activity_limited",
+            "clock_event_reasons_as_bitmap",
             "clock_event_reasons_application_setting",
             "clock_event_reasons_is_hardware_limited",
             "clock_event_reasons_gpu_idle_limited",
@@ -1019,7 +823,7 @@ class GPU:
             "system_name",
             "system_palette_entries",
             "GPU_system_processor_mode_current",
-            "GPU_system_processor_mode_pending",
+            "GPU_system_processor_mode_default",
             "temperature_core",
             "temperature_core_limit",
             "temperature_memory",
@@ -1043,6 +847,8 @@ class GPU:
         self.operating_system_compatibility = "operating_system_compatibility__"
         self.manually_set = "manually_set__"
 
+        self.priorities = [Constants.SMI, Constants.PYADL, Constants.WMI] # 0-most priority
+
         self.data_points = {Constants.SMI: None, Constants.WMI: None, Constants.PYADL: None}
 
         if get_operating_system() == Constants.WINDOWS:
@@ -1064,7 +870,7 @@ class GPU:
         except:
             self.data_points[Constants.SMI] = None
 
-        self.update()
+        self.update(everything=True)
 
     def gpu_data_collection_available(self):
         for key in self.data_points.keys():
@@ -1078,6 +884,22 @@ class GPU:
                 if getattr(self, f"{self.manually_set}{data_point}"):
                     if not everything:
                         continue
+                data_collectors = getattr(self, f"{self.internal_name}{data_point}")
+                for element in self.priorities:
+                    for key in data_collectors[element]:
+                        if data_collectors[element] != []:
+                            for collection in data_collectors[element]:
+                                if element == Constants.SMI:
+                                    data = subprocess.check_output([self.data_points[Constants.SMI], f"--query-gpu={collection}", "--format=csv,noheader,nounits"], creationflags=Constants.CREATE_NO_WINDOW)
+                                    data = data.decode("utf-8").strip()
+                                    if "n/a" in data.lower():
+                                        data = None
+                                    elif data == "Enabled" or data == "Active":
+                                        data = True
+                                    elif data == "Disabled" or data == "Not Active":
+                                        data = False
+
+                                    print(collection, data)
 
     def get_accelerator_capabilities(self):
         return self.accelerator_capabilities
@@ -1121,8 +943,8 @@ class GPU:
     def get_chip_to_chip_interconnect_mode(self):
             return self.chip_to_chip_interconnect_mode
 
-    def get_clock_event_reasons_activity_limited(self):
-            return self.clock_event_reasons_activity_limited
+    def get_clock_event_reasons_as_bitmap(self):
+            return self.clock_event_reasons_as_bitmap
 
     def get_clock_event_reasons_application_setting(self):
             return self.clock_event_reasons_application_setting
@@ -1637,8 +1459,8 @@ class GPU:
     def get_GPU_system_processor_mode_current(self):
             return self.GPU_system_processor_mode_current
 
-    def get_GPU_system_processor_mode_pending(self):
-            return self.GPU_system_processor_mode_pending
+    def get_GPU_system_processor_mode_default(self):
+            return self.GPU_system_processor_mode_default
 
     def get_temperature_core(self):
             return self.temperature_core
@@ -1775,11 +1597,11 @@ class GPU:
         else:
             self.manually_set__chip_to_chip_interconnect_mode = False
 
-    def set_clock_event_reasons_activity_limited(self, value=None):
+    def set_clock_event_reasons_as_bitmap(self, value=None):
         if value != None:
-            self.manually_set__clock_event_reasons_activity_limited = True
+            self.manually_set__clock_event_reasons_as_bitmap = True
         else:
-            self.manually_set__clock_event_reasons_activity_limited = False
+            self.manually_set__clock_event_reasons_as_bitmap = False
 
     def set_clock_event_reasons_application_setting(self, value=None):
         if value != None:
@@ -2807,11 +2629,11 @@ class GPU:
         else:
             self.manually_set__GPU_system_processor_mode_current = False
 
-    def set_GPU_system_processor_mode_pending(self, value=None):
+    def set_GPU_system_processor_mode_default(self, value=None):
         if value != None:
-            self.manually_set__GPU_system_processor_mode_pending = True
+            self.manually_set__GPU_system_processor_mode_default = True
         else:
-            self.manually_set__GPU_system_processor_mode_pending = False
+            self.manually_set__GPU_system_processor_mode_default = False
 
     def set_temperature_core(self, value=None):
         if value != None:
@@ -2957,8 +2779,8 @@ class GPU:
     def update_chip_to_chip_interconnect_mode(self):
             return self.chip_to_chip_interconnect_mode
 
-    def update_clock_event_reasons_activity_limited(self):
-            return self.clock_event_reasons_activity_limited
+    def update_clock_event_reasons_as_bitmap(self):
+            return self.clock_event_reasons_as_bitmap
 
     def update_clock_event_reasons_application_updateting(self):
             return self.clock_event_reasons_application_updateting
@@ -3473,8 +3295,8 @@ class GPU:
     def update_GPU_system_processor_mode_current(self):
             return self.GPU_system_processor_mode_current
 
-    def update_GPU_system_processor_mode_pending(self):
-            return self.GPU_system_processor_mode_pending
+    def update_GPU_system_processor_mode_default(self):
+            return self.GPU_system_processor_mode_default
 
     def update_temperature_core(self):
             return self.temperature_core

@@ -61,6 +61,7 @@ from pmma.python_src.image import *
 from pmma.python_src.draw import *
 from pmma.python_src.file import *
 from pmma.python_src.text import *
+from pmma.python_src.gpu import *
 
 from pmma.python_src.utility import cython_utils
 from pmma.python_src.memory_manager import MemoryManager
@@ -109,6 +110,8 @@ def init(
         log_to_terminal=log_to_terminal)
 
     register_application()
+
+    GPUs()
 
     if wait_for_initialization:
         cython_thread.join()

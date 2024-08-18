@@ -2,6 +2,8 @@ import math
 import os
 
 class Constants:
+    CREATE_NO_WINDOW = 0x08000000
+
     WINDOWS = "windows"
     LINUX = "linux"
     MACOS = "macOS"
