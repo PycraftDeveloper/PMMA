@@ -1,4 +1,11 @@
+from distutils import spawn
+from os import environ
+import os
+
+from pmma.python_src.general import *
+from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
 
 class GPU:
     def __init__(self):
@@ -824,6 +831,253 @@ class GPU:
         self.internal_name__video_mode = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__video_mode_description = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__video_processor = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: []}
+
+        self.gpu_data_points = [
+            "accelerator_capabilities",
+            "accounting_mode_enabled",
+            "accounting_mode_buffer_size",
+            "adapter_compatibility",
+            "adapter_DAC_type",
+            "adapter_id",
+            "adapter_index",
+            "adapter_name",
+            "addressing_mode",
+            "availability",
+            "bus_number",
+            "capability_descriptions",
+            "caption",
+            "chip_to_chip_interconnect_mode",
+            "clock_event_reasons_activity_limited",
+            "clock_event_reasons_application_setting",
+            "clock_event_reasons_is_hardware_limited",
+            "clock_event_reasons_gpu_idle_limited",
+            "clock_event_reasons_software_power_limited",
+            "clock_event_reasons_software_thermal_limited",
+            "clock_event_reasons_power_break_slowdown_limited",
+            "clock_event_reasons_supported",
+            "clock_event_reasons_sync_boost",
+            "clock_event_reasons_thermal_limited",
+            "color_table_entries",
+            "compute_cap",
+            "compute_mode",
+            "config_manager_error_code",
+            "config_manager_user_config",
+            "core_voltage",
+            "core_voltage_range",
+            "creation_class_name",
+            "current_bits_per_pixel",
+            "current_horizontal_resolution",
+            "current_number_of_colors",
+            "current_number_of_columns",
+            "current_number_of_rows",
+            "current_refresh_rate",
+            "current_scan_mode",
+            "current_vertical_resolution",
+            "description",
+            "device_id",
+            "device_specific_pens",
+            "display_active",
+            "display_mode",
+            "dither_type",
+            "driver_date",
+            "driver_model_current",
+            "driver_model_pending",
+            "driver_version",
+            "ecc_errors_corrected_all_time_in_cbu",
+            "ecc_errors_corrected_all_time_in_primary_cache",
+            "ecc_errors_corrected_all_time_in_register_file",
+            "ecc_errors_corrected_all_time_in_secondary_cache",
+            "ecc_errors_corrected_all_time_in_shared_memory",
+            "ecc_errors_corrected_all_time_in_sram",
+            "ecc_errors_corrected_all_time_in_texture_memory",
+            "ecc_errors_corrected_all_time_in_total",
+            "ecc_errors_corrected_all_time_in_video_memory",
+            "ecc_errors_corrected_since_reboot_in_cbu",
+            "ecc_errors_corrected_since_reboot_in_primary_cache",
+            "ecc_errors_corrected_since_reboot_in_register_file",
+            "ecc_errors_corrected_since_reboot_in_secondary_cache",
+            "ecc_errors_corrected_since_reboot_in_shared_memory",
+            "ecc_errors_corrected_since_reboot_in_sram",
+            "ecc_errors_corrected_since_reboot_in_texture_memory",
+            "ecc_errors_corrected_since_reboot_in_total",
+            "ecc_errors_corrected_since_reboot_in_video_memory",
+            "ecc_errors_uncorrected_all_time_in_cbu",
+            "ecc_errors_uncorrected_all_time_in_primary_cache",
+            "ecc_errors_uncorrected_all_time_in_register_file",
+            "ecc_errors_uncorrected_all_time_in_secondary_cache",
+            "ecc_errors_uncorrected_all_time_in_shared_memory",
+            "ecc_errors_uncorrected_all_time_in_sram",
+            "ecc_errors_uncorrected_all_time_in_texture_memory",
+            "ecc_errors_uncorrected_all_time_in_total",
+            "ecc_errors_uncorrected_all_time_in_video_memory",
+            "ecc_errors_uncorrected_since_reboot_in_cbu",
+            "ecc_errors_uncorrected_since_reboot_in_primary_cache",
+            "ecc_errors_uncorrected_since_reboot_in_register_file",
+            "ecc_errors_uncorrected_since_reboot_in_secondary_cache",
+            "ecc_errors_uncorrected_since_reboot_in_shared_memory",
+            "ecc_errors_uncorrected_since_reboot_in_sram",
+            "ecc_errors_uncorrected_since_reboot_in_texture_memory",
+            "ecc_errors_uncorrected_since_reboot_in_total",
+            "ecc_errors_uncorrected_since_reboot_in_video_memory",
+            "ecc_mode_current",
+            "ecc_mode_pending",
+            "encoder_average_FPS",
+            "encoder_average_latency",
+            "encoder_session_count",
+            "engine_clock_range",
+            "error_cleared",
+            "error_description",
+            "fabric_state",
+            "fabric_status",
+            "fan_speed_percentage",
+            "fan_speed_percentage_range",
+            "fan_speed_RPM",
+            "fan_speed_RPM_range",
+            "fractional_multi_vGPU",
+            "frequency_application_default_shader_clock",
+            "frequency_application_default_memory_clock",
+            "frequency_application_memory_clock",
+            "frequency_application_shader_clock",
+            "frequency_maximum_memory_clock",
+            "frequency_maximum_shader_clock",
+            "frequency_maximum_streaming_multiprocessor_clock",
+            "frequency_memory_clock",
+            "frequency_shader_clock",
+            "frequency_streaming_multiprocessor_clock",
+            "frequency_video_clock",
+            "heterogenous_multi_vGPU",
+            "heterogenous_time_slice_profile",
+            "heterogenous_time_slice_sizes",
+            "ICM_indent",
+            "ICM_method",
+            "inf_filename",
+            "inf_section",
+            "info_ROM_ecc",
+            "info_ROM_oem",
+            "info_ROM_power",
+            "info_ROM_version",
+            "install_date",
+            "installed_display_drivers",
+            "last_error_code",
+            "max_memory_supported",
+            "max_number_controlled",
+            "max_refresh_rate",
+            "memory_clock_range",
+            "memory_free",
+            "memory_reserved",
+            "memory_total",
+            "memory_used",
+            "min_refresh_rate",
+            "monochrome",
+            "multi_instance_GPU_mode_current",
+            "multi_instance_GPU_mode_pending",
+            "name",
+            "number_of_color_planes",
+            "number_of_video_pages",
+            "operating_mode_current",
+            "operating_mode_pending",
+            "pci_bus",
+            "pci_bus_id",
+            "pci_device",
+            "pci_device_id",
+            "pci_domain",
+            "pci_link_generation_current",
+            "pci_link_generation_device_host_maximum",
+            "pci_link_generation_gpu_maximum",
+            "pci_link_generation_maximum",
+            "pci_link_width_current",
+            "pci_link_width_maximum",
+            "pci_sub_device_id",
+            "persistence_mode",
+            "PNP_device_id",
+            "power_draw",
+            "power_draw_average",
+            "power_draw_default_limit",
+            "power_draw_enforced_limit",
+            "power_draw_instant",
+            "power_draw_limit",
+            "power_draw_maximum",
+            "power_draw_minimum",
+            "power_management_capabilities",
+            "power_management_supported",
+            "protected_memory_free",
+            "protected_memory_total",
+            "protected_memory_used",
+            "protocol_supported",
+            "performance_state",
+            "retired_pages_double_bit_ecc_errors_count",
+            "retired_pages_single_bit_ecc_errors_count",
+            "retired_pages_pending",
+            "reserved_system_palette_entries",
+            "reset_required",
+            "reset_and_drain_recommended",
+            "serial",
+            "specification_version",
+            "status",
+            "status_info",
+            "system_creation_class_name",
+            "system_name",
+            "system_palette_entries",
+            "GPU_system_processor_mode_current",
+            "GPU_system_processor_mode_pending",
+            "temperature_core",
+            "temperature_core_limit",
+            "temperature_memory",
+            "time_of_last_reset",
+            "utilization_decoder",
+            "utilization_encoder",
+            "utilization_gpu",
+            "utilization_jpeg",
+            "utilization_memory",
+            "utilization_optical_flow",
+            "uuid",
+            "vbios_version",
+            "video_architecture",
+            "video_memory_type",
+            "video_mode",
+            "video_mode_description",
+            "video_processor"
+        ]
+
+        self.internal_name = "internal_name__"
+        self.operating_system_compatibility = "operating_system_compatibility__"
+        self.manually_set = "manually_set__"
+
+        self.data_points = {Constants.SMI: None, Constants.WMI: None, Constants.PYADL: None}
+
+        if get_operating_system() == Constants.WINDOWS:
+            # If the platform is Windows and nvidia-smi
+            # could not be found from the environment path,
+            # try to find it from system drive with default installation path
+            nvidia_smi = spawn.find_executable("nvidia-smi")
+            if nvidia_smi is None:
+                nvidia_smi = f"{os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
+        else:
+            nvidia_smi = "nvidia-smi"
+
+        try:
+            result = subprocess.check_call([nvidia_smi])
+            if result == 0:
+                self.data_points[Constants.SMI] = nvidia_smi
+            else:
+                self.data_points[Constants.SMI] = None
+        except:
+            self.data_points[Constants.SMI] = None
+
+        self.update()
+
+    def gpu_data_collection_available(self):
+        for key in self.data_points.keys():
+            if self.data_points[key] is not None:
+                return True
+        return False
+
+    def update(self, everything=False):
+        if self.gpu_data_collection_available():
+            for data_point in self.gpu_data_points:
+                if getattr(self, f"{self.manually_set}{data_point}"):
+                    if not everything:
+                        continue
 
     def get_accelerator_capabilities(self):
         return self.accelerator_capabilities
