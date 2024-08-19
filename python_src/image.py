@@ -1,8 +1,8 @@
-import time
-import gc
+import time as _time
+import gc as _gc
 
-from PIL import Image as ImageModule
-import pygame
+from PIL import Image as _ImageModule
+import pygame as _pygame
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -23,7 +23,7 @@ class Image:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -34,9 +34,9 @@ class Image:
             self.memory_manager_instance.remove_object(
                 self.pil_image_address)
 
-        start = time.perf_counter()
-        pil_image = ImageModule.open(image_path)
-        end = time.perf_counter()
+        start = _time.perf_counter()
+        pil_image = _ImageModule.open(image_path)
+        end = _time.perf_counter()
         self.pil_image_address = self.memory_manager_instance.add_object(
             pil_image,
             object_creation_time=end-start,
@@ -47,9 +47,9 @@ class Image:
             self.memory_manager_instance.remove_object(
                 self.pil_image_address)
 
-        start = time.perf_counter()
-        pil_image = ImageModule.frombytes(image_bytes)
-        end = time.perf_counter()
+        start = _time.perf_counter()
+        pil_image = _ImageModule.frombytes(image_bytes)
+        end = _time.perf_counter()
 
         self.pil_image_address = self.memory_manager_instance.add_object(
             pil_image,
@@ -61,7 +61,7 @@ class Image:
             self.pil_image_address)
 
     def image_to_display_renderable_object(self, auto_optimize=True):
-        start = time.perf_counter()
+        start = _time.perf_counter()
         pil_image = self.memory_manager_instance.get_object(
             self.pil_image_address)
 
@@ -71,7 +71,7 @@ class Image:
                 self.pil_image_address)
 
         if Registry.display_mode == Constants.PYGAME:
-            graphics_backend_image = pygame.image.fromstring(
+            graphics_backend_image = _pygame.image.fromstring(
                 pil_image.tobytes(),
                 pil_image.size,
                 pil_image.mode)
@@ -83,7 +83,7 @@ class Image:
         else:
             raise NotImplementedError
 
-        end = time.perf_counter()
+        end = _time.perf_counter()
 
         self.graphics_backend_image_address = self.memory_manager_instance.add_object(
             graphics_backend_image,

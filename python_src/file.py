@@ -1,17 +1,16 @@
-import os
-import shutil
-import gc
+import os as _os
+import shutil as _shutil
+import gc as _gc
 
-import send2trash
+import send2trash as _send2trash
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.passport import PassportIntermediary
-
-import pmma.python_src.utility.file_utils as file_utils
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWatcher
 
 def path_builder(*args):
     result = ""
@@ -31,20 +30,20 @@ class File:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def exists(self):
-        return os.path.exists(self.file_path)
+        return _os.path.exists(self.file_path)
 
     def get_path(self):
         return self.file_path
 
     def get_directory(self):
-        return os.path.dirname(self.file_path)
+        return _os.path.dirname(self.file_path)
 
     def get_file_name_and_type(self):
         return self.file_path.split(Constants.PATH_SEPARATOR)[-1]
@@ -56,19 +55,19 @@ class File:
         return self.get_file_name_and_type().split(".")[-1]
 
     def move(self, new_path):
-        shutil.move(self.file_path, new_path)
+        _shutil.move(self.file_path, new_path)
         self.file_path = new_path
 
     def delete(self):
-        os.remove(self.file_path)
+        _os.remove(self.file_path)
 
     def recycle(self):
-        send2trash.send2trash(self.file_path)
+        _send2trash.send2trash(self.file_path)
 
     def rename(self, new_name):
         file_type = self.get_file_type()
-        new_file_path = os.path.dirname(self.file_path) + Constants.PATH_SEPARATOR + new_name + "." + file_type
-        os.rename(self.file_path, new_file_path)
+        new_file_path = _os.path.dirname(self.file_path) + Constants.PATH_SEPARATOR + new_name + "." + file_type
+        _os.rename(self.file_path, new_file_path)
         self.file_path = new_file_path
 
     def read(self):
@@ -88,7 +87,7 @@ class FileCore:
 
         self.update_locations(project_directory=project_directory, force_refresh=False)
 
-        self.watcher = file_utils.DirectoryWatcher(self.locations, File)
+        self.watcher = _DirectoryWatcher(self.locations, File)
 
         if passive_refresh:
             self.watcher.start()
@@ -101,7 +100,7 @@ class FileCore:
 
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -111,18 +110,18 @@ class FileCore:
         self.locations = [Registry.base_path]
         if project_directory is not None:
             self.locations.append(project_directory)
-        if PassportIntermediary.project_directory is not None:
-            self.locations.append(PassportIntermediary.project_directory)
-        if PassportIntermediary.project_temporary_directory is not None:
-            self.locations.append(PassportIntermediary.project_temporary_directory)
-        if PassportIntermediary.project_resources_directory is not None:
-            self.locations.append(PassportIntermediary.project_resources_directory)
-        if PassportIntermediary.project_python_src_directory is not None:
-            self.locations.append(PassportIntermediary.project_python_src_directory)
-        if PassportIntermediary.project_pyx_src_directory is not None:
-            self.locations.append(PassportIntermediary.project_pyx_src_directory)
-        if PassportIntermediary.project_c_src_directory is not None:
-            self.locations.append(PassportIntermediary.project_c_src_directory)
+        if _PassportIntermediary.project_directory is not None:
+            self.locations.append(_PassportIntermediary.project_directory)
+        if _PassportIntermediary.project_temporary_directory is not None:
+            self.locations.append(_PassportIntermediary.project_temporary_directory)
+        if _PassportIntermediary.project_resources_directory is not None:
+            self.locations.append(_PassportIntermediary.project_resources_directory)
+        if _PassportIntermediary.project_python_src_directory is not None:
+            self.locations.append(_PassportIntermediary.project_python_src_directory)
+        if _PassportIntermediary.project_pyx_src_directory is not None:
+            self.locations.append(_PassportIntermediary.project_pyx_src_directory)
+        if _PassportIntermediary.project_c_src_directory is not None:
+            self.locations.append(_PassportIntermediary.project_c_src_directory)
 
         self.refresh(force=force_refresh)
 
@@ -130,9 +129,9 @@ class FileCore:
         self.file_matrix = {}
         construction_matrix = {}
         for location in self.locations:
-            for root, subdirs, files in os.walk(location):
+            for root, subdirs, files in _os.walk(location):
                 for file in files:
-                    file_path = os.path.join(root, file)
+                    file_path = _os.path.join(root, file)
                     if file not in construction_matrix:
                         construction_matrix[file] = File(file_path)
                     else: # duplicate name resolver
@@ -141,8 +140,8 @@ class FileCore:
 
                         new_file = file_path
 
-                        original_file_split = original_file.split(os.sep)
-                        new_file_split = new_file.split(os.sep)
+                        original_file_split = original_file.split(_os.sep)
+                        new_file_split = new_file.split(_os.sep)
 
                         original_identifier = original_file_split[-1]
                         new_identifier = new_file_split[-1]
@@ -151,8 +150,8 @@ class FileCore:
                         del new_file_split[-1]
 
                         while original_identifier == new_identifier:
-                            original_identifier = original_file_split[-1] + os.sep + original_identifier
-                            new_identifier = new_file_split[-1] + os.sep + new_identifier
+                            original_identifier = original_file_split[-1] + _os.sep + original_identifier
+                            new_identifier = new_file_split[-1] + _os.sep + new_identifier
 
                             del original_file_split[-1]
                             del new_file_split[-1]

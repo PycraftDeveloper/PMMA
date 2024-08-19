@@ -1,23 +1,23 @@
-import time
-import threading
-import sys
-import tempfile
-import os
-import shutil
-import gc
-import traceback
+import time as _time
+import threading as _threading
+import sys as _sys
+import tempfile as _tempfile
+import os as _os
+import shutil as _shutil
+import gc as _gc
+import traceback as _traceback
 
-import psutil
-import dill
+import psutil as _psutil
+import dill as _dill
 
-from pmma.python_src.file import path_builder
+from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.passport import PassportIntermediary
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class MemoryManager:
     def __init__(
@@ -29,7 +29,7 @@ class MemoryManager:
 
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:
-            target_size = (1/8) * psutil.virtual_memory().available
+            target_size = (1/8) * _psutil.virtual_memory().available
             if target_size > 1000000000:
                 self.target_size = 1000000000 # 1 GB
                 self.limited_max_size = True
@@ -55,14 +55,14 @@ however this is a target NOT a maximum, and this limit can be exceeded, \
 with PMMA automatically taking corrective action in such cases. Additionally, \
 this memory will not be used until it's needed by PMMA.")
 
-        if self.assigned_target_size is False and PassportIntermediary.project_size is not None:
+        if self.assigned_target_size is False and _PassportIntermediary.project_size is not None:
             log_development("For applications with a defined project size, \
 leaving the target size variable can be dangerous.")
 
         self.objects = {}
         self.linker = {}
         self.object_lifetime = object_lifetime
-        self.manager_thread = threading.Thread(target=self.object_dictionary_manager)
+        self.manager_thread = _threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
         self.manager_thread.start()
         self.max_obj_creation_time = float("-inf")
@@ -73,18 +73,18 @@ leaving the target size variable can be dangerous.")
 
         self.enable_memory_management = True
 
-        self.memory_manager_thread_lock = threading.Lock()
+        self.memory_manager_thread_lock = _threading.Lock()
 
-        self.memory_management_directory = path_builder(
+        self.memory_management_directory = _path_builder(
             Registry.base_path,
             "temporary",
             "memory management dumps")
 
-        shutil.rmtree(
+        _shutil.rmtree(
             self.memory_management_directory,
             ignore_errors=True)
 
-        os.mkdir(self.memory_management_directory)
+        _os.mkdir(self.memory_management_directory)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -92,17 +92,17 @@ leaving the target size variable can be dangerous.")
 
             self.manager_thread.join()
 
-            shutil.rmtree(
+            _shutil.rmtree(
                 self.memory_management_directory,
                 ignore_errors=True)
 
-            os.mkdir(self.memory_management_directory)
+            _os.mkdir(self.memory_management_directory)
 
             self.linker = {}
             self.objects = {}
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -121,8 +121,8 @@ leaving the target size variable can be dangerous.")
             if pre_locked:
                 if recreatable_object is False:
                     try:
-                        byte_data = dill.dumps(obj)
-                        dill.loads(byte_data)
+                        byte_data = _dill.dumps(obj)
+                        _dill.loads(byte_data)
                         stay_in_memory = False
                     except:
                         stay_in_memory = True
@@ -134,23 +134,23 @@ leaving the target size variable can be dangerous.")
                 if identifier in self.linker.keys():
                     raise KeyError("Object already exists")
 
-                obj_size = sys.getsizeof(obj)
-                if ((PassportIntermediary.project_size is None or
-                            PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and
+                obj_size = _sys.getsizeof(obj)
+                if ((_PassportIntermediary.project_size is None or
+                            _PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.75:
                         log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
-                elif (PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
+                elif (_PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.5:
                         log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
-                elif (PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
+                elif (_PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.25:
@@ -168,7 +168,7 @@ more than 25% of the assigned memory")
                     relative_object_creation_time = object_creation_time / self.max_obj_creation_time
                 if object_lifetime is None:
                     object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
-                current_time = str(time.perf_counter())
+                current_time = str(_time.perf_counter())
                 self.linker[identifier] = current_time
                 self.objects[current_time] = [
                     obj,
@@ -184,8 +184,8 @@ more than 25% of the assigned memory")
                 with self.memory_manager_thread_lock:
                     if recreatable_object is False:
                         try:
-                            byte_data = dill.dumps(obj)
-                            dill.loads(byte_data)
+                            byte_data = _dill.dumps(obj)
+                            _dill.loads(byte_data)
                             stay_in_memory = False
                         except:
                             stay_in_memory = True
@@ -197,23 +197,23 @@ more than 25% of the assigned memory")
                     if identifier in self.linker.keys():
                         raise KeyError("Object already exists")
 
-                    obj_size = sys.getsizeof(obj)
-                    if ((PassportIntermediary.project_size is None or
-                                PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and
+                    obj_size = _sys.getsizeof(obj)
+                    if ((_PassportIntermediary.project_size is None or
+                                _PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.75:
                             log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
-                    elif (PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
+                    elif (_PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.5:
                             log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
-                    elif (PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
+                    elif (_PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.25:
@@ -232,7 +232,7 @@ more than 25% of the assigned memory")
                     if object_lifetime is None:
                         object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
 
-                    current_time = str(time.perf_counter())
+                    current_time = str(_time.perf_counter())
                     self.linker[identifier] = current_time
                     self.objects[current_time] = [
                         obj,
@@ -251,7 +251,7 @@ more than 25% of the assigned memory")
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
-                    current_time = str(time.perf_counter())
+                    current_time = str(_time.perf_counter())
                     obj = self.objects[self.linker[obj_id]][0]
                     obj_lifetime = self.objects[self.linker[obj_id]][2]
                     obj_creation_time = self.objects[self.linker[obj_id]][3]
@@ -278,7 +278,7 @@ more than 25% of the assigned memory")
                             object_lifetime,
                             object_creation_time,
                             recreatable_object,
-                            stay_in_memory) = dill.loads(file.read())
+                            stay_in_memory) = _dill.loads(file.read())
 
                     self.add_object(
                         stored_object,
@@ -288,7 +288,7 @@ more than 25% of the assigned memory")
                         recreatable_object=recreatable_object,
                         pre_locked=True)
 
-                    os.remove(self.temporary_files[obj_id])
+                    _os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
                     return stored_object
         else:
@@ -305,15 +305,15 @@ more than 25% of the assigned memory")
                     del self.linker[self.objects[obj_id][1]]
                     self.objects[obj_id] = None
                     del self.objects[obj_id]
-                    gc.collect()
+                    _gc.collect()
                     return True
                 elif obj_id in self.temporary_files:
                     log_development(f"Removing temporary memory object w/ ID: \
 '{self.objects[obj_id][1]}' from disk.")
 
-                    os.remove(self.temporary_files[obj_id])
+                    _os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
-                    gc.collect()
+                    _gc.collect()
                     return True
                 return False
         else:
@@ -322,7 +322,7 @@ more than 25% of the assigned memory")
     def object_dictionary_manager(self):
         try:
             while self.enable_memory_management:
-                current_time = time.perf_counter()
+                current_time = _time.perf_counter()
                 if self.total_size / self.target_size > 0.9:
                     log_warning(f"Caution - memory management utilization \
 is currently at: {round((self.total_size / self.target_size)*100, 2)}%. Consider \
@@ -340,17 +340,17 @@ as PMMA attempts to correct this.")
                             stay_in_memory = self.objects[obj_time][4]
                             if stay_in_memory is False:
                                 if current_time - float(obj_time) > self.objects[obj_time][2]:
-                                    self.total_size -= sys.getsizeof(self.objects[obj_time][0])
+                                    self.total_size -= _sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
                                         log_development(f"Dumping object w/ ID: \
 '{self.objects[obj_time][1]}' to temporary file.")
 
-                                        with tempfile.NamedTemporaryFile(
+                                        with _tempfile.NamedTemporaryFile(
                                                 dir=self.memory_management_directory,
                                                 delete=False) as file:
 
                                             file_name = file.name
-                                            dill.dump(self.objects[obj_time], file)
+                                            _dill.dump(self.objects[obj_time], file)
 
                                         self.temporary_files[self.objects[obj_time][1]] = file_name
                                         log_development(f"Dumped object w/ ID: \
@@ -363,18 +363,18 @@ as PMMA attempts to correct this.")
                                     del self.linker[self.objects[obj_time][1]]
                                     self.objects[obj_time] = None
                                     del self.objects[obj_time]
-                                    gc.collect()
+                                    _gc.collect()
                         except FileNotFoundError as error:
                             raise error
 
                         except Exception as error:
                             print(error)
-                            print(traceback.format_exc())
+                            print(_traceback.format_exc())
 
                 if Registry.power_saving_mode:
-                    time.sleep(1/15)
+                    _time.sleep(1/15)
                 else:
-                    time.sleep(1/30)
+                    _time.sleep(1/30)
         except:
             self.enable_memory_management = False
             self.linker = {}

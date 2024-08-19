@@ -1,6 +1,6 @@
-import tkinter as tk
-from tkinter import ttk
-import gc
+import tkinter as _tk
+from tkinter import ttk as _ttk
+import gc as _gc
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -14,14 +14,14 @@ class Tkinter:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def style(self, widget):
-        style = ttk.Style()
+        style = _ttk.Style()
         style.configure(
             widget,
             background="white",
@@ -37,7 +37,7 @@ class Tkinter:
 
     def get_display_size(self):
         try:
-            root = tk.Tk()
+            root = _tk.Tk()
 
             screen_size_x = root.winfo_screenwidth()
             screen_size_y = root.winfo_screenheight()

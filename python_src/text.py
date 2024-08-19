@@ -1,18 +1,18 @@
-from tkinter import font
-import re
-import time
-import gc
+from tkinter import font as _font
+import re as _re
+import time as _time
+import gc as _gc
 
-import pygame
-import pyglet
+import pygame as _pygame
+import pyglet as _pyglet
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.color import Color
-from pmma.python_src.file import File
+from pmma.python_src.color import Color as _Color
+from pmma.python_src.file import File as _File
 
 class Text:
     def __init__(self, canvas=None):
@@ -26,14 +26,14 @@ class Text:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_system_font(self, size=None, bold=None, italic=None):
-        system_font = font.nametofont("TkTextFont")
+        system_font = _font.nametofont("TkTextFont")
         system_font_dictionary = system_font.actual()
 
         name = system_font_dictionary["family"]
@@ -47,7 +47,7 @@ class Text:
             italic = system_font_dictionary["slant"] == "italic"
 
         if Registry.display_mode == Constants.PYGAME:
-            return pygame.font.SysFont(name, size), [name, size]
+            return _pygame.font.SysFont(name, size), [name, size]
         else:
             raise NotImplementedError
 
@@ -55,9 +55,9 @@ class Text:
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
         if Registry.display_mode == Constants.PYGAME:
-            alpha_surface = pygame.Surface(
+            alpha_surface = _pygame.Surface(
                 (width, height),
-                pygame.SRCALPHA)
+                _pygame.SRCALPHA)
         else:
             raise NotImplementedError
 
@@ -102,13 +102,13 @@ class Text:
             font, font_identifiable_data = self.get_system_font(size, bold, italic)
         else:
             font_identifiable_data = [font, size]
-            file_object = File(font)
+            file_object = _File(font)
             font_argument_is_path = file_object.exists()
             if Registry.display_mode == Constants.PYGAME:
                 if font_argument_is_path:
-                    font = pygame.font.Font(font, size)
+                    font = _pygame.font.Font(font, size)
                 else:
-                    font = pygame.font.SysFont(font, size)
+                    font = _pygame.font.SysFont(font, size)
             else:
                 raise NotImplementedError
 
@@ -157,18 +157,18 @@ class Text:
 
         result = self.memory_manager_instance.get_object(identifier)
         if result is None:
-            start = time.perf_counter()
+            start = _time.perf_counter()
             x, y = 0, 0
             if Registry.display_mode == Constants.PYGAME:
-                surface = pygame.Surface(
+                surface = _pygame.Surface(
                     canvas.get_size(),
-                    pygame.SRCALPHA)
+                    _pygame.SRCALPHA)
             else:
                 raise NotImplementedError
 
             pattern = "(\$\{[a-zA-Z =\()\0-9]+})|"+word_separator
 
-            split_text = [token for token in re.split(pattern, text) if token and not token.isspace()]
+            split_text = [token for token in _re.split(pattern, text) if token and not token.isspace()]
 
             for word in split_text:
                 if y > surface.get_height():
@@ -183,25 +183,25 @@ class Text:
                     split_content = content.split(" ")
                     for syntax in split_content:
                         foreground_color_pattern = r'^cfg=\(([^()]+)\)$'
-                        foreground_color_pattern_match = re.match(
+                        foreground_color_pattern_match = _re.match(
                             foreground_color_pattern,
                             syntax)
 
                         background_color_pattern = r'^cbg=\(([^()]+)\)$'
-                        background_color_pattern_match = re.match(
+                        background_color_pattern_match = _re.match(
                             background_color_pattern,
                             syntax)
 
                         size_pattern = r'^sze=\(([^()]+)\)$'
-                        size_pattern_match = re.match(size_pattern, syntax)
+                        size_pattern_match = _re.match(size_pattern, syntax)
                         if foreground_color_pattern_match:
                             raw_foreground_color = foreground_color_pattern_match.group(1)
-                            foreground_color = Color(raw_foreground_color).convert_format(
+                            foreground_color = _Color(raw_foreground_color).convert_format(
                                 Constants.RGBA)
 
                         elif background_color_pattern_match:
                             raw_background_color = background_color_pattern_match.group(1)
-                            background_color = Color(raw_background_color).convert_format(
+                            background_color = _Color(raw_background_color).convert_format(
                                 Constants.RGBA)
 
                         elif size_pattern_match:
@@ -307,7 +307,7 @@ class Text:
                         surface.blit(rendered_word, (x, y))
                     x += rendered_word.get_width()
             canvas.blit(surface, defaults["position"])
-            end = time.perf_counter()
+            end = _time.perf_counter()
             object_creation_time = end-start
             self.memory_manager_instance.add_object(
                 surface,

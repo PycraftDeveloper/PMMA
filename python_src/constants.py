@@ -1,5 +1,5 @@
-import math
-import os
+import math as _math
+import os as _os
 
 class Constants:
     CREATE_NO_WINDOW = 0x08000000
@@ -42,7 +42,7 @@ class Constants:
     TOP = "top"
     BOTTOM = "bottom"
 
-    CORE_COUNT = os.cpu_count()
+    CORE_COUNT = _os.cpu_count()
     THREAD_COUNT = CORE_COUNT * 2
 
     DISPLAY_OBJECT = "display"
@@ -171,7 +171,7 @@ class Constants:
         PYTHON3_12
     ]
 
-    PATH_SEPARATOR = os.sep
+    PATH_SEPARATOR = _os.sep
 
     AUTODETECT = "autodetect"
 
@@ -179,7 +179,7 @@ class Constants:
     PYGLET = "pyglet"
 
     DEFAULT = "default"
-    TAU = math.pi * 2
+    TAU = _math.pi * 2
 
     XYZ = "xyz"
     XZY = "xzy"

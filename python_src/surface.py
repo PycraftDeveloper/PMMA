@@ -1,7 +1,7 @@
-import gc
+import gc as _gc
 
-import pygame
-import pyglet
+import pygame as _pygame
+import pyglet as _pyglet
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -18,12 +18,14 @@ class Surface:
         self.alpha = None
         self.surface_initialized = False
 
-    def __del__(self):
+    def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             if self.surface_initialized:
                 if Registry.display_mode == Constants.PYGAME:
                     self.pygame_surface = None
                     del self.pygame_surface
+            if do_garbage_collection:
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -33,11 +35,11 @@ class Surface:
         self.alpha = alpha
         if Registry.display_mode == Constants.PYGAME:
             if alpha:
-                flags = pygame.SRCALPHA
+                flags = _pygame.SRCALPHA
             else:
                 flags = 0
 
-            self.pygame_surface = pygame.Surface(
+            self.pygame_surface = _pygame.Surface(
                 (width, height),
                 flags)
 
@@ -97,7 +99,7 @@ class Surface:
                     color_format = "RGB"
 
             if Registry.display_mode == Constants.PYGAME:
-                return pygame.image.tostring(
+                return _pygame.image.tostring(
                     self.pygame_surface,
                     color_format,
                     flipped)

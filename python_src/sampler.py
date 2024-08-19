@@ -1,9 +1,9 @@
-import threading
-import gc
-import time
+import threading as _threading
+import gc as _gc
+import time as _time
 
-import pyaudio
-import numpy as np
+import pyaudio as _pyaudio
+import numpy as _numpy
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -14,7 +14,7 @@ class Sampler:
     def __init__(self, chunk_size=2048, sampling_rate=44100, input_device_id=None):
         initialize(self)
 
-        self.pyaudio_instance = pyaudio.PyAudio()
+        self.pyaudio_instance = _pyaudio.PyAudio()
 
         if input_device_id is None:
             self.input_device = self.get_default_input_device()
@@ -32,7 +32,7 @@ class Sampler:
         self.frequency = []
         self.loudest_frequency = 0
 
-        self.sampler_thread = threading.Thread(
+        self.sampler_thread = _threading.Thread(
             target=self.sampler)
         self.sampler_thread.daemon = True
         self.sampler_thread.name = "Sampler:Sampler_thread"
@@ -46,7 +46,7 @@ class Sampler:
 
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def print_input_devices(self):
         info = self.pyaudio_instance.get_host_api_info_by_index(0)
@@ -104,7 +104,7 @@ the operating system has detected your device, consider running the \
             raise NoInputDevicesFoundError("No audio input devices were found!")
 
         stream = self.pyaudio_instance.open(
-            format=pyaudio.paInt16,
+            format=_pyaudio.paInt16,
             channels=1,
             rate=self.sampling_rate,
             input=True,
@@ -115,7 +115,7 @@ the operating system has detected your device, consider running the \
             if self.do_pause_sampling:
                 if wait_time is None:
                     wait_time = 1/Registry.refresh_rate
-                time.sleep(wait_time)
+                _time.sleep(wait_time)
                 continue
 
             try:
@@ -128,21 +128,21 @@ process stopped. Please use the existing 'stop()' method in order to avoid this 
 raised when the audio device is removed.")
                 raise UnableToReadAudioSampleError("Unable to read audio sample!") from error
 
-            data = np.frombuffer(
+            data = _numpy.frombuffer(
                 stream_data,
-                dtype=np.int16)
+                dtype=_numpy.int16)
 
-            peak = np.average(np.abs(data))*2
+            peak = _numpy.average(_numpy.abs(data))*2
 
             self.volume = peak
 
-            data = data * np.hanning(len(data))
-            self.frequency = abs(np.fft.fft(data).real)
+            data = data * _numpy.hanning(len(data))
+            self.frequency = abs(_numpy.fft.fft(data).real)
 
             fft = self.frequency[:int(len(self.frequency)/2)]
-            freq = np.fft.fftfreq(self.chunk_size, 1.0/self.sampling_rate)
+            freq = _numpy.fft.fftfreq(self.chunk_size, 1.0/self.sampling_rate)
             freq = freq[:int(len(freq)/2)]
-            self.loudest_frequency = freq[np.where(fft==np.max(fft))[0][0]]+1
+            self.loudest_frequency = freq[_numpy.where(fft==_numpy.max(fft))[0][0]]+1
 
         self.is_sampling_running = False
         stream.stop_stream()
@@ -152,7 +152,7 @@ raised when the audio device is removed.")
         if self.is_sampling_running is False:
             self.do_sampling = True
 
-            self.sampler_thread = threading.Thread(
+            self.sampler_thread = _threading.Thread(
                 target=self.sampler)
 
             self.sampler_thread.daemon = True

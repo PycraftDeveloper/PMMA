@@ -1,26 +1,26 @@
-import gc
-import inspect
-import platform
-import ctypes
-import subprocess
-import locale
-import os
-from distutils import spawn
+import gc as _gc
+import inspect as _inspect
+import platform as _platform
+import ctypes as _ctypes
+import subprocess as _subprocess
+import locale as _locale
+import os as _os
+from distutils import spawn as _spawn
 
-import getostheme
-import psutil
-import pyglet
-import pygame
+import getostheme as _getostheme
+import psutil as _psutil
+import pyglet as _pyglet
+import pygame as _pygame
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.passport import PassportIntermediary
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 def up(path: str) -> str:
-    return path[::-1].split(os.sep, 1)[-1][::-1]
+    return path[::-1].split(_os.sep, 1)[-1][::-1]
 
 class OpenGLObject:
     def __init__(self, _object):
@@ -41,17 +41,17 @@ class OpenGLObject:
             del self.object
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
 def find_executable_nvidia_smi():
     if get_operating_system() == Constants.WINDOWS:
         # If the platform is Windows and nvidia-smi
         # could not be found from the environment path,
         # try to find it from system drive with default installation path
-        nvidia_smi = spawn.find_executable("nvidia-smi")
+        nvidia_smi = _spawn.find_executable("nvidia-smi")
         if nvidia_smi is None:
-            nvidia_smi = f"{os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
-            if not os.path.isfile(nvidia_smi):
+            nvidia_smi = f"{_os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
+            if not _os.path.isfile(nvidia_smi):
                 nvidia_smi = None
     else:
         nvidia_smi = "nvidia-smi"
@@ -125,8 +125,8 @@ def can_swizzle(in_format, data, out_format):
 def environ_to_registry():
     for key in Registry.__dict__:
         check_key = f"PMMA_{key}"
-        if check_key in os.environ:
-            value = os.environ[check_key]
+        if check_key in _os.environ:
+            value = _os.environ[check_key]
             if "." in value:
                 data_type, value = value.split(".")
                 data_type = data_type.lower()
@@ -172,12 +172,12 @@ def log_error(message, do_traceback=True):
 
 def register_application():
     if get_operating_system() == Constants.WINDOWS:
-        VERSION = PassportIntermediary.version
-        AUTHOR = PassportIntermediary.author
-        APPLICATION_NAME = PassportIntermediary.name
-        SUB_APPLICATION_NAME = PassportIntermediary.sub_name
+        VERSION = _PassportIntermediary.version
+        AUTHOR = _PassportIntermediary.author
+        APPLICATION_NAME = _PassportIntermediary.name
+        SUB_APPLICATION_NAME = _PassportIntermediary.sub_name
         myappid = f"{AUTHOR}.{APPLICATION_NAME}.{SUB_APPLICATION_NAME}.{VERSION}"
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        _ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 def compute():
     Registry.power_saving_mode = is_battery_saver_enabled()
@@ -187,8 +187,8 @@ def compute():
     Registry.number_of_draw_calls = 0
     Registry.total_time_spent_drawing = 0
 
-    if PassportIntermediary.passport_changed:
-        PassportIntermediary.passport_changed = False
+    if _PassportIntermediary.passport_changed:
+        _PassportIntermediary.passport_changed = False
         register_application()
 
     if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys() and not Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
@@ -222,44 +222,44 @@ def quit():
         del Registry.pmma_object_instances[key]
 
     if Registry.display_mode == Constants.PYGAME:
-        pygame.quit()
+        _pygame.quit()
 
-    gc.collect()
+    _gc.collect()
 
 def check_if_object_is_class_or_function(param):
-    if inspect.isclass(param):
+    if _inspect.isclass(param):
         return Constants.CLASS
-    elif isinstance(param, object) and not inspect.isfunction(param):
+    elif isinstance(param, object) and not _inspect.isfunction(param):
         return Constants.CLASS_INSTANCE
-    elif inspect.isfunction(param):
+    elif _inspect.isfunction(param):
         return Constants.FUNCTION
     else:
         return Constants.UNKNOWN
 
 def get_operating_system():
-    if platform.system() == "Windows":
+    if _platform.system() == "Windows":
         return Constants.WINDOWS
-    elif platform.system() == "Linux":
+    elif _platform.system() == "Linux":
         return Constants.LINUX
-    elif platform.system() == "Darwin":
+    elif _platform.system() == "Darwin":
         return Constants.MACOS
-    elif platform.system() == "Java":
+    elif _platform.system() == "Java":
         return Constants.JAVA
 
 def get_theme():
-    if getostheme.isDarkMode():
+    if _getostheme.isDarkMode():
         return Constants.DARK
     else:
         return Constants.LIGHT
 
 def get_language():
     if get_operating_system() == Constants.WINDOWS:
-        windll = ctypes.windll.kernel32
-        return locale.windows_locale[
+        windll = _ctypes.windll.kernel32
+        return _locale.windows_locale[
             windll.GetUserDefaultUILanguage()]
     else:
         try:
-            result = subprocess.run(
+            result = _subprocess.run(
                 ['locale'],
                 capture_output=True,
                 text=True,
@@ -268,14 +268,14 @@ def get_language():
             for line in result.stdout.split('\n'):
                 if line.startswith('LANG='):
                     return line.split('=')[1]
-        except subprocess.CalledProcessError:
+        except _subprocess.CalledProcessError:
             return None
 
 def is_battery_saver_enabled(
         fallback_battery_power_saving_threshold_percentage=30,
         care_if_running_on_battery=True):
     try:
-        battery = psutil.sensors_battery()
+        battery = _psutil.sensors_battery()
         if battery is None:
             return False
 
@@ -285,14 +285,14 @@ def is_battery_saver_enabled(
             using_battery = True
 
         if get_operating_system() == Constants.WINDOWS:
-            result = subprocess.check_output(['powercfg', '/getactivescheme'], text=True)
+            result = _subprocess.check_output(['powercfg', '/getactivescheme'], text=True)
             result = result.lower()
 
             if ("saver" in result or "efficiency" in result) and using_battery:
                 return True
 
         elif get_operating_system() == Constants.MACOS:
-            output = subprocess.check_output(['pmset', '-g', 'batt'], text=True)
+            output = _subprocess.check_output(['pmset', '-g', 'batt'], text=True)
             # Check if battery saver is mentioned in the output
             return using_battery and "Low Power Mode: 1" in output
         else:

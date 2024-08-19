@@ -1,6 +1,6 @@
-import datetime
-import traceback
-import gc
+import datetime as _datetime
+import traceback as _traceback
+import gc as _gc
 
 import pmma.python_src.general as general
 from pmma.python_src.registry import Registry
@@ -39,7 +39,7 @@ class Logger:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -47,7 +47,7 @@ class Logger:
 
     def initial_formatting(self, log_level):
         message = ""
-        now = datetime.datetime.now()
+        now = _datetime.datetime.now()
         now.microsecond
         date_time_stamp = now.strftime("[%d/%m/%Y @ %H:%M:%S.%f] ")
         message += date_time_stamp
@@ -65,9 +65,9 @@ class Logger:
         message = f"{message.strip()} "
         start_of_message = self.initial_formatting(log_level)
         if do_traceback:
-            trace = traceback.print_exc()
+            trace = _traceback.print_exc()
             if trace == None:
-                trace = "".join(traceback.format_stack())
+                trace = "".join(_traceback.format_stack())
         else:
             trace = ""
         finished_message = start_of_message + message + trace

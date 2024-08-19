@@ -1,5 +1,6 @@
-import subprocess
-import threading
+import subprocess as _subprocess
+import threading as _threading
+import gc as _gc
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -18,7 +19,7 @@ class Executor:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -28,7 +29,7 @@ class Executor:
         self.exit_code = None
         self.result = None
 
-        self.thread = threading.Thread(target=self._run, args=(command, hide_window,))
+        self.thread = _threading.Thread(target=self._run, args=(command, hide_window,))
         self.thread.name = "Executor:Execution_Thread"
         if blocking is False:
             self.thread.daemon = True
@@ -43,9 +44,9 @@ class Executor:
         try:
             if command_type == list or command_type == tuple:
                 if hide_window:
-                    result = subprocess.run(command, capture_output=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                    result = _subprocess.run(command, capture_output=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
                 else:
-                    result = subprocess.run(command, capture_output=True, text=True)
+                    result = _subprocess.run(command, capture_output=True, text=True)
             else:
                 log_development("You are not using an array of arguments as your command. \
 This has the potential to be less secure, especially when using the user's input as a \
@@ -54,13 +55,13 @@ command. It is strongly recommended that you change your approach to use a list 
 its arguments, leading to unsecure commands being run on the host system!")
 
                 if hide_window:
-                    result = subprocess.run(command, shell=True, capture_output=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                    result = _subprocess.run(command, shell=True, capture_output=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
                 else:
-                    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+                    result = _subprocess.run(command, shell=True, capture_output=True, text=True)
 
             self.result = result.stdout
             self.exit_code = result.returncode
-        except subprocess.CalledProcessError as result:
+        except _subprocess.CalledProcessError as result:
             self.result = result.output
             self.exit_code = result.returncode
 
@@ -84,7 +85,7 @@ class AdvancedExecutor:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -97,7 +98,7 @@ class AdvancedExecutor:
             self.exit_code = None
             self.result = ""
 
-            self.thread = threading.Thread(target=self._update_result, args=(command, hide_window,))
+            self.thread = _threading.Thread(target=self._update_result, args=(command, hide_window,))
             self.thread.daemon = True
             self.thread.name = "AdvancedExecutor:Execution_Thread"
             self.thread.start()
@@ -117,9 +118,9 @@ class AdvancedExecutor:
         command_type = type(command)
         if command_type == list or command_type == tuple:
             if hide_window:
-                process = subprocess.Popen(command, stdout=subprocess.PIPE, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, text=True, creationflags=Constants.CREATE_NO_WINDOW)
             else:
-                process = subprocess.Popen(command, stdout=subprocess.PIPE, text=True)
+                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, text=True)
         else:
             log_development("You are not using an array of arguments as your command. \
 This has the potential to be less secure, especially when using the user's input as a \
@@ -128,9 +129,9 @@ command. It is strongly recommended that you change your approach to use a list 
 its arguments, leading to unsecure commands being run on the host system!")
 
             if hide_window:
-                process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, shell=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
             else:
-                process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, text=True)
+                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, shell=True, text=True)
 
         result = ""
         while True:

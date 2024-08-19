@@ -1,12 +1,12 @@
-import sys
-import threading
+import sys as _sys
+import threading as _threading
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 
-class Thread(threading.Thread):
+class Thread(_threading.Thread):
     def __init__(self, *args, **keywords):
-        threading.Thread.__init__(self, *args, **keywords)
+        _threading.Thread.__init__(self, *args, **keywords)
 
         initialize(self)
 
@@ -15,10 +15,10 @@ class Thread(threading.Thread):
     def start(self):
         self.__run_backup = self.run
         self.run = self.__run
-        threading.Thread.start(self)
+        _threading.Thread.start(self)
 
     def __run(self):
-        sys.settrace(self.globaltrace)
+        _sys.settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
 

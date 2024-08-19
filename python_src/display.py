@@ -1,13 +1,13 @@
-import os
-import gc
+import os as _os
+import gc as _gc
 
-import numpy
-import moderngl
-import pygame
-import pyglet
+import numpy as _numpy
+import moderngl as _moderngl
+import pygame as _pygame
+import pyglet as _pyglet
 
-from pmma.python_src.surface import Surface
-from pmma.python_src.opengl import OpenGL
+from pmma.python_src.surface import Surface as _Surface
+from pmma.python_src.opengl import OpenGL as _OpenGL
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -19,16 +19,16 @@ class Display:
         initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
 
         if display_mode == Constants.PYGAME:
-            os.environ["SDL_VIDEO_CENTERED"] = "1"
+            _os.environ["SDL_VIDEO_CENTERED"] = "1"
 
             if log_information(Registry.pygame_launch_message) is False:
                 print(Registry.pygame_launch_message)
 
-            pygame.init()
+            _pygame.init()
 
         Registry.display_mode = display_mode
         if Registry.display_mode == Constants.PYGAME:
-            self.clock = pygame.time.Clock()
+            self.clock = _pygame.time.Clock()
 
         self.fullscreen = None
         self.display_attributes = []
@@ -36,7 +36,7 @@ class Display:
 
         self.display_creation_attributes = []
 
-        self.quad_vertices = numpy.array([
+        self.quad_vertices = _numpy.array([
                 # x, y, u, v
                 -1.0, -1.0, 0.0, 0.0,
                 1.0, -1.0, 1.0, 0.0,
@@ -44,16 +44,16 @@ class Display:
                 -1.0,  1.0, 0.0, 1.0,
             ], dtype='f4')
 
-        self.quad_indices = numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
+        self.quad_indices = _numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             if Registry.display_mode == Constants.PYGAME:
-                pygame.display.quit()
+                _pygame.display.quit()
             del self
             del Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -63,9 +63,9 @@ class Display:
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
     def __setup_layers(self, size):
-        self.pygame_surface = Surface()
-        self.pygame_surface.create(*size, alpha=True)
-        self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
+        self._pygame__surface = _Surface()
+        self._pygame__surface.create(*size, alpha=True)
+        self._pygame__surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
         self.two_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
         self.two_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.two_dimension_texture)
         self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
@@ -83,13 +83,13 @@ class Display:
 
         self.vsync = vsync
         if Registry.display_mode == Constants.PYGAME:
-            flags = pygame.OPENGL | pygame.DOUBLEBUF
+            flags = _pygame.OPENGL | _pygame.DOUBLEBUF
             if fullscreen:
                 if width is None:
                     width = 0
                 if height is None:
                     height = 0
-                flags = flags | pygame.FULLSCREEN | pygame.NOFRAME
+                flags = flags | _pygame.FULLSCREEN | _pygame.NOFRAME
             else:
                 if width is None:
                     width = 1280
@@ -97,21 +97,21 @@ class Display:
                     height = 720
 
             if resizable:
-                flags = flags | pygame.RESIZABLE
+                flags = flags | _pygame.RESIZABLE
 
             self.flags = flags
 
             size = width, height
             self.display_attributes = [size, flags, self.vsync]
 
-            self.display = pygame.display.set_mode(
+            self.display = _pygame.display.set_mode(
                 size,
                 flags,
                 vsync=self.vsync)
 
-            size = pygame.display.get_window_size()
+            size = _pygame.display.get_window_size()
             Registry.display_initialized = True
-            OpenGL()
+            _OpenGL()
 
             self.__setup_layers(size)
 
@@ -125,19 +125,19 @@ class Display:
                 attributes=["in_vert", "in_uv"],
                 index_buffer=quad_ibo)
 
-            pygame.display.set_caption(str(caption))
+            _pygame.display.set_caption(str(caption))
         else:
             raise NotImplementedError
 
     def set_caption(self, caption):
-        pygame.display.set_caption(str(caption))
+        _pygame.display.set_caption(str(caption))
 
     def display_resize(self):
-        size = pygame.display.get_window_size()
+        size = _pygame.display.get_window_size()
 
-        self.pygame_surface.quit()
+        self._pygame__surface.quit()
 
-        self.pygame_surface_texture.quit()
+        self._pygame__surface_texture.quit()
         self.two_dimension_texture.quit()
         self.two_dimension_frame_buffer.quit()
         self.three_dimension_texture.quit()
@@ -155,7 +155,7 @@ class Display:
             else:
                 size = self.display_attributes[0]
 
-            self.display = pygame.display.set_mode(
+            self.display = _pygame.display.set_mode(
                 size,
                 self.display_attributes[1],
                 vsync=self.display_attributes[2])
@@ -163,11 +163,11 @@ class Display:
         Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = True
 
     def blit(self, content, position=[0, 0]):
-        self.pygame_surface.blit(content, position)
+        self._pygame__surface.blit(content, position)
 
     def get_size(self):
         if Registry.display_mode == Constants.PYGAME:
-            return pygame.display.get_window_size()
+            return _pygame.display.get_window_size()
         else:
             raise NotImplementedError
 
@@ -194,7 +194,7 @@ class Display:
             self.two_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
             self.three_dimension_frame_buffer.get().use()
             self.three_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
-            self.pygame_surface.clear(*args[0:3], 0.0)
+            self._pygame__surface.clear(*args[0:3], 0.0)
         else:
             raise NotImplementedError
 
@@ -215,24 +215,24 @@ this method call to ensure optimal performance and support!")
 
         Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
-            byte_data = self.pygame_surface.to_string(flipped=True)
+            byte_data = self._pygame__surface.to_string(flipped=True)
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT].blit_image_to_texture(
                 byte_data,
-                self.pygame_surface_texture)
+                self._pygame__surface_texture)
 
             Registry.context.screen.use()
             Registry.context.clear(0, 0, 0)
 
             self.two_dimension_texture.get().use(location=0)
             self.three_dimension_texture.get().use(location=1)
-            self.pygame_surface_texture.get().use(location=2)
+            self._pygame__surface_texture.get().use(location=2)
             aggregation_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program().get()
             aggregation_program["texture2d"].value = 0
             aggregation_program["texture3d"].value = 1
-            aggregation_program["pygame_texture"].value = 2
-            self.quad_vao.get().render(moderngl.TRIANGLES)
+            aggregation_program["_pygame_texture"].value = 2
+            self.quad_vao.get().render(_moderngl.TRIANGLES)
 
-            pygame.display.flip()
+            _pygame.display.flip()
 
             if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
                 if Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize:
@@ -246,7 +246,7 @@ this method call to ensure optimal performance and support!")
 
     def close(self):
         if Registry.display_mode == Constants.PYGAME:
-            pygame.quit()
+            _pygame.quit()
         else:
             raise NotImplementedError
 

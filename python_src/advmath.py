@@ -1,10 +1,10 @@
-import gc
+import gc as _gc
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.utility.error_utils import *
 
-import pmma.python_src.utility.math_utils as math_utils
+import pmma.python_src.utility.math_utils as _math_utils
 
 class Math:
     """
@@ -23,7 +23,7 @@ class Math:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -41,13 +41,13 @@ class Math:
         if Registry.compile_math_functions:
             if "raw_pythag" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_pythag"]:
-                    return math_utils.raw_pythag
+                    return _math_utils.raw_pythag
                 else:
-                    return math_utils.raw_pythag.py_func
+                    return _math_utils.raw_pythag.py_func
             else:
-                return math_utils.raw_pythag
+                return _math_utils.raw_pythag
         else:
-            return math_utils.raw_pythag.py_func
+            return _math_utils.raw_pythag.py_func
 
     def pythag(self, points):
         """
@@ -62,19 +62,19 @@ class Math:
         return self.get_function_pythag()(points)
 
     def get_function_ranger(self):
-        return math_utils.raw_ranger
+        return _math_utils.raw_ranger
 
     def ranger(self, value, old, new):
         return self.get_function_ranger()(value, old, new)
 
     def get_function_nparray_ranger(self):
-        return math_utils.raw_nparray_ranger()
+        return _math_utils.raw_nparray_ranger()
 
     def nparray_ranger(self, value, old, new):
         return self.get_function_nparray_ranger()(value, old, new)
 
     def get_function_gl_look_at(self):
-        return math_utils.raw_gl_look_at
+        return _math_utils.raw_gl_look_at
 
     def gl_look_at(self, eye, target, up):
         return self.get_function_gl_look_at()(eye, target, up)
@@ -83,13 +83,13 @@ class Math:
         if Registry.compile_math_functions:
             if "raw_compute_position" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_compute_position"]:
-                    return math_utils.raw_compute_position
+                    return _math_utils.raw_compute_position
                 else:
-                    return math_utils.raw_compute_position.py_func
+                    return _math_utils.raw_compute_position.py_func
             else:
-                return math_utils.raw_compute_position
+                return _math_utils.raw_compute_position
         else:
-            return math_utils.raw_compute_position.py_func
+            return _math_utils.raw_compute_position.py_func
 
     def compute_position(self, pos, target, up):
         return self.get_function_compute_position()(pos, target, up)
@@ -98,13 +98,13 @@ class Math:
         if Registry.compile_math_functions:
             if "raw_perspective_fov" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_perspective_fov"]:
-                    return math_utils.raw_perspective_fov
+                    return _math_utils.raw_perspective_fov
                 else:
-                    return math_utils.raw_perspective_fov.py_func
+                    return _math_utils.raw_perspective_fov.py_func
             else:
-                return math_utils.raw_perspective_fov
+                return _math_utils.raw_perspective_fov
         else:
-            return math_utils.raw_perspective_fov.py_func
+            return _math_utils.raw_perspective_fov.py_func
 
     def perspective_fov(self, fov, aspect_ratio, near_plane, far_plane):
         return self.get_function_perspective_fov()(fov, aspect_ratio, near_plane, far_plane)
@@ -113,13 +113,13 @@ class Math:
         if Registry.compile_math_functions:
             if "raw_look_at" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_look_at"]:
-                    return math_utils.raw_look_at
+                    return _math_utils.raw_look_at
                 else:
-                    return math_utils.raw_look_at.py_func
+                    return _math_utils.raw_look_at.py_func
             else:
-                return math_utils.raw_look_at
+                return _math_utils.raw_look_at
         else:
-            return math_utils.raw_look_at.py_func
+            return _math_utils.raw_look_at.py_func
 
     def look_at(self, camera_position, camera_target, up_vector):
         return self.get_function_look_at()(camera_position, camera_target, up_vector)
@@ -128,13 +128,13 @@ class Math:
         if Registry.compile_math_functions:
             if "raw_multiply" in Registry.custom_compiled_behavior.keys():
                 if Registry.custom_compiled_behavior["raw_multiply"]:
-                    return math_utils.raw_multiply
+                    return _math_utils.raw_multiply
                 else:
-                    return math_utils.raw_multiply.py_func
+                    return _math_utils.raw_multiply.py_func
             else:
-                return math_utils.raw_multiply
+                return _math_utils.raw_multiply
         else:
-            return math_utils.raw_multiply.py_func
+            return _math_utils.raw_multiply.py_func
 
     def multiply(self, a, b):
         return self.get_function_multiply()(a, b)

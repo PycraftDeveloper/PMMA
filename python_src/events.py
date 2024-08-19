@@ -1,13 +1,13 @@
-import gc
+import gc as _gc
 
-import pygame
+import pygame as _pygame
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.backpack import Backpack
+from pmma.python_src.backpack import Backpack as _Backpack
 
 class Events:
     def __init__(self, canvas=None):
@@ -23,7 +23,7 @@ class Events:
             del self
             del Registry.pmma_module_spine[Constants.EVENTS_OBJECT]
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -35,7 +35,7 @@ class Events:
     def __get(self):
         self.raw_events = []
         if Registry.display_mode == Constants.PYGAME:
-            self.raw_events += pygame.event.get()
+            self.raw_events += _pygame.event.get()
 
     def handle(
             self,
@@ -53,20 +53,20 @@ class Events:
         if enable_toggle_fullscreen or enable_close:
             for event in self.raw_events:
                 if Registry.display_mode == Constants.PYGAME:
-                    if event.type == pygame.QUIT:
+                    if event.type == _pygame.QUIT:
                         if enable_close:
                             Registry.running = False
-                            Backpack.running = False
+                            _Backpack.running = False
 
-                    elif event.type == pygame.VIDEORESIZE:
+                    elif event.type == _pygame.VIDEORESIZE:
                         self.display_needs_resize = True
 
-                    elif event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_ESCAPE:
+                    elif event.type == _pygame.KEYDOWN:
+                        if event.key == _pygame.K_ESCAPE:
                             if enable_close:
                                 Registry.running = False
-                                Backpack.running = False
-                        elif event.key == pygame.K_F11:
+                                _Backpack.running = False
+                        elif event.key == _pygame.K_F11:
                             if enable_toggle_fullscreen:
                                 self.display_needs_resize = True
                                 canvas.toggle_fullscreen()

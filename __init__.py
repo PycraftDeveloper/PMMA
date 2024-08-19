@@ -1,38 +1,38 @@
-import sys
-import os
-import tkinter
-import io
-import contextlib
+import sys as _sys
+import os as _os
+import tkinter as _tkinter
+import io as _io
+import contextlib as _contextlib
 
-import numba
+import numba as _numba
 
 def _up(path: str) -> str:
-    return path[::-1].split(os.sep, 1)[-1][::-1]
+    return path[::-1].split(_os.sep, 1)[-1][::-1]
 
-base_path = _up(__file__)
+_base_path = _up(__file__)
 
-temporary_files_path = base_path + os.sep + "temporary"
-sys.pycache_prefix = temporary_files_path
-numba.config.CACHE_DIR = temporary_files_path
+_temporary_files_path = _base_path + _os.sep + "temporary"
+_sys.pycache_prefix = _temporary_files_path
+_numba.config.CACHE_DIR = _temporary_files_path
 
 from pmma.python_src.registry import *
 from pmma.python_src.constants import *
 
-Registry.temporary_files_path = temporary_files_path
-Registry.base_path = base_path
+Registry.temporary_files_path = _temporary_files_path
+Registry.base_path = _base_path
 
-buffer = io.StringIO()
+_buffer = _io.StringIO()
 
-with contextlib.redirect_stdout(buffer):
-    import pygame
+with _contextlib.redirect_stdout(_buffer):
+    import pygame as _pygame
 
-Registry.pygame_launch_message = buffer.getvalue().strip()
+Registry.pygame_launch_message = _buffer.getvalue().strip()
 
 from pmma.python_src.general import *
 
 if get_operating_system() == Constants.LINUX:
     try:
-        import pyaudio
+        import pyaudio as _pyaudio
     except ModuleNotFoundError:
         log_development("Pyaudio hasn't been installed yet. Because your running on a \
 Linux platform make sure to run this command first: 'sudo apt-get install portaudio19-dev' \
@@ -64,9 +64,9 @@ from pmma.python_src.file import *
 from pmma.python_src.text import *
 from pmma.python_src.gpu import *
 
-from pmma.python_src.utility import cython_utils
-from pmma.python_src.memory_manager import MemoryManager
-from pmma.python_src.logging import Logger
+from pmma.python_src.utility import cython_utils as _cython_utils
+from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
+from pmma.python_src.logging import Logger as _Logger
 
 def init(
             optimize_python_extensions=True,
@@ -82,7 +82,7 @@ def init(
             log_file=None,
             log_to_terminal=True):
 
-    root = tkinter.Tk()
+    root = _tkinter.Tk()
     root.withdraw()
 
     Registry.pmma_initialized = True
@@ -95,13 +95,13 @@ def init(
         benchmark.test_all()
 
     if compile_c_extensions:
-        cython_thread = cython_utils.compile()
+        cython_thread = _cython_utils.compile()
 
-    MemoryManager(
+    _MemoryManager(
         object_lifetime=memory_management_max_object_lifetime,
         target_size=memory_management_max_size)
 
-    Logger(
+    _Logger(
         log_development=log_development,
         log_information=log_information,
         log_warning=log_warning,
@@ -116,9 +116,3 @@ def init(
 
     if wait_for_initialization:
         cython_thread.join()
-
-del base_path
-del temporary_files_path
-del sys
-del numba
-del environ_to_registry

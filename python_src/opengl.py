@@ -1,10 +1,10 @@
-import gc
+import gc as _gc
 
-import moderngl
-import numpy
+import moderngl as _moderngl
+import numpy as _numpy
 
-from pmma.python_src.shader import Shader
-from pmma.python_src.file import path_builder
+from pmma.python_src.shader import Shader as _Shader
+from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -36,7 +36,7 @@ instantiate the 'Display' class first!")
 
         try:
             if Registry.context is None:
-                Registry.context = moderngl.create_context()
+                Registry.context = _moderngl.create_context()
         except Exception as error:
             log_error("Failed to create OpenGL context.")
             log_development("Failed to create OpenGL context. The most \
@@ -48,16 +48,16 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
             raise error
 
-        self.simple_texture_rendering_program = Shader()
+        self.simple_texture_rendering_program = _Shader()
         self.simple_texture_rendering_program.create_from_location(
-            path_builder(
+            _path_builder(
                 Registry.base_path,
                 "shaders",
                 "simple_texture_rendering"))
 
-        self.texture_aggregation_program = Shader()
+        self.texture_aggregation_program = _Shader()
         self.texture_aggregation_program.create_from_location(
-            path_builder(
+            _path_builder(
                 Registry.base_path,
                 "shaders",
                 "texture_aggregation"))
@@ -66,7 +66,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -110,8 +110,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             width,
             height,
             color_format=Constants.RGBA,
-            x_scaling_method=moderngl.LINEAR,
-            y_scaling_method=moderngl.LINEAR):
+            x_scaling_method=_moderngl.LINEAR,
+            y_scaling_method=_moderngl.LINEAR):
 
         color_component = len(color_format)
 
@@ -128,21 +128,21 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         texture.write(image)
 
     def create_vbo(self, data):
-        if type(data) == numpy.ndarray:
-            if data.dtype != numpy.float32:
-                data = data.astype(numpy.float32)
+        if type(data) == _numpy.ndarray:
+            if data.dtype != _numpy.float32:
+                data = data.astype(_numpy.float32)
         else:
-            data = numpy.array(data, dtype=numpy.float32)
+            data = _numpy.array(data, dtype=_numpy.float32)
 
         buffer = Registry.context.buffer(data)
         return OpenGLObject(buffer)
 
     def create_ibo(self, data):
-        if type(data) == numpy.ndarray:
-            if data.dtype != numpy.int32:
-                data = data.astype(numpy.int32)
+        if type(data) == _numpy.ndarray:
+            if data.dtype != _numpy.int32:
+                data = data.astype(_numpy.int32)
         else:
-            data = numpy.array(data, dtype=numpy.int32)
+            data = _numpy.array(data, dtype=_numpy.int32)
 
         buffer = Registry.context.buffer(data)
         return OpenGLObject(buffer)
@@ -154,7 +154,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             attributes=None,
             index_buffer=None):
 
-        if type(data_or_vbo) == moderngl.Buffer:
+        if type(data_or_vbo) == _moderngl.Buffer:
             vbo = data_or_vbo
         elif type(data_or_vbo) == OpenGLObject:
             vbo = data_or_vbo.get()
@@ -162,11 +162,11 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             data = data_or_vbo
             vbo = self.create_vbo(data)
 
-        if type(program) == Shader:
+        if type(program) == _Shader:
             shader_program = program.get()
 
         if attributes is None:
-            if type(program) == Shader:
+            if type(program) == _Shader:
                 attributes = program.get_in_attributes()
             else:
                 attributes = []

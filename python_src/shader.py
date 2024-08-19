@@ -1,7 +1,7 @@
-import os
-import gc
+import os as _os
+import gc as _gc
 
-from pmma.python_src.file import path_builder
+from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
@@ -50,7 +50,7 @@ the 'OpenGL' class before instantiating this.")
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                gc.collect()
+                _gc.collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -91,42 +91,42 @@ the 'OpenGL' class before instantiating this.")
     def create_from_location(self, directory):
         vertex_shader = None
         fragment_shader = None
-        if os.path.exists(path_builder(directory, "vertex.glsl")):
-            with open(path_builder(directory, "vertex.glsl"), "r") as file:
+        if _os.path.exists(_path_builder(directory, "vertex.glsl")):
+            with open(_path_builder(directory, "vertex.glsl"), "r") as file:
                 vertex_shader = file.read()
-        elif os.path.exists(path_builder(directory, "vert.glsl")):
-            with open(path_builder(directory, "vert.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "vert.glsl")):
+            with open(_path_builder(directory, "vert.glsl"), "r") as file:
                 vertex_shader = file.read()
-        elif os.path.exists(path_builder(directory, "vertex_shader.glsl")):
-            with open(path_builder(directory, "vertex_shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "vertex_shader.glsl")):
+            with open(_path_builder(directory, "vertex_shader.glsl"), "r") as file:
                 vertex_shader = file.read()
-        elif os.path.exists(path_builder(directory, "vert_shader.glsl")):
-            with open(path_builder(directory, "vert_shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "vert_shader.glsl")):
+            with open(_path_builder(directory, "vert_shader.glsl"), "r") as file:
                 vertex_shader = file.read()
-        elif os.path.exists(path_builder(directory, "vertex shader.glsl")):
-            with open(path_builder(directory, "vertex shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "vertex shader.glsl")):
+            with open(_path_builder(directory, "vertex shader.glsl"), "r") as file:
                 vertex_shader = file.read()
-        elif os.path.exists(path_builder(directory, "vert shader.glsl")):
-            with open(path_builder(directory, "vert shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "vert shader.glsl")):
+            with open(_path_builder(directory, "vert shader.glsl"), "r") as file:
                 vertex_shader = file.read()
 
-        if os.path.exists(path_builder(directory, "fragment.glsl")):
-            with open(path_builder(directory, "fragment.glsl"), "r") as file:
+        if _os.path.exists(_path_builder(directory, "fragment.glsl")):
+            with open(_path_builder(directory, "fragment.glsl"), "r") as file:
                 fragment_shader = file.read()
-        elif os.path.exists(path_builder(directory, "frag.glsl")):
-            with open(path_builder(directory, "frag.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "frag.glsl")):
+            with open(_path_builder(directory, "frag.glsl"), "r") as file:
                 fragment_shader = file.read()
-        elif os.path.exists(path_builder(directory, "fragment_shader.glsl")):
-            with open(path_builder(directory, "fragment_shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "fragment_shader.glsl")):
+            with open(_path_builder(directory, "fragment_shader.glsl"), "r") as file:
                 fragment_shader = file.read()
-        elif os.path.exists(path_builder(directory, "frag_shader.glsl")):
-            with open(path_builder(directory, "frag_shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "frag_shader.glsl")):
+            with open(_path_builder(directory, "frag_shader.glsl"), "r") as file:
                 fragment_shader = file.read()
-        elif os.path.exists(path_builder(directory, "fragment shader.glsl")):
-            with open(path_builder(directory, "fragment shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "fragment shader.glsl")):
+            with open(_path_builder(directory, "fragment shader.glsl"), "r") as file:
                 fragment_shader = file.read()
-        elif os.path.exists(path_builder(directory, "frag shader.glsl")):
-            with open(path_builder(directory, "frag shader.glsl"), "r") as file:
+        elif _os.path.exists(_path_builder(directory, "frag shader.glsl")):
+            with open(_path_builder(directory, "frag shader.glsl"), "r") as file:
                 fragment_shader = file.read()
 
         if vertex_shader is None or fragment_shader is None:
