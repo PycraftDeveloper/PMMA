@@ -14,6 +14,16 @@ class Executor:
         self.result = None
         self.thread = None
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def run(self, command, blocking=True, hide_window=True):
         self.exit_code = None
         self.result = None
@@ -68,6 +78,16 @@ class AdvancedExecutor:
         self.result_update_thread = None
 
         self.command_running = False
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def run(self, command, hide_window=True):
         if self.command_running is False:

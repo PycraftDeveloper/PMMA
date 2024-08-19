@@ -909,14 +909,20 @@ class GPU:
                     if callable(attr):
                         if ":" in data_point:
                             try:
-                                result.append(attr(args))
+                                result.append(attr(args, reload=everything))
                             except:
-                                result.append(None)
+                                try:
+                                    result.append(attr(args))
+                                except:
+                                    result.append(None)
                         else:
                             try:
                                 result.append(attr())
                             except:
-                                result.append(None)
+                                try:
+                                    result.append(attr(reload=everything))
+                                except:
+                                    result.append(None)
                     else:
                         result.append(attr)
 
@@ -950,6 +956,16 @@ class GPU:
                         setattr(self, data_point, data)
                         if data is not None:
                             set_attributes.append(data_point)
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def get_accelerator_capabilities(self):
         return self.accelerator_capabilities

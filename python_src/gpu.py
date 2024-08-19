@@ -18,6 +18,16 @@ class GPUs:
         uuid = uuid.replace("\\", "_")
         return uuid[:66]
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self, unique_instance=Constants.GPUS_OBJECT, add_to_pmma_module_spine=True)
 
@@ -37,7 +47,10 @@ class GPUs:
         nvidia_smi = find_executable_nvidia_smi()
         if nvidia_smi is not None:
             self.executor = Executor()
-            self.executor.run(f"{nvidia_smi} --query-gpu=index,pci.bus, --format=csv,noheader")
+            self.executor.run([
+                f"{nvidia_smi}",
+                "--query-gpu=index,pci.bus",
+                "--format=csv,noheader"])
 
             for line in self.executor.result.splitlines():
                 index, hex_bus = line.split(",")
