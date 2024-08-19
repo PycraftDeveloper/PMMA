@@ -563,7 +563,7 @@ class GPU:
         self.internal_name__memory_clock_range = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["getMemoryClockRange"]}
         self.internal_name__memory_free = {Constants.SMI: ["memory.free"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__memory_reserved = {Constants.SMI: ["memory.reserved"], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__memory_total = {Constants.SMI: ["memory.total"], Constants.WMI: ["AdapterRAM"], Constants.PYADL: []}
+        self.internal_name__memory_total = {Constants.SMI: ["memory.total"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__memory_used = {Constants.SMI: ["memory.used"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__min_refresh_rate = {Constants.SMI: [], Constants.WMI: ["MinRefreshRate"], Constants.PYADL: []}
         self.internal_name__monochrome = {Constants.SMI: [], Constants.WMI: ["Monochrome"], Constants.PYADL: []}
