@@ -93,7 +93,7 @@ class Sampler:
         self.is_sampling_running = True
 
         if self.input_device is None:
-            log_development("No Input Device was found. The easiest reason \
+            log_development("No input device was found. The easiest reason \
 for this is because the operating system hasn't detected any input device \
 either. Therefore the first step for troubleshooting this is to make sure \
 that you have an input device connected to your current machine. Likewise \

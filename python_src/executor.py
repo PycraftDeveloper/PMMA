@@ -29,6 +29,7 @@ class Executor:
         self.result = None
 
         self.thread = threading.Thread(target=self._run, args=(command, hide_window,))
+        self.thread.name = "Executor:Execution_Thread"
         if blocking is False:
             self.thread.daemon = True
         self.thread.start()
@@ -75,7 +76,7 @@ class AdvancedExecutor:
 
         self.exit_code = None
         self.result = ""
-        self.result_update_thread = None
+        self.thread = None
 
         self.command_running = False
 
@@ -96,9 +97,10 @@ class AdvancedExecutor:
             self.exit_code = None
             self.result = ""
 
-            self.result_update_thread = threading.Thread(target=self._update_result, args=(command, hide_window,))
-            self.result_update_thread.daemon = True
-            self.result_update_thread.start()
+            self.thread = threading.Thread(target=self._update_result, args=(command, hide_window,))
+            self.thread.daemon = True
+            self.thread.name = "AdvancedExecutor:Execution_Thread"
+            self.thread.start()
 
     def get_busy(self):
         return self.command_running

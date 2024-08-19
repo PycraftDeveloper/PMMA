@@ -76,3 +76,12 @@ class GPUs:
         self.gpu_instances = []
         for key in self.unique_gpus:
             self.gpu_instances.append(GPU(self.unique_gpus[key]))
+
+        self.identify_gpus()
+
+    def identify_gpus(self):
+        for i in range(len(self.gpu_instances)):
+            print(f"GPU: {i}, has name: {self.gpu_instances[i].get_name()}")
+
+    def get_gpu(self, gpu_index):
+        return self.gpu_instances[gpu_index]
