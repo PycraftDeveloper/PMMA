@@ -16,9 +16,12 @@ The full breakdown of what everything does!
     coordinate.rst
     display.rst
     draw.rst
+    error.rst
     events.rst
+    executor.rst
     file.rst
     general.rst
+    gpu.rst
     image.rst
     logging.rst
     memory_manager.rst
@@ -30,6 +33,7 @@ The full breakdown of what everything does!
     recorder.rst
     registry.rst
     render_pipeline.rst
+    sampler.rst
     shader.rst
     surface.rst
     text.rst

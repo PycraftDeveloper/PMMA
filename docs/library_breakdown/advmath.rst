@@ -19,8 +19,7 @@ Methods
 
 .. py:method:: Math.quit() -> None
 
-    Exit function.
-    
+   Not Yet Written
 
 .. py:method:: Math.get_function_pythag() -> Callable
 

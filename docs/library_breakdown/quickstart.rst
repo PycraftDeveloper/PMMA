@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: QuickStart.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: QuickStart.start() -> None
 
    Not Yet Written

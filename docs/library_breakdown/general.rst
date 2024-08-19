@@ -1,3 +1,10 @@
+Methods
+=======
+
+.. py:method:: pmma.up() -> None
+
+   Not Yet Written
+
 OpenGL Object (``pmma.OpenGLObject``)
 =====================================
 
@@ -18,6 +25,14 @@ Methods
    Not Yet Written
 
 .. py:method:: OpenGLObject.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.find_executable_nvidia_smi() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.initialize() -> None
 
    Not Yet Written
 
@@ -50,6 +65,10 @@ Methods
    Not Yet Written
 
 .. py:method:: pmma.log_error() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.register_application() -> None
 
    Not Yet Written
 
