@@ -57,7 +57,7 @@ its arguments, leading to unsecure commands being run on the host system!")
         return self.exit_code
 
     def get_result(self):
-        return self.result
+        return self.result.strip()
 
 class AdvancedExecutor:
     def __init__(self):
@@ -84,7 +84,7 @@ class AdvancedExecutor:
         return self.command_running
 
     def get_result(self):
-        return self.result
+        return self.result.strip()
 
     def _update_result(self, command, hide_window):
         for path in self._run(command, hide_window):

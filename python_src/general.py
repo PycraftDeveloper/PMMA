@@ -5,6 +5,7 @@ import ctypes
 import subprocess
 import locale
 import os
+from distutils import spawn
 
 import getostheme
 import psutil
@@ -41,6 +42,21 @@ class OpenGLObject:
             del self
             if do_garbage_collection:
                 gc.collect()
+
+def find_executable_nvidia_smi():
+    if get_operating_system() == Constants.WINDOWS:
+        # If the platform is Windows and nvidia-smi
+        # could not be found from the environment path,
+        # try to find it from system drive with default installation path
+        nvidia_smi = spawn.find_executable("nvidia-smi")
+        if nvidia_smi is None:
+            nvidia_smi = f"{os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
+            if not os.path.isfile(nvidia_smi):
+                nvidia_smi = None
+    else:
+        nvidia_smi = "nvidia-smi"
+
+    return nvidia_smi
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False):
     instance._shut_down = False

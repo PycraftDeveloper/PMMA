@@ -1,24 +1,18 @@
-from distutils import spawn
-from os import environ
-import os
+import pyadl
+import wmi
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-"""
-nvidia-smi --help-query-gpu # used to get all query commands.
--i <n>                      # used to specify specific nvidia device.
-
--------
-Link NVIDIA-SMI by UUID
-Link PyAdl by UUID
-Link WMI by {hwinterface}_{VENdorID}_{DEViceID}&{SUBSYStemID}&{REVisionID}&
-"""
+from pmma.python_src.executor import Executor
 
 class GPU:
-    def __init__(self):
+    def __init__(self, module_identification_indices):
+        self.module_identification_indices = module_identification_indices
+        self.executor = Executor()
+
         self.accelerator_capabilities = None
         self.accounting_mode_enabled = None
         self.accounting_mode_buffer_size = None
@@ -847,59 +841,115 @@ class GPU:
         self.operating_system_compatibility = "operating_system_compatibility__"
         self.manually_set = "manually_set__"
 
-        self.priorities = [Constants.SMI, Constants.PYADL, Constants.WMI] # 0-most priority
-
-        self.data_points = {Constants.SMI: None, Constants.WMI: None, Constants.PYADL: None}
-
-        if get_operating_system() == Constants.WINDOWS:
-            # If the platform is Windows and nvidia-smi
-            # could not be found from the environment path,
-            # try to find it from system drive with default installation path
-            nvidia_smi = spawn.find_executable("nvidia-smi")
-            if nvidia_smi is None:
-                nvidia_smi = f"{os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
-        else:
-            nvidia_smi = "nvidia-smi"
-
-        try:
-            result = subprocess.check_call([nvidia_smi])
-            if result == 0:
-                self.data_points[Constants.SMI] = nvidia_smi
-            else:
-                self.data_points[Constants.SMI] = None
-        except:
-            self.data_points[Constants.SMI] = None
+        self.priorities = [Constants.SMI, Constants.PYADL, Constants.WMI]
 
         self.update(everything=True)
 
-    def gpu_data_collection_available(self):
-        for key in self.data_points.keys():
-            if self.data_points[key] is not None:
-                return True
-        return False
-
     def update(self, everything=False):
-        if self.gpu_data_collection_available():
-            for data_point in self.gpu_data_points:
-                if getattr(self, f"{self.manually_set}{data_point}"):
-                    if not everything:
-                        continue
-                data_collectors = getattr(self, f"{self.internal_name}{data_point}")
-                for element in self.priorities:
-                    for key in data_collectors[element]:
-                        if data_collectors[element] != []:
-                            for collection in data_collectors[element]:
-                                if element == Constants.SMI:
-                                    data = subprocess.check_output([self.data_points[Constants.SMI], f"--query-gpu={collection}", "--format=csv,noheader,nounits"], creationflags=Constants.CREATE_NO_WINDOW)
-                                    data = data.decode("utf-8").strip()
-                                    if "n/a" in data.lower():
-                                        data = None
-                                    elif data == "Enabled" or data == "Active":
-                                        data = True
-                                    elif data == "Disabled" or data == "Not Active":
-                                        data = False
+        smi_data = ""
+        smi_data_points = []
+        adl_data = []
+        adl_data_points = []
+        wmi_data = []
+        wmi_data_points = []
+        for data_point in self.gpu_data_points:
+            if getattr(self, f"{self.manually_set}{data_point}") is False or everything:
+                data_collection_strategies = getattr(self, f"{self.internal_name}{data_point}")
+                for query_command in data_collection_strategies[Constants.SMI]:
+                    if self.module_identification_indices[Constants.SMI] is not None:
+                        smi_data += f"{query_command},"
+                        smi_data_points.append(data_point)
+                for query_command in data_collection_strategies[Constants.PYADL]:
+                    if self.module_identification_indices[Constants.PYADL] is not None:
+                        adl_data.append(query_command)
+                        adl_data_points.append(data_point)
+                for query_command in data_collection_strategies[Constants.WMI]:
+                    if self.module_identification_indices[Constants.WMI] is not None:
+                        wmi_data.append(query_command)
+                        wmi_data_points.append(data_point)
 
-                                    print(collection, data)
+        smi_data = smi_data[:-1]
+
+        set_attributes = []
+
+        for priority in self.priorities:
+            if priority == Constants.SMI and smi_data != "":
+                self.executor.run([
+                    find_executable_nvidia_smi(),
+                    f"--query-gpu={smi_data}",
+                    "--format=csv,noheader,nounits",
+                    f"-i={self.module_identification_indices[Constants.SMI]}"])
+
+                result = self.executor.get_result()
+                split_result = result.split(", ")
+
+                for data_point, data in zip(smi_data_points, split_result):
+                    if "N/A" in data:
+                        data = None
+                    elif "Not Active" in data or "Disabled" in data:
+                        data = False
+                    elif "Active" in data or "Enabled" in data:
+                        data = True
+                    if data_point not in set_attributes:
+                        setattr(self, data_point, data)
+                        if data is not None:
+                            set_attributes.append(data_point)
+
+            elif priority == Constants.PYADL and adl_data != []:
+                gpu_data = pyadl.ADLManager.getInstance().getDevices()[self.module_identification_indices[Constants.PYADL]]
+                result = []
+                for data_point in adl_data:
+                    if ":" in data_point:
+                        split_data_point = data_point.split(":")
+                        name = split_data_point[0]
+                        args = getattr(pyadl, split_data_point[1])
+                    else:
+                        name = data_point
+                    attr = getattr(gpu_data, name)
+                    if callable(attr):
+                        if ":" in data_point:
+                            try:
+                                result.append(attr(args))
+                            except:
+                                result.append(None)
+                        else:
+                            try:
+                                result.append(attr())
+                            except:
+                                result.append(None)
+                    else:
+                        result.append(attr)
+
+                for data_point, data in zip(adl_data_points, result):
+                    try:
+                        if type(data) == bytes:
+                            data = data.decode("utf-8")
+                    except:
+                        pass
+
+                    if data_point not in set_attributes:
+                        setattr(self, data_point, data)
+                        if data is not None:
+                            set_attributes.append(data_point)
+
+            elif priority == Constants.WMI and wmi != []:
+                computer = wmi.WMI()
+                gpu_data = computer.Win32_VideoController()[self.module_identification_indices[Constants.WMI]]
+                result = []
+                for data_point in wmi_data:
+                    result.append(getattr(gpu_data, data_point))
+
+                for data_point, data in zip(wmi_data_points, result):
+                    try:
+                        if type(data) == bytes:
+                            data = data.decode("utf-8")
+                    except:
+                        pass
+
+                    if data_point not in set_attributes:
+                        setattr(self, data_point, data)
+                        if data is not None:
+                            set_attributes.append(data_point)
 
     def get_accelerator_capabilities(self):
         return self.accelerator_capabilities
