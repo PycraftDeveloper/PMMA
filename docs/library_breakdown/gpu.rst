@@ -1,5 +1,5 @@
-G P Us (``pmma.GPUs``)
-======================
+GPUs (``pmma.GPUs``)
+====================
 
 Not Yet Written
 
