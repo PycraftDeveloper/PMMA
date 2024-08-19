@@ -46,10 +46,10 @@ from pmma.python_src.advtkinter import *
 from pmma.python_src.coordinate import *
 from pmma.python_src.quickstart import *
 from pmma.python_src.optimizer import *
-from pmma.python_src.recorder import *
 from pmma.python_src.backpack import *
 from pmma.python_src.passport import *
 from pmma.python_src.executor import *
+from pmma.python_src.sampler import *
 from pmma.python_src.display import *
 from pmma.python_src.surface import *
 from pmma.python_src.advmath import *
