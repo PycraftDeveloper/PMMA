@@ -1,5 +1,6 @@
 import os as _os
 import gc as _gc
+import time as _time
 
 import numpy as _numpy
 import moderngl as _moderngl
@@ -63,9 +64,9 @@ class Display:
         Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
     def __setup_layers(self, size):
-        self._pygame__surface = _Surface()
-        self._pygame__surface.create(*size, alpha=True)
-        self._pygame__surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
+        self.pygame_surface = _Surface()
+        self.pygame_surface.create(*size, alpha=True)
+        self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
         self.two_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
         self.two_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.two_dimension_texture)
         self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
@@ -135,9 +136,9 @@ class Display:
     def display_resize(self):
         size = _pygame.display.get_window_size()
 
-        self._pygame__surface.quit()
+        self.pygame_surface.quit()
 
-        self._pygame__surface_texture.quit()
+        self.pygame_surface_texture.quit()
         self.two_dimension_texture.quit()
         self.two_dimension_frame_buffer.quit()
         self.three_dimension_texture.quit()
@@ -163,7 +164,7 @@ class Display:
         Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = True
 
     def blit(self, content, position=[0, 0]):
-        self._pygame__surface.blit(content, position)
+        self.pygame_surface.blit(content, position)
 
     def get_size(self):
         if Registry.display_mode == Constants.PYGAME:
@@ -194,7 +195,7 @@ class Display:
             self.two_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
             self.three_dimension_frame_buffer.get().use()
             self.three_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
-            self._pygame__surface.clear(*args[0:3], 0.0)
+            self.pygame_surface.clear(*args[0:3], 0.0)
         else:
             raise NotImplementedError
 
@@ -215,21 +216,21 @@ this method call to ensure optimal performance and support!")
 
         Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
-            byte_data = self._pygame__surface.to_string(flipped=True)
+            byte_data = self.pygame_surface.to_string(flipped=True)
             Registry.pmma_module_spine[Constants.OPENGL_OBJECT].blit_image_to_texture(
                 byte_data,
-                self._pygame__surface_texture)
+                self.pygame_surface_texture)
 
             Registry.context.screen.use()
             Registry.context.clear(0, 0, 0)
 
             self.two_dimension_texture.get().use(location=0)
             self.three_dimension_texture.get().use(location=1)
-            self._pygame__surface_texture.get().use(location=2)
+            self.pygame_surface_texture.get().use(location=2)
             aggregation_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program().get()
             aggregation_program["texture2d"].value = 0
             aggregation_program["texture3d"].value = 1
-            aggregation_program["_pygame_texture"].value = 2
+            aggregation_program["pygame_texture"].value = 2
             self.quad_vao.get().render(_moderngl.TRIANGLES)
 
             _pygame.display.flip()

@@ -6,6 +6,7 @@ import subprocess as _subprocess
 import locale as _locale
 import os as _os
 from distutils import spawn as _spawn
+import time as _time
 
 import getostheme as _getostheme
 import psutil as _psutil
@@ -36,7 +37,7 @@ class OpenGLObject:
         self._shut_down = True
 
     def __del__(self, do_garbage_collection=False):
-        if self.shutdown is False:
+        if self._shut_down is False:
             self.object.release()
             del self.object
             del self
@@ -216,6 +217,9 @@ likely improve application performance. Note that this message will only appear 
 may reflect any degraded performance beyond this point.")
 
 def quit():
+    if Registry.display_initialized:
+        pass
+    log_development("PMMA is now exiting. Thanks for using PMMA!")
     keys = list(Registry.pmma_object_instances.keys())
     for key in keys:
         Registry.pmma_object_instances[key].quit()
