@@ -101,7 +101,7 @@ class Perlin:
             self.generate_2D_perlin_noise_from_range([x], [x], prefill=True)
             self.generate_3D_perlin_noise_from_range([x], [x], [x], prefill=True)
 
-            while Registry.in_game_loop is False:
+            while Registry.in_game_loop is False or Registry.power_saving_mode:
                 for _ in range(100):
                     Registry.perlin_noise_prefill_single_samples += 1
                     x = random_real_number()

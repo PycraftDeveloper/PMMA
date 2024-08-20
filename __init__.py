@@ -44,6 +44,7 @@ environ_to_registry()
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.advthreading import *
 from pmma.python_src.advtkinter import *
+from pmma.python_src.formatters import *
 from pmma.python_src.coordinate import *
 from pmma.python_src.quickstart import *
 from pmma.python_src.optimizer import *

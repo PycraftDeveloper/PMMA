@@ -2,6 +2,15 @@ import math as _math
 import os as _os
 
 class Constants:
+    SECONDS_PER_MINUTE = 60
+    SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60
+    SECONDS_PER_DAY = SECONDS_PER_HOUR * 24
+    DAYS_PER_YEAR = 365.25  # accounting for leap years
+    DAYS_PER_MONTH = DAYS_PER_YEAR / 12
+    HOURS_PER_DAY = 24
+    MINUTES_PER_HOUR = 60
+    MICROSECONDS_PER_SECOND = 1e6
+
     CREATE_NO_WINDOW = 0x08000000
 
     WINDOWS = "windows"
