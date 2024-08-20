@@ -1,5 +1,6 @@
 import json as _json
 import gc as _gc
+import threading as _threading
 
 import wmi as _wmi
 import pyadl as _pyadl
@@ -10,7 +11,9 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.executor import Executor as _Executor
-import threading
+
+if get_operating_system() == Constants.WINDOWS:
+    import pythoncom as _pythoncom
 
 class GPUs:
     def _uuid_cleaner(self, uuid):
@@ -73,9 +76,23 @@ class GPUs:
 
             wmi_index += 1
 
+
+        gpu_instances = []
         self.gpu_instances = []
         for key in self.unique_gpus:
-            self.gpu_instances.append(_GPU(self.unique_gpus[key]))
+            gpu_instances.append(_GPU(self.unique_gpus[key]))
+
+        threads = []
+        for gpu in gpu_instances:
+            thread = _threading.Thread(target=gpu.update, kwargs={"everything": True, "wait_for_completion": True})
+            threads.append(thread)
+            thread.start()
+
+        for thread in threads:
+            thread.join()
+
+        for gpu in gpu_instances:
+            self.gpu_instances.append(gpu)
 
         print(self.gpu_instances[0].__dict__)
 
@@ -503,13 +520,13 @@ class _GPU:
 
         self.priorities = [Constants.SMI, Constants.PYADL, Constants.WMI]
 
-        self.update(everything=True, wait_for_completion=True)
-
     def update(self, everything=False, data_points=None, wait_for_completion=False):
+        if get_operating_system() == Constants.WINDOWS:
+            _pythoncom.CoInitialize()
         if wait_for_completion:
             self._update(everything=everything, data_points=data_points)
         else:
-            thread = threading.Thread(target=self._update, args=(everything, data_points))
+            thread = _threading.Thread(target=self._update, args=(everything, data_points))
             thread.daemon = True
             thread.name = "GPU:Update_Data_Thread"
             thread.start()
@@ -609,7 +626,7 @@ class _GPU:
                         if data is not None:
                             set_attributes.append(data_point)
 
-            elif priority == Constants.WMI and _wmi != []:
+            elif priority == Constants.WMI and wmi_data != [] and get_operating_system() == Constants.WINDOWS:
                 computer = _wmi.WMI()
                 gpu_data = computer.Win32_VideoController()[self.module_identification_indices[Constants.WMI]]
                 result = []

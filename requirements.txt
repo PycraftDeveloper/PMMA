@@ -1,3 +1,4 @@
+# Requirements for all systems
 cython
 getostheme
 moderngl
@@ -11,3 +12,6 @@ requests
 send2trash
 watchdog
 wmi
+
+# Windows-specific requirement
+pywin32; sys_platform == 'win32'
