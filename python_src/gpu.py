@@ -1040,607 +1040,607 @@ class _GPU:
         return self.accelerator_capabilities
 
     def get_accounting_mode_enabled(self):
-            return self.accounting_mode_enabled
+        return self.accounting_mode_enabled
 
     def get_accounting_mode_buffer_size(self):
-            return self.accounting_mode_buffer_size
+        return self.accounting_mode_buffer_size
 
     def get_adapter_compatibility(self):
-            return self.adapter_compatibility
+        return self.adapter_compatibility
 
     def get_adapter_DAC_type(self):
-            return self.adapter_DAC_type
+        return self.adapter_DAC_type
 
     def get_adapter_id(self):
-            return self.adapter_id
+        return self.adapter_id
 
     def get_adapter_index(self):
-            return self.adapter_index
+        return self.adapter_index
 
     def get_addressing_mode(self):
-            return self.addressing_mode
+        return self.addressing_mode
 
     def get_availability(self):
-            return self.availability
+        return self.availability
 
     def get_capability_descriptions(self):
-            return self.capability_descriptions
+        return self.capability_descriptions
 
     def get_caption(self):
-            return self.caption
+        return self.caption
 
     def get_chip_to_chip_interconnect_mode(self):
-            return self.chip_to_chip_interconnect_mode
+        return self.chip_to_chip_interconnect_mode
 
     def get_clock_event_reasons_as_bitmap(self):
-            return self.clock_event_reasons_as_bitmap
+        return self.clock_event_reasons_as_bitmap
 
     def get_clock_event_reasons_application_setting(self):
-            return self.clock_event_reasons_application_setting
+        return self.clock_event_reasons_application_setting
 
     def get_clock_event_reasons_is_hardware_limited(self):
-            return self.clock_event_reasons_is_hardware_limited
+        return self.clock_event_reasons_is_hardware_limited
 
     def get_clock_event_reasons_gpu_idle_limited(self):
-            return self.clock_event_reasons_gpu_idle_limited
+        return self.clock_event_reasons_gpu_idle_limited
 
     def get_clock_event_reasons_software_power_limited(self):
-            return self.clock_event_reasons_software_power_limited
+        return self.clock_event_reasons_software_power_limited
 
     def get_clock_event_reasons_software_thermal_limited(self):
-            return self.clock_event_reasons_software_thermal_limited
+        return self.clock_event_reasons_software_thermal_limited
 
     def get_clock_event_reasons_power_break_slowdown_limited(self):
-            return self.clock_event_reasons_power_break_slowdown_limited
+        return self.clock_event_reasons_power_break_slowdown_limited
 
     def get_clock_event_reasons_supported(self):
-            return self.clock_event_reasons_supported
+        return self.clock_event_reasons_supported
 
     def get_clock_event_reasons_sync_boost(self):
-            return self.clock_event_reasons_sync_boost
+        return self.clock_event_reasons_sync_boost
 
     def get_clock_event_reasons_thermal_limited(self):
-            return self.clock_event_reasons_thermal_limited
+        return self.clock_event_reasons_thermal_limited
 
     def get_color_table_entries(self):
-            return self.color_table_entries
+        return self.color_table_entries
 
     def get_compute_cap(self):
-            return self.compute_cap
+        return self.compute_cap
 
     def get_compute_mode(self):
-            return self.compute_mode
+        return self.compute_mode
 
     def get_config_manager_error_code(self):
-            return self.config_manager_error_code
+        return self.config_manager_error_code
 
     def get_config_manager_user_config(self):
-            return self.config_manager_user_config
+        return self.config_manager_user_config
 
     def get_core_voltage(self):
-            return self.core_voltage
+        return self.core_voltage
 
     def get_core_voltage_range(self):
-            return self.core_voltage_range
+        return self.core_voltage_range
 
     def get_creation_class_name(self):
-            return self.creation_class_name
+        return self.creation_class_name
 
     def get_current_bits_per_pixel(self):
-            return self.current_bits_per_pixel
+        return self.current_bits_per_pixel
 
     def get_current_horizontal_resolution(self):
-            return self.current_horizontal_resolution
+        return self.current_horizontal_resolution
 
     def get_current_number_of_colors(self):
-            return self.current_number_of_colors
+        return self.current_number_of_colors
 
     def get_current_number_of_columns(self):
-            return self.current_number_of_columns
+        return self.current_number_of_columns
 
     def get_current_number_of_rows(self):
-            return self.current_number_of_rows
+        return self.current_number_of_rows
 
     def get_current_refresh_rate(self):
-            return self.current_refresh_rate
+        return self.current_refresh_rate
 
     def get_current_scan_mode(self):
-            return self.current_scan_mode
+        return self.current_scan_mode
 
     def get_current_vertical_resolution(self):
-            return self.current_vertical_resolution
+        return self.current_vertical_resolution
 
     def get_description(self):
-            return self.description
+        return self.description
 
     def get_device_id(self):
-            return self.device_id
+        return self.device_id
 
     def get_device_specific_pens(self):
-            return self.device_specific_pens
+        return self.device_specific_pens
 
     def get_display_active(self):
-            return self.display_active
+        return self.display_active
 
     def get_display_mode(self):
-            return self.display_mode
+        return self.display_mode
 
     def get_dither_type(self):
-            return self.dither_type
+        return self.dither_type
 
     def get_driver_date(self):
-            return self.driver_date
+        return self.driver_date
 
     def get_driver_model_current(self):
-            return self.driver_model_current
+        return self.driver_model_current
 
     def get_driver_model_pending(self):
-            return self.driver_model_pending
+        return self.driver_model_pending
 
     def get_driver_version(self):
-            return self.driver_version
+        return self.driver_version
 
     def get_ecc_errors_corrected_all_time_in_cbu(self):
-            return self.ecc_errors_corrected_all_time_in_cbu
+        return self.ecc_errors_corrected_all_time_in_cbu
 
     def get_ecc_errors_corrected_all_time_in_primary_cache(self):
-            return self.ecc_errors_corrected_all_time_in_primary_cache
+        return self.ecc_errors_corrected_all_time_in_primary_cache
 
     def get_ecc_errors_corrected_all_time_in_register_file(self):
-            return self.ecc_errors_corrected_all_time_in_register_file
+        return self.ecc_errors_corrected_all_time_in_register_file
 
     def get_ecc_errors_corrected_all_time_in_secondary_cache(self):
-            return self.ecc_errors_corrected_all_time_in_secondary_cache
+        return self.ecc_errors_corrected_all_time_in_secondary_cache
 
     def get_ecc_errors_corrected_all_time_in_shared_memory(self):
-            return self.ecc_errors_corrected_all_time_in_shared_memory
+        return self.ecc_errors_corrected_all_time_in_shared_memory
 
     def get_ecc_errors_corrected_all_time_in_sram(self):
-            return self.ecc_errors_corrected_all_time_in_sram
+        return self.ecc_errors_corrected_all_time_in_sram
 
     def get_ecc_errors_corrected_all_time_in_texture_memory(self):
-            return self.ecc_errors_corrected_all_time_in_texture_memory
+        return self.ecc_errors_corrected_all_time_in_texture_memory
 
     def get_ecc_errors_corrected_all_time_in_total(self):
-            return self.ecc_errors_corrected_all_time_in_total
+        return self.ecc_errors_corrected_all_time_in_total
 
     def get_ecc_errors_corrected_all_time_in_video_memory(self):
-            return self.ecc_errors_corrected_all_time_in_video_memory
+        return self.ecc_errors_corrected_all_time_in_video_memory
 
     def get_ecc_errors_corrected_since_reboot_in_cbu(self):
-            return self.ecc_errors_corrected_since_reboot_in_cbu
+        return self.ecc_errors_corrected_since_reboot_in_cbu
 
     def get_ecc_errors_corrected_since_reboot_in_primary_cache(self):
-            return self.ecc_errors_corrected_since_reboot_in_primary_cache
+        return self.ecc_errors_corrected_since_reboot_in_primary_cache
 
     def get_ecc_errors_corrected_since_reboot_in_register_file(self):
-            return self.ecc_errors_corrected_since_reboot_in_register_file
+        return self.ecc_errors_corrected_since_reboot_in_register_file
 
     def get_ecc_errors_corrected_since_reboot_in_secondary_cache(self):
-            return self.ecc_errors_corrected_since_reboot_in_secondary_cache
+        return self.ecc_errors_corrected_since_reboot_in_secondary_cache
 
     def get_ecc_errors_corrected_since_reboot_in_shared_memory(self):
-            return self.ecc_errors_corrected_since_reboot_in_shared_memory
+        return self.ecc_errors_corrected_since_reboot_in_shared_memory
 
     def get_ecc_errors_corrected_since_reboot_in_sram(self):
-            return self.ecc_errors_corrected_since_reboot_in_sram
+        return self.ecc_errors_corrected_since_reboot_in_sram
 
     def get_ecc_errors_corrected_since_reboot_in_texture_memory(self):
-            return self.ecc_errors_corrected_since_reboot_in_texture_memory
+        return self.ecc_errors_corrected_since_reboot_in_texture_memory
 
     def get_ecc_errors_corrected_since_reboot_in_total(self):
-            return self.ecc_errors_corrected_since_reboot_in_total
+        return self.ecc_errors_corrected_since_reboot_in_total
 
     def get_ecc_errors_corrected_since_reboot_in_video_memory(self):
-            return self.ecc_errors_corrected_since_reboot_in_video_memory
+        return self.ecc_errors_corrected_since_reboot_in_video_memory
 
     def get_ecc_errors_uncorrected_all_time_in_cbu(self):
-            return self.ecc_errors_uncorrected_all_time_in_cbu
+        return self.ecc_errors_uncorrected_all_time_in_cbu
 
     def get_ecc_errors_uncorrected_all_time_in_primary_cache(self):
-            return self.ecc_errors_uncorrected_all_time_in_primary_cache
+        return self.ecc_errors_uncorrected_all_time_in_primary_cache
 
     def get_ecc_errors_uncorrected_all_time_in_register_file(self):
-            return self.ecc_errors_uncorrected_all_time_in_register_file
+        return self.ecc_errors_uncorrected_all_time_in_register_file
 
     def get_ecc_errors_uncorrected_all_time_in_secondary_cache(self):
-            return self.ecc_errors_uncorrected_all_time_in_secondary_cache
+        return self.ecc_errors_uncorrected_all_time_in_secondary_cache
 
     def get_ecc_errors_uncorrected_all_time_in_shared_memory(self):
-            return self.ecc_errors_uncorrected_all_time_in_shared_memory
+        return self.ecc_errors_uncorrected_all_time_in_shared_memory
 
     def get_ecc_errors_uncorrected_all_time_in_sram(self):
-            return self.ecc_errors_uncorrected_all_time_in_sram
+        return self.ecc_errors_uncorrected_all_time_in_sram
 
     def get_ecc_errors_uncorrected_all_time_in_texture_memory(self):
-            return self.ecc_errors_uncorrected_all_time_in_texture_memory
+        return self.ecc_errors_uncorrected_all_time_in_texture_memory
 
     def get_ecc_errors_uncorrected_all_time_in_total(self):
-            return self.ecc_errors_uncorrected_all_time_in_total
+        return self.ecc_errors_uncorrected_all_time_in_total
 
     def get_ecc_errors_uncorrected_all_time_in_video_memory(self):
-            return self.ecc_errors_uncorrected_all_time_in_video_memory
+        return self.ecc_errors_uncorrected_all_time_in_video_memory
 
     def get_ecc_errors_uncorrected_since_reboot_in_cbu(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_cbu
+        return self.ecc_errors_uncorrected_since_reboot_in_cbu
 
     def get_ecc_errors_uncorrected_since_reboot_in_primary_cache(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_primary_cache
+        return self.ecc_errors_uncorrected_since_reboot_in_primary_cache
 
     def get_ecc_errors_uncorrected_since_reboot_in_register_file(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_register_file
+        return self.ecc_errors_uncorrected_since_reboot_in_register_file
 
     def get_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_secondary_cache
+        return self.ecc_errors_uncorrected_since_reboot_in_secondary_cache
 
     def get_ecc_errors_uncorrected_since_reboot_in_shared_memory(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_shared_memory
+        return self.ecc_errors_uncorrected_since_reboot_in_shared_memory
 
     def get_ecc_errors_uncorrected_since_reboot_in_sram(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_sram
+        return self.ecc_errors_uncorrected_since_reboot_in_sram
 
     def get_ecc_errors_uncorrected_since_reboot_in_texture_memory(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_texture_memory
+        return self.ecc_errors_uncorrected_since_reboot_in_texture_memory
 
     def get_ecc_errors_uncorrected_since_reboot_in_total(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_total
+        return self.ecc_errors_uncorrected_since_reboot_in_total
 
     def get_ecc_errors_uncorrected_since_reboot_in_video_memory(self):
-            return self.ecc_errors_uncorrected_since_reboot_in_video_memory
+        return self.ecc_errors_uncorrected_since_reboot_in_video_memory
 
     def get_ecc_mode_current(self):
-            return self.ecc_mode_current
+        return self.ecc_mode_current
 
     def get_ecc_mode_pending(self):
-            return self.ecc_mode_pending
+        return self.ecc_mode_pending
 
     def get_encoder_average_FPS(self):
-            return self.encoder_average_FPS
+        return self.encoder_average_FPS
 
     def get_encoder_average_latency(self):
-            return self.encoder_average_latency
+        return self.encoder_average_latency
 
     def get_encoder_session_count(self):
-            return self.encoder_session_count
+        return self.encoder_session_count
 
     def get_engine_clock_range(self):
-            return self.engine_clock_range
+        return self.engine_clock_range
 
     def get_error_cleared(self):
-            return self.error_cleared
+        return self.error_cleared
 
     def get_error_description(self):
-            return self.error_description
+        return self.error_description
 
     def get_fabric_state(self):
-            return self.fabric_state
+        return self.fabric_state
 
     def get_fabric_status(self):
-            return self.fabric_status
+        return self.fabric_status
 
     def get_fan_speed_percentage(self):
-            return self.fan_speed_percentage
+        return self.fan_speed_percentage
 
     def get_fan_speed_percentage_range(self):
-            return self.fan_speed_percentage_range
+        return self.fan_speed_percentage_range
 
     def get_fan_speed_RPM(self):
-            return self.fan_speed_RPM
+        return self.fan_speed_RPM
 
     def get_fan_speed_RPM_range(self):
-            return self.fan_speed_RPM_range
+        return self.fan_speed_RPM_range
 
     def get_fractional_multi_vGPU(self):
-            return self.fractional_multi_vGPU
+        return self.fractional_multi_vGPU
 
     def get_frequency_application_default_shader_clock(self):
-            return self.frequency_application_default_shader_clock
+        return self.frequency_application_default_shader_clock
 
     def get_frequency_application_default_memory_clock(self):
-            return self.frequency_application_default_memory_clock
+        return self.frequency_application_default_memory_clock
 
     def get_frequency_application_memory_clock(self):
-            return self.frequency_application_memory_clock
+        return self.frequency_application_memory_clock
 
     def get_frequency_application_shader_clock(self):
-            return self.frequency_application_shader_clock
+        return self.frequency_application_shader_clock
 
     def get_frequency_maximum_memory_clock(self):
-            return self.frequency_maximum_memory_clock
+        return self.frequency_maximum_memory_clock
 
     def get_frequency_maximum_shader_clock(self):
-            return self.frequency_maximum_shader_clock
+        return self.frequency_maximum_shader_clock
 
     def get_frequency_maximum_streaming_multiprocessor_clock(self):
-            return self.frequency_maximum_streaming_multiprocessor_clock
+        return self.frequency_maximum_streaming_multiprocessor_clock
 
     def get_frequency_memory_clock(self):
-            return self.frequency_memory_clock
+        return self.frequency_memory_clock
 
     def get_frequency_shader_clock(self):
-            return self.frequency_shader_clock
+        return self.frequency_shader_clock
 
     def get_frequency_streaming_multiprocessor_clock(self):
-            return self.frequency_streaming_multiprocessor_clock
+        return self.frequency_streaming_multiprocessor_clock
 
     def get_frequency_video_clock(self):
-            return self.frequency_video_clock
+        return self.frequency_video_clock
 
     def get_heterogenous_multi_vGPU(self):
-            return self.heterogenous_multi_vGPU
+        return self.heterogenous_multi_vGPU
 
     def get_heterogenous_time_slice_profile(self):
-            return self.heterogenous_time_slice_profile
+        return self.heterogenous_time_slice_profile
 
     def get_heterogenous_time_slice_sizes(self):
-            return self.heterogenous_time_slice_sizes
+        return self.heterogenous_time_slice_sizes
 
     def get_ICM_indent(self):
-            return self.ICM_indent
+        return self.ICM_indent
 
     def get_ICM_method(self):
-            return self.ICM_method
+        return self.ICM_method
 
     def get_inf_filename(self):
-            return self.inf_filename
+        return self.inf_filename
 
     def get_inf_section(self):
-            return self.inf_section
+        return self.inf_section
 
     def get_info_ROM_ecc(self):
-            return self.info_ROM_ecc
+        return self.info_ROM_ecc
 
     def get_info_ROM_oem(self):
-            return self.info_ROM_oem
+        return self.info_ROM_oem
 
     def get_info_ROM_power(self):
-            return self.info_ROM_power
+        return self.info_ROM_power
 
     def get_info_ROM_version(self):
-            return self.info_ROM_version
+        return self.info_ROM_version
 
     def get_install_date(self):
-            return self.install_date
+        return self.install_date
 
     def get_installed_display_drivers(self):
-            return self.installed_display_drivers
+        return self.installed_display_drivers
 
     def get_last_error_code(self):
-            return self.last_error_code
+        return self.last_error_code
 
     def get_max_memory_supported(self):
-            return self.max_memory_supported
+        return self.max_memory_supported
 
     def get_max_number_controlled(self):
-            return self.max_number_controlled
+        return self.max_number_controlled
 
     def get_max_refresh_rate(self):
-            return self.max_refresh_rate
+        return self.max_refresh_rate
 
     def get_memory_clock_range(self):
-            return self.memory_clock_range
+        return self.memory_clock_range
 
     def get_memory_free(self):
-            return self.memory_free
+        return self.memory_free
 
     def get_memory_reserved(self):
-            return self.memory_reserved
+        return self.memory_reserved
 
     def get_memory_total(self):
-            return self.memory_total
+        return self.memory_total
 
     def get_memory_used(self):
-            return self.memory_used
+        return self.memory_used
 
     def get_min_refresh_rate(self):
-            return self.min_refresh_rate
+        return self.min_refresh_rate
 
     def get_monochrome(self):
-            return self.monochrome
+        return self.monochrome
 
     def get_multi_instance_GPU_mode_current(self):
-            return self.multi_instance_GPU_mode_current
+        return self.multi_instance_GPU_mode_current
 
     def get_multi_instance_GPU_mode_pending(self):
-            return self.multi_instance_GPU_mode_pending
+        return self.multi_instance_GPU_mode_pending
 
     def get_name(self):
-            return self.name
+        return self.name
 
     def get_number_of_color_planes(self):
-            return self.number_of_color_planes
+        return self.number_of_color_planes
 
     def get_number_of_video_pages(self):
-            return self.number_of_video_pages
+        return self.number_of_video_pages
 
     def get_operating_mode_current(self):
-            return self.operating_mode_current
+        return self.operating_mode_current
 
     def get_operating_mode_pending(self):
-            return self.operating_mode_pending
+        return self.operating_mode_pending
 
     def get_pci_bus(self):
-            return self.pci_bus
+        return self.pci_bus
 
     def get_pci_bus_id(self):
-            return self.pci_bus_id
+        return self.pci_bus_id
 
     def get_pci_device(self):
-            return self.pci_device
+        return self.pci_device
 
     def get_pci_device_id(self):
-            return self.pci_device_id
+        return self.pci_device_id
 
     def get_pci_domain(self):
-            return self.pci_domain
+        return self.pci_domain
 
     def get_pci_link_generation_current(self):
-            return self.pci_link_generation_current
+        return self.pci_link_generation_current
 
     def get_pci_link_generation_device_host_maximum(self):
-            return self.pci_link_generation_device_host_maximum
+        return self.pci_link_generation_device_host_maximum
 
     def get_pci_link_generation_gpu_maximum(self):
-            return self.pci_link_generation_gpu_maximum
+        return self.pci_link_generation_gpu_maximum
 
     def get_pci_link_generation_maximum(self):
-            return self.pci_link_generation_maximum
+        return self.pci_link_generation_maximum
 
     def get_pci_link_width_current(self):
-            return self.pci_link_width_current
+        return self.pci_link_width_current
 
     def get_pci_link_width_maximum(self):
-            return self.pci_link_width_maximum
+        return self.pci_link_width_maximum
 
     def get_pci_sub_device_id(self):
-            return self.pci_sub_device_id
+        return self.pci_sub_device_id
 
     def get_persistence_mode(self):
-            return self.persistence_mode
+        return self.persistence_mode
 
     def get_PNP_device_id(self):
-            return self.PNP_device_id
+        return self.PNP_device_id
 
     def get_power_draw(self):
-            return self.power_draw
+        return self.power_draw
 
     def get_power_draw_average(self):
-            return self.power_draw_average
+        return self.power_draw_average
 
     def get_power_draw_default_limit(self):
-            return self.power_draw_default_limit
+        return self.power_draw_default_limit
 
     def get_power_draw_enforced_limit(self):
-            return self.power_draw_enforced_limit
+        return self.power_draw_enforced_limit
 
     def get_power_draw_instant(self):
-            return self.power_draw_instant
+        return self.power_draw_instant
 
     def get_power_draw_limit(self):
-            return self.power_draw_limit
+        return self.power_draw_limit
 
     def get_power_draw_maximum(self):
-            return self.power_draw_maximum
+        return self.power_draw_maximum
 
     def get_power_draw_minimum(self):
-            return self.power_draw_minimum
+        return self.power_draw_minimum
 
     def get_power_management_capabilities(self):
-            return self.power_management_capabilities
+        return self.power_management_capabilities
 
     def get_power_management_supported(self):
-            return self.power_management_supported
+        return self.power_management_supported
 
     def get_protected_memory_free(self):
-            return self.protected_memory_free
+        return self.protected_memory_free
 
     def get_protected_memory_total(self):
-            return self.protected_memory_total
+        return self.protected_memory_total
 
     def get_protected_memory_used(self):
-            return self.protected_memory_used
+        return self.protected_memory_used
 
     def get_protocol_supported(self):
-            return self.protocol_supported
+        return self.protocol_supported
 
     def get_performance_state(self):
-            return self.performance_state
+        return self.performance_state
 
     def get_retired_pages_double_bit_ecc_errors_count(self):
-            return self.retired_pages_double_bit_ecc_errors_count
+        return self.retired_pages_double_bit_ecc_errors_count
 
     def get_retired_pages_single_bit_ecc_errors_count(self):
-            return self.retired_pages_single_bit_ecc_errors_count
+        return self.retired_pages_single_bit_ecc_errors_count
 
     def get_retired_pages_pending(self):
-            return self.retired_pages_pending
+        return self.retired_pages_pending
 
     def get_reserved_system_palette_entries(self):
-            return self.reserved_system_palette_entries
+        return self.reserved_system_palette_entries
 
     def get_reset_required(self):
-            return self.reset_required
+        return self.reset_required
 
     def get_reset_and_drain_recommended(self):
-            return self.reset_and_drain_recommended
+        return self.reset_and_drain_recommended
 
     def get_serial(self):
-            return self.serial
+        return self.serial
 
     def get_specification_version(self):
-            return self.specification_version
+        return self.specification_version
 
     def get_status(self):
-            return self.status
+        return self.status
 
     def get_status_info(self):
-            return self.status_info
+        return self.status_info
 
     def get_system_creation_class_name(self):
-            return self.system_creation_class_name
+        return self.system_creation_class_name
 
     def get_system_name(self):
-            return self.system_name
+        return self.system_name
 
     def get_system_palette_entries(self):
-            return self.system_palette_entries
+        return self.system_palette_entries
 
     def get_GPU_system_processor_mode_current(self):
-            return self.GPU_system_processor_mode_current
+        return self.GPU_system_processor_mode_current
 
     def get_GPU_system_processor_mode_default(self):
-            return self.GPU_system_processor_mode_default
+        return self.GPU_system_processor_mode_default
 
     def get_temperature_core(self):
-            return self.temperature_core
+        return self.temperature_core
 
     def get_temperature_core_limit(self):
-            return self.temperature_core_limit
+        return self.temperature_core_limit
 
     def get_temperature_memory(self):
-            return self.temperature_memory
+        return self.temperature_memory
 
     def get_time_of_last_reset(self):
-            return self.time_of_last_reset
+        return self.time_of_last_reset
 
     def get_utilization_decoder(self):
-            return self.utilization_decoder
+        return self.utilization_decoder
 
     def get_utilization_encoder(self):
-            return self.utilization_encoder
+        return self.utilization_encoder
 
     def get_utilization_gpu(self):
-            return self.utilization_gpu
+        return self.utilization_gpu
 
     def get_utilization_jpeg(self):
-            return self.utilization_jpeg
+        return self.utilization_jpeg
 
     def get_utilization_memory(self):
-            return self.utilization_memory
+        return self.utilization_memory
 
     def get_utilization_optical_flow(self):
-            return self.utilization_optical_flow
+        return self.utilization_optical_flow
 
     def get_uuid(self):
-            return self.uuid
+        return self.uuid
 
     def get_vbios_version(self):
-            return self.vbios_version
+        return self.vbios_version
 
     def get_video_architecture(self):
-            return self.video_architecture
+        return self.video_architecture
 
     def get_video_memory_type(self):
-            return self.video_memory_type
+        return self.video_memory_type
 
     def get_video_mode(self):
-            return self.video_mode
+        return self.video_mode
 
     def get_video_mode_description(self):
-            return self.video_mode_description
+        return self.video_mode_description
 
     def get_video_processor(self):
-            return self.video_processor
+        return self.video_processor
 
     def set_accelerator_capabilities(self, value=None):
         if value != None:
