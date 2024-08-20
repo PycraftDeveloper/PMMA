@@ -19,6 +19,8 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
+from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
+
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 def up(path: str) -> str:
@@ -231,8 +233,9 @@ def quit(show_statistics=None):
         app_name = _PassportIntermediary.name
         if app_name is None:
             app_name = "The application"
-        log_information(f"PMMA statistics: {app_name} ran for: \
-{_time.perf_counter() - Registry.application_start_time} seconds.")
+        time_formatter_instance = _TimeFormatter()
+        time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
+        log_information(f"PMMA statistics: {app_name} ran for: {time_formatter_instance.get_in_sentence_format()}")
         log_information(f"PMMA statistics: {app_name} had an average \
 frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
 
@@ -242,15 +245,15 @@ In the prefilling process, {Registry.perlin_noise_prefill_single_samples} single
 samples where used, and {Registry.perlin_noise_prefill_array_samples}/10 array samples where used.")
             if logged_noise_statistics:
                 log_development("The Noise component of PMMA uses a prefilling process to try \
-    and identify the minimum and maximum values for each noise method. This is required as depending \
-    on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
-    used to represent floating point numbers may change. Also, 'single samples' refers to the methods \
-    that return single values, rather than an nD-array of values - known as 'array samples' here. The \
-    reason why the 'single samples' attribute is often much higher is that for 'array samples' many \
-    single values are returned in a single call, rather than the one returned by the 'single samples' \
-    operations, meaning that fewer need to be called for every single call. Additionally, a limit of a \
-    nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
-    generating 3D arrays.")
+and identify the minimum and maximum values for each noise method. This is required as depending \
+on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
+used to represent floating point numbers may change. Also, 'single samples' refers to the methods \
+that return single values, rather than an nD-array of values - known as 'array samples' here. The \
+reason why the 'single samples' attribute is often much higher is that for 'array samples' many \
+single values are returned in a single call, rather than the one returned by the 'single samples' \
+operations, meaning that fewer need to be called for every single call. Additionally, a limit of a \
+nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
+generating 3D arrays.")
 
     log_development("PMMA is now exiting. Thanks for using PMMA!")
     keys = list(Registry.pmma_object_instances.keys())
