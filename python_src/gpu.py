@@ -1647,1212 +1647,1414 @@ class _GPU:
             self.manually_set__accelerator_capabilities = True
         else:
             self.manually_set__accelerator_capabilities = False
+        self.accelerator_capabilities = value
 
     def set_accounting_mode_enabled(self, value=None):
         if value != None:
             self.manually_set__accounting_mode_enabled = True
         else:
             self.manually_set__accounting_mode_enabled = False
+        self.accounting_mode_enabled = value
 
     def set_accounting_mode_buffer_size(self, value=None):
         if value != None:
             self.manually_set__accounting_mode_buffer_size = True
         else:
             self.manually_set__accounting_mode_buffer_size = False
+        self.accounting_mode_buffer_size = value
 
     def set_adapter_compatibility(self, value=None):
         if value != None:
             self.manually_set__adapter_compatibility = True
         else:
             self.manually_set__adapter_compatibility = False
+        self.adapter_compatibility = value
 
     def set_adapter_DAC_type(self, value=None):
         if value != None:
             self.manually_set__adapter_DAC_type = True
         else:
             self.manually_set__adapter_DAC_type = False
+        self.adapter_DAC_type = value
 
     def set_adapter_id(self, value=None):
         if value != None:
             self.manually_set__adapter_id = True
         else:
             self.manually_set__adapter_id = False
+        self.adapter_id = value
 
     def set_adapter_index(self, value=None):
         if value != None:
             self.manually_set__adapter_index = True
         else:
             self.manually_set__adapter_index = False
+        self.adapter_index = value
 
     def set_addressing_mode(self, value=None):
         if value != None:
             self.manually_set__addressing_mode = True
         else:
             self.manually_set__addressing_mode = False
+        self.addressing_mode = value
 
     def set_availability(self, value=None):
         if value != None:
             self.manually_set__availability = True
         else:
             self.manually_set__availability = False
+        self.availability = value
 
     def set_capability_descriptions(self, value=None):
         if value != None:
             self.manually_set__capability_descriptions = True
         else:
             self.manually_set__capability_descriptions = False
+        self.capability_descriptions = value
 
     def set_caption(self, value=None):
         if value != None:
             self.manually_set__caption = True
         else:
             self.manually_set__caption = False
+        self.caption = value
 
     def set_chip_to_chip_interconnect_mode(self, value=None):
         if value != None:
             self.manually_set__chip_to_chip_interconnect_mode = True
         else:
             self.manually_set__chip_to_chip_interconnect_mode = False
+        self.chip_to_chip_interconnect_mode = value
 
     def set_clock_event_reasons_as_bitmap(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_as_bitmap = True
         else:
             self.manually_set__clock_event_reasons_as_bitmap = False
+        self.clock_event_reasons_as_bitmap = value
 
     def set_clock_event_reasons_application_setting(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_application_setting = True
         else:
             self.manually_set__clock_event_reasons_application_setting = False
+        self.clock_event_reasons_application_setting = value
 
     def set_clock_event_reasons_is_hardware_limited(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_is_hardware_limited = True
         else:
             self.manually_set__clock_event_reasons_is_hardware_limited = False
+        self.clock_event_reasons_is_hardware_limited = value
 
     def set_clock_event_reasons_gpu_idle_limited(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_gpu_idle_limited = True
         else:
             self.manually_set__clock_event_reasons_gpu_idle_limited = False
+        self.clock_event_reasons_gpu_idle_limited = value
 
     def set_clock_event_reasons_software_power_limited(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_software_power_limited = True
         else:
             self.manually_set__clock_event_reasons_software_power_limited = False
+        self.clock_event_reasons_software_power_limited = value
 
     def set_clock_event_reasons_software_thermal_limited(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_software_thermal_limited = True
         else:
             self.manually_set__clock_event_reasons_software_thermal_limited = False
+        self.clock_event_reasons_software_thermal_limited = value
 
     def set_clock_event_reasons_power_break_slowdown_limited(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_power_break_slowdown_limited = True
         else:
             self.manually_set__clock_event_reasons_power_break_slowdown_limited = False
+        self.clock_event_reasons_power_break_slowdown_limited = value
 
     def set_clock_event_reasons_supported(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_supported = True
         else:
             self.manually_set__clock_event_reasons_supported = False
+        self.clock_event_reasons_supported = value
 
     def set_clock_event_reasons_sync_boost(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_sync_boost = True
         else:
             self.manually_set__clock_event_reasons_sync_boost = False
+        self.clock_event_reasons_sync_boost = value
 
     def set_clock_event_reasons_thermal_limited(self, value=None):
         if value != None:
             self.manually_set__clock_event_reasons_thermal_limited = True
         else:
             self.manually_set__clock_event_reasons_thermal_limited = False
+        self.clock_event_reasons_thermal_limited = value
 
     def set_color_table_entries(self, value=None):
         if value != None:
             self.manually_set__color_table_entries = True
         else:
             self.manually_set__color_table_entries = False
+        self.color_table_entries = value
 
     def set_compute_cap(self, value=None):
         if value != None:
             self.manually_set__compute_cap = True
         else:
             self.manually_set__compute_cap = False
+        self.compute_cap = value
 
     def set_compute_mode(self, value=None):
         if value != None:
             self.manually_set__compute_mode = True
         else:
             self.manually_set__compute_mode = False
+        self.compute_mode = value
 
     def set_config_manager_error_code(self, value=None):
         if value != None:
             self.manually_set__config_manager_error_code = True
         else:
             self.manually_set__config_manager_error_code = False
+        self.config_manager_error_code = value
 
     def set_config_manager_user_config(self, value=None):
         if value != None:
             self.manually_set__config_manager_user_config = True
         else:
             self.manually_set__config_manager_user_config = False
+        self.config_manager_user_config = value
 
     def set_core_voltage(self, value=None):
         if value != None:
             self.manually_set__core_voltage = True
         else:
             self.manually_set__core_voltage = False
+        self.core_voltage = value
 
     def set_core_voltage_range(self, value=None):
         if value != None:
             self.manually_set__core_voltage_range = True
         else:
             self.manually_set__core_voltage_range = False
+        self.core_voltage_range = value
 
     def set_creation_class_name(self, value=None):
         if value != None:
             self.manually_set__creation_class_name = True
         else:
             self.manually_set__creation_class_name = False
+        self.creation_class_name = value
 
     def set_current_bits_per_pixel(self, value=None):
         if value != None:
             self.manually_set__current_bits_per_pixel = True
         else:
             self.manually_set__current_bits_per_pixel = False
+        self.current_bits_per_pixel = value
 
     def set_current_horizontal_resolution(self, value=None):
         if value != None:
             self.manually_set__current_horizontal_resolution = True
         else:
             self.manually_set__current_horizontal_resolution = False
+        self.current_horizontal_resolution = value
 
     def set_current_number_of_colors(self, value=None):
         if value != None:
             self.manually_set__current_number_of_colors = True
         else:
             self.manually_set__current_number_of_colors = False
+        self.current_number_of_colors = value
 
     def set_current_number_of_columns(self, value=None):
         if value != None:
             self.manually_set__current_number_of_columns = True
         else:
             self.manually_set__current_number_of_columns = False
+        self.current_number_of_columns = value
 
     def set_current_number_of_rows(self, value=None):
         if value != None:
             self.manually_set__current_number_of_rows = True
         else:
             self.manually_set__current_number_of_rows = False
+        self.current_number_of_rows = value
 
     def set_current_refresh_rate(self, value=None):
         if value != None:
             self.manually_set__current_refresh_rate = True
         else:
             self.manually_set__current_refresh_rate = False
+        self.current_refresh_rate = value
 
     def set_current_scan_mode(self, value=None):
         if value != None:
             self.manually_set__current_scan_mode = True
         else:
             self.manually_set__current_scan_mode = False
+        self.current_scan_mode = value
 
     def set_current_vertical_resolution(self, value=None):
         if value != None:
             self.manually_set__current_vertical_resolution = True
         else:
             self.manually_set__current_vertical_resolution = False
+        self.current_vertical_resolution = value
 
     def set_description(self, value=None):
         if value != None:
             self.manually_set__description = True
         else:
             self.manually_set__description = False
+        self.description = value
 
     def set_device_id(self, value=None):
         if value != None:
             self.manually_set__device_id = True
         else:
             self.manually_set__device_id = False
+        self.device_id = value
 
     def set_device_specific_pens(self, value=None):
         if value != None:
             self.manually_set__device_specific_pens = True
         else:
             self.manually_set__device_specific_pens = False
+        self.device_specific_pens = value
 
     def set_display_active(self, value=None):
         if value != None:
             self.manually_set__display_active = True
         else:
             self.manually_set__display_active = False
+        self.display_active = value
 
     def set_display_mode(self, value=None):
         if value != None:
             self.manually_set__display_mode = True
         else:
             self.manually_set__display_mode = False
+        self.display_mode = value
 
     def set_dither_type(self, value=None):
         if value != None:
             self.manually_set__dither_type = True
         else:
             self.manually_set__dither_type = False
+        self.dither_type = value
 
     def set_driver_date(self, value=None):
         if value != None:
             self.manually_set__driver_date = True
         else:
             self.manually_set__driver_date = False
+        self.driver_date = value
 
     def set_driver_model_current(self, value=None):
         if value != None:
             self.manually_set__driver_model_current = True
         else:
             self.manually_set__driver_model_current = False
+        self.driver_model_current = value
 
     def set_driver_model_pending(self, value=None):
         if value != None:
             self.manually_set__driver_model_pending = True
         else:
             self.manually_set__driver_model_pending = False
+        self.driver_model_pending = value
 
     def set_driver_version(self, value=None):
         if value != None:
             self.manually_set__driver_version = True
         else:
             self.manually_set__driver_version = False
+        self.driver_version = value
 
     def set_ecc_errors_corrected_all_time_in_cbu(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_cbu = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_cbu = False
+        self.ecc_errors_corrected_all_time_in_cbu = value
 
     def set_ecc_errors_corrected_all_time_in_primary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_primary_cache = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_primary_cache = False
+        self.ecc_errors_corrected_all_time_in_primary_cache = value
 
     def set_ecc_errors_corrected_all_time_in_register_file(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_register_file = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_register_file = False
+        self.ecc_errors_corrected_all_time_in_register_file = value
 
     def set_ecc_errors_corrected_all_time_in_secondary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_secondary_cache = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_secondary_cache = False
+        self.ecc_errors_corrected_all_time_in_secondary_cache = value
 
     def set_ecc_errors_corrected_all_time_in_shared_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_shared_memory = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_shared_memory = False
+        self.ecc_errors_corrected_all_time_in_shared_memory = value
 
     def set_ecc_errors_corrected_all_time_in_sram(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_sram = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_sram = False
+        self.ecc_errors_corrected_all_time_in_sram = value
 
     def set_ecc_errors_corrected_all_time_in_texture_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_texture_memory = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_texture_memory = False
+        self.ecc_errors_corrected_all_time_in_texture_memory = value
 
     def set_ecc_errors_corrected_all_time_in_total(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_total = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_total = False
+        self.ecc_errors_corrected_all_time_in_total = value
 
     def set_ecc_errors_corrected_all_time_in_video_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_all_time_in_video_memory = True
         else:
             self.manually_set__ecc_errors_corrected_all_time_in_video_memory = False
+        self.ecc_errors_corrected_all_time_in_video_memory = value
 
     def set_ecc_errors_corrected_since_reboot_in_cbu(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_cbu = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_cbu = False
+        self.ecc_errors_corrected_since_reboot_in_cbu = value
 
     def set_ecc_errors_corrected_since_reboot_in_primary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_primary_cache = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_primary_cache = False
+        self.ecc_errors_corrected_since_reboot_in_primary_cache = value
 
     def set_ecc_errors_corrected_since_reboot_in_register_file(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_register_file = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_register_file = False
+        self.ecc_errors_corrected_since_reboot_in_register_file = value
 
     def set_ecc_errors_corrected_since_reboot_in_secondary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_secondary_cache = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_secondary_cache = False
+        self.ecc_errors_corrected_since_reboot_in_secondary_cache = value
 
     def set_ecc_errors_corrected_since_reboot_in_shared_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_shared_memory = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_shared_memory = False
+        self.ecc_errors_corrected_since_reboot_in_shared_memory = value
 
     def set_ecc_errors_corrected_since_reboot_in_sram(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_sram = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_sram = False
+        self.ecc_errors_corrected_since_reboot_in_sram = value
 
     def set_ecc_errors_corrected_since_reboot_in_texture_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_texture_memory = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_texture_memory = False
+        self.ecc_errors_corrected_since_reboot_in_texture_memory = value
 
     def set_ecc_errors_corrected_since_reboot_in_total(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_total = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_total = False
+        self.ecc_errors_corrected_since_reboot_in_total = value
 
     def set_ecc_errors_corrected_since_reboot_in_video_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_corrected_since_reboot_in_video_memory = True
         else:
             self.manually_set__ecc_errors_corrected_since_reboot_in_video_memory = False
+        self.ecc_errors_corrected_since_reboot_in_video_memory = value
 
     def set_ecc_errors_uncorrected_all_time_in_cbu(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_cbu = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_cbu = False
+        self.ecc_errors_uncorrected_all_time_in_cbu = value
 
     def set_ecc_errors_uncorrected_all_time_in_primary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_primary_cache = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_primary_cache = False
+        self.ecc_errors_uncorrected_all_time_in_primary_cache = value
 
     def set_ecc_errors_uncorrected_all_time_in_register_file(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_register_file = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_register_file = False
+        self.ecc_errors_uncorrected_all_time_in_register_file = value
 
     def set_ecc_errors_uncorrected_all_time_in_secondary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_secondary_cache = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_secondary_cache = False
+        self.ecc_errors_uncorrected_all_time_in_secondary_cache = value
 
     def set_ecc_errors_uncorrected_all_time_in_shared_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_shared_memory = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_shared_memory = False
+        self.ecc_errors_uncorrected_all_time_in_shared_memory = value
 
     def set_ecc_errors_uncorrected_all_time_in_sram(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_sram = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_sram = False
+        self.ecc_errors_uncorrected_all_time_in_sram = value
 
     def set_ecc_errors_uncorrected_all_time_in_texture_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_texture_memory = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_texture_memory = False
+        self.ecc_errors_uncorrected_all_time_in_texture_memory = value
 
     def set_ecc_errors_uncorrected_all_time_in_total(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_total = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_total = False
+        self.ecc_errors_uncorrected_all_time_in_total = value
 
     def set_ecc_errors_uncorrected_all_time_in_video_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_all_time_in_video_memory = True
         else:
             self.manually_set__ecc_errors_uncorrected_all_time_in_video_memory = False
+        self.ecc_errors_uncorrected_all_time_in_video_memory = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_cbu(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_cbu = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_cbu = False
+        self.ecc_errors_uncorrected_since_reboot_in_cbu = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_primary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_primary_cache = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_primary_cache = False
+        self.ecc_errors_uncorrected_since_reboot_in_primary_cache = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_register_file(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_register_file = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_register_file = False
+        self.ecc_errors_uncorrected_since_reboot_in_register_file = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_secondary_cache = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_secondary_cache = False
+        self.ecc_errors_uncorrected_since_reboot_in_secondary_cache = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_shared_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_shared_memory = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_shared_memory = False
+        self.ecc_errors_uncorrected_since_reboot_in_shared_memory = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_sram(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_sram = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_sram = False
+        self.ecc_errors_uncorrected_since_reboot_in_sram = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_texture_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_texture_memory = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_texture_memory = False
+        self.ecc_errors_uncorrected_since_reboot_in_texture_memory = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_total(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_total = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_total = False
+        self.ecc_errors_uncorrected_since_reboot_in_total = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_video_memory(self, value=None):
         if value != None:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_video_memory = True
         else:
             self.manually_set__ecc_errors_uncorrected_since_reboot_in_video_memory = False
+        self.ecc_errors_uncorrected_since_reboot_in_video_memory = value
 
     def set_ecc_mode_current(self, value=None):
         if value != None:
             self.manually_set__ecc_mode_current = True
         else:
             self.manually_set__ecc_mode_current = False
+        self.ecc_mode_current = value
 
     def set_ecc_mode_pending(self, value=None):
         if value != None:
             self.manually_set__ecc_mode_pending = True
         else:
             self.manually_set__ecc_mode_pending = False
+        self.ecc_mode_pending = value
 
     def set_encoder_average_FPS(self, value=None):
         if value != None:
             self.manually_set__encoder_average_FPS = True
         else:
             self.manually_set__encoder_average_FPS = False
+        self.encoder_average_FPS = value
 
     def set_encoder_average_latency(self, value=None):
         if value != None:
             self.manually_set__encoder_average_latency = True
         else:
             self.manually_set__encoder_average_latency = False
+        self.encoder_average_latency = value
 
     def set_encoder_session_count(self, value=None):
         if value != None:
             self.manually_set__encoder_session_count = True
         else:
             self.manually_set__encoder_session_count = False
+        self.encoder_session_count = value
 
     def set_engine_clock_range(self, value=None):
         if value != None:
             self.manually_set__engine_clock_range = True
         else:
             self.manually_set__engine_clock_range = False
+        self.engine_clock_range = value
 
     def set_error_cleared(self, value=None):
         if value != None:
             self.manually_set__error_cleared = True
         else:
             self.manually_set__error_cleared = False
+        self.error_cleared = value
 
     def set_error_description(self, value=None):
         if value != None:
             self.manually_set__error_description = True
         else:
             self.manually_set__error_description = False
+        self.error_description = value
 
     def set_fabric_state(self, value=None):
         if value != None:
             self.manually_set__fabric_state = True
         else:
             self.manually_set__fabric_state = False
+        self.fabric_state = value
 
     def set_fabric_status(self, value=None):
         if value != None:
             self.manually_set__fabric_status = True
         else:
             self.manually_set__fabric_status = False
+        self.fabric_status = value
 
     def set_fan_speed_percentage(self, value=None):
         if value != None:
             self.manually_set__fan_speed_percentage = True
         else:
             self.manually_set__fan_speed_percentage = False
+        self.fan_speed_percentage = value
 
     def set_fan_speed_percentage_range(self, value=None):
         if value != None:
             self.manually_set__fan_speed_percentage_range = True
         else:
             self.manually_set__fan_speed_percentage_range = False
+        self.fan_speed_percentage_range = value
 
     def set_fan_speed_RPM(self, value=None):
         if value != None:
             self.manually_set__fan_speed_RPM = True
         else:
             self.manually_set__fan_speed_RPM = False
+        self.fan_speed_RPM = value
 
     def set_fan_speed_RPM_range(self, value=None):
         if value != None:
             self.manually_set__fan_speed_RPM_range = True
         else:
             self.manually_set__fan_speed_RPM_range = False
+        self.fan_speed_RPM_range = value
 
     def set_fractional_multi_vGPU(self, value=None):
         if value != None:
             self.manually_set__fractional_multi_vGPU = True
         else:
             self.manually_set__fractional_multi_vGPU = False
+        self.fractional_multi_vGPU = value
 
     def set_frequency_application_default_shader_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_application_default_shader_clock = True
         else:
             self.manually_set__frequency_application_default_shader_clock = False
+        self.frequency_application_default_shader_clock = value
 
     def set_frequency_application_default_memory_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_application_default_memory_clock = True
         else:
             self.manually_set__frequency_application_default_memory_clock = False
+        self.frequency_application_default_memory_clock = value
 
     def set_frequency_application_memory_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_application_memory_clock = True
         else:
             self.manually_set__frequency_application_memory_clock = False
+        self.frequency_application_memory_clock = value
 
     def set_frequency_application_shader_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_application_shader_clock = True
         else:
             self.manually_set__frequency_application_shader_clock = False
+        self.frequency_application_shader_clock = value
 
     def set_frequency_maximum_memory_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_maximum_memory_clock = True
         else:
             self.manually_set__frequency_maximum_memory_clock = False
+        self.frequency_maximum_memory_clock = value
 
     def set_frequency_maximum_shader_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_maximum_shader_clock = True
         else:
             self.manually_set__frequency_maximum_shader_clock = False
+        self.frequency_maximum_shader_clock = value
 
     def set_frequency_maximum_streaming_multiprocessor_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_maximum_streaming_multiprocessor_clock = True
         else:
             self.manually_set__frequency_maximum_streaming_multiprocessor_clock = False
+        self.frequency_maximum_streaming_multiprocessor_clock = value
 
     def set_frequency_memory_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_memory_clock = True
         else:
             self.manually_set__frequency_memory_clock = False
+        self.frequency_memory_clock = value
 
     def set_frequency_shader_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_shader_clock = True
         else:
             self.manually_set__frequency_shader_clock = False
+        self.frequency_shader_clock = value
 
     def set_frequency_streaming_multiprocessor_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_streaming_multiprocessor_clock = True
         else:
             self.manually_set__frequency_streaming_multiprocessor_clock = False
+        self.frequency_streaming_multiprocessor_clock = value
 
     def set_frequency_video_clock(self, value=None):
         if value != None:
             self.manually_set__frequency_video_clock = True
         else:
             self.manually_set__frequency_video_clock = False
+        self.frequency_video_clock = value
 
     def set_heterogenous_multi_vGPU(self, value=None):
         if value != None:
             self.manually_set__heterogenous_multi_vGPU = True
         else:
             self.manually_set__heterogenous_multi_vGPU = False
+        self.heterogenous_multi_vGPU = value
 
     def set_heterogenous_time_slice_profile(self, value=None):
         if value != None:
             self.manually_set__heterogenous_time_slice_profile = True
         else:
             self.manually_set__heterogenous_time_slice_profile = False
+        self.heterogenous_time_slice_profile = value
 
     def set_heterogenous_time_slice_sizes(self, value=None):
         if value != None:
             self.manually_set__heterogenous_time_slice_sizes = True
         else:
             self.manually_set__heterogenous_time_slice_sizes = False
+        self.heterogenous_time_slice_sizes = value
 
     def set_ICM_indent(self, value=None):
         if value != None:
             self.manually_set__ICM_indent = True
         else:
             self.manually_set__ICM_indent = False
+        self.ICM_indent = value
 
     def set_ICM_method(self, value=None):
         if value != None:
             self.manually_set__ICM_method = True
         else:
             self.manually_set__ICM_method = False
+        self.ICM_method = value
 
     def set_inf_filename(self, value=None):
         if value != None:
             self.manually_set__inf_filename = True
         else:
             self.manually_set__inf_filename = False
+        self.inf_filename = value
 
     def set_inf_section(self, value=None):
         if value != None:
             self.manually_set__inf_section = True
         else:
             self.manually_set__inf_section = False
+        self.inf_section = value
 
     def set_info_ROM_ecc(self, value=None):
         if value != None:
             self.manually_set__info_ROM_ecc = True
         else:
             self.manually_set__info_ROM_ecc = False
+        self.info_ROM_ecc = value
 
     def set_info_ROM_oem(self, value=None):
         if value != None:
             self.manually_set__info_ROM_oem = True
         else:
             self.manually_set__info_ROM_oem = False
+        self.info_ROM_oem = value
 
     def set_info_ROM_power(self, value=None):
         if value != None:
             self.manually_set__info_ROM_power = True
         else:
             self.manually_set__info_ROM_power = False
+        self.info_ROM_power = value
 
     def set_info_ROM_version(self, value=None):
         if value != None:
             self.manually_set__info_ROM_version = True
         else:
             self.manually_set__info_ROM_version = False
+        self.info_ROM_version = value
 
     def set_install_date(self, value=None):
         if value != None:
             self.manually_set__install_date = True
         else:
             self.manually_set__install_date = False
+        self.install_date = value
 
     def set_installed_display_drivers(self, value=None):
         if value != None:
             self.manually_set__installed_display_drivers = True
         else:
             self.manually_set__installed_display_drivers = False
+        self.installed_display_drivers = value
 
     def set_last_error_code(self, value=None):
         if value != None:
             self.manually_set__last_error_code = True
         else:
             self.manually_set__last_error_code = False
+        self.last_error_code = value
 
     def set_max_memory_supported(self, value=None):
         if value != None:
             self.manually_set__max_memory_supported = True
         else:
             self.manually_set__max_memory_supported = False
+        self.max_memory_supported = value
 
     def set_max_number_controlled(self, value=None):
         if value != None:
             self.manually_set__max_number_controlled = True
         else:
             self.manually_set__max_number_controlled = False
+        self.max_number_controlled = value
 
     def set_max_refresh_rate(self, value=None):
         if value != None:
             self.manually_set__max_refresh_rate = True
         else:
             self.manually_set__max_refresh_rate = False
+        self.max_refresh_rate = value
 
     def set_memory_clock_range(self, value=None):
         if value != None:
             self.manually_set__memory_clock_range = True
         else:
             self.manually_set__memory_clock_range = False
+        self.memory_clock_range = value
 
     def set_memory_free(self, value=None):
         if value != None:
             self.manually_set__memory_free = True
         else:
             self.manually_set__memory_free = False
+        self.memory_free = value
 
     def set_memory_reserved(self, value=None):
         if value != None:
             self.manually_set__memory_reserved = True
         else:
             self.manually_set__memory_reserved = False
+        self.memory_reserved = value
 
     def set_memory_total(self, value=None):
         if value != None:
             self.manually_set__memory_total = True
         else:
             self.manually_set__memory_total = False
+        self.memory_total = value
 
     def set_memory_used(self, value=None):
         if value != None:
             self.manually_set__memory_used = True
         else:
             self.manually_set__memory_used = False
+        self.memory_used = value
 
     def set_min_refresh_rate(self, value=None):
         if value != None:
             self.manually_set__min_refresh_rate = True
         else:
             self.manually_set__min_refresh_rate = False
+        self.min_refresh_rate = value
 
     def set_monochrome(self, value=None):
         if value != None:
             self.manually_set__monochrome = True
         else:
             self.manually_set__monochrome = False
+        self.monochrome = value
 
     def set_multi_instance_GPU_mode_current(self, value=None):
         if value != None:
             self.manually_set__multi_instance_GPU_mode_current = True
         else:
             self.manually_set__multi_instance_GPU_mode_current = False
+        self.multi_instance_GPU_mode_current = value
 
     def set_multi_instance_GPU_mode_pending(self, value=None):
         if value != None:
             self.manually_set__multi_instance_GPU_mode_pending = True
         else:
             self.manually_set__multi_instance_GPU_mode_pending = False
+        self.multi_instance_GPU_mode_pending = value
 
     def set_name(self, value=None):
         if value != None:
             self.manually_set__name = True
         else:
             self.manually_set__name = False
+        self.name = value
 
     def set_number_of_color_planes(self, value=None):
         if value != None:
             self.manually_set__number_of_color_planes = True
         else:
             self.manually_set__number_of_color_planes = False
+        self.number_of_color_planes = value
 
     def set_number_of_video_pages(self, value=None):
         if value != None:
             self.manually_set__number_of_video_pages = True
         else:
             self.manually_set__number_of_video_pages = False
+        self.number_of_video_pages = value
 
     def set_operating_mode_current(self, value=None):
         if value != None:
             self.manually_set__operating_mode_current = True
         else:
             self.manually_set__operating_mode_current = False
+        self.operating_mode_current = value
 
     def set_operating_mode_pending(self, value=None):
         if value != None:
             self.manually_set__operating_mode_pending = True
         else:
             self.manually_set__operating_mode_pending = False
+        self.operating_mode_pending = value
 
     def set_pci_bus(self, value=None):
         if value != None:
             self.manually_set__pci_bus = True
         else:
             self.manually_set__pci_bus = False
+        self.pci_bus = value
 
     def set_pci_bus_id(self, value=None):
         if value != None:
             self.manually_set__pci_bus_id = True
         else:
             self.manually_set__pci_bus_id = False
+        self.pci_bus_id = value
 
     def set_pci_device(self, value=None):
         if value != None:
             self.manually_set__pci_device = True
         else:
             self.manually_set__pci_device = False
+        self.pci_device = value
 
     def set_pci_device_id(self, value=None):
         if value != None:
             self.manually_set__pci_device_id = True
         else:
             self.manually_set__pci_device_id = False
+        self.pci_device_id = value
 
     def set_pci_domain(self, value=None):
         if value != None:
             self.manually_set__pci_domain = True
         else:
             self.manually_set__pci_domain = False
+        self.pci_domain = value
 
     def set_pci_link_generation_current(self, value=None):
         if value != None:
             self.manually_set__pci_link_generation_current = True
         else:
             self.manually_set__pci_link_generation_current = False
+        self.pci_link_generation_current = value
 
     def set_pci_link_generation_device_host_maximum(self, value=None):
         if value != None:
             self.manually_set__pci_link_generation_device_host_maximum = True
         else:
             self.manually_set__pci_link_generation_device_host_maximum = False
+        self.pci_link_generation_device_host_maximum = value
 
     def set_pci_link_generation_gpu_maximum(self, value=None):
         if value != None:
             self.manually_set__pci_link_generation_gpu_maximum = True
         else:
             self.manually_set__pci_link_generation_gpu_maximum = False
+        self.pci_link_generation_gpu_maximum = value
 
     def set_pci_link_generation_maximum(self, value=None):
         if value != None:
             self.manually_set__pci_link_generation_maximum = True
         else:
             self.manually_set__pci_link_generation_maximum = False
+        self.pci_link_generation_maximum = value
 
     def set_pci_link_width_current(self, value=None):
         if value != None:
             self.manually_set__pci_link_width_current = True
         else:
             self.manually_set__pci_link_width_current = False
+        self.pci_link_width_current = value
 
     def set_pci_link_width_maximum(self, value=None):
         if value != None:
             self.manually_set__pci_link_width_maximum = True
         else:
             self.manually_set__pci_link_width_maximum = False
+        self.pci_link_width_maximum = value
 
     def set_pci_sub_device_id(self, value=None):
         if value != None:
             self.manually_set__pci_sub_device_id = True
         else:
             self.manually_set__pci_sub_device_id = False
+        self.pci_sub_device_id = value
 
     def set_persistence_mode(self, value=None):
         if value != None:
             self.manually_set__persistence_mode = True
         else:
             self.manually_set__persistence_mode = False
+        self.persistence_mode = value
 
     def set_PNP_device_id(self, value=None):
         if value != None:
             self.manually_set__PNP_device_id = True
         else:
             self.manually_set__PNP_device_id = False
+        self.PNP_device_id = value
 
     def set_power_draw(self, value=None):
         if value != None:
             self.manually_set__power_draw = True
         else:
             self.manually_set__power_draw = False
+        self.power_draw = value
 
     def set_power_draw_average(self, value=None):
         if value != None:
             self.manually_set__power_draw_average = True
         else:
             self.manually_set__power_draw_average = False
+        self.power_draw_average = value
 
     def set_power_draw_default_limit(self, value=None):
         if value != None:
             self.manually_set__power_draw_default_limit = True
         else:
             self.manually_set__power_draw_default_limit = False
+        self.power_draw_default_limit = value
 
     def set_power_draw_enforced_limit(self, value=None):
         if value != None:
             self.manually_set__power_draw_enforced_limit = True
         else:
             self.manually_set__power_draw_enforced_limit = False
+        self.power_draw_enforced_limit = value
 
     def set_power_draw_instant(self, value=None):
         if value != None:
             self.manually_set__power_draw_instant = True
         else:
             self.manually_set__power_draw_instant = False
+        self.power_draw_instant = value
 
     def set_power_draw_limit(self, value=None):
         if value != None:
             self.manually_set__power_draw_limit = True
         else:
             self.manually_set__power_draw_limit = False
+        self.power_draw_limit = value
 
     def set_power_draw_maximum(self, value=None):
         if value != None:
             self.manually_set__power_draw_maximum = True
         else:
             self.manually_set__power_draw_maximum = False
+        self.power_draw_maximum = value
 
     def set_power_draw_minimum(self, value=None):
         if value != None:
             self.manually_set__power_draw_minimum = True
         else:
             self.manually_set__power_draw_minimum = False
+        self.power_draw_minimum = value
 
     def set_power_management_capabilities(self, value=None):
         if value != None:
             self.manually_set__power_management_capabilities = True
         else:
             self.manually_set__power_management_capabilities = False
+        self.power_management_capabilities = value
 
     def set_power_management_supported(self, value=None):
         if value != None:
             self.manually_set__power_management_supported = True
         else:
             self.manually_set__power_management_supported = False
+        self.power_management_supported = value
 
     def set_protected_memory_free(self, value=None):
         if value != None:
             self.manually_set__protected_memory_free = True
         else:
             self.manually_set__protected_memory_free = False
+        self.protected_memory_free = value
 
     def set_protected_memory_total(self, value=None):
         if value != None:
             self.manually_set__protected_memory_total = True
         else:
             self.manually_set__protected_memory_total = False
+        self.protected_memory_total = value
 
     def set_protected_memory_used(self, value=None):
         if value != None:
             self.manually_set__protected_memory_used = True
         else:
             self.manually_set__protected_memory_used = False
+        self.protected_memory_used = value
 
     def set_protocol_supported(self, value=None):
         if value != None:
             self.manually_set__protocol_supported = True
         else:
             self.manually_set__protocol_supported = False
+        self.protocol_supported = value
 
     def set_performance_state(self, value=None):
         if value != None:
             self.manually_set__performance_state = True
         else:
             self.manually_set__performance_state = False
+        self.performance_state = value
 
     def set_retired_pages_double_bit_ecc_errors_count(self, value=None):
         if value != None:
             self.manually_set__retired_pages_double_bit_ecc_errors_count = True
         else:
             self.manually_set__retired_pages_double_bit_ecc_errors_count = False
+        self.retired_pages_double_bit_ecc_errors_count = value
 
     def set_retired_pages_single_bit_ecc_errors_count(self, value=None):
         if value != None:
             self.manually_set__retired_pages_single_bit_ecc_errors_count = True
         else:
             self.manually_set__retired_pages_single_bit_ecc_errors_count = False
+        self.retired_pages_single_bit_ecc_errors_count = value
 
     def set_retired_pages_pending(self, value=None):
         if value != None:
             self.manually_set__retired_pages_pending = True
         else:
             self.manually_set__retired_pages_pending = False
+        self.retired_pages_pending = value
 
     def set_reserved_system_palette_entries(self, value=None):
         if value != None:
             self.manually_set__reserved_system_palette_entries = True
         else:
             self.manually_set__reserved_system_palette_entries = False
+        self.reserved_system_palette_entries = value
 
     def set_reset_required(self, value=None):
         if value != None:
             self.manually_set__reset_required = True
         else:
             self.manually_set__reset_required = False
+        self.reset_required = value
 
     def set_reset_and_drain_recommended(self, value=None):
         if value != None:
             self.manually_set__reset_and_drain_recommended = True
         else:
             self.manually_set__reset_and_drain_recommended = False
+        self.reset_and_drain_recommended = value
 
     def set_serial(self, value=None):
         if value != None:
             self.manually_set__serial = True
         else:
             self.manually_set__serial = False
+        self.serial = value
 
     def set_specification_version(self, value=None):
         if value != None:
             self.manually_set__specification_version = True
         else:
             self.manually_set__specification_version = False
+        self.specification_version = value
 
     def set_status(self, value=None):
         if value != None:
             self.manually_set__status = True
         else:
             self.manually_set__status = False
+        self.status = value
 
     def set_status_info(self, value=None):
         if value != None:
             self.manually_set__status_info = True
         else:
             self.manually_set__status_info = False
+        self.status_info = value
 
     def set_system_creation_class_name(self, value=None):
         if value != None:
             self.manually_set__system_creation_class_name = True
         else:
             self.manually_set__system_creation_class_name = False
+        self.system_creation_class_name = value
 
     def set_system_name(self, value=None):
         if value != None:
             self.manually_set__system_name = True
         else:
             self.manually_set__system_name = False
+        self.system_name = value
 
     def set_system_palette_entries(self, value=None):
         if value != None:
             self.manually_set__system_palette_entries = True
         else:
             self.manually_set__system_palette_entries = False
+        self.system_palette_entries = value
 
     def set_GPU_system_processor_mode_current(self, value=None):
         if value != None:
             self.manually_set__GPU_system_processor_mode_current = True
         else:
             self.manually_set__GPU_system_processor_mode_current = False
+        self.GPU_system_processor_mode_current = value
 
     def set_GPU_system_processor_mode_default(self, value=None):
         if value != None:
             self.manually_set__GPU_system_processor_mode_default = True
         else:
             self.manually_set__GPU_system_processor_mode_default = False
+        self.GPU_system_processor_mode_default = value
 
     def set_temperature_core(self, value=None):
         if value != None:
             self.manually_set__temperature_core = True
         else:
             self.manually_set__temperature_core = False
+        self.temperature_core = value
 
     def set_temperature_core_limit(self, value=None):
         if value != None:
             self.manually_set__temperature_core_limit = True
         else:
             self.manually_set__temperature_core_limit = False
+        self.temperature_core_limit = value
 
     def set_temperature_memory(self, value=None):
         if value != None:
             self.manually_set__temperature_memory = True
         else:
             self.manually_set__temperature_memory = False
+        self.temperature_memory = value
 
     def set_time_of_last_reset(self, value=None):
         if value != None:
             self.manually_set__time_of_last_reset = True
         else:
             self.manually_set__time_of_last_reset = False
+        self.time_of_last_reset = value
 
     def set_utilization_decoder(self, value=None):
         if value != None:
             self.manually_set__utilization_decoder = True
         else:
             self.manually_set__utilization_decoder = False
+        self.utilization_decoder = value
 
     def set_utilization_encoder(self, value=None):
         if value != None:
             self.manually_set__utilization_encoder = True
         else:
             self.manually_set__utilization_encoder = False
+        self.utilization_encoder = value
 
     def set_utilization_gpu(self, value=None):
         if value != None:
             self.manually_set__utilization_gpu = True
         else:
             self.manually_set__utilization_gpu = False
+        self.utilization_gpu = value
 
     def set_utilization_jpeg(self, value=None):
         if value != None:
             self.manually_set__utilization_jpeg = True
         else:
             self.manually_set__utilization_jpeg = False
+        self.utilization_jpeg = value
 
     def set_utilization_memory(self, value=None):
         if value != None:
             self.manually_set__utilization_memory = True
         else:
             self.manually_set__utilization_memory = False
+        self.utilization_memory = value
 
     def set_utilization_optical_flow(self, value=None):
         if value != None:
             self.manually_set__utilization_optical_flow = True
         else:
             self.manually_set__utilization_optical_flow = False
+        self.utilization_optical_flow = value
 
     def set_uuid(self, value=None):
         if value != None:
             self.manually_set__uuid = True
         else:
             self.manually_set__uuid = False
+        self.uuid = value
 
     def set_vbios_version(self, value=None):
         if value != None:
             self.manually_set__vbios_version = True
         else:
             self.manually_set__vbios_version = False
+        self.vbios_version = value
 
     def set_video_architecture(self, value=None):
         if value != None:
             self.manually_set__video_architecture = True
         else:
             self.manually_set__video_architecture = False
+        self.video_architecture = value
 
     def set_video_memory_type(self, value=None):
         if value != None:
             self.manually_set__video_memory_type = True
         else:
             self.manually_set__video_memory_type = False
+        self.video_memory_type = value
 
     def set_video_mode(self, value=None):
         if value != None:
             self.manually_set__video_mode = True
         else:
             self.manually_set__video_mode = False
+        self.video_mode = value
 
     def set_video_mode_description(self, value=None):
         if value != None:
             self.manually_set__video_mode_description = True
         else:
             self.manually_set__video_mode_description = False
+        self.video_mode_description = value
 
     def set_video_processor(self, value=None):
         if value != None:
             self.manually_set__video_processor = True
         else:
             self.manually_set__video_processor = False
+        self.video_processor = value
 
     def update_accelerator_capabilities(self):
         return self.accelerator_capabilities
