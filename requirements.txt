@@ -4,8 +4,10 @@ moderngl
 numba
 Pillow
 psutil
+pyadl
 pygame
 pyrr
 requests
 send2trash
 watchdog
+wmi
