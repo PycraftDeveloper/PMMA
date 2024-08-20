@@ -2,6 +2,11 @@ import math as _math
 import os as _os
 
 class Constants:
+    VALUE = "value"
+    UPDATING = "updating"
+    MANUALLY_SET = "manually set"
+    DATA_COLLECTION_METHODS = "data collection methods"
+
     SECONDS_PER_MINUTE = 60
     SECONDS_PER_HOUR = SECONDS_PER_MINUTE * 60
     SECONDS_PER_DAY = SECONDS_PER_HOUR * 24
