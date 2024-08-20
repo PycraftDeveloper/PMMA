@@ -185,6 +185,8 @@ class Display:
             raise NotImplementedError
 
     def clear(self, *args):
+        Registry.in_game_loop = True
+
         if args == () or args == (None,):
             args = (0, 0, 0)
         if not (type(args[0]) == int or type(args[0]) == float):
@@ -200,6 +202,8 @@ class Display:
             raise NotImplementedError
 
     def refresh(self, refresh_rate=None):
+        Registry.in_game_loop = True
+
         if Registry.number_of_draw_calls != 0:
             log_warning("PMMA compute operation not called! Please call \
 this function before ending the game loop with this!")
@@ -239,6 +243,16 @@ this method call to ensure optimal performance and support!")
                 if Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize:
                     Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = False
                     self.display_resize()
+
+            frame_rate = self.get_fps()
+            if Registry.application_average_frame_rate["Samples"] == 0:
+                Registry.application_average_frame_rate["Mean"] = frame_rate
+                Registry.application_average_frame_rate["Samples"] = 1
+            else:
+                mean = Registry.application_average_frame_rate["Mean"] * Registry.application_average_frame_rate["Samples"]
+                mean += frame_rate
+                Registry.application_average_frame_rate["Samples"] += 1
+                Registry.application_average_frame_rate["Mean"] = mean / Registry.application_average_frame_rate["Samples"]
 
             if refresh_rate > 0:
                 self.clock.tick(refresh_rate)

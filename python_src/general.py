@@ -7,6 +7,7 @@ import locale as _locale
 import os as _os
 from distutils import spawn as _spawn
 import time as _time
+import random as _random
 
 import getostheme as _getostheme
 import psutil as _psutil
@@ -43,6 +44,11 @@ class OpenGLObject:
             del self
             if do_garbage_collection:
                 _gc.collect()
+
+def random_real_number():
+    integer = _random.randint(-100, 100)
+    decimal = _random.random()
+    return integer + decimal
 
 def find_executable_nvidia_smi():
     if get_operating_system() == Constants.WINDOWS:
@@ -198,15 +204,16 @@ created an events object. Handling events for your PMMA display is important as 
 it tells the operating system that the application is still running and allows the \
 user to interact with your application.")
 
-    if number_of_draw_calls > 600:
-        log_development(f"Your application performance might soon be degraded by \
-the time spent handling draw calls. Consider switching to the more optimized Render \
-Pipeline through PMMA to avoid any potential slowdowns.")
+    if number_of_draw_calls > 600 and Registry.application_average_frame_rate['Samples'] > 3:
+        if not "render performance is limiting" in Registry.formatted_developer_messages:
+            log_development(f"Your application performance might soon be degraded by \
+    the time spent handling draw calls. Consider switching to the more optimized Render \
+    Pipeline through PMMA to avoid any potential slowdowns.")
 
     if total_time_spent_drawing == 0:
         return
 
-    if 1/(total_time_spent_drawing) < Registry.refresh_rate:
+    if 1/(total_time_spent_drawing) < Registry.refresh_rate * 0.9 and Registry.application_average_frame_rate['Samples'] > 3:
         if not "render performance is limiting" in Registry.formatted_developer_messages:
             Registry.formatted_developer_messages.append("render performance is limiting")
             log_development(f"Your application performance is limited by the total \
@@ -216,9 +223,35 @@ number of draw calls being made. The program spent {total_time_spent_drawing}s o
 likely improve application performance. Note that this message will only appear once, but \
 may reflect any degraded performance beyond this point.")
 
-def quit():
-    if Registry.display_initialized:
-        pass
+def quit(show_statistics=None):
+    if show_statistics is None:
+        show_statistics = Registry.development_mode and Registry.display_initialized
+
+    if show_statistics:
+        app_name = _PassportIntermediary.name
+        if app_name is None:
+            app_name = "The application"
+        log_information(f"PMMA statistics: {app_name} ran for: \
+{_time.perf_counter() - Registry.application_start_time} seconds.")
+        log_information(f"PMMA statistics: {app_name} had an average \
+frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
+
+        if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
+            logged_noise_statistics = log_information(f"PMMA statistics: {app_name} used Noise component. \
+In the prefilling process, {Registry.perlin_noise_prefill_single_samples} single \
+samples where used, and {Registry.perlin_noise_prefill_array_samples}/10 array samples where used.")
+            if logged_noise_statistics:
+                log_development("The Noise component of PMMA uses a prefilling process to try \
+    and identify the minimum and maximum values for each noise method. This is required as depending \
+    on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
+    used to represent floating point numbers may change. Also, 'single samples' refers to the methods \
+    that return single values, rather than an nD-array of values - known as 'array samples' here. The \
+    reason why the 'single samples' attribute is often much higher is that for 'array samples' many \
+    single values are returned in a single call, rather than the one returned by the 'single samples' \
+    operations, meaning that fewer need to be called for every single call. Additionally, a limit of a \
+    nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
+    generating 3D arrays.")
+
     log_development("PMMA is now exiting. Thanks for using PMMA!")
     keys = list(Registry.pmma_object_instances.keys())
     for key in keys:

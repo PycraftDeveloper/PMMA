@@ -52,16 +52,13 @@ class Constants:
     THREAD_OBJECT = "thread"
     TKINTER_OBJECT = "tkinter"
     BACKPACK_OBJECT = "backpack"
-    COLOR_INTERMEDIARY_OBJECT = "color intermediary"
     COLOR_OBJECT = "color"
     CONSTANTS_OBJECT = "constants"
-    COORDINATE_INTERMEDIARY_OBJECT = "coordinate intermediary"
     COORDINATE_OBJECT = "coordinate"
     FILE_OBJECT = "file"
     FILECORE_OBJECT = "file core"
     PERLIN_OBJECT = "perlin"
     BENCHMARK_OBJECT = "benchmark"
-    PASSPORT_INTERMEDIARY_OBJECT = "passport intermediary"
     PASSPORT_OBJECT = "passport"
     SAMPLER_OBJECT = "sampler"
     REGISTRY_OBJECT = "registry"
@@ -81,16 +78,13 @@ class Constants:
         THREAD_OBJECT,
         TKINTER_OBJECT,
         BACKPACK_OBJECT,
-        COLOR_INTERMEDIARY_OBJECT,
         COLOR_OBJECT,
         CONSTANTS_OBJECT,
-        COORDINATE_INTERMEDIARY_OBJECT,
         COORDINATE_OBJECT,
         FILE_OBJECT,
         FILECORE_OBJECT,
         PERLIN_OBJECT,
         BENCHMARK_OBJECT,
-        PASSPORT_INTERMEDIARY_OBJECT,
         PASSPORT_OBJECT,
         SAMPLER_OBJECT,
         REGISTRY_OBJECT,

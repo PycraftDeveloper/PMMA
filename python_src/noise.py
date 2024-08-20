@@ -20,8 +20,7 @@ class Perlin:
             seed=None,
             octaves=1,
             persistence=0.5,
-            do_prefill=None,
-            number_of_single_samples=10_000):
+            do_prefill=None):
 
         initialize(self)
 
@@ -60,8 +59,7 @@ class Perlin:
 
         if self.do_prefill:
             self.prefill_thread = _threading.Thread(
-                target=self.prefill,
-                args=(number_of_single_samples,))
+                target=self.prefill)
 
             self.prefill_thread.daemon = True
             _NoiseIntermediary.prefill = True
@@ -77,14 +75,20 @@ class Perlin:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def prefill(self, number_of_single_samples):
+    def prefill(self):
         try:
-            for x in range(1, number_of_single_samples):
+            Registry.perlin_noise_prefill_single_samples = 0
+            x_samples = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+            for _ in range(1, 1_000):
+                Registry.perlin_noise_prefill_single_samples += 1
+                x = random_real_number()
                 self.generate_1D_perlin_noise(x/100, prefill=True)
                 self.generate_2D_perlin_noise(x/100, -x/100, prefill=True)
                 self.generate_3D_perlin_noise(x/100, -x/100, x/100, prefill=True)
 
-            x = 10
+            x = x_samples[0]
+            del x_samples[0]
+            Registry.perlin_noise_prefill_array_samples += 1
             x_array, y_array, z_array = _prefill_optimizer(x)
 
             self.generate_1D_perlin_noise_from_array(x_array, prefill=True)
@@ -96,6 +100,30 @@ class Perlin:
             self.generate_1D_perlin_noise_from_range([x], prefill=True)
             self.generate_2D_perlin_noise_from_range([x], [x], prefill=True)
             self.generate_3D_perlin_noise_from_range([x], [x], [x], prefill=True)
+
+            while Registry.in_game_loop is False:
+                for _ in range(100):
+                    Registry.perlin_noise_prefill_single_samples += 1
+                    x = random_real_number()
+                    self.generate_1D_perlin_noise(x/100, prefill=True)
+                    self.generate_2D_perlin_noise(x/100, -x/100, prefill=True)
+                    self.generate_3D_perlin_noise(x/100, -x/100, x/100, prefill=True)
+
+                if x_samples != []:
+                    x = x_samples[0]
+                    del x_samples[0]
+                    Registry.perlin_noise_prefill_array_samples += 1
+                    x_array, y_array, z_array = _prefill_optimizer(x)
+
+                    self.generate_1D_perlin_noise_from_array(x_array, prefill=True)
+
+                    self.generate_2D_perlin_noise_from_array(y_array, prefill=True)
+
+                    self.generate_3D_perlin_noise_from_array(z_array, prefill=True)
+
+                    self.generate_1D_perlin_noise_from_range([x], prefill=True)
+                    self.generate_2D_perlin_noise_from_range([x], [x], prefill=True)
+                    self.generate_3D_perlin_noise_from_range([x], [x], [x], prefill=True)
         except Exception as error:
             print(error)
 

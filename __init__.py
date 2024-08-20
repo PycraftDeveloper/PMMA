@@ -3,6 +3,7 @@ import os as _os
 import tkinter as _tkinter
 import io as _io
 import contextlib as _contextlib
+import time as _time
 
 import numba as _numba
 
@@ -84,6 +85,10 @@ def init(
 
     root = _tkinter.Tk()
     root.withdraw()
+
+    startup_time = _time.perf_counter()
+    Registry.application_start_time = startup_time
+    Backpack.application_start_time = startup_time
 
     Registry.pmma_initialized = True
     Registry.python_acceleration_enabled = optimize_python_extensions
