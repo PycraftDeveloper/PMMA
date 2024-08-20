@@ -2734,9 +2734,9 @@ class _GPU:
         self.clock_event_reasons_as_bitmap[Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_as_bitmap"], wait_for_completion=wait_for_completion)
 
-    def update_clock_event_reasons_application_updateting(self, wait_for_completion=True):
-        self.clock_event_reasons_application_updateting[Constants.UPDATING] = True
-        self.update(data_points=["clock_event_reasons_application_updateting"], wait_for_completion=wait_for_completion)
+    def update_clock_event_reasons_application_setting(self, wait_for_completion=True):
+        self.clock_event_reasons_application_setting[Constants.UPDATING] = True
+        self.update(data_points=["clock_event_reasons_application_setting"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_is_hardware_limited(self, wait_for_completion=True):
         self.clock_event_reasons_is_hardware_limited[Constants.UPDATING] = True
