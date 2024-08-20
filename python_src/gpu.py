@@ -641,611 +641,1217 @@ class _GPU:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def get_accelerator_capabilities(self):
-        return self.accelerator_capabilities["value"]
-
-    def get_accounting_mode_enabled(self):
-        return self.accounting_mode_enabled["value"]
-
-    def get_accounting_mode_buffer_size(self):
-        return self.accounting_mode_buffer_size["value"]
-
-    def get_adapter_compatibility(self):
-        return self.adapter_compatibility["value"]
-
-    def get_adapter_DAC_type(self):
-        return self.adapter_DAC_type["value"]
-
-    def get_adapter_id(self):
-        return self.adapter_id["value"]
-
-    def get_adapter_index(self):
-        return self.adapter_index["value"]
-
-    def get_addressing_mode(self):
-        return self.addressing_mode["value"]
-
-    def get_availability(self):
-        return self.availability["value"]
-
-    def get_capability_descriptions(self):
-        return self.capability_descriptions["value"]
-
-    def get_caption(self):
-        return self.caption["value"]
-
-    def get_chip_to_chip_interconnect_mode(self):
-        return self.chip_to_chip_interconnect_mode["value"]
-
-    def get_clock_event_reasons_as_bitmap(self):
-        return self.clock_event_reasons_as_bitmap["value"]
-
-    def get_clock_event_reasons_application_setting(self):
-        return self.clock_event_reasons_application_setting["value"]
-
-    def get_clock_event_reasons_is_hardware_limited(self):
-        return self.clock_event_reasons_is_hardware_limited["value"]
-
-    def get_clock_event_reasons_gpu_idle_limited(self):
-        return self.clock_event_reasons_gpu_idle_limited["value"]
-
-    def get_clock_event_reasons_software_power_limited(self):
-        return self.clock_event_reasons_software_power_limited["value"]
-
-    def get_clock_event_reasons_software_thermal_limited(self):
-        return self.clock_event_reasons_software_thermal_limited["value"]
-
-    def get_clock_event_reasons_power_break_slowdown_limited(self):
-        return self.clock_event_reasons_power_break_slowdown_limited["value"]
-
-    def get_clock_event_reasons_supported(self):
-        return self.clock_event_reasons_supported["value"]
-
-    def get_clock_event_reasons_sync_boost(self):
-        return self.clock_event_reasons_sync_boost["value"]
-
-    def get_clock_event_reasons_thermal_limited(self):
-        return self.clock_event_reasons_thermal_limited["value"]
-
-    def get_color_table_entries(self):
-        return self.color_table_entries["value"]
-
-    def get_compute_cap(self):
-        return self.compute_cap["value"]
-
-    def get_compute_mode(self):
-        return self.compute_mode["value"]
-
-    def get_config_manager_error_code(self):
-        return self.config_manager_error_code["value"]
-
-    def get_config_manager_user_config(self):
-        return self.config_manager_user_config["value"]
-
-    def get_core_voltage(self):
-        return self.core_voltage["value"]
-
-    def get_core_voltage_range(self):
-        return self.core_voltage_range["value"]
-
-    def get_creation_class_name(self):
-        return self.creation_class_name["value"]
-
-    def get_current_bits_per_pixel(self):
-        return self.current_bits_per_pixel["value"]
-
-    def get_current_horizontal_resolution(self):
-        return self.current_horizontal_resolution["value"]
-
-    def get_current_number_of_colors(self):
-        return self.current_number_of_colors["value"]
-
-    def get_current_number_of_columns(self):
-        return self.current_number_of_columns["value"]
-
-    def get_current_number_of_rows(self):
-        return self.current_number_of_rows["value"]
-
-    def get_current_refresh_rate(self):
-        return self.current_refresh_rate["value"]
-
-    def get_current_scan_mode(self):
-        return self.current_scan_mode["value"]
-
-    def get_current_vertical_resolution(self):
-        return self.current_vertical_resolution["value"]
-
-    def get_description(self):
-        return self.description["value"]
-
-    def get_device_id(self):
-        return self.device_id["value"]
-
-    def get_device_specific_pens(self):
-        return self.device_specific_pens["value"]
-
-    def get_display_active(self):
-        return self.display_active["value"]
-
-    def get_display_mode(self):
-        return self.display_mode["value"]
-
-    def get_dither_type(self):
-        return self.dither_type["value"]
-
-    def get_driver_date(self):
-        return self.driver_date["value"]
-
-    def get_driver_model_current(self):
-        return self.driver_model_current["value"]
-
-    def get_driver_model_pending(self):
-        return self.driver_model_pending["value"]
-
-    def get_driver_version(self):
-        return self.driver_version["value"]
-
-    def get_ecc_errors_corrected_all_time_in_cbu(self):
-        return self.ecc_errors_corrected_all_time_in_cbu["value"]
-
-    def get_ecc_errors_corrected_all_time_in_primary_cache(self):
-        return self.ecc_errors_corrected_all_time_in_primary_cache["value"]
-
-    def get_ecc_errors_corrected_all_time_in_register_file(self):
-        return self.ecc_errors_corrected_all_time_in_register_file["value"]
-
-    def get_ecc_errors_corrected_all_time_in_secondary_cache(self):
-        return self.ecc_errors_corrected_all_time_in_secondary_cache["value"]
-
-    def get_ecc_errors_corrected_all_time_in_shared_memory(self):
-        return self.ecc_errors_corrected_all_time_in_shared_memory["value"]
-
-    def get_ecc_errors_corrected_all_time_in_sram(self):
-        return self.ecc_errors_corrected_all_time_in_sram["value"]
-
-    def get_ecc_errors_corrected_all_time_in_texture_memory(self):
-        return self.ecc_errors_corrected_all_time_in_texture_memory["value"]
-
-    def get_ecc_errors_corrected_all_time_in_total(self):
-        return self.ecc_errors_corrected_all_time_in_total["value"]
-
-    def get_ecc_errors_corrected_all_time_in_video_memory(self):
-        return self.ecc_errors_corrected_all_time_in_video_memory["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_cbu(self):
-        return self.ecc_errors_corrected_since_reboot_in_cbu["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_primary_cache(self):
-        return self.ecc_errors_corrected_since_reboot_in_primary_cache["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_register_file(self):
-        return self.ecc_errors_corrected_since_reboot_in_register_file["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_secondary_cache(self):
-        return self.ecc_errors_corrected_since_reboot_in_secondary_cache["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_shared_memory(self):
-        return self.ecc_errors_corrected_since_reboot_in_shared_memory["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_sram(self):
-        return self.ecc_errors_corrected_since_reboot_in_sram["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_texture_memory(self):
-        return self.ecc_errors_corrected_since_reboot_in_texture_memory["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_total(self):
-        return self.ecc_errors_corrected_since_reboot_in_total["value"]
-
-    def get_ecc_errors_corrected_since_reboot_in_video_memory(self):
-        return self.ecc_errors_corrected_since_reboot_in_video_memory["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_cbu(self):
-        return self.ecc_errors_uncorrected_all_time_in_cbu["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_primary_cache(self):
-        return self.ecc_errors_uncorrected_all_time_in_primary_cache["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_register_file(self):
-        return self.ecc_errors_uncorrected_all_time_in_register_file["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_secondary_cache(self):
-        return self.ecc_errors_uncorrected_all_time_in_secondary_cache["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_shared_memory(self):
-        return self.ecc_errors_uncorrected_all_time_in_shared_memory["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_sram(self):
-        return self.ecc_errors_uncorrected_all_time_in_sram["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_texture_memory(self):
-        return self.ecc_errors_uncorrected_all_time_in_texture_memory["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_total(self):
-        return self.ecc_errors_uncorrected_all_time_in_total["value"]
-
-    def get_ecc_errors_uncorrected_all_time_in_video_memory(self):
-        return self.ecc_errors_uncorrected_all_time_in_video_memory["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_cbu(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_cbu["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_primary_cache(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_primary_cache["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_register_file(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_register_file["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_secondary_cache["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_shared_memory(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_shared_memory["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_sram(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_sram["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_texture_memory(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_texture_memory["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_total(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_total["value"]
-
-    def get_ecc_errors_uncorrected_since_reboot_in_video_memory(self):
-        return self.ecc_errors_uncorrected_since_reboot_in_video_memory["value"]
-
-    def get_ecc_mode_current(self):
-        return self.ecc_mode_current["value"]
-
-    def get_ecc_mode_pending(self):
-        return self.ecc_mode_pending["value"]
-
-    def get_encoder_average_FPS(self):
-        return self.encoder_average_FPS["value"]
-
-    def get_encoder_average_latency(self):
-        return self.encoder_average_latency["value"]
-
-    def get_encoder_session_count(self):
-        return self.encoder_session_count["value"]
-
-    def get_engine_clock_range(self):
-        return self.engine_clock_range["value"]
-
-    def get_error_cleared(self):
-        return self.error_cleared["value"]
-
-    def get_error_description(self):
-        return self.error_description["value"]
-
-    def get_fabric_state(self):
-        return self.fabric_state["value"]
-
-    def get_fabric_status(self):
-        return self.fabric_status["value"]
-
-    def get_fan_speed_percentage(self):
-        return self.fan_speed_percentage["value"]
-
-    def get_fan_speed_percentage_range(self):
-        return self.fan_speed_percentage_range["value"]
-
-    def get_fan_speed_RPM(self):
-        return self.fan_speed_RPM["value"]
-
-    def get_fan_speed_RPM_range(self):
-        return self.fan_speed_RPM_range["value"]
-
-    def get_fractional_multi_vGPU(self):
-        return self.fractional_multi_vGPU["value"]
-
-    def get_frequency_application_default_shader_clock(self):
-        return self.frequency_application_default_shader_clock["value"]
-
-    def get_frequency_application_default_memory_clock(self):
-        return self.frequency_application_default_memory_clock["value"]
-
-    def get_frequency_application_memory_clock(self):
-        return self.frequency_application_memory_clock["value"]
-
-    def get_frequency_application_shader_clock(self):
-        return self.frequency_application_shader_clock["value"]
-
-    def get_frequency_maximum_memory_clock(self):
-        return self.frequency_maximum_memory_clock["value"]
-
-    def get_frequency_maximum_shader_clock(self):
-        return self.frequency_maximum_shader_clock["value"]
-
-    def get_frequency_maximum_streaming_multiprocessor_clock(self):
-        return self.frequency_maximum_streaming_multiprocessor_clock["value"]
-
-    def get_frequency_memory_clock(self):
-        return self.frequency_memory_clock["value"]
-
-    def get_frequency_shader_clock(self):
-        return self.frequency_shader_clock["value"]
-
-    def get_frequency_streaming_multiprocessor_clock(self):
-        return self.frequency_streaming_multiprocessor_clock["value"]
-
-    def get_frequency_video_clock(self):
-        return self.frequency_video_clock["value"]
-
-    def get_heterogenous_multi_vGPU(self):
-        return self.heterogenous_multi_vGPU["value"]
-
-    def get_heterogenous_time_slice_profile(self):
-        return self.heterogenous_time_slice_profile["value"]
-
-    def get_heterogenous_time_slice_sizes(self):
-        return self.heterogenous_time_slice_sizes["value"]
-
-    def get_ICM_indent(self):
-        return self.ICM_indent["value"]
-
-    def get_ICM_method(self):
-        return self.ICM_method["value"]
-
-    def get_inf_filename(self):
-        return self.inf_filename["value"]
-
-    def get_inf_section(self):
-        return self.inf_section["value"]
-
-    def get_info_ROM_ecc(self):
-        return self.info_ROM_ecc["value"]
-
-    def get_info_ROM_oem(self):
-        return self.info_ROM_oem["value"]
-
-    def get_info_ROM_power(self):
-        return self.info_ROM_power["value"]
-
-    def get_info_ROM_version(self):
-        return self.info_ROM_version["value"]
-
-    def get_install_date(self):
-        return self.install_date["value"]
-
-    def get_installed_display_drivers(self):
-        return self.installed_display_drivers["value"]
-
-    def get_last_error_code(self):
-        return self.last_error_code["value"]
-
-    def get_max_memory_supported(self):
-        return self.max_memory_supported["value"]
-
-    def get_max_number_controlled(self):
-        return self.max_number_controlled["value"]
-
-    def get_max_refresh_rate(self):
-        return self.max_refresh_rate["value"]
-
-    def get_memory_clock_range(self):
-        return self.memory_clock_range["value"]
-
-    def get_memory_free(self):
-        return self.memory_free["value"]
-
-    def get_memory_reserved(self):
-        return self.memory_reserved["value"]
-
-    def get_memory_total(self):
-        return self.memory_total["value"]
-
-    def get_memory_used(self):
-        return self.memory_used["value"]
-
-    def get_min_refresh_rate(self):
-        return self.min_refresh_rate["value"]
-
-    def get_monochrome(self):
-        return self.monochrome["value"]
-
-    def get_multi_instance_GPU_mode_current(self):
-        return self.multi_instance_GPU_mode_current["value"]
-
-    def get_multi_instance_GPU_mode_pending(self):
-        return self.multi_instance_GPU_mode_pending["value"]
-
-    def get_name(self):
-        return self.name["value"]
-
-    def get_number_of_color_planes(self):
-        return self.number_of_color_planes["value"]
-
-    def get_number_of_video_pages(self):
-        return self.number_of_video_pages["value"]
-
-    def get_operating_mode_current(self):
-        return self.operating_mode_current["value"]
-
-    def get_operating_mode_pending(self):
-        return self.operating_mode_pending["value"]
-
-    def get_pci_bus(self):
-        return self.pci_bus["value"]
-
-    def get_pci_bus_id(self):
-        return self.pci_bus_id["value"]
-
-    def get_pci_device(self):
-        return self.pci_device["value"]
-
-    def get_pci_device_id(self):
-        return self.pci_device_id["value"]
-
-    def get_pci_domain(self):
-        return self.pci_domain["value"]
-
-    def get_pci_link_generation_current(self):
-        return self.pci_link_generation_current["value"]
-
-    def get_pci_link_generation_device_host_maximum(self):
-        return self.pci_link_generation_device_host_maximum["value"]
-
-    def get_pci_link_generation_gpu_maximum(self):
-        return self.pci_link_generation_gpu_maximum["value"]
-
-    def get_pci_link_generation_maximum(self):
-        return self.pci_link_generation_maximum["value"]
-
-    def get_pci_link_width_current(self):
-        return self.pci_link_width_current["value"]
-
-    def get_pci_link_width_maximum(self):
-        return self.pci_link_width_maximum["value"]
-
-    def get_pci_sub_device_id(self):
-        return self.pci_sub_device_id["value"]
-
-    def get_persistence_mode(self):
-        return self.persistence_mode["value"]
-
-    def get_PNP_device_id(self):
-        return self.PNP_device_id["value"]
-
-    def get_power_draw(self):
-        return self.power_draw["value"]
-
-    def get_power_draw_average(self):
-        return self.power_draw_average["value"]
-
-    def get_power_draw_default_limit(self):
-        return self.power_draw_default_limit["value"]
-
-    def get_power_draw_enforced_limit(self):
-        return self.power_draw_enforced_limit["value"]
-
-    def get_power_draw_instant(self):
-        return self.power_draw_instant["value"]
-
-    def get_power_draw_limit(self):
-        return self.power_draw_limit["value"]
-
-    def get_power_draw_maximum(self):
-        return self.power_draw_maximum["value"]
-
-    def get_power_draw_minimum(self):
-        return self.power_draw_minimum["value"]
-
-    def get_power_management_capabilities(self):
-        return self.power_management_capabilities["value"]
-
-    def get_power_management_supported(self):
-        return self.power_management_supported["value"]
-
-    def get_protected_memory_free(self):
-        return self.protected_memory_free["value"]
-
-    def get_protected_memory_total(self):
-        return self.protected_memory_total["value"]
-
-    def get_protected_memory_used(self):
-        return self.protected_memory_used["value"]
-
-    def get_protocol_supported(self):
-        return self.protocol_supported["value"]
-
-    def get_performance_state(self):
-        return self.performance_state["value"]
-
-    def get_retired_pages_double_bit_ecc_errors_count(self):
-        return self.retired_pages_double_bit_ecc_errors_count["value"]
-
-    def get_retired_pages_single_bit_ecc_errors_count(self):
-        return self.retired_pages_single_bit_ecc_errors_count["value"]
-
-    def get_retired_pages_pending(self):
-        return self.retired_pages_pending["value"]
-
-    def get_reserved_system_palette_entries(self):
-        return self.reserved_system_palette_entries["value"]
-
-    def get_reset_required(self):
-        return self.reset_required["value"]
-
-    def get_reset_and_drain_recommended(self):
-        return self.reset_and_drain_recommended["value"]
-
-    def get_serial(self):
-        return self.serial["value"]
-
-    def get_specification_version(self):
-        return self.specification_version["value"]
-
-    def get_status(self):
-        return self.status["value"]
-
-    def get_status_info(self):
-        return self.status_info["value"]
-
-    def get_system_creation_class_name(self):
-        return self.system_creation_class_name["value"]
-
-    def get_system_name(self):
-        return self.system_name["value"]
-
-    def get_system_palette_entries(self):
-        return self.system_palette_entries["value"]
-
-    def get_GPU_system_processor_mode_current(self):
-        return self.GPU_system_processor_mode_current["value"]
-
-    def get_GPU_system_processor_mode_default(self):
-        return self.GPU_system_processor_mode_default["value"]
-
-    def get_temperature_core(self):
-        return self.temperature_core["value"]
-
-    def get_temperature_core_limit(self):
-        return self.temperature_core_limit["value"]
-
-    def get_temperature_memory(self):
-        return self.temperature_memory["value"]
-
-    def get_time_of_last_reset(self):
-        return self.time_of_last_reset["value"]
-
-    def get_utilization_decoder(self):
-        return self.utilization_decoder["value"]
-
-    def get_utilization_encoder(self):
-        return self.utilization_encoder["value"]
-
-    def get_utilization_gpu(self):
-        return self.utilization_gpu["value"]
-
-    def get_utilization_jpeg(self):
-        return self.utilization_jpeg["value"]
-
-    def get_utilization_memory(self):
-        return self.utilization_memory["value"]
-
-    def get_utilization_optical_flow(self):
-        return self.utilization_optical_flow["value"]
-
-    def get_uuid(self):
-        return self.uuid["value"]
-
-    def get_vbios_version(self):
-        return self.vbios_version["value"]
-
-    def get_video_architecture(self):
-        return self.video_architecture["value"]
-
-    def get_video_memory_type(self):
-        return self.video_memory_type["value"]
-
-    def get_video_mode(self):
-        return self.video_mode["value"]
-
-    def get_video_mode_description(self):
-        return self.video_mode_description["value"]
-
-    def get_video_processor(self):
-        return self.video_processor["value"]
+    def get_accelerator_capabilities(self, update=False, wait_for_completion=False):
+        value = self.accelerator_capabilities["value"]
+        if update:
+            self.update(data_points=["accelerator_capabilities"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_accounting_mode_enabled(self, update=False, wait_for_completion=False):
+        value = self.accounting_mode_enabled["value"]
+        if update:
+            self.update(data_points=["accounting_mode_enabled"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_accounting_mode_buffer_size(self, update=False, wait_for_completion=False):
+        value = self.accounting_mode_buffer_size["value"]
+        if update:
+            self.update(data_points=["accounting_mode_buffer_size"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_adapter_compatibility(self, update=False, wait_for_completion=False):
+        value = self.adapter_compatibility["value"]
+        if update:
+            self.update(data_points=["adapter_compatibility"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_adapter_DAC_type(self, update=False, wait_for_completion=False):
+        value = self.adapter_DAC_type["value"]
+        if update:
+            self.update(data_points=["adapter_DAC_type"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_adapter_id(self, update=False, wait_for_completion=False):
+        value = self.adapter_id["value"]
+        if update:
+            self.update(data_points=["adapter_id"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_adapter_index(self, update=False, wait_for_completion=False):
+        value = self.adapter_index["value"]
+        if update:
+            self.update(data_points=["adapter_index"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_addressing_mode(self, update=False, wait_for_completion=False):
+        value = self.addressing_mode["value"]
+        if update:
+            self.update(data_points=["addressing_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_availability(self, update=False, wait_for_completion=False):
+        value = self.availability["value"]
+        if update:
+            self.update(data_points=["availability"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_capability_descriptions(self, update=False, wait_for_completion=False):
+        value = self.capability_descriptions["value"]
+        if update:
+            self.update(data_points=["capability_descriptions"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_caption(self, update=False, wait_for_completion=False):
+        value = self.caption["value"]
+        if update:
+            self.update(data_points=["caption"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_chip_to_chip_interconnect_mode(self, update=False, wait_for_completion=False):
+        value = self.chip_to_chip_interconnect_mode["value"]
+        if update:
+            self.update(data_points=["chip_to_chip_interconnect_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_as_bitmap(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_as_bitmap["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_as_bitmap"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_application_setting(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_application_setting["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_application_setting"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_is_hardware_limited(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_is_hardware_limited["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_is_hardware_limited"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_gpu_idle_limited(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_gpu_idle_limited["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_gpu_idle_limited"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_software_power_limited(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_software_power_limited["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_software_power_limited"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_software_thermal_limited(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_software_thermal_limited["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_software_thermal_limited"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_power_break_slowdown_limited(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_power_break_slowdown_limited["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_power_break_slowdown_limited"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_supported(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_supported["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_supported"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_sync_boost(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_sync_boost["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_sync_boost"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_clock_event_reasons_thermal_limited(self, update=False, wait_for_completion=False):
+        value = self.clock_event_reasons_thermal_limited["value"]
+        if update:
+            self.update(data_points=["clock_event_reasons_thermal_limited"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_color_table_entries(self, update=False, wait_for_completion=False):
+        value = self.color_table_entries["value"]
+        if update:
+            self.update(data_points=["color_table_entries"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_compute_cap(self, update=False, wait_for_completion=False):
+        value = self.compute_cap["value"]
+        if update:
+            self.update(data_points=["compute_cap"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_compute_mode(self, update=False, wait_for_completion=False):
+        value = self.compute_mode["value"]
+        if update:
+            self.update(data_points=["compute_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_config_manager_error_code(self, update=False, wait_for_completion=False):
+        value = self.config_manager_error_code["value"]
+        if update:
+            self.update(data_points=["config_manager_error_code"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_config_manager_user_config(self, update=False, wait_for_completion=False):
+        value = self.config_manager_user_config["value"]
+        if update:
+            self.update(data_points=["config_manager_user_config"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_core_voltage(self, update=False, wait_for_completion=False):
+        value = self.core_voltage["value"]
+        if update:
+            self.update(data_points=["core_voltage"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_core_voltage_range(self, update=False, wait_for_completion=False):
+        value = self.core_voltage_range["value"]
+        if update:
+            self.update(data_points=["core_voltage_range"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_creation_class_name(self, update=False, wait_for_completion=False):
+        value = self.creation_class_name["value"]
+        if update:
+            self.update(data_points=["creation_class_name"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_bits_per_pixel(self, update=False, wait_for_completion=False):
+        value = self.current_bits_per_pixel["value"]
+        if update:
+            self.update(data_points=["current_bits_per_pixel"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_horizontal_resolution(self, update=False, wait_for_completion=False):
+        value = self.current_horizontal_resolution["value"]
+        if update:
+            self.update(data_points=["current_horizontal_resolution"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_number_of_colors(self, update=False, wait_for_completion=False):
+        value = self.current_number_of_colors["value"]
+        if update:
+            self.update(data_points=["current_number_of_colors"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_number_of_columns(self, update=False, wait_for_completion=False):
+        value = self.current_number_of_columns["value"]
+        if update:
+            self.update(data_points=["current_number_of_columns"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_number_of_rows(self, update=False, wait_for_completion=False):
+        value = self.current_number_of_rows["value"]
+        if update:
+            self.update(data_points=["current_number_of_rows"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_refresh_rate(self, update=False, wait_for_completion=False):
+        value = self.current_refresh_rate["value"]
+        if update:
+            self.update(data_points=["current_refresh_rate"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_scan_mode(self, update=False, wait_for_completion=False):
+        value = self.current_scan_mode["value"]
+        if update:
+            self.update(data_points=["current_scan_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_current_vertical_resolution(self, update=False, wait_for_completion=False):
+        value = self.current_vertical_resolution["value"]
+        if update:
+            self.update(data_points=["current_vertical_resolution"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_description(self, update=False, wait_for_completion=False):
+        value = self.description["value"]
+        if update:
+            self.update(data_points=["description"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_device_id(self, update=False, wait_for_completion=False):
+        value = self.device_id["value"]
+        if update:
+            self.update(data_points=["device_id"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_device_specific_pens(self, update=False, wait_for_completion=False):
+        value = self.device_specific_pens["value"]
+        if update:
+            self.update(data_points=["device_specific_pens"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_display_active(self, update=False, wait_for_completion=False):
+        value = self.display_active["value"]
+        if update:
+            self.update(data_points=["display_active"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_display_mode(self, update=False, wait_for_completion=False):
+        value = self.display_mode["value"]
+        if update:
+            self.update(data_points=["display_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_dither_type(self, update=False, wait_for_completion=False):
+        value = self.dither_type["value"]
+        if update:
+            self.update(data_points=["dither_type"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_driver_date(self, update=False, wait_for_completion=False):
+        value = self.driver_date["value"]
+        if update:
+            self.update(data_points=["driver_date"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_driver_model_current(self, update=False, wait_for_completion=False):
+        value = self.driver_model_current["value"]
+        if update:
+            self.update(data_points=["driver_model_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_driver_model_pending(self, update=False, wait_for_completion=False):
+        value = self.driver_model_pending["value"]
+        if update:
+            self.update(data_points=["driver_model_pending"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_driver_version(self, update=False, wait_for_completion=False):
+        value = self.driver_version["value"]
+        if update:
+            self.update(data_points=["driver_version"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_cbu(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_cbu["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_cbu"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_primary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_primary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_primary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_register_file(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_register_file["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_register_file"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_secondary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_secondary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_secondary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_shared_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_shared_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_shared_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_sram(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_sram["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_sram"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_texture_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_texture_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_texture_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_total(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_total["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_total"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_all_time_in_video_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_all_time_in_video_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_all_time_in_video_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_cbu(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_cbu["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_cbu"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_primary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_primary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_primary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_register_file(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_register_file["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_register_file"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_secondary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_secondary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_secondary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_shared_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_shared_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_shared_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_sram(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_sram["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_sram"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_texture_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_texture_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_texture_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_total(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_total["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_total"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_corrected_since_reboot_in_video_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_corrected_since_reboot_in_video_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_corrected_since_reboot_in_video_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_cbu(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_cbu["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_cbu"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_primary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_primary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_primary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_register_file(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_register_file["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_register_file"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_secondary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_secondary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_secondary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_shared_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_shared_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_shared_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_sram(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_sram["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_sram"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_texture_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_texture_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_texture_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_total(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_total["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_total"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_all_time_in_video_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_all_time_in_video_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_all_time_in_video_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_cbu(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_cbu["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_cbu"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_primary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_primary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_primary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_register_file(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_register_file["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_register_file"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_secondary_cache["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_secondary_cache"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_shared_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_shared_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_shared_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_sram(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_sram["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_sram"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_texture_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_texture_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_texture_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_total(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_total["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_total"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_errors_uncorrected_since_reboot_in_video_memory(self, update=False, wait_for_completion=False):
+        value = self.ecc_errors_uncorrected_since_reboot_in_video_memory["value"]
+        if update:
+            self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_video_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_mode_current(self, update=False, wait_for_completion=False):
+        value = self.ecc_mode_current["value"]
+        if update:
+            self.update(data_points=["ecc_mode_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ecc_mode_pending(self, update=False, wait_for_completion=False):
+        value = self.ecc_mode_pending["value"]
+        if update:
+            self.update(data_points=["ecc_mode_pending"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_encoder_average_FPS(self, update=False, wait_for_completion=False):
+        value = self.encoder_average_FPS["value"]
+        if update:
+            self.update(data_points=["encoder_average_FPS"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_encoder_average_latency(self, update=False, wait_for_completion=False):
+        value = self.encoder_average_latency["value"]
+        if update:
+            self.update(data_points=["encoder_average_latency"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_encoder_session_count(self, update=False, wait_for_completion=False):
+        value = self.encoder_session_count["value"]
+        if update:
+            self.update(data_points=["encoder_session_count"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_engine_clock_range(self, update=False, wait_for_completion=False):
+        value = self.engine_clock_range["value"]
+        if update:
+            self.update(data_points=["engine_clock_range"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_error_cleared(self, update=False, wait_for_completion=False):
+        value = self.error_cleared["value"]
+        if update:
+            self.update(data_points=["error_cleared"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_error_description(self, update=False, wait_for_completion=False):
+        value = self.error_description["value"]
+        if update:
+            self.update(data_points=["error_description"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fabric_state(self, update=False, wait_for_completion=False):
+        value = self.fabric_state["value"]
+        if update:
+            self.update(data_points=["fabric_state"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fabric_status(self, update=False, wait_for_completion=False):
+        value = self.fabric_status["value"]
+        if update:
+            self.update(data_points=["fabric_status"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fan_speed_percentage(self, update=False, wait_for_completion=False):
+        value = self.fan_speed_percentage["value"]
+        if update:
+            self.update(data_points=["fan_speed_percentage"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fan_speed_percentage_range(self, update=False, wait_for_completion=False):
+        value = self.fan_speed_percentage_range["value"]
+        if update:
+            self.update(data_points=["fan_speed_percentage_range"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fan_speed_RPM(self, update=False, wait_for_completion=False):
+        value = self.fan_speed_RPM["value"]
+        if update:
+            self.update(data_points=["fan_speed_RPM"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fan_speed_RPM_range(self, update=False, wait_for_completion=False):
+        value = self.fan_speed_RPM_range["value"]
+        if update:
+            self.update(data_points=["fan_speed_RPM_range"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_fractional_multi_vGPU(self, update=False, wait_for_completion=False):
+        value = self.fractional_multi_vGPU["value"]
+        if update:
+            self.update(data_points=["fractional_multi_vGPU"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_application_default_shader_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_application_default_shader_clock["value"]
+        if update:
+            self.update(data_points=["frequency_application_default_shader_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_application_default_memory_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_application_default_memory_clock["value"]
+        if update:
+            self.update(data_points=["frequency_application_default_memory_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_application_memory_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_application_memory_clock["value"]
+        if update:
+            self.update(data_points=["frequency_application_memory_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_application_shader_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_application_shader_clock["value"]
+        if update:
+            self.update(data_points=["frequency_application_shader_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_maximum_memory_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_maximum_memory_clock["value"]
+        if update:
+            self.update(data_points=["frequency_maximum_memory_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_maximum_shader_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_maximum_shader_clock["value"]
+        if update:
+            self.update(data_points=["frequency_maximum_shader_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_maximum_streaming_multiprocessor_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_maximum_streaming_multiprocessor_clock["value"]
+        if update:
+            self.update(data_points=["frequency_maximum_streaming_multiprocessor_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_memory_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_memory_clock["value"]
+        if update:
+            self.update(data_points=["frequency_memory_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_shader_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_shader_clock["value"]
+        if update:
+            self.update(data_points=["frequency_shader_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_streaming_multiprocessor_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_streaming_multiprocessor_clock["value"]
+        if update:
+            self.update(data_points=["frequency_streaming_multiprocessor_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_frequency_video_clock(self, update=False, wait_for_completion=False):
+        value = self.frequency_video_clock["value"]
+        if update:
+            self.update(data_points=["frequency_video_clock"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_heterogenous_multi_vGPU(self, update=False, wait_for_completion=False):
+        value = self.heterogenous_multi_vGPU["value"]
+        if update:
+            self.update(data_points=["heterogenous_multi_vGPU"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_heterogenous_time_slice_profile(self, update=False, wait_for_completion=False):
+        value = self.heterogenous_time_slice_profile["value"]
+        if update:
+            self.update(data_points=["heterogenous_time_slice_profile"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_heterogenous_time_slice_sizes(self, update=False, wait_for_completion=False):
+        value = self.heterogenous_time_slice_sizes["value"]
+        if update:
+            self.update(data_points=["heterogenous_time_slice_sizes"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ICM_indent(self, update=False, wait_for_completion=False):
+        value = self.ICM_indent["value"]
+        if update:
+            self.update(data_points=["ICM_indent"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_ICM_method(self, update=False, wait_for_completion=False):
+        value = self.ICM_method["value"]
+        if update:
+            self.update(data_points=["ICM_method"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_inf_filename(self, update=False, wait_for_completion=False):
+        value = self.inf_filename["value"]
+        if update:
+            self.update(data_points=["inf_filename"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_inf_section(self, update=False, wait_for_completion=False):
+        value = self.inf_section["value"]
+        if update:
+            self.update(data_points=["inf_section"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_info_ROM_ecc(self, update=False, wait_for_completion=False):
+        value = self.info_ROM_ecc["value"]
+        if update:
+            self.update(data_points=["info_ROM_ecc"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_info_ROM_oem(self, update=False, wait_for_completion=False):
+        value = self.info_ROM_oem["value"]
+        if update:
+            self.update(data_points=["info_ROM_oem"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_info_ROM_power(self, update=False, wait_for_completion=False):
+        value = self.info_ROM_power["value"]
+        if update:
+            self.update(data_points=["info_ROM_power"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_info_ROM_version(self, update=False, wait_for_completion=False):
+        value = self.info_ROM_version["value"]
+        if update:
+            self.update(data_points=["info_ROM_version"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_install_date(self, update=False, wait_for_completion=False):
+        value = self.install_date["value"]
+        if update:
+            self.update(data_points=["install_date"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_installed_display_drivers(self, update=False, wait_for_completion=False):
+        value = self.installed_display_drivers["value"]
+        if update:
+            self.update(data_points=["installed_display_drivers"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_last_error_code(self, update=False, wait_for_completion=False):
+        value = self.last_error_code["value"]
+        if update:
+            self.update(data_points=["last_error_code"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_max_memory_supported(self, update=False, wait_for_completion=False):
+        value = self.max_memory_supported["value"]
+        if update:
+            self.update(data_points=["max_memory_supported"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_max_number_controlled(self, update=False, wait_for_completion=False):
+        value = self.max_number_controlled["value"]
+        if update:
+            self.update(data_points=["max_number_controlled"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_max_refresh_rate(self, update=False, wait_for_completion=False):
+        value = self.max_refresh_rate["value"]
+        if update:
+            self.update(data_points=["max_refresh_rate"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_memory_clock_range(self, update=False, wait_for_completion=False):
+        value = self.memory_clock_range["value"]
+        if update:
+            self.update(data_points=["memory_clock_range"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_memory_free(self, update=False, wait_for_completion=False):
+        value = self.memory_free["value"]
+        if update:
+            self.update(data_points=["memory_free"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_memory_reserved(self, update=False, wait_for_completion=False):
+        value = self.memory_reserved["value"]
+        if update:
+            self.update(data_points=["memory_reserved"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_memory_total(self, update=False, wait_for_completion=False):
+        value = self.memory_total["value"]
+        if update:
+            self.update(data_points=["memory_total"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_memory_used(self, update=False, wait_for_completion=False):
+        value = self.memory_used["value"]
+        if update:
+            self.update(data_points=["memory_used"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_min_refresh_rate(self, update=False, wait_for_completion=False):
+        value = self.min_refresh_rate["value"]
+        if update:
+            self.update(data_points=["min_refresh_rate"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_monochrome(self, update=False, wait_for_completion=False):
+        value = self.monochrome["value"]
+        if update:
+            self.update(data_points=["monochrome"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_multi_instance_GPU_mode_current(self, update=False, wait_for_completion=False):
+        value = self.multi_instance_GPU_mode_current["value"]
+        if update:
+            self.update(data_points=["multi_instance_GPU_mode_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_multi_instance_GPU_mode_pending(self, update=False, wait_for_completion=False):
+        value = self.multi_instance_GPU_mode_pending["value"]
+        if update:
+            self.update(data_points=["multi_instance_GPU_mode_pending"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_name(self, update=False, wait_for_completion=False):
+        value = self.name["value"]
+        if update:
+            self.update(data_points=["name"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_number_of_color_planes(self, update=False, wait_for_completion=False):
+        value = self.number_of_color_planes["value"]
+        if update:
+            self.update(data_points=["number_of_color_planes"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_number_of_video_pages(self, update=False, wait_for_completion=False):
+        value = self.number_of_video_pages["value"]
+        if update:
+            self.update(data_points=["number_of_video_pages"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_operating_mode_current(self, update=False, wait_for_completion=False):
+        value = self.operating_mode_current["value"]
+        if update:
+            self.update(data_points=["operating_mode_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_operating_mode_pending(self, update=False, wait_for_completion=False):
+        value = self.operating_mode_pending["value"]
+        if update:
+            self.update(data_points=["operating_mode_pending"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_bus(self, update=False, wait_for_completion=False):
+        value = self.pci_bus["value"]
+        if update:
+            self.update(data_points=["pci_bus"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_bus_id(self, update=False, wait_for_completion=False):
+        value = self.pci_bus_id["value"]
+        if update:
+            self.update(data_points=["pci_bus_id"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_device(self, update=False, wait_for_completion=False):
+        value = self.pci_device["value"]
+        if update:
+            self.update(data_points=["pci_device"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_device_id(self, update=False, wait_for_completion=False):
+        value = self.pci_device_id["value"]
+        if update:
+            self.update(data_points=["pci_device_id"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_domain(self, update=False, wait_for_completion=False):
+        value = self.pci_domain["value"]
+        if update:
+            self.update(data_points=["pci_domain"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_link_generation_current(self, update=False, wait_for_completion=False):
+        value = self.pci_link_generation_current["value"]
+        if update:
+            self.update(data_points=["pci_link_generation_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_link_generation_device_host_maximum(self, update=False, wait_for_completion=False):
+        value = self.pci_link_generation_device_host_maximum["value"]
+        if update:
+            self.update(data_points=["pci_link_generation_device_host_maximum"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_link_generation_gpu_maximum(self, update=False, wait_for_completion=False):
+        value = self.pci_link_generation_gpu_maximum["value"]
+        if update:
+            self.update(data_points=["pci_link_generation_gpu_maximum"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_link_generation_maximum(self, update=False, wait_for_completion=False):
+        value = self.pci_link_generation_maximum["value"]
+        if update:
+            self.update(data_points=["pci_link_generation_maximum"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_link_width_current(self, update=False, wait_for_completion=False):
+        value = self.pci_link_width_current["value"]
+        if update:
+            self.update(data_points=["pci_link_width_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_link_width_maximum(self, update=False, wait_for_completion=False):
+        value = self.pci_link_width_maximum["value"]
+        if update:
+            self.update(data_points=["pci_link_width_maximum"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_pci_sub_device_id(self, update=False, wait_for_completion=False):
+        value = self.pci_sub_device_id["value"]
+        if update:
+            self.update(data_points=["pci_sub_device_id"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_persistence_mode(self, update=False, wait_for_completion=False):
+        value = self.persistence_mode["value"]
+        if update:
+            self.update(data_points=["persistence_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_PNP_device_id(self, update=False, wait_for_completion=False):
+        value = self.PNP_device_id["value"]
+        if update:
+            self.update(data_points=["PNP_device_id"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw(self, update=False, wait_for_completion=False):
+        value = self.power_draw["value"]
+        if update:
+            self.update(data_points=["power_draw"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_average(self, update=False, wait_for_completion=False):
+        value = self.power_draw_average["value"]
+        if update:
+            self.update(data_points=["power_draw_average"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_default_limit(self, update=False, wait_for_completion=False):
+        value = self.power_draw_default_limit["value"]
+        if update:
+            self.update(data_points=["power_draw_default_limit"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_enforced_limit(self, update=False, wait_for_completion=False):
+        value = self.power_draw_enforced_limit["value"]
+        if update:
+            self.update(data_points=["power_draw_enforced_limit"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_instant(self, update=False, wait_for_completion=False):
+        value = self.power_draw_instant["value"]
+        if update:
+            self.update(data_points=["power_draw_instant"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_limit(self, update=False, wait_for_completion=False):
+        value = self.power_draw_limit["value"]
+        if update:
+            self.update(data_points=["power_draw_limit"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_maximum(self, update=False, wait_for_completion=False):
+        value = self.power_draw_maximum["value"]
+        if update:
+            self.update(data_points=["power_draw_maximum"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_draw_minimum(self, update=False, wait_for_completion=False):
+        value = self.power_draw_minimum["value"]
+        if update:
+            self.update(data_points=["power_draw_minimum"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_management_capabilities(self, update=False, wait_for_completion=False):
+        value = self.power_management_capabilities["value"]
+        if update:
+            self.update(data_points=["power_management_capabilities"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_power_management_supported(self, update=False, wait_for_completion=False):
+        value = self.power_management_supported["value"]
+        if update:
+            self.update(data_points=["power_management_supported"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_protected_memory_free(self, update=False, wait_for_completion=False):
+        value = self.protected_memory_free["value"]
+        if update:
+            self.update(data_points=["protected_memory_free"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_protected_memory_total(self, update=False, wait_for_completion=False):
+        value = self.protected_memory_total["value"]
+        if update:
+            self.update(data_points=["protected_memory_total"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_protected_memory_used(self, update=False, wait_for_completion=False):
+        value = self.protected_memory_used["value"]
+        if update:
+            self.update(data_points=["protected_memory_used"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_protocol_supported(self, update=False, wait_for_completion=False):
+        value = self.protocol_supported["value"]
+        if update:
+            self.update(data_points=["protocol_supported"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_performance_state(self, update=False, wait_for_completion=False):
+        value = self.performance_state["value"]
+        if update:
+            self.update(data_points=["performance_state"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_retired_pages_double_bit_ecc_errors_count(self, update=False, wait_for_completion=False):
+        value = self.retired_pages_double_bit_ecc_errors_count["value"]
+        if update:
+            self.update(data_points=["retired_pages_double_bit_ecc_errors_count"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_retired_pages_single_bit_ecc_errors_count(self, update=False, wait_for_completion=False):
+        value = self.retired_pages_single_bit_ecc_errors_count["value"]
+        if update:
+            self.update(data_points=["retired_pages_single_bit_ecc_errors_count"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_retired_pages_pending(self, update=False, wait_for_completion=False):
+        value = self.retired_pages_pending["value"]
+        if update:
+            self.update(data_points=["retired_pages_pending"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_reserved_system_palette_entries(self, update=False, wait_for_completion=False):
+        value = self.reserved_system_palette_entries["value"]
+        if update:
+            self.update(data_points=["reserved_system_palette_entries"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_reset_required(self, update=False, wait_for_completion=False):
+        value = self.reset_required["value"]
+        if update:
+            self.update(data_points=["reset_required"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_reset_and_drain_recommended(self, update=False, wait_for_completion=False):
+        value = self.reset_and_drain_recommended["value"]
+        if update:
+            self.update(data_points=["reset_and_drain_recommended"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_serial(self, update=False, wait_for_completion=False):
+        value = self.serial["value"]
+        if update:
+            self.update(data_points=["serial"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_specification_version(self, update=False, wait_for_completion=False):
+        value = self.specification_version["value"]
+        if update:
+            self.update(data_points=["specification_version"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_status(self, update=False, wait_for_completion=False):
+        value = self.status["value"]
+        if update:
+            self.update(data_points=["status"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_status_info(self, update=False, wait_for_completion=False):
+        value = self.status_info["value"]
+        if update:
+            self.update(data_points=["status_info"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_system_creation_class_name(self, update=False, wait_for_completion=False):
+        value = self.system_creation_class_name["value"]
+        if update:
+            self.update(data_points=["system_creation_class_name"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_system_name(self, update=False, wait_for_completion=False):
+        value = self.system_name["value"]
+        if update:
+            self.update(data_points=["system_name"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_system_palette_entries(self, update=False, wait_for_completion=False):
+        value = self.system_palette_entries["value"]
+        if update:
+            self.update(data_points=["system_palette_entries"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_GPU_system_processor_mode_current(self, update=False, wait_for_completion=False):
+        value = self.GPU_system_processor_mode_current["value"]
+        if update:
+            self.update(data_points=["GPU_system_processor_mode_current"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_GPU_system_processor_mode_default(self, update=False, wait_for_completion=False):
+        value = self.GPU_system_processor_mode_default["value"]
+        if update:
+            self.update(data_points=["GPU_system_processor_mode_default"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_temperature_core(self, update=False, wait_for_completion=False):
+        value = self.temperature_core["value"]
+        if update:
+            self.update(data_points=["temperature_core"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_temperature_core_limit(self, update=False, wait_for_completion=False):
+        value = self.temperature_core_limit["value"]
+        if update:
+            self.update(data_points=["temperature_core_limit"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_temperature_memory(self, update=False, wait_for_completion=False):
+        value = self.temperature_memory["value"]
+        if update:
+            self.update(data_points=["temperature_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_time_of_last_reset(self, update=False, wait_for_completion=False):
+        value = self.time_of_last_reset["value"]
+        if update:
+            self.update(data_points=["time_of_last_reset"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_utilization_decoder(self, update=False, wait_for_completion=False):
+        value = self.utilization_decoder["value"]
+        if update:
+            self.update(data_points=["utilization_decoder"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_utilization_encoder(self, update=False, wait_for_completion=False):
+        value = self.utilization_encoder["value"]
+        if update:
+            self.update(data_points=["utilization_encoder"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_utilization_gpu(self, update=False, wait_for_completion=False):
+        value = self.utilization_gpu["value"]
+        if update:
+            self.update(data_points=["utilization_gpu"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_utilization_jpeg(self, update=False, wait_for_completion=False):
+        value = self.utilization_jpeg["value"]
+        if update:
+            self.update(data_points=["utilization_jpeg"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_utilization_memory(self, update=False, wait_for_completion=False):
+        value = self.utilization_memory["value"]
+        if update:
+            self.update(data_points=["utilization_memory"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_utilization_optical_flow(self, update=False, wait_for_completion=False):
+        value = self.utilization_optical_flow["value"]
+        if update:
+            self.update(data_points=["utilization_optical_flow"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_uuid(self, update=False, wait_for_completion=False):
+        value = self.uuid["value"]
+        if update:
+            self.update(data_points=["uuid"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_vbios_version(self, update=False, wait_for_completion=False):
+        value = self.vbios_version["value"]
+        if update:
+            self.update(data_points=["vbios_version"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_video_architecture(self, update=False, wait_for_completion=False):
+        value = self.video_architecture["value"]
+        if update:
+            self.update(data_points=["video_architecture"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_video_memory_type(self, update=False, wait_for_completion=False):
+        value = self.video_memory_type["value"]
+        if update:
+            self.update(data_points=["video_memory_type"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_video_mode(self, update=False, wait_for_completion=False):
+        value = self.video_mode["value"]
+        if update:
+            self.update(data_points=["video_mode"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_video_mode_description(self, update=False, wait_for_completion=False):
+        value = self.video_mode_description["value"]
+        if update:
+            self.update(data_points=["video_mode_description"], wait_for_completion=wait_for_completion)
+        return value
+
+    def get_video_processor(self, update=False, wait_for_completion=False):
+        value = self.video_processor["value"]
+        if update:
+            self.update(data_points=["video_processor"], wait_for_completion=wait_for_completion)
+        return value
 
     def set_accelerator_capabilities(self, value=None):
         self.accelerator_capabilities["manually set"] = value != None
