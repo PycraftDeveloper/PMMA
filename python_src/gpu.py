@@ -10,6 +10,7 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.executor import Executor as _Executor
+import threading
 
 class GPUs:
     def _uuid_cleaner(self, uuid):
@@ -502,9 +503,18 @@ class _GPU:
 
         self.priorities = [Constants.SMI, Constants.PYADL, Constants.WMI]
 
-        self.update(everything=True)
+        self.update(everything=True, wait_for_completion=True)
 
-    def update(self, everything=False, data_points=None):
+    def update(self, everything=False, data_points=None, wait_for_completion=False):
+        if wait_for_completion:
+            self._update(everything=everything, data_points=data_points)
+        else:
+            thread = threading.Thread(target=self._update, args=(everything, data_points))
+            thread.daemon = True
+            thread.name = "GPU:Update_Data_Thread"
+            thread.start()
+
+    def _update(self, everything, data_points):
         if data_points is None:
             data_points = self.gpu_data_points
         smi_data = ""
@@ -514,7 +524,6 @@ class _GPU:
         wmi_data = []
         wmi_data_points = []
         for data_point in data_points:
-            self.__dict__[data_point]["updating"] = False
             if self.__dict__[data_point]["manually set"] is False or everything:
                 data_collection_strategies = self.__dict__[data_point]["data collection methods"]
                 for query_command in data_collection_strategies[Constants.SMI]:
@@ -618,6 +627,9 @@ class _GPU:
                         self.__dict__[data_point]["value"] = data
                         if data is not None:
                             set_attributes.append(data_point)
+
+        for data_point in data_points:
+            self.__dict__[data_point]["updating"] = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
