@@ -20,10 +20,8 @@ class GPU:
         self.adapter_DAC_type = None
         self.adapter_id = None
         self.adapter_index = None
-        self.adapter_name = None
         self.addressing_mode = None
         self.availability = None
-        self.bus_number = None
         self.capability_descriptions = None
         self.caption = None
         self.chip_to_chip_interconnect_mode = None
@@ -226,10 +224,8 @@ class GPU:
         self.manually_set__adapter_DAC_type = False
         self.manually_set__adapter_id = False
         self.manually_set__adapter_index = False
-        self.manually_set__adapter_name = False
         self.manually_set__addressing_mode = False
         self.manually_set__availability = False
-        self.manually_set__bus_number = False
         self.manually_set__capability_descriptions = False
         self.manually_set__caption = False
         self.manually_set__chip_to_chip_interconnect_mode = False
@@ -432,10 +428,8 @@ class GPU:
         self.internal_name__adapter_DAC_type = {Constants.SMI: [], Constants.WMI: ["AdapterDACType"], Constants.PYADL: []}
         self.internal_name__adapter_id = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["adapterID"]}
         self.internal_name__adapter_index = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["adapterIndex"]}
-        self.internal_name__adapter_name = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["adapterName"]}
         self.internal_name__addressing_mode = {Constants.SMI: ["addressing_mode"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__availability = {Constants.SMI: [], Constants.WMI: ["Availability"], Constants.PYADL: []}
-        self.internal_name__bus_number = {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ["busNumber"]}
         self.internal_name__capability_descriptions = {Constants.SMI: [], Constants.WMI: ["CapabilityDescriptions"], Constants.PYADL: []}
         self.internal_name__caption = {Constants.SMI: [], Constants.WMI: ["Caption"], Constants.PYADL: []}
         self.internal_name__chip_to_chip_interconnect_mode = {Constants.SMI: ["c2c.mode"], Constants.WMI: [], Constants.PYADL: []}
@@ -563,12 +557,12 @@ class GPU:
         self.internal_name__monochrome = {Constants.SMI: [], Constants.WMI: ["Monochrome"], Constants.PYADL: []}
         self.internal_name__multi_instance_GPU_mode_current = {Constants.SMI: ["mig.mode.current"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__multi_instance_GPU_mode_pending = {Constants.SMI: ["mig.mode.pending"], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__name = {Constants.SMI: ["name", "gpu_name"], Constants.WMI: ["Name"], Constants.PYADL: []}
+        self.internal_name__name = {Constants.SMI: ["name", "gpu_name"], Constants.WMI: ["Name"], Constants.PYADL: ["adapterName"]}
         self.internal_name__number_of_color_planes = {Constants.SMI: [], Constants.WMI: ["NumberOfColorPlanes"], Constants.PYADL: []}
         self.internal_name__number_of_video_pages = {Constants.SMI: [], Constants.WMI: ["NumberOfVideoPages"], Constants.PYADL: []}
         self.internal_name__operating_mode_current = {Constants.SMI: ["gom.current", "gpu_operation_mode.current"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__operating_mode_pending = {Constants.SMI: ["gom.pending", "gpu_operation_mode.pending"], Constants.WMI: [], Constants.PYADL: []}
-        self.internal_name__pci_bus = {Constants.SMI: ["pci.bus"], Constants.WMI: [], Constants.PYADL: []}
+        self.internal_name__pci_bus = {Constants.SMI: ["pci.bus"], Constants.WMI: [], Constants.PYADL: ["busNumber"]}
         self.internal_name__pci_bus_id = {Constants.SMI: ["pci.bus_id", "gpu_bus_id"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__pci_device = {Constants.SMI: ["pci.device"], Constants.WMI: [], Constants.PYADL: []}
         self.internal_name__pci_device_id = {Constants.SMI: ["pci.device_id"], Constants.WMI: [], Constants.PYADL: []}
@@ -638,10 +632,8 @@ class GPU:
             "adapter_DAC_type",
             "adapter_id",
             "adapter_index",
-            "adapter_name",
             "addressing_mode",
             "availability",
-            "bus_number",
             "capability_descriptions",
             "caption",
             "chip_to_chip_interconnect_mode",
@@ -988,17 +980,11 @@ class GPU:
     def get_adapter_index(self):
             return self.adapter_index
 
-    def get_adapter_name(self):
-            return self.adapter_name
-
     def get_addressing_mode(self):
             return self.addressing_mode
 
     def get_availability(self):
             return self.availability
-
-    def get_bus_number(self):
-            return self.bus_number
 
     def get_capability_descriptions(self):
             return self.capability_descriptions
@@ -1621,12 +1607,6 @@ class GPU:
         else:
             self.manually_set__adapter_index = False
 
-    def set_adapter_name(self, value=None):
-        if value != None:
-            self.manually_set__adapter_name = True
-        else:
-            self.manually_set__adapter_name = False
-
     def set_addressing_mode(self, value=None):
         if value != None:
             self.manually_set__addressing_mode = True
@@ -1638,12 +1618,6 @@ class GPU:
             self.manually_set__availability = True
         else:
             self.manually_set__availability = False
-
-    def set_bus_number(self, value=None):
-        if value != None:
-            self.manually_set__bus_number = True
-        else:
-            self.manually_set__bus_number = False
 
     def set_capability_descriptions(self, value=None):
         if value != None:
@@ -2824,17 +2798,11 @@ class GPU:
     def update_adapter_index(self):
             return self.adapter_index
 
-    def update_adapter_name(self):
-            return self.adapter_name
-
     def update_addressing_mode(self):
             return self.addressing_mode
 
     def update_availability(self):
             return self.availability
-
-    def update_bus_number(self):
-            return self.bus_number
 
     def update_capability_descriptions(self):
             return self.capability_descriptions
