@@ -13,23 +13,15 @@ Create
 Methods
 -------
 
-.. py:method:: MemoryManager.quit() -> None
+.. py:method:: MemoryManager.add() -> None
 
    Not Yet Written
 
-.. py:method:: MemoryManager.add_object() -> None
+.. py:method:: MemoryManager.get() -> None
 
    Not Yet Written
 
-.. py:method:: MemoryManager.get_object() -> None
-
-   Not Yet Written
-
-.. py:method:: MemoryManager.remove_object() -> None
-
-   Not Yet Written
-
-.. py:method:: MemoryManager.object_dictionary_manager() -> None
+.. py:method:: MemoryManager.remove() -> None
 
    Not Yet Written
 

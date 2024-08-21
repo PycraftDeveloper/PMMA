@@ -1,22 +1,3 @@
-Methods
-=======
-
-.. py:method:: pmma.prefill_optimizer() -> None
-
-   Not Yet Written
-
-Noise Intermediary (``pmma.NoiseIntermediary``)
-===============================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.NoiseIntermediary() -> pmma.NoiseIntermediary
-
-   Not Yet Written
-
 Perlin (``pmma.Perlin``)
 ========================
 

@@ -28,6 +28,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: pmma.random_real_number() -> None
+
+   Not Yet Written
+
 .. py:method:: pmma.find_executable_nvidia_smi() -> None
 
    Not Yet Written

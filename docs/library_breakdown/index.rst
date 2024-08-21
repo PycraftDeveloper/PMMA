@@ -14,12 +14,14 @@ The full breakdown of what everything does!
     color.rst
     constants.rst
     coordinate.rst
+    data_structures.rst
     display.rst
     draw.rst
     error.rst
     events.rst
     executor.rst
     file.rst
+    formatters.rst
     general.rst
     gpu.rst
     image.rst

@@ -1,30 +1,3 @@
-Coordinate Intermediary (``pmma.CoordinateIntermediary``)
-=========================================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.CoordinateIntermediary() -> pmma.CoordinateIntermediary
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: CoordinateIntermediary.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: CoordinateIntermediary.out() -> None
-
-   Not Yet Written
-
-.. py:method:: CoordinateIntermediary.convert_range() -> None
-
-   Not Yet Written
-
 Coordinate (``pmma.Coordinate``)
 ================================
 
