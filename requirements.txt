@@ -10,6 +10,7 @@ pygame
 pyrr
 requests
 send2trash
+waiting
 watchdog
 wmi
 
