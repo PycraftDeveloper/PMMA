@@ -9,6 +9,7 @@ import traceback as _traceback
 
 import psutil as _psutil
 import dill as _dill
+import waiting as _waiting
 
 from pmma.python_src.file import path_builder as _path_builder
 
@@ -16,6 +17,8 @@ from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
+
+from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPriorityList
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
@@ -25,7 +28,7 @@ class MemoryManager:
             object_lifetime=2.5,
             target_size=Constants.AUTOMATIC):
 
-        initialize(self, unique_instance=Constants.MEMORYMANAGER_OBJECT, add_to_pmma_module_spine=True)
+        #initialize(self, unique_instance=Constants.MEMORYMANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:
@@ -68,6 +71,8 @@ leaving the target size variable can be dangerous.")
         self.max_obj_creation_time = float("-inf")
         self.max_obj_size = 0
         self.total_size = 0
+
+        self.manager_thread_organized_data = _InvertedPriorityList()
 
         self.temporary_files = {}
 
@@ -178,6 +183,8 @@ more than 25% of the assigned memory")
                     recreatable_object,
                     stay_in_memory]
 
+                self.manager_thread_organized_data.add(identifier, object_lifetime)
+
                 self.total_size += obj_size
                 return identifier
             else:
@@ -242,6 +249,8 @@ more than 25% of the assigned memory")
                         recreatable_object,
                         stay_in_memory]
 
+                    self.manager_thread_organized_data.add(identifier, object_lifetime)
+
                     self.total_size += obj_size
                     return identifier
         else:
@@ -268,6 +277,8 @@ more than 25% of the assigned memory")
                         obj_creation_time,
                         obj_recreatable_object,
                         obj_stay_in_memory]
+
+                    self.manager_thread_organized_data.update_priority(obj_id, object_lifetime)
 
                     return obj
                 elif obj_id in self.temporary_files:
@@ -299,17 +310,19 @@ more than 25% of the assigned memory")
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
                     log_development(f"Removing object w/ ID: \
-'{self.objects[obj_id][1]}' from memory.")
+'{obj_id}' from memory.")
 
-                    self.linker[self.objects[obj_id][1]] = None
-                    del self.linker[self.objects[obj_id][1]]
+                    self.manager_thread_organized_data.remove_item(obj_id)
+
+                    self.linker[obj_id] = None
+                    del self.linker[obj_id]
                     self.objects[obj_id] = None
                     del self.objects[obj_id]
                     _gc.collect()
                     return True
                 elif obj_id in self.temporary_files:
                     log_development(f"Removing temporary memory object w/ ID: \
-'{self.objects[obj_id][1]}' from disk.")
+'{obj_id}' from disk.")
 
                     _os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
@@ -334,6 +347,7 @@ currently at or above the target threshold. Performance may be negatively affect
 as PMMA attempts to correct this.")
 
                 with self.memory_manager_thread_lock:
+                    print(self.manager_thread_organized_data.peek_next_priority())
                     for obj_time in list(self.objects.keys()):
                         try:
                             recreatable_object = self.objects[obj_time][3]
@@ -358,6 +372,8 @@ as PMMA attempts to correct this.")
 
                                     log_information(f"Removing object w/ ID: \
 '{self.objects[obj_time][1]}' from memory.")
+
+                                    self.manager_thread_organized_data.remove_item(self.objects[obj_time][1])
 
                                     self.linker[self.objects[obj_time][1]] = None
                                     del self.linker[self.objects[obj_time][1]]

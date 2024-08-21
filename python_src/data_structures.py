@@ -314,7 +314,7 @@ class PriorityList:
         self.heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self.has_changed = False
 
-    def enqueue(self, value, priority):
+    def add(self, value, priority):
         """Insert a new value with the given priority into the priority queue."""
         # Append the new (priority, value) tuple to the heap
         new_item = _numpy.array([(priority, value)], dtype=self.heap.dtype)
@@ -323,7 +323,15 @@ class PriorityList:
         self._sift_up(len(self.heap) - 1)
         self.has_changed = True
 
-    def dequeue(self):
+    def remove_item(self, item):
+        """Remove a specific item from the queue."""
+        for i in range(len(self.heap)):
+            if self.heap[i]['value'] == item:
+                self.heap = _numpy.delete(self.heap, i)
+                self.has_changed = True
+                break
+
+    def remove_highest_priority(self):
         """Remove and return the value with the highest priority from the queue."""
         values = []
         priority = self.peek_next_priority()
@@ -341,6 +349,16 @@ class PriorityList:
             values.append(max_value)
             self.has_changed = True
         return values
+
+    def update_priority(self, value, new_priority):
+        """Update the priority of a value in the queue."""
+        for i in range(len(self.heap)):
+            if self.heap[i]['value'] == value:
+                self.heap[i]['priority'] = new_priority
+                self._sift_up(i)
+                self._sift_down(i)
+                self.has_changed = True
+                break
 
     def peek_next_priority(self):
         """Return the highest priority value without removing it from the queue."""
@@ -399,7 +417,7 @@ class InvertedPriorityList:
         self.heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self.has_changed = False
 
-    def enqueue(self, value, priority):
+    def add(self, value, priority):
         """Insert a new value with the given priority into the priority queue."""
         # Append the new (priority, value) tuple to the heap
         new_item = _numpy.array([(priority, value)], dtype=self.heap.dtype)
@@ -408,7 +426,7 @@ class InvertedPriorityList:
         self._sift_up(len(self.heap) - 1)
         self.has_changed = True
 
-    def dequeue(self):
+    def remove_highest_priority(self):
         """Remove and return the value with the highest priority (lowest priority value) from the queue."""
         values = []
         priority = self.peek_next_priority()
@@ -427,6 +445,24 @@ class InvertedPriorityList:
             self.has_changed = True
 
         return values
+
+    def update_priority(self, value, new_priority):
+        """Update the priority of a value in the queue."""
+        for i in range(len(self.heap)):
+            if self.heap[i]['value'] == value:
+                self.heap[i]['priority'] = new_priority
+                self._sift_up(i)
+                self._sift_down(i)
+                self.has_changed = True
+                break
+
+    def remove_item(self, item):
+        """Remove a specific item from the queue."""
+        for i in range(len(self.heap)):
+            if self.heap[i]['value'] == item:
+                self.heap = _numpy.delete(self.heap, i)
+                self.has_changed = True
+                break
 
     def peek_next_priority(self):
         """Return the lowest priority value (highest priority) without removing it from the queue."""
