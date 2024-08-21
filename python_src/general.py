@@ -47,10 +47,13 @@ class OpenGLObject:
             if do_garbage_collection:
                 _gc.collect()
 
-def random_real_number():
+def random_real_number(negatives=True):
     integer = _random.randint(-100, 100)
     decimal = _random.random()
-    return integer + decimal
+    if negatives:
+        return integer + decimal
+    else:
+        return abs(integer + decimal)
 
 def find_executable_nvidia_smi():
     if get_operating_system() == Constants.WINDOWS:

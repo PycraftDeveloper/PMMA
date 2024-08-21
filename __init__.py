@@ -42,6 +42,7 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
 environ_to_registry()
 
 from pmma.python_src.render_pipeline import *
+from pmma.python_src.data_structures import *
 from pmma.python_src.advthreading import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
