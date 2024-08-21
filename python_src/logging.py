@@ -62,7 +62,16 @@ class Logger:
         return message
 
     def logger_core(self, message, do_traceback, log_level):
-        message = f"{message.strip()} "
+        formatted_message = ""
+        first_line = True
+        for line in message.split("\n"):
+            if first_line is False:
+                prefix = "...    "
+            else:
+                prefix = ""
+            formatted_message += prefix + line.strip() + "\n"
+            first_line = False
+        #message = f"{message.strip()} "
         start_of_message = self.initial_formatting(log_level)
         if do_traceback:
             trace = _traceback.print_exc()
@@ -70,7 +79,7 @@ class Logger:
                 trace = "".join(_traceback.format_stack())
         else:
             trace = ""
-        finished_message = start_of_message + message + trace
+        finished_message = start_of_message + formatted_message + trace
         finished_message = finished_message.strip()
 
         conveyed_message = False
