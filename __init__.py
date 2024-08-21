@@ -43,6 +43,7 @@ environ_to_registry()
 
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
+from pmma.python_src.memory_manager import *
 from pmma.python_src.advthreading import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
@@ -68,8 +69,8 @@ from pmma.python_src.text import *
 from pmma.python_src.gpu import *
 
 from pmma.python_src.utility import cython_utils as _cython_utils
-from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 from pmma.python_src.logging import Logger as _Logger
+from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
 
 def init(
             optimize_python_extensions=True,
@@ -104,7 +105,7 @@ def init(
     if compile_c_extensions:
         cython_thread = _cython_utils.compile()
 
-    _MemoryManager(
+    _MemoryManagerIntermediary(
         object_lifetime=memory_management_max_object_lifetime,
         target_size=memory_management_max_size)
 

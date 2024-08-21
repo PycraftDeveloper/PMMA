@@ -13,6 +13,7 @@ from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.file import File as _File
+from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
 class Text:
     def __init__(self, canvas=None):
@@ -20,7 +21,7 @@ class Text:
 
         self.canvas = canvas
 
-        self.memory_manager_instance = Registry.pmma_module_spine[Constants.MEMORYMANAGER_OBJECT]
+        self.memory_manager_instance = _MemoryManager()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -155,7 +156,7 @@ class Text:
             word_separator,
             canvas.get_size())
 
-        result = self.memory_manager_instance.get_object(identifier)
+        result = self.memory_manager_instance.get(identifier)
         if result is None:
             start = _time.perf_counter()
             x, y = 0, 0
@@ -309,7 +310,7 @@ class Text:
             canvas.blit(surface, defaults["position"])
             end = _time.perf_counter()
             object_creation_time = end-start
-            self.memory_manager_instance.add_object(
+            self.memory_manager_instance.add(
                 surface,
                 custom_id=identifier,
                 object_creation_time=object_creation_time,

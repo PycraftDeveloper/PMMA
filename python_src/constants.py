@@ -77,7 +77,8 @@ class Constants:
     SAMPLER_OBJECT = "sampler"
     REGISTRY_OBJECT = "registry"
     TEXT_OBJECT = "text"
-    MEMORYMANAGER_OBJECT = "memory manager"
+    MEMORY_MANAGER_OBJECT = "memory manager"
+    MEMORY_MANAGER_INTERMEDIARY_OBJECT = "memory manager intermediary"
     IMAGE_OBJECT = "image"
     LOGGING_OBJECT = "logging"
     OPENGL_OBJECT = "opengl"
@@ -103,7 +104,8 @@ class Constants:
         SAMPLER_OBJECT,
         REGISTRY_OBJECT,
         TEXT_OBJECT,
-        MEMORYMANAGER_OBJECT,
+        MEMORY_MANAGER_OBJECT,
+        MEMORY_MANAGER_INTERMEDIARY_OBJECT,
         IMAGE_OBJECT,
         LOGGING_OBJECT,
         OPENGL_OBJECT,
