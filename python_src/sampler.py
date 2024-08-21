@@ -35,7 +35,7 @@ class Sampler:
         self.sampler_thread = _threading.Thread(
             target=self.sampler)
         self.sampler_thread.daemon = True
-        self.sampler_thread.name = "Sampler:Sampler_thread"
+        self.sampler_thread.name = "Sampler:Sampler_Thread"
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -154,9 +154,8 @@ raised when the audio device is removed.")
 
             self.sampler_thread = _threading.Thread(
                 target=self.sampler)
-
             self.sampler_thread.daemon = True
-            self.sampler_thread.name = "Sampler:Sampler_thread"
+            self.sampler_thread.name = "Sampler:Sampler_Thread"
             self.sampler_thread.start()
 
     def stop(self, wait_until_stopped=True):

@@ -60,6 +60,7 @@ class Perlin:
         if self.do_prefill:
             self.prefill_thread = _threading.Thread(
                 target=self.prefill)
+            self.prefill_thread.name = "PerlinNoise:Prefill_Thread"
 
             self.prefill_thread.daemon = True
             _NoiseIntermediary.prefill = True

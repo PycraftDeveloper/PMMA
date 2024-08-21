@@ -85,6 +85,7 @@ class GPUs:
         threads = []
         for gpu in gpu_instances:
             thread = _threading.Thread(target=gpu.update, kwargs={"everything": True, "wait_for_completion": True})
+            thread.name = "GPUs:Get_Data_Thread"
             threads.append(thread)
             thread.start()
 
