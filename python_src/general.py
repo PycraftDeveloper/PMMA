@@ -230,17 +230,18 @@ may reflect any degraded performance beyond this point.")
 
 def quit(show_statistics=None):
     if show_statistics is None:
-        show_statistics = Registry.development_mode and Registry.display_initialized
+        show_statistics = Registry.development_mode
 
     if show_statistics:
         app_name = _PassportIntermediary.name
         if app_name is None:
             app_name = "The application"
-        time_formatter_instance = _TimeFormatter()
-        time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
-        log_information(f"PMMA statistics: {app_name} ran for: {time_formatter_instance.get_in_sentence_format()}")
-        log_information(f"PMMA statistics: {app_name} had an average \
-frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
+        if Registry.display_initialized:
+            time_formatter_instance = _TimeFormatter()
+            time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
+            log_information(f"PMMA statistics: {app_name} ran for: {time_formatter_instance.get_in_sentence_format()}")
+            log_information(f"PMMA statistics: {app_name} had an average \
+    frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
 
         if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
             logged_noise_statistics = log_information(f"PMMA statistics: {app_name} used Noise component. \

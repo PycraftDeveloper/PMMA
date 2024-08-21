@@ -29,9 +29,10 @@ class QuickStart:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def start(self, clear_color=None, enable_toggle_fullscreen=True, enable_close=True, return_events=True):
+    def start(self, do_display_clearing=True, clear_color=None, enable_toggle_fullscreen=True, enable_close=True, return_events=True):
         self.events.handle(enable_toggle_fullscreen=enable_toggle_fullscreen, enable_close=enable_close, return_events=return_events)
-        self.display.clear(clear_color)
+        if do_display_clearing:
+            self.display.clear(clear_color)
 
     def end(self,refresh_rate=None):
         compute()

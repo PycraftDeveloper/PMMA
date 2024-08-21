@@ -28,7 +28,7 @@ class MemoryManager:
             object_lifetime=2.5,
             target_size=Constants.AUTOMATIC):
 
-        #initialize(self, unique_instance=Constants.MEMORYMANAGER_OBJECT, add_to_pmma_module_spine=True)
+        initialize(self, unique_instance=Constants.MEMORYMANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:
