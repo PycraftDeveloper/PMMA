@@ -65,6 +65,8 @@ leaving the target size variable can be dangerous.")
         self.objects = {}
         self.linker = {}
         self.object_lifetime = object_lifetime
+        self.enable_memory_management = True
+
         self.manager_thread = _threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
         self.manager_thread.name = "MemoryManagerIntermediary:Object_Memory_Management_Thread"
@@ -76,8 +78,6 @@ leaving the target size variable can be dangerous.")
         self.manager_thread_organized_data = _InvertedPriorityList()
 
         self.temporary_files = {}
-
-        self.enable_memory_management = True
 
         self.memory_manager_thread_lock = _threading.Lock()
 
