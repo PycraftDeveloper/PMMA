@@ -144,14 +144,18 @@ class CircularQueue:
         return value
 
 class PriorityQueue:
-    """higher value, higher priority"""
+    """
+    higher value, higher priority
+    """
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self.heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self.has_changed = False
 
     def enqueue(self, value, priority):
-        """Insert a new value with the given priority into the priority queue."""
+        """
+        Insert a new value with the given priority into the priority queue.
+        """
         # Append the new (priority, value) tuple to the heap
         new_item = _numpy.array([(priority, value)], dtype=self.heap.dtype)
         self.heap = _numpy.append(self.heap, new_item)
@@ -160,7 +164,9 @@ class PriorityQueue:
         self.has_changed = True
 
     def dequeue(self):
-        """Remove and return the value with the highest priority from the queue."""
+        """
+        Remove and return the value with the highest priority from the queue.
+        """
         if len(self.heap) != 0:
             self.has_changed = True
             # The root of the heap (index 0) has the maximum priority
@@ -176,24 +182,32 @@ class PriorityQueue:
             return max_value
 
     def peek_next_priority(self):
-        """Return the highest priority value without removing it from the queue."""
+        """
+        Return the highest priority value without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['priority']
 
     def peek(self):
-        """Return the value with the highest priority without removing it from the queue."""
+        """
+        Return the value with the highest priority without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['value']
 
     def _sift_up(self, index):
-        """Move the element at the given index up to its proper position based on priority."""
+        """
+        Move the element at the given index up to its proper position based on priority.
+        """
         parent = (index - 1) // 2
         if index > 0 and self.heap[index]['priority'] > self.heap[parent]['priority']:
             self.heap[[index, parent]] = self.heap[[parent, index]]
             self._sift_up(parent)
 
     def _sift_down(self, index):
-        """Move the element at the given index down to its proper position based on priority."""
+        """
+        Move the element at the given index down to its proper position based on priority.
+        """
         largest = index
         left = 2 * index + 1
         right = 2 * index + 2
@@ -208,15 +222,21 @@ class PriorityQueue:
             self._sift_down(largest)
 
     def is_empty(self):
-        """Return True if the queue is empty, False otherwise."""
+        """
+        Return True if the queue is empty, False otherwise.
+        """
         return len(self.heap) == 0
 
     def size(self):
-        """Return the number of elements in the queue."""
+        """
+        Return the number of elements in the queue.
+        """
         return len(self.heap)
 
     def clear(self):
-        """Remove all elements from the queue."""
+        """
+        Remove all elements from the queue.
+        """
         self.heap = _numpy.array([], dtype=self.heap.dtype)
         self.has_changed = True
 
@@ -226,14 +246,18 @@ class PriorityQueue:
         return value
 
 class InvertedPriorityQueue:
-    """lower value, higher priority"""
+    """
+    lower value, higher priority.
+    """
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self.heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self.has_changed = False
 
     def enqueue(self, value, priority):
-        """Insert a new value with the given priority into the priority queue."""
+        """
+        Insert a new value with the given priority into the priority queue.
+        """
         # Append the new (priority, value) tuple to the heap
         new_item = _numpy.array([(priority, value)], dtype=self.heap.dtype)
         self.heap = _numpy.append(self.heap, new_item)
@@ -242,7 +266,9 @@ class InvertedPriorityQueue:
         self.has_changed = True
 
     def dequeue(self):
-        """Remove and return the value with the highest priority (lowest priority value) from the queue."""
+        """
+        Remove and return the value with the highest priority (lowest priority value) from the queue.
+        """
         if len(self.heap) != 0:
             self.has_changed = True
             # The root of the heap (index 0) has the minimum priority
@@ -258,24 +284,32 @@ class InvertedPriorityQueue:
             return min_value
 
     def peek_next_priority(self):
-        """Return the lowest priority value (highest priority) without removing it from the queue."""
+        """
+        Return the lowest priority value (highest priority) without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['priority']
 
     def peek(self):
-        """Return the value with the highest priority (lowest priority value) without removing it from the queue."""
+        """
+        Return the value with the highest priority (lowest priority value) without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['value']
 
     def _sift_up(self, index):
-        """Move the element at the given index up to its proper position based on priority."""
+        """
+        Move the element at the given index up to its proper position based on priority.
+        """
         parent = (index - 1) // 2
         if index > 0 and self.heap[index]['priority'] < self.heap[parent]['priority']:
             self.heap[[index, parent]] = self.heap[[parent, index]]
             self._sift_up(parent)
 
     def _sift_down(self, index):
-        """Move the element at the given index down to its proper position based on priority."""
+        """
+        Move the element at the given index down to its proper position based on priority.
+        """
         smallest = index
         left = 2 * index + 1
         right = 2 * index + 2
@@ -290,15 +324,21 @@ class InvertedPriorityQueue:
             self._sift_down(smallest)
 
     def is_empty(self):
-        """Return True if the queue is empty, False otherwise."""
+        """
+        Return True if the queue is empty, False otherwise.
+        """
         return len(self.heap) == 0
 
     def size(self):
-        """Return the number of elements in the queue."""
+        """
+        Return the number of elements in the queue.
+        """
         return len(self.heap)
 
     def clear(self):
-        """Remove all elements from the queue."""
+        """
+        Remove all elements from the queue.
+        """
         self.heap = _numpy.array([], dtype=self.heap.dtype)
         self.has_changed = True
 
@@ -308,14 +348,18 @@ class InvertedPriorityQueue:
         return value
 
 class PriorityList:
-    """higher value, higher priority"""
+    """
+    higher value, higher priority
+    """
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self.heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self.has_changed = False
 
     def add(self, value, priority):
-        """Insert a new value with the given priority into the priority queue."""
+        """
+        Insert a new value with the given priority into the priority queue.
+        """
         # Append the new (priority, value) tuple to the heap
         new_item = _numpy.array([(priority, value)], dtype=self.heap.dtype)
         self.heap = _numpy.append(self.heap, new_item)
@@ -324,7 +368,9 @@ class PriorityList:
         self.has_changed = True
 
     def remove_item(self, item):
-        """Remove a specific item from the queue."""
+        """
+        Remove a specific item from the queue.
+        """
         for i in range(len(self.heap)):
             if self.heap[i]['value'] == item:
                 self.heap = _numpy.delete(self.heap, i)
@@ -332,7 +378,9 @@ class PriorityList:
                 break
 
     def remove_highest_priority(self):
-        """Remove and return the value with the highest priority from the queue."""
+        """
+        Remove and return the value with the highest priority from the queue.
+        """
         values = []
         priority = self.peek_next_priority()
         while not self.is_empty() and self.peek_next_priority() == priority:
@@ -351,7 +399,9 @@ class PriorityList:
         return values
 
     def update_priority(self, value, new_priority):
-        """Update the priority of a value in the queue."""
+        """
+        Update the priority of a value in the queue.
+        """
         for i in range(len(self.heap)):
             if self.heap[i]['value'] == value:
                 self.heap[i]['priority'] = new_priority
@@ -361,24 +411,32 @@ class PriorityList:
                 break
 
     def peek_next_priority(self):
-        """Return the highest priority value without removing it from the queue."""
+        """
+        Return the highest priority value without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['priority']
 
     def peek(self):
-        """Return the value with the highest priority without removing it from the queue."""
+        """
+        Return the value with the highest priority without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['value']
 
     def _sift_up(self, index):
-        """Move the element at the given index up to its proper position based on priority."""
+        """
+        Move the element at the given index up to its proper position based on priority.
+        """
         parent = (index - 1) // 2
         if index > 0 and self.heap[index]['priority'] > self.heap[parent]['priority']:
             self.heap[[index, parent]] = self.heap[[parent, index]]
             self._sift_up(parent)
 
     def _sift_down(self, index):
-        """Move the element at the given index down to its proper position based on priority."""
+        """
+        Move the element at the given index down to its proper position based on priority.
+        """
         largest = index
         left = 2 * index + 1
         right = 2 * index + 2
@@ -393,15 +451,21 @@ class PriorityList:
             self._sift_down(largest)
 
     def is_empty(self):
-        """Return True if the queue is empty, False otherwise."""
+        """
+        Return True if the queue is empty, False otherwise.
+        """
         return len(self.heap) == 0
 
     def size(self):
-        """Return the number of elements in the queue."""
+        """
+        Return the number of elements in the queue.
+        """
         return len(self.heap)
 
     def clear(self):
-        """Remove all elements from the queue."""
+        """
+        Remove all elements from the queue.
+        """
         self.heap = _numpy.array([], dtype=self.heap.dtype)
         self.has_changed = True
 
@@ -411,14 +475,18 @@ class PriorityList:
         return value
 
 class InvertedPriorityList:
-    """lower value, higher priority"""
+    """
+    lower value, higher priority
+    """
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self.heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self.has_changed = False
 
     def add(self, value, priority):
-        """Insert a new value with the given priority into the priority queue."""
+        """
+        Insert a new value with the given priority into the priority queue.
+        """
         # Append the new (priority, value) tuple to the heap
         new_item = _numpy.array([(priority, value)], dtype=self.heap.dtype)
         self.heap = _numpy.append(self.heap, new_item)
@@ -427,7 +495,9 @@ class InvertedPriorityList:
         self.has_changed = True
 
     def remove_highest_priority(self):
-        """Remove and return the value with the highest priority (lowest priority value) from the queue."""
+        """
+        Remove and return the value with the highest priority (lowest priority value) from the queue.
+        """
         values = []
         priority = self.peek_next_priority()
         while not self.is_empty() and self.peek_next_priority() == priority:
@@ -447,7 +517,9 @@ class InvertedPriorityList:
         return values
 
     def update_priority(self, value, new_priority):
-        """Update the priority of a value in the queue."""
+        """
+        Update the priority of a value in the queue.
+        """
         for i in range(len(self.heap)):
             if self.heap[i]['value'] == value:
                 self.heap[i]['priority'] = new_priority
@@ -457,7 +529,9 @@ class InvertedPriorityList:
                 break
 
     def remove_item(self, item):
-        """Remove a specific item from the queue."""
+        """
+        Remove a specific item from the queue.
+        """
         for i in range(len(self.heap)):
             if self.heap[i]['value'] == item:
                 self.heap = _numpy.delete(self.heap, i)
@@ -465,24 +539,32 @@ class InvertedPriorityList:
                 break
 
     def peek_next_priority(self):
-        """Return the lowest priority value (highest priority) without removing it from the queue."""
+        """
+        Return the lowest priority value (highest priority) without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['priority']
 
     def peek(self):
-        """Return the value with the highest priority (lowest priority value) without removing it from the queue."""
+        """
+        Return the value with the highest priority (lowest priority value) without removing it from the queue.
+        """
         if len(self.heap) != 0:
             return self.heap[0]['value']
 
     def _sift_up(self, index):
-        """Move the element at the given index up to its proper position based on priority."""
+        """
+        Move the element at the given index up to its proper position based on priority.
+        """
         parent = (index - 1) // 2
         if index > 0 and self.heap[index]['priority'] < self.heap[parent]['priority']:
             self.heap[[index, parent]] = self.heap[[parent, index]]
             self._sift_up(parent)
 
     def _sift_down(self, index):
-        """Move the element at the given index down to its proper position based on priority."""
+        """
+        Move the element at the given index down to its proper position based on priority.
+        """
         smallest = index
         left = 2 * index + 1
         right = 2 * index + 2
@@ -497,15 +579,21 @@ class InvertedPriorityList:
             self._sift_down(smallest)
 
     def is_empty(self):
-        """Return True if the queue is empty, False otherwise."""
+        """
+        Return True if the queue is empty, False otherwise.
+        """
         return len(self.heap) == 0
 
     def size(self):
-        """Return the number of elements in the queue."""
+        """
+        Return the number of elements in the queue.
+        """
         return len(self.heap)
 
     def clear(self):
-        """Remove all elements from the queue."""
+        """
+        Remove all elements from the queue.
+        """
         self.heap = _numpy.array([], dtype=self.heap.dtype)
         self.has_changed = True
 
