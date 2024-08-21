@@ -342,7 +342,7 @@ as PMMA attempts to correct this.")
                                 if current_time - float(obj_time) > self.objects[obj_time][2]:
                                     self.total_size -= _sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
-                                        log_development(f"Dumping object w/ ID: \
+                                        log_information(f"Dumping object w/ ID: \
 '{self.objects[obj_time][1]}' to temporary file.")
 
                                         with _tempfile.NamedTemporaryFile(
@@ -353,10 +353,10 @@ as PMMA attempts to correct this.")
                                             _dill.dump(self.objects[obj_time], file)
 
                                         self.temporary_files[self.objects[obj_time][1]] = file_name
-                                        log_development(f"Dumped object w/ ID: \
+                                        log_information(f"Dumped object w/ ID: \
 '{self.objects[obj_time][1]}' to temporary file.")
 
-                                    log_development(f"Removing object w/ ID: \
+                                    log_information(f"Removing object w/ ID: \
 '{self.objects[obj_time][1]}' from memory.")
 
                                     self.linker[self.objects[obj_time][1]] = None
