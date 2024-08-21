@@ -65,7 +65,11 @@ leaving the target size variable can be dangerous.")
         self.objects = {}
         self.linker = {}
         self.object_lifetime = object_lifetime
+
         self.enable_memory_management = True
+        self.total_size = 0
+        self.temporary_files = {}
+        self.manager_thread_organized_data = _InvertedPriorityList()
 
         self.manager_thread = _threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
@@ -73,11 +77,6 @@ leaving the target size variable can be dangerous.")
         self.manager_thread.start()
         self.max_obj_creation_time = float("-inf")
         self.max_obj_size = 0
-        self.total_size = 0
-
-        self.manager_thread_organized_data = _InvertedPriorityList()
-
-        self.temporary_files = {}
 
         self.memory_manager_thread_lock = _threading.Lock()
 
