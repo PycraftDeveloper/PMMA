@@ -55,7 +55,7 @@ class ColorIntermediary:
 
         return in_type
 
-    def __init__(self, color, in_type=Constants.AUTODETECT):
+    def set_color(self, color, in_type=Constants.AUTODETECT): # converts to RGBA
         if type(color) == str:
             color = color.lower()
         if in_type == Constants.AUTODETECT:
@@ -108,6 +108,13 @@ class ColorIntermediary:
         elif in_type == Constants.TEXT:
             self.color = Constants.TEXT_BASED_COLORS[color.upper()] + [255]
 
+    def __init__(self):
+        self.in_type = None
+        self.color = None
+
+    def get_color_format(self):
+        return self.in_type
+
     def __convert_rgb_to_hsv(self, red, green, blue, per_maximum=100, do_round=True):
         #get rgb percentage: range (0-1, 0-1, 0-1 )
         red_percentage = red / float(255)
@@ -132,7 +139,9 @@ class ColorIntermediary:
 
         return color_h, color_s, color_v
 
-    def out(self, out_type):
+    def get_color(self, out_type): # Converts from RGBA
+        if self.color is None:
+            return None
         sorted_out_type = sorted(out_type)
 
         if sorted_out_type == Constants.SORTED_RGBA:
