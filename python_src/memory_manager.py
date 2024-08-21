@@ -67,6 +67,7 @@ leaving the target size variable can be dangerous.")
         self.object_lifetime = object_lifetime
         self.manager_thread = _threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
+        self.manager_thread.name = "MemoryManager:Object_Memory_Management_Thread"
         self.manager_thread.start()
         self.max_obj_creation_time = float("-inf")
         self.max_obj_size = 0
@@ -183,7 +184,7 @@ more than 25% of the assigned memory")
                     recreatable_object,
                     stay_in_memory]
 
-                self.manager_thread_organized_data.add(identifier, object_lifetime)
+                self.manager_thread_organized_data.add(identifier, object_lifetime+_time.perf_counter())
 
                 self.total_size += obj_size
                 return identifier
@@ -249,7 +250,7 @@ more than 25% of the assigned memory")
                         recreatable_object,
                         stay_in_memory]
 
-                    self.manager_thread_organized_data.add(identifier, object_lifetime)
+                    self.manager_thread_organized_data.add(identifier, object_lifetime+_time.perf_counter())
 
                     self.total_size += obj_size
                     return identifier
@@ -332,10 +333,15 @@ more than 25% of the assigned memory")
         else:
             raise Exception("Memory management is disabled")
 
+    def _manager_thread_organized_data_is_not_empty(self):
+        return self.enable_memory_management is False or (not self.manager_thread_organized_data.is_empty())
+
+    def _manager_thread_wait_for_expiry(self):
+        return self.manager_thread_organized_data.peek_next_priority() - _time.perf_counter() <= 0 or self.manager_thread_organized_data.changed() or self.enable_memory_management is False
+
     def object_dictionary_manager(self):
         try:
             while self.enable_memory_management:
-                current_time = _time.perf_counter()
                 if self.total_size / self.target_size > 0.9:
                     log_warning(f"Caution - memory management utilization \
 is currently at: {round((self.total_size / self.target_size)*100, 2)}%. Consider \
@@ -345,15 +351,20 @@ lowering this percentage before performance is negatively affected.")
                     log_warning(f"Caution - memory management utilization is \
 currently at or above the target threshold. Performance may be negatively affected \
 as PMMA attempts to correct this.")
-
-                with self.memory_manager_thread_lock:
-                    print(self.manager_thread_organized_data.peek_next_priority())
-                    for obj_time in list(self.objects.keys()):
-                        try:
-                            recreatable_object = self.objects[obj_time][3]
-                            stay_in_memory = self.objects[obj_time][4]
-                            if stay_in_memory is False:
-                                if current_time - float(obj_time) > self.objects[obj_time][2]:
+                if self.manager_thread_organized_data.is_empty():
+                    _waiting.wait(self._manager_thread_organized_data_is_not_empty)
+                else:
+                    _waiting.wait(self._manager_thread_wait_for_expiry)
+                    if not self.manager_thread_organized_data.peek_next_priority() - _time.perf_counter() <= 0:
+                        continue
+                    items_to_remove = self.manager_thread_organized_data.remove_highest_priority()
+                    with self.memory_manager_thread_lock:
+                        for key in items_to_remove:
+                            obj_time = self.linker[key]
+                            try:
+                                recreatable_object = self.objects[obj_time][3]
+                                stay_in_memory = self.objects[obj_time][4]
+                                if stay_in_memory is False:
                                     self.total_size -= _sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
                                         log_information(f"Dumping object w/ ID: \
@@ -380,18 +391,15 @@ as PMMA attempts to correct this.")
                                     self.objects[obj_time] = None
                                     del self.objects[obj_time]
                                     _gc.collect()
-                        except FileNotFoundError as error:
-                            raise error
+                            except FileNotFoundError as error:
+                                raise error
 
-                        except Exception as error:
-                            print(error)
-                            print(_traceback.format_exc())
+                            except Exception as error:
+                                print(error)
+                                print(_traceback.format_exc())
 
-                if Registry.power_saving_mode:
-                    _time.sleep(1/15)
-                else:
-                    _time.sleep(1/30)
-        except:
+        except Exception as error:
+            print(error)
             self.enable_memory_management = False
             self.linker = {}
             self.objects = {}
