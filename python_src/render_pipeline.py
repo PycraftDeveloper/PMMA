@@ -43,7 +43,7 @@ class RenderPipeline:
 
     def render(self, canvas=None): # not sure on width yet. RECTANGLES AND CIRCLES TO START WITH!!! FOR INDICES ARRAY + shape_index = vao indices
         if canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
+            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
 
         total_number_of_vertices = 0
         total_number_of_indices = 0
@@ -272,6 +272,6 @@ class RenderPipeline:
         cbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_cbo(colors).get()
         ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(indices).get()
         #vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(program, vbo, ).get() Not yet finished!!!
-        vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
-        vao.render(_moderngl.TRIANGLES)
+        vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')])#, ibo)
+        vao.render(_moderngl.TRIANGLE_FAN)
 

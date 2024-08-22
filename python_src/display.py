@@ -81,7 +81,7 @@ class Display:
         if Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
                 self.two_dimension_frame_buffer.get().use()
-            return self.two_dimension_texture
+            return self.two_dimension_frame_buffer
         else:
             raise NotImplementedError
 
@@ -89,7 +89,7 @@ class Display:
         if Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
                 self.three_dimension_frame_buffer.get().use()
-            return self.three_dimension_texture
+            return self.three_dimension_frame_buffer
         else:
             raise NotImplementedError
 
