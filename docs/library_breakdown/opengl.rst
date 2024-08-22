@@ -41,7 +41,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: OpenGL.create_buffer_object() -> None
+
+   Not Yet Written
+
 .. py:method:: OpenGL.create_vbo() -> None
+
+   Not Yet Written
+
+.. py:method:: OpenGL.create_cbo() -> None
 
    Not Yet Written
 

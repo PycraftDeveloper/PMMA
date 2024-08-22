@@ -21,3 +21,7 @@ Methods
 
    Not Yet Written
 
+.. py:method:: RenderPipeline.render() -> None
+
+   Not Yet Written
+

@@ -1,10 +1,3 @@
-Methods
-=======
-
-.. py:method:: pmma.generate_rect_from_points() -> None
-
-   Not Yet Written
-
 Line (``pmma.Line``)
 ====================
 
@@ -243,7 +236,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Rect.set_rect() -> None
+.. py:method:: Rect.set_position() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.set_size() -> None
 
    Not Yet Written
 
@@ -345,7 +342,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Arc.set_rect() -> None
+.. py:method:: Arc.set_position() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.set_size() -> None
 
    Not Yet Written
 
@@ -431,7 +432,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Ellipse.set_rect() -> None
+.. py:method:: Ellipse.set_position() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.set_size() -> None
 
    Not Yet Written
 

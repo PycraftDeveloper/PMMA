@@ -21,6 +21,18 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Display.get_pygame_surface() -> None
+
+   Not Yet Written
+
+.. py:method:: Display.get_2D_hardware_accelerated_surface() -> None
+
+   Not Yet Written
+
+.. py:method:: Display.get_3D_hardware_accelerated_surface() -> None
+
+   Not Yet Written
+
 .. py:method:: Display.create() -> None
 
    Not Yet Written
