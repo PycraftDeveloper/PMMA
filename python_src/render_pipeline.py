@@ -272,6 +272,6 @@ class RenderPipeline:
         cbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_cbo(colors).get()
         ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(indices).get()
         #vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(program, vbo, ).get() Not yet finished!!!
-        vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')])#, ibo)
-        vao.render(_moderngl.TRIANGLE_FAN)
+        vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
+        vao.render(_moderngl.TRIANGLES)
 

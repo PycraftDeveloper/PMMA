@@ -138,10 +138,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         texture.write(image)
 
     def create_buffer_object(self, data):
-        if type(data) == _numpy.ndarray:
-            if data.dtype != _numpy.float32:
-                data = data.astype(_numpy.float32)
-        else:
+        if type(data) != _numpy.ndarray:
             data = _numpy.array(data, dtype=_numpy.float32)
 
         buffer = Registry.context.buffer(data)
