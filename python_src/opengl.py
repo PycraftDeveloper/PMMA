@@ -62,6 +62,13 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 "shaders",
                 "texture_aggregation"))
 
+        self.simple_shape_rendering_program = _Shader()
+        self.simple_shape_rendering_program.create_from_location(
+            _path_builder(
+                Registry.base_path,
+                "shaders",
+                "simple_shape_renderer"))
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
@@ -127,7 +134,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             texture = texture.get()
         texture.write(image)
 
-    def create_vbo(self, data):
+    def create_buffer_object(self, data):
         if type(data) == _numpy.ndarray:
             if data.dtype != _numpy.float32:
                 data = data.astype(_numpy.float32)
@@ -137,15 +144,14 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         buffer = Registry.context.buffer(data)
         return OpenGLObject(buffer)
 
-    def create_ibo(self, data):
-        if type(data) == _numpy.ndarray:
-            if data.dtype != _numpy.int32:
-                data = data.astype(_numpy.int32)
-        else:
-            data = _numpy.array(data, dtype=_numpy.int32)
+    def create_vbo(self, data):
+        return self.create_buffer_object(data)
 
-        buffer = Registry.context.buffer(data)
-        return OpenGLObject(buffer)
+    def create_cbo(self, data):
+        return self.create_buffer_object(data)
+
+    def create_ibo(self, data):
+        return self.create_buffer_object(data)
 
     def create_vao(
             self,

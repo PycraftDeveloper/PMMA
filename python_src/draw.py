@@ -11,11 +11,6 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.general import create_cache_id as _create_cache_id
-
-def generate_rect_from_points(x, y, width, height):
-    return _pygame.Rect(x, y, width, height)
-
 class Line:
     """
     Draws a line.
@@ -40,7 +35,8 @@ class Line:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.start, self.end, self.width, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -116,7 +112,8 @@ class Lines:
         self.closed = closed
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.points, self.width, self.closed, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -203,7 +200,8 @@ class AdvancedPolygon:
         self.wire_frame = wire_frame
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.centre, self.radius, self.number_of_sides, self.rotation_angle, self.width, self.cache, self.wire_frame, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -330,7 +328,8 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.center_of_rect, self.radius, self.height, self.rotation_angle, self.cache, self.width, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -425,7 +424,8 @@ class Rect:
     def __init__(
             self,
             color=None,
-            rect=None,
+            position=None,
+            size=None,
             width=-1,
             border_radius=-1,
             border_top_left_radius=-1,
@@ -441,7 +441,8 @@ class Rect:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self.color = color
-        self.rect = rect
+        self.position = position
+        self.size = size
         self.width = width
         self.border_radius = border_radius
         self.border_top_left_radius = border_top_left_radius
@@ -450,22 +451,17 @@ class Rect:
         self.border_bottom_right_radius = border_bottom_right_radius
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(
-            self.color,
-            self.rect,
-            self.width,
-            self.border_radius,
-            self.border_top_left_radius,
-            self.border_top_right_radius,
-            self.border_bottom_left_radius,
-            self.border_bottom_right_radius,
-            self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
 
-    def set_rect(self, rect):
-        self.rect = rect
+    def set_position(self, position):
+        self.position = position
+
+    def set_size(self, size):
+        self.size = size
 
     def set_width(self, width):
         self.width = width
@@ -506,10 +502,12 @@ class Rect:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
+            rect = _pygame.Rect(*self.position, *self.size)
+
             returnable = _pygame.draw.rect(
                 self.canvas.pygame_surface.pygame_surface,
                 self.color,
-                self.rect,
+                rect,
                 self.width,
                 self.border_radius,
                 self.border_top_left_radius,
@@ -544,7 +542,8 @@ class Circle:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.center, self.radius, self.width, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -601,7 +600,8 @@ class Arc:
     def __init__(
             self,
             color=None,
-            rect=None,
+            position=None,
+            size=None,
             start_angle=None,
             stop_angle=None,
             width=1,
@@ -614,19 +614,24 @@ class Arc:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self.color = color
-        self.rect = rect
+        self.position = position
+        self.size = size
         self.start_angle = start_angle
         self.stop_angle = stop_angle
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.rect, self.start_angle, self.stop_angle, self.width, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
 
-    def set_rect(self, rect):
-        self.rect = rect
+    def set_position(self, position):
+        self.position = position
+
+    def set_size(self, size):
+        self.size = size
 
     def set_start_angle(self, start_angle):
         self.start_angle = start_angle
@@ -658,10 +663,11 @@ class Arc:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
+            rect = _pygame.Rect(*self.position, *self.size)
             returnable = _pygame.draw.arc(
                 self.canvas.pygame_surface.pygame_surface,
                 self.color,
-                self.rect,
+                rect,
                 self.start_angle,
                 self.stop_angle,
                 self.width)
@@ -691,7 +697,8 @@ class Polygon:
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.points, self.width, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -739,7 +746,8 @@ class Ellipse:
     def __init__(
             self,
             color=None,
-            rect=None,
+            position=None,
+            size=None,
             width=0,
             canvas=None):
 
@@ -750,17 +758,22 @@ class Ellipse:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self.color = color
-        self.rect = rect
+        self.position = position
+        self.size = size
         self.width = width
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.rect, self.width, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
 
-    def set_rect(self, rect):
-        self.rect = rect
+    def set_position(self, position):
+        self.position = position
+
+    def set_size(self, size):
+        self.size = size
 
     def set_width(self, width):
         self.width = width
@@ -786,10 +799,11 @@ class Ellipse:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
+            rect = _pygame.Rect(*self.position, *self.size)
             returnable = _pygame.draw.ellipse(
                 self.canvas.pygame_surface.pygame_surface,
                 self.color,
-                self.rect,
+                rect,
                 self.width)
 
         else:
@@ -815,7 +829,8 @@ class Pixel:
         self.point = point
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.point, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -887,7 +902,8 @@ class CurvedLines:
         self.steps = steps
         self.canvas = canvas
 
-        self.cache_id = _create_cache_id(self.color, self.points, self.steps, self.canvas)
+        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self.cached_data = {"vertices": None, "colors": None}
 
     def set_color(self, color):
         self.color = color
@@ -1199,7 +1215,8 @@ class Draw:
     def rect(
             self,
             color,
-            rect,
+            position,
+            size,
             width,
             border_radius=-1,
             border_top_left_radius=-1,
@@ -1215,6 +1232,7 @@ class Draw:
         if canvas is None:
             canvas = self.canvas
         if Registry.display_mode == Constants.PYGAME:
+            rect = _pygame.Rect(*position, *size)
             returnable = _pygame.draw.rect(
                 canvas.pygame_surface.pygame_surface,
                 color,

@@ -79,7 +79,7 @@ class Display:
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
-                self.two_dimension_frame_buffer.use()
+                self.two_dimension_frame_buffer.get().use()
             return self.two_dimension_texture
         else:
             raise NotImplementedError
@@ -87,7 +87,7 @@ class Display:
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
         if Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
-                self.three_dimension_frame_buffer.use()
+                self.three_dimension_frame_buffer.get().use()
             return self.three_dimension_texture
         else:
             raise NotImplementedError
