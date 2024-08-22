@@ -2,6 +2,7 @@ import gc as _gc
 
 import moderngl as _moderngl
 import numpy as _numpy
+import moderngl_window as _moderngl_window
 
 from pmma.python_src.shader import Shader as _Shader
 from pmma.python_src.file import path_builder as _path_builder
@@ -37,6 +38,8 @@ instantiate the 'Display' class first!")
         try:
             if Registry.context is None:
                 Registry.context = _moderngl.create_context()
+            if Registry.window_context is None:
+                Registry.window_context = _moderngl_window.activate_context(Registry.window_context_backend, Registry.context)
         except Exception as error:
             log_error("Failed to create OpenGL context.")
             log_development("Failed to create OpenGL context. The most \

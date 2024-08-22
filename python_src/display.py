@@ -6,6 +6,8 @@ import numpy as _numpy
 import moderngl as _moderngl
 import pygame as _pygame
 import pyglet as _pyglet
+from moderngl_window import geometry as _geometry
+import moderngl_window as _moderngl_window
 
 from pmma.python_src.surface import Surface as _Surface
 from pmma.python_src.opengl import OpenGL as _OpenGL
@@ -41,15 +43,10 @@ class Display:
 
         self.display_creation_attributes = []
 
-        self.quad_vertices = _numpy.array([
-                # x, y, u, v
-                -1.0, -1.0, 0.0, 0.0,
-                1.0, -1.0, 1.0, 0.0,
-                1.0,  1.0, 1.0, 1.0,
-                -1.0,  1.0, 0.0, 1.0,
-            ], dtype='f4')
+        self.display_quad = None
 
-        self.quad_indices = _numpy.array([0, 1, 2, 0, 2, 3], dtype='i4')
+        self.fill_color = None
+        self.color_key = _numpy.array([0, 0, 0], dtype=_numpy.float32)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -69,8 +66,8 @@ class Display:
 
     def __setup_layers(self, size):
         self.pygame_surface = _Surface()
-        self.pygame_surface.create(*size, alpha=True)
-        self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
+        self.pygame_surface.create(*size)
+        self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size, color_format=Constants.RGB)
         self.two_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
         self.two_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.two_dimension_texture)
         self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
@@ -136,19 +133,12 @@ class Display:
 
             size = _pygame.display.get_window_size()
             Registry.display_initialized = True
+            Registry.window_context_backend = _moderngl_window.get_local_window_cls("pygame2")
             _OpenGL()
 
             self.__setup_layers(size)
 
-            combine_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program()
-
-            quad_vbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vbo(self.quad_vertices)
-            quad_ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(self.quad_indices)
-            self.quad_vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(
-                combine_program,
-                quad_vbo,
-                attributes=["in_vert", "in_uv"],
-                index_buffer=quad_ibo)
+            self.display_quad = _geometry.quad_fs()
 
             _pygame.display.set_caption(str(caption))
         else:
@@ -220,10 +210,14 @@ class Display:
 
         if Registry.display_mode == Constants.PYGAME:
             self.two_dimension_frame_buffer.get().use()
-            self.two_dimension_frame_buffer.get().clear(*self.color_converter.output_color(format=Constants.SMALL_RGBA))
+            self.two_dimension_frame_buffer.get().clear(0, 0, 0, 0)
             self.three_dimension_frame_buffer.get().use()
-            self.three_dimension_frame_buffer.get().clear(*self.color_converter.output_color(format=Constants.SMALL_RGBA))
-            self.pygame_surface.clear(self.color_converter.output_color(format=Constants.RGBA))
+            self.three_dimension_frame_buffer.get().clear(0, 0, 0, 0)
+            self.fill_color = self.color_converter.output_color(format=Constants.RGB)
+            self.color_key = _numpy.array([*self.color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
+            self.pygame_surface.clear(self.fill_color)
+            Registry.context.screen.use()
+            Registry.context.clear(*self.color_converter.output_color(format=Constants.SMALL_RGBA))
         else:
             raise NotImplementedError
 
@@ -244,6 +238,8 @@ this method call to ensure optimal performance and support!")
             else:
                 refresh_rate = 60
 
+        Registry.context.screen.use()
+
         Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
             byte_data = self.pygame_surface.to_string(flipped=True)
@@ -251,18 +247,18 @@ this method call to ensure optimal performance and support!")
                 byte_data,
                 self.pygame_surface_texture)
 
-            Registry.context.screen.use()
-            Registry.context.clear(1, 0, 1)
-
-            self.two_dimension_texture.get().use(location=0)
-            self.three_dimension_texture.get().use(location=1)
-            self.pygame_surface_texture.get().use(location=2)
             aggregation_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program().get()
             aggregation_program["texture2d"].value = 0
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
+            aggregation_program["color_key"].write(self.color_key)
+            self.two_dimension_texture.get().use(location=0)
+            self.three_dimension_texture.get().use(location=1)
+            self.pygame_surface_texture.get().use(location=2)
 
-            self.quad_vao.get().render(_moderngl.TRIANGLES)
+            Registry.context.enable(_moderngl.BLEND)
+            self.display_quad.render(aggregation_program)
+            Registry.context.disable(_moderngl.BLEND)
 
             _pygame.display.flip()
 
