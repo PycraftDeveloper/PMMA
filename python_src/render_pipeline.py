@@ -64,8 +64,8 @@ class RenderPipeline:
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
                         render_point.hardware_accelerated_data["vertices"] = _numpy.array([
-                            render_point.start_point[0], render_point.start_point[1],
-                            render_point.end_point[0], render_point.end_point[1]
+                            render_point.start[0], render_point.start[1],
+                            render_point.end[0], render_point.end[1]
                         ])
 
                         render_point.hardware_accelerated_data["indices"] = _numpy.array([0, 1])
@@ -115,8 +115,8 @@ class RenderPipeline:
                         angle_step = 2 * _numpy.pi / render_point.number_of_sides
                         for i in range(render_point.number_of_sides):
                             angle = render_point.rotation_angle + i * angle_step
-                            x = render_point.center[0] + render_point.radius * _numpy.cos(angle)
-                            y = render_point.center[1] + render_point.radius * _numpy.sin(angle)
+                            x = render_point.centre[0] + render_point.radius * _numpy.cos(angle)
+                            y = render_point.centre[1] + render_point.radius * _numpy.sin(angle)
                             vertices_list.extend([x, y])
 
                             if i > 1:
@@ -246,7 +246,7 @@ class RenderPipeline:
                         render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
 
 
-                elif type(render_point) == _Arc:
+                elif type(render_point) == _Arc: # problem
                     num_segments = 36
                     arc_length = render_point.stop_angle - render_point.start_angle
                     num_arc_segments = int(num_segments * arc_length / 360)
@@ -343,7 +343,7 @@ class RenderPipeline:
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
                         render_point.hardware_accelerated_data["vertices"] = _numpy.array([
-                            render_point.position[0], render_point.position[1]
+                            render_point.point[0], render_point.point[1]
                         ], dtype=_numpy.float32)
 
                         render_point.hardware_accelerated_data["indices"] = _numpy.array([0], dtype=_numpy.uint32)
@@ -405,51 +405,50 @@ class RenderPipeline:
                 vertices[vertex_offset:vertex_offset + len(render_point.hardware_accelerated_data["vertices"])] = render_point.hardware_accelerated_data["vertices"]
                 indices[index_offset:index_offset + len(render_point.hardware_accelerated_data["indices"])] = shape_index + render_point.hardware_accelerated_data["indices"]
                 colors[color_offset:color_offset + len(render_point.hardware_accelerated_data["colors"])] = render_point.hardware_accelerated_data["colors"]
-                if type(render_point) == _Line:
-                    pass
 
-                elif type(render_point) == _Lines:
-                    pass
+                vertex_offset += len(render_point.hardware_accelerated_data["vertices"])
+                color_offset += len(render_point.hardware_accelerated_data["colors"])
+                index_offset += len(render_point.hardware_accelerated_data["indices"])
+
+                if type(render_point) == _Line: # broken, likely because its line and not filled, similar to next one down
+                    shape_index += 1 # might not be right
+
+                elif type(render_point) == _Lines: # shape_index right, but shape filled not line!
+                    shape_index += len(render_point.points)
 
                 elif type(render_point) == _AdvancedPolygon:
-                    pass
+                    shape_index += render_point.number_of_sides
 
                 elif type(render_point) == _RotatedRect:
-                    pass
+                    shape_index += 4
 
                 elif type(render_point) == _Rect:
-                    vertex_offset += len(render_point.hardware_accelerated_data["vertices"])
-                    color_offset += len(render_point.hardware_accelerated_data["colors"])
-                    index_offset += len(render_point.hardware_accelerated_data["indices"])
                     shape_index += 4
 
                 elif type(render_point) == _Circle:
-                    vertex_offset += len(render_point.hardware_accelerated_data["vertices"])
-                    color_offset += len(render_point.hardware_accelerated_data["colors"])
-                    index_offset += len(render_point.hardware_accelerated_data["indices"])
-                    shape_index += 4
+                    shape_index += 37
 
-                elif type(render_point) == _Arc:
-                    pass
+                elif type(render_point) == _Arc: # broken
+                    shape_index += 37 # might not be right
 
-                elif type(render_point) == _Polygon:
-                    pass
+                elif type(render_point) == _Polygon: # broken
+                    shape_index += len(render_point.points) # might not be right
 
                 elif type(render_point) == _Ellipse:
-                    pass
+                    shape_index += 37
 
-                elif type(render_point) == _Pixel:
-                    pass
+                elif type(render_point) == _Pixel: # might be broken, cant see
+                    shape_index += 1 # might not be right
 
-                elif type(render_point) == _CurvedLines:
-                    pass
+                elif type(render_point) == _CurvedLines: # broken
+                    shape_index += len(render_point.hardware_accelerated_data["indices"]) # might not be right
 
             vbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vbo(vertices).get()
             cbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_cbo(colors).get()
             ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(indices).get()
 
             if self.vao is not None:
-                self.veo.release()
+                self.vao.release()
             #vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(program, vbo, ).get() Not yet finished!!!
             self.vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
             self.vao.render(_moderngl.TRIANGLES)

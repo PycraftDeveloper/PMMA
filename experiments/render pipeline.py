@@ -1,4 +1,5 @@
 import pmma
+import random
 
 import pygame
 
@@ -12,14 +13,9 @@ display.create(1280, 720, fullscreen=False)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-rect = pmma.Rect(color=[1, 0, 1], position=[0, 0], size=[1, 1])
-
-second_rect = pmma.Rect(color=[0, 0, 255], position=[-0.5, -0.5], size=[1, 1])
-
-draw = pmma.Draw()
-n = 1000
-for i in range(n):
-    rp.add(rect)
+rp.add(pmma.AdvancedPolygon([1, 1, 0], (0, 0), 1, 8))
+rp.add(pmma.Ellipse([0, 1, 0], (0, 0), (0.2, 0.8)))
+rp.add(pmma.CurvedLines([1, 1, 1], ((0, 0), (1, 1), (0.5, -0.5))))
 
 while pmma.Registry.running:
     events.handle()
