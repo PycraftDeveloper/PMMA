@@ -72,6 +72,26 @@ class Display:
         self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
         self.three_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.three_dimension_texture)
 
+    def get_pygame_surface(self):
+        if Registry.display_mode == Constants.PYGAME:
+            return self.pygame_surface
+
+    def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
+        if Registry.display_mode == Constants.PYGAME:
+            if set_to_be_used:
+                self.two_dimension_frame_buffer.use()
+            return self.two_dimension_texture
+        else:
+            raise NotImplementedError
+
+    def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
+        if Registry.display_mode == Constants.PYGAME:
+            if set_to_be_used:
+                self.three_dimension_frame_buffer.use()
+            return self.three_dimension_texture
+        else:
+            raise NotImplementedError
+
     def create(
             self,
             width=None,
