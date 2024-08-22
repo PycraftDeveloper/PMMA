@@ -30,9 +30,10 @@ while pmma.Registry.running:
     #draw.rect([255, 0, 0], (100, 100), (500, 500))
 
     #pygame.draw.circle(display.pygame_surface.pygame_surface, (0, 0, 255), (100, 100), 50)
+    start = time.perf_counter()
     rp.render()
-
-    break
+    end = time.perf_counter()
+    print(1/(end-start))
 
     #print(rect.hardware_accelerated_data)
 

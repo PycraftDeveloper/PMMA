@@ -50,58 +50,47 @@ class RenderPipeline:
 
         for render_point in self.render_points:
             if type(render_point) == _Line:
-                point_cache = _create_cache_id(render_point.start, render_point.end)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _Lines:
-                point_cache = _create_cache_id(render_point.points, render_point.closed)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _AdvancedPolygon:
-                point_cache = _create_cache_id(render_point.centre, render_point.radius, render_point.number_of_sides)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _RotatedRect:
-                point_cache = _create_cache_id(render_point.center_of_rect, render_point.radius, render_point.height, render_point.rotation_angle)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _Rect:
-                point_cache = _create_cache_id(render_point.position, render_point.size, render_point.border_radius, render_point.border_top_left_radius, render_point.border_top_right_radius, render_point.border_bottom_right_radius, render_point.border_bottom_left_radius)
-                color_cache = _create_cache_id(render_point.color)
-
                 total_number_of_vertices += 4
                 total_number_of_indices += 6
 
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = _numpy.array([
                         render_point.position[0],
                         render_point.position[1],
@@ -121,8 +110,8 @@ class RenderPipeline:
                         0
                     ])
 
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = _numpy.array([
                         render_point.color[0],
                         render_point.color[1], # worry about unique index coloring later for gradients.
@@ -139,69 +128,57 @@ class RenderPipeline:
                     ])
 
             elif type(render_point) == _Circle:
-                point_cache = _create_cache_id(render_point.center, render_point.radius)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _Arc:
-                point_cache = _create_cache_id(render_point.position, render_point.size, render_point.start_angle, render_point.stop_angle)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _Polygon:
-                point_cache = _create_cache_id(render_point.points)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _Ellipse:
-                point_cache = _create_cache_id(render_point.position, render_point.size)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _Pixel:
-                point_cache = _create_cache_id(render_point.point)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
             elif type(render_point) == _CurvedLines:
-                point_cache = _create_cache_id(render_point.points, render_point.steps)
-                color_cache = _create_cache_id(render_point.color)
-                if render_point.cached_data["vertices"] != point_cache:
-                    render_point.cached_data["vertices"] = point_cache
+                if render_point.vertices_changed:
+                    render_point.vertices_changed = False
                     render_point.hardware_accelerated_data["vertices"] = None
                     render_point.hardware_accelerated_data["indices"] = None
-                if render_point.cached_data["colors"] != color_cache:
-                    render_point.cached_data["colors"] = color_cache
+                if render_point.color_changed:
+                    render_point.color_changed = False
                     render_point.hardware_accelerated_data["colors"] = None
 
         vertices_np = _numpy.empty(total_number_of_vertices * 2, dtype=_numpy.float32)

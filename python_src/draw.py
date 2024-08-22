@@ -36,15 +36,20 @@ class Line:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_start(self, start):
+        self.vertices_changed = True
         self.start = start
 
     def set_end(self, end):
+        self.vertices_changed = True
         self.end = end
 
     def set_width(self, width):
@@ -113,18 +118,23 @@ class Lines:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_points(self, points):
+        self.vertices_changed = True
         self.points = points
 
     def set_width(self, width):
         self.width = width
 
     def set_closed(self, closed):
+        self.vertices_changed = True
         self.closed = closed
 
     def set_canvas(self, canvas):
@@ -201,21 +211,28 @@ class AdvancedPolygon:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_centre(self, centre):
+        self.vertices_changed = True
         self.centre = centre
 
     def set_radius(self, radius):
+        self.vertices_changed = True
         self.radius = radius
 
     def set_number_of_sides(self, number_of_sides):
+        self.vertices_changed = True
         self.number_of_sides = number_of_sides
 
     def set_rotation_angle(self, rotation_angle):
+        self.vertices_changed = True
         self.rotation_angle = rotation_angle
 
     def set_width(self, width):
@@ -329,18 +346,24 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_center_of_rect(self, center_of_rect):
+        self.vertices_changed = True
         self.center_of_rect = center_of_rect
 
     def set_radius(self, radius):
+        self.vertices_changed = True
         self.radius = radius
 
     def set_height(self, height):
+        self.vertices_changed = True
         self.height = height
 
     def set_rotation_angle(self, rotation_angle):
@@ -452,33 +475,43 @@ class Rect:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_position(self, position):
+        self.vertices_changed = True
         self.position = position
 
     def set_size(self, size):
+        self.vertices_changed = True
         self.size = size
 
     def set_width(self, width):
         self.width = width
 
     def set_border_radius(self, border_radius):
+        self.vertices_changed = True
         self.border_radius = border_radius
 
     def set_border_top_left_radius(self, border_top_left_radius):
+        self.vertices_changed = True
         self.border_top_left_radius = border_top_left_radius
 
     def set_border_top_right_radius(self, border_top_right_radius):
+        self.vertices_changed = True
         self.border_top_right_radius = border_top_right_radius
 
     def set_border_bottom_left_radius(self, border_bottom_left_radius):
+        self.vertices_changed = True
         self.border_bottom_left_radius = border_bottom_left_radius
 
     def set_border_bottom_right_radius(self, border_bottom_right_radius):
+        self.vertices_changed = True
         self.border_bottom_right_radius = border_bottom_right_radius
 
     def set_canvas(self, canvas):
@@ -543,15 +576,20 @@ class Circle:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_center(self, center):
+        self.vertices_changed = True
         self.center = center
 
     def set_radius(self, radius):
+        self.vertices_changed = True
         self.radius = radius
 
     def set_width(self, width):
@@ -622,21 +660,28 @@ class Arc:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_position(self, position):
+        self.vertices_changed = True
         self.position = position
 
     def set_size(self, size):
+        self.vertices_changed = True
         self.size = size
 
     def set_start_angle(self, start_angle):
+        self.vertices_changed = True
         self.start_angle = start_angle
 
     def set_stop_angle(self, stop_angle):
+        self.vertices_changed = True
         self.stop_angle = stop_angle
 
     def set_width(self, width):
@@ -698,12 +743,16 @@ class Polygon:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_points(self, points):
+        self.vertices_changed = True
         self.points = points
 
     def set_width(self, width):
@@ -764,15 +813,20 @@ class Ellipse:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_position(self, position):
+        self.vertices_changed = True
         self.position = position
 
     def set_size(self, size):
+        self.vertices_changed = True
         self.size = size
 
     def set_width(self, width):
@@ -830,12 +884,16 @@ class Pixel:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_point(self, point):
+        self.vertices_changed = True
         self.point = point
 
     def set_canvas(self, canvas):
@@ -903,15 +961,20 @@ class CurvedLines:
         self.canvas = canvas
 
         self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
-        self.cached_data = {"vertices": None, "colors": None}
+
+        self.color_changed = True
+        self.vertices_changed = True
 
     def set_color(self, color):
+        self.color_changed = True
         self.color = color
 
     def set_points(self, points):
+        self.vertices_changed = True
         self.points = points
 
     def set_steps(self, steps):
+        self.vertices_changed = True
         self.steps = steps
 
     def set_canvas(self, canvas):
