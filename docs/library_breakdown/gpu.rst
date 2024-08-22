@@ -29,8 +29,8 @@ Methods
 
    Not Yet Written
 
-_ GPU (``pmma._GPU``)
-=====================
+_GPU (``pmma._GPU``)
+====================
 
 Not Yet Written
 

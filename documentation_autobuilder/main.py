@@ -359,6 +359,7 @@ for file in files:
 
             formatted_name = formatted_name.replace("Open G L", "OpenGL").strip()
             formatted_name = formatted_name.replace("G P U", "GPU").strip()
+            formatted_name = formatted_name.replace("_ GPU", "_GPU").strip()
             in_class = True
             methods_header_written = False
             docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)
