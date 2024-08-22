@@ -15,6 +15,8 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
+from pmma.python_src.color import Color as _Color
+
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
         initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
@@ -34,6 +36,8 @@ class Display:
         self.fullscreen = None
         self.display_attributes = []
         self.vsync = True
+
+        self.color_converter = _Color()
 
         self.display_creation_attributes = []
 
@@ -212,12 +216,14 @@ class Display:
         if not (type(args[0]) == int or type(args[0]) == float):
             args = args[0]
 
+        self.color_converter.input_color(args)
+
         if Registry.display_mode == Constants.PYGAME:
             self.two_dimension_frame_buffer.get().use()
-            self.two_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
+            self.two_dimension_frame_buffer.get().clear(*self.color_converter.output_color(format=Constants.SMALL_RGBA))
             self.three_dimension_frame_buffer.get().use()
-            self.three_dimension_frame_buffer.get().clear(*args[0:3], 0.0)
-            self.pygame_surface.clear(*args[0:3], 0.0)
+            self.three_dimension_frame_buffer.get().clear(*self.color_converter.output_color(format=Constants.SMALL_RGBA))
+            self.pygame_surface.clear(self.color_converter.output_color(format=Constants.RGBA))
         else:
             raise NotImplementedError
 
@@ -246,7 +252,7 @@ this method call to ensure optimal performance and support!")
                 self.pygame_surface_texture)
 
             Registry.context.screen.use()
-            Registry.context.clear(0, 0, 0)
+            Registry.context.clear(1, 0, 1)
 
             self.two_dimension_texture.get().use(location=0)
             self.three_dimension_texture.get().use(location=1)
@@ -255,6 +261,7 @@ this method call to ensure optimal performance and support!")
             aggregation_program["texture2d"].value = 0
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
+
             self.quad_vao.get().render(_moderngl.TRIANGLES)
 
             _pygame.display.flip()

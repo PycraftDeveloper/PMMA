@@ -125,17 +125,17 @@ class RenderPipeline:
                     render_point.cached_data["colors"] = color_cache
                     render_point.hardware_accelerated_data["colors"] = _numpy.array([
                         render_point.color[0],
-                        render_point.color[0], # worry about unique index coloring later for gradients.
+                        render_point.color[1], # worry about unique index coloring later for gradients.
+                        render_point.color[2],
                         render_point.color[0],
+                        render_point.color[1],
+                        render_point.color[2],
                         render_point.color[0],
+                        render_point.color[1],
+                        render_point.color[2],
                         render_point.color[0],
-                        render_point.color[0],
-                        render_point.color[0],
-                        render_point.color[0],
-                        render_point.color[0],
-                        render_point.color[0],
-                        render_point.color[0],
-                        render_point.color[0]
+                        render_point.color[1],
+                        render_point.color[2]
                     ])
 
             elif type(render_point) == _Circle:
@@ -274,3 +274,4 @@ class RenderPipeline:
         #vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(program, vbo, ).get() Not yet finished!!!
         vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
         vao.render(_moderngl.TRIANGLES)
+

@@ -1,5 +1,7 @@
 import pmma
 
+import pygame
+
 pmma.init()
 
 display = pmma.Display()
@@ -10,16 +12,22 @@ events = pmma.Events()
 rp = pmma.RenderPipeline()
 rect = pmma.Rect(color=[1, 1, 1], position=[-0.5, -0.5], size=[1, 1])
 
+second_rect = pmma.Rect(color=[0, 255, 0], position=[0, 0], size=[500, 500])
+
 rp.add(rect)
 
 while pmma.Registry.running:
     events.handle()
 
-    display.clear()
+    display.clear(255, 0, 0)
 
-    rp.render()
+    second_rect.draw()
 
-    print(rect.hardware_accelerated_data)
+    pygame.draw.circle(display.pygame_surface.pygame_surface, (0, 0, 255), (100, 100), 50)
+
+    #rp.render()
+
+    #print(rect.hardware_accelerated_data)
 
     pmma.compute()
     display.refresh()
