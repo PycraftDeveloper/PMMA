@@ -58,40 +58,120 @@ class RenderPipeline:
 
             for render_point in self.render_points:
                 if type(render_point) == _Line:
+                    total_number_of_vertices += 2
+                    total_number_of_indices += 2
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array([
+                            render_point.start_point[0], render_point.start_point[1],
+                            render_point.end_point[0], render_point.end_point[1]
+                        ])
+
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array([0, 1])
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array([
+                            render_point.color[0], render_point.color[1], render_point.color[2],
+                            render_point.color[0], render_point.color[1], render_point.color[2]
+                        ])
+
 
                 elif type(render_point) == _Lines:
+                    num_points = len(render_point.points)
+                    total_number_of_vertices += num_points
+                    total_number_of_indices += num_points if not render_point.closed else num_points + 1
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = []
+                        for point in render_point.points:
+                            vertices_list.extend([point[0], point[1]])
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+
+                        indices_list = list(range(num_points))
+                        if render_point.closed:
+                            indices_list.append(0)  # Closing the shape
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in render_point.points:
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
                 elif type(render_point) == _AdvancedPolygon:
+                    total_number_of_vertices += render_point.number_of_sides
+                    total_number_of_indices += (render_point.number_of_sides - 2) * 3
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = []
+                        indices_list = []
+
+                        angle_step = 2 * _numpy.pi / render_point.number_of_sides
+                        for i in range(render_point.number_of_sides):
+                            angle = render_point.rotation_angle + i * angle_step
+                            x = render_point.center[0] + render_point.radius * _numpy.cos(angle)
+                            y = render_point.center[1] + render_point.radius * _numpy.sin(angle)
+                            vertices_list.extend([x, y])
+
+                            if i > 1:
+                                indices_list.extend([0, i - 1, i])
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in range(render_point.number_of_sides):
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
                 elif type(render_point) == _RotatedRect:
+                    total_number_of_vertices += 4
+                    total_number_of_indices += 6
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        half_width = render_point.radius
+                        half_height = render_point.height / 2
+
+                        angle_rad = _numpy.radians(render_point.rotation_angle)
+                        cos_angle = _numpy.cos(angle_rad)
+                        sin_angle = _numpy.sin(angle_rad)
+
+                        vertices_list = [
+                            render_point.center_of_rect[0] + cos_angle * half_width - sin_angle * half_height,
+                            render_point.center_of_rect[1] + sin_angle * half_width + cos_angle * half_height,
+
+                            render_point.center_of_rect[0] - cos_angle * half_width - sin_angle * half_height,
+                            render_point.center_of_rect[1] - sin_angle * half_width + cos_angle * half_height,
+
+                            render_point.center_of_rect[0] - cos_angle * half_width + sin_angle * half_height,
+                            render_point.center_of_rect[1] - sin_angle * half_width - cos_angle * half_height,
+
+                            render_point.center_of_rect[0] + cos_angle * half_width + sin_angle * half_height,
+                            render_point.center_of_rect[1] + sin_angle * half_width - cos_angle * half_height,
+                        ]
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array([0, 1, 2, 2, 3, 0], dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array([
+                            render_point.color[0], render_point.color[1], render_point.color[2],
+                            render_point.color[0], render_point.color[1], render_point.color[2],
+                            render_point.color[0], render_point.color[1], render_point.color[2],
+                            render_point.color[0], render_point.color[1], render_point.color[2],
+                        ], dtype=_numpy.float32)
+
 
                 elif type(render_point) == _Rect:
                     total_number_of_vertices += 4
@@ -136,58 +216,177 @@ class RenderPipeline:
                         ])
 
                 elif type(render_point) == _Circle:
+                    num_segments = 36  # Number of segments used to approximate the circle
+                    total_number_of_vertices += num_segments + 1  # Circle center + edge points
+                    total_number_of_indices += num_segments * 3  # Triangles to fill the circle
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = [render_point.center[0], render_point.center[1]]  # Circle center
+
+                        for i in range(num_segments):
+                            angle = 2 * _numpy.pi * i / num_segments
+                            x = render_point.center[0] + render_point.radius * _numpy.cos(angle)
+                            y = render_point.center[1] + render_point.radius * _numpy.sin(angle)
+                            vertices_list.extend([x, y])
+
+                        indices_list = []
+                        for i in range(1, num_segments):
+                            indices_list.extend([0, i, i + 1])
+                        indices_list.extend([0, num_segments, 1])  # Closing the circle
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in range(num_segments + 1):
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
                 elif type(render_point) == _Arc:
+                    num_segments = 36
+                    arc_length = render_point.stop_angle - render_point.start_angle
+                    num_arc_segments = int(num_segments * arc_length / 360)
+                    total_number_of_vertices += num_arc_segments + 1
+                    total_number_of_indices += num_arc_segments * 3
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = [render_point.position[0], render_point.position[1]]
+
+                        angle_step = arc_length / num_arc_segments
+                        for i in range(num_arc_segments + 1):
+                            angle = _numpy.radians(render_point.start_angle + i * angle_step)
+                            x = render_point.position[0] + render_point.size[0] * _numpy.cos(angle)
+                            y = render_point.position[1] + render_point.size[1] * _numpy.sin(angle)
+                            vertices_list.extend([x, y])
+
+                        indices_list = []
+                        for i in range(1, num_arc_segments):
+                            indices_list.extend([0, i, i + 1])
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in range(num_arc_segments + 1):
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
                 elif type(render_point) == _Polygon:
+                    num_points = len(render_point.points)
+                    total_number_of_vertices += num_points
+                    total_number_of_indices += (num_points - 2) * 3
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = []
+                        for point in render_point.points:
+                            vertices_list.extend([point[0], point[1]])
+
+                        indices_list = []
+                        for i in range(1, num_points - 1):
+                            indices_list.extend([0, i, i + 1])
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in render_point.points:
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
                 elif type(render_point) == _Ellipse:
+                    num_segments = 36
+                    total_number_of_vertices += num_segments + 1
+                    total_number_of_indices += num_segments * 3
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = [render_point.position[0], render_point.position[1]]
+
+                        for i in range(num_segments):
+                            angle = 2 * _numpy.pi * i / num_segments
+                            x = render_point.position[0] + render_point.size[0] * _numpy.cos(angle)
+                            y = render_point.position[1] + render_point.size[1] * _numpy.sin(angle)
+                            vertices_list.extend([x, y])
+
+                        indices_list = []
+                        for i in range(1, num_segments):
+                            indices_list.extend([0, i, i + 1])
+                        indices_list.extend([0, num_segments, 1])
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in range(num_segments + 1):
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
                 elif type(render_point) == _Pixel:
+                    total_number_of_vertices += 1
+                    total_number_of_indices += 1
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array([
+                            render_point.position[0], render_point.position[1]
+                        ], dtype=_numpy.float32)
+
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array([0], dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array([
+                            render_point.color[0], render_point.color[1], render_point.color[2]
+                        ], dtype=_numpy.float32)
+
 
                 elif type(render_point) == _CurvedLines:
+                    num_segments = render_point.steps
+                    total_number_of_vertices += num_segments
+                    total_number_of_indices += num_segments - 1
+
                     if render_point.vertices_changed:
                         render_point.vertices_changed = False
-                        render_point.hardware_accelerated_data["vertices"] = None
-                        render_point.hardware_accelerated_data["indices"] = None
+                        vertices_list = []
+                        t_values = _numpy.linspace(0, 1, num_segments)
+                        for t in t_values:
+                            x = 0
+                            y = 0
+                            n = len(render_point.points) - 1
+                            for i, point in enumerate(render_point.points):
+                                binom = _numpy.math.comb(n, i)
+                                coeff = binom * (1 - t) ** (n - i) * t ** i
+                                x += coeff * point[0]
+                                y += coeff * point[1]
+                            vertices_list.extend([x, y])
+
+                        indices_list = list(range(num_segments))
+
+                        render_point.hardware_accelerated_data["vertices"] = _numpy.array(vertices_list, dtype=_numpy.float32)
+                        render_point.hardware_accelerated_data["indices"] = _numpy.array(indices_list, dtype=_numpy.uint32)
+
                     if render_point.color_changed:
                         render_point.color_changed = False
-                        render_point.hardware_accelerated_data["colors"] = None
+                        colors_list = []
+                        for _ in range(num_segments):
+                            colors_list.extend([render_point.color[0], render_point.color[1], render_point.color[2]])
+                        render_point.hardware_accelerated_data["colors"] = _numpy.array(colors_list, dtype=_numpy.float32)
+
 
             vertices_np = _numpy.empty(total_number_of_vertices * 2, dtype=_numpy.float32)
             colors_np = _numpy.empty(total_number_of_vertices * 3, dtype=_numpy.float32)
@@ -203,9 +402,9 @@ class RenderPipeline:
             shape_index = 0
 
             for render_point in self.render_points:
-                '''vertices[vertex_offset:vertex_offset + len(render_point.hardware_accelerated_data["vertices"])] = render_point.hardware_accelerated_data["vertices"]
+                vertices[vertex_offset:vertex_offset + len(render_point.hardware_accelerated_data["vertices"])] = render_point.hardware_accelerated_data["vertices"]
                 indices[index_offset:index_offset + len(render_point.hardware_accelerated_data["indices"])] = shape_index + render_point.hardware_accelerated_data["indices"]
-                colors[color_offset:color_offset + len(render_point.hardware_accelerated_data["colors"])] = render_point.hardware_accelerated_data["colors"]'''
+                colors[color_offset:color_offset + len(render_point.hardware_accelerated_data["colors"])] = render_point.hardware_accelerated_data["colors"]
                 if type(render_point) == _Line:
                     pass
 
@@ -219,20 +418,12 @@ class RenderPipeline:
                     pass
 
                 elif type(render_point) == _Rect:
-                    vertices[vertex_offset:vertex_offset + len(render_point.hardware_accelerated_data["vertices"])] = render_point.hardware_accelerated_data["vertices"] # for testing purposes
-                    indices[index_offset:index_offset + len(render_point.hardware_accelerated_data["indices"])] = shape_index + render_point.hardware_accelerated_data["indices"] # for testing purposes
-                    colors[color_offset:color_offset + len(render_point.hardware_accelerated_data["colors"])] = render_point.hardware_accelerated_data["colors"] # for testing purposes
-
                     vertex_offset += len(render_point.hardware_accelerated_data["vertices"])
                     color_offset += len(render_point.hardware_accelerated_data["colors"])
                     index_offset += len(render_point.hardware_accelerated_data["indices"])
                     shape_index += 4
 
                 elif type(render_point) == _Circle:
-                    vertices[vertex_offset:vertex_offset + len(render_point.hardware_accelerated_data["vertices"])] = render_point.hardware_accelerated_data["vertices"] # for testing purposes
-                    indices[index_offset:index_offset + len(render_point.hardware_accelerated_data["indices"])] = shape_index + render_point.hardware_accelerated_data["indices"] # for testing purposes
-                    colors[color_offset:color_offset + len(render_point.hardware_accelerated_data["colors"])] = render_point.hardware_accelerated_data["colors"] # for testing purposes
-
                     vertex_offset += len(render_point.hardware_accelerated_data["vertices"])
                     color_offset += len(render_point.hardware_accelerated_data["colors"])
                     index_offset += len(render_point.hardware_accelerated_data["indices"])
