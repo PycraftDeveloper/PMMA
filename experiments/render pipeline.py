@@ -17,7 +17,8 @@ rect = pmma.Rect(color=[1, 0, 1], position=[0, 0], size=[1, 1])
 second_rect = pmma.Rect(color=[0, 0, 255], position=[-0.5, -0.5], size=[1, 1])
 
 draw = pmma.Draw()
-for i in range(1000):
+n = 1000
+for i in range(n):
     rp.add(rect)
 
 while pmma.Registry.running:
