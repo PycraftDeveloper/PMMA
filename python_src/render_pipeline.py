@@ -8,6 +8,7 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
+from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.draw import Line as _Line
 from pmma.python_src.draw import Lines as _Lines
 from pmma.python_src.draw import AdvancedPolygon as _AdvancedPolygon
@@ -27,6 +28,8 @@ class RenderPipeline:
         self.render_points = []
 
         self.vao = None
+
+        self.opengl = _OpenGL()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -443,14 +446,14 @@ class RenderPipeline:
                 elif type(render_point) == _CurvedLines: # broken
                     shape_index += len(render_point.hardware_accelerated_data["indices"]) # might not be right
 
-            vbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vbo(vertices).get()
-            cbo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_cbo(colors).get()
-            ibo = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_ibo(indices).get()
+            vbo = self.opengl.create_vbo(vertices).get()
+            cbo = self.opengl.create_cbo(colors).get()
+            ibo = self.opengl.create_ibo(indices).get()
 
             if self.vao is not None:
                 self.vao.release()
-            #vao = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_vao(program, vbo, ).get() Not yet finished!!!
-            self.vao = Registry.context.vertex_array(Registry.pmma_module_spine[Constants.OPENGL_OBJECT].simple_shape_rendering_program.get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
+            #vao = self.opengl.create_vao(program, vbo, ).get() Not yet finished!!!
+            self.vao = Registry.context.vertex_array(self.opengl.get_simple_shape_rendering_program().get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
             self.vao.render(_moderngl.TRIANGLES)
         else:
             self.vao.render(_moderngl.TRIANGLES)

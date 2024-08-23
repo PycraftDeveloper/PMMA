@@ -13,9 +13,7 @@ display.create(1280, 720, fullscreen=False)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-rp.add(pmma.AdvancedPolygon([1, 1, 0], (0, 0), 1, 8))
-rp.add(pmma.Ellipse([0, 1, 0], (0, 0), (0.2, 0.8)))
-rp.add(pmma.CurvedLines([1, 1, 1], ((0, 0), (1, 1), (0.5, -0.5))))
+rp.add(pmma.Rect([1, 0, 0], (0, 0), (0.8, 0.1)))
 
 while pmma.Registry.running:
     events.handle()

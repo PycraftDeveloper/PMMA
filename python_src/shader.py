@@ -12,7 +12,7 @@ class Shader:
     def __init__(self):
         initialize(self)
 
-        if not Constants.OPENGL_OBJECT in Registry.pmma_module_spine.keys():
+        if not Constants.OPENGL_INTERMEDIARY_OBJECT in Registry.pmma_module_spine.keys():
             log_warning("OpenGL object does not exist.")
             log_development("In rare cases PMMA objects can only be \
 initialized after others. In this case you need to already have instantiated \

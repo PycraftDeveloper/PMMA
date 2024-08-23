@@ -17,3 +17,7 @@ class NoInputDevicesFoundError(Exception):
 class UnableToReadAudioSampleError(Exception):
     """Unable to read audio sample!"""
     pass
+
+class OpenGLNotYetInitializedError(Exception):
+    """OpenGL was not yet initialized!"""
+    pass

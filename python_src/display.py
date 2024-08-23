@@ -9,15 +9,16 @@ import pyglet as _pyglet
 from moderngl_window import geometry as _geometry
 import moderngl_window as _moderngl_window
 
-from pmma.python_src.surface import Surface as _Surface
-from pmma.python_src.opengl import OpenGL as _OpenGL
-
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.color import Color as _Color
+from pmma.python_src.surface import Surface as _Surface
+from pmma.python_src.opengl import OpenGL as _OpenGL
+
+from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
 
 class Display:
     def __init__(self, display_mode=Constants.PYGAME):
@@ -45,6 +46,8 @@ class Display:
 
         self.display_quad = None
 
+        self.opengl = _OpenGL()
+
         self.fill_color = None
         self.color_key = _numpy.array([0, 0, 0], dtype=_numpy.float32)
 
@@ -67,11 +70,11 @@ class Display:
     def __setup_layers(self, size):
         self.pygame_surface = _Surface()
         self.pygame_surface.create(*size)
-        self.pygame_surface_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size, color_format=Constants.RGB)
-        self.two_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
-        self.two_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.two_dimension_texture)
-        self.three_dimension_texture = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_texture(*size)
-        self.three_dimension_frame_buffer = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].create_fbo(*size, texture=self.three_dimension_texture)
+        self.pygame_surface_texture = self.opengl.create_texture(*size, color_format=Constants.RGB)
+        self.two_dimension_texture = self.opengl.create_texture(*size)
+        self.two_dimension_frame_buffer = self.opengl.create_fbo(*size, texture=self.two_dimension_texture)
+        self.three_dimension_texture = self.opengl.create_texture(*size)
+        self.three_dimension_frame_buffer = self.opengl.create_fbo(*size, texture=self.three_dimension_texture)
 
     def get_pygame_surface(self):
         if Registry.display_mode == Constants.PYGAME:
@@ -134,7 +137,8 @@ class Display:
             size = _pygame.display.get_window_size()
             Registry.display_initialized = True
             Registry.window_context_backend = _moderngl_window.get_local_window_cls("pygame2")
-            _OpenGL()
+
+            _OpenGLIntermediary()
 
             self.__setup_layers(size)
 
@@ -243,11 +247,11 @@ this method call to ensure optimal performance and support!")
         Registry.refresh_rate = refresh_rate
         if Registry.display_mode == Constants.PYGAME:
             byte_data = self.pygame_surface.to_string(flipped=True)
-            Registry.pmma_module_spine[Constants.OPENGL_OBJECT].blit_image_to_texture(
+            self.opengl.blit_image_to_texture(
                 byte_data,
                 self.pygame_surface_texture)
 
-            aggregation_program = Registry.pmma_module_spine[Constants.OPENGL_OBJECT].get_texture_aggregation_program().get()
+            aggregation_program = self.opengl.get_texture_aggregation_program().get()
             aggregation_program["texture2d"].value = 0
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
