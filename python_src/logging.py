@@ -23,14 +23,14 @@ class Logger:
         if log_development is None:
             log_development = Registry.development_mode
 
-        self.do_log_development = log_development
-        self.do_log_information = log_information
-        self.do_log_warning = log_warning
-        self.do_log_error = log_error
-        self.do_log_to_file = log_to_file and log_file is not None
-        self.do_log_to_terminal = log_to_terminal
-        self.log_file = log_file
-        self.development_messages = []
+        self._do_log_development = log_development
+        self._do_log_information = log_information
+        self._do_log_warning = log_warning
+        self._do_log_error = log_error
+        self._do_log_to_file = log_to_file and log_file is not None
+        self._do_log_to_terminal = log_to_terminal
+        self._log_file = log_file
+        self._development_messages = []
 
         self.log_information("Logging object initialized")
         self.log_information("Date format: DD/MM/YYYY @ HH:MM:SS:μS")
@@ -84,12 +84,12 @@ class Logger:
 
         conveyed_message = False
 
-        if self.do_log_to_terminal:
+        if self._do_log_to_terminal:
             print(finished_message)
             conveyed_message = True
 
-        if self.do_log_to_file:
-            with open(self.log_file, "a") as log_file:
+        if self._do_log_to_file:
+            with open(self._log_file, "a") as log_file:
                 log_file.write(finished_message + "\n")
 
             conveyed_message = True
@@ -102,24 +102,24 @@ class Logger:
             do_traceback=False,
             repeat_for_effect=False):
 
-        if self.do_log_development and message.strip() != "":
-            if repeat_for_effect is False and message in self.development_messages:
+        if self._do_log_development and message.strip() != "":
+            if repeat_for_effect is False and message in self._development_messages:
                 return False
-            self.development_messages.append(message)
+            self._development_messages.append(message)
             return self.logger_core(message, do_traceback, Constants.DEVELOPMENT)
         return False
 
     def log_information(self, message, do_traceback=False):
-        if self.do_log_information and message.strip() != "":
+        if self._do_log_information and message.strip() != "":
             return self.logger_core(message, do_traceback, Constants.INFORMATION)
         return False
 
     def log_warning(self, message, do_traceback=False):
-        if self.do_log_warning and message.strip() != "":
+        if self._do_log_warning and message.strip() != "":
             return self.logger_core(message, do_traceback, Constants.WARNING)
         return False
 
     def log_error(self, message, do_traceback=True):
-        if self.do_log_error and message.strip() != "":
+        if self._do_log_error and message.strip() != "":
             return self.logger_core(message, do_traceback, Constants.ERROR)
         return False

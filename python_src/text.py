@@ -19,9 +19,9 @@ class Text:
     def __init__(self, canvas=None):
         initialize(self)
 
-        self.canvas = canvas
+        self._canvas = canvas
 
-        self.memory_manager_instance = _MemoryManager()
+        self._memory_manager_instance = _MemoryManager()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -92,11 +92,11 @@ class Text:
 
         canvas_identifiable_data = "param_based_canvas"
 
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
             canvas_identifiable_data = Constants.DISPLAY_OBJECT
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
             canvas_identifiable_data = "class_based_canvas"
 
         if font is None:
@@ -156,7 +156,7 @@ class Text:
             word_separator,
             canvas.get_size())
 
-        result = self.memory_manager_instance.get(identifier)
+        result = self._memory_manager_instance.get(identifier)
         if result is None:
             start = _time.perf_counter()
             x, y = 0, 0
@@ -310,7 +310,7 @@ class Text:
             canvas.blit(surface, defaults["position"])
             end = _time.perf_counter()
             object_creation_time = end-start
-            self.memory_manager_instance.add(
+            self._memory_manager_instance.add(
                 surface,
                 custom_id=identifier,
                 object_creation_time=object_creation_time,

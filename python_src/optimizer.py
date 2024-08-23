@@ -18,7 +18,7 @@ class Benchmark:
             else:
                 n = 10_000
 
-        self.n = n
+        self._n = n
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -38,7 +38,7 @@ class Benchmark:
 
         total_compiled_time = 0
         total_raw_time = 0
-        for iteration in range(self.n):
+        for iteration in range(self._n):
             start = _time.perf_counter()
             _math_utils.raw_pythag([
                 float(iteration),
@@ -48,7 +48,7 @@ class Benchmark:
             end = _time.perf_counter()
             total_compiled_time += end - start
 
-        for iteration in range(self.n):
+        for iteration in range(self._n):
             start = _time.perf_counter()
             _math_utils.raw_pythag.py_func([
                 float(iteration),

@@ -14,3 +14,8 @@ Internal Utility
 Search
 ======
 self.([A-Z]|[a-z])+
+
+Issues
+======
+
+Line 71 in image.py

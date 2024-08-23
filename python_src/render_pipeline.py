@@ -25,11 +25,11 @@ class RenderPipeline:
     def __init__(self):
         initialize(self)
 
-        self.render_points = []
+        self._render_points = []
 
-        self.vao = None
+        self._vao = None
 
-        self.opengl = _OpenGL()
+        self._opengl = _OpenGL()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -43,23 +43,23 @@ class RenderPipeline:
 
     def add(self, render_class):
         if Constants.RENDER_PIPELINE_ABLE in render_class.attributes:
-            self.render_points.append(render_class)
+            self._render_points.append(render_class)
 
     def render(self, canvas=None): # not sure on width yet.
         if canvas is None:
             Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
 
         changed = False
-        for render_point in self.render_points:
+        for render_point in self._render_points:
             if render_point.vertices_changed or render_point.color_changed:
                 changed = True
                 break
 
-        if self.vao is None or changed:
+        if self._vao is None or changed:
             total_number_of_vertices = 0
             total_number_of_indices = 0
 
-            for render_point in self.render_points:
+            for render_point in self._render_points:
                 if type(render_point) == _Line:
                     total_number_of_vertices += 2
                     total_number_of_indices += 2
@@ -404,7 +404,7 @@ class RenderPipeline:
             index_offset = 0
             shape_index = 0
 
-            for render_point in self.render_points:
+            for render_point in self._render_points:
                 vertices[vertex_offset:vertex_offset + len(render_point.hardware_accelerated_data["vertices"])] = render_point.hardware_accelerated_data["vertices"]
                 indices[index_offset:index_offset + len(render_point.hardware_accelerated_data["indices"])] = shape_index + render_point.hardware_accelerated_data["indices"]
                 colors[color_offset:color_offset + len(render_point.hardware_accelerated_data["colors"])] = render_point.hardware_accelerated_data["colors"]
@@ -446,15 +446,15 @@ class RenderPipeline:
                 elif type(render_point) == _CurvedLines: # broken
                     shape_index += len(render_point.hardware_accelerated_data["indices"]) # might not be right
 
-            vbo = self.opengl.create_vbo(vertices).get()
-            cbo = self.opengl.create_cbo(colors).get()
-            ibo = self.opengl.create_ibo(indices).get()
+            vbo = self._opengl.create_vbo(vertices).get()
+            cbo = self._opengl.create_cbo(colors).get()
+            ibo = self._opengl.create_ibo(indices).get()
 
-            if self.vao is not None:
-                self.vao.release()
+            if self._vao is not None:
+                self._vao.release()
             #vao = self.opengl.create_vao(program, vbo, ).get() Not yet finished!!!
-            self.vao = Registry.context.vertex_array(self.opengl.get_simple_shape_rendering_program().get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
-            self.vao.render(_moderngl.TRIANGLES)
+            self._vao = Registry.context.vertex_array(self._opengl.get_simple_shape_rendering_program().get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
+            self._vao.render(_moderngl.TRIANGLES)
         else:
-            self.vao.render(_moderngl.TRIANGLES)
+            self._vao.render(_moderngl.TRIANGLES)
 

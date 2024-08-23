@@ -13,14 +13,14 @@ class QuickStart:
     def __init__(self, width=None, height=None, fullscreen=True, resizable=False, caption="PMMA Display", vsync=True, alpha=False):
         initialize(self)
 
-        self.display = _Display()
-        self.display.create(width=width, height=height, fullscreen=fullscreen, resizable=resizable, caption=caption, vsync=vsync, alpha=alpha)
-        self.events = _Events()
+        self._display = _Display()
+        self._display.create(width=width, height=height, fullscreen=fullscreen, resizable=resizable, caption=caption, vsync=vsync, alpha=alpha)
+        self._events = _Events()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            self.display.quit()
-            self.events.quit()
+            self._display.quit()
+            self._events.quit()
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -30,11 +30,11 @@ class QuickStart:
         self._shut_down = True
 
     def start(self, do_display_clearing=True, clear_color=None, enable_toggle_fullscreen=True, enable_close=True, return_events=True):
-        self.events.handle(enable_toggle_fullscreen=enable_toggle_fullscreen, enable_close=enable_close, return_events=return_events)
+        self._events.handle(enable_toggle_fullscreen=enable_toggle_fullscreen, enable_close=enable_close, return_events=return_events)
         if do_display_clearing:
-            self.display.clear(clear_color)
+            self._display.clear(clear_color)
 
-    def end(self,refresh_rate=None):
+    def end(self, refresh_rate=None):
         compute()
-        self.display.refresh(refresh_rate=refresh_rate)
+        self._display.refresh(refresh_rate=refresh_rate)
         return Registry.running is False or _Backpack.running is False

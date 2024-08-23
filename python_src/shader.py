@@ -19,32 +19,32 @@ initialized after others. In this case you need to already have instantiated \
 the 'OpenGL' class before instantiating this.")
             raise Exception("OpenGL object does not exist.")
 
-        self.vertex_shader = None
-        self.fragment_shader = None
-        self.program = None
+        self._vertex_shader = None
+        self._fragment_shader = None
+        self._program = None
 
-        self.in_attributes = []
-        self.out_attributes = []
-        self.uniform_attributes = []
+        self._in_attributes = []
+        self._out_attributes = []
+        self._uniform_attributes = []
 
     def analyze(self):
-        self.in_attributes = []
-        self.out_attributes = []
-        self.uniform_attributes = []
+        self._in_attributes = []
+        self._out_attributes = []
+        self._uniform_attributes = []
 
-        vertex_shader = self.vertex_shader.replace(";", " ")
+        vertex_shader = self._vertex_shader.replace(";", " ")
         for line in vertex_shader.split("\n"):
             if "in " in line:
-                self.in_attributes.append(line.split(" ")[2])
+                self._in_attributes.append(line.split(" ")[2])
 
     def get_out_attributes(self):
-        return self.out_attributes
+        return self._out_attributes
 
     def get_in_attributes(self):
-        return self.in_attributes
+        return self._in_attributes
 
     def get_uniform_attributes(self):
-        return self.uniform_attributes
+        return self._uniform_attributes
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -57,21 +57,21 @@ the 'OpenGL' class before instantiating this.")
         self._shut_down = True
 
     def get(self):
-        return self.program.get()
+        return self._program.get()
 
     def create_from_string(
             self,
             vertex_shader,
             fragment_shader):
 
-        self.vertex_shader = vertex_shader
-        self.fragment_shader = fragment_shader
+        self._vertex_shader = vertex_shader
+        self._fragment_shader = fragment_shader
 
         program = Registry.context.program(
-            vertex_shader=self.vertex_shader,
-            fragment_shader=self.fragment_shader)
+            vertex_shader=self._vertex_shader,
+            fragment_shader=self._fragment_shader)
 
-        self.program = OpenGLObject(program)
+        self._program = OpenGLObject(program)
 
         self.analyze()
 

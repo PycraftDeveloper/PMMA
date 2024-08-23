@@ -25,46 +25,46 @@ class Perlin:
         initialize(self)
 
         if Registry.cython_acceleration_available:
-            self.noise_module = _importlib.import_module(
+            self._noise_module = _importlib.import_module(
                 "pmma.bin.perlin_noise")
 
-            self.extended_noise_module = _importlib.import_module(
+            self._extended_noise_module = _importlib.import_module(
                 "pmma.bin.extended_perlin_noise")
 
         else:
-            self.noise_module = _importlib.import_module(
+            self._noise_module = _importlib.import_module(
                 "pmma.python_src.pyx_alternatives.utility.perlin_noise")
 
-            self.extended_noise_module = _importlib.import_module(
+            self._extended_noise_module = _importlib.import_module(
                 "pmma.python_src.pyx_alternatives.utility.extended_perlin_noise")
 
         if seed is None:
             seed = _random.randint(0, 1000000)
-        self.seed = seed
+        self._seed = seed
 
-        self.noise = self.noise_module.PerlinNoise(
-            self.seed,
+        self._noise = self._noise_module.PerlinNoise(
+            self._seed,
             octaves,
             persistence)
 
-        self.extended_noise = self.extended_noise_module.ExtendedPerlinNoise(
-            self.seed,
+        self._extended_noise = self._extended_noise_module.ExtendedPerlinNoise(
+            self._seed,
             octaves,
             persistence)
 
         if do_prefill is None:
-            self.do_prefill = not _NoiseIntermediary.prefill
+            self._do_prefill = not _NoiseIntermediary.prefill
         else:
-            self.do_prefill = do_prefill
+            self._do_prefill = do_prefill
 
-        if self.do_prefill:
-            self.prefill_thread = _threading.Thread(
+        if self._do_prefill:
+            self._prefill_thread = _threading.Thread(
                 target=self.prefill)
-            self.prefill_thread.name = "PerlinNoise:Prefill_Thread"
+            self._prefill_thread.name = "PerlinNoise:Prefill_Thread"
 
-            self.prefill_thread.daemon = True
+            self._prefill_thread.daemon = True
             _NoiseIntermediary.prefill = True
-            self.prefill_thread.start()
+            self._prefill_thread.start()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -129,7 +129,7 @@ class Perlin:
             print(error)
 
     def generate_1D_perlin_noise(self, x, new_range=[-1, 1]):
-        noise = self.noise.fBM1D(x)
+        noise = self._noise.fBM1D(x)
 
         if noise > _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise"]["max"] = noise
@@ -144,7 +144,7 @@ class Perlin:
             new_range)
 
     def generate_2D_perlin_noise(self, x, y, new_range=[-1, 1]):
-        noise = self.noise.fBM2D(x, y)
+        noise = self._noise.fBM2D(x, y)
 
         if noise > _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise"]["max"] = noise
@@ -159,7 +159,7 @@ class Perlin:
             new_range)
 
     def generate_3D_perlin_noise(self, x, y, z, new_range=[-1, 1]):
-        noise = self.noise.fBM3D(x, y, z)
+        noise = self._noise.fBM3D(x, y, z)
 
         if noise > _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise"]["max"] = noise
@@ -175,7 +175,7 @@ class Perlin:
 
 
     def generate_1D_perlin_noise_from_array(self, array, new_range=[-1, 1]):
-        noise = self.extended_noise.generate_fbm_1d(array)
+        noise = self._extended_noise.generate_fbm_1d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise_from_array"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise_from_array"]["max"] = noise.max()
@@ -190,7 +190,7 @@ class Perlin:
             new_range)
 
     def generate_2D_perlin_noise_from_array(self, array, new_range=[-1, 1]):
-        noise = self.extended_noise.generate_fbm_2d(array)
+        noise = self._extended_noise.generate_fbm_2d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["max"] = noise.max()
@@ -205,7 +205,7 @@ class Perlin:
             new_range)
 
     def generate_3D_perlin_noise_from_array(self, array, new_range=[-1, 1]):
-        noise = self.extended_noise.generate_fbm_3d(array)
+        noise = self._extended_noise.generate_fbm_3d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["max"] = noise.max()
@@ -228,7 +228,7 @@ class Perlin:
         else:
             array = _numpy.linspace(one_range[0], one_range[1], one_range[2])
 
-        noise = self.extended_noise.generate_fbm_1d(array)
+        noise = self._extended_noise.generate_fbm_1d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise_from_range"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise_from_range"]["max"] = noise.max()
@@ -260,7 +260,7 @@ class Perlin:
         x, y = _numpy.meshgrid(x_array, y_array)
         array = _numpy.stack((x, y), axis=-1)
 
-        noise = self.extended_noise.generate_fbm_2d(array)
+        noise = self._extended_noise.generate_fbm_2d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["max"] = noise.max()
@@ -304,7 +304,7 @@ class Perlin:
         x, y, z = _numpy.meshgrid(x_array, y_array, z_array)
         array = _numpy.stack((x, y, z), axis=-1)
 
-        noise = self.extended_noise.generate_fbm_3d(array)
+        noise = self._extended_noise.generate_fbm_3d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["max"]:
             _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["max"] = noise.max()
@@ -322,4 +322,4 @@ class Perlin:
         self.__init__(seed)
 
     def get_seed(self):
-        return self.seed
+        return self._seed
