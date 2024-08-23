@@ -10,7 +10,7 @@ class Thread(_threading.Thread):
 
         initialize(self)
 
-        self.killed = False
+        self._killed = False
 
     def start(self):
         self.__run_backup = self.run
@@ -29,10 +29,10 @@ class Thread(_threading.Thread):
             return None
 
     def localtrace(self, frame, event, arg):
-        if self.killed:
+        if self._killed:
             if event == 'line':
                 raise SystemExit()
         return self.localtrace
 
     def kill(self):
-        self.killed = True
+        self._killed = True

@@ -11,10 +11,10 @@ class Coordinate:
     def __init__(self, in_type=Constants.CARTESIAN, *args):
         initialize(self)
 
-        self.in_type = in_type
-        self.points = args
+        self._in_type = in_type
+        self._points = args
 
-        self.intermediary = _CoordinateIntermediary(in_type, *args)
+        self._intermediary = _CoordinateIntermediary(in_type, *args)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -27,7 +27,7 @@ class Coordinate:
         self._shut_down = True
 
     def out(self, out_type):
-        return self.intermediary.out(out_type)
+        return self._intermediary.out(out_type)
 
     def convert_range(self, in_range, out_range):
-        return self.intermediary.convert_range(in_range, out_range)
+        return self._intermediary.convert_range(in_range, out_range)
