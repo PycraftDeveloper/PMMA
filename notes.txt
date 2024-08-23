@@ -10,3 +10,7 @@ Internal Core
 Internal
 
 Internal Utility
+
+Search
+======
+self.([A-Z]|[a-z])+

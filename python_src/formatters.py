@@ -7,13 +7,13 @@ from pmma.python_src.utility.error_utils import *
 
 class TimeFormatter:
     def __init__(self):
-        self.years = 0
-        self.months = 0
-        self.days = 0
-        self.hours = 0
-        self.minutes = 0
-        self.seconds = 0
-        self.microseconds = 0
+        self._years = 0
+        self._months = 0
+        self._days = 0
+        self._hours = 0
+        self._minutes = 0
+        self._seconds = 0
+        self._microseconds = 0
 
     def set_from_year(self, year):
         # Convert to total seconds
@@ -50,13 +50,13 @@ class TimeFormatter:
         # Microseconds
         microseconds = _math.floor(remainder_seconds * 1e6)
 
-        self.years = years
-        self.months = months
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.microseconds = microseconds
+        self._years = years
+        self._months = months
+        self._days = days
+        self._hours = hours
+        self._minutes = minutes
+        self._seconds = seconds
+        self._microseconds = microseconds
 
     def set_from_month(self, month):
         # Years
@@ -86,13 +86,13 @@ class TimeFormatter:
         # Microseconds
         microseconds = _math.floor(remainder_seconds * 1e6)
 
-        self.years = years
-        self.months = months
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.microseconds = microseconds
+        self._years = years
+        self._months = months
+        self._days = days
+        self._hours = hours
+        self._minutes = minutes
+        self._seconds = seconds
+        self._microseconds = microseconds
 
     def set_from_day(self, day):
         # Years
@@ -124,13 +124,13 @@ class TimeFormatter:
         # Microseconds
         microseconds = _math.floor(remainder_seconds * 1e6)
 
-        self.years = years
-        self.months = months
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.microseconds = microseconds
+        self._years = years
+        self._months = months
+        self._days = days
+        self._hours = hours
+        self._minutes = minutes
+        self._seconds = seconds
+        self._microseconds = microseconds
 
     def set_from_hour(self, hour):
         # Years
@@ -161,13 +161,13 @@ class TimeFormatter:
         # Microseconds
         microseconds = _math.floor(remainder_seconds * 1e6)
 
-        self.years = years
-        self.months = months
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.microseconds = microseconds
+        self._years = years
+        self._months = months
+        self._days = days
+        self._hours = hours
+        self._minutes = minutes
+        self._seconds = seconds
+        self._microseconds = microseconds
 
     def set_from_minute(self, minute):
         # Years
@@ -199,13 +199,13 @@ class TimeFormatter:
         # Microseconds
         microseconds = _math.floor(remainder_seconds * 1e6)
 
-        self.years = years
-        self.months = months
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.microseconds = microseconds
+        self._years = years
+        self._months = months
+        self._days = days
+        self._hours = hours
+        self._minutes = minutes
+        self._seconds = seconds
+        self._microseconds = microseconds
 
     def set_from_second(self, second):
         # Years
@@ -236,13 +236,13 @@ class TimeFormatter:
         # Microseconds
         microseconds = _math.floor(remainder_seconds * 1e6)
 
-        self.years = years
-        self.months = months
-        self.days = days
-        self.hours = hours
-        self.minutes = minutes
-        self.seconds = seconds
-        self.microseconds = microseconds
+        self._years = years
+        self._months = months
+        self._days = days
+        self._hours = hours
+        self._minutes = minutes
+        self._seconds = seconds
+        self._microseconds = microseconds
 
     def set_from_microsecond(self, microsecond):
         # Convert microseconds to seconds
@@ -252,72 +252,72 @@ class TimeFormatter:
         return self.set_from_second(seconds_float)
 
     def get_year(self):
-        return self.years
+        return self._years
 
     def get_month(self):
-        return self.months
+        return self._months
 
     def get_day(self):
-        return self.days
+        return self._days
 
     def get_hour(self):
-        return self.hours
+        return self._hours
 
     def get_minute(self):
-        return self.minutes
+        return self._minutes
 
     def get_second(self):
-        return self.seconds
+        return self._seconds
 
     def get_microsecond(self):
-        return self.microseconds
+        return self._microseconds
 
     def get_in_date_format(self):
-        return f"{self.days}/{self.months}/{self.years} @ {self.hours}:{self.minutes}:{self.seconds}.{self.microseconds}"
+        return f"{self._days}/{self._months}/{self._years} @ {self._hours}:{self._minutes}:{self._seconds}.{self._microseconds}"
 
     def get_in_sentence_format(self):
         output_string = ""
-        if self.years > 0:
-            if self.years > 1:
-                output_string += f"{self.years} years, "
+        if self._years > 0:
+            if self._years > 1:
+                output_string += f"{self._years} years, "
             else:
-                output_string += f"{self.years} year, "
+                output_string += f"{self._years} year, "
 
-        if self.months > 0:
-            if self.months > 1:
-                output_string += f"{self.months} months, "
+        if self._months > 0:
+            if self._months > 1:
+                output_string += f"{self._months} months, "
             else:
-                output_string += f"{self.months} month, "
+                output_string += f"{self._months} month, "
 
-        if self.days > 0:
-            if self.days > 1:
-                output_string += f"{self.days} days, "
+        if self._days > 0:
+            if self._days > 1:
+                output_string += f"{self._days} days, "
             else:
-                output_string += f"{self.days} day, "
+                output_string += f"{self._days} day, "
 
-        if self.hours > 0:
-            if self.hours > 1:
-                output_string += f"{self.hours} hours, "
+        if self._hours > 0:
+            if self._hours > 1:
+                output_string += f"{self._hours} hours, "
             else:
-                output_string += f"{self.hours} hour, "
+                output_string += f"{self._hours} hour, "
 
-        if self.minutes > 0:
-            if self.minutes > 1:
-                output_string += f"{self.minutes} minutes, "
+        if self._minutes > 0:
+            if self._minutes > 1:
+                output_string += f"{self._minutes} minutes, "
             else:
-                output_string += f"{self.minutes} minute, "
+                output_string += f"{self._minutes} minute, "
 
-        if self.seconds > 0:
-            if self.seconds > 1:
-                output_string += f"{self.seconds} seconds, "
+        if self._seconds > 0:
+            if self._seconds > 1:
+                output_string += f"{self._seconds} seconds, "
             else:
-                output_string += f"{self.seconds} second, "
+                output_string += f"{self._seconds} second, "
 
-        if self.microseconds > 0:
-            if self.microseconds > 1:
-                output_string += f"{self.microseconds} microseconds.  "
+        if self._microseconds > 0:
+            if self._microseconds > 1:
+                output_string += f"{self._microseconds} microseconds.  "
             else:
-                output_string += f"{self.microseconds} microsecond.  "
+                output_string += f"{self._microseconds} microsecond.  "
 
         output_string = " and ".join(output_string[:-2].rsplit(", ", 1))
         return output_string

@@ -24,7 +24,7 @@ class File:
     def __init__(self, file_path):
         initialize(self)
 
-        self.file_path = file_path
+        self._file_path = file_path
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -37,16 +37,16 @@ class File:
         self._shut_down = True
 
     def exists(self):
-        return _os.path.exists(self.file_path)
+        return _os.path.exists(self._file_path)
 
     def get_path(self):
-        return self.file_path
+        return self._file_path
 
     def get_directory(self):
-        return _os.path.dirname(self.file_path)
+        return _os.path.dirname(self._file_path)
 
     def get_file_name_and_type(self):
-        return self.file_path.split(Constants.PATH_SEPARATOR)[-1]
+        return self._file_path.split(Constants.PATH_SEPARATOR)[-1]
 
     def get_file_name(self):
         return self.get_file_name_and_type().split(".")[0]
@@ -55,48 +55,48 @@ class File:
         return self.get_file_name_and_type().split(".")[-1]
 
     def move(self, new_path):
-        _shutil.move(self.file_path, new_path)
-        self.file_path = new_path
+        _shutil.move(self._file_path, new_path)
+        self._file_path = new_path
 
     def delete(self):
-        _os.remove(self.file_path)
+        _os.remove(self._file_path)
 
     def recycle(self):
-        _send2trash.send2trash(self.file_path)
+        _send2trash.send2trash(self._file_path)
 
     def rename(self, new_name):
         file_type = self.get_file_type()
-        new_file_path = _os.path.dirname(self.file_path) + Constants.PATH_SEPARATOR + new_name + "." + file_type
-        _os.rename(self.file_path, new_file_path)
-        self.file_path = new_file_path
+        new_file_path = _os.path.dirname(self._file_path) + Constants.PATH_SEPARATOR + new_name + "." + file_type
+        _os.rename(self._file_path, new_file_path)
+        self._file_path = new_file_path
 
     def read(self):
-        with open(self.file_path, "r") as file:
+        with open(self._file_path, "r") as file:
             return file.read()
 
     def write(self, content):
-        with open(self.file_path, "w") as file:
+        with open(self._file_path, "w") as file:
             file.write(content)
 
 class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
         initialize(self, unique_instance=Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
 
-        self.locations = []
-        self.file_matrix = {}
+        self._locations = []
+        self._file_matrix = {}
 
         self.update_locations(project_directory=project_directory, force_refresh=False)
 
-        self.watcher = _DirectoryWatcher(self.locations, File)
+        self._watcher = _DirectoryWatcher(self._locations, File)
 
         if passive_refresh:
-            self.watcher.start()
+            self._watcher.start()
 
         self.scan()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            self.watcher.stop()
+            self._watcher.stop()
 
             del self
             if do_garbage_collection:
@@ -107,28 +107,28 @@ class FileCore:
         self._shut_down = True
 
     def update_locations(self, project_directory=None, force_refresh=True):
-        self.locations = [Registry.base_path]
+        self._locations = [Registry.base_path]
         if project_directory is not None:
-            self.locations.append(project_directory)
+            self._locations.append(project_directory)
         if _PassportIntermediary.project_directory is not None:
-            self.locations.append(_PassportIntermediary.project_directory)
+            self._locations.append(_PassportIntermediary.project_directory)
         if _PassportIntermediary.project_temporary_directory is not None:
-            self.locations.append(_PassportIntermediary.project_temporary_directory)
+            self._locations.append(_PassportIntermediary.project_temporary_directory)
         if _PassportIntermediary.project_resources_directory is not None:
-            self.locations.append(_PassportIntermediary.project_resources_directory)
+            self._locations.append(_PassportIntermediary.project_resources_directory)
         if _PassportIntermediary.project_python_src_directory is not None:
-            self.locations.append(_PassportIntermediary.project_python_src_directory)
+            self._locations.append(_PassportIntermediary.project_python_src_directory)
         if _PassportIntermediary.project_pyx_src_directory is not None:
-            self.locations.append(_PassportIntermediary.project_pyx_src_directory)
+            self._locations.append(_PassportIntermediary.project_pyx_src_directory)
         if _PassportIntermediary.project_c_src_directory is not None:
-            self.locations.append(_PassportIntermediary.project_c_src_directory)
+            self._locations.append(_PassportIntermediary.project_c_src_directory)
 
         self.refresh(force=force_refresh)
 
     def scan(self):
-        self.file_matrix = {}
+        self._file_matrix = {}
         construction_matrix = {}
-        for location in self.locations:
+        for location in self._locations:
             for root, subdirs, files in _os.walk(location):
                 for file in files:
                     file_path = _os.path.join(root, file)
@@ -159,20 +159,20 @@ class FileCore:
                         construction_matrix[original_identifier] = File(original_file)
                         construction_matrix[new_identifier] = File(new_file)
 
-        self.file_matrix = self.watcher.sync_file_matrix(construction_matrix)
+        self._file_matrix = self._watcher.sync_file_matrix(construction_matrix)
 
     def refresh(self, force=False):
-        list_of_original_locations = self.locations
-        if list_of_original_locations != self.locations or force:
+        list_of_original_locations = self._locations
+        if list_of_original_locations != self._locations or force:
             self.scan()
-            self.watcher.update_all_locations(self.locations)
+            self._watcher.update_all_locations(self._locations)
 
     def stop_passively_refreshing(self):
-        self.watcher.stop()
+        self._watcher.stop()
 
     def start_passively_refreshing(self):
-        self.watcher.start()
+        self._watcher.start()
 
     def identify(self, identifier):
-        if identifier in self.file_matrix:
-            return self.file_matrix[identifier]
+        if identifier in self._file_matrix:
+            return self._file_matrix[identifier]

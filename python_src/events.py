@@ -13,10 +13,10 @@ class Events:
     def __init__(self, canvas=None):
         initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
 
-        self.raw_events = []
-        self.canvas = canvas
+        self._raw_events = []
+        self._canvas = canvas
 
-        self.display_needs_resize = False
+        self._display_needs_resize = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -33,9 +33,9 @@ class Events:
         Registry.pmma_module_spine[Constants.EVENTS_OBJECT] = None
 
     def __get(self):
-        self.raw_events = []
+        self._raw_events = []
         if Registry.display_mode == Constants.PYGAME:
-            self.raw_events += _pygame.event.get()
+            self._raw_events += _pygame.event.get()
 
     def handle(
             self,
@@ -44,14 +44,14 @@ class Events:
             return_events=True,
             canvas=None):
 
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
 
         self.__get()
         if enable_toggle_fullscreen or enable_close:
-            for event in self.raw_events:
+            for event in self._raw_events:
                 if Registry.display_mode == Constants.PYGAME:
                     if event.type == _pygame.QUIT:
                         if enable_close:
@@ -59,7 +59,7 @@ class Events:
                             _Backpack.running = False
 
                     elif event.type == _pygame.VIDEORESIZE:
-                        self.display_needs_resize = True
+                        self._display_needs_resize = True
 
                     elif event.type == _pygame.KEYDOWN:
                         if event.key == _pygame.K_ESCAPE:
@@ -68,13 +68,13 @@ class Events:
                                 _Backpack.running = False
                         elif event.key == _pygame.K_F11:
                             if enable_toggle_fullscreen:
-                                self.display_needs_resize = True
+                                self._display_needs_resize = True
                                 canvas.toggle_fullscreen()
 
         if return_events:
             #events = []
             #for event in self.raw_events:
-            return self.raw_events
+            return self._raw_events
 
     def get_events(
             self,
@@ -83,4 +83,4 @@ class Events:
         if update_events:
             self.__get()
 
-        return self.events
+        return self._events

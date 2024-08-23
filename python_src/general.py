@@ -30,10 +30,10 @@ class OpenGLObject:
     def __init__(self, _object):
         initialize(self)
 
-        self.object = _object
+        self._object = _object
 
     def get(self):
-        return self.object
+        return self._object
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -41,8 +41,8 @@ class OpenGLObject:
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            self.object.release()
-            del self.object
+            self._object.release()
+            del self._object
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -72,7 +72,7 @@ def find_executable_nvidia_smi():
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False):
     instance._shut_down = False
-    instance.attributes = []
+    instance._attributes = []
 
     if Registry.pmma_initialized is False:
         log_development("You haven't yet initialized PMMA. This can be \

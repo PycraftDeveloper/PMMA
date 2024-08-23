@@ -11,9 +11,9 @@ class Executor:
     def __init__(self):
         initialize(self)
 
-        self.exit_code = None
-        self.result = None
-        self.thread = None
+        self._exit_code = None
+        self._result = None
+        self._thread = None
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -26,17 +26,17 @@ class Executor:
         self._shut_down = True
 
     def run(self, command, blocking=True, hide_window=True):
-        self.exit_code = None
-        self.result = None
+        self._exit_code = None
+        self._result = None
 
-        self.thread = _threading.Thread(target=self._run, args=(command, hide_window,))
-        self.thread.name = "Executor:Execution_Thread"
+        self._thread = _threading.Thread(target=self._run, args=(command, hide_window,))
+        self._thread.name = "Executor:Execution_Thread"
         if blocking is False:
-            self.thread.daemon = True
-        self.thread.start()
+            self._thread.daemon = True
+        self._thread.start()
 
         if blocking:
-            self.thread.join()
+            self._thread.join()
 
     def _run(self, command, hide_window):
         command_type = type(command)
@@ -59,27 +59,27 @@ its arguments, leading to unsecure commands being run on the host system!")
                 else:
                     result = _subprocess.run(command, shell=True, capture_output=True, text=True)
 
-            self.result = result.stdout
-            self.exit_code = result.returncode
+            self._result = result.stdout
+            self._exit_code = result.returncode
         except _subprocess.CalledProcessError as result:
-            self.result = result.output
-            self.exit_code = result.returncode
+            self._result = result.output
+            self._exit_code = result.returncode
 
     def get_exit_code(self):
-        return self.exit_code
+        return self._exit_code
 
     def get_result(self):
-        return self.result.strip()
+        return self._result.strip()
 
 class AdvancedExecutor:
     def __init__(self):
         initialize(self)
 
-        self.exit_code = None
-        self.result = ""
-        self.thread = None
+        self._exit_code = None
+        self._result = ""
+        self._thread = None
 
-        self.command_running = False
+        self._command_running = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -92,27 +92,27 @@ class AdvancedExecutor:
         self._shut_down = True
 
     def run(self, command, hide_window=True):
-        if self.command_running is False:
-            self.command_running = True
+        if self._command_running is False:
+            self._command_running = True
 
-            self.exit_code = None
-            self.result = ""
+            self._exit_code = None
+            self._result = ""
 
-            self.thread = _threading.Thread(target=self._update_result, args=(command, hide_window,))
-            self.thread.daemon = True
-            self.thread.name = "AdvancedExecutor:Execution_Thread"
-            self.thread.start()
+            self._thread = _threading.Thread(target=self._update_result, args=(command, hide_window,))
+            self._thread.daemon = True
+            self._thread.name = "AdvancedExecutor:Execution_Thread"
+            self._thread.start()
 
     def get_busy(self):
-        return self.command_running
+        return self._command_running
 
     def get_result(self):
-        return self.result.strip()
+        return self._result.strip()
 
     def _update_result(self, command, hide_window):
         for path in self._run(command, hide_window):
-            self.result += path.strip() + "\n"
-        self.command_running = False
+            self._result += path.strip() + "\n"
+        self._command_running = False
 
     def _run(self, command, hide_window):
         command_type = type(command)
@@ -138,7 +138,7 @@ its arguments, leading to unsecure commands being run on the host system!")
             output = process.stdout.readline()
             output = output.strip()
             if output == '' and process.poll() is not None:
-                self.exit_code = process.returncode
+                self._exit_code = process.returncode
                 break
             if output:
                 result += output.strip()

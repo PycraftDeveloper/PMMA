@@ -24,42 +24,42 @@ class Line:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.start = start
-        self.end = end
-        self.width = width
-        self.canvas = canvas
+        self._color = color
+        self._start = start
+        self._end = end
+        self._width = width
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_start(self, start):
-        self.vertices_changed = True
-        self.start = start
+        self._vertices_changed = True
+        self._start = start
 
     def set_end(self, end):
-        self.vertices_changed = True
-        self.end = end
+        self._vertices_changed = True
+        self._end = end
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -77,19 +77,19 @@ class Line:
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aaline(
-                    self.canvas.pygame_surface.pygame_surface,
-                    self.color,
-                    self.start,
-                    self.end,
-                    self.width)
+                    self._canvas.pygame_surface.pygame_surface,
+                    self._color,
+                    self._start,
+                    self._end,
+                    self._width)
 
             else:
                 returnable = _pygame.draw.line(
-                    self.canvas.pygame_surface.pygame_surface,
-                    self.color,
-                    self.start,
-                    self.end,
-                    self.width)
+                    self._canvas.pygame_surface.pygame_surface,
+                    self._color,
+                    self._start,
+                    self._end,
+                    self._width)
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
@@ -106,42 +106,42 @@ class Lines:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.points = points
-        self.width = width
-        self.closed = closed
-        self.canvas = canvas
+        self._color = color
+        self._points = points
+        self._width = width
+        self._closed = closed
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_points(self, points):
-        self.vertices_changed = True
-        self.points = points
+        self._vertices_changed = True
+        self._points = points
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_closed(self, closed):
-        self.vertices_changed = True
-        self.closed = closed
+        self._vertices_changed = True
+        self._closed = closed
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -158,25 +158,25 @@ class Lines:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
-            if len(self.points) < 2:
+            if len(self._points) < 2:
                 end_time = _time.perf_counter()
                 Registry.total_time_spent_drawing += end_time - start_time
                 return
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aalines(
-                    self.canvas.pygame_surface.pygame_surface,
-                    self.color,
-                    self.closed,
-                    self.points,
-                    self.width)
+                    self._canvas.pygame_surface.pygame_surface,
+                    self._color,
+                    self._closed,
+                    self._points,
+                    self._width)
 
             else:
                 returnable = _pygame.draw.lines(
-                    self.canvas.pygame_surface.pygame_surface,
-                    self.color,
-                    self.closed,
-                    self.points,
-                    self.width)
+                    self._canvas.pygame_surface.pygame_surface,
+                    self._color,
+                    self._closed,
+                    self._points,
+                    self._width)
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
@@ -196,56 +196,56 @@ class AdvancedPolygon:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.centre = centre
-        self.radius = radius
-        self.number_of_sides = number_of_sides
-        self.rotation_angle = rotation_angle
-        self.width = width
-        self.wire_frame = wire_frame
-        self.canvas = canvas
+        self._color = color
+        self._centre = centre
+        self._radius = radius
+        self._number_of_sides = number_of_sides
+        self._rotation_angle = rotation_angle
+        self._width = width
+        self._wire_frame = wire_frame
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_centre(self, centre):
-        self.vertices_changed = True
-        self.centre = centre
+        self._vertices_changed = True
+        self._centre = centre
 
     def set_radius(self, radius):
-        self.vertices_changed = True
-        self.radius = radius
+        self._vertices_changed = True
+        self._radius = radius
 
     def set_number_of_sides(self, number_of_sides):
-        self.vertices_changed = True
-        self.number_of_sides = number_of_sides
+        self._vertices_changed = True
+        self._number_of_sides = number_of_sides
 
     def set_rotation_angle(self, rotation_angle):
-        self.vertices_changed = True
-        self.rotation_angle = rotation_angle
+        self._vertices_changed = True
+        self._rotation_angle = rotation_angle
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_wire_frame(self, wire_frame):
-        self.wire_frame = wire_frame
+        self._wire_frame = wire_frame
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -260,31 +260,31 @@ class AdvancedPolygon:
     def draw(self):
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.wire_frame:
-            for i in range(0, self.number_of_sides):
+        if self._wire_frame:
+            for i in range(0, self._number_of_sides):
                 if Registry.display_mode == Constants.PYGAME:
                     _pygame.draw.line(
-                        self.canvas.pygame_surface.pygame_surface,
-                        self.color,
-                        self.centre, (
-                            _math.cos(i / self.number_of_sides * Constants.TAU) * self.radius + self.centre[0],
-                            _math.sin(i / self.number_of_sides * Constants.TAU) * self.radius + self.centre[1]))
+                        self._canvas.pygame_surface.pygame_surface,
+                        self._color,
+                        self._centre, (
+                            _math.cos(i / self._number_of_sides * Constants.TAU) * self._radius + self._centre[0],
+                            _math.sin(i / self._number_of_sides * Constants.TAU) * self._radius + self._centre[1]))
 
         points = [
-            (_math.cos(i / self.number_of_sides * Constants.TAU + self.rotation_angle) * self.radius + self.centre[0],
-                _math.sin(i / self.number_of_sides * Constants.TAU + self.rotation_angle) * self.radius + self.centre[1]) for i in range(0, self.number_of_sides)]
+            (_math.cos(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._centre[0],
+                _math.sin(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._centre[1]) for i in range(0, self._number_of_sides)]
 
-        if self.wire_frame:
+        if self._wire_frame:
             width = 1
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
                 points,
                 width=width), points
         else:
-            return None, self.cache
+            return None, self._cache
         end_time = _time.perf_counter()
         Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -332,51 +332,51 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
             Name of the fill color, in HTML format.
         """
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.center_of_rect = center_of_rect
-        self.radius = radius
-        self.height = height
-        self.rotation_angle = rotation_angle
-        self.width = width
-        self.canvas = canvas
+        self._color = color
+        self._center_of_rect = center_of_rect
+        self._radius = radius
+        self._height = height
+        self._rotation_angle = rotation_angle
+        self._width = width
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_center_of_rect(self, center_of_rect):
-        self.vertices_changed = True
-        self.center_of_rect = center_of_rect
+        self._vertices_changed = True
+        self._center_of_rect = center_of_rect
 
     def set_radius(self, radius):
-        self.vertices_changed = True
-        self.radius = radius
+        self._vertices_changed = True
+        self._radius = radius
 
     def set_height(self, height):
-        self.vertices_changed = True
-        self.height = height
+        self._vertices_changed = True
+        self._height = height
 
     def set_rotation_angle(self, rotation_angle):
-        self.rotation_angle = rotation_angle
+        self._rotation_angle = rotation_angle
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -407,22 +407,22 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         """
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        x, y = self.center_of_rect
+        x, y = self._center_of_rect
         points = []
 
         # The distance from the center of the rectangle to
         # one of the corners is the same for each corner.
-        radius = _math.sqrt((self.height / 2)**2 + (radius / 2)**2)
+        radius = _math.sqrt((self._height / 2)**2 + (radius / 2)**2)
 
         # Get the angle to one of the corners with respect
         # to the x-axis.
-        angle = _math.atan2(self.height / 2, radius / 2)
+        angle = _math.atan2(self._height / 2, radius / 2)
 
         # Transform that angle to reach each corner of the rectangle.
         angles = [angle, -angle + _math.pi, angle + _math.pi, -angle]
 
         # Convert rotation from degrees to radians.
-        rot_radians = (_math.pi / 180) * self.rotation_angle
+        rot_radians = (_math.pi / 180) * self._rotation_angle
 
         # Calculate the coordinates of each point.
         for angle in angles:
@@ -432,10 +432,10 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
                 points,
-                width=self.width)
+                width=self._width)
 
         else:
             raise NotImplementedError
@@ -458,67 +458,67 @@ class Rect:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.position = position
-        self.size = size
-        self.width = width
-        self.border_radius = border_radius
-        self.border_top_left_radius = border_top_left_radius
-        self.border_top_right_radius = border_top_right_radius
-        self.border_bottom_left_radius = border_bottom_left_radius
-        self.border_bottom_right_radius = border_bottom_right_radius
-        self.canvas = canvas
+        self._color = color
+        self._position = position
+        self._size = size
+        self._width = width
+        self._border_radius = border_radius
+        self._border_top_left_radius = border_top_left_radius
+        self._border_top_right_radius = border_top_right_radius
+        self._border_bottom_left_radius = border_bottom_left_radius
+        self._border_bottom_right_radius = border_bottom_right_radius
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_position(self, position):
-        self.vertices_changed = True
-        self.position = position
+        self._vertices_changed = True
+        self._position = position
 
     def set_size(self, size):
-        self.vertices_changed = True
-        self.size = size
+        self._vertices_changed = True
+        self._size = size
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_border_radius(self, border_radius):
-        self.vertices_changed = True
-        self.border_radius = border_radius
+        self._vertices_changed = True
+        self._border_radius = border_radius
 
     def set_border_top_left_radius(self, border_top_left_radius):
-        self.vertices_changed = True
-        self.border_top_left_radius = border_top_left_radius
+        self._vertices_changed = True
+        self._border_top_left_radius = border_top_left_radius
 
     def set_border_top_right_radius(self, border_top_right_radius):
-        self.vertices_changed = True
-        self.border_top_right_radius = border_top_right_radius
+        self._vertices_changed = True
+        self._border_top_right_radius = border_top_right_radius
 
     def set_border_bottom_left_radius(self, border_bottom_left_radius):
-        self.vertices_changed = True
-        self.border_bottom_left_radius = border_bottom_left_radius
+        self._vertices_changed = True
+        self._border_bottom_left_radius = border_bottom_left_radius
 
     def set_border_bottom_right_radius(self, border_bottom_right_radius):
-        self.vertices_changed = True
-        self.border_bottom_right_radius = border_bottom_right_radius
+        self._vertices_changed = True
+        self._border_bottom_right_radius = border_bottom_right_radius
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -535,18 +535,18 @@ class Rect:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*self.position, *self.size)
+            rect = _pygame.Rect(*self._position, *self._size)
 
             returnable = _pygame.draw.rect(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
                 rect,
-                self.width,
-                self.border_radius,
-                self.border_top_left_radius,
-                self.border_top_right_radius,
-                self.border_bottom_left_radius,
-                self.border_bottom_right_radius)
+                self._width,
+                self._border_radius,
+                self._border_top_left_radius,
+                self._border_top_right_radius,
+                self._border_bottom_left_radius,
+                self._border_bottom_right_radius)
 
         else:
             raise NotImplementedError
@@ -564,42 +564,42 @@ class Circle:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.center = center
-        self.radius = radius
-        self.width = width
-        self.canvas = canvas
+        self._color = color
+        self._center = center
+        self._radius = radius
+        self._width = width
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_center(self, center):
-        self.vertices_changed = True
-        self.center = center
+        self._vertices_changed = True
+        self._center = center
 
     def set_radius(self, radius):
-        self.vertices_changed = True
-        self.radius = radius
+        self._vertices_changed = True
+        self._radius = radius
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -615,18 +615,18 @@ class Circle:
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
 
-        if abs(self.radius) < 1:
+        if abs(self._radius) < 1:
             end_time = _time.perf_counter()
             Registry.total_time_spent_drawing += end_time - start_time
             return
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.circle(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
-                self.center,
-                abs(self.radius),
-                self.width)
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
+                self._center,
+                abs(self._radius),
+                self._width)
 
         else:
             raise NotImplementedError
@@ -646,52 +646,52 @@ class Arc:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.position = position
-        self.size = size
-        self.start_angle = start_angle
-        self.stop_angle = stop_angle
-        self.width = width
-        self.canvas = canvas
+        self._color = color
+        self._position = position
+        self._size = size
+        self._start_angle = start_angle
+        self._stop_angle = stop_angle
+        self._width = width
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_position(self, position):
-        self.vertices_changed = True
-        self.position = position
+        self._vertices_changed = True
+        self._position = position
 
     def set_size(self, size):
-        self.vertices_changed = True
-        self.size = size
+        self._vertices_changed = True
+        self._size = size
 
     def set_start_angle(self, start_angle):
-        self.vertices_changed = True
-        self.start_angle = start_angle
+        self._vertices_changed = True
+        self._start_angle = start_angle
 
     def set_stop_angle(self, stop_angle):
-        self.vertices_changed = True
-        self.stop_angle = stop_angle
+        self._vertices_changed = True
+        self._stop_angle = stop_angle
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -708,14 +708,14 @@ class Arc:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*self.position, *self.size)
+            rect = _pygame.Rect(*self._position, *self._size)
             returnable = _pygame.draw.arc(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
                 rect,
-                self.start_angle,
-                self.stop_angle,
-                self.width)
+                self._start_angle,
+                self._stop_angle,
+                self._width)
 
         else:
             raise NotImplementedError
@@ -732,37 +732,37 @@ class Polygon:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.points = points
-        self.width = width
-        self.canvas = canvas
+        self._color = color
+        self._points = points
+        self._width = width
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_points(self, points):
-        self.vertices_changed = True
-        self.points = points
+        self._vertices_changed = True
+        self._points = points
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -780,10 +780,10 @@ class Polygon:
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
-                self.points,
-                self.width)
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
+                self._points,
+                self._width)
 
         else:
             raise NotImplementedError
@@ -801,42 +801,42 @@ class Ellipse:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.position = position
-        self.size = size
-        self.width = width
-        self.canvas = canvas
+        self._color = color
+        self._position = position
+        self._size = size
+        self._width = width
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_position(self, position):
-        self.vertices_changed = True
-        self.position = position
+        self._vertices_changed = True
+        self._position = position
 
     def set_size(self, size):
-        self.vertices_changed = True
-        self.size = size
+        self._vertices_changed = True
+        self._size = size
 
     def set_width(self, width):
-        self.width = width
+        self._width = width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -853,12 +853,12 @@ class Ellipse:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*self.position, *self.size)
+            rect = _pygame.Rect(*self._position, *self._size)
             returnable = _pygame.draw.ellipse(
-                self.canvas.pygame_surface.pygame_surface,
-                self.color,
+                self._canvas.pygame_surface.pygame_surface,
+                self._color,
                 rect,
-                self.width)
+                self._width)
 
         else:
             raise NotImplementedError
@@ -874,33 +874,33 @@ class Pixel:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.point = point
-        self.canvas = canvas
+        self._color = color
+        self._point = point
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_point(self, point):
-        self.vertices_changed = True
-        self.point = point
+        self._vertices_changed = True
+        self._point = point
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -919,19 +919,19 @@ class Pixel:
         if Registry.display_mode == Constants.PYGAME:
             try:
                 returnable = _gfxdraw.pixel(
-                    self.canvas.pygame_surface.pygame_surface,
-                    self.color,
-                    self.point), True
+                    self._canvas.pygame_surface.pygame_surface,
+                    self._color,
+                    self._point), True
 
             except:
                 temp_rect = _pygame.rect.Rect(
-                    *self.point,
+                    *self._point,
                     1,
                     1)
 
                 returnable = _pygame.draw.rect(
-                    self.canvas.pygame_surface.pygame_surface,
-                    self.color,
+                    self._canvas.pygame_surface.pygame_surface,
+                    self._color,
                     temp_rect,
                     1), False
 
@@ -950,38 +950,38 @@ class CurvedLines:
             canvas=None):
 
         initialize(self)
-        self.attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.color = color
-        self.points = points
-        self.steps = steps
-        self.canvas = canvas
+        self._color = color
+        self._points = points
+        self._steps = steps
+        self._canvas = canvas
 
-        self.hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
+        self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
-        self.color_changed = True
-        self.vertices_changed = True
+        self._color_changed = True
+        self._vertices_changed = True
 
     def set_color(self, color):
-        self.color_changed = True
-        self.color = color
+        self._color_changed = True
+        self._color = color
 
     def set_points(self, points):
-        self.vertices_changed = True
-        self.points = points
+        self._vertices_changed = True
+        self._points = points
 
     def set_steps(self, steps):
-        self.vertices_changed = True
-        self.steps = steps
+        self._vertices_changed = True
+        self._steps = steps
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -998,13 +998,13 @@ class CurvedLines:
         Registry.number_of_draw_calls += 1
 
         if Registry.display_mode == Constants.PYGAME:
-            if len(self.points) > 2:
+            if len(self._points) > 2:
                 try:
                     returnable = _gfxdraw.bezier(
-                        self.canvas.pygame_surface.pygame_surface,
-                        self.points,
-                        self.steps,
-                        self.color), True
+                        self._canvas.pygame_surface.pygame_surface,
+                        self._points,
+                        self._steps,
+                        self._color), True
 
                     end_time = _time.perf_counter()
                     Registry.total_time_spent_drawing += end_time - start_time
@@ -1012,10 +1012,10 @@ class CurvedLines:
                 except:
                     pass
 
-            returnable = self.lines(
-                self.canvas,
-                self.color,
-                self.points,
+            returnable = self._lines(
+                self._canvas,
+                self._color,
+                self._points,
                 width=1,
                 closed=False), False
 
@@ -1035,7 +1035,7 @@ class Draw:
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-        self.canvas = canvas
+        self._canvas = canvas
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -1057,10 +1057,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aaline(
@@ -1094,10 +1094,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             if len(points) < 2:
                 end_time = _time.perf_counter()
@@ -1139,10 +1139,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
                 returnable = _pygame.draw.polygon(
@@ -1219,10 +1219,10 @@ class Draw:
         """
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
                 returnable = _pygame.draw.polygon(
@@ -1290,10 +1290,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*position, *size)
             returnable = _pygame.draw.rect(
@@ -1323,10 +1323,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if abs(radius) < 1:
             end_time = _time.perf_counter()
             Registry.total_time_spent_drawing += end_time - start_time
@@ -1356,10 +1356,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.arc(
                 canvas.pygame_surface.pygame_surface,
@@ -1384,10 +1384,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
             canvas.pygame_surface.pygame_surface,
@@ -1410,10 +1410,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.ellipse(
                 canvas.pygame_surface.pygame_surface,
@@ -1434,10 +1434,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             try:
                 returnable = _gfxdraw.pixel(
@@ -1472,10 +1472,10 @@ class Draw:
 
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
-        if self.canvas is None and canvas is None:
+        if self._canvas is None and canvas is None:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
-            canvas = self.canvas
+            canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             if len(points) > 2:
                 try:
