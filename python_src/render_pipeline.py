@@ -42,7 +42,7 @@ class RenderPipeline:
         self._shut_down = True
 
     def add(self, render_class):
-        if Constants.RENDER_PIPELINE_ABLE in render_class.attributes:
+        if Constants.RENDER_PIPELINE_ABLE in render_class._attributes:
             self._render_points.append(render_class)
 
     def render(self, canvas=None): # not sure on width yet.

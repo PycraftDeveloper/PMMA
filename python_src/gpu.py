@@ -547,7 +547,7 @@ class _GPU:
         wmi_data_points = []
         for data_point in data_points:
             if self.__dict__[data_point][Constants.MANUALLY_SET] is False or everything:
-                data_collection_strategies = self.__dict__[data_point][Constants.DATA_COLLECTION_METHODS]
+                data_collection_strategies = self.__dict__[data_point][Constants.DATA_COLLECTION_METHODS] # keys changed
                 for query_command in data_collection_strategies[Constants.SMI]:
                     if self._module_identification_indices[Constants.SMI] is not None:
                         smi_data += f"{query_command},"

@@ -22,4 +22,4 @@ Line 71 in image.py
 
 TO DO LIST
 ==========
-Add getters for key attributes in Draw.
+Keys in _GPU changed, no current solution to this has been identified.

@@ -40,6 +40,15 @@ class Line:
         self._color_changed = True
         self._vertices_changed = True
 
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
 
@@ -139,6 +148,15 @@ class Lines:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
 
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
@@ -250,6 +268,15 @@ class AdvancedPolygon:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
 
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
@@ -404,6 +431,15 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self._color_changed = True
         self._vertices_changed = True
 
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
 
@@ -551,6 +587,15 @@ class Rect:
         self._color_changed = True
         self._vertices_changed = True
 
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
 
@@ -670,6 +715,15 @@ class Circle:
         self._color_changed = True
         self._vertices_changed = True
 
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
 
@@ -772,6 +826,15 @@ class Arc:
         self._color_changed = True
         self._vertices_changed = True
 
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
 
@@ -873,6 +936,15 @@ class Polygon:
         self._color_changed = True
         self._vertices_changed = True
 
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
 
@@ -960,6 +1032,15 @@ class Ellipse:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
 
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
@@ -1049,6 +1130,15 @@ class Pixel:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
 
     def get_hardware_accelerated_data(self):
         return self._hardware_accelerated_data
