@@ -40,6 +40,24 @@ class Line:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -121,6 +139,24 @@ class Lines:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
 
     def set_color(self, color):
         self._color_changed = True
@@ -214,6 +250,24 @@ class AdvancedPolygon:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
 
     def set_color(self, color):
         self._color_changed = True
@@ -350,6 +404,24 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -479,6 +551,24 @@ class Rect:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -580,6 +670,24 @@ class Circle:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -664,6 +772,24 @@ class Arc:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -747,6 +873,24 @@ class Polygon:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -817,6 +961,24 @@ class Ellipse:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
@@ -870,7 +1032,7 @@ class Pixel:
     def __init__(
             self,
             color=None,
-            point=None,
+            position=None,
             canvas=None):
 
         initialize(self)
@@ -880,7 +1042,7 @@ class Pixel:
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._color = color
-        self._point = point
+        self._position = position
         self._canvas = canvas
 
         self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
@@ -888,13 +1050,31 @@ class Pixel:
         self._color_changed = True
         self._vertices_changed = True
 
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
+
     def set_color(self, color):
         self._color_changed = True
         self._color = color
 
-    def set_point(self, point):
+    def set_position(self, point):
         self._vertices_changed = True
-        self._point = point
+        self._position = point
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -921,11 +1101,11 @@ class Pixel:
                 returnable = _gfxdraw.pixel(
                     self._canvas.pygame_surface.pygame_surface,
                     self._color,
-                    self._point), True
+                    self._position), True
 
             except:
                 temp_rect = _pygame.rect.Rect(
-                    *self._point,
+                    *self._position,
                     1,
                     1)
 
@@ -964,6 +1144,33 @@ class CurvedLines:
 
         self._color_changed = True
         self._vertices_changed = True
+
+    def set_vertices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["vertices"] = data
+
+    def set_indices_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["indices"] = data
+
+    def set_colors_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data["colors"] = data
+
+    def get_hardware_accelerated_data(self):
+        return self._hardware_accelerated_data
+
+    def set_hardware_accelerated_data(self, data):
+        self._hardware_accelerated_data = data
+
+    def set_color_changed(self, value=False):
+        self._color_changed = value
+
+    def set_vertices_changed(self, value=False):
+        self._vertices_changed = value
+
+    def get_color_changed(self):
+        return self._color_changed
+
+    def get_vertices_changed(self):
+        return self._vertices_changed
 
     def set_color(self, color):
         self._color_changed = True
@@ -1429,7 +1636,7 @@ class Draw:
     def pixel(
             self,
             color,
-            point,
+            position,
             canvas=None):
 
         start_time = _time.perf_counter()
@@ -1443,11 +1650,11 @@ class Draw:
                 returnable = _gfxdraw.pixel(
                     canvas.pygame_surface.pygame_surface,
                     color,
-                    point), True
+                    position), True
 
             except:
                 temp_rect = _pygame.rect.Rect(
-                    *point,
+                    *position,
                     1,
                     1)
 
