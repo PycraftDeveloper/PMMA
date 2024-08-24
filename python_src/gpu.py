@@ -55,7 +55,7 @@ class GPUs:
                 "--query-gpu=index,pci.bus",
                 "--format=csv,noheader"])
 
-            for line in self._executor.result.splitlines():
+            for line in self._executor.get_result().splitlines():
                 index, hex_bus = line.split(",")
                 smi_index = int(index.strip())
                 smi_bus = int(hex_bus.strip(), base=16)
@@ -229,7 +229,7 @@ class _GPU:
         self._heterogenous_time_slice_profile = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vgpu_device_capability.heterogeneous_timeSlice_profile'], Constants.WMI: [], Constants.PYADL: []}}
         self._heterogenous_time_slice_sizes = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vgpu_device_capability.heterogeneous_timeSlice_sizes'], Constants.WMI: [], Constants.PYADL: []}}
         self._ICM_indent = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ICMIntent'], Constants.PYADL: []}}
-        self.__ICM_method = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ICMMethod'], Constants.PYADL: []}}
+        self._ICM_method = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ICMMethod'], Constants.PYADL: []}}
         self._inf_filename = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['InfFilename'], Constants.PYADL: []}}
         self._inf_section = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['InfSection'], Constants.PYADL: []}}
         self._info_ROM_ecc = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['inforom.ecc'], Constants.WMI: [], Constants.PYADL: []}}

@@ -19,3 +19,7 @@ Issues
 ======
 
 Line 71 in image.py
+
+TO DO LIST
+==========
+Add getters for key attributes in Draw.
