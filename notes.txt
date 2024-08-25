@@ -1,15 +1,15 @@
 Module Initialization Order
 ---------------------------
 
-Built in
+Built in (standard library)
 
-External
+External (pip)
 
-Internal Core
+Internal Core (registry, error_utils, constants)
 
-Internal
+Internal (pmma.py_src./)
 
-Internal Utility
+Internal Utility (pmma.py_src.utility./)
 
 Search
 ======
@@ -17,9 +17,8 @@ self.([A-Z]|[a-z])+
 
 Issues
 ======
-
-Line 71 in image.py
+All fixed!
 
 TO DO LIST
 ==========
-Keys in _GPU changed, no current solution to this has been identified.
+Nothing is written, but much will be soon.
