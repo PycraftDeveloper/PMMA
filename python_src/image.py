@@ -67,8 +67,8 @@ class Image:
         pil_image = self._memory_manager_instance.get(
             self._pil_image_address)
 
-        if pil_image is None:
-            self.load_image()
+        if pil_image is None and self._pil_image_address is not None:
+            self.create_from_file(self._pil_image_address)
             pil_image = self._memory_manager_instance.get(
                 self._pil_image_address)
 
