@@ -18,7 +18,7 @@ rp.add(pmma.Rect([1, 0, 0], (0, 0), (0.8, 0.1)))
 while pmma.Registry.running:
     events.handle()
 
-    display.clear(0, 0, 0)
+    display.clear (0, 0, 0)
 
     #second_rect.draw()
 
