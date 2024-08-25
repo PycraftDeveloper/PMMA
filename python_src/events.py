@@ -18,6 +18,12 @@ class Events:
 
         self._display_needs_resize = False
 
+    def get_display_needs_resize(self):
+        return self._display_needs_resize
+
+    def set_display_needs_resize(self, value):
+        self._display_needs_resize = value
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self

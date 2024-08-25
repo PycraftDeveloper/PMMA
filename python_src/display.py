@@ -178,7 +178,7 @@ class Display:
                 self._display_attributes[1],
                 vsync=self._display_attributes[2])
 
-        Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = True
+        Registry.pmma_module_spine[Constants.EVENTS_OBJECT].set_display_needs_resize(True)
 
     def blit(self, content, position=[0, 0]):
         self._pygame_surface.blit(content, position)
@@ -266,8 +266,8 @@ this method call to ensure optimal performance and support!")
             _pygame.display.flip()
 
             if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
-                if Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize:
-                    Registry.pmma_module_spine[Constants.EVENTS_OBJECT].display_needs_resize = False
+                if Registry.pmma_module_spine[Constants.EVENTS_OBJECT].get_display_needs_resize():
+                    Registry.pmma_module_spine[Constants.EVENTS_OBJECT].set_display_needs_resize(False)
                     self.display_resize()
 
             frame_rate = self.get_fps()

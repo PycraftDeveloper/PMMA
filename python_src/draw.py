@@ -58,6 +58,9 @@ class Line:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def set_color_changed(self, value=False):
         self._color_changed = value
 
@@ -75,12 +78,21 @@ class Line:
         self._vertices_changed = True
         self._start = start
 
+    def get_start(self):
+        return self._start
+
     def set_end(self, end):
         self._vertices_changed = True
         self._end = end
 
+    def get_end(self):
+        return self._end
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -173,6 +185,9 @@ class Lines:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -184,12 +199,21 @@ class Lines:
         self._vertices_changed = True
         self._points = points
 
+    def get_points(self):
+        return self._points
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_closed(self, closed):
         self._vertices_changed = True
         self._closed = closed
+
+    def get_closed(self):
+        return self._closed
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -293,6 +317,9 @@ class AdvancedPolygon:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -304,23 +331,41 @@ class AdvancedPolygon:
         self._vertices_changed = True
         self._centre = centre
 
+    def get_center(self):
+        return self._centre
+
     def set_radius(self, radius):
         self._vertices_changed = True
         self._radius = radius
+
+    def get_radius(self):
+        return self._radius
 
     def set_number_of_sides(self, number_of_sides):
         self._vertices_changed = True
         self._number_of_sides = number_of_sides
 
+    def get_number_of_sides(self):
+        return self._number_of_sides
+
     def set_rotation_angle(self, rotation_angle):
         self._vertices_changed = True
         self._rotation_angle = rotation_angle
 
+    def get_rotation_angle(self):
+        return self._rotation_angle
+
     def set_width(self, width):
         self._width = width
 
+    def get_width(self):
+        return self._width
+
     def set_wire_frame(self, wire_frame):
         self._wire_frame = wire_frame
+
+    def get_wire_frame(self):
+        return self._wire_frame
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -455,6 +500,9 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -466,19 +514,34 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         self._vertices_changed = True
         self._center_of_rect = center_of_rect
 
+    def get_center_of_rect(self):
+        return self._center_of_rect
+
     def set_radius(self, radius):
         self._vertices_changed = True
         self._radius = radius
+
+    def get_radius(self):
+        return self._radius
 
     def set_height(self, height):
         self._vertices_changed = True
         self._height = height
 
+    def get_height(self):
+        return self._height
+
     def set_rotation_angle(self, rotation_angle):
         self._rotation_angle = rotation_angle
 
+    def get_rotation_angle(self):
+        return self._rotation_angle
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -611,6 +674,9 @@ class Rect:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -618,36 +684,63 @@ class Rect:
         self._color_changed = True
         self._color = color
 
+    def get_color(self):
+        return self._color
+
     def set_position(self, position):
         self._vertices_changed = True
         self._position = position
+
+    def get_position(self):
+        return self._position
 
     def set_size(self, size):
         self._vertices_changed = True
         self._size = size
 
+    def get_size(self):
+        return self._size
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_border_radius(self, border_radius):
         self._vertices_changed = True
         self._border_radius = border_radius
 
+    def get_border_radius(self):
+        return self._border_radius
+
     def set_border_top_left_radius(self, border_top_left_radius):
         self._vertices_changed = True
         self._border_top_left_radius = border_top_left_radius
+
+    def get_border_top_left_radius(self):
+        return self._border_top_left_radius
 
     def set_border_top_right_radius(self, border_top_right_radius):
         self._vertices_changed = True
         self._border_top_right_radius = border_top_right_radius
 
+    def get_border_top_right_radius(self):
+        return self._border_top_right_radius
+
     def set_border_bottom_left_radius(self, border_bottom_left_radius):
         self._vertices_changed = True
         self._border_bottom_left_radius = border_bottom_left_radius
 
+    def get_border_bottom_left_radius(self):
+        return self._border_bottom_left_radius
+
     def set_border_bottom_right_radius(self, border_bottom_right_radius):
         self._vertices_changed = True
         self._border_bottom_right_radius = border_bottom_right_radius
+
+    def get_border_bottom_right_radius(self):
+        return self._border_bottom_right_radius
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -739,6 +832,9 @@ class Circle:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -750,12 +846,21 @@ class Circle:
         self._vertices_changed = True
         self._center = center
 
+    def get_center(self):
+        return self._center
+
     def set_radius(self, radius):
         self._vertices_changed = True
         self._radius = radius
 
+    def get_radius(self):
+        return self._radius
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -850,6 +955,9 @@ class Arc:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -861,20 +969,35 @@ class Arc:
         self._vertices_changed = True
         self._position = position
 
+    def get_position(self):
+        return self._position
+
     def set_size(self, size):
         self._vertices_changed = True
         self._size = size
+
+    def get_size(self):
+        return self._size
 
     def set_start_angle(self, start_angle):
         self._vertices_changed = True
         self._start_angle = start_angle
 
+    def get_start_angle(self):
+        return self._start_angle
+
     def set_stop_angle(self, stop_angle):
         self._vertices_changed = True
         self._stop_angle = stop_angle
 
+    def get_stop_angle(self):
+        return self._stop_angle
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -960,6 +1083,9 @@ class Polygon:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -971,8 +1097,14 @@ class Polygon:
         self._vertices_changed = True
         self._points = points
 
+    def get_points(self):
+        return self._points
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1057,6 +1189,9 @@ class Ellipse:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -1068,12 +1203,21 @@ class Ellipse:
         self._vertices_changed = True
         self._position = position
 
+    def get_position(self):
+        return self._position
+
     def set_size(self, size):
         self._vertices_changed = True
         self._size = size
 
+    def get_size(self):
+        return self._size
+
     def set_width(self, width):
         self._width = width
+
+    def get_width(self):
+        return self._width
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1155,6 +1299,9 @@ class Pixel:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -1165,6 +1312,9 @@ class Pixel:
     def set_position(self, point):
         self._vertices_changed = True
         self._position = point
+
+    def get_position(self):
+        return self._position
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1259,6 +1409,9 @@ class CurvedLines:
     def get_color_changed(self):
         return self._color_changed
 
+    def get_color(self):
+        return self._color
+
     def get_vertices_changed(self):
         return self._vertices_changed
 
@@ -1270,9 +1423,15 @@ class CurvedLines:
         self._vertices_changed = True
         self._points = points
 
+    def get_points(self):
+        return self._points
+
     def set_steps(self, steps):
         self._vertices_changed = True
         self._steps = steps
+
+    def get_steps(self):
+        return self._steps
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():

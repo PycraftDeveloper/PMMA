@@ -93,7 +93,7 @@ class Surface:
     def to_string(self, color_format=None, flipped=False):
         if self._surface_initialized:
             if color_format is None:
-                if self.alpha:
+                if self._alpha:
                     color_format = "RGBA"
                 else:
                     color_format = "RGB"
