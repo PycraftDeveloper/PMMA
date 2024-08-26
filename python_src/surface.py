@@ -47,6 +47,10 @@ class Surface:
         else:
             raise NotImplementedError
 
+    def get_pygame_surface(self):
+        if self._surface_initialized:
+            return self._pygame_surface
+
     def blit(self, content, position=[0, 0]):
         if self._surface_initialized:
             self._pygame_surface.blit(content, position)

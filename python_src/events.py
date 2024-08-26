@@ -89,4 +89,4 @@ class Events:
         if update_events:
             self.__get()
 
-        return self._events
+        return self._raw_events

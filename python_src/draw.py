@@ -116,7 +116,7 @@ class Line:
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aaline(
-                    self._canvas.pygame_surface.pygame_surface,
+                    self._canvas.get_pygame_surface(),
                     self._color,
                     self._start,
                     self._end,
@@ -124,7 +124,7 @@ class Line:
 
             else:
                 returnable = _pygame.draw.line(
-                    self._canvas.pygame_surface.pygame_surface,
+                    self._canvas.get_pygame_surface(),
                     self._color,
                     self._start,
                     self._end,
@@ -242,7 +242,7 @@ class Lines:
                 return
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aalines(
-                    self._canvas.pygame_surface.pygame_surface,
+                    self._canvas.get_pygame_surface(),
                     self._color,
                     self._closed,
                     self._points,
@@ -250,7 +250,7 @@ class Lines:
 
             else:
                 returnable = _pygame.draw.lines(
-                    self._canvas.pygame_surface.pygame_surface,
+                    self._canvas.get_pygame_surface(),
                     self._color,
                     self._closed,
                     self._points,
@@ -390,7 +390,7 @@ class AdvancedPolygon:
             for i in range(0, self._number_of_sides):
                 if Registry.display_mode == Constants.PYGAME:
                     _pygame.draw.line(
-                        self._canvas.pygame_surface.pygame_surface,
+                        self._canvas.get_pygame_surface(),
                         self._color,
                         self._centre, (
                             _math.cos(i / self._number_of_sides * Constants.TAU) * self._radius + self._centre[0],
@@ -405,7 +405,7 @@ class AdvancedPolygon:
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 points,
                 width=width), points
@@ -603,7 +603,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 points,
                 width=self._width)
@@ -766,7 +766,7 @@ class Rect:
             rect = _pygame.Rect(*self._position, *self._size)
 
             returnable = _pygame.draw.rect(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 rect,
                 self._width,
@@ -889,7 +889,7 @@ class Circle:
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.circle(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 self._center,
                 abs(self._radius),
@@ -1022,7 +1022,7 @@ class Arc:
         if Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*self._position, *self._size)
             returnable = _pygame.draw.arc(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 rect,
                 self._start_angle,
@@ -1128,7 +1128,7 @@ class Polygon:
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 self._points,
                 self._width)
@@ -1242,7 +1242,7 @@ class Ellipse:
         if Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*self._position, *self._size)
             returnable = _pygame.draw.ellipse(
-                self._canvas.pygame_surface.pygame_surface,
+                self._canvas.get_pygame_surface(),
                 self._color,
                 rect,
                 self._width)
@@ -1339,7 +1339,7 @@ class Pixel:
         if Registry.display_mode == Constants.PYGAME:
             try:
                 returnable = _gfxdraw.pixel(
-                    self._canvas.pygame_surface.pygame_surface,
+                    self._canvas.get_pygame_surface(),
                     self._color,
                     self._position), True
 
@@ -1350,7 +1350,7 @@ class Pixel:
                     1)
 
                 returnable = _pygame.draw.rect(
-                    self._canvas.pygame_surface.pygame_surface,
+                    self._canvas.get_pygame_surface(),
                     self._color,
                     temp_rect,
                     1), False
@@ -1379,6 +1379,8 @@ class CurvedLines:
         self._points = points
         self._steps = steps
         self._canvas = canvas
+
+        self._alternative = Lines()
 
         self._hardware_accelerated_data = {"vertices": None, "indices": None, "colors": None}
 
@@ -1457,7 +1459,7 @@ class CurvedLines:
             if len(self._points) > 2:
                 try:
                     returnable = _gfxdraw.bezier(
-                        self._canvas.pygame_surface.pygame_surface,
+                        self._canvas.get_pygame_surface(),
                         self._points,
                         self._steps,
                         self._color), True
@@ -1468,12 +1470,13 @@ class CurvedLines:
                 except:
                     pass
 
-            returnable = self._lines(
-                self._canvas,
-                self._color,
-                self._points,
-                width=1,
-                closed=False), False
+            self._alternative.set_canvas(self._canvas)
+            self._alternative.set_color(self._color)
+            self._alternative.set_points(self._points)
+            self._alternative.set_width(1)
+            self._alternative.set_closed(False)
+
+            returnable = self._alternative.draw(), False
 
         else:
             raise NotImplementedError
@@ -1520,7 +1523,7 @@ class Draw:
         if Registry.display_mode == Constants.PYGAME:
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aaline(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     start,
                     end,
@@ -1528,7 +1531,7 @@ class Draw:
 
             else:
                 returnable = _pygame.draw.line(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     start,
                     end,
@@ -1561,7 +1564,7 @@ class Draw:
                 return
             if Registry.anti_aliasing:
                 returnable = _pygame.draw.aalines(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     closed,
                     points,
@@ -1569,7 +1572,7 @@ class Draw:
 
             else:
                 returnable = _pygame.draw.lines(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     closed,
                     points,
@@ -1602,7 +1605,7 @@ class Draw:
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
                 returnable = _pygame.draw.polygon(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     points,
                     width=width), cache
@@ -1620,7 +1623,7 @@ class Draw:
                 Registry.number_of_draw_calls += 1
                 if Registry.display_mode == Constants.PYGAME:
                     _pygame.draw.line(
-                        canvas.pygame_surface.pygame_surface,
+                        canvas.get_pygame_surface(),
                         color,
                         centre, (
                             _math.cos(i / number_of_sides * Constants.TAU) * radius + centre[0],
@@ -1635,7 +1638,7 @@ class Draw:
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                canvas.pygame_surface.pygame_surface,
+                canvas.get_pygame_surface(),
                 color,
                 points,
                 width=width), points
@@ -1682,7 +1685,7 @@ class Draw:
         if cache is not None:
             if Registry.display_mode == Constants.PYGAME:
                 returnable = _pygame.draw.polygon(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     points,
                     width=width), cache
@@ -1720,7 +1723,7 @@ class Draw:
 
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-                canvas.pygame_surface.pygame_surface,
+                canvas.get_pygame_surface(),
                 color,
                 points,
                 width=width)
@@ -1753,7 +1756,7 @@ class Draw:
         if Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*position, *size)
             returnable = _pygame.draw.rect(
-                canvas.pygame_surface.pygame_surface,
+                canvas.get_pygame_surface(),
                 color,
                 rect,
                 width,
@@ -1789,7 +1792,7 @@ class Draw:
             return
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.circle(
-                canvas.pygame_surface.pygame_surface,
+                canvas.get_pygame_surface(),
                 color,
                 center,
                 abs(radius),
@@ -1818,7 +1821,7 @@ class Draw:
             canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.arc(
-                canvas.pygame_surface.pygame_surface,
+                canvas.get_pygame_surface(),
                 color,
                 rect,
                 start_angle,
@@ -1846,7 +1849,7 @@ class Draw:
             canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
-            canvas.pygame_surface.pygame_surface,
+            canvas.get_pygame_surface(),
             color,
             points,
             width)
@@ -1872,7 +1875,7 @@ class Draw:
             canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.ellipse(
-                canvas.pygame_surface.pygame_surface,
+                canvas.get_pygame_surface(),
                 color,
                 rect,
                 width)
@@ -1897,7 +1900,7 @@ class Draw:
         if Registry.display_mode == Constants.PYGAME:
             try:
                 returnable = _gfxdraw.pixel(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     position), True
 
@@ -1908,7 +1911,7 @@ class Draw:
                     1)
 
                 returnable = _pygame.draw.rect(
-                    canvas.pygame_surface.pygame_surface,
+                    canvas.get_pygame_surface(),
                     color,
                     temp_rect,
                     1), False
@@ -1936,7 +1939,7 @@ class Draw:
             if len(points) > 2:
                 try:
                     returnable = _gfxdraw.bezier(
-                        canvas.pygame_surface.pygame_surface,
+                        canvas.get_pygame_surface(),
                         points,
                         steps,
                         color), True

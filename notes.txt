@@ -17,8 +17,8 @@ self.([A-Z]|[a-z])+
 
 Issues
 ======
-All fixed!
+All Fixed!
 
 TO DO LIST
 ==========
-Nothing is written, but much will be soon.
+None yet!
