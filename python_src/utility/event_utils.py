@@ -4592,8 +4592,6 @@ class AndroidBack_KEY:
 
 class Y_BUTTON: # 3
     def __init__(self):
-        initialize(self, unique_instance=Constants.Y_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4625,8 +4623,6 @@ class Y_BUTTON: # 3
 
 class B_BUTTON: # 2
     def __init__(self):
-        initialize(self, unique_instance=Constants.B_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4658,8 +4654,6 @@ class B_BUTTON: # 2
 
 class A_BUTTON: # 1
     def __init__(self):
-        initialize(self, unique_instance=Constants.A_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4691,8 +4685,6 @@ class A_BUTTON: # 1
 
 class X_BUTTON: # 0
     def __init__(self):
-        initialize(self, unique_instance=Constants.X_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4724,8 +4716,6 @@ class X_BUTTON: # 0
 
 class Home_BUTTON: # 12
     def __init__(self):
-        initialize(self, unique_instance=Constants.HOME_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4757,8 +4747,6 @@ class Home_BUTTON: # 12
 
 class RightJoystick_BUTTON: # 11
     def __init__(self):
-        initialize(self, unique_instance=Constants.RIGHTJOYSTICK_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4790,8 +4778,6 @@ class RightJoystick_BUTTON: # 11
 
 class LeftJoystick_BUTTON: # 10
     def __init__(self):
-        initialize(self, unique_instance=Constants.LEFTJOYSTICK_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4823,8 +4809,6 @@ class LeftJoystick_BUTTON: # 10
 
 class Options_BUTTON: # 9
     def __init__(self):
-        initialize(self, unique_instance=Constants.OPTIONS_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4856,8 +4840,6 @@ class Options_BUTTON: # 9
 
 class Share_BUTTON: # 8
     def __init__(self):
-        initialize(self, unique_instance=Constants.SHARE_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4889,8 +4871,6 @@ class Share_BUTTON: # 8
 
 class Right_TRIGGER: # 7
     def __init__(self):
-        initialize(self, unique_instance=Constants.RIGHT_TRIGGER_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4922,8 +4902,6 @@ class Right_TRIGGER: # 7
 
 class Left_TRIGGER: # 6
     def __init__(self):
-        initialize(self, unique_instance=Constants.LEFT_TRIGGER_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4955,8 +4933,6 @@ class Left_TRIGGER: # 6
 
 class Right_BUMPER: # 5
     def __init__(self):
-        initialize(self, unique_instance=Constants.RIGHT_BUMPER_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4988,8 +4964,6 @@ class Right_BUMPER: # 5
 
 class Left_BUMPER: # 4
     def __init__(self):
-        initialize(self, unique_instance=Constants.LEFT_BUMPER_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -5021,8 +4995,6 @@ class Left_BUMPER: # 4
 
 class Center_BUTTON: # 13
     def __init__(self):
-        initialize(self, unique_instance=Constants.CENTER_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -5054,8 +5026,6 @@ class Center_BUTTON: # 13
 
 class LeftJoystick_AXIS:
     def __init__(self):
-        initialize(self, unique_instance=Constants.LEFTJOYSTICK_AXIS_OBJECT, add_to_pmma_module_spine=True)
-
         self._x_axis = 0
         self._y_axis = 0
 
@@ -5073,8 +5043,6 @@ class LeftJoystick_AXIS:
 
 class RightJoystick_AXIS:
     def __init__(self):
-        initialize(self, unique_instance=Constants.RIGHTJOYSTICK_AXIS_OBJECT, add_to_pmma_module_spine=True)
-
         self._x_axis = 0
         self._y_axis = 0
 
@@ -5092,8 +5060,6 @@ class RightJoystick_AXIS:
 
 class UpHat_BUTTON:
     def __init__(self):
-        initialize(self, unique_instance=Constants.UPHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -5125,8 +5091,6 @@ class UpHat_BUTTON:
 
 class DownHat_BUTTON:
     def __init__(self):
-        initialize(self, unique_instance=Constants.DOWNHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -5156,10 +5120,8 @@ class DownHat_BUTTON:
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class LeftHat_Button:
+class LeftHat_BUTTON:
     def __init__(self):
-        initialize(self, unique_instance=Constants.LEFTHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -5191,8 +5153,6 @@ class LeftHat_Button:
 
 class RightHat_BUTTON:
     def __init__(self):
-        initialize(self, unique_instance=Constants.RIGHTHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
-
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
