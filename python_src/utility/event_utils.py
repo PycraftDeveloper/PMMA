@@ -2,6 +2,20 @@ class Backspace_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -19,6 +33,20 @@ class Tab_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -36,6 +64,20 @@ class Clear_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -53,6 +95,20 @@ class Return_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -70,6 +126,20 @@ class Pause_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -87,6 +157,20 @@ class Escape_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -104,6 +188,20 @@ class Space_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -121,6 +219,20 @@ class ExclamationMark_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -138,6 +250,20 @@ class DoubleQuote_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -155,6 +281,20 @@ class Hashtag_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -172,6 +312,20 @@ class Dollar_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -189,6 +343,20 @@ class Ampersand_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -206,6 +374,20 @@ class SingleQuote_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -223,6 +405,20 @@ class LeftParenthesis_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -240,6 +436,20 @@ class RightParenthesis_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -257,6 +467,20 @@ class Asterisk_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -274,6 +498,20 @@ class Plus_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -291,6 +529,20 @@ class Comma_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -308,6 +560,20 @@ class Minus_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -325,6 +591,20 @@ class Period_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -342,6 +622,20 @@ class ForwardSlash_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -359,6 +653,20 @@ class Primary0_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -376,6 +684,20 @@ class Primary1_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -393,6 +715,20 @@ class Primary2_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -410,6 +746,20 @@ class Primary3_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -427,6 +777,20 @@ class Primary4_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -444,6 +808,20 @@ class Primary5_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -461,6 +839,20 @@ class Primary6_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -478,6 +870,20 @@ class Primary7_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -495,6 +901,20 @@ class Primary8_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -512,6 +932,20 @@ class Primary9_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -529,6 +963,20 @@ class Colon_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -546,6 +994,20 @@ class SemiColon_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -563,6 +1025,20 @@ class LessThan_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -580,6 +1056,20 @@ class Equals_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -597,6 +1087,20 @@ class GreaterThan_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -614,6 +1118,20 @@ class QuestionMark_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -631,6 +1149,20 @@ class At_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -648,6 +1180,20 @@ class LeftBracket_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -665,6 +1211,20 @@ class BackSlash_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -682,6 +1242,20 @@ class RightBracket_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -699,6 +1273,20 @@ class Caret_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -716,6 +1304,20 @@ class Underscore_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -733,6 +1335,20 @@ class Grave_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -750,6 +1366,20 @@ class PrimaryA_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -767,6 +1397,20 @@ class PrimaryB_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -784,6 +1428,20 @@ class PrimaryC_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -801,6 +1459,20 @@ class PrimaryD_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -818,6 +1490,20 @@ class PrimaryE_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -835,6 +1521,20 @@ class PrimaryF_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -852,6 +1552,20 @@ class PrimaryG_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -869,6 +1583,20 @@ class PrimaryH_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -886,6 +1614,20 @@ class PrimaryI_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -903,6 +1645,20 @@ class PrimaryJ_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -920,6 +1676,20 @@ class PrimaryK_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -937,6 +1707,20 @@ class PrimaryL_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -954,6 +1738,20 @@ class PrimaryM_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -971,6 +1769,20 @@ class PrimaryN_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -988,6 +1800,20 @@ class PrimaryO_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1005,6 +1831,20 @@ class PrimaryP_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1022,6 +1862,20 @@ class PrimaryQ_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1039,6 +1893,20 @@ class primaryR_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1056,6 +1924,20 @@ class PrimaryS_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1073,6 +1955,20 @@ class PrimaryT_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1090,6 +1986,20 @@ class PrimaryU_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1107,6 +2017,20 @@ class PrimaryV_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1124,6 +2048,20 @@ class PrimaryW_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1141,6 +2079,20 @@ class PrimaryX_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1158,6 +2110,20 @@ class PrimaryY_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1175,6 +2141,20 @@ class PrimaryZ_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1192,6 +2172,20 @@ class Delete_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1209,6 +2203,20 @@ class Numpad0_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1226,6 +2234,20 @@ class Numpad1_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1243,6 +2265,20 @@ class Numpad2_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1260,6 +2296,20 @@ class Numpad3_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1277,6 +2327,20 @@ class Numpad4_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1294,6 +2358,20 @@ class Numpad5_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1311,6 +2389,20 @@ class Numpad6_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1328,6 +2420,20 @@ class Numpad7_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1345,6 +2451,20 @@ class Numpad8_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1362,6 +2482,20 @@ class Numpad9_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1379,6 +2513,20 @@ class NumpadPeriod_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1396,6 +2544,20 @@ class NumpadDivide_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1413,6 +2575,20 @@ class NumpadMultiply_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1430,6 +2606,20 @@ class NumpadMinus_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1447,6 +2637,20 @@ class NumpadPlus_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1464,6 +2668,20 @@ class NumpadEnter_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1481,6 +2699,20 @@ class NumpadEquals_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1498,6 +2730,20 @@ class Up_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1515,6 +2761,20 @@ class Down_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1532,6 +2792,20 @@ class Right_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1549,6 +2823,20 @@ class Left_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1566,6 +2854,20 @@ class Insert_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1583,6 +2885,20 @@ class Home_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1600,6 +2916,20 @@ class End_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1617,6 +2947,20 @@ class PageUp_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1634,6 +2978,20 @@ class PageDown_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1651,6 +3009,20 @@ class Function1_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1668,6 +3040,20 @@ class Function2_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1685,6 +3071,20 @@ class Function3_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1702,6 +3102,20 @@ class Function4_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1719,6 +3133,20 @@ class Function5_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1736,6 +3164,20 @@ class Function6_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1753,6 +3195,20 @@ class Function7_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1770,6 +3226,20 @@ class Function8_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1787,6 +3257,20 @@ class Function9_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1804,6 +3288,20 @@ class Function10_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1821,6 +3319,20 @@ class Function11_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1838,6 +3350,20 @@ class Function12_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1855,6 +3381,20 @@ class Function13_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1872,6 +3412,20 @@ class Function14_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1889,6 +3443,20 @@ class Function15_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1906,6 +3474,20 @@ class NumLock_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1923,6 +3505,20 @@ class CapsLock_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1940,6 +3536,20 @@ class ScrollLock_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1957,6 +3567,20 @@ class RightShift_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1974,6 +3598,20 @@ class LeftShift_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -1991,6 +3629,20 @@ class Shift_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2008,6 +3660,20 @@ class RightControl_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2025,6 +3691,20 @@ class LeftControl_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2042,6 +3722,20 @@ class Control_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2059,6 +3753,20 @@ class RightAlt_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2076,6 +3784,20 @@ class LeftAlt_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2093,6 +3815,20 @@ class Alt_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2110,6 +3846,20 @@ class RightMeta_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2127,6 +3877,20 @@ class LeftMeta_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2144,6 +3908,20 @@ class Meta_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2161,6 +3939,20 @@ class LeftSuper_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2178,6 +3970,20 @@ class RightSuper_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2195,6 +4001,20 @@ class Super_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2212,6 +4032,20 @@ class Mode_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2229,6 +4063,20 @@ class Help_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2246,6 +4094,20 @@ class Print_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2263,6 +4125,20 @@ class SystemRequest_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2280,6 +4156,20 @@ class Break_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2297,6 +4187,20 @@ class Menu_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2314,6 +4218,20 @@ class Power_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2331,6 +4249,20 @@ class Euro_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2348,6 +4280,20 @@ class AndroidBack_KEY:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2365,6 +4311,20 @@ class Y_BUTTON: # 3
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2382,6 +4342,20 @@ class B_BUTTON: # 2
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2399,6 +4373,20 @@ class A_BUTTON: # 1
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2416,6 +4404,20 @@ class X_BUTTON: # 0
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2433,6 +4435,20 @@ class HOME_BUTTON: # 12
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2450,6 +4466,20 @@ class RIGHT_JOYSTICK_BUTTON: # 11
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2467,6 +4497,20 @@ class LEFT_JOYSTICK_BUTTON: # 10
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2484,6 +4528,20 @@ class OPTIONS_BUTTON: # 9
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2501,6 +4559,20 @@ class SHARE_BUTTON: # 8
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2518,6 +4590,20 @@ class RIGHT_TRIGGER: # 7
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2535,6 +4621,20 @@ class LEFT_TRIGGER: # 6
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2552,6 +4652,20 @@ class RIGHT_BUMPER: # 5
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2569,6 +4683,20 @@ class LEFT_BUMPER: # 4
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2586,6 +4714,20 @@ class CENTER_BUTTON: # 13
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2601,42 +4743,56 @@ class CENTER_BUTTON: # 13
 
 class LEFT_JOYSTICK_AXIS:
     def __init__(self):
-        self.x_axis = 0
-        self.y_axis = 0
+        self._x_axis = 0
+        self._y_axis = 0
 
     def get_x_axis(self):
-        return self.x_axis
+        return self._x_axis
 
     def get_y_axis(self):
-        return self.y_axis
+        return self._y_axis
 
     def set_x_axis(self, value):
-        self.x_axis = value
+        self._x_axis = value
 
     def set_y_axis(self, value):
-        self.y_axis = value
+        self._y_axis = value
 
 class RIGHT_JOYSTICK_AXIS:
     def __init__(self):
-        self.x_axis = 0
-        self.y_axis = 0
+        self._x_axis = 0
+        self._y_axis = 0
 
     def get_x_axis(self):
-        return self.x_axis
+        return self._x_axis
 
     def get_y_axis(self):
-        return self.y_axis
+        return self._y_axis
 
     def set_x_axis(self, value):
-        self.x_axis = value
+        self._x_axis = value
 
     def set_y_axis(self, value):
-        self.y_axis = value
+        self._y_axis = value
 
 class LEFT_BUTTON_MOUSE:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2654,6 +4810,20 @@ class MIDDLE_BUTTON_MOUSE:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2671,6 +4841,20 @@ class RIGHT_BUTTON_MOUSE:
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
 
     def get_pressed(self):
         return self._currently_pressed
@@ -2686,42 +4870,42 @@ class RIGHT_BUTTON_MOUSE:
 
 class MOUSE_SCROLL:
     def __init__(self):
-        self.scroll_value = 0
-        self.scroll_displacement = 0
+        self._scroll_value = 0
+        self._scroll_displacement = 0
 
     def get_scroll_displacement(self):
-        return self.scroll_displacement
+        return self._scroll_displacement
 
     def get_scroll_value(self):
-        return self.scroll_value
+        return self._scroll_value
 
     def set_scroll_value(self, value):
-        self.scroll_value = value
+        self._scroll_value = value
 
 class MOUSE_POSITION:
     def __init__(self):
-        self.x_axis = 0
-        self.y_axis = 0
-        self.x_axis_displacement = 0
-        self.y_axis_displacement = 0
+        self._x_axis = 0
+        self._y_axis = 0
+        self._x_axis_displacement = 0
+        self._y_axis_displacement = 0
 
     def get_axis_displacement(self):
-        return self.x_axis_displacement, self.y_axis_displacement
+        return self._x_axis_displacement, self._y_axis_displacement
 
     def get_x_axis_displacement(self):
-        return self.x_axis_displacement
+        return self._x_axis_displacement
 
     def get_y_axis_displacement(self):
-        return self.y_axis_displacement
+        return self._y_axis_displacement
 
     def get_x_axis(self):
-        return self.x_axis
+        return self._x_axis
 
     def get_y_axis(self):
-        return self.y_axis
+        return self._y_axis
 
     def set_x_axis(self, value):
-        self.x_axis = value
+        self._x_axis = value
 
     def set_y_axis(self, value):
-        self.y_axis = value
+        self._y_axis = value
