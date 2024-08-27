@@ -1,6 +1,10 @@
 Methods
 =======
 
+.. py:method:: pmma.set_display_mode() -> None
+
+   Not Yet Written
+
 .. py:method:: pmma.up() -> None
 
    Not Yet Written

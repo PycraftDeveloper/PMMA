@@ -21,6 +21,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Surface.get_pygame_surface() -> None
+
+   Not Yet Written
+
 .. py:method:: Surface.blit() -> None
 
    Not Yet Written

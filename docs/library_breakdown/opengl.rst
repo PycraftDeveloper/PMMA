@@ -17,11 +17,19 @@ Methods
 
    Not Yet Written
 
+.. py:method:: OpenGL._check_if_opengl_backend_initialized() -> None
+
+   Not Yet Written
+
 .. py:method:: OpenGL.get_simple_texture_rendering_program() -> None
 
    Not Yet Written
 
 .. py:method:: OpenGL.get_texture_aggregation_program() -> None
+
+   Not Yet Written
+
+.. py:method:: OpenGL.get_simple_shape_rendering_program() -> None
 
    Not Yet Written
 

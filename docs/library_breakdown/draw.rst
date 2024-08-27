@@ -13,6 +13,46 @@ Create
 Methods
 -------
 
+.. py:method:: Line.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Line.set_color() -> None
 
    Not Yet Written
@@ -21,11 +61,23 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Line.get_start() -> None
+
+   Not Yet Written
+
 .. py:method:: Line.set_end() -> None
 
    Not Yet Written
 
+.. py:method:: Line.get_end() -> None
+
+   Not Yet Written
+
 .. py:method:: Line.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_width() -> None
 
    Not Yet Written
 
@@ -56,6 +108,46 @@ Create
 Methods
 -------
 
+.. py:method:: Lines.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Lines.set_color() -> None
 
    Not Yet Written
@@ -64,11 +156,23 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Lines.get_points() -> None
+
+   Not Yet Written
+
 .. py:method:: Lines.set_width() -> None
 
    Not Yet Written
 
+.. py:method:: Lines.get_width() -> None
+
+   Not Yet Written
+
 .. py:method:: Lines.set_closed() -> None
+
+   Not Yet Written
+
+.. py:method:: Lines.get_closed() -> None
 
    Not Yet Written
 
@@ -99,6 +203,46 @@ Create
 Methods
 -------
 
+.. py:method:: AdvancedPolygon.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: AdvancedPolygon.set_color() -> None
 
    Not Yet Written
@@ -107,7 +251,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: AdvancedPolygon.get_center() -> None
+
+   Not Yet Written
+
 .. py:method:: AdvancedPolygon.set_radius() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_radius() -> None
 
    Not Yet Written
 
@@ -115,7 +267,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: AdvancedPolygon.get_number_of_sides() -> None
+
+   Not Yet Written
+
 .. py:method:: AdvancedPolygon.set_rotation_angle() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_rotation_angle() -> None
 
    Not Yet Written
 
@@ -123,7 +283,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: AdvancedPolygon.get_width() -> None
+
+   Not Yet Written
+
 .. py:method:: AdvancedPolygon.set_wire_frame() -> None
+
+   Not Yet Written
+
+.. py:method:: AdvancedPolygon.get_wire_frame() -> None
 
    Not Yet Written
 
@@ -167,6 +335,46 @@ Create
 Methods
 -------
 
+.. py:method:: RotatedRect.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: RotatedRect.set_color() -> None
 
    Not Yet Written
@@ -175,7 +383,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: RotatedRect.get_center_of_rect() -> None
+
+   Not Yet Written
+
 .. py:method:: RotatedRect.set_radius() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.get_radius() -> None
 
    Not Yet Written
 
@@ -183,11 +399,23 @@ Methods
 
    Not Yet Written
 
+.. py:method:: RotatedRect.get_height() -> None
+
+   Not Yet Written
+
 .. py:method:: RotatedRect.set_rotation_angle() -> None
 
    Not Yet Written
 
+.. py:method:: RotatedRect.get_rotation_angle() -> None
+
+   Not Yet Written
+
 .. py:method:: RotatedRect.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: RotatedRect.get_width() -> None
 
    Not Yet Written
 
@@ -232,7 +460,51 @@ Create
 Methods
 -------
 
+.. py:method:: Rect.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Rect.set_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_color() -> None
 
    Not Yet Written
 
@@ -240,7 +512,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Rect.get_position() -> None
+
+   Not Yet Written
+
 .. py:method:: Rect.set_size() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_size() -> None
 
    Not Yet Written
 
@@ -248,7 +528,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Rect.get_width() -> None
+
+   Not Yet Written
+
 .. py:method:: Rect.set_border_radius() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_border_radius() -> None
 
    Not Yet Written
 
@@ -256,7 +544,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Rect.get_border_top_left_radius() -> None
+
+   Not Yet Written
+
 .. py:method:: Rect.set_border_top_right_radius() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_border_top_right_radius() -> None
 
    Not Yet Written
 
@@ -264,7 +560,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Rect.get_border_bottom_left_radius() -> None
+
+   Not Yet Written
+
 .. py:method:: Rect.set_border_bottom_right_radius() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_border_bottom_right_radius() -> None
 
    Not Yet Written
 
@@ -295,6 +599,46 @@ Create
 Methods
 -------
 
+.. py:method:: Circle.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Circle.set_color() -> None
 
    Not Yet Written
@@ -303,11 +647,23 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Circle.get_center() -> None
+
+   Not Yet Written
+
 .. py:method:: Circle.set_radius() -> None
 
    Not Yet Written
 
+.. py:method:: Circle.get_radius() -> None
+
+   Not Yet Written
+
 .. py:method:: Circle.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Circle.get_width() -> None
 
    Not Yet Written
 
@@ -338,6 +694,46 @@ Create
 Methods
 -------
 
+.. py:method:: Arc.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Arc.set_color() -> None
 
    Not Yet Written
@@ -346,7 +742,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Arc.get_position() -> None
+
+   Not Yet Written
+
 .. py:method:: Arc.set_size() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_size() -> None
 
    Not Yet Written
 
@@ -354,11 +758,23 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Arc.get_start_angle() -> None
+
+   Not Yet Written
+
 .. py:method:: Arc.set_stop_angle() -> None
 
    Not Yet Written
 
+.. py:method:: Arc.get_stop_angle() -> None
+
+   Not Yet Written
+
 .. py:method:: Arc.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_width() -> None
 
    Not Yet Written
 
@@ -389,6 +805,46 @@ Create
 Methods
 -------
 
+.. py:method:: Polygon.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Polygon.set_color() -> None
 
    Not Yet Written
@@ -397,7 +853,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Polygon.get_points() -> None
+
+   Not Yet Written
+
 .. py:method:: Polygon.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_width() -> None
 
    Not Yet Written
 
@@ -428,6 +892,46 @@ Create
 Methods
 -------
 
+.. py:method:: Ellipse.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Ellipse.set_color() -> None
 
    Not Yet Written
@@ -436,11 +940,23 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Ellipse.get_position() -> None
+
+   Not Yet Written
+
 .. py:method:: Ellipse.set_size() -> None
 
    Not Yet Written
 
+.. py:method:: Ellipse.get_size() -> None
+
+   Not Yet Written
+
 .. py:method:: Ellipse.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_width() -> None
 
    Not Yet Written
 
@@ -471,11 +987,55 @@ Create
 Methods
 -------
 
+.. py:method:: Pixel.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: Pixel.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: Pixel.set_point() -> None
+.. py:method:: Pixel.set_position() -> None
+
+   Not Yet Written
+
+.. py:method:: Pixel.get_position() -> None
 
    Not Yet Written
 
@@ -506,6 +1066,46 @@ Create
 Methods
 -------
 
+.. py:method:: CurvedLines.set_vertices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.set_indices_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.set_colors_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.get_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.set_hardware_accelerated_data() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.set_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.set_vertices_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.get_color_changed() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.get_vertices_changed() -> None
+
+   Not Yet Written
+
 .. py:method:: CurvedLines.set_color() -> None
 
    Not Yet Written
@@ -514,7 +1114,15 @@ Methods
 
    Not Yet Written
 
+.. py:method:: CurvedLines.get_points() -> None
+
+   Not Yet Written
+
 .. py:method:: CurvedLines.set_steps() -> None
+
+   Not Yet Written
+
+.. py:method:: CurvedLines.get_steps() -> None
 
    Not Yet Written
 

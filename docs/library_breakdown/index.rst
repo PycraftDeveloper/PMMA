@@ -13,6 +13,7 @@ The full breakdown of what everything does!
     backpack.rst
     color.rst
     constants.rst
+    controller.rst
     coordinate.rst
     data_structures.rst
     display.rst
