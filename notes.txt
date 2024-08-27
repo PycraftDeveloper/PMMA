@@ -21,4 +21,21 @@ All Fixed!
 
 TO DO LIST
 ==========
-None yet!
+Integrate events with custom event manager
+Create aggregated events like Pointer (similar to controller already added).
+Allow transparent display (windows only)
+
+On minimized or de-focused, lower app default frame rate:
+Default: 60
+Default power saving: 45 (60*0.75)
+Minimized: 10
+Minimized power saving: 7.5 (10*0.75)
+De-Focused: 30
+De-Focused power saving: 22.5 (30*0.75)
+
+Introduce number -> word and number <- word systems
+Introduce prefix adjustments for SI-units.
+Introduce Coodinate and Degree conversions.
+Introduce anti-aliasing, improve VBO creation and allow easier loading of other moderngl objects.
+Add object collision.
+Work on render pipeline.
