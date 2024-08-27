@@ -1,3 +1,5 @@
+import gc as _gc
+
 import pygame as _pygame
 
 from pmma.python_src.general import *
@@ -11,13 +13,36 @@ class Controllers:
     def __init__(self):
         initialize(self)
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def identify_controllers(self):
         Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
 
     def get_controller(self, controller_index):
         return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
 
+    def update_controllers(self):
+        Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
+
 class Controller:
+    def __del__(self, do_garbage_collection=False):
+            if self._shut_down is False:
+                del self
+                if do_garbage_collection:
+                    _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self, joy_num):
         self._joy_num = joy_num
         self._joy = _pygame.joystick.Joystick(joy_num)

@@ -18,6 +18,16 @@ class GPUs:
     def __init__(self):
         initialize(self)
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def identify_gpus(self):
         Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].identify_gpus()
 

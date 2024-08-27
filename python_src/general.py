@@ -8,6 +8,7 @@ import os as _os
 from distutils import spawn as _spawn
 import time as _time
 import random as _random
+import sys as _sys
 
 import getostheme as _getostheme
 import psutil as _psutil
@@ -242,7 +243,7 @@ number of draw calls being made. The program spent {total_time_spent_drawing}s o
 likely improve application performance. Note that this message will only appear once, but \
 may reflect any degraded performance beyond this point.")
 
-def quit(show_statistics=None):
+def quit(show_statistics=None, terminate_application=True):
     if show_statistics is None:
         show_statistics = Registry.development_mode
 
@@ -250,12 +251,15 @@ def quit(show_statistics=None):
         app_name = _PassportIntermediary.name
         if app_name is None:
             app_name = "The application"
+
         if Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
             log_information(f"PMMA statistics: {app_name} ran for: {time_formatter_instance.get_in_sentence_format()}")
             log_information(f"PMMA statistics: {app_name} had an average \
     frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
+
+        log_information(f"PMMA statistics: {app_name} used {len(Registry.pmma_module_spine)} instances of PMMA operations.")
 
         if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
             logged_noise_statistics = log_information(f"PMMA statistics: {app_name} used Noise component. \
@@ -283,6 +287,9 @@ generating 3D arrays.")
         _pygame.quit()
 
     _gc.collect()
+
+    if terminate_application:
+        _sys.exit(0)
 
 def check_if_object_is_class_or_function(param):
     if _inspect.isclass(param):

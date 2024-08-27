@@ -21,4 +21,4 @@ for file in files:
     for line in content:
         line_count += 1
 
-print(line_count)
+print(f"PMMA is: {line_count} lines long!")
