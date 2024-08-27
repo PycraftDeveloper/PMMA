@@ -70,6 +70,7 @@ leaving the target size variable can be dangerous.")
         self.total_size = 0
         self.temporary_files = {}
         self.manager_thread_organized_data = _InvertedPriorityList()
+        self.manager_thread_organized_data_minimum_priority_changed = True
 
         self.manager_thread = _threading.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
@@ -183,7 +184,12 @@ more than 25% of the assigned memory")
                     recreatable_object,
                     stay_in_memory]
 
-                self.manager_thread_organized_data.add(identifier, object_lifetime+_time.perf_counter())
+                object_priority = object_lifetime+_time.perf_counter()
+
+                if self.manager_thread_organized_data.peek_next_priority() > object_priority:
+                    self.manager_thread_organized_data_minimum_priority_changed = True
+
+                self.manager_thread_organized_data.add(identifier, object_priority)
 
                 self.total_size += obj_size
                 return identifier
@@ -336,7 +342,7 @@ more than 25% of the assigned memory")
         return self.enable_memory_management is False or (not self.manager_thread_organized_data.is_empty())
 
     def _manager_thread_wait_for_expiry(self):
-        return self.manager_thread_organized_data.peek_next_priority() - _time.perf_counter() <= 0 or self.manager_thread_organized_data.changed() or self.enable_memory_management is False
+        return self.manager_thread_organized_data.peek_next_priority() - _time.perf_counter() <= 0 or self.manager_thread_organized_data_minimum_priority_changed or self.enable_memory_management is False
 
     def object_dictionary_manager(self):
         try:

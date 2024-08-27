@@ -2628,7 +2628,7 @@ class PrimaryQ_KEY:
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class primaryR_KEY:
+class PrimaryR_KEY:
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self

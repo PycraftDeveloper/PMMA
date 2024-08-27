@@ -1738,7 +1738,7 @@ class PrimaryQ_KEY:
     def set_double_tap_timing(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tap_timing(value)
 
-class primaryR_KEY:
+class PrimaryR_KEY:
     def __init__(self):
         initialize(self)
 
@@ -4219,7 +4219,7 @@ class Left_TRIGGER: # 6
         Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[ConstantsLEFT_TRIGGER_OBJECT.].get_pressed()
+        return Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].get_pressed()
 
     def set_pressed(self, value):
         Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].set_pressed(value)

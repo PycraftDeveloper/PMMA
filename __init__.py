@@ -188,7 +188,7 @@ def init(
     _event_utils.PrimaryO_KEY()
     _event_utils.PrimaryP_KEY()
     _event_utils.PrimaryQ_KEY()
-    _event_utils.primaryR_KEY()
+    _event_utils.PrimaryR_KEY()
     _event_utils.PrimaryS_KEY()
     _event_utils.PrimaryT_KEY()
     _event_utils.PrimaryU_KEY()
