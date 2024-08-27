@@ -135,7 +135,7 @@ class Display:
 
             size = _pygame.display.get_window_size()
             Registry.display_initialized = True
-            Registry.window_context_backend = _moderngl_window.get_local_window_cls("pygame2")
+            Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
 
             _OpenGLIntermediary()
 

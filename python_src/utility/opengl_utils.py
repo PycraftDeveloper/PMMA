@@ -35,8 +35,7 @@ instantiate the 'Display' class first!")
         try:
             if Registry.context is None:
                 Registry.context = _moderngl.create_context()
-            if Registry.window_context is None:
-                Registry.window_context = _moderngl_window.activate_context(Registry.window_context_backend, Registry.context)
+                _moderngl_window.activate_context(Registry.window_context, Registry.context)
         except Exception as error:
             log_error("Failed to create OpenGL context.")
             log_development("Failed to create OpenGL context. The most \
