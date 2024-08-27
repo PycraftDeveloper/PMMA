@@ -45,6 +45,7 @@ from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
 from pmma.python_src.memory_manager import *
 from pmma.python_src.advthreading import *
+from pmma.python_src.controller import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
 from pmma.python_src.coordinate import *
@@ -73,6 +74,7 @@ from pmma.python_src.logging import Logger as _Logger
 from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
 import pmma.python_src.utility.event_utils as _event_utils
 from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
+from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
 
 def init(
             optimize_python_extensions=True,
@@ -123,6 +125,7 @@ def init(
     register_application()
 
     _GPUsIntermediary()
+    _ControllersIntermediary()
 
     _event_utils.Backspace_KEY()
     _event_utils.Tab_KEY()

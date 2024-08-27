@@ -9,18 +9,15 @@ import pmma.python_src.utility.event_utils as _event_utils
 
 class Controllers:
     def __init__(self):
-        self._controllers = []
-        for joy_num in range(_pygame.joystick.get_count()):
-            self._controllers.append(_Controller(joy_num))
+        initialize(self)
 
     def identify_controllers(self):
-        for i in range(len(self._controllers)):
-            print(f"Controller: {i}, has name: {self._controllers[i].get_name()}")
+        Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
 
     def get_controller(self, controller_index):
-        return self._controllers[controller_index]
+        return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
 
-class _Controller:
+class Controller:
     def __init__(self, joy_num):
         self._joy_num = joy_num
         self._joy = _pygame.joystick.Joystick(joy_num)

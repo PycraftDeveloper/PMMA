@@ -85,6 +85,7 @@ class Constants:
     OPENGL_INTERMEDIARY_OBJECT = "opengl intermediary"
     GPUS_OBJECT = "GPUs"
     GPUS_INTERMEDIARY_OBJECT = "GPUs intermediary"
+    CONTROLLER_INTERMEDIARY_OBJECT = "controller intermediary"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
@@ -333,6 +334,8 @@ class Constants:
         LOGGING_OBJECT,
         OPENGL_OBJECT,
         OPENGL_INTERMEDIARY_OBJECT,
+        CONTROLLER_INTERMEDIARY_OBJECT,
+
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,
         BACKSPACE_KEY_OBJECT,
