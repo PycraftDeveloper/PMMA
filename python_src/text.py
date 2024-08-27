@@ -17,7 +17,7 @@ from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
 class Text:
     def __init__(self, canvas=None):
-        initialize(self)
+        initialize(self, requires_display_mode_set=True)
 
         self._canvas = canvas
 

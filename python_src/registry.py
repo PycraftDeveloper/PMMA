@@ -28,3 +28,4 @@ class Registry:
     perlin_noise_prefill_single_samples = 0
     perlin_noise_prefill_array_samples = 0
     window_context = None
+    display_mode_set = False

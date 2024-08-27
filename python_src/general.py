@@ -23,6 +23,17 @@ from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
+def set_display_mode(display_mode=Constants.PYGAME):
+    Registry.display_mode = display_mode
+    Registry.display_mode_set = True
+    if display_mode == Constants.PYGAME:
+        _os.environ["SDL_VIDEO_CENTERED"] = "1"
+
+        if log_information(Registry.pygame_launch_message) is False:
+            print(Registry.pygame_launch_message)
+
+        _pygame.init()
+
 def up(path: str) -> str:
     return path[::-1].split(_os.sep, 1)[-1][::-1]
 
@@ -70,7 +81,7 @@ def find_executable_nvidia_smi():
 
     return nvidia_smi
 
-def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False):
+def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, requires_display_mode_set=True):
     instance._shut_down = False
     instance._attributes = []
 
@@ -81,6 +92,9 @@ is vital that you do this prior to using PMMA as it ensures optimal configuratio
 with your machine, and gets PMMA ready to be used.")
         log_error("PMMA has not been initialized. Call 'pmma.init()' before using PMMA.")
         raise DidNotInitializeError("Call 'pmma.init()' before using PMMA")
+
+    if requires_display_mode_set and Registry.display_mode_set is False:
+        set_display_mode()
 
     if unique_instance is not None:
         if unique_instance in Constants.OBJECT_IDENTIFIERS:

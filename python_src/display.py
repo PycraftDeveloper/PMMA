@@ -20,18 +20,9 @@ from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
 
 class Display:
-    def __init__(self, display_mode=Constants.PYGAME):
-        initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
 
-        if display_mode == Constants.PYGAME:
-            _os.environ["SDL_VIDEO_CENTERED"] = "1"
-
-            if log_information(Registry.pygame_launch_message) is False:
-                print(Registry.pygame_launch_message)
-
-            _pygame.init()
-
-        Registry.display_mode = display_mode
         if Registry.display_mode == Constants.PYGAME:
             self._clock = _pygame.time.Clock()
 

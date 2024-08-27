@@ -10,7 +10,7 @@ from pmma.python_src.utility.error_utils import *
 
 class Surface:
     def __init__(self):
-        initialize(self)
+        initialize(self, requires_display_mode_set=True)
 
         if Registry.display_mode is None:
             raise Exception("Display mode not set")

@@ -1,5 +1,12 @@
+from pmma.python_src.general import *
+from pmma.python_src.registry import Registry
+from pmma.python_src.constants import Constants
+from pmma.python_src.utility.error_utils import *
+
 class Backspace_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -31,6 +38,8 @@ class Backspace_KEY:
 
 class Tab_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.TAB_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -62,6 +71,8 @@ class Tab_KEY:
 
 class Clear_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.CLEAR_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -93,6 +104,8 @@ class Clear_KEY:
 
 class Return_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RETURN_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -124,6 +137,8 @@ class Return_KEY:
 
 class Pause_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PAUSE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -155,6 +170,8 @@ class Pause_KEY:
 
 class Escape_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.ESCAPE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -186,6 +203,8 @@ class Escape_KEY:
 
 class Space_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -217,6 +236,8 @@ class Space_KEY:
 
 class ExclamationMark_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.EXCLAMATIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -248,6 +269,8 @@ class ExclamationMark_KEY:
 
 class DoubleQuote_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.DOUBLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -279,6 +302,8 @@ class DoubleQuote_KEY:
 
 class Hashtag_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.HASHTAG_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -310,6 +335,8 @@ class Hashtag_KEY:
 
 class Dollar_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.DOLLAR_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -341,6 +368,8 @@ class Dollar_KEY:
 
 class Ampersand_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.AMPERSAND_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -372,6 +401,8 @@ class Ampersand_KEY:
 
 class SingleQuote_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SINGLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -403,6 +434,8 @@ class SingleQuote_KEY:
 
 class LeftParenthesis_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -434,6 +467,8 @@ class LeftParenthesis_KEY:
 
 class RightParenthesis_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -465,6 +500,8 @@ class RightParenthesis_KEY:
 
 class Asterisk_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.ASTERISK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -496,6 +533,8 @@ class Asterisk_KEY:
 
 class Plus_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -527,6 +566,8 @@ class Plus_KEY:
 
 class Comma_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.COMMA_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -558,6 +599,8 @@ class Comma_KEY:
 
 class Minus_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.MINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -589,6 +632,8 @@ class Minus_KEY:
 
 class Period_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -620,6 +665,8 @@ class Period_KEY:
 
 class ForwardSlash_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FORWARDSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -651,6 +698,8 @@ class ForwardSlash_KEY:
 
 class Primary0_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY0_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -682,6 +731,8 @@ class Primary0_KEY:
 
 class Primary1_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY1_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -713,6 +764,8 @@ class Primary1_KEY:
 
 class Primary2_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY2_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -744,6 +797,8 @@ class Primary2_KEY:
 
 class Primary3_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY3_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -775,6 +830,8 @@ class Primary3_KEY:
 
 class Primary4_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY4_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -806,6 +863,8 @@ class Primary4_KEY:
 
 class Primary5_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY5_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -837,6 +896,8 @@ class Primary5_KEY:
 
 class Primary6_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY6_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -868,6 +929,8 @@ class Primary6_KEY:
 
 class Primary7_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY7_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -899,6 +962,8 @@ class Primary7_KEY:
 
 class Primary8_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY8_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -930,6 +995,8 @@ class Primary8_KEY:
 
 class Primary9_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARY9_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -961,6 +1028,8 @@ class Primary9_KEY:
 
 class Colon_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.COLON_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -992,6 +1061,8 @@ class Colon_KEY:
 
 class SemiColon_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SEMICOLON_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1023,6 +1094,8 @@ class SemiColon_KEY:
 
 class LessThan_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LESSTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1054,6 +1127,8 @@ class LessThan_KEY:
 
 class Equals_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.EQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1085,6 +1160,8 @@ class Equals_KEY:
 
 class GreaterThan_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.GREATERTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1116,6 +1193,8 @@ class GreaterThan_KEY:
 
 class QuestionMark_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.QUESTIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1147,6 +1226,8 @@ class QuestionMark_KEY:
 
 class At_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.AT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1178,6 +1259,8 @@ class At_KEY:
 
 class LeftBracket_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1209,6 +1292,8 @@ class LeftBracket_KEY:
 
 class BackSlash_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.BACKSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1240,6 +1325,8 @@ class BackSlash_KEY:
 
 class RightBracket_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1271,6 +1358,8 @@ class RightBracket_KEY:
 
 class Caret_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.CARET_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1302,6 +1391,8 @@ class Caret_KEY:
 
 class Underscore_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.UNDERSCORE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1333,6 +1424,8 @@ class Underscore_KEY:
 
 class Grave_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.GRAVE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1364,6 +1457,8 @@ class Grave_KEY:
 
 class PrimaryA_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYA_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1395,6 +1490,8 @@ class PrimaryA_KEY:
 
 class PrimaryB_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYB_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1426,6 +1523,8 @@ class PrimaryB_KEY:
 
 class PrimaryC_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYC_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1457,6 +1556,8 @@ class PrimaryC_KEY:
 
 class PrimaryD_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYD_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1488,6 +1589,8 @@ class PrimaryD_KEY:
 
 class PrimaryE_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1519,6 +1622,8 @@ class PrimaryE_KEY:
 
 class PrimaryF_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYF_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1550,6 +1655,8 @@ class PrimaryF_KEY:
 
 class PrimaryG_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYG_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1581,6 +1688,8 @@ class PrimaryG_KEY:
 
 class PrimaryH_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYH_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1612,6 +1721,8 @@ class PrimaryH_KEY:
 
 class PrimaryI_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYI_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1643,6 +1754,8 @@ class PrimaryI_KEY:
 
 class PrimaryJ_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYJ_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1674,6 +1787,8 @@ class PrimaryJ_KEY:
 
 class PrimaryK_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1705,6 +1820,8 @@ class PrimaryK_KEY:
 
 class PrimaryL_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYL_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1736,6 +1853,8 @@ class PrimaryL_KEY:
 
 class PrimaryM_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYM_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1767,6 +1886,8 @@ class PrimaryM_KEY:
 
 class PrimaryN_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYN_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1798,6 +1919,8 @@ class PrimaryN_KEY:
 
 class PrimaryO_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYO_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1829,6 +1952,8 @@ class PrimaryO_KEY:
 
 class PrimaryP_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYP_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1860,6 +1985,8 @@ class PrimaryP_KEY:
 
 class PrimaryQ_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYQ_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1891,6 +2018,8 @@ class PrimaryQ_KEY:
 
 class primaryR_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYR_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1922,6 +2051,8 @@ class primaryR_KEY:
 
 class PrimaryS_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1953,6 +2084,8 @@ class PrimaryS_KEY:
 
 class PrimaryT_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -1984,6 +2117,8 @@ class PrimaryT_KEY:
 
 class PrimaryU_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYU_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2015,6 +2150,8 @@ class PrimaryU_KEY:
 
 class PrimaryV_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYV_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2046,6 +2183,8 @@ class PrimaryV_KEY:
 
 class PrimaryW_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYW_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2077,6 +2216,8 @@ class PrimaryW_KEY:
 
 class PrimaryX_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYX_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2108,6 +2249,8 @@ class PrimaryX_KEY:
 
 class PrimaryY_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYY_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2139,6 +2282,8 @@ class PrimaryY_KEY:
 
 class PrimaryZ_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRIMARYZ_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2170,6 +2315,8 @@ class PrimaryZ_KEY:
 
 class Delete_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.DELETE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2201,6 +2348,8 @@ class Delete_KEY:
 
 class Numpad0_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD0_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2232,6 +2381,8 @@ class Numpad0_KEY:
 
 class Numpad1_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD1_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2263,6 +2414,8 @@ class Numpad1_KEY:
 
 class Numpad2_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD2_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2294,6 +2447,8 @@ class Numpad2_KEY:
 
 class Numpad3_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD3_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2325,6 +2480,8 @@ class Numpad3_KEY:
 
 class Numpad4_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD4_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2356,6 +2513,8 @@ class Numpad4_KEY:
 
 class Numpad5_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD5_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2387,6 +2546,8 @@ class Numpad5_KEY:
 
 class Numpad6_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD6_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2418,6 +2579,8 @@ class Numpad6_KEY:
 
 class Numpad7_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD7_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2449,6 +2612,8 @@ class Numpad7_KEY:
 
 class Numpad8_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD8_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2480,6 +2645,8 @@ class Numpad8_KEY:
 
 class Numpad9_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPAD9_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2511,6 +2678,8 @@ class Numpad9_KEY:
 
 class NumpadPeriod_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADPERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2542,6 +2711,8 @@ class NumpadPeriod_KEY:
 
 class NumpadDivide_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADDIVIDE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2573,6 +2744,8 @@ class NumpadDivide_KEY:
 
 class NumpadMultiply_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADMULTIPLY_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2604,6 +2777,8 @@ class NumpadMultiply_KEY:
 
 class NumpadMinus_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADMINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2635,6 +2810,8 @@ class NumpadMinus_KEY:
 
 class NumpadPlus_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADPLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2666,6 +2843,8 @@ class NumpadPlus_KEY:
 
 class NumpadEnter_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADENTER_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2697,6 +2876,8 @@ class NumpadEnter_KEY:
 
 class NumpadEquals_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMPADEQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2728,6 +2909,8 @@ class NumpadEquals_KEY:
 
 class Up_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.UP_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2759,6 +2942,8 @@ class Up_KEY:
 
 class Down_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.DOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2790,6 +2975,8 @@ class Down_KEY:
 
 class Right_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2821,6 +3008,8 @@ class Right_KEY:
 
 class Left_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2852,6 +3041,8 @@ class Left_KEY:
 
 class Insert_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.INSERT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2883,6 +3074,8 @@ class Insert_KEY:
 
 class Home_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.HOME_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2914,6 +3107,8 @@ class Home_KEY:
 
 class End_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.END_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2945,6 +3140,8 @@ class End_KEY:
 
 class PageUp_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PAGEUP_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -2976,6 +3173,8 @@ class PageUp_KEY:
 
 class PageDown_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PAGEDOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3007,6 +3206,8 @@ class PageDown_KEY:
 
 class Function1_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION1_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3038,6 +3239,8 @@ class Function1_KEY:
 
 class Function2_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION2_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3069,6 +3272,8 @@ class Function2_KEY:
 
 class Function3_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION3_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3100,6 +3305,8 @@ class Function3_KEY:
 
 class Function4_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION4_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3131,6 +3338,8 @@ class Function4_KEY:
 
 class Function5_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION5_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3162,6 +3371,8 @@ class Function5_KEY:
 
 class Function6_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION6_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3193,6 +3404,8 @@ class Function6_KEY:
 
 class Function7_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION7_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3224,6 +3437,8 @@ class Function7_KEY:
 
 class Function8_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION8_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3255,6 +3470,8 @@ class Function8_KEY:
 
 class Function9_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION9_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3286,6 +3503,8 @@ class Function9_KEY:
 
 class Function10_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION10_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3317,6 +3536,8 @@ class Function10_KEY:
 
 class Function11_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION11_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3348,6 +3569,8 @@ class Function11_KEY:
 
 class Function12_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION12_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3379,6 +3602,8 @@ class Function12_KEY:
 
 class Function13_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION13_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3410,6 +3635,8 @@ class Function13_KEY:
 
 class Function14_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION14_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3441,6 +3668,8 @@ class Function14_KEY:
 
 class Function15_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.FUNCTION15_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3472,6 +3701,8 @@ class Function15_KEY:
 
 class NumLock_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.NUMLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3503,6 +3734,8 @@ class NumLock_KEY:
 
 class CapsLock_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.CAPSLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3534,6 +3767,8 @@ class CapsLock_KEY:
 
 class ScrollLock_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SCROLLLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3565,6 +3800,8 @@ class ScrollLock_KEY:
 
 class RightShift_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3596,6 +3833,8 @@ class RightShift_KEY:
 
 class LeftShift_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3627,6 +3866,8 @@ class LeftShift_KEY:
 
 class Shift_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3658,6 +3899,8 @@ class Shift_KEY:
 
 class RightControl_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3689,6 +3932,8 @@ class RightControl_KEY:
 
 class LeftControl_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3720,6 +3965,8 @@ class LeftControl_KEY:
 
 class Control_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.CONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3751,6 +3998,8 @@ class Control_KEY:
 
 class RightAlt_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3782,6 +4031,8 @@ class RightAlt_KEY:
 
 class LeftAlt_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3813,6 +4064,8 @@ class LeftAlt_KEY:
 
 class Alt_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.ALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3844,6 +4097,8 @@ class Alt_KEY:
 
 class RightMeta_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3875,6 +4130,8 @@ class RightMeta_KEY:
 
 class LeftMeta_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3906,6 +4163,8 @@ class LeftMeta_KEY:
 
 class Meta_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.META_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3937,6 +4196,8 @@ class Meta_KEY:
 
 class LeftSuper_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3968,6 +4229,8 @@ class LeftSuper_KEY:
 
 class RightSuper_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -3999,6 +4262,8 @@ class RightSuper_KEY:
 
 class Super_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4030,6 +4295,8 @@ class Super_KEY:
 
 class Mode_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.MODE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4061,6 +4328,8 @@ class Mode_KEY:
 
 class Help_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.HELP_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4092,6 +4361,8 @@ class Help_KEY:
 
 class Print_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.PRINT_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4123,6 +4394,8 @@ class Print_KEY:
 
 class SystemRequest_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.SYSTEMREQUEST_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4154,6 +4427,8 @@ class SystemRequest_KEY:
 
 class Break_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.BREAK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4185,6 +4460,8 @@ class Break_KEY:
 
 class Menu_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.MENU_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4216,6 +4493,8 @@ class Menu_KEY:
 
 class Power_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.POWER_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4247,6 +4526,8 @@ class Power_KEY:
 
 class Euro_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.EURO_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4278,6 +4559,8 @@ class Euro_KEY:
 
 class AndroidBack_KEY:
     def __init__(self):
+        initialize(self, unique_instance=Constants.ANDROIDBACK_KEY_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4309,6 +4592,8 @@ class AndroidBack_KEY:
 
 class Y_BUTTON: # 3
     def __init__(self):
+        initialize(self, unique_instance=Constants.Y_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4340,6 +4625,8 @@ class Y_BUTTON: # 3
 
 class B_BUTTON: # 2
     def __init__(self):
+        initialize(self, unique_instance=Constants.B_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4371,6 +4658,8 @@ class B_BUTTON: # 2
 
 class A_BUTTON: # 1
     def __init__(self):
+        initialize(self, unique_instance=Constants.A_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4402,6 +4691,8 @@ class A_BUTTON: # 1
 
 class X_BUTTON: # 0
     def __init__(self):
+        initialize(self, unique_instance=Constants.X_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4431,8 +4722,10 @@ class X_BUTTON: # 0
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class HOME_BUTTON: # 12
+class Home_BUTTON: # 12
     def __init__(self):
+        initialize(self, unique_instance=Constants.HOME_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4462,8 +4755,10 @@ class HOME_BUTTON: # 12
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class RIGHT_JOYSTICK_BUTTON: # 11
+class RightJoystick_BUTTON: # 11
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTJOYSTICK_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4493,8 +4788,10 @@ class RIGHT_JOYSTICK_BUTTON: # 11
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class LEFT_JOYSTICK_BUTTON: # 10
+class LeftJoystick_BUTTON: # 10
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTJOYSTICK_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4524,8 +4821,10 @@ class LEFT_JOYSTICK_BUTTON: # 10
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class OPTIONS_BUTTON: # 9
+class Options_BUTTON: # 9
     def __init__(self):
+        initialize(self, unique_instance=Constants.OPTIONS_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4555,8 +4854,10 @@ class OPTIONS_BUTTON: # 9
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class SHARE_BUTTON: # 8
+class Share_BUTTON: # 8
     def __init__(self):
+        initialize(self, unique_instance=Constants.SHARE_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4586,8 +4887,10 @@ class SHARE_BUTTON: # 8
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class RIGHT_TRIGGER: # 7
+class Right_TRIGGER: # 7
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHT_TRIGGER_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4617,8 +4920,10 @@ class RIGHT_TRIGGER: # 7
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class LEFT_TRIGGER: # 6
+class Left_TRIGGER: # 6
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFT_TRIGGER_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4648,8 +4953,10 @@ class LEFT_TRIGGER: # 6
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class RIGHT_BUMPER: # 5
+class Right_BUMPER: # 5
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHT_BUMPER_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4679,8 +4986,10 @@ class RIGHT_BUMPER: # 5
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class LEFT_BUMPER: # 4
+class Left_BUMPER: # 4
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFT_BUMPER_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4710,8 +5019,10 @@ class LEFT_BUMPER: # 4
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class CENTER_BUTTON: # 13
+class Center_BUTTON: # 13
     def __init__(self):
+        initialize(self, unique_instance=Constants.CENTER_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4741,8 +5052,10 @@ class CENTER_BUTTON: # 13
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class LEFT_JOYSTICK_AXIS:
+class LeftJoystick_AXIS:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTJOYSTICK_AXIS_OBJECT, add_to_pmma_module_spine=True)
+
         self._x_axis = 0
         self._y_axis = 0
 
@@ -4758,8 +5071,10 @@ class LEFT_JOYSTICK_AXIS:
     def set_y_axis(self, value):
         self._y_axis = value
 
-class RIGHT_JOYSTICK_AXIS:
+class RightJoystick_AXIS:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTJOYSTICK_AXIS_OBJECT, add_to_pmma_module_spine=True)
+
         self._x_axis = 0
         self._y_axis = 0
 
@@ -4775,8 +5090,10 @@ class RIGHT_JOYSTICK_AXIS:
     def set_y_axis(self, value):
         self._y_axis = value
 
-class LEFT_BUTTON_MOUSE:
+class UpHat_BUTTON:
     def __init__(self):
+        initialize(self, unique_instance=Constants.UPHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4806,8 +5123,10 @@ class LEFT_BUTTON_MOUSE:
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class MIDDLE_BUTTON_MOUSE:
+class DownHat_BUTTON:
     def __init__(self):
+        initialize(self, unique_instance=Constants.DOWNHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4837,8 +5156,10 @@ class MIDDLE_BUTTON_MOUSE:
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class RIGHT_BUTTON_MOUSE:
+class LeftHat_Button:
     def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -4868,8 +5189,142 @@ class RIGHT_BUTTON_MOUSE:
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class MOUSE_SCROLL:
+class RightHat_BUTTON:
     def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTHAT_BUTTON_OBJECT, add_to_pmma_module_spine=True)
+
+        self._currently_pressed = False
+        self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
+
+    def get_pressed(self):
+        return self._currently_pressed
+
+    def set_pressed(self, value):
+        self._currently_pressed = value
+
+    def get_double_tap_timing(self):
+        return self._double_tap_timing
+
+    def set_double_tap_timing(self, value):
+        self._double_tap_timing = value
+
+class LeftButton_MOUSE:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.LEFTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+
+        self._currently_pressed = False
+        self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
+
+    def get_pressed(self):
+        return self._currently_pressed
+
+    def set_pressed(self, value):
+        self._currently_pressed = value
+
+    def get_double_tap_timing(self):
+        return self._double_tap_timing
+
+    def set_double_tap_timing(self, value):
+        self._double_tap_timing = value
+
+class MiddleButton_MOUSE:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MIDDLEBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+
+        self._currently_pressed = False
+        self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
+
+    def get_pressed(self):
+        return self._currently_pressed
+
+    def set_pressed(self, value):
+        self._currently_pressed = value
+
+    def get_double_tap_timing(self):
+        return self._double_tap_timing
+
+    def set_double_tap_timing(self, value):
+        self._double_tap_timing = value
+
+class RightButton_MOUSE:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.RIGHTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+
+        self._currently_pressed = False
+        self._double_tap_timing = 0.25
+        self._last_tap_time = 0
+        self._double_tapped = False
+
+    def set_double_tapped(self, value):
+        self._double_tapped = value
+
+    def get_double_tapped(self):
+        return self._double_tapped
+
+    def get_last_tap_time(self):
+        return self._last_tap_time
+
+    def set_last_tap_time(self, value):
+        self._last_tap_time = value
+
+    def get_pressed(self):
+        return self._currently_pressed
+
+    def set_pressed(self, value):
+        self._currently_pressed = value
+
+    def get_double_tap_timing(self):
+        return self._double_tap_timing
+
+    def set_double_tap_timing(self, value):
+        self._double_tap_timing = value
+
+class Mouse_SCROLL:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
+
         self._scroll_value = 0
         self._scroll_displacement = 0
 
@@ -4882,8 +5337,10 @@ class MOUSE_SCROLL:
     def set_scroll_value(self, value):
         self._scroll_value = value
 
-class MOUSE_POSITION:
+class Mouse_POSITION:
     def __init__(self):
+        initialize(self, unique_instance=Constants.MOUSE_POSITION_OBJECT, add_to_pmma_module_spine=True)
+
         self._x_axis = 0
         self._y_axis = 0
         self._x_axis_displacement = 0
@@ -4909,3 +5366,687 @@ class MOUSE_POSITION:
 
     def set_y_axis(self, value):
         self._y_axis = value
+
+class Active_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.ACTIVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AppTerminating_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.APPTERMINATING_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AppLowMemory_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.APPLOWMEMORY_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AppWillEnterBackground_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AppDidEnterBackground_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AppWillEnterForeground_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AppDidEnterForeground_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AudioDeviceAdded_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.AUDIODEVICEADDED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class AudioDeviceRemoved_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.AUDIODEVICEREMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class ClipBoardUpdate_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.CLIPBOARDUPDATE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class DollarGesture_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DOLLARGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class DollarCord_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DOLLARCORD_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class DropFile_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class DropText_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class DropBegin_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DROPBEGIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class DropComplete_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.DROPCOMPLETE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class FingerMotion_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.FINGERMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class FingerDown_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.FINGERDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class FingerUp_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.FINGERUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class KeyDown_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.KEYDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class KeyUp_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.KEYUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class KeyMapChanged_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.KEYMAPCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class LocaleChanged_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.LOCALECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MouseMotion_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MOUSEMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MouseButtonDown_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MOUSEBUTTONDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MouseButtonUp_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MOUSEBUTTONUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MouseWheel_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MOUSEWHEEL_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MultiGesture_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class NoEvent_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.NOEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class Quit_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.QUIT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class RenderTargetsReset_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.RENDERTARGETSRESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class RenderDeviceReset_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.RENDERDEVICERESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class SysWMEvent_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class TextInput_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.TEXTINPUT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class TextEditing_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.TEXTEDITING_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class VideoResize_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.VIDEORESIZE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class VideoExpose_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.VIDEOEXPOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MidiIn_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MIDIIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class MidiOut_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.MIDIOUT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowShown_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWSHOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowHidden_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWHIDDEN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowExposed_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWEXPOSED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowMoved_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowResized_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWRESIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowSizeChanged_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWSIZECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowMinimized_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWMINIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowMaximized_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWMAXIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowRestored_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWRESTORED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowEnter_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWENTER_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowLeave_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWLEAVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowFocusGained_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWFOCUSGAINED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowFocusLost_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWFOCUSLOST_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowClose_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWCLOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowTakeFocus_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWTAKEFOCUS_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowHitTest_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWHITTEST_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowICCPROFChanged_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class WindowDisplayChanged_EVENT:
+    def __init__(self):
+        initialize(self, unique_instance=Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value

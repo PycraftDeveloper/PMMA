@@ -13,7 +13,7 @@ from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
 class Image:
     def __init__(self):
-        initialize(self)
+        initialize(self, requires_display_mode_set=True)
 
         self._memory_manager_instance = _MemoryManager()
 
