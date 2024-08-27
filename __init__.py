@@ -72,6 +72,7 @@ from pmma.python_src.utility import cython_utils as _cython_utils
 from pmma.python_src.logging import Logger as _Logger
 from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
 import pmma.python_src.utility.event_utils as _event_utils
+from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
 
 def init(
             optimize_python_extensions=True,
@@ -121,7 +122,7 @@ def init(
 
     register_application()
 
-    GPUs()
+    _GPUsIntermediary()
 
     _event_utils.Backspace_KEY()
     _event_utils.Tab_KEY()

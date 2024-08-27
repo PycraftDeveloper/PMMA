@@ -13,6 +13,13 @@ class Controllers:
         for joy_num in range(_pygame.joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
+    def identify_controllers(self):
+        for i in range(len(self._controllers)):
+            print(f"Controller: {i}, has name: {self._controllers[i].get_name()}")
+
+    def get_controller(self, controller_index):
+        return self._controllers[controller_index]
+
 class _Controller:
     def __init__(self, joy_num):
         self._joy_num = joy_num
