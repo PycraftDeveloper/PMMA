@@ -23,7 +23,7 @@ class Events:
     def __init__(self):
         initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
 
-    def handle(self, automatically_apply_events_to_application=True):
+    def handle(self, enable_toggle_full_screen=True, enable_close=True, return_events=True,):
         if Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
             for event in raw_events:
