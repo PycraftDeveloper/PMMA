@@ -4773,26 +4773,6 @@ class FingerUp_EVENT:
     def get_value(self):
         return Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].get_value()
 
-class KeyDown_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.KEYDOWN_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.KEYDOWN_EVENT_OBJECT].get_value()
-
-class KeyUp_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.KEYUP_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.KEYUP_EVENT_OBJECT].get_value()
-
 class KeyMapChanged_EVENT:
     def __init__(self):
         initialize(self)
@@ -4812,46 +4792,6 @@ class LocaleChanged_EVENT:
 
     def get_value(self):
         return Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].get_value()
-
-class MouseMotion_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSEMOTION_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSEMOTION_EVENT_OBJECT].get_value()
-
-class MouseButtonDown_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSEBUTTONDOWN_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSEBUTTONDOWN_EVENT_OBJECT].get_value()
-
-class MouseButtonUp_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSEBUTTONUP_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSEBUTTONUP_EVENT_OBJECT].get_value()
-
-class MouseWheel_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSEWHEEL_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSEWHEEL_EVENT_OBJECT].get_value()
 
 class MultiGesture_EVENT:
     def __init__(self):

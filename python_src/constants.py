@@ -270,14 +270,8 @@ class Constants:
     FINGERMOTION_EVENT_OBJECT = "fingermotion_event_object"
     FINGERDOWN_EVENT_OBJECT = "fingerdown_event_object"
     FINGERUP_EVENT_OBJECT = "fingerup_event_object"
-    KEYDOWN_EVENT_OBJECT = "keydown_event_object"
-    KEYUP_EVENT_OBJECT = "keyup_event_object"
     KEYMAPCHANGED_EVENT_OBJECT = "keymapchanged_event_object"
     LOCALECHANGED_EVENT_OBJECT = "localechanged_event_object"
-    MOUSEMOTION_EVENT_OBJECT = "mousemotion_event_object"
-    MOUSEBUTTONDOWN_EVENT_OBJECT = "mousebuttondown_event_object"
-    MOUSEBUTTONUP_EVENT_OBJECT = "mousebuttonup_event_object"
-    MOUSEWHEEL_EVENT_OBJECT = "mousewheel_event_object"
     MULTIGESTURE_EVENT_OBJECT = "multigesture_event_object"
     NOEVENT_EVENT_OBJECT = "noevent_event_object"
     QUIT_EVENT_OBJECT = "quit_event_object"
@@ -521,14 +515,8 @@ class Constants:
         FINGERMOTION_EVENT_OBJECT,
         FINGERDOWN_EVENT_OBJECT,
         FINGERUP_EVENT_OBJECT,
-        KEYDOWN_EVENT_OBJECT,
-        KEYUP_EVENT_OBJECT,
         KEYMAPCHANGED_EVENT_OBJECT,
         LOCALECHANGED_EVENT_OBJECT,
-        MOUSEMOTION_EVENT_OBJECT,
-        MOUSEBUTTONDOWN_EVENT_OBJECT,
-        MOUSEBUTTONUP_EVENT_OBJECT,
-        MOUSEWHEEL_EVENT_OBJECT,
         MULTIGESTURE_EVENT_OBJECT,
         NOEVENT_EVENT_OBJECT,
         QUIT_EVENT_OBJECT,
