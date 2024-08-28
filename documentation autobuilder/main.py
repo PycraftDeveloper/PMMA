@@ -363,6 +363,11 @@ for file in files:
             formatted_name = formatted_name.replace("_ GPU", "_GPU").strip()
             formatted_name = formatted_name.replace("_ E V E N T", " Event").strip()
             formatted_name = formatted_name.replace("_ K E Y", " Key").strip()
+            formatted_name = formatted_name.replace("_ M O U S E", " Mouse").strip()
+            formatted_name = formatted_name.replace("_ S C R O L L", " Scroll").strip()
+            formatted_name = formatted_name.replace("_ P O S I T I O N", " Position").strip()
+            formatted_name = formatted_name.replace(" I C C P R O F ", " ICC Profile ").strip()
+
             formatted_name = formatted_name.replace("1 0", "10").strip()
             formatted_name = formatted_name.replace("1 1", "11").strip()
             formatted_name = formatted_name.replace("1 2", "12").strip()

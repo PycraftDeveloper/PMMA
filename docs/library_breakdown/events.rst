@@ -6554,8 +6554,8 @@ Methods
 
    Not Yet Written
 
-Left Button_ M O U S E (``pmma.LeftButton_MOUSE``)
-==================================================
+Left Button Mouse (``pmma.LeftButton_MOUSE``)
+=============================================
 
 Not Yet Written
 
@@ -6601,8 +6601,8 @@ Methods
 
    Not Yet Written
 
-Middle Button_ M O U S E (``pmma.MiddleButton_MOUSE``)
-======================================================
+Middle Button Mouse (``pmma.MiddleButton_MOUSE``)
+=================================================
 
 Not Yet Written
 
@@ -6648,8 +6648,8 @@ Methods
 
    Not Yet Written
 
-Right Button_ M O U S E (``pmma.RightButton_MOUSE``)
-====================================================
+Right Button Mouse (``pmma.RightButton_MOUSE``)
+===============================================
 
 Not Yet Written
 
@@ -6695,8 +6695,8 @@ Methods
 
    Not Yet Written
 
-Mouse_ S C R O L L (``pmma.Mouse_SCROLL``)
-==========================================
+Mouse Scroll (``pmma.Mouse_SCROLL``)
+====================================
 
 Not Yet Written
 
@@ -6722,8 +6722,8 @@ Methods
 
    Not Yet Written
 
-Mouse_ P O S I T I O N (``pmma.Mouse_POSITION``)
-================================================
+Mouse Position (``pmma.Mouse_POSITION``)
+========================================
 
 Not Yet Written
 
@@ -7846,8 +7846,8 @@ Methods
 
    Not Yet Written
 
-Window I C C P R O F Changed Event (``pmma.WindowICCPROFChanged_EVENT``)
-========================================================================
+Window ICC Profile Changed Event (``pmma.WindowICCPROFChanged_EVENT``)
+======================================================================
 
 Not Yet Written
 
