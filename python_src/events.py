@@ -341,19 +341,36 @@ potentially save a lot of headaches later down the line.")
                     self.keymapchanged_event.set_value(True)
 
                 if event.type == _pygame.JOYAXISMOTION:
-                    pass
+                    print(event)
+                    controller_id = event.joy
+                    controller = self.controllers.list_controllers()[controller_id]
+                    if event.axis == 0:
+                        controller.set_left_joystick_axis_x_axis(event.value)
+
+                    elif event.axis == 1:
+                        controller.set_left_joystick_axis_y_axis(event.value)
+
+                    elif event.axis == 2:
+                        controller.set_right_joystick_axis_x_axis(event.value)
+
+                    elif event.axis == 3:
+                        controller.set_right_joystick_axis_y_axis(event.value)
 
                 if event.type == _pygame.JOYBALLMOTION:
-                    pass
+                    controller_id = event.joy
+                    controller = self.controllers.list_controllers()[controller_id]
 
                 if event.type == _pygame.JOYHATMOTION:
-                    pass
+                    controller_id = event.joy
+                    controller = self.controllers.list_controllers()[controller_id]
 
                 if event.type == _pygame.JOYBUTTONDOWN:
-                    pass
+                    controller_id = event.joy
+                    controller = self.controllers.list_controllers()[controller_id]
 
                 if event.type == _pygame.JOYBUTTONUP:
-                    pass
+                    controller_id = event.joy
+                    controller = self.controllers.list_controllers()[controller_id]
 
                 if event.type == _pygame.JOYDEVICEADDED:
                     pass

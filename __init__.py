@@ -281,8 +281,6 @@ def init(
     _event_utils.AudioDeviceAdded_EVENT()
     _event_utils.AudioDeviceRemoved_EVENT()
     _event_utils.ClipBoardUpdate_EVENT()
-    _event_utils.DollarGesture_EVENT()
-    _event_utils.DollarCord_EVENT()
     _event_utils.DropFile_EVENT()
     _event_utils.DropText_EVENT()
     _event_utils.DropBegin_EVENT()
