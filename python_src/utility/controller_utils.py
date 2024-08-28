@@ -38,3 +38,6 @@ class ControllersIntermediary:
         self._controllers = []
         for joy_num in range(_pygame.joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
+
+    def list_controllers(self):
+        return self._controllers

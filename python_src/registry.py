@@ -29,3 +29,5 @@ class Registry:
     perlin_noise_prefill_array_samples = 0
     window_context = None
     display_mode_set = False
+    number_of_instantiated_objects = 0
+    iteration_id = None

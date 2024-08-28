@@ -32,6 +32,9 @@ class Controllers:
     def update_controllers(self):
         Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
 
+    def list_controllers(self):
+        return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
+
 class Controller:
     def __del__(self, do_garbage_collection=False):
             if self._shut_down is False:

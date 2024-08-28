@@ -35,6 +35,11 @@ class Logger:
         self.log_information("Logging object initialized")
         self.log_information("Date format: DD/MM/YYYY @ HH:MM:SS:μS")
 
+        self.log_development("When logging, this is how development messages will appear.")
+        self.log_information("When logging, this is how information messages will appear.")
+        self.log_warning("When logging, this is how warning messages will appear.")
+        self.log_error("When logging, this is how error messages will appear.", do_traceback=False)
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self

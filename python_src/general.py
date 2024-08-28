@@ -115,6 +115,7 @@ PMMA. To register it, make sure it exists in the 'Constants' object, and in its 
         Registry.pmma_module_spine[unique_instance] = instance
 
     Registry.pmma_object_instances[id(instance)] = instance
+    Registry.number_of_instantiated_objects += 1
 
 def create_cache_id(*args):
     cache_id = ""
@@ -209,6 +210,11 @@ def register_application():
 def compute():
     Registry.power_saving_mode = is_battery_saver_enabled()
 
+    new_iteration_id = _random.random()
+    while new_iteration_id == Registry.iteration_id:
+        new_iteration_id = _random.random()
+    Registry.iteration_id = new_iteration_id
+
     number_of_draw_calls = Registry.number_of_draw_calls
     total_time_spent_drawing = Registry.total_time_spent_drawing
     Registry.number_of_draw_calls = 0
@@ -259,7 +265,7 @@ def quit(show_statistics=None, terminate_application=True):
             log_information(f"PMMA statistics: {app_name} had an average \
     frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
 
-        log_information(f"PMMA statistics: {app_name} used {len(Registry.pmma_module_spine)} instances of PMMA operations.")
+        log_information(f"PMMA statistics: {app_name} used {Registry.number_of_instantiated_objects} instances of PMMA operations.")
 
         if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
             logged_noise_statistics = log_information(f"PMMA statistics: {app_name} used Noise component. \

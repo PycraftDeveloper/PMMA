@@ -8,6 +8,7 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.backpack import Backpack as _Backpack
+from pmma.python_src.controller import Controllers as _Controllers
 
 class Events:
     def __del__(self, do_garbage_collection=False):
@@ -23,7 +24,269 @@ class Events:
     def __init__(self):
         initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
 
-    def handle(self, enable_toggle_full_screen=True, enable_close=True, return_events=True,):
+        self.iteration_id = 0
+
+        self.controllers = _Controllers()
+
+        self.backspace_key = Backspace_KEY()
+        self.tab_key = Tab_KEY()
+        self.clear_key = Clear_KEY()
+        self.return_key = Return_KEY()
+        self.pause_key = Pause_KEY()
+        self.escape_key = Escape_KEY()
+        self.space_key = Space_KEY()
+        self.exclamationmark_key = ExclamationMark_KEY()
+        self.doublequote_key = DoubleQuote_KEY()
+        self.hashtag_key = Hashtag_KEY()
+        self.dollar_key = Dollar_KEY()
+        self.ampersand_key = Ampersand_KEY()
+        self.singlequote_key = SingleQuote_KEY()
+        self.leftparenthesis_key = LeftParenthesis_KEY()
+        self.rightparenthesis_key = RightParenthesis_KEY()
+        self.asterisk_key = Asterisk_KEY()
+        self.plus_key = Plus_KEY()
+        self.comma_key = Comma_KEY()
+        self.minus_key = Minus_KEY()
+        self.period_key = Period_KEY()
+        self.forwardslash_key = ForwardSlash_KEY()
+        self.primary0_key = Primary0_KEY()
+        self.primary1_key = Primary1_KEY()
+        self.primary2_key = Primary2_KEY()
+        self.primary3_key = Primary3_KEY()
+        self.primary4_key = Primary4_KEY()
+        self.primary5_key = Primary5_KEY()
+        self.primary6_key = Primary6_KEY()
+        self.primary7_key = Primary7_KEY()
+        self.primary8_key = Primary8_KEY()
+        self.primary9_key = Primary9_KEY()
+        self.colon_key = Colon_KEY()
+        self.semicolon_key = SemiColon_KEY()
+        self.lessthan_key = LessThan_KEY()
+        self.equals_key = Equals_KEY()
+        self.greaterthan_key = GreaterThan_KEY()
+        self.questionmark_key = QuestionMark_KEY()
+        self.at_key = At_KEY()
+        self.leftbracket_key = LeftBracket_KEY()
+        self.backslash_key = BackSlash_KEY()
+        self.rightbracket_key = RightBracket_KEY()
+        self.caret_key = Caret_KEY()
+        self.underscore_key = Underscore_KEY()
+        self.grave_key = Grave_KEY()
+        self.primarya_key = PrimaryA_KEY()
+        self.primaryb_key = PrimaryB_KEY()
+        self.primaryc_key = PrimaryC_KEY()
+        self.primaryd_key = PrimaryD_KEY()
+        self.primarye_key = PrimaryE_KEY()
+        self.primaryf_key = PrimaryF_KEY()
+        self.primaryg_key = PrimaryG_KEY()
+        self.primaryh_key = PrimaryH_KEY()
+        self.primaryi_key = PrimaryI_KEY()
+        self.primaryj_key = PrimaryJ_KEY()
+        self.primaryk_key = PrimaryK_KEY()
+        self.primaryl_key = PrimaryL_KEY()
+        self.primarym_key = PrimaryM_KEY()
+        self.primaryn_key = PrimaryN_KEY()
+        self.primaryo_key = PrimaryO_KEY()
+        self.primaryp_key = PrimaryP_KEY()
+        self.primaryq_key = PrimaryQ_KEY()
+        self.primaryr_key = PrimaryR_KEY()
+        self.primarys_key = PrimaryS_KEY()
+        self.primaryt_key = PrimaryT_KEY()
+        self.primaryu_key = PrimaryU_KEY()
+        self.primaryv_key = PrimaryV_KEY()
+        self.primaryw_key = PrimaryW_KEY()
+        self.primaryx_key = PrimaryX_KEY()
+        self.primaryy_key = PrimaryY_KEY()
+        self.primaryz_key = PrimaryZ_KEY()
+        self.delete_key = Delete_KEY()
+        self.numpad0_key = Numpad0_KEY()
+        self.numpad1_key = Numpad1_KEY()
+        self.numpad2_key = Numpad2_KEY()
+        self.numpad3_key = Numpad3_KEY()
+        self.numpad4_key = Numpad4_KEY()
+        self.numpad5_key = Numpad5_KEY()
+        self.numpad6_key = Numpad6_KEY()
+        self.numpad7_key = Numpad7_KEY()
+        self.numpad8_key = Numpad8_KEY()
+        self.numpad9_key = Numpad9_KEY()
+        self.numpadperiod_key = NumpadPeriod_KEY()
+        self.numpaddivide_key = NumpadDivide_KEY()
+        self.numpadmultiply_key = NumpadMultiply_KEY()
+        self.numpadminus_key = NumpadMinus_KEY()
+        self.numpadplus_key = NumpadPlus_KEY()
+        self.numpadenter_key = NumpadEnter_KEY()
+        self.numpadequals_key = NumpadEquals_KEY()
+        self.up_key = Up_KEY()
+        self.down_key = Down_KEY()
+        self.right_key = Right_KEY()
+        self.left_key = Left_KEY()
+        self.insert_key = Insert_KEY()
+        self.home_key = Home_KEY()
+        self.end_key = End_KEY()
+        self.pageup_key = PageUp_KEY()
+        self.pagedown_key = PageDown_KEY()
+        self.function1_key = Function1_KEY()
+        self.function2_key = Function2_KEY()
+        self.function3_key = Function3_KEY()
+        self.function4_key = Function4_KEY()
+        self.function5_key = Function5_KEY()
+        self.function6_key = Function6_KEY()
+        self.function7_key = Function7_KEY()
+        self.function8_key = Function8_KEY()
+        self.function9_key = Function9_KEY()
+        self.function10_key = Function10_KEY()
+        self.function11_key = Function11_KEY()
+        self.function12_key = Function12_KEY()
+        self.function13_key = Function13_KEY()
+        self.function14_key = Function14_KEY()
+        self.function15_key = Function15_KEY()
+        self.numlock_key = NumLock_KEY()
+        self.capslock_key = CapsLock_KEY()
+        self.scrolllock_key = ScrollLock_KEY()
+        self.rightshift_key = RightShift_KEY()
+        self.leftshift_key = LeftShift_KEY()
+        self.shift_key = Shift_KEY()
+        self.rightcontrol_key = RightControl_KEY()
+        self.leftcontrol_key = LeftControl_KEY()
+        self.control_key = Control_KEY()
+        self.rightalt_key = RightAlt_KEY()
+        self.leftalt_key = LeftAlt_KEY()
+        self.alt_key = Alt_KEY()
+        self.rightmeta_key = RightMeta_KEY()
+        self.leftmeta_key = LeftMeta_KEY()
+        self.meta_key = Meta_KEY()
+        self.leftsuper_key = LeftSuper_KEY()
+        self.rightsuper_key = RightSuper_KEY()
+        self.super_key = Super_KEY()
+        self.mode_key = Mode_KEY()
+        self.help_key = Help_KEY()
+        self.print_key = Print_KEY()
+        self.systemrequest_key = SystemRequest_KEY()
+        self.break_key = Break_KEY()
+        self.menu_key = Menu_KEY()
+        self.power_key = Power_KEY()
+        self.euro_key = Euro_KEY()
+        self.androidback_key = AndroidBack_KEY()
+        self.leftbutton_mouse = LeftButton_MOUSE()
+        self.middlebutton_mouse = MiddleButton_MOUSE()
+        self.rightbutton_mouse = RightButton_MOUSE()
+        self.mouse_scroll = Mouse_SCROLL()
+        self.mouse_position = Mouse_POSITION()
+        self.active_event = Active_EVENT()
+        self.appterminating_event = AppTerminating_EVENT()
+        self.applowmemory_event = AppLowMemory_EVENT()
+        self.appwillenterbackground_event = AppWillEnterBackground_EVENT()
+        self.appdidenterbackground_event = AppDidEnterBackground_EVENT()
+        self.appwillenterforeground_event = AppWillEnterForeground_EVENT()
+        self.appdidenterforeground_event = AppDidEnterForeground_EVENT()
+        self.audiodeviceadded_event = AudioDeviceAdded_EVENT()
+        self.audiodeviceremoved_event = AudioDeviceRemoved_EVENT()
+        self.clipboardupdate_event = ClipBoardUpdate_EVENT()
+        self.dollargesture_event = DollarGesture_EVENT()
+        self.dollarcord_event = DollarCord_EVENT()
+        self.dropfile_event = DropFile_EVENT()
+        self.droptext_event = DropText_EVENT()
+        self.dropbegin_event = DropBegin_EVENT()
+        self.dropcomplete_event = DropComplete_EVENT()
+        self.fingermotion_event = FingerMotion_EVENT()
+        self.fingerdown_event = FingerDown_EVENT()
+        self.fingerup_event = FingerUp_EVENT()
+        self.keymapchanged_event = KeyMapChanged_EVENT()
+        self.localechanged_event = LocaleChanged_EVENT()
+        self.multigesture_event = MultiGesture_EVENT()
+        self.noevent_event = NoEvent_EVENT()
+        self.quit_event = Quit_EVENT()
+        self.rendertargetsreset_event = RenderTargetsReset_EVENT()
+        self.renderdevicereset_event = RenderDeviceReset_EVENT()
+        self.syswmevent_event = SysWMEvent_EVENT()
+        self.textinput_event = TextInput_EVENT()
+        self.textediting_event = TextEditing_EVENT()
+        self.videoresize_event = VideoResize_EVENT()
+        self.videoexpose_event = VideoExpose_EVENT()
+        self.midiin_event = MidiIn_EVENT()
+        self.midiout_event = MidiOut_EVENT()
+        self.windowshown_event = WindowShown_EVENT()
+        self.windowhidden_event = WindowHidden_EVENT()
+        self.windowexposed_event = WindowExposed_EVENT()
+        self.windowmoved_event = WindowMoved_EVENT()
+        self.windowresized_event = WindowResized_EVENT()
+        self.windowsizechanged_event = WindowSizeChanged_EVENT()
+        self.windowminimized_event = WindowMinimized_EVENT()
+        self.windowmaximized_event = WindowMaximized_EVENT()
+        self.windowrestored_event = WindowRestored_EVENT()
+        self.windowenter_event = WindowEnter_EVENT()
+        self.windowleave_event = WindowLeave_EVENT()
+        self.windowfocusgained_event = WindowFocusGained_EVENT()
+        self.windowfocuslost_event = WindowFocusLost_EVENT()
+        self.windowclose_event = WindowClose_EVENT()
+        self.windowtakefocus_event = WindowTakeFocus_EVENT()
+        self.windowhittest_event = WindowHitTest_EVENT()
+        self.windowiccprofchanged_event = WindowICCPROFChanged_EVENT()
+        self.windowdisplaychanged_event = WindowDisplayChanged_EVENT()
+
+    def handle(self, enable_toggle_full_screen=True):
+        if self.iteration_id == Registry.iteration_id:
+            log_development("You have called the 'handle()' method from events \
+multiple times within a single game loop. Whilst this isn't always a bad thing, \
+it can lead to unexpected behavior a some events might not be captured reliably \
+at each method call. For instance, one event might appear randomly between two \
+different event loops, instead of consistently at one you might be expecting to \
+find it at. If this isn't something you where intending to do, changing this will \
+potentially save a lot of headaches later down the line.")
+        self.iteration_id = Registry.iteration_id
+
+        self.active_event.set_value(False)
+        self.appterminating_event.set_value(False)
+        self.applowmemory_event.set_value(False)
+        self.appwillenterbackground_event.set_value(False)
+        self.appdidenterbackground_event.set_value(False)
+        self.appwillenterforeground_event.set_value(False)
+        self.appdidenterforeground_event.set_value(False)
+        self.audiodeviceadded_event.set_value(False)
+        self.audiodeviceremoved_event.set_value(False)
+        self.clipboardupdate_event.set_value(False)
+        self.dollargesture_event.set_value(False)
+        self.dollarcord_event.set_value(False)
+        self.dropfile_event.set_value(False)
+        self.droptext_event.set_value(False)
+        self.dropbegin_event.set_value(False)
+        self.dropcomplete_event.set_value(False)
+        self.fingermotion_event.set_value(False)
+        self.fingerdown_event.set_value(False)
+        self.fingerup_event.set_value(False)
+        self.keymapchanged_event.set_value(False)
+        self.localechanged_event.set_value(False)
+        self.multigesture_event.set_value(False)
+        self.noevent_event.set_value(False)
+        self.quit_event.set_value(False)
+        self.rendertargetsreset_event.set_value(False)
+        self.renderdevicereset_event.set_value(False)
+        self.syswmevent_event.set_value(False)
+        self.textinput_event.set_value(False)
+        self.textediting_event.set_value(False)
+        self.videoresize_event.set_value(False)
+        self.videoexpose_event.set_value(False)
+        self.midiin_event.set_value(False)
+        self.midiout_event.set_value(False)
+        self.windowshown_event.set_value(False)
+        self.windowhidden_event.set_value(False)
+        self.windowexposed_event.set_value(False)
+        self.windowmoved_event.set_value(False)
+        self.windowresized_event.set_value(False)
+        self.windowsizechanged_event.set_value(False)
+        self.windowminimized_event.set_value(False)
+        self.windowmaximized_event.set_value(False)
+        self.windowrestored_event.set_value(False)
+        self.windowenter_event.set_value(False)
+        self.windowleave_event.set_value(False)
+        self.windowfocusgained_event.set_value(False)
+        self.windowfocuslost_event.set_value(False)
+        self.windowclose_event.set_value(False)
+        self.windowtakefocus_event.set_value(False)
+        self.windowhittest_event.set_value(False)
+        self.windowiccprofchanged_event.set_value(False)
+        self.windowdisplaychanged_event.set_value(False)
+
         if Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
             for event in raw_events:
@@ -3921,542 +4184,6 @@ class AndroidBack_KEY:
 
     def set_double_tap_timing(self, value):
         Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tap_timing(value)
-
-class Y_BUTTON: # 3
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.Y_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class B_BUTTON: # 2
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.B_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class A_BUTTON: # 1
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.A_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class X_BUTTON: # 0
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.X_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class Home_BUTTON: # 12
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.HOME_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class RightJoystick_BUTTON: # 11
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class LeftJoystick_BUTTON: # 10
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTJOYSTICK_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class Options_BUTTON: # 9
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.OPTIONS_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class Share_BUTTON: # 8
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SHARE_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class Right_TRIGGER: # 7
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_TRIGGER_OBJECT].set_double_tap_timing(value)
-
-class Left_TRIGGER: # 6
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_TRIGGER_OBJECT].set_double_tap_timing(value)
-
-class Right_BUMPER: # 5
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_BUMPER_OBJECT].set_double_tap_timing(value)
-
-class Left_BUMPER: # 4
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_BUMPER_OBJECT].set_double_tap_timing(value)
-
-class Center_BUTTON: # 13
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.CENTER_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class LeftJoystick_AXIS:
-    def __init__(self):
-        initialize(self)
-
-    def get_x_axis(self):
-        return Registry.pmma_module_spine[Constants.LEFTJOYSTICK_AXIS_OBJECT].get_x_axis()
-
-    def get_y_axis(self):
-        return Registry.pmma_module_spine[Constants.LEFTJOYSTICK_AXIS_OBJECT].get_y_axis()
-
-    def set_x_axis(self, value):
-        Registry.pmma_module_spine[Constants.LEFTJOYSTICK_AXIS_OBJECT].set_x_axis(value)
-
-    def set_y_axis(self, value):
-        Registry.pmma_module_spine[Constants.LEFTJOYSTICK_AXIS_OBJECT].set_y_axis(value)
-
-class RightJoystick_AXIS:
-    def __init__(self):
-        initialize(self)
-
-    def get_x_axis(self):
-        return Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_AXIS_OBJECT].get_x_axis()
-
-    def get_y_axis(self):
-        return Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_AXIS_OBJECT].get_y_axis()
-
-    def set_x_axis(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_AXIS_OBJECT].set_x_axis(value)
-
-    def set_y_axis(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTJOYSTICK_AXIS_OBJECT].set_y_axis(value)
-
-class UpHat_BUTTON:
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.UPHAT_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class DownHat_BUTTON:
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.DOWNHAT_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class LeftHat_BUTTON:
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTHAT_BUTTON_OBJECT].set_double_tap_timing(value)
-
-class RightHat_BUTTON:
-    def __init__(self):
-        initialize(self)
-
-    def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].set_double_tapped(value)
-
-    def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].get_double_tapped()
-
-    def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].get_last_tap_time()
-
-    def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].set_last_tap_time(value)
-
-    def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].get_pressed()
-
-    def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].set_pressed(value)
-
-    def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].get_double_tap_timing()
-
-    def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTHAT_BUTTON_OBJECT].set_double_tap_timing(value)
 
 class LeftButton_MOUSE:
     def __init__(self):
