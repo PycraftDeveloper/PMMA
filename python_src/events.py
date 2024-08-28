@@ -290,8 +290,221 @@ potentially save a lot of headaches later down the line.")
         if Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
             for event in raw_events:
-                if event.type == _pygame.QUIT:
+                if event.type == _pygame.ACTIVEEVENT:
+                    self.active_event.set_value(True)
+
+                if event.type == _pygame.APP_TERMINATING:
+                    self.appterminating_event.set_value(True)
+
+                if event.type == _pygame.APP_LOWMEMORY:
+                    self.applowmemory_event.set_value(True)
+
+                if event.type == _pygame.APP_WILLENTERBACKGROUND:
+                    self.appwillenterbackground_event.set_value(True)
+
+                if event.type == _pygame.APP_DIDENTERBACKGROUND:
+                    self.appdidenterbackground_event.set_value(True)
+
+                if event.type == _pygame.APP_WILLENTERFOREGROUND:
+                    self.appwillenterbackground_event.set_value(True)
+
+                if event.type == _pygame.APP_DIDENTERFOREGROUND:
+                    self.appdidenterforeground_event.set_value(True)
+
+                if event.type == _pygame.AUDIODEVICEADDED:
+                    self.audiodeviceadded_event.set_value(True)
+
+                if event.type == _pygame.AUDIODEVICEREMOVED:
+                    self.audiodeviceremoved_event.set_value(True)
+
+                if event.type == _pygame.CLIPBOARDUPDATE:
+                    self.clipboardupdate_event.set_value(True)
+
+                if event.type == _pygame.CONTROLLERAXISMOTION:
                     pass
+
+                if event.type == _pygame.CONTROLLERBUTTONDOWN:
+                    pass
+
+                if event.type == _pygame.CONTROLLERBUTTONUP:
+                    pass
+
+                if event.type == _pygame.CONTROLLERDEVICEADDED:
+                    pass
+
+                if event.type == _pygame.CONTROLLERDEVICEREMOVED:
+                    pass
+
+                if event.type == _pygame.CONTROLLERDEVICEREMAPPED:
+                    pass
+
+                if event.type == _pygame.CONTROLLERTOUCHPADDOWN:
+                    pass
+
+                if event.type == _pygame.CONTROLLERTOUCHPADMOTION:
+                    pass
+
+                if event.type == _pygame.CONTROLLERTOUCHPADUP:
+                    pass
+
+                if event.type == _pygame.CONTROLLERSENSORUPDATE:
+                    pass
+
+                if event.type == _pygame.DOLLARGESTURE:
+                    self.dollargesture_event.set_value(True)
+
+                if event.type == _pygame.DOLLARRECORD:
+                    self.dollarcord_event.set_value(True)
+
+                if event.type == _pygame.DROPFILE:
+                    self.dropfile_event.set_value(True)
+
+                if event.type == _pygame.DROPTEXT:
+                    self.droptext_event.set_value(True)
+
+                if event.type == _pygame.DROPBEGIN:
+                    self.dropbegin_event.set_value(True)
+
+                if event.type == _pygame.DROPCOMPLETE:
+                    self.dropcomplete_event.set_value(True)
+
+                if event.type == _pygame.FINGERMOTION:
+                    self.fingermotion_event.set_value(True)
+
+                if event.type == _pygame.FINGERDOWN:
+                    self.fingerdown_event.set_value(True)
+
+                if event.type == _pygame.FINGERUP:
+                    self.fingerup_event.set_value(True)
+
+                if event.type == _pygame.KEYMAPCHANGED:
+                    self.keymapchanged_event.set_value(True)
+
+                if event.type == _pygame.JOYAXISMOTION:
+                    pass
+
+                if event.type == _pygame.JOYBALLMOTION:
+                    pass
+
+                if event.type == _pygame.JOYHATMOTION:
+                    pass
+
+                if event.type == _pygame.JOYBUTTONDOWN:
+                    pass
+
+                if event.type == _pygame.JOYBUTTONUP:
+                    pass
+
+                if event.type == _pygame.JOYDEVICEADDED:
+                    pass
+
+                if event.type == _pygame.JOYDEVICEREMOVED:
+                    pass
+
+                if event.type == _pygame.LOCALECHANGED:
+                    self.localechanged_event.set_value(True)
+
+                if event.type == _pygame.MOUSEMOTION:
+                    pass
+
+                if event.type == _pygame.MOUSEBUTTONDOWN:
+                    pass
+
+                if event.type == _pygame.MOUSEBUTTONUP:
+                    pass
+
+                if event.type == _pygame.MOUSEWHEEL:
+                    pass
+
+                if event.type == _pygame.MULTIGESTURE:
+                    self.multigesture_event.set_value(True)
+
+                if event.type == _pygame.NOEVENT:
+                    self.noevent_event.set_value(True)
+
+                if event.type == _pygame.QUIT:
+                    self.quit_event.set_value(True)
+
+                if event.type == _pygame.RENDER_TARGETS_RESET:
+                    self.rendertargetsreset_event.set_value(True)
+
+                if event.type == _pygame.RENDER_DEVICE_RESET:
+                    self.renderdevicereset_event.set_value(True)
+
+                if event.type == _pygame.SYSWMEVENT:
+                    self.syswmevent_event.set_value(True)
+
+                if event.type == _pygame.TEXTEDITING:
+                    self.textediting_event.set_value(True)
+
+                if event.type == _pygame.TEXTINPUT:
+                    self.textinput_event.set_value(True)
+
+                if event.type == _pygame.VIDEORESIZE:
+                    self.videoresize_event.set_value(True)
+
+                if event.type == _pygame.VIDEOEXPOSE:
+                    self.videoexpose_event.set_value(True)
+
+                if event.type == _pygame.MIDIIN:
+                    self.midiin_event.set_value(True)
+
+                if event.type == _pygame.MIDIOUT:
+                    self.midiout_event.set_value(True)
+
+                if event.type == _pygame.WINDOWSHOWN:
+                    self.windowshown_event.set_value(True)
+
+                if event.type == _pygame.WINDOWHIDDEN:
+                    self.windowhidden_event.set_value(True)
+
+                if event.type == _pygame.WINDOWEXPOSED:
+                    self.windowexposed_event.set_value(True)
+
+                if event.type == _pygame.WINDOWMOVED:
+                    self.windowmoved_event.set_value(True)
+
+                if event.type == _pygame.WINDOWRESIZED:
+                    self.windowresized_event.set_value(True)
+
+                if event.type == _pygame.WINDOWSIZECHANGED:
+                    self.windowsizechanged_event.set_value(True)
+
+                if event.type == _pygame.WINDOWMINIMIZED:
+                    self.windowminimized_event.set_value(True)
+
+                if event.type == _pygame.WINDOWMAXIMIZED:
+                    self.windowmaximized_event.set_value(True)
+
+                if event.type == _pygame.WINDOWRESTORED:
+                    self.windowfocusgained_event.set_value(True)
+
+                if event.type == _pygame.WINDOWENTER:
+                    self.windowenter_event.set_value(True)
+
+                if event.type == _pygame.WINDOWLEAVE:
+                    self.windowleave_event.set_value(True)
+
+                if event.type == _pygame.WINDOWFOCUSGAINED:
+                    self.windowfocusgained_event.set_value(True)
+
+                if event.type == _pygame.WINDOWFOCUSLOST:
+                    self.windowfocuslost_event.set_value(True)
+
+                if event.type == _pygame.WINDOWCLOSE:
+                    self.windowclose_event.set_value(True)
+
+                if event.type == _pygame.WINDOWTAKEFOCUS:
+                    self.windowtakefocus_event.set_value(True)
+
+                if event.type == _pygame.WINDOWHITTEST:
+                    self.windowhittest_event.set_value(True)
+
+                if event.type == _pygame.WINDOWICCPROFCHANGED:
+                    self.windowiccprofchanged_event.set_value(True)
+
+                if event.type == _pygame.WINDOWDISPLAYCHANGED:
+                    self.windowdisplaychanged_event.set_value(True)
 
 class Backspace_KEY:
     def __init__(self):
