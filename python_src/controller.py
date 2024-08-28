@@ -72,6 +72,15 @@ class Controller:
         self._left_hat_button = _event_utils.LeftHat_BUTTON()
         self._right_hat_button = _event_utils.RightHat_BUTTON()
 
+        self._track_balls = []
+        for instance in range(self._joy.get_numballs()):
+            track_ball = _event_utils.Track_BALL()
+            track_ball.set_id(instance)
+            self._track_balls.append(track_ball)
+
+    def get_track_ball_from_id(self, id) -> '_event_utils.Track_BALL':
+        return self._track_balls[id]
+
     def set_y_button_double_tapped(self, value):
         self._y_button.set_double_tapped(value)
 
@@ -288,53 +297,17 @@ class Controller:
     def set_share_button_double_tap_timing(self, value):
         self._share_button.set_double_tap_timing(value)
 
-    def set_right_trigger_double_tapped(self, value):
-        self._right_trigger.set_double_tapped(value)
+    def get_left_trigger_value(self):
+        return self._left_trigger.get_value()
 
-    def get_right_trigger_double_tapped(self):
-        return self._right_trigger.get_double_tapped()
+    def set_left_trigger_value(self, value):
+        self._left_trigger.set_value(value)
 
-    def get_right_trigger_last_tap_time(self):
-        return self._right_trigger.get_last_tap_time()
+    def get_right_trigger_value(self):
+        return self._right_trigger.get_value()
 
-    def set_right_trigger_last_tap_time(self, value):
-        self._right_trigger.set_last_tap_time(value)
-
-    def get_right_trigger_pressed(self):
-        return self._right_trigger.get_pressed()
-
-    def set_right_trigger_pressed(self, value):
-        self._right_trigger.set_pressed(value)
-
-    def get_right_trigger_double_tap_timing(self):
-        return self._right_trigger.get_double_tap_timing()
-
-    def set_right_trigger_double_tap_timing(self, value):
-        self._right_trigger.set_double_tap_timing(value)
-
-    def set_left_trigger_double_tapped(self, value):
-        self._left_trigger.set_double_tapped(value)
-
-    def get_left_trigger_double_tapped(self):
-        return self._left_trigger.get_double_tapped()
-
-    def get_left_trigger_last_tap_time(self):
-        return self._left_trigger.get_last_tap_time()
-
-    def set_left_trigger_last_tap_time(self, value):
-        self._left_trigger.set_last_tap_time(value)
-
-    def get_left_trigger_pressed(self):
-        return self._left_trigger.get_pressed()
-
-    def set_left_trigger_pressed(self, value):
-        self._left_trigger.set_pressed(value)
-
-    def get_left_trigger_double_tap_timing(self):
-        return self._left_trigger.get_double_tap_timing()
-
-    def set_left_trigger_double_tap_timing(self, value):
-        self._left_trigger.set_double_tap_timing(value)
+    def set_right_trigger_value(self, value):
+        self._right_trigger.set_value(value)
 
     def set_right_bumper_double_tapped(self, value):
         self._right_bumper.set_double_tapped(value)

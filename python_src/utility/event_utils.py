@@ -6604,17 +6604,31 @@ class Options_BUTTON: # 9
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
+class Track_BALL:
+    def __init__(self):
+        self.id = None
+        self.x_motion = 0
+        self.y_motion = 0
+
+    def get_id(self):
+        return self.id
+
+    def set_id(self, value):
+        self.id = value
+
+    def get_x_motion(self):
+        return self.x_motion
+
+    def set_x_motion(self, value):
+        self.x_motion = value
+
+    def get_y_motion(self):
+        return self.y_motion
+
+    def set_y_motion(self, value):
+        self.y_motion = value
+
 class Share_BUTTON: # 8
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6647,91 +6661,25 @@ class Share_BUTTON: # 8
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class Right_TRIGGER: # 7
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
+class Right_TRIGGER:
     def __init__(self):
-        self._currently_pressed = False
-        self._double_tap_timing = 0.25
-        self._last_tap_time = 0
-        self._double_tapped = False
+        self.value = 0
 
-    def set_double_tapped(self, value):
-        self._double_tapped = value
+    def get_value(self):
+        return self.value
 
-    def get_double_tapped(self):
-        return self._double_tapped
+    def set_value(self, value):
+        self.value = value
 
-    def get_last_tap_time(self):
-        return self._last_tap_time
-
-    def set_last_tap_time(self, value):
-        if value-self.get_last_tap_time() <= self.get_double_tap_timing():
-            self.set_double_tapped(True)
-        self._last_tap_time = value
-
-    def get_pressed(self):
-        return self._currently_pressed
-
-    def set_pressed(self, value):
-        self._currently_pressed = value
-
-    def get_double_tap_timing(self):
-        return self._double_tap_timing
-
-    def set_double_tap_timing(self, value):
-        self._double_tap_timing = value
-
-class Left_TRIGGER: # 6
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
+class Left_TRIGGER:
     def __init__(self):
-        self._currently_pressed = False
-        self._double_tap_timing = 0.25
-        self._last_tap_time = 0
-        self._double_tapped = False
+        self.value = 0
 
-    def set_double_tapped(self, value):
-        self._double_tapped = value
+    def get_value(self):
+        return self.value
 
-    def get_double_tapped(self):
-        return self._double_tapped
-
-    def get_last_tap_time(self):
-        return self._last_tap_time
-
-    def set_last_tap_time(self, value):
-        if value-self.get_last_tap_time() <= self.get_double_tap_timing():
-            self.set_double_tapped(True)
-        self._last_tap_time = value
-
-    def get_pressed(self):
-        return self._currently_pressed
-
-    def set_pressed(self, value):
-        self._currently_pressed = value
-
-    def get_double_tap_timing(self):
-        return self._double_tap_timing
-
-    def set_double_tap_timing(self, value):
-        self._double_tap_timing = value
+    def set_value(self, value):
+        self.value = value
 
 class Right_BUMPER: # 5
     def __del__(self, do_garbage_collection=False):
@@ -6819,7 +6767,7 @@ class Left_BUMPER: # 4
     def set_double_tap_timing(self, value):
         self._double_tap_timing = value
 
-class Center_BUTTON: # 13
+class Center_BUTTON: # 15
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
@@ -7243,6 +7191,9 @@ class Mouse_SCROLL:
     def get_scroll_displacement(self):
         return self._scroll_displacement
 
+    def set_scroll_displacement(self, value):
+        self._scroll_displacement = value
+
     def get_scroll_value(self):
         return self._scroll_value
 
@@ -7288,6 +7239,12 @@ class Mouse_POSITION:
 
     def set_y_axis(self, value):
         self._y_axis = value
+
+    def set_x_axis_displacement(self, value):
+        self._x_axis_displacement = value
+
+    def set_y_axis_displacement(self, value):
+        self._y_axis_displacement = value
 
 class Active_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -8358,6 +8315,50 @@ class WindowDisplayChanged_EVENT:
 
     def __init__(self):
         initialize(self, unique_instance=Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class JoyDeviceAdded_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
+    def __init__(self):
+        initialize(self, unique_instance=Constants.JOYDEVICEADDED_OBJECT, add_to_pmma_module_spine=True)
+
+        self._value = None
+
+    def set_value(self, value):
+        self._value = value
+
+    def get_value(self):
+        return self._value
+
+class JoyDeviceRemoved_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
+    def __init__(self):
+        initialize(self, unique_instance=Constants.JOYDEVICEREMOVED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 

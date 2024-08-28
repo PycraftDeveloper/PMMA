@@ -221,6 +221,8 @@ class Events:
         self.windowhittest_event = WindowHitTest_EVENT()
         self.windowiccprofchanged_event = WindowICCPROFChanged_EVENT()
         self.windowdisplaychanged_event = WindowDisplayChanged_EVENT()
+        self.joydeviceadded_event = JoyDeviceAdded_EVENT()
+        self.joydeviceremoved_event = JoyDeviceRemoved_EVENT()
 
     def handle(self, enable_toggle_full_screen=True):
         if self.iteration_id == Registry.iteration_id:
@@ -282,6 +284,8 @@ potentially save a lot of headaches later down the line.")
         self.windowhittest_event.set_value(False)
         self.windowiccprofchanged_event.set_value(False)
         self.windowdisplaychanged_event.set_value(False)
+        self.joydeviceadded_event.set_value(False)
+        self.joydeviceremoved_event.set_value(False)
 
         if Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
@@ -341,9 +345,7 @@ potentially save a lot of headaches later down the line.")
                     self.keymapchanged_event.set_value(True)
 
                 if event.type == _pygame.JOYAXISMOTION:
-                    print(event)
-                    controller_id = event.joy
-                    controller = self.controllers.list_controllers()[controller_id]
+                    controller = self.controllers.get_controller(event.joy)
                     if event.axis == 0:
                         controller.set_left_joystick_axis_x_axis(event.value)
 
@@ -356,41 +358,131 @@ potentially save a lot of headaches later down the line.")
                     elif event.axis == 3:
                         controller.set_right_joystick_axis_y_axis(event.value)
 
-                if event.type == _pygame.JOYBALLMOTION:
-                    controller_id = event.joy
-                    controller = self.controllers.list_controllers()[controller_id]
+                    elif event.axis == 4:
+                        controller.set_left_trigger_value(event.value)
 
-                if event.type == _pygame.JOYHATMOTION:
-                    controller_id = event.joy
-                    controller = self.controllers.list_controllers()[controller_id]
+                    elif event.axis == 5:
+                        controller.set_right_trigger_value(event.value)
+
+                if event.type == _pygame.JOYBALLMOTION:
+                    controller = self.controllers.get_controller(event.joy)
+                    trackball = controller.get_track_ball_from_id(event.ball)
+                    x_motion, y_motion = event.rel
+                    trackball.set_x_motion(x_motion)
+                    trackball.set_y_motion(y_motion)
 
                 if event.type == _pygame.JOYBUTTONDOWN:
-                    controller_id = event.joy
-                    controller = self.controllers.list_controllers()[controller_id]
+                    controller = self.controllers.get_controller(event.joy)
+                    if event.button == 2:
+                        controller.set_x_button_pressed(True)
+                    elif event.button == 0:
+                        controller.set_a_button_pressed(True)
+                    elif event.button == 1:
+                        controller.set_b_button_pressed(True)
+                    elif event.button == 3:
+                        controller.set_y_button_pressed(True)
+                    elif event.button == 9:
+                        controller.set_left_bumper_pressed(True)
+                    elif event.button == 10:
+                        controller.set_right_bumper_pressed(True)
+                    elif event.button == 4:
+                        controller.set_share_button_pressed(True)
+                    elif event.button == 6:
+                        controller.set_options_button_pressed(True)
+                    elif event.button == 7:
+                        controller.set_left_joystick_button_pressed(True)
+                    elif event.button == 8:
+                        controller.set_right_joystick_button_pressed(True)
+                    elif event.button == 11:
+                        controller.set_up_hat_button_pressed(True)
+                    elif event.button == 12:
+                        controller.set_down_hat_button_pressed(True)
+                    elif event.button == 13:
+                        controller.set_left_hat_button_pressed(True)
+                    elif event.button == 14:
+                        controller.set_right_hat_button_pressed(True)
+                    elif event.button == 15:
+                        controller.set_center_button_pressed(True)
 
                 if event.type == _pygame.JOYBUTTONUP:
-                    controller_id = event.joy
-                    controller = self.controllers.list_controllers()[controller_id]
+                    controller = self.controllers.get_controller(event.joy)
+                    if event.button == 2:
+                        controller.set_x_button_pressed(False)
+                    elif event.button == 0:
+                        controller.set_a_button_pressed(False)
+                    elif event.button == 1:
+                        controller.set_b_button_pressed(False)
+                    elif event.button == 3:
+                        controller.set_y_button_pressed(False)
+                    elif event.button == 9:
+                        controller.set_left_bumper_pressed(False)
+                    elif event.button == 10:
+                        controller.set_right_bumper_pressed(False)
+                    elif event.button == 4:
+                        controller.set_share_button_pressed(False)
+                    elif event.button == 6:
+                        controller.set_options_button_pressed(False)
+                    elif event.button == 7:
+                        controller.set_left_joystick_button_pressed(False)
+                    elif event.button == 8:
+                        controller.set_right_joystick_button_pressed(False)
+                    elif event.button == 11:
+                        controller.set_up_hat_button_pressed(False)
+                    elif event.button == 12:
+                        controller.set_down_hat_button_pressed(False)
+                    elif event.button == 13:
+                        controller.set_left_hat_button_pressed(False)
+                    elif event.button == 14:
+                        controller.set_right_hat_button_pressed(False)
+                    elif event.button == 15:
+                        controller.set_center_button_pressed(False)
 
                 if event.type == _pygame.JOYDEVICEADDED:
-                    pass
+                    self.joydeviceadded_event.set_value(True)
 
                 if event.type == _pygame.JOYDEVICEREMOVED:
-                    pass
+                    self.joydeviceremoved_event.set_value(True)
 
                 if event.type == _pygame.LOCALECHANGED:
                     self.localechanged_event.set_value(True)
 
                 if event.type == _pygame.MOUSEMOTION:
-                    pass
+                    mouse_x_position, mouse_y_position = event.pos
+                    mouse_x_displacement, mouse_y_displacement = event.rel
+                    self.mouse_position.set_x_axis(mouse_x_position)
+                    self.mouse_position.set_y_axis(mouse_y_position)
+                    self.mouse_position.set_x_axis_displacement(mouse_x_displacement)
+                    self.mouse_position.set_y_axis_displacement(mouse_y_displacement)
 
                 if event.type == _pygame.MOUSEBUTTONDOWN:
-                    pass
+                    if event.button == 1:
+                        self.leftbutton_mouse.set_pressed(True)
+
+                    elif event.button == 2:
+                        self.middlebutton_mouse.set_pressed(True)
+
+                    elif event.button == 3:
+                        self.rightbutton_mouse.set_pressed(True)
 
                 if event.type == _pygame.MOUSEBUTTONUP:
-                    pass
+                    if event.button == 1:
+                        self.leftbutton_mouse.set_pressed(False)
+
+                    elif event.button == 2:
+                        self.middlebutton_mouse.set_pressed(False)
+
+                    elif event.button == 3:
+                        self.rightbutton_mouse.set_pressed(False)
 
                 if event.type == _pygame.MOUSEWHEEL:
+                    self.mouse_scroll.set_scroll_displacement(event.precise_y)
+                    total_scroll = self.mouse_scroll.get_scroll_value()
+                    self.mouse_scroll.set_scroll_value(total_scroll + event.precise_y)
+
+                if event.type == _pygame.KEYDOWN:
+                    pass
+
+                if event.type == _pygame.KEYUP:
                     pass
 
                 if event.type == _pygame.MULTIGESTURE:
@@ -4469,6 +4561,9 @@ class Mouse_SCROLL:
     def get_scroll_displacement(self):
         return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_scroll_displacement()
 
+    def set_scroll_displacement(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_scroll_displacement(value)
+
     def get_scroll_value(self):
         return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_scroll_value()
 
@@ -4499,6 +4594,12 @@ class Mouse_POSITION:
 
     def set_y_axis(self, value):
         Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis(value)
+
+    def set_x_axis_displacement(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(value)
+
+    def set_y_axis_displacement(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(value)
 
 class Active_EVENT:
     def __init__(self):
@@ -4989,3 +5090,23 @@ class WindowDisplayChanged_EVENT:
 
     def get_value(self):
         return Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].get_value()
+
+class JoyDeviceAdded_EVENT:
+    def __init__(self):
+        initialize(self)
+
+    def set_value(self, value):
+        Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].set_value(value)
+
+    def get_value(self):
+        return Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].get_value()
+
+class JoyDeviceRemoved_EVENT:
+    def __init__(self):
+        initialize(self)
+
+    def set_value(self, value):
+        Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].set_value(value)
+
+    def get_value(self):
+        return Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].get_value()

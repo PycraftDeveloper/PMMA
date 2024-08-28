@@ -320,6 +320,8 @@ def init(
     _event_utils.WindowHitTest_EVENT()
     _event_utils.WindowICCPROFChanged_EVENT()
     _event_utils.WindowDisplayChanged_EVENT()
+    _event_utils.JoyDeviceAdded_EVENT()
+    _event_utils.JoyDeviceRemoved_EVENT()
 
     if wait_for_initialization:
         cython_thread.join()

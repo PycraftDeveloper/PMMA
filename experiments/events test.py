@@ -11,7 +11,3 @@ for joystick in joysticks:
 while True:
     for event in pygame.event.get():
         print(event)
-        try:
-            print(event.joy)
-        except:
-            pass

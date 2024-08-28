@@ -302,6 +302,8 @@ class Constants:
     WINDOWHITTEST_EVENT_OBJECT = "windowhittest_event_object"
     WINDOWICCPROFCHANGED_EVENT_OBJECT = "windowiccprofchanged_event_object"
     WINDOWDISPLAYCHANGED_EVENT_OBJECT = "windowdisplaychanged_event_object"
+    JOYDEVICEADDED_OBJECT = "joydeviceadded_event_object"
+    JOYDEVICEREMOVED_OBJECT = "joydeviceremoved_event_object"
 
     OBJECT_IDENTIFIERS = [
         DISPLAY_OBJECT,
@@ -546,7 +548,9 @@ class Constants:
         WINDOWTAKEFOCUS_EVENT_OBJECT,
         WINDOWHITTEST_EVENT_OBJECT,
         WINDOWICCPROFCHANGED_EVENT_OBJECT,
-        WINDOWDISPLAYCHANGED_EVENT_OBJECT
+        WINDOWDISPLAYCHANGED_EVENT_OBJECT,
+        JOYDEVICEADDED_OBJECT,
+        JOYDEVICEREMOVED_OBJECT
     ]
 
     CARTESIAN = "cartesian"
