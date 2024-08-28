@@ -7225,8 +7225,8 @@ Methods
 
    Not Yet Written
 
-No Event Event (``pmma.NoEvent_EVENT``)
-=======================================
+No Event (``pmma.NoEvent_EVENT``)
+=================================
 
 Not Yet Written
 
@@ -7317,8 +7317,8 @@ Methods
 
    Not Yet Written
 
-Sys W M Event Event (``pmma.SysWMEvent_EVENT``)
-===============================================
+System Window Management Event (``pmma.SysWMEvent_EVENT``)
+==========================================================
 
 Not Yet Written
 
