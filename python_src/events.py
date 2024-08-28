@@ -182,8 +182,6 @@ class Events:
         self.audiodeviceadded_event = AudioDeviceAdded_EVENT()
         self.audiodeviceremoved_event = AudioDeviceRemoved_EVENT()
         self.clipboardupdate_event = ClipBoardUpdate_EVENT()
-        self.dollargesture_event = DollarGesture_EVENT()
-        self.dollarcord_event = DollarCord_EVENT()
         self.dropfile_event = DropFile_EVENT()
         self.droptext_event = DropText_EVENT()
         self.dropbegin_event = DropBegin_EVENT()
@@ -245,8 +243,6 @@ potentially save a lot of headaches later down the line.")
         self.audiodeviceadded_event.set_value(False)
         self.audiodeviceremoved_event.set_value(False)
         self.clipboardupdate_event.set_value(False)
-        self.dollargesture_event.set_value(False)
-        self.dollarcord_event.set_value(False)
         self.dropfile_event.set_value(False)
         self.droptext_event.set_value(False)
         self.dropbegin_event.set_value(False)
@@ -319,42 +315,6 @@ potentially save a lot of headaches later down the line.")
 
                 if event.type == _pygame.CLIPBOARDUPDATE:
                     self.clipboardupdate_event.set_value(True)
-
-                if event.type == _pygame.CONTROLLERAXISMOTION:
-                    pass
-
-                if event.type == _pygame.CONTROLLERBUTTONDOWN:
-                    pass
-
-                if event.type == _pygame.CONTROLLERBUTTONUP:
-                    pass
-
-                if event.type == _pygame.CONTROLLERDEVICEADDED:
-                    pass
-
-                if event.type == _pygame.CONTROLLERDEVICEREMOVED:
-                    pass
-
-                if event.type == _pygame.CONTROLLERDEVICEREMAPPED:
-                    pass
-
-                if event.type == _pygame.CONTROLLERTOUCHPADDOWN:
-                    pass
-
-                if event.type == _pygame.CONTROLLERTOUCHPADMOTION:
-                    pass
-
-                if event.type == _pygame.CONTROLLERTOUCHPADUP:
-                    pass
-
-                if event.type == _pygame.CONTROLLERSENSORUPDATE:
-                    pass
-
-                if event.type == _pygame.DOLLARGESTURE:
-                    self.dollargesture_event.set_value(True)
-
-                if event.type == _pygame.DOLLARRECORD:
-                    self.dollarcord_event.set_value(True)
 
                 if event.type == _pygame.DROPFILE:
                     self.dropfile_event.set_value(True)
@@ -4622,26 +4582,6 @@ class ClipBoardUpdate_EVENT:
 
     def get_value(self):
         return Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].get_value()
-
-class DollarGesture_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.DOLLARGESTURE_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.DOLLARGESTURE_EVENT_OBJECT].get_value()
-
-class DollarCord_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.DOLLARCORD_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.DOLLARCORD_EVENT_OBJECT].get_value()
 
 class DropFile_EVENT:
     def __init__(self):
