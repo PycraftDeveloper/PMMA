@@ -29,6 +29,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Controllers.list_controllers() -> None
+
+   Not Yet Written
+
 Controller (``pmma.Controller``)
 ================================
 
