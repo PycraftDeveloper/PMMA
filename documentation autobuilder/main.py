@@ -285,6 +285,7 @@ files = glob.glob(python_source_code_path + os.sep + "*.py")
 
 SEPARATOR = os.sep
 ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+NUMBERS = "0123456789"
 ### end
 
 ### write index.rst
@@ -353,15 +354,27 @@ for file in files:
             name = name.split(":")[0].strip()
             formatted_name = ""
             for character in name:
-                if character in ALPHABET:
+                if character in ALPHABET or character in NUMBERS:
                     formatted_name += " "
                 formatted_name += character
 
             formatted_name = formatted_name.replace("Open G L", "OpenGL").strip()
             formatted_name = formatted_name.replace("G P U", "GPU").strip()
             formatted_name = formatted_name.replace("_ GPU", "_GPU").strip()
-            formatted_name = formatted_name.replace("_ E V E N T", " event").strip()
-            formatted_name = formatted_name.replace("_ K E Y", " key").strip()
+            formatted_name = formatted_name.replace("_ E V E N T", " Event").strip()
+            formatted_name = formatted_name.replace("_ K E Y", " Key").strip()
+            formatted_name = formatted_name.replace("1 0", "10").strip()
+            formatted_name = formatted_name.replace("1 1", "11").strip()
+            formatted_name = formatted_name.replace("1 2", "12").strip()
+            formatted_name = formatted_name.replace("1 3", "13").strip()
+            formatted_name = formatted_name.replace("1 4", "14").strip()
+            formatted_name = formatted_name.replace("1 5", "15").strip()
+            formatted_name = formatted_name.replace("1 6", "16").strip()
+            formatted_name = formatted_name.replace("1 7", "17").strip()
+            formatted_name = formatted_name.replace("1 8", "18").strip()
+            formatted_name = formatted_name.replace("1 9", "19").strip()
+            formatted_name = formatted_name.replace("2 0", "20").strip()
+
             in_class = True
             methods_header_written = False
             docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)

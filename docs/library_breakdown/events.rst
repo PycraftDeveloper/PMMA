@@ -21,7 +21,7 @@ Methods
 
    Not Yet Written
 
-Backspace key (``pmma.Backspace_KEY``)
+Backspace Key (``pmma.Backspace_KEY``)
 ======================================
 
 Not Yet Written
@@ -68,7 +68,7 @@ Methods
 
    Not Yet Written
 
-Tab key (``pmma.Tab_KEY``)
+Tab Key (``pmma.Tab_KEY``)
 ==========================
 
 Not Yet Written
@@ -115,7 +115,7 @@ Methods
 
    Not Yet Written
 
-Clear key (``pmma.Clear_KEY``)
+Clear Key (``pmma.Clear_KEY``)
 ==============================
 
 Not Yet Written
@@ -162,7 +162,7 @@ Methods
 
    Not Yet Written
 
-Return key (``pmma.Return_KEY``)
+Return Key (``pmma.Return_KEY``)
 ================================
 
 Not Yet Written
@@ -209,7 +209,7 @@ Methods
 
    Not Yet Written
 
-Pause key (``pmma.Pause_KEY``)
+Pause Key (``pmma.Pause_KEY``)
 ==============================
 
 Not Yet Written
@@ -256,7 +256,7 @@ Methods
 
    Not Yet Written
 
-Escape key (``pmma.Escape_KEY``)
+Escape Key (``pmma.Escape_KEY``)
 ================================
 
 Not Yet Written
@@ -303,7 +303,7 @@ Methods
 
    Not Yet Written
 
-Space key (``pmma.Space_KEY``)
+Space Key (``pmma.Space_KEY``)
 ==============================
 
 Not Yet Written
@@ -350,7 +350,7 @@ Methods
 
    Not Yet Written
 
-Exclamation Mark key (``pmma.ExclamationMark_KEY``)
+Exclamation Mark Key (``pmma.ExclamationMark_KEY``)
 ===================================================
 
 Not Yet Written
@@ -397,7 +397,7 @@ Methods
 
    Not Yet Written
 
-Double Quote key (``pmma.DoubleQuote_KEY``)
+Double Quote Key (``pmma.DoubleQuote_KEY``)
 ===========================================
 
 Not Yet Written
@@ -444,7 +444,7 @@ Methods
 
    Not Yet Written
 
-Hashtag key (``pmma.Hashtag_KEY``)
+Hashtag Key (``pmma.Hashtag_KEY``)
 ==================================
 
 Not Yet Written
@@ -491,7 +491,7 @@ Methods
 
    Not Yet Written
 
-Dollar key (``pmma.Dollar_KEY``)
+Dollar Key (``pmma.Dollar_KEY``)
 ================================
 
 Not Yet Written
@@ -538,7 +538,7 @@ Methods
 
    Not Yet Written
 
-Ampersand key (``pmma.Ampersand_KEY``)
+Ampersand Key (``pmma.Ampersand_KEY``)
 ======================================
 
 Not Yet Written
@@ -585,7 +585,7 @@ Methods
 
    Not Yet Written
 
-Single Quote key (``pmma.SingleQuote_KEY``)
+Single Quote Key (``pmma.SingleQuote_KEY``)
 ===========================================
 
 Not Yet Written
@@ -632,7 +632,7 @@ Methods
 
    Not Yet Written
 
-Left Parenthesis key (``pmma.LeftParenthesis_KEY``)
+Left Parenthesis Key (``pmma.LeftParenthesis_KEY``)
 ===================================================
 
 Not Yet Written
@@ -679,7 +679,7 @@ Methods
 
    Not Yet Written
 
-Right Parenthesis key (``pmma.RightParenthesis_KEY``)
+Right Parenthesis Key (``pmma.RightParenthesis_KEY``)
 =====================================================
 
 Not Yet Written
@@ -726,7 +726,7 @@ Methods
 
    Not Yet Written
 
-Asterisk key (``pmma.Asterisk_KEY``)
+Asterisk Key (``pmma.Asterisk_KEY``)
 ====================================
 
 Not Yet Written
@@ -773,7 +773,7 @@ Methods
 
    Not Yet Written
 
-Plus key (``pmma.Plus_KEY``)
+Plus Key (``pmma.Plus_KEY``)
 ============================
 
 Not Yet Written
@@ -820,7 +820,7 @@ Methods
 
    Not Yet Written
 
-Comma key (``pmma.Comma_KEY``)
+Comma Key (``pmma.Comma_KEY``)
 ==============================
 
 Not Yet Written
@@ -867,7 +867,7 @@ Methods
 
    Not Yet Written
 
-Minus key (``pmma.Minus_KEY``)
+Minus Key (``pmma.Minus_KEY``)
 ==============================
 
 Not Yet Written
@@ -914,7 +914,7 @@ Methods
 
    Not Yet Written
 
-Period key (``pmma.Period_KEY``)
+Period Key (``pmma.Period_KEY``)
 ================================
 
 Not Yet Written
@@ -961,7 +961,7 @@ Methods
 
    Not Yet Written
 
-Forward Slash key (``pmma.ForwardSlash_KEY``)
+Forward Slash Key (``pmma.ForwardSlash_KEY``)
 =============================================
 
 Not Yet Written
@@ -1008,8 +1008,8 @@ Methods
 
    Not Yet Written
 
-Primary0 key (``pmma.Primary0_KEY``)
-====================================
+Primary 0 Key (``pmma.Primary0_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1055,8 +1055,8 @@ Methods
 
    Not Yet Written
 
-Primary1 key (``pmma.Primary1_KEY``)
-====================================
+Primary 1 Key (``pmma.Primary1_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1102,8 +1102,8 @@ Methods
 
    Not Yet Written
 
-Primary2 key (``pmma.Primary2_KEY``)
-====================================
+Primary 2 Key (``pmma.Primary2_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1149,8 +1149,8 @@ Methods
 
    Not Yet Written
 
-Primary3 key (``pmma.Primary3_KEY``)
-====================================
+Primary 3 Key (``pmma.Primary3_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1196,8 +1196,8 @@ Methods
 
    Not Yet Written
 
-Primary4 key (``pmma.Primary4_KEY``)
-====================================
+Primary 4 Key (``pmma.Primary4_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1243,8 +1243,8 @@ Methods
 
    Not Yet Written
 
-Primary5 key (``pmma.Primary5_KEY``)
-====================================
+Primary 5 Key (``pmma.Primary5_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1290,8 +1290,8 @@ Methods
 
    Not Yet Written
 
-Primary6 key (``pmma.Primary6_KEY``)
-====================================
+Primary 6 Key (``pmma.Primary6_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1337,8 +1337,8 @@ Methods
 
    Not Yet Written
 
-Primary7 key (``pmma.Primary7_KEY``)
-====================================
+Primary 7 Key (``pmma.Primary7_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1384,8 +1384,8 @@ Methods
 
    Not Yet Written
 
-Primary8 key (``pmma.Primary8_KEY``)
-====================================
+Primary 8 Key (``pmma.Primary8_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1431,8 +1431,8 @@ Methods
 
    Not Yet Written
 
-Primary9 key (``pmma.Primary9_KEY``)
-====================================
+Primary 9 Key (``pmma.Primary9_KEY``)
+=====================================
 
 Not Yet Written
 
@@ -1478,7 +1478,7 @@ Methods
 
    Not Yet Written
 
-Colon key (``pmma.Colon_KEY``)
+Colon Key (``pmma.Colon_KEY``)
 ==============================
 
 Not Yet Written
@@ -1525,7 +1525,7 @@ Methods
 
    Not Yet Written
 
-Semi Colon key (``pmma.SemiColon_KEY``)
+Semi Colon Key (``pmma.SemiColon_KEY``)
 =======================================
 
 Not Yet Written
@@ -1572,7 +1572,7 @@ Methods
 
    Not Yet Written
 
-Less Than key (``pmma.LessThan_KEY``)
+Less Than Key (``pmma.LessThan_KEY``)
 =====================================
 
 Not Yet Written
@@ -1619,7 +1619,7 @@ Methods
 
    Not Yet Written
 
-Equals key (``pmma.Equals_KEY``)
+Equals Key (``pmma.Equals_KEY``)
 ================================
 
 Not Yet Written
@@ -1666,7 +1666,7 @@ Methods
 
    Not Yet Written
 
-Greater Than key (``pmma.GreaterThan_KEY``)
+Greater Than Key (``pmma.GreaterThan_KEY``)
 ===========================================
 
 Not Yet Written
@@ -1713,7 +1713,7 @@ Methods
 
    Not Yet Written
 
-Question Mark key (``pmma.QuestionMark_KEY``)
+Question Mark Key (``pmma.QuestionMark_KEY``)
 =============================================
 
 Not Yet Written
@@ -1760,7 +1760,7 @@ Methods
 
    Not Yet Written
 
-At key (``pmma.At_KEY``)
+At Key (``pmma.At_KEY``)
 ========================
 
 Not Yet Written
@@ -1807,7 +1807,7 @@ Methods
 
    Not Yet Written
 
-Left Bracket key (``pmma.LeftBracket_KEY``)
+Left Bracket Key (``pmma.LeftBracket_KEY``)
 ===========================================
 
 Not Yet Written
@@ -1854,7 +1854,7 @@ Methods
 
    Not Yet Written
 
-Back Slash key (``pmma.BackSlash_KEY``)
+Back Slash Key (``pmma.BackSlash_KEY``)
 =======================================
 
 Not Yet Written
@@ -1901,7 +1901,7 @@ Methods
 
    Not Yet Written
 
-Right Bracket key (``pmma.RightBracket_KEY``)
+Right Bracket Key (``pmma.RightBracket_KEY``)
 =============================================
 
 Not Yet Written
@@ -1948,7 +1948,7 @@ Methods
 
    Not Yet Written
 
-Caret key (``pmma.Caret_KEY``)
+Caret Key (``pmma.Caret_KEY``)
 ==============================
 
 Not Yet Written
@@ -1995,7 +1995,7 @@ Methods
 
    Not Yet Written
 
-Underscore key (``pmma.Underscore_KEY``)
+Underscore Key (``pmma.Underscore_KEY``)
 ========================================
 
 Not Yet Written
@@ -2042,7 +2042,7 @@ Methods
 
    Not Yet Written
 
-Grave key (``pmma.Grave_KEY``)
+Grave Key (``pmma.Grave_KEY``)
 ==============================
 
 Not Yet Written
@@ -2089,7 +2089,7 @@ Methods
 
    Not Yet Written
 
-Primary A key (``pmma.PrimaryA_KEY``)
+Primary A Key (``pmma.PrimaryA_KEY``)
 =====================================
 
 Not Yet Written
@@ -2136,7 +2136,7 @@ Methods
 
    Not Yet Written
 
-Primary B key (``pmma.PrimaryB_KEY``)
+Primary B Key (``pmma.PrimaryB_KEY``)
 =====================================
 
 Not Yet Written
@@ -2183,7 +2183,7 @@ Methods
 
    Not Yet Written
 
-Primary C key (``pmma.PrimaryC_KEY``)
+Primary C Key (``pmma.PrimaryC_KEY``)
 =====================================
 
 Not Yet Written
@@ -2230,7 +2230,7 @@ Methods
 
    Not Yet Written
 
-Primary D key (``pmma.PrimaryD_KEY``)
+Primary D Key (``pmma.PrimaryD_KEY``)
 =====================================
 
 Not Yet Written
@@ -2277,7 +2277,7 @@ Methods
 
    Not Yet Written
 
-Primary E key (``pmma.PrimaryE_KEY``)
+Primary E Key (``pmma.PrimaryE_KEY``)
 =====================================
 
 Not Yet Written
@@ -2324,7 +2324,7 @@ Methods
 
    Not Yet Written
 
-Primary F key (``pmma.PrimaryF_KEY``)
+Primary F Key (``pmma.PrimaryF_KEY``)
 =====================================
 
 Not Yet Written
@@ -2371,7 +2371,7 @@ Methods
 
    Not Yet Written
 
-Primary G key (``pmma.PrimaryG_KEY``)
+Primary G Key (``pmma.PrimaryG_KEY``)
 =====================================
 
 Not Yet Written
@@ -2418,7 +2418,7 @@ Methods
 
    Not Yet Written
 
-Primary H key (``pmma.PrimaryH_KEY``)
+Primary H Key (``pmma.PrimaryH_KEY``)
 =====================================
 
 Not Yet Written
@@ -2465,7 +2465,7 @@ Methods
 
    Not Yet Written
 
-Primary I key (``pmma.PrimaryI_KEY``)
+Primary I Key (``pmma.PrimaryI_KEY``)
 =====================================
 
 Not Yet Written
@@ -2512,7 +2512,7 @@ Methods
 
    Not Yet Written
 
-Primary J key (``pmma.PrimaryJ_KEY``)
+Primary J Key (``pmma.PrimaryJ_KEY``)
 =====================================
 
 Not Yet Written
@@ -2559,7 +2559,7 @@ Methods
 
    Not Yet Written
 
-Primary K key (``pmma.PrimaryK_KEY``)
+Primary K Key (``pmma.PrimaryK_KEY``)
 =====================================
 
 Not Yet Written
@@ -2606,7 +2606,7 @@ Methods
 
    Not Yet Written
 
-Primary L key (``pmma.PrimaryL_KEY``)
+Primary L Key (``pmma.PrimaryL_KEY``)
 =====================================
 
 Not Yet Written
@@ -2653,7 +2653,7 @@ Methods
 
    Not Yet Written
 
-Primary M key (``pmma.PrimaryM_KEY``)
+Primary M Key (``pmma.PrimaryM_KEY``)
 =====================================
 
 Not Yet Written
@@ -2700,7 +2700,7 @@ Methods
 
    Not Yet Written
 
-Primary N key (``pmma.PrimaryN_KEY``)
+Primary N Key (``pmma.PrimaryN_KEY``)
 =====================================
 
 Not Yet Written
@@ -2747,7 +2747,7 @@ Methods
 
    Not Yet Written
 
-Primary O key (``pmma.PrimaryO_KEY``)
+Primary O Key (``pmma.PrimaryO_KEY``)
 =====================================
 
 Not Yet Written
@@ -2794,7 +2794,7 @@ Methods
 
    Not Yet Written
 
-Primary P key (``pmma.PrimaryP_KEY``)
+Primary P Key (``pmma.PrimaryP_KEY``)
 =====================================
 
 Not Yet Written
@@ -2841,7 +2841,7 @@ Methods
 
    Not Yet Written
 
-Primary Q key (``pmma.PrimaryQ_KEY``)
+Primary Q Key (``pmma.PrimaryQ_KEY``)
 =====================================
 
 Not Yet Written
@@ -2888,7 +2888,7 @@ Methods
 
    Not Yet Written
 
-Primary R key (``pmma.PrimaryR_KEY``)
+Primary R Key (``pmma.PrimaryR_KEY``)
 =====================================
 
 Not Yet Written
@@ -2935,7 +2935,7 @@ Methods
 
    Not Yet Written
 
-Primary S key (``pmma.PrimaryS_KEY``)
+Primary S Key (``pmma.PrimaryS_KEY``)
 =====================================
 
 Not Yet Written
@@ -2982,7 +2982,7 @@ Methods
 
    Not Yet Written
 
-Primary T key (``pmma.PrimaryT_KEY``)
+Primary T Key (``pmma.PrimaryT_KEY``)
 =====================================
 
 Not Yet Written
@@ -3029,7 +3029,7 @@ Methods
 
    Not Yet Written
 
-Primary U key (``pmma.PrimaryU_KEY``)
+Primary U Key (``pmma.PrimaryU_KEY``)
 =====================================
 
 Not Yet Written
@@ -3076,7 +3076,7 @@ Methods
 
    Not Yet Written
 
-Primary V key (``pmma.PrimaryV_KEY``)
+Primary V Key (``pmma.PrimaryV_KEY``)
 =====================================
 
 Not Yet Written
@@ -3123,7 +3123,7 @@ Methods
 
    Not Yet Written
 
-Primary W key (``pmma.PrimaryW_KEY``)
+Primary W Key (``pmma.PrimaryW_KEY``)
 =====================================
 
 Not Yet Written
@@ -3170,7 +3170,7 @@ Methods
 
    Not Yet Written
 
-Primary X key (``pmma.PrimaryX_KEY``)
+Primary X Key (``pmma.PrimaryX_KEY``)
 =====================================
 
 Not Yet Written
@@ -3217,7 +3217,7 @@ Methods
 
    Not Yet Written
 
-Primary Y key (``pmma.PrimaryY_KEY``)
+Primary Y Key (``pmma.PrimaryY_KEY``)
 =====================================
 
 Not Yet Written
@@ -3264,7 +3264,7 @@ Methods
 
    Not Yet Written
 
-Primary Z key (``pmma.PrimaryZ_KEY``)
+Primary Z Key (``pmma.PrimaryZ_KEY``)
 =====================================
 
 Not Yet Written
@@ -3311,7 +3311,7 @@ Methods
 
    Not Yet Written
 
-Delete key (``pmma.Delete_KEY``)
+Delete Key (``pmma.Delete_KEY``)
 ================================
 
 Not Yet Written
@@ -3358,8 +3358,8 @@ Methods
 
    Not Yet Written
 
-Numpad0 key (``pmma.Numpad0_KEY``)
-==================================
+Numpad 0 Key (``pmma.Numpad0_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3405,8 +3405,8 @@ Methods
 
    Not Yet Written
 
-Numpad1 key (``pmma.Numpad1_KEY``)
-==================================
+Numpad 1 Key (``pmma.Numpad1_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3452,8 +3452,8 @@ Methods
 
    Not Yet Written
 
-Numpad2 key (``pmma.Numpad2_KEY``)
-==================================
+Numpad 2 Key (``pmma.Numpad2_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3499,8 +3499,8 @@ Methods
 
    Not Yet Written
 
-Numpad3 key (``pmma.Numpad3_KEY``)
-==================================
+Numpad 3 Key (``pmma.Numpad3_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3546,8 +3546,8 @@ Methods
 
    Not Yet Written
 
-Numpad4 key (``pmma.Numpad4_KEY``)
-==================================
+Numpad 4 Key (``pmma.Numpad4_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3593,8 +3593,8 @@ Methods
 
    Not Yet Written
 
-Numpad5 key (``pmma.Numpad5_KEY``)
-==================================
+Numpad 5 Key (``pmma.Numpad5_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3640,8 +3640,8 @@ Methods
 
    Not Yet Written
 
-Numpad6 key (``pmma.Numpad6_KEY``)
-==================================
+Numpad 6 Key (``pmma.Numpad6_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3687,8 +3687,8 @@ Methods
 
    Not Yet Written
 
-Numpad7 key (``pmma.Numpad7_KEY``)
-==================================
+Numpad 7 Key (``pmma.Numpad7_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3734,8 +3734,8 @@ Methods
 
    Not Yet Written
 
-Numpad8 key (``pmma.Numpad8_KEY``)
-==================================
+Numpad 8 Key (``pmma.Numpad8_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3781,8 +3781,8 @@ Methods
 
    Not Yet Written
 
-Numpad9 key (``pmma.Numpad9_KEY``)
-==================================
+Numpad 9 Key (``pmma.Numpad9_KEY``)
+===================================
 
 Not Yet Written
 
@@ -3828,7 +3828,7 @@ Methods
 
    Not Yet Written
 
-Numpad Period key (``pmma.NumpadPeriod_KEY``)
+Numpad Period Key (``pmma.NumpadPeriod_KEY``)
 =============================================
 
 Not Yet Written
@@ -3875,7 +3875,7 @@ Methods
 
    Not Yet Written
 
-Numpad Divide key (``pmma.NumpadDivide_KEY``)
+Numpad Divide Key (``pmma.NumpadDivide_KEY``)
 =============================================
 
 Not Yet Written
@@ -3922,7 +3922,7 @@ Methods
 
    Not Yet Written
 
-Numpad Multiply key (``pmma.NumpadMultiply_KEY``)
+Numpad Multiply Key (``pmma.NumpadMultiply_KEY``)
 =================================================
 
 Not Yet Written
@@ -3969,7 +3969,7 @@ Methods
 
    Not Yet Written
 
-Numpad Minus key (``pmma.NumpadMinus_KEY``)
+Numpad Minus Key (``pmma.NumpadMinus_KEY``)
 ===========================================
 
 Not Yet Written
@@ -4016,7 +4016,7 @@ Methods
 
    Not Yet Written
 
-Numpad Plus key (``pmma.NumpadPlus_KEY``)
+Numpad Plus Key (``pmma.NumpadPlus_KEY``)
 =========================================
 
 Not Yet Written
@@ -4063,7 +4063,7 @@ Methods
 
    Not Yet Written
 
-Numpad Enter key (``pmma.NumpadEnter_KEY``)
+Numpad Enter Key (``pmma.NumpadEnter_KEY``)
 ===========================================
 
 Not Yet Written
@@ -4110,7 +4110,7 @@ Methods
 
    Not Yet Written
 
-Numpad Equals key (``pmma.NumpadEquals_KEY``)
+Numpad Equals Key (``pmma.NumpadEquals_KEY``)
 =============================================
 
 Not Yet Written
@@ -4157,7 +4157,7 @@ Methods
 
    Not Yet Written
 
-Up key (``pmma.Up_KEY``)
+Up Key (``pmma.Up_KEY``)
 ========================
 
 Not Yet Written
@@ -4204,7 +4204,7 @@ Methods
 
    Not Yet Written
 
-Down key (``pmma.Down_KEY``)
+Down Key (``pmma.Down_KEY``)
 ============================
 
 Not Yet Written
@@ -4251,7 +4251,7 @@ Methods
 
    Not Yet Written
 
-Right key (``pmma.Right_KEY``)
+Right Key (``pmma.Right_KEY``)
 ==============================
 
 Not Yet Written
@@ -4298,7 +4298,7 @@ Methods
 
    Not Yet Written
 
-Left key (``pmma.Left_KEY``)
+Left Key (``pmma.Left_KEY``)
 ============================
 
 Not Yet Written
@@ -4345,7 +4345,7 @@ Methods
 
    Not Yet Written
 
-Insert key (``pmma.Insert_KEY``)
+Insert Key (``pmma.Insert_KEY``)
 ================================
 
 Not Yet Written
@@ -4392,7 +4392,7 @@ Methods
 
    Not Yet Written
 
-Home key (``pmma.Home_KEY``)
+Home Key (``pmma.Home_KEY``)
 ============================
 
 Not Yet Written
@@ -4439,7 +4439,7 @@ Methods
 
    Not Yet Written
 
-End key (``pmma.End_KEY``)
+End Key (``pmma.End_KEY``)
 ==========================
 
 Not Yet Written
@@ -4486,7 +4486,7 @@ Methods
 
    Not Yet Written
 
-Page Up key (``pmma.PageUp_KEY``)
+Page Up Key (``pmma.PageUp_KEY``)
 =================================
 
 Not Yet Written
@@ -4533,7 +4533,7 @@ Methods
 
    Not Yet Written
 
-Page Down key (``pmma.PageDown_KEY``)
+Page Down Key (``pmma.PageDown_KEY``)
 =====================================
 
 Not Yet Written
@@ -4580,8 +4580,8 @@ Methods
 
    Not Yet Written
 
-Function1 key (``pmma.Function1_KEY``)
-======================================
+Function 1 Key (``pmma.Function1_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4627,8 +4627,8 @@ Methods
 
    Not Yet Written
 
-Function2 key (``pmma.Function2_KEY``)
-======================================
+Function 2 Key (``pmma.Function2_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4674,8 +4674,8 @@ Methods
 
    Not Yet Written
 
-Function3 key (``pmma.Function3_KEY``)
-======================================
+Function 3 Key (``pmma.Function3_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4721,8 +4721,8 @@ Methods
 
    Not Yet Written
 
-Function4 key (``pmma.Function4_KEY``)
-======================================
+Function 4 Key (``pmma.Function4_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4768,8 +4768,8 @@ Methods
 
    Not Yet Written
 
-Function5 key (``pmma.Function5_KEY``)
-======================================
+Function 5 Key (``pmma.Function5_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4815,8 +4815,8 @@ Methods
 
    Not Yet Written
 
-Function6 key (``pmma.Function6_KEY``)
-======================================
+Function 6 Key (``pmma.Function6_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4862,8 +4862,8 @@ Methods
 
    Not Yet Written
 
-Function7 key (``pmma.Function7_KEY``)
-======================================
+Function 7 Key (``pmma.Function7_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4909,8 +4909,8 @@ Methods
 
    Not Yet Written
 
-Function8 key (``pmma.Function8_KEY``)
-======================================
+Function 8 Key (``pmma.Function8_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -4956,8 +4956,8 @@ Methods
 
    Not Yet Written
 
-Function9 key (``pmma.Function9_KEY``)
-======================================
+Function 9 Key (``pmma.Function9_KEY``)
+=======================================
 
 Not Yet Written
 
@@ -5003,8 +5003,8 @@ Methods
 
    Not Yet Written
 
-Function10 key (``pmma.Function10_KEY``)
-========================================
+Function 10 Key (``pmma.Function10_KEY``)
+=========================================
 
 Not Yet Written
 
@@ -5050,8 +5050,8 @@ Methods
 
    Not Yet Written
 
-Function11 key (``pmma.Function11_KEY``)
-========================================
+Function 11 Key (``pmma.Function11_KEY``)
+=========================================
 
 Not Yet Written
 
@@ -5097,8 +5097,8 @@ Methods
 
    Not Yet Written
 
-Function12 key (``pmma.Function12_KEY``)
-========================================
+Function 12 Key (``pmma.Function12_KEY``)
+=========================================
 
 Not Yet Written
 
@@ -5144,8 +5144,8 @@ Methods
 
    Not Yet Written
 
-Function13 key (``pmma.Function13_KEY``)
-========================================
+Function 13 Key (``pmma.Function13_KEY``)
+=========================================
 
 Not Yet Written
 
@@ -5191,8 +5191,8 @@ Methods
 
    Not Yet Written
 
-Function14 key (``pmma.Function14_KEY``)
-========================================
+Function 14 Key (``pmma.Function14_KEY``)
+=========================================
 
 Not Yet Written
 
@@ -5238,8 +5238,8 @@ Methods
 
    Not Yet Written
 
-Function15 key (``pmma.Function15_KEY``)
-========================================
+Function 15 Key (``pmma.Function15_KEY``)
+=========================================
 
 Not Yet Written
 
@@ -5285,7 +5285,7 @@ Methods
 
    Not Yet Written
 
-Num Lock key (``pmma.NumLock_KEY``)
+Num Lock Key (``pmma.NumLock_KEY``)
 ===================================
 
 Not Yet Written
@@ -5332,7 +5332,7 @@ Methods
 
    Not Yet Written
 
-Caps Lock key (``pmma.CapsLock_KEY``)
+Caps Lock Key (``pmma.CapsLock_KEY``)
 =====================================
 
 Not Yet Written
@@ -5379,7 +5379,7 @@ Methods
 
    Not Yet Written
 
-Scroll Lock key (``pmma.ScrollLock_KEY``)
+Scroll Lock Key (``pmma.ScrollLock_KEY``)
 =========================================
 
 Not Yet Written
@@ -5426,7 +5426,7 @@ Methods
 
    Not Yet Written
 
-Right Shift key (``pmma.RightShift_KEY``)
+Right Shift Key (``pmma.RightShift_KEY``)
 =========================================
 
 Not Yet Written
@@ -5473,7 +5473,7 @@ Methods
 
    Not Yet Written
 
-Left Shift key (``pmma.LeftShift_KEY``)
+Left Shift Key (``pmma.LeftShift_KEY``)
 =======================================
 
 Not Yet Written
@@ -5520,7 +5520,7 @@ Methods
 
    Not Yet Written
 
-Shift key (``pmma.Shift_KEY``)
+Shift Key (``pmma.Shift_KEY``)
 ==============================
 
 Not Yet Written
@@ -5567,7 +5567,7 @@ Methods
 
    Not Yet Written
 
-Right Control key (``pmma.RightControl_KEY``)
+Right Control Key (``pmma.RightControl_KEY``)
 =============================================
 
 Not Yet Written
@@ -5614,7 +5614,7 @@ Methods
 
    Not Yet Written
 
-Left Control key (``pmma.LeftControl_KEY``)
+Left Control Key (``pmma.LeftControl_KEY``)
 ===========================================
 
 Not Yet Written
@@ -5661,7 +5661,7 @@ Methods
 
    Not Yet Written
 
-Control key (``pmma.Control_KEY``)
+Control Key (``pmma.Control_KEY``)
 ==================================
 
 Not Yet Written
@@ -5708,7 +5708,7 @@ Methods
 
    Not Yet Written
 
-Right Alt key (``pmma.RightAlt_KEY``)
+Right Alt Key (``pmma.RightAlt_KEY``)
 =====================================
 
 Not Yet Written
@@ -5755,7 +5755,7 @@ Methods
 
    Not Yet Written
 
-Left Alt key (``pmma.LeftAlt_KEY``)
+Left Alt Key (``pmma.LeftAlt_KEY``)
 ===================================
 
 Not Yet Written
@@ -5802,7 +5802,7 @@ Methods
 
    Not Yet Written
 
-Alt key (``pmma.Alt_KEY``)
+Alt Key (``pmma.Alt_KEY``)
 ==========================
 
 Not Yet Written
@@ -5849,7 +5849,7 @@ Methods
 
    Not Yet Written
 
-Right Meta key (``pmma.RightMeta_KEY``)
+Right Meta Key (``pmma.RightMeta_KEY``)
 =======================================
 
 Not Yet Written
@@ -5896,7 +5896,7 @@ Methods
 
    Not Yet Written
 
-Left Meta key (``pmma.LeftMeta_KEY``)
+Left Meta Key (``pmma.LeftMeta_KEY``)
 =====================================
 
 Not Yet Written
@@ -5943,7 +5943,7 @@ Methods
 
    Not Yet Written
 
-Meta key (``pmma.Meta_KEY``)
+Meta Key (``pmma.Meta_KEY``)
 ============================
 
 Not Yet Written
@@ -5990,7 +5990,7 @@ Methods
 
    Not Yet Written
 
-Left Super key (``pmma.LeftSuper_KEY``)
+Left Super Key (``pmma.LeftSuper_KEY``)
 =======================================
 
 Not Yet Written
@@ -6037,7 +6037,7 @@ Methods
 
    Not Yet Written
 
-Right Super key (``pmma.RightSuper_KEY``)
+Right Super Key (``pmma.RightSuper_KEY``)
 =========================================
 
 Not Yet Written
@@ -6084,7 +6084,7 @@ Methods
 
    Not Yet Written
 
-Super key (``pmma.Super_KEY``)
+Super Key (``pmma.Super_KEY``)
 ==============================
 
 Not Yet Written
@@ -6131,7 +6131,7 @@ Methods
 
    Not Yet Written
 
-Mode key (``pmma.Mode_KEY``)
+Mode Key (``pmma.Mode_KEY``)
 ============================
 
 Not Yet Written
@@ -6178,7 +6178,7 @@ Methods
 
    Not Yet Written
 
-Help key (``pmma.Help_KEY``)
+Help Key (``pmma.Help_KEY``)
 ============================
 
 Not Yet Written
@@ -6225,7 +6225,7 @@ Methods
 
    Not Yet Written
 
-Print key (``pmma.Print_KEY``)
+Print Key (``pmma.Print_KEY``)
 ==============================
 
 Not Yet Written
@@ -6272,7 +6272,7 @@ Methods
 
    Not Yet Written
 
-System Request key (``pmma.SystemRequest_KEY``)
+System Request Key (``pmma.SystemRequest_KEY``)
 ===============================================
 
 Not Yet Written
@@ -6319,7 +6319,7 @@ Methods
 
    Not Yet Written
 
-Break key (``pmma.Break_KEY``)
+Break Key (``pmma.Break_KEY``)
 ==============================
 
 Not Yet Written
@@ -6366,7 +6366,7 @@ Methods
 
    Not Yet Written
 
-Menu key (``pmma.Menu_KEY``)
+Menu Key (``pmma.Menu_KEY``)
 ============================
 
 Not Yet Written
@@ -6413,7 +6413,7 @@ Methods
 
    Not Yet Written
 
-Power key (``pmma.Power_KEY``)
+Power Key (``pmma.Power_KEY``)
 ==============================
 
 Not Yet Written
@@ -6460,7 +6460,7 @@ Methods
 
    Not Yet Written
 
-Euro key (``pmma.Euro_KEY``)
+Euro Key (``pmma.Euro_KEY``)
 ============================
 
 Not Yet Written
@@ -6507,7 +6507,7 @@ Methods
 
    Not Yet Written
 
-Android Back key (``pmma.AndroidBack_KEY``)
+Android Back Key (``pmma.AndroidBack_KEY``)
 ===========================================
 
 Not Yet Written
@@ -6765,7 +6765,7 @@ Methods
 
    Not Yet Written
 
-Active event (``pmma.Active_EVENT``)
+Active Event (``pmma.Active_EVENT``)
 ====================================
 
 Not Yet Written
@@ -6788,7 +6788,7 @@ Methods
 
    Not Yet Written
 
-App Terminating event (``pmma.AppTerminating_EVENT``)
+App Terminating Event (``pmma.AppTerminating_EVENT``)
 =====================================================
 
 Not Yet Written
@@ -6811,7 +6811,7 @@ Methods
 
    Not Yet Written
 
-App Low Memory event (``pmma.AppLowMemory_EVENT``)
+App Low Memory Event (``pmma.AppLowMemory_EVENT``)
 ==================================================
 
 Not Yet Written
@@ -6834,7 +6834,7 @@ Methods
 
    Not Yet Written
 
-App Will Enter Background event (``pmma.AppWillEnterBackground_EVENT``)
+App Will Enter Background Event (``pmma.AppWillEnterBackground_EVENT``)
 =======================================================================
 
 Not Yet Written
@@ -6857,7 +6857,7 @@ Methods
 
    Not Yet Written
 
-App Did Enter Background event (``pmma.AppDidEnterBackground_EVENT``)
+App Did Enter Background Event (``pmma.AppDidEnterBackground_EVENT``)
 =====================================================================
 
 Not Yet Written
@@ -6880,7 +6880,7 @@ Methods
 
    Not Yet Written
 
-App Will Enter Foreground event (``pmma.AppWillEnterForeground_EVENT``)
+App Will Enter Foreground Event (``pmma.AppWillEnterForeground_EVENT``)
 =======================================================================
 
 Not Yet Written
@@ -6903,7 +6903,7 @@ Methods
 
    Not Yet Written
 
-App Did Enter Foreground event (``pmma.AppDidEnterForeground_EVENT``)
+App Did Enter Foreground Event (``pmma.AppDidEnterForeground_EVENT``)
 =====================================================================
 
 Not Yet Written
@@ -6926,7 +6926,7 @@ Methods
 
    Not Yet Written
 
-Audio Device Added event (``pmma.AudioDeviceAdded_EVENT``)
+Audio Device Added Event (``pmma.AudioDeviceAdded_EVENT``)
 ==========================================================
 
 Not Yet Written
@@ -6949,7 +6949,7 @@ Methods
 
    Not Yet Written
 
-Audio Device Removed event (``pmma.AudioDeviceRemoved_EVENT``)
+Audio Device Removed Event (``pmma.AudioDeviceRemoved_EVENT``)
 ==============================================================
 
 Not Yet Written
@@ -6972,7 +6972,7 @@ Methods
 
    Not Yet Written
 
-Clip Board Update event (``pmma.ClipBoardUpdate_EVENT``)
+Clip Board Update Event (``pmma.ClipBoardUpdate_EVENT``)
 ========================================================
 
 Not Yet Written
@@ -6995,7 +6995,7 @@ Methods
 
    Not Yet Written
 
-Drop File event (``pmma.DropFile_EVENT``)
+Drop File Event (``pmma.DropFile_EVENT``)
 =========================================
 
 Not Yet Written
@@ -7018,7 +7018,7 @@ Methods
 
    Not Yet Written
 
-Drop Text event (``pmma.DropText_EVENT``)
+Drop Text Event (``pmma.DropText_EVENT``)
 =========================================
 
 Not Yet Written
@@ -7041,7 +7041,7 @@ Methods
 
    Not Yet Written
 
-Drop Begin event (``pmma.DropBegin_EVENT``)
+Drop Begin Event (``pmma.DropBegin_EVENT``)
 ===========================================
 
 Not Yet Written
@@ -7064,7 +7064,7 @@ Methods
 
    Not Yet Written
 
-Drop Complete event (``pmma.DropComplete_EVENT``)
+Drop Complete Event (``pmma.DropComplete_EVENT``)
 =================================================
 
 Not Yet Written
@@ -7087,7 +7087,7 @@ Methods
 
    Not Yet Written
 
-Finger Motion event (``pmma.FingerMotion_EVENT``)
+Finger Motion Event (``pmma.FingerMotion_EVENT``)
 =================================================
 
 Not Yet Written
@@ -7110,7 +7110,7 @@ Methods
 
    Not Yet Written
 
-Finger Down event (``pmma.FingerDown_EVENT``)
+Finger Down Event (``pmma.FingerDown_EVENT``)
 =============================================
 
 Not Yet Written
@@ -7133,7 +7133,7 @@ Methods
 
    Not Yet Written
 
-Finger Up event (``pmma.FingerUp_EVENT``)
+Finger Up Event (``pmma.FingerUp_EVENT``)
 =========================================
 
 Not Yet Written
@@ -7156,7 +7156,7 @@ Methods
 
    Not Yet Written
 
-Key Map Changed event (``pmma.KeyMapChanged_EVENT``)
+Key Map Changed Event (``pmma.KeyMapChanged_EVENT``)
 ====================================================
 
 Not Yet Written
@@ -7179,7 +7179,7 @@ Methods
 
    Not Yet Written
 
-Locale Changed event (``pmma.LocaleChanged_EVENT``)
+Locale Changed Event (``pmma.LocaleChanged_EVENT``)
 ===================================================
 
 Not Yet Written
@@ -7202,7 +7202,7 @@ Methods
 
    Not Yet Written
 
-Multi Gesture event (``pmma.MultiGesture_EVENT``)
+Multi Gesture Event (``pmma.MultiGesture_EVENT``)
 =================================================
 
 Not Yet Written
@@ -7225,7 +7225,7 @@ Methods
 
    Not Yet Written
 
-No Event event (``pmma.NoEvent_EVENT``)
+No Event Event (``pmma.NoEvent_EVENT``)
 =======================================
 
 Not Yet Written
@@ -7248,7 +7248,7 @@ Methods
 
    Not Yet Written
 
-Quit event (``pmma.Quit_EVENT``)
+Quit Event (``pmma.Quit_EVENT``)
 ================================
 
 Not Yet Written
@@ -7271,7 +7271,7 @@ Methods
 
    Not Yet Written
 
-Render Targets Reset event (``pmma.RenderTargetsReset_EVENT``)
+Render Targets Reset Event (``pmma.RenderTargetsReset_EVENT``)
 ==============================================================
 
 Not Yet Written
@@ -7294,7 +7294,7 @@ Methods
 
    Not Yet Written
 
-Render Device Reset event (``pmma.RenderDeviceReset_EVENT``)
+Render Device Reset Event (``pmma.RenderDeviceReset_EVENT``)
 ============================================================
 
 Not Yet Written
@@ -7317,7 +7317,7 @@ Methods
 
    Not Yet Written
 
-Sys W M Event event (``pmma.SysWMEvent_EVENT``)
+Sys W M Event Event (``pmma.SysWMEvent_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7340,7 +7340,7 @@ Methods
 
    Not Yet Written
 
-Text Input event (``pmma.TextInput_EVENT``)
+Text Input Event (``pmma.TextInput_EVENT``)
 ===========================================
 
 Not Yet Written
@@ -7363,7 +7363,7 @@ Methods
 
    Not Yet Written
 
-Text Editing event (``pmma.TextEditing_EVENT``)
+Text Editing Event (``pmma.TextEditing_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7386,7 +7386,7 @@ Methods
 
    Not Yet Written
 
-Video Resize event (``pmma.VideoResize_EVENT``)
+Video Resize Event (``pmma.VideoResize_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7409,7 +7409,7 @@ Methods
 
    Not Yet Written
 
-Video Expose event (``pmma.VideoExpose_EVENT``)
+Video Expose Event (``pmma.VideoExpose_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7432,7 +7432,7 @@ Methods
 
    Not Yet Written
 
-Midi In event (``pmma.MidiIn_EVENT``)
+Midi In Event (``pmma.MidiIn_EVENT``)
 =====================================
 
 Not Yet Written
@@ -7455,7 +7455,7 @@ Methods
 
    Not Yet Written
 
-Midi Out event (``pmma.MidiOut_EVENT``)
+Midi Out Event (``pmma.MidiOut_EVENT``)
 =======================================
 
 Not Yet Written
@@ -7478,7 +7478,7 @@ Methods
 
    Not Yet Written
 
-Window Shown event (``pmma.WindowShown_EVENT``)
+Window Shown Event (``pmma.WindowShown_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7501,7 +7501,7 @@ Methods
 
    Not Yet Written
 
-Window Hidden event (``pmma.WindowHidden_EVENT``)
+Window Hidden Event (``pmma.WindowHidden_EVENT``)
 =================================================
 
 Not Yet Written
@@ -7524,7 +7524,7 @@ Methods
 
    Not Yet Written
 
-Window Exposed event (``pmma.WindowExposed_EVENT``)
+Window Exposed Event (``pmma.WindowExposed_EVENT``)
 ===================================================
 
 Not Yet Written
@@ -7547,7 +7547,7 @@ Methods
 
    Not Yet Written
 
-Window Moved event (``pmma.WindowMoved_EVENT``)
+Window Moved Event (``pmma.WindowMoved_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7570,7 +7570,7 @@ Methods
 
    Not Yet Written
 
-Window Resized event (``pmma.WindowResized_EVENT``)
+Window Resized Event (``pmma.WindowResized_EVENT``)
 ===================================================
 
 Not Yet Written
@@ -7593,7 +7593,7 @@ Methods
 
    Not Yet Written
 
-Window Size Changed event (``pmma.WindowSizeChanged_EVENT``)
+Window Size Changed Event (``pmma.WindowSizeChanged_EVENT``)
 ============================================================
 
 Not Yet Written
@@ -7616,7 +7616,7 @@ Methods
 
    Not Yet Written
 
-Window Minimized event (``pmma.WindowMinimized_EVENT``)
+Window Minimized Event (``pmma.WindowMinimized_EVENT``)
 =======================================================
 
 Not Yet Written
@@ -7639,7 +7639,7 @@ Methods
 
    Not Yet Written
 
-Window Maximized event (``pmma.WindowMaximized_EVENT``)
+Window Maximized Event (``pmma.WindowMaximized_EVENT``)
 =======================================================
 
 Not Yet Written
@@ -7662,7 +7662,7 @@ Methods
 
    Not Yet Written
 
-Window Restored event (``pmma.WindowRestored_EVENT``)
+Window Restored Event (``pmma.WindowRestored_EVENT``)
 =====================================================
 
 Not Yet Written
@@ -7685,7 +7685,7 @@ Methods
 
    Not Yet Written
 
-Window Enter event (``pmma.WindowEnter_EVENT``)
+Window Enter Event (``pmma.WindowEnter_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7708,7 +7708,7 @@ Methods
 
    Not Yet Written
 
-Window Leave event (``pmma.WindowLeave_EVENT``)
+Window Leave Event (``pmma.WindowLeave_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7731,7 +7731,7 @@ Methods
 
    Not Yet Written
 
-Window Focus Gained event (``pmma.WindowFocusGained_EVENT``)
+Window Focus Gained Event (``pmma.WindowFocusGained_EVENT``)
 ============================================================
 
 Not Yet Written
@@ -7754,7 +7754,7 @@ Methods
 
    Not Yet Written
 
-Window Focus Lost event (``pmma.WindowFocusLost_EVENT``)
+Window Focus Lost Event (``pmma.WindowFocusLost_EVENT``)
 ========================================================
 
 Not Yet Written
@@ -7777,7 +7777,7 @@ Methods
 
    Not Yet Written
 
-Window Close event (``pmma.WindowClose_EVENT``)
+Window Close Event (``pmma.WindowClose_EVENT``)
 ===============================================
 
 Not Yet Written
@@ -7800,7 +7800,7 @@ Methods
 
    Not Yet Written
 
-Window Take Focus event (``pmma.WindowTakeFocus_EVENT``)
+Window Take Focus Event (``pmma.WindowTakeFocus_EVENT``)
 ========================================================
 
 Not Yet Written
@@ -7823,7 +7823,7 @@ Methods
 
    Not Yet Written
 
-Window Hit Test event (``pmma.WindowHitTest_EVENT``)
+Window Hit Test Event (``pmma.WindowHitTest_EVENT``)
 ====================================================
 
 Not Yet Written
@@ -7846,7 +7846,7 @@ Methods
 
    Not Yet Written
 
-Window I C C P R O F Changed event (``pmma.WindowICCPROFChanged_EVENT``)
+Window I C C P R O F Changed Event (``pmma.WindowICCPROFChanged_EVENT``)
 ========================================================================
 
 Not Yet Written
@@ -7869,7 +7869,7 @@ Methods
 
    Not Yet Written
 
-Window Display Changed event (``pmma.WindowDisplayChanged_EVENT``)
+Window Display Changed Event (``pmma.WindowDisplayChanged_EVENT``)
 ==================================================================
 
 Not Yet Written
