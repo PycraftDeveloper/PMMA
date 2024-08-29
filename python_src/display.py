@@ -1,5 +1,5 @@
-import os as _os
 import gc as _gc
+import ctypes as _ctypes
 
 import numpy as _numpy
 import moderngl as _moderngl
@@ -18,6 +18,7 @@ from pmma.python_src.surface import Surface as _Surface
 from pmma.python_src.opengl import OpenGL as _OpenGL
 
 from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
+from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 
 class Display:
     def __init__(self):
@@ -25,10 +26,6 @@ class Display:
 
         if Registry.display_mode == Constants.PYGAME:
             self._clock = _pygame.time.Clock()
-
-        self._fullscreen = None
-        self._display_attributes = []
-        self._vsync = True
 
         self._color_converter = _Color()
 
@@ -40,6 +37,19 @@ class Display:
 
         self._fill_color = None
         self._color_key = _numpy.array([0, 0, 0], dtype=_numpy.float32)
+
+        self.resized_event = _WindowResized_EVENT()
+
+        self._display_attribute_resizable = False
+        self._display_attribute_full_screen = True
+        self._display_attribute_no_frame = True
+        self._display_attribute_vsync = True
+        self._display_attribute_size = (0, 0)
+        self._display_attribute_caption = "PMMA Display"
+        self._display_attribute_hwnd = None
+        self._display_attribute_transparent_display = False
+
+        self.clear_color = (0, 0, 0)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -86,59 +96,102 @@ class Display:
         else:
             raise NotImplementedError
 
+    def _generate_pygame_flags(self):
+        flags = _pygame.OPENGL | _pygame.DOUBLEBUF
+
+        if self._display_attribute_no_frame:
+            flags |= _pygame.NOFRAME
+        if self._display_attribute_resizable:
+            flags |= _pygame.RESIZABLE
+        if self._display_attribute_full_screen:
+            flags |= _pygame.FULLSCREEN
+
+        return flags
+
     def create(
             self,
             width=None,
             height=None,
-            fullscreen=True,
+            full_screen=True,
             resizable=False,
-            caption="PMMA Display",
+            no_frame=False,
+            caption=None,
             vsync=True,
-            alpha=False):
+            transparent_display=False):
 
-        self._vsync = vsync
-        if Registry.display_mode == Constants.PYGAME:
-            flags = _pygame.OPENGL | _pygame.DOUBLEBUF
-            if fullscreen:
-                if width is None:
-                    width = 0
-                if height is None:
-                    height = 0
-                flags = flags | _pygame.FULLSCREEN | _pygame.NOFRAME
+        self._display_attribute_resizable = resizable
+        self._display_attribute_full_screen = full_screen
+        self._display_attribute_no_frame = no_frame
+        self._display_attribute_vsync = vsync
+        self._display_attribute_transparent_display = transparent_display
+
+        if self._display_attribute_transparent_display:
+            if get_operating_system() == Constants.WINDOWS:
+                log_development("You are using PMMA's transparent display technology. \
+This means that the window you create is going to be completely transparent - including \
+its borders and captions. It might seem like the display 'pops-in' before disappearing, \
+this is message is really here to reassure you that this is expected behavior and that \
+the window is still there, but transparent.")
+
             else:
-                if width is None:
-                    width = 1280
-                if height is None:
-                    height = 720
+                log_development("You are attempting to use PMMA's transparent display \
+technology - however this isn't currently available on your operating system. We are \
+actively working to address this operating system limitation.")
 
-            if resizable:
-                flags = flags | _pygame.RESIZABLE
+        if caption is not None:
+            self._display_attribute_caption = caption
 
-            self._flags = flags
+        if self._display_attribute_full_screen:
+            if width is None:
+                width = 0
+            if height is None:
+                height = 0
+        else:
+            if width is None:
+                width = 800
+            if height is None:
+                height = 600
 
-            size = width, height
-            self._display_attributes = [size, flags, self._vsync]
+        self._display_attribute_size = (width, height)
+
+        if Registry.display_mode == Constants.PYGAME:
+            flags = self._generate_pygame_flags()
+
+            self.set_caption()
 
             self._display = _pygame.display.set_mode(
-                size,
+                self._display_attribute_size,
                 flags,
-                vsync=self._vsync)
+                vsync=self._display_attribute_vsync)
 
             size = _pygame.display.get_window_size()
-            Registry.display_initialized = True
             Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
 
-            _OpenGLIntermediary()
+            if self._display_attribute_transparent_display:
+                if get_operating_system() == Constants.WINDOWS:
+                    self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
 
-            self.__setup_layers(size)
+                    # Make the window transparent and allow click-through
+                    # Set the window to be layered
+                    _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
 
-            self._display_quad = _geometry.quad_fs()
-
-            _pygame.display.set_caption(str(caption))
+                    # Set transparency color key
+                    color_key = self.hex_color_to_windows_raw_color("#000000")
+                    _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
         else:
             raise NotImplementedError
 
-    def set_caption(self, caption):
+        Registry.display_initialized = True
+
+        _OpenGLIntermediary()
+
+        self.__setup_layers(size)
+
+        self._display_quad = _geometry.quad_fs()
+
+    def set_caption(self, caption=None):
+        if caption is None:
+            caption = self._display_attribute_caption
         _pygame.display.set_caption(str(caption))
 
     def display_resize(self):
@@ -156,20 +209,48 @@ class Display:
 
         Registry.context.viewport = (0, 0, *size)
 
-    def toggle_fullscreen(self):
-        self._fullscreen = not self._fullscreen
+    def hex_color_to_windows_raw_color(self, value):
+        color_key = int(value[1:], 16)
+        color_key = ((color_key & 0xFF0000) >> 16) | (color_key & 0x00FF00) | ((color_key & 0x0000FF) << 16)
+        return color_key
+
+    def toggle_full_screen(self):
+        self._display_attribute_full_screen = not self._display_attribute_full_screen
+
         if Registry.display_mode == Constants.PYGAME:
-            if self._fullscreen:
+            if self._display_attribute_full_screen:
                 size = (0, 0)
+                self._display_attribute_size = self.get_size()
             else:
-                size = self._display_attributes[0]
+                size = self._display_attribute_size
+                if size == (0, 0):
+                    size = (800, 600)
+
+            flags = self._generate_pygame_flags()
+
+            _pygame.display.quit()
+            _pygame.display.init()
+
+            self.set_caption()
 
             self._display = _pygame.display.set_mode(
                 size,
-                self._display_attributes[1],
-                vsync=self._display_attributes[2])
+                flags,
+                vsync=self._display_attribute_vsync)
 
-        #Registry.pmma_module_spine[Constants.EVENTS_OBJECT].set_display_needs_resize(True)
+            if self._display_attribute_transparent_display:
+                if get_operating_system() == Constants.WINDOWS:
+                    self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
+
+                    # Make the window transparent and allow click-through
+                    # Set the window to be layered
+                    _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
+
+                    # Set transparency color key
+                    self._color_converter.input_color(self.clear_color, format=Constants.RGB)
+                    hex_color = self._color_converter.output_color(format=Constants.HEX)
+                    color_key = self.hex_color_to_windows_raw_color(hex_color)
+                    _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
     def blit(self, content, position=[0, 0]):
         self._pygame_surface.blit(content, position)
@@ -202,6 +283,12 @@ class Display:
 
         self._color_converter.input_color(args)
 
+        # Set transparency color key
+        hex_color = self._color_converter.output_color(format=Constants.HEX)
+        color_key = self.hex_color_to_windows_raw_color(hex_color)
+
+        _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+
         if Registry.display_mode == Constants.PYGAME:
             self._two_dimension_frame_buffer.get().use()
             self._two_dimension_frame_buffer.get().clear(0, 0, 0, 0)
@@ -212,6 +299,7 @@ class Display:
             self._pygame_surface.clear(self._fill_color)
             Registry.context.screen.use()
             Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGBA))
+            self.clear_color = self._color_converter.output_color(format=Constants.RGB)
         else:
             raise NotImplementedError
 
@@ -256,10 +344,8 @@ this method call to ensure optimal performance and support!")
 
             _pygame.display.flip()
 
-            #if Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
-                #if Registry.pmma_module_spine[Constants.EVENTS_OBJECT].get_display_needs_resize():
-                    #Registry.pmma_module_spine[Constants.EVENTS_OBJECT].set_display_needs_resize(False)
-                    #self.display_resize()
+            if self.resized_event.get_value():
+                self.display_resize()
 
             frame_rate = self.get_fps()
             if Registry.application_average_frame_rate["Samples"] == 0:

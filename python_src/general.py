@@ -311,6 +311,8 @@ def get_operating_system():
     if _platform.system() == "Windows":
         return Constants.WINDOWS
     elif _platform.system() == "Linux":
+        if "ANDROID_STORAGE" in _os.environ:
+            return Constants.ANDROID
         return Constants.LINUX
     elif _platform.system() == "Darwin":
         return Constants.MACOS

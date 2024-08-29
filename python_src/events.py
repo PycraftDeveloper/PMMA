@@ -167,12 +167,12 @@ class Events:
         self.power_key = Power_KEY()
         self.euro_key = Euro_KEY()
         self.androidback_key = AndroidBack_KEY()
+
         self.leftbutton_mouse = LeftButton_MOUSE()
         self.middlebutton_mouse = MiddleButton_MOUSE()
         self.rightbutton_mouse = RightButton_MOUSE()
         self.mouse_scroll = Mouse_SCROLL()
         self.mouse_position = Mouse_POSITION()
-        self.active_event = Active_EVENT()
         self.appterminating_event = AppTerminating_EVENT()
         self.applowmemory_event = AppLowMemory_EVENT()
         self.appwillenterbackground_event = AppWillEnterBackground_EVENT()
@@ -197,10 +197,6 @@ class Events:
         self.rendertargetsreset_event = RenderTargetsReset_EVENT()
         self.renderdevicereset_event = RenderDeviceReset_EVENT()
         self.syswmevent_event = SysWMEvent_EVENT()
-        self.textinput_event = TextInput_EVENT()
-        self.textediting_event = TextEditing_EVENT()
-        self.videoresize_event = VideoResize_EVENT()
-        self.videoexpose_event = VideoExpose_EVENT()
         self.midiin_event = MidiIn_EVENT()
         self.midiout_event = MidiOut_EVENT()
         self.windowshown_event = WindowShown_EVENT()
@@ -224,7 +220,7 @@ class Events:
         self.joydeviceadded_event = JoyDeviceAdded_EVENT()
         self.joydeviceremoved_event = JoyDeviceRemoved_EVENT()
 
-    def handle(self, enable_toggle_full_screen=True, grab_extended_keyboard_events=False):
+    def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         if self.iteration_id == Registry.iteration_id:
             log_development("You have called the 'handle()' method from events \
 multiple times within a single game loop. Whilst this isn't always a bad thing, \
@@ -245,7 +241,6 @@ then enable it to see if it fixes or improves a desired feature.")
 
             _pygame.event.set_keyboard_grab(True)
 
-        self.active_event.set_value(False)
         self.appterminating_event.set_value(False)
         self.applowmemory_event.set_value(False)
         self.appwillenterbackground_event.set_value(False)
@@ -255,8 +250,8 @@ then enable it to see if it fixes or improves a desired feature.")
         self.audiodeviceadded_event.set_value(False)
         self.audiodeviceremoved_event.set_value(False)
         self.clipboardupdate_event.set_value(False)
-        self.dropfile_event.set_value(False)
-        self.droptext_event.set_value(False)
+        self.dropfile_event.set_file(False)
+        self.droptext_event.set_text(None)
         self.dropbegin_event.set_value(False)
         self.dropcomplete_event.set_value(False)
         self.fingermotion_event.set_value(False)
@@ -264,16 +259,16 @@ then enable it to see if it fixes or improves a desired feature.")
         self.fingerup_event.set_value(False)
         self.keymapchanged_event.set_value(False)
         self.localechanged_event.set_value(False)
-        self.multigesture_event.set_value(False)
+        self.multigesture_event.set_gesture_center_x(None)
+        self.multigesture_event.set_gesture_center_y(None)
+        self.multigesture_event.set_number_of_fingers(None)
+        self.multigesture_event.set_rotated_value(None)
+        self.multigesture_event.set_pinched_value(None)
         self.noevent_event.set_value(False)
         self.quit_event.set_value(False)
         self.rendertargetsreset_event.set_value(False)
         self.renderdevicereset_event.set_value(False)
         self.syswmevent_event.set_value(False)
-        self.textinput_event.set_value(False)
-        self.textediting_event.set_value(False)
-        self.videoresize_event.set_value(False)
-        self.videoexpose_event.set_value(False)
         self.midiin_event.set_value(False)
         self.midiout_event.set_value(False)
         self.windowshown_event.set_value(False)
@@ -297,13 +292,15 @@ then enable it to see if it fixes or improves a desired feature.")
         self.joydeviceadded_event.set_value(False)
         self.joydeviceremoved_event.set_value(False)
 
+        self.mouse_scroll.set_x_displacement(0)
+        self.mouse_scroll.set_y_displacement(0)
+        self.mouse_position.set_x_axis_displacement(0)
+        self.mouse_position.set_y_axis_displacement(0)
+
         if Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
             for event in raw_events:
-                if event.type == _pygame.ACTIVEEVENT:
-                    self.active_event.set_value(True)
-
-                elif event.type == _pygame.APP_TERMINATING:
+                if event.type == _pygame.APP_TERMINATING:
                     self.appterminating_event.set_value(True)
 
                 elif event.type == _pygame.APP_LOWMEMORY:
@@ -449,9 +446,11 @@ then enable it to see if it fixes or improves a desired feature.")
 
                 elif event.type == _pygame.JOYDEVICEADDED:
                     self.joydeviceadded_event.set_value(True)
+                    self.controllers.update_controllers()
 
                 elif event.type == _pygame.JOYDEVICEREMOVED:
                     self.joydeviceremoved_event.set_value(True)
+                    self.controllers.update_controllers()
 
                 elif event.type == _pygame.LOCALECHANGED:
                     self.localechanged_event.set_value(True)
@@ -485,9 +484,17 @@ then enable it to see if it fixes or improves a desired feature.")
                         self.rightbutton_mouse.set_pressed(False)
 
                 elif event.type == _pygame.MOUSEWHEEL:
-                    self.mouse_scroll.set_scroll_displacement(event.precise_y)
-                    total_scroll = self.mouse_scroll.get_scroll_value()
-                    self.mouse_scroll.set_scroll_value(total_scroll + event.precise_y)
+                    x_displacement = event.precise_x
+                    y_displacement = event.precise_y
+                    if event.flipped:
+                        x_displacement *= -1
+                        y_displacement *= -1
+                    self.mouse_scroll.set_x_displacement(x_displacement)
+                    self.mouse_scroll.set_y_displacement(y_displacement)
+                    total_x = self.mouse_scroll.get_x_value()
+                    total_y = self.mouse_scroll.get_y_value()
+                    self.mouse_scroll.set_x_value(total_x + x_displacement)
+                    self.mouse_scroll.set_y_value(total_y + y_displacement)
 
                 elif event.type == _pygame.KEYDOWN:
                     if event.key == _pygame.K_BACKSPACE:
@@ -507,6 +514,9 @@ then enable it to see if it fixes or improves a desired feature.")
 
                     elif event.key == _pygame.K_ESCAPE:
                         self.escape_key.set_pressed(True)
+                        if handle_exit_events:
+                            Registry.running = False
+                            _Backpack.running = False
 
                     elif event.key == _pygame.K_SPACE:
                         self.space_key.set_pressed(True)
@@ -813,6 +823,9 @@ then enable it to see if it fixes or improves a desired feature.")
 
                     elif event.key == _pygame.K_F11:
                         self.function11_key.set_pressed(True)
+                        if handle_full_screen_events:
+                            if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
+                                Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].toggle_full_screen()
 
                     elif event.key == _pygame.K_F12:
                         self.function12_key.set_pressed(True)
@@ -1296,13 +1309,20 @@ then enable it to see if it fixes or improves a desired feature.")
                         self.androidback_key.set_pressed(False)
 
                 elif event.type == _pygame.MULTIGESTURE:
-                    self.multigesture_event.set_value(True)
+                    self.multigesture_event.set_gesture_center_x(event.x)
+                    self.multigesture_event.set_gesture_center_y(event.y)
+                    self.multigesture_event.set_number_of_fingers(event.num_fingers)
+                    self.multigesture_event.set_rotated_value(event.rotated)
+                    self.multigesture_event.set_pinched_value(event.pinched)
 
                 elif event.type == _pygame.NOEVENT:
                     self.noevent_event.set_value(True)
 
                 elif event.type == _pygame.QUIT:
                     self.quit_event.set_value(True)
+                    if handle_exit_events:
+                        Registry.running = False
+                        _Backpack.running = False
 
                 elif event.type == _pygame.RENDER_TARGETS_RESET:
                     self.rendertargetsreset_event.set_value(True)
@@ -1313,17 +1333,8 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.type == _pygame.SYSWMEVENT:
                     self.syswmevent_event.set_value(True)
 
-                elif event.type == _pygame.TEXTEDITING:
-                    self.textediting_event.set_value(True)
-
                 elif event.type == _pygame.TEXTINPUT:
                     self.textinput_event.set_value(True)
-
-                elif event.type == _pygame.VIDEORESIZE:
-                    self.videoresize_event.set_value(True)
-
-                elif event.type == _pygame.VIDEOEXPOSE:
-                    self.videoexpose_event.set_value(True)
 
                 elif event.type == _pygame.MIDIIN:
                     self.midiin_event.set_value(True)
@@ -5365,20 +5376,29 @@ class Mouse_SCROLL:
     def __init__(self):
         initialize(self)
 
-        self._scroll_value = 0
-        self._scroll_displacement = 0
+    def get_x_displacement(self):
+        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_displacement()
 
-    def get_scroll_displacement(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_scroll_displacement()
+    def set_x_displacement(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(value)
 
-    def set_scroll_displacement(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_scroll_displacement(value)
+    def get_x_value(self):
+        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_value()
 
-    def get_scroll_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_scroll_value()
+    def set_x_value(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_x_value(value)
 
-    def set_scroll_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_scroll_value(value)
+    def get_y_displacement(self):
+        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_y_displacement()
+
+    def set_y_displacement(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(value)
+
+    def get_y_value(self):
+        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_y_value()
+
+    def set_y_value(self, value):
+        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_value(value)
 
 class Mouse_POSITION:
     def __init__(self):
@@ -5429,6 +5449,9 @@ class AppTerminating_EVENT:
         Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
+        if get_operating_system() != Constants.ANDROID:
+            log_development("This event is exclusive to the Android operating system. \
+Instead please use: 'Quit_EVENT' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].get_value()
 
 class AppLowMemory_EVENT:
@@ -5439,6 +5462,11 @@ class AppLowMemory_EVENT:
         Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
+        if get_operating_system() != Constants.ANDROID:
+            log_development("This event is exclusive to the Android operating system. \
+There is no alternative to this on other operating systems due to how memory is allocated. \
+If you are interested in getting information about memory, I'd recommend checking out PSUtil: \
+https://pypi.org/project/psutil/")
         return Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].get_value()
 
 class AppWillEnterBackground_EVENT:
@@ -5449,6 +5477,8 @@ class AppWillEnterBackground_EVENT:
         Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
+        log_development("This event is exclusive to the Android operating system. \
+There is no alternative to this on other operating systems.")
         return Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].get_value()
 
 class AppDidEnterBackground_EVENT:
@@ -5459,6 +5489,8 @@ class AppDidEnterBackground_EVENT:
         Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
+        log_development("This event is exclusive to the Android operating system. \
+Instead please use: 'WindowFocusLost' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].get_value()
 
 class AppWillEnterForeground_EVENT:
@@ -5469,6 +5501,8 @@ class AppWillEnterForeground_EVENT:
         Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
+        log_development("This event is exclusive to the Android operating system. \
+There is no alternative to this on other operating systems.")
         return Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].get_value()
 
 class AppDidEnterForeground_EVENT:
@@ -5479,6 +5513,8 @@ class AppDidEnterForeground_EVENT:
         Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
+        log_development("This event is exclusive to the Android operating system. \
+Instead please use: 'WindowFocusGained' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].get_value()
 
 class AudioDeviceAdded_EVENT:
@@ -5515,21 +5551,33 @@ class DropFile_EVENT:
     def __init__(self):
         initialize(self)
 
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].set_value(value)
+    def set_file(self, file):
+        Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].set_file(file)
 
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].get_value()
+    def get_file(self):
+        return Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].get_file()
 
 class DropText_EVENT:
     def __init__(self):
         initialize(self)
 
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].set_value(value)
+    def set_text(self, text):
+        Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].set_text(text)
 
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].get_value()
+    def get_text(self):
+        log_development("Please note that this event is not yet reliably \
+supported across all operating systems. Windows compatability is generally \
+mixed, MacOS compatability is generally good, Linux compatability varies based \
+on what desktop envioment is being used and Android support being unofficial and \
+limited. Effectively this means that your milage may vary when using this event \
+if it is triggered reliably. Generally speaking however, if your developing your \
+application to run on specific hardware - like a games console - you can try and \
+use this event, if the event works and the software/hardware is the same, it \
+should work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with the user \
+dropping a text file, then open and read that for text inputs instead. In short - \
+this event is not known to work reliably, using other events instead is recommended!")
+
+        return Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].get_text()
 
 class DropBegin_EVENT:
     def __init__(self):
@@ -5605,11 +5653,35 @@ class MultiGesture_EVENT:
     def __init__(self):
         initialize(self)
 
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_value(value)
+    def get_gesture_center_x(self):
+        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_x()
 
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_value()
+    def get_gesture_center_y(self):
+        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_y()
+
+    def get_pinched_value(self):
+        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_pinched_value()
+
+    def get_rotated_value(self):
+        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_rotated_value()
+
+    def get_number_of_fingers(self):
+        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_number_of_fingers()
+
+    def set_gesture_center_x(self, value):
+        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(value)
+
+    def set_gesture_center_y(self, value):
+        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(value)
+
+    def set_pinched_value(self, value):
+        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(value)
+
+    def set_rotated_value(self, value):
+        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(value)
+
+    def set_number_of_fingers(self, value):
+        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(value)
 
 class NoEvent_EVENT:
     def __init__(self):
@@ -5660,26 +5732,6 @@ class SysWMEvent_EVENT:
 
     def get_value(self):
         return Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].get_value()
-
-class TextInput_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.TEXTINPUT_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.TEXTINPUT_EVENT_OBJECT].get_value()
-
-class TextEditing_EVENT:
-    def __init__(self):
-        initialize(self)
-
-    def set_value(self, value):
-        Registry.pmma_module_spine[Constants.TEXTEDITING_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return Registry.pmma_module_spine[Constants.TEXTEDITING_EVENT_OBJECT].get_value()
 
 class VideoResize_EVENT:
     def __init__(self):

@@ -21,9 +21,10 @@ All Fixed!
 
 TO DO LIST
 ==========
+Work on MIDI events when able to do so.
+
 Integrate events with custom event manager
 Create aggregated events like Pointer (similar to controller already added).
-Allow transparent display (windows only)
 
 On minimized or de-focused, lower app default frame rate:
 Default: 60

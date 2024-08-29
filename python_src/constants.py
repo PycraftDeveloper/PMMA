@@ -22,6 +22,7 @@ class Constants:
     LINUX = "linux"
     MACOS = "macOS"
     JAVA = "java"
+    ANDROID = "android"
 
     SMI = "nvidia-smi"
     WMI = "wmi"
@@ -251,7 +252,6 @@ class Constants:
     RIGHTBUTTON_MOUSE_OBJECT = "rightbutton_mouse_object"
     MOUSE_SCROLL_OBJECT = "mouse_scroll_object"
     MOUSE_POSITION_OBJECT = "mouse_position_object"
-    ACTIVE_EVENT_OBJECT = "active_event_object"
     APPTERMINATING_EVENT_OBJECT = "appterminating_event_object"
     APPLOWMEMORY_EVENT_OBJECT = "applowmemory_event_object"
     APPWILLENTERBACKGROUND_EVENT_OBJECT = "appwillenterbackground_event_object"
@@ -261,8 +261,6 @@ class Constants:
     AUDIODEVICEADDED_EVENT_OBJECT = "audiodeviceadded_event_object"
     AUDIODEVICEREMOVED_EVENT_OBJECT = "audiodeviceremoved_event_object"
     CLIPBOARDUPDATE_EVENT_OBJECT = "clipboardupdate_event_object"
-    DOLLARGESTURE_EVENT_OBJECT = "dollargesture_event_object"
-    DOLLARCORD_EVENT_OBJECT = "dollarcord_event_object"
     DROPFILE_EVENT_OBJECT = "dropfile_event_object"
     DROPTEXT_EVENT_OBJECT = "droptext_event_object"
     DROPBEGIN_EVENT_OBJECT = "dropbegin_event_object"
@@ -278,8 +276,6 @@ class Constants:
     RENDERTARGETSRESET_EVENT_OBJECT = "rendertargetsreset_event_object"
     RENDERDEVICERESET_EVENT_OBJECT = "renderdevicereset_event_object"
     SYSWMEVENT_EVENT_OBJECT = "syswmevent_event_object"
-    TEXTINPUT_EVENT_OBJECT = "textinput_event_object"
-    TEXTEDITING_EVENT_OBJECT = "textediting_event_object"
     VIDEORESIZE_EVENT_OBJECT = "videoresize_event_object"
     VIDEOEXPOSE_EVENT_OBJECT = "videoexpose_event_object"
     MIDIIN_EVENT_OBJECT = "midiin_event_object"
@@ -498,7 +494,6 @@ class Constants:
         RIGHTBUTTON_MOUSE_OBJECT,
         MOUSE_SCROLL_OBJECT,
         MOUSE_POSITION_OBJECT,
-        ACTIVE_EVENT_OBJECT,
         APPTERMINATING_EVENT_OBJECT,
         APPLOWMEMORY_EVENT_OBJECT,
         APPWILLENTERBACKGROUND_EVENT_OBJECT,
@@ -508,8 +503,6 @@ class Constants:
         AUDIODEVICEADDED_EVENT_OBJECT,
         AUDIODEVICEREMOVED_EVENT_OBJECT,
         CLIPBOARDUPDATE_EVENT_OBJECT,
-        DOLLARGESTURE_EVENT_OBJECT,
-        DOLLARCORD_EVENT_OBJECT,
         DROPFILE_EVENT_OBJECT,
         DROPTEXT_EVENT_OBJECT,
         DROPBEGIN_EVENT_OBJECT,
@@ -525,8 +518,6 @@ class Constants:
         RENDERTARGETSRESET_EVENT_OBJECT,
         RENDERDEVICERESET_EVENT_OBJECT,
         SYSWMEVENT_EVENT_OBJECT,
-        TEXTINPUT_EVENT_OBJECT,
-        TEXTEDITING_EVENT_OBJECT,
         VIDEORESIZE_EVENT_OBJECT,
         VIDEOEXPOSE_EVENT_OBJECT,
         MIDIIN_EVENT_OBJECT,

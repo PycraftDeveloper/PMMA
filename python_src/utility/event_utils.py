@@ -8450,20 +8450,34 @@ class Mouse_SCROLL:
     def __init__(self):
         initialize(self, unique_instance=Constants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
 
-        self._scroll_value = 0
-        self._scroll_displacement = 0
+        self._x_value = 0
+        self._x_displacement = 0
+        self._y_value = 0
+        self._y_displacement = 0
 
-    def get_scroll_displacement(self):
-        return self._scroll_displacement
+    def get_x_displacement(self):
+        return self._x_displacement
 
-    def set_scroll_displacement(self, value):
-        self._scroll_displacement = value
+    def set_x_displacement(self, value):
+        self._x_displacement = value
 
-    def get_scroll_value(self):
-        return self._scroll_value
+    def get_x_value(self):
+        return self._x_value
 
-    def set_scroll_value(self, value):
-        self._scroll_value = value
+    def set_x_value(self, value):
+        self._x_value = value
+
+    def get_y_displacement(self):
+        return self._y_displacement
+
+    def set_y_displacement(self, value):
+        self._y_displacement = value
+
+    def get_y_value(self):
+        return self._y_value
+
+    def set_y_value(self, value):
+        self._y_value = value
 
 class Mouse_POSITION:
     def __del__(self, do_garbage_collection=False):
@@ -8510,28 +8524,6 @@ class Mouse_POSITION:
 
     def set_y_axis_displacement(self, value):
         self._y_axis_displacement = value
-
-class Active_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        initialize(self, unique_instance=Constants.ACTIVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
-
-        self._value = None
-
-    def set_value(self, value):
-        self._value = value
-
-    def get_value(self):
-        return self._value
 
 class AppTerminating_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -8745,13 +8737,13 @@ class DropFile_EVENT:
     def __init__(self):
         initialize(self, unique_instance=Constants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
-        self._value = None
+        self._file = None
 
-    def set_value(self, value):
-        self._value = value
+    def set_file(self, file):
+        self._file = file
 
-    def get_value(self):
-        return self._value
+    def get_file(self):
+        return self._file
 
 class DropText_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -8767,13 +8759,13 @@ class DropText_EVENT:
     def __init__(self):
         initialize(self, unique_instance=Constants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
-        self._value = None
+        self._text = None
 
-    def set_value(self, value):
-        self._value = value
+    def set_text(self, text):
+        self._text = text
 
-    def get_value(self):
-        return self._value
+    def get_text(self):
+        return self._text
 
 class DropBegin_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -8943,13 +8935,41 @@ class MultiGesture_EVENT:
     def __init__(self):
         initialize(self, unique_instance=Constants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
-        self._value = None
+        self._gesture_center_x = None
+        self._gesture_center_y = None
+        self._pinched_value = 0
+        self._rotated_value = 0
+        self._number_of_fingers = 0
 
-    def set_value(self, value):
-        self._value = value
+    def get_gesture_center_x(self):
+        return self._gesture_center_x
 
-    def get_value(self):
-        return self._value
+    def get_gesture_center_y(self):
+        return self._gesture_center_y
+
+    def get_pinched_value(self):
+        return self._pinched_value
+
+    def get_rotated_value(self):
+        return self._rotated_value
+
+    def get_number_of_fingers(self):
+        return self._number_of_fingers
+
+    def set_gesture_center_x(self, value):
+        self._gesture_center_x = value
+
+    def set_gesture_center_y(self, value):
+        self._gesture_center_y = value
+
+    def set_pinched_value(self, value):
+        self._pinched_value = value
+
+    def set_rotated_value(self, value):
+        self._rotated_value = value
+
+    def set_number_of_fingers(self, value):
+        self._number_of_fingers = value
 
 class NoEvent_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -9052,94 +9072,6 @@ class SysWMEvent_EVENT:
 
     def __init__(self):
         initialize(self, unique_instance=Constants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
-
-        self._value = None
-
-    def set_value(self, value):
-        self._value = value
-
-    def get_value(self):
-        return self._value
-
-class TextInput_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        initialize(self, unique_instance=Constants.TEXTINPUT_EVENT_OBJECT, add_to_pmma_module_spine=True)
-
-        self._value = None
-
-    def set_value(self, value):
-        self._value = value
-
-    def get_value(self):
-        return self._value
-
-class TextEditing_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        initialize(self, unique_instance=Constants.TEXTEDITING_EVENT_OBJECT, add_to_pmma_module_spine=True)
-
-        self._value = None
-
-    def set_value(self, value):
-        self._value = value
-
-    def get_value(self):
-        return self._value
-
-class VideoResize_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        initialize(self, unique_instance=Constants.VIDEORESIZE_EVENT_OBJECT, add_to_pmma_module_spine=True)
-
-        self._value = None
-
-    def set_value(self, value):
-        self._value = value
-
-    def get_value(self):
-        return self._value
-
-class VideoExpose_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        initialize(self, unique_instance=Constants.VIDEOEXPOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
