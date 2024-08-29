@@ -249,6 +249,16 @@ number of draw calls being made. The program spent {total_time_spent_drawing}s o
 likely improve application performance. Note that this message will only appear once, but \
 may reflect any degraded performance beyond this point.")
 
+    if Constants.DISPLAY_OBJECT in Registry.pmma_object_instances:
+        if Registry.pmma_object_instances[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
+            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_minimized(False)
+        elif Registry.pmma_object_instances[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
+            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_minimized(True)
+        elif Registry.pmma_object_instances[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
+            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
+        elif Registry.pmma_object_instances[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
+            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
+
 def quit(show_statistics=None, terminate_application=True):
     if show_statistics is None:
         show_statistics = Registry.development_mode

@@ -17,7 +17,7 @@ self.([A-Z]|[a-z])+
 
 Issues
 ======
-All Fixed!
+Make sure that focus and minimized state are correctly identified in display object.
 
 TO DO LIST
 ==========

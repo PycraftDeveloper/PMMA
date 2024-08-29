@@ -3,7 +3,7 @@ import pmma
 pmma.init(log_information=True, log_development=True)
 
 display = pmma.Display()
-display.create(resizable=True, full_screen=False, caption="RED", transparent_display=True)
+display.create(resizable=True, full_screen=False, caption="RED")
 
 events = pmma.Events()
 

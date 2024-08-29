@@ -36,16 +36,6 @@ class Controllers:
         return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
 
 class Controller:
-    def __del__(self, do_garbage_collection=False):
-            if self._shut_down is False:
-                del self
-                if do_garbage_collection:
-                    _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self, joy_num):
         self._joy_num = joy_num
         self._joy = _pygame.joystick.Joystick(joy_num)

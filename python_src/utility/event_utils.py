@@ -7374,16 +7374,6 @@ class AndroidBack_KEY:
         self._double_tap_timing = value
 
 class Y_BUTTON: # 3
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7425,16 +7415,6 @@ class Y_BUTTON: # 3
         self._double_tap_timing = value
 
 class B_BUTTON: # 2
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7476,16 +7456,6 @@ class B_BUTTON: # 2
         self._double_tap_timing = value
 
 class A_BUTTON: # 1
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7527,16 +7497,6 @@ class A_BUTTON: # 1
         self._double_tap_timing = value
 
 class X_BUTTON: # 0
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7578,16 +7538,6 @@ class X_BUTTON: # 0
         self._double_tap_timing = value
 
 class Home_BUTTON: # 12
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7629,16 +7579,6 @@ class Home_BUTTON: # 12
         self._double_tap_timing = value
 
 class RightJoystick_BUTTON: # 11
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7680,16 +7620,6 @@ class RightJoystick_BUTTON: # 11
         self._double_tap_timing = value
 
 class LeftJoystick_BUTTON: # 10
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7731,16 +7661,6 @@ class LeftJoystick_BUTTON: # 10
         self._double_tap_timing = value
 
 class Options_BUTTON: # 9
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7867,16 +7787,6 @@ class Left_TRIGGER:
         self.value = value
 
 class Right_BUMPER: # 5
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7918,16 +7828,6 @@ class Right_BUMPER: # 5
         self._double_tap_timing = value
 
 class Left_BUMPER: # 4
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7969,16 +7869,6 @@ class Left_BUMPER: # 4
         self._double_tap_timing = value
 
 class Center_BUTTON: # 15
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8020,16 +7910,6 @@ class Center_BUTTON: # 15
         self._double_tap_timing = value
 
 class LeftJoystick_AXIS:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._x_axis = 0
         self._y_axis = 0
@@ -8047,16 +7927,6 @@ class LeftJoystick_AXIS:
         self._y_axis = value
 
 class RightJoystick_AXIS:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._x_axis = 0
         self._y_axis = 0
@@ -8074,16 +7944,6 @@ class RightJoystick_AXIS:
         self._y_axis = value
 
 class UpHat_BUTTON:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8125,16 +7985,6 @@ class UpHat_BUTTON:
         self._double_tap_timing = value
 
 class DownHat_BUTTON:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8176,16 +8026,6 @@ class DownHat_BUTTON:
         self._double_tap_timing = value
 
 class LeftHat_BUTTON:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8227,16 +8067,6 @@ class LeftHat_BUTTON:
         self._double_tap_timing = value
 
 class RightHat_BUTTON:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
     def __init__(self):
         self._currently_pressed = False
         self._double_tap_timing = 0.25

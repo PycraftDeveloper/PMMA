@@ -49,7 +49,16 @@ class Display:
         self._display_attribute_hwnd = None
         self._display_attribute_transparent_display = False
 
-        self.clear_color = (0, 0, 0)
+        self._clear_color = (0, 0, 0)
+
+        self._window_in_focus = True
+        self._window_minimized = False
+
+    def set_window_in_focus(self, value):
+        self._window_in_focus = value
+
+    def set_window_minimized(self, value):
+        self._window_minimized = value
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -247,7 +256,7 @@ actively working to address this operating system limitation.")
                     _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
 
                     # Set transparency color key
-                    self._color_converter.input_color(self.clear_color, format=Constants.RGB)
+                    self._color_converter.input_color(self._clear_color, format=Constants.RGB)
                     hex_color = self._color_converter.output_color(format=Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
@@ -299,11 +308,13 @@ actively working to address this operating system limitation.")
             self._pygame_surface.clear(self._fill_color)
             Registry.context.screen.use()
             Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGBA))
-            self.clear_color = self._color_converter.output_color(format=Constants.RGB)
+            self._clear_color = self._color_converter.output_color(format=Constants.RGB)
         else:
             raise NotImplementedError
 
     def refresh(self, refresh_rate=None):
+        print(self._window_in_focus, self._window_minimized) # tmp
+
         Registry.in_game_loop = True
 
         if Registry.number_of_draw_calls != 0:
