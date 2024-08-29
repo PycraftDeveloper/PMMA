@@ -254,7 +254,7 @@ may reflect any degraded performance beyond this point.")
             Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_minimized(False)
         elif Registry.pmma_object_instances[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
             Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        elif Registry.pmma_object_instances[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
+        if Registry.pmma_object_instances[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
             Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
         elif Registry.pmma_object_instances[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
             Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
