@@ -236,28 +236,26 @@ user to interact with your application.")
     the time spent handling draw calls. Consider switching to the more optimized Render \
     Pipeline through PMMA to avoid any potential slowdowns.")
 
-    if total_time_spent_drawing == 0:
-        return
+    if total_time_spent_drawing != 0:
+        if 1/(total_time_spent_drawing) < Registry.refresh_rate * 0.9 and Registry.application_average_frame_rate['Samples'] > 3:
+            if not "render performance is limiting" in Registry.formatted_developer_messages:
+                Registry.formatted_developer_messages.append("render performance is limiting")
+                log_development(f"Your application performance is limited by the total \
+    number of draw calls being made. The program spent {total_time_spent_drawing}s on \
+    {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
+    {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
+    likely improve application performance. Note that this message will only appear once, but \
+    may reflect any degraded performance beyond this point.")
 
-    if 1/(total_time_spent_drawing) < Registry.refresh_rate * 0.9 and Registry.application_average_frame_rate['Samples'] > 3:
-        if not "render performance is limiting" in Registry.formatted_developer_messages:
-            Registry.formatted_developer_messages.append("render performance is limiting")
-            log_development(f"Your application performance is limited by the total \
-number of draw calls being made. The program spent {total_time_spent_drawing}s on \
-{number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
-{1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
-likely improve application performance. Note that this message will only appear once, but \
-may reflect any degraded performance beyond this point.")
-
-    if Constants.DISPLAY_OBJECT in Registry.pmma_object_instances:
-        if Registry.pmma_object_instances[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
-            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_minimized(False)
-        elif Registry.pmma_object_instances[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
-            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        if Registry.pmma_object_instances[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
-            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
-        elif Registry.pmma_object_instances[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
-            Registry.pmma_object_instances[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
+    if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
+        if Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
+            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(False)
+        elif Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
+            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(True)
+        if Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
+            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
+        elif Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
+            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def quit(show_statistics=None, terminate_application=True):
     if show_statistics is None:

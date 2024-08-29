@@ -1367,7 +1367,7 @@ then enable it to see if it fixes or improves a desired feature.")
                     self.windowmaximized_event.set_value(True)
 
                 elif event.type == _pygame.WINDOWRESTORED:
-                    self.windowfocusgained_event.set_value(True)
+                    self.windowrestored_event.set_value(True)
 
                 elif event.type == _pygame.WINDOWENTER:
                     self.windowenter_event.set_value(True)
