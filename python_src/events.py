@@ -1397,6 +1397,16 @@ then enable it to see if it fixes or improves a desired feature.")
                     self.windowdisplaychanged_event.set_value(True)
 
 class Backspace_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1425,6 +1435,16 @@ class Backspace_KEY:
         Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Tab_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1453,6 +1473,16 @@ class Tab_KEY:
         Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_double_tap_timing(value)
 
 class Clear_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1481,6 +1511,16 @@ class Clear_KEY:
         Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_double_tap_timing(value)
 
 class Return_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1509,6 +1549,16 @@ class Return_KEY:
         Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Pause_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1537,6 +1587,16 @@ class Pause_KEY:
         Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Escape_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1565,6 +1625,16 @@ class Escape_KEY:
         Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Space_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1593,6 +1663,16 @@ class Space_KEY:
         Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_double_tap_timing(value)
 
 class ExclamationMark_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1621,6 +1701,16 @@ class ExclamationMark_KEY:
         Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tap_timing(value)
 
 class DoubleQuote_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1649,6 +1739,16 @@ class DoubleQuote_KEY:
         Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Hashtag_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1677,6 +1777,16 @@ class Hashtag_KEY:
         Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_double_tap_timing(value)
 
 class Dollar_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1705,6 +1815,16 @@ class Dollar_KEY:
         Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_double_tap_timing(value)
 
 class Ampersand_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1733,6 +1853,16 @@ class Ampersand_KEY:
         Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_double_tap_timing(value)
 
 class SingleQuote_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1761,6 +1891,16 @@ class SingleQuote_KEY:
         Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftParenthesis_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1789,6 +1929,16 @@ class LeftParenthesis_KEY:
         Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightParenthesis_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1817,6 +1967,16 @@ class RightParenthesis_KEY:
         Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Asterisk_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1845,6 +2005,16 @@ class Asterisk_KEY:
         Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_double_tap_timing(value)
 
 class Plus_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1873,6 +2043,16 @@ class Plus_KEY:
         Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Comma_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1901,6 +2081,16 @@ class Comma_KEY:
         Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_double_tap_timing(value)
 
 class Minus_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1929,6 +2119,16 @@ class Minus_KEY:
         Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Period_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1957,6 +2157,16 @@ class Period_KEY:
         Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_double_tap_timing(value)
 
 class ForwardSlash_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -1985,6 +2195,16 @@ class ForwardSlash_KEY:
         Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary0_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2013,6 +2233,16 @@ class Primary0_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary1_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2041,6 +2271,16 @@ class Primary1_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary2_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2069,6 +2309,16 @@ class Primary2_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary3_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2097,6 +2347,16 @@ class Primary3_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary4_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2125,6 +2385,16 @@ class Primary4_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary5_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2153,6 +2423,16 @@ class Primary5_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary6_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2181,6 +2461,16 @@ class Primary6_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary7_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2209,6 +2499,16 @@ class Primary7_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary8_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2237,6 +2537,16 @@ class Primary8_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary9_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2265,6 +2575,16 @@ class Primary9_KEY:
         Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_double_tap_timing(value)
 
 class Colon_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2293,6 +2613,16 @@ class Colon_KEY:
         Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_double_tap_timing(value)
 
 class SemiColon_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2321,6 +2651,16 @@ class SemiColon_KEY:
         Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_double_tap_timing(value)
 
 class LessThan_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2349,6 +2689,16 @@ class LessThan_KEY:
         Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Equals_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2377,6 +2727,16 @@ class Equals_KEY:
         Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_double_tap_timing(value)
 
 class GreaterThan_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2405,6 +2765,16 @@ class GreaterThan_KEY:
         Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_double_tap_timing(value)
 
 class QuestionMark_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2433,6 +2803,16 @@ class QuestionMark_KEY:
         Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_double_tap_timing(value)
 
 class At_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2461,6 +2841,16 @@ class At_KEY:
         Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftBracket_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2489,6 +2879,16 @@ class LeftBracket_KEY:
         Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
 
 class BackSlash_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2517,6 +2917,16 @@ class BackSlash_KEY:
         Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightBracket_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2545,6 +2955,16 @@ class RightBracket_KEY:
         Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
 
 class Caret_KEY: # ^
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2573,6 +2993,16 @@ class Caret_KEY: # ^
         Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_double_tap_timing(value)
 
 class Underscore_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2601,6 +3031,16 @@ class Underscore_KEY:
         Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Grave_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2629,6 +3069,16 @@ class Grave_KEY:
         Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryA_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2657,6 +3107,16 @@ class PrimaryA_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryB_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2685,6 +3145,16 @@ class PrimaryB_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryC_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2713,6 +3183,16 @@ class PrimaryC_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryD_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2741,6 +3221,16 @@ class PrimaryD_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryE_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2769,6 +3259,16 @@ class PrimaryE_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryF_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2797,6 +3297,16 @@ class PrimaryF_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryG_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2825,6 +3335,16 @@ class PrimaryG_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryH_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2853,6 +3373,16 @@ class PrimaryH_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryI_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2881,6 +3411,16 @@ class PrimaryI_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryJ_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2909,6 +3449,16 @@ class PrimaryJ_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryK_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2937,6 +3487,16 @@ class PrimaryK_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryL_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2965,6 +3525,16 @@ class PrimaryL_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryM_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -2993,6 +3563,16 @@ class PrimaryM_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryN_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3021,6 +3601,16 @@ class PrimaryN_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryO_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3049,6 +3639,16 @@ class PrimaryO_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryP_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3077,6 +3677,16 @@ class PrimaryP_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryQ_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3105,6 +3715,16 @@ class PrimaryQ_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryR_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3133,6 +3753,16 @@ class PrimaryR_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryS_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3161,6 +3791,16 @@ class PrimaryS_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryT_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3189,6 +3829,16 @@ class PrimaryT_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryU_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3217,6 +3867,16 @@ class PrimaryU_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryV_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3245,6 +3905,16 @@ class PrimaryV_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryW_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3273,6 +3943,16 @@ class PrimaryW_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryX_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3301,6 +3981,16 @@ class PrimaryX_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryY_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3329,6 +4019,16 @@ class PrimaryY_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryZ_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3357,6 +4057,16 @@ class PrimaryZ_KEY:
         Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_double_tap_timing(value)
 
 class Delete_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3385,6 +4095,16 @@ class Delete_KEY:
         Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad0_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3413,6 +4133,16 @@ class Numpad0_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad1_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3441,6 +4171,16 @@ class Numpad1_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad2_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3469,6 +4209,16 @@ class Numpad2_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad3_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3497,6 +4247,16 @@ class Numpad3_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad4_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3525,6 +4285,16 @@ class Numpad4_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad5_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3553,6 +4323,16 @@ class Numpad5_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad6_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3581,6 +4361,16 @@ class Numpad6_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad7_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3609,6 +4399,16 @@ class Numpad7_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad8_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3637,6 +4437,16 @@ class Numpad8_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad9_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3665,6 +4475,16 @@ class Numpad9_KEY:
         Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadPeriod_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3693,6 +4513,16 @@ class NumpadPeriod_KEY:
         Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadDivide_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3721,6 +4551,16 @@ class NumpadDivide_KEY:
         Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadMultiply_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3749,6 +4589,16 @@ class NumpadMultiply_KEY:
         Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadMinus_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3777,6 +4627,16 @@ class NumpadMinus_KEY:
         Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadPlus_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3805,6 +4665,16 @@ class NumpadPlus_KEY:
         Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadEnter_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3833,6 +4703,16 @@ class NumpadEnter_KEY:
         Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadEquals_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3861,6 +4741,16 @@ class NumpadEquals_KEY:
         Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Up_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3889,6 +4779,16 @@ class Up_KEY:
         Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_double_tap_timing(value)
 
 class Down_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3917,6 +4817,16 @@ class Down_KEY:
         Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Right_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3945,6 +4855,16 @@ class Right_KEY:
         Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Left_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -3973,6 +4893,16 @@ class Left_KEY:
         Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Insert_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4001,6 +4931,16 @@ class Insert_KEY:
         Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Home_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4029,6 +4969,16 @@ class Home_KEY:
         Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_double_tap_timing(value)
 
 class End_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4057,6 +5007,16 @@ class End_KEY:
         Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_double_tap_timing(value)
 
 class PageUp_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4085,6 +5045,16 @@ class PageUp_KEY:
         Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_double_tap_timing(value)
 
 class PageDown_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4113,6 +5083,16 @@ class PageDown_KEY:
         Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function1_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4141,6 +5121,16 @@ class Function1_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function2_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4169,6 +5159,16 @@ class Function2_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function3_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4197,6 +5197,16 @@ class Function3_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function4_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4225,6 +5235,16 @@ class Function4_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function5_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4253,6 +5273,16 @@ class Function5_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function6_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4281,6 +5311,16 @@ class Function6_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function7_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4309,6 +5349,16 @@ class Function7_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function8_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4337,6 +5387,16 @@ class Function8_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function9_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4365,6 +5425,16 @@ class Function9_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function10_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4393,6 +5463,16 @@ class Function10_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function11_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4421,6 +5501,16 @@ class Function11_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function12_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4449,6 +5539,16 @@ class Function12_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function13_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4477,6 +5577,16 @@ class Function13_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function14_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4505,6 +5615,16 @@ class Function14_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function15_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4533,6 +5653,16 @@ class Function15_KEY:
         Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumLock_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4561,6 +5691,16 @@ class NumLock_KEY:
         Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_double_tap_timing(value)
 
 class CapsLock_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4589,6 +5729,16 @@ class CapsLock_KEY:
         Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_double_tap_timing(value)
 
 class ScrollLock_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4617,6 +5767,16 @@ class ScrollLock_KEY:
         Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightShift_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4645,6 +5805,16 @@ class RightShift_KEY:
         Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftShift_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4673,6 +5843,16 @@ class LeftShift_KEY:
         Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Shift_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4701,6 +5881,16 @@ class Shift_KEY:
         Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightControl_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4729,6 +5919,16 @@ class RightControl_KEY:
         Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftControl_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4757,6 +5957,16 @@ class LeftControl_KEY:
         Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
 
 class Control_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4785,6 +5995,16 @@ class Control_KEY:
         Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightAlt_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4813,6 +6033,16 @@ class RightAlt_KEY:
         Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftAlt_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4841,6 +6071,16 @@ class LeftAlt_KEY:
         Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Alt_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4869,6 +6109,16 @@ class Alt_KEY:
         Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightMeta_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4897,6 +6147,16 @@ class RightMeta_KEY:
         Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftMeta_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4925,6 +6185,16 @@ class LeftMeta_KEY:
         Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_double_tap_timing(value)
 
 class Meta_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4953,6 +6223,16 @@ class Meta_KEY:
         Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftSuper_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -4981,6 +6261,16 @@ class LeftSuper_KEY:
         Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightSuper_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5009,6 +6299,16 @@ class RightSuper_KEY:
         Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_double_tap_timing(value)
 
 class Super_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5037,6 +6337,16 @@ class Super_KEY:
         Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_double_tap_timing(value)
 
 class Mode_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5065,6 +6375,16 @@ class Mode_KEY:
         Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Help_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5093,6 +6413,16 @@ class Help_KEY:
         Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_double_tap_timing(value)
 
 class Print_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5121,6 +6451,16 @@ class Print_KEY:
         Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_double_tap_timing(value)
 
 class SystemRequest_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5149,6 +6489,16 @@ class SystemRequest_KEY:
         Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tap_timing(value)
 
 class Break_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5177,6 +6527,16 @@ class Break_KEY:
         Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_double_tap_timing(value)
 
 class Menu_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5205,6 +6565,16 @@ class Menu_KEY:
         Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_double_tap_timing(value)
 
 class Power_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5233,6 +6603,16 @@ class Power_KEY:
         Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_double_tap_timing(value)
 
 class Euro_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5261,6 +6641,16 @@ class Euro_KEY:
         Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_double_tap_timing(value)
 
 class AndroidBack_KEY:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5289,6 +6679,16 @@ class AndroidBack_KEY:
         Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftButton_MOUSE:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5317,6 +6717,16 @@ class LeftButton_MOUSE:
         Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
 
 class MiddleButton_MOUSE:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5345,6 +6755,16 @@ class MiddleButton_MOUSE:
         Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
 
 class RightButton_MOUSE:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5373,6 +6793,16 @@ class RightButton_MOUSE:
         Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
 
 class Mouse_SCROLL:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5401,6 +6831,16 @@ class Mouse_SCROLL:
         Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_value(value)
 
 class Mouse_POSITION:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5432,6 +6872,16 @@ class Mouse_POSITION:
         Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(value)
 
 class Active_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5442,6 +6892,16 @@ class Active_EVENT:
         return Registry.pmma_module_spine[Constants.ACTIVE_EVENT_OBJECT].get_value()
 
 class AppTerminating_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5455,6 +6915,16 @@ Instead please use: 'Quit_EVENT' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].get_value()
 
 class AppLowMemory_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5470,6 +6940,16 @@ https://pypi.org/project/psutil/")
         return Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].get_value()
 
 class AppWillEnterBackground_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5482,6 +6962,16 @@ There is no alternative to this on other operating systems.")
         return Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].get_value()
 
 class AppDidEnterBackground_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5494,6 +6984,16 @@ Instead please use: 'WindowFocusLost' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].get_value()
 
 class AppWillEnterForeground_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5506,6 +7006,16 @@ There is no alternative to this on other operating systems.")
         return Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].get_value()
 
 class AppDidEnterForeground_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5518,6 +7028,16 @@ Instead please use: 'WindowFocusGained' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].get_value()
 
 class AudioDeviceAdded_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5528,6 +7048,16 @@ class AudioDeviceAdded_EVENT:
         return Registry.pmma_module_spine[Constants.AUDIODEVICEADDED_EVENT_OBJECT].get_value()
 
 class AudioDeviceRemoved_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5538,6 +7068,16 @@ class AudioDeviceRemoved_EVENT:
         return Registry.pmma_module_spine[Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].get_value()
 
 class ClipBoardUpdate_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5548,6 +7088,16 @@ class ClipBoardUpdate_EVENT:
         return Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].get_value()
 
 class DropFile_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5558,6 +7108,16 @@ class DropFile_EVENT:
         return Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].get_file()
 
 class DropText_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5580,6 +7140,16 @@ this event is not known to work reliably, using other events instead is recommen
         return Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].get_text()
 
 class DropBegin_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5590,6 +7160,16 @@ class DropBegin_EVENT:
         return Registry.pmma_module_spine[Constants.DROPBEGIN_EVENT_OBJECT].get_value()
 
 class DropComplete_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5600,6 +7180,16 @@ class DropComplete_EVENT:
         return Registry.pmma_module_spine[Constants.DROPCOMPLETE_EVENT_OBJECT].get_value()
 
 class FingerMotion_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5610,6 +7200,16 @@ class FingerMotion_EVENT:
         return Registry.pmma_module_spine[Constants.FINGERMOTION_EVENT_OBJECT].get_value()
 
 class FingerDown_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5620,6 +7220,16 @@ class FingerDown_EVENT:
         return Registry.pmma_module_spine[Constants.FINGERDOWN_EVENT_OBJECT].get_value()
 
 class FingerUp_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5630,6 +7240,16 @@ class FingerUp_EVENT:
         return Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].get_value()
 
 class KeyMapChanged_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5640,6 +7260,16 @@ class KeyMapChanged_EVENT:
         return Registry.pmma_module_spine[Constants.KEYMAPCHANGED_EVENT_OBJECT].get_value()
 
 class LocaleChanged_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5650,6 +7280,16 @@ class LocaleChanged_EVENT:
         return Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].get_value()
 
 class MultiGesture_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5684,6 +7324,16 @@ class MultiGesture_EVENT:
         Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(value)
 
 class NoEvent_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5694,6 +7344,16 @@ class NoEvent_EVENT:
         return Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].get_value()
 
 class Quit_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5704,6 +7364,16 @@ class Quit_EVENT:
         return Registry.pmma_module_spine[Constants.QUIT_EVENT_OBJECT].get_value()
 
 class RenderTargetsReset_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5714,6 +7384,16 @@ class RenderTargetsReset_EVENT:
         return Registry.pmma_module_spine[Constants.RENDERTARGETSRESET_EVENT_OBJECT].get_value()
 
 class RenderDeviceReset_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5724,6 +7404,16 @@ class RenderDeviceReset_EVENT:
         return Registry.pmma_module_spine[Constants.RENDERDEVICERESET_EVENT_OBJECT].get_value()
 
 class SysWMEvent_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5734,6 +7424,16 @@ class SysWMEvent_EVENT:
         return Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].get_value()
 
 class VideoResize_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5744,6 +7444,16 @@ class VideoResize_EVENT:
         return Registry.pmma_module_spine[Constants.VIDEORESIZE_EVENT_OBJECT].get_value()
 
 class VideoExpose_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5754,6 +7464,16 @@ class VideoExpose_EVENT:
         return Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].get_value()
 
 class MidiIn_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5764,6 +7484,16 @@ class MidiIn_EVENT:
         return Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].get_value()
 
 class MidiOut_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5774,6 +7504,16 @@ class MidiOut_EVENT:
         return Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].get_value()
 
 class WindowShown_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5784,6 +7524,16 @@ class WindowShown_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWSHOWN_EVENT_OBJECT].get_value()
 
 class WindowHidden_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5794,6 +7544,16 @@ class WindowHidden_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWHIDDEN_EVENT_OBJECT].get_value()
 
 class WindowExposed_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5804,6 +7564,16 @@ class WindowExposed_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWEXPOSED_EVENT_OBJECT].get_value()
 
 class WindowMoved_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5814,6 +7584,16 @@ class WindowMoved_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWMOVED_EVENT_OBJECT].get_value()
 
 class WindowResized_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5824,6 +7604,16 @@ class WindowResized_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].get_value()
 
 class WindowSizeChanged_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5834,6 +7624,16 @@ class WindowSizeChanged_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].get_value()
 
 class WindowMinimized_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5844,6 +7644,16 @@ class WindowMinimized_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()
 
 class WindowMaximized_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5854,6 +7664,16 @@ class WindowMaximized_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWMAXIMIZED_EVENT_OBJECT].get_value()
 
 class WindowRestored_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5864,6 +7684,16 @@ class WindowRestored_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value()
 
 class WindowEnter_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5874,6 +7704,16 @@ class WindowEnter_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWENTER_EVENT_OBJECT].get_value()
 
 class WindowLeave_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5884,6 +7724,16 @@ class WindowLeave_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWLEAVE_EVENT_OBJECT].get_value()
 
 class WindowFocusGained_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5894,6 +7744,16 @@ class WindowFocusGained_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()
 
 class WindowFocusLost_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5904,6 +7764,16 @@ class WindowFocusLost_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()
 
 class WindowClose_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5914,6 +7784,16 @@ class WindowClose_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWCLOSE_EVENT_OBJECT].get_value()
 
 class WindowTakeFocus_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5924,6 +7804,16 @@ class WindowTakeFocus_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].get_value()
 
 class WindowHitTest_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5934,6 +7824,16 @@ class WindowHitTest_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWHITTEST_EVENT_OBJECT].get_value()
 
 class WindowICCPROFChanged_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5944,6 +7844,16 @@ class WindowICCPROFChanged_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].get_value()
 
 class WindowDisplayChanged_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5954,6 +7864,16 @@ class WindowDisplayChanged_EVENT:
         return Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].get_value()
 
 class JoyDeviceAdded_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 
@@ -5964,6 +7884,16 @@ class JoyDeviceAdded_EVENT:
         return Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].get_value()
 
 class JoyDeviceRemoved_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         initialize(self)
 

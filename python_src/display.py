@@ -312,8 +312,12 @@ actively working to address this operating system limitation.")
         else:
             raise NotImplementedError
 
-    def refresh(self, refresh_rate=None):
-        print(self._window_in_focus, self._window_minimized) # tmp
+    def refresh(
+            self,
+            refresh_rate=None,
+            lower_refresh_rate_when_minimized=True,
+            lower_refresh_rate_when_unfocused=True,
+            lower_refresh_rate_on_low_battery=True):
 
         Registry.in_game_loop = True
 
@@ -326,10 +330,19 @@ messages. Please place this compute function 'pmma.compute()' just before \
 this method call to ensure optimal performance and support!")
 
         if refresh_rate is None:
-            if Registry.power_saving_mode:
-                refresh_rate = 45
-            else:
-                refresh_rate = 60
+            refresh_rate = 60
+
+        if Registry.power_saving_mode and lower_refresh_rate_on_low_battery:
+            refresh_rate = int(refresh_rate * 0.75)
+
+        if lower_refresh_rate_when_unfocused and not self._window_in_focus:
+            refresh_rate = int(refresh_rate * 0.5)
+
+        if lower_refresh_rate_when_minimized and self._window_minimized:
+            refresh_rate = 5
+
+        if refresh_rate < 5:
+            refresh_rate = 5
 
         Registry.context.screen.use()
 

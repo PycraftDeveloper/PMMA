@@ -83,7 +83,7 @@ def init(
             memory_management_max_object_lifetime=2.5,
             memory_management_max_size=Constants.AUTOMATIC,
             log_development=None,
-            log_information=False,
+            log_information=True,
             log_warning=False,
             log_error=True,
             log_to_file=False,

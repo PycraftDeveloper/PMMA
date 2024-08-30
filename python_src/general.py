@@ -210,6 +210,8 @@ def register_application():
 def compute():
     Registry.power_saving_mode = is_battery_saver_enabled()
 
+    Registry.in_game_loop = True
+
     new_iteration_id = _random.random()
     while new_iteration_id == Registry.iteration_id:
         new_iteration_id = _random.random()
@@ -294,7 +296,8 @@ generating 3D arrays.")
     log_development("PMMA is now exiting. Thanks for using PMMA!")
     keys = list(Registry.pmma_object_instances.keys())
     for key in keys:
-        Registry.pmma_object_instances[key].quit()
+        log_information(f"Quitting: {Registry.pmma_object_instances[key].__class__.__name__} with ID: {key}")
+        Registry.pmma_object_instances[key].quit(do_garbage_collection=False)
         del Registry.pmma_object_instances[key]
 
     if Registry.display_mode == Constants.PYGAME:

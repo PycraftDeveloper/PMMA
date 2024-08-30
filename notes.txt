@@ -17,7 +17,7 @@ self.([A-Z]|[a-z])+
 
 Issues
 ======
-None :)
+None :D
 
 TO DO LIST
 ==========
@@ -25,14 +25,6 @@ Work on MIDI events when able to do so.
 
 Integrate events with custom event manager
 Create aggregated events like Pointer (similar to controller already added).
-
-On minimized or de-focused, lower app default frame rate:
-Default: 60
-Default power saving: 45 (60*0.75)
-Minimized: 10
-Minimized power saving: 7.5 (10*0.75)
-De-Focused: 30
-De-Focused power saving: 22.5 (30*0.75)
 
 Introduce number -> word and number <- word systems
 Introduce prefix adjustments for SI-units.
