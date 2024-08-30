@@ -17,7 +17,7 @@ self.([A-Z]|[a-z])+
 
 Issues
 ======
-None :D
+Crashes on display full screen toggle (and maybe resize) likely due to opengl context / window context.
 
 TO DO LIST
 ==========
