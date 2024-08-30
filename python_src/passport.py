@@ -57,7 +57,6 @@ try and work around this.")
         _PassportIntermediary.supported_python_versions = supported_python_versions
         _PassportIntermediary.project_size = project_size
 
-        Registry.pmma_object_instances[id(self)] = self
         self._shut_down = False
 
     def set_name(self, name):

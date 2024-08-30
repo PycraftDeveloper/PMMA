@@ -16,7 +16,6 @@ class Registry:
     display_initialized = False
     context = None
     power_saving_mode = False
-    pmma_object_instances = {}
     number_of_draw_calls = 0
     total_time_spent_drawing = 0
     pmma_initialized = False

@@ -64,7 +64,6 @@ class Display:
             if Registry.display_mode == Constants.PYGAME:
                 _pygame.display.quit()
             del self
-            del Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
             if do_garbage_collection:
                 _gc.collect()
 

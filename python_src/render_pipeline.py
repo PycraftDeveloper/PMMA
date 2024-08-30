@@ -29,7 +29,11 @@ class RenderPipeline:
 
         self._render_points = []
 
+        self._vbo = None
+        self._cbo = None
+        self._ibo = None
         self._vao = None
+        self._simple_shape_rendering_program = None
 
         self._opengl = _OpenGL()
         self._display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
@@ -115,7 +119,7 @@ class RenderPipeline:
                         render_point.set_vertices_changed(False)
                         vertices_list = []
                         for point in render_point.get_points():
-                            vertices_list.extend([point[0], point[1]])
+                            vertices_list.extend([point[0]/self._display.get_aspect_ratio(), point[1]])
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
 
                         indices_list = list(range(num_points))
@@ -290,7 +294,7 @@ class RenderPipeline:
                             angle = _numpy.radians(render_point.get_start_angle() + i * angle_step)
                             x = render_point.get_position()[0] + render_point.get_size()[0] * _numpy.cos(angle)
                             y = render_point.get_position()[1] + render_point.get_size()[1] * _numpy.sin(angle)
-                            vertices_list.extend([x, y])
+                            vertices_list.extend([x/self._display.get_aspect_ratio(), y])
 
                         indices_list = []
                         for i in range(1, num_arc_segments + 1):  # Loop through to include the last segment
@@ -316,7 +320,7 @@ class RenderPipeline:
                         render_point.set_vertices_changed(False)
                         vertices_list = []
                         for point in render_point.get_points():
-                            vertices_list.extend([point[0], point[1]])
+                            vertices_list.extend([point[0]/self._display.get_aspect_ratio(), point[1]])
 
                         indices_list = []
                         for i in range(1, num_points - 1):
@@ -365,22 +369,36 @@ class RenderPipeline:
 
 
                 elif type(render_point) == _Pixel:
-                    total_number_of_vertices += 1
-                    total_number_of_indices += 1
+                    num_segments = 4  # Number of segments used to approximate the circle
+                    total_number_of_vertices += num_segments + 1  # Circle center + edge points
+                    total_number_of_indices += num_segments * 3  # Triangles to fill the circle
 
                     if render_point.get_vertices_changed():
                         render_point.set_vertices_changed(False)
-                        render_point.set_vertices_hardware_accelerated_data(_numpy.array([
-                            render_point.get_position()[0], render_point.get_position()[1]
-                        ], dtype=_numpy.float32))
+                        vertices_list = [render_point.get_position()[0], render_point.get_position()[1]]  # Circle center
 
-                        render_point.set_indices_hardware_accelerated_data(_numpy.array([0], dtype=_numpy.uint32))
+                        radius = (1 / self._display.get_width())
+
+                        for i in range(num_segments):
+                            angle = (2 * _numpy.pi * i / num_segments) - _numpy.pi / 4
+                            x = render_point.get_position()[0] + radius * _numpy.cos(angle)
+                            y = render_point.get_position()[1] + radius * _numpy.sin(angle)
+                            vertices_list.extend([x, y])
+
+                        indices_list = []
+                        for i in range(1, num_segments):
+                            indices_list.extend([0, i, i + 1])
+                        indices_list.extend([0, num_segments, 1])  # Closing the circle
+
+                        render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
+                        render_point.set_indices_hardware_accelerated_data(_numpy.array(indices_list, dtype=_numpy.uint32))
 
                     if render_point.get_color_changed():
                         render_point.set_color_changed(False)
-                        render_point.set_colors_hardware_accelerated_data(_numpy.array([
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]
-                        ], dtype=_numpy.float32))
+                        colors_list = []
+                        for _ in range(num_segments + 1):
+                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                        render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
                 elif type(render_point) == _CurvedLines:
@@ -440,13 +458,13 @@ class RenderPipeline:
 
                 # issues
                 # Line: None
-                # Lines: shape not filled, aspect
+                # Lines: Width not respected, aspect
                 # AdvancedPolygon: None
                 # RotatedRect: Not rotated
                 # Rect: positioning wrong
                 # Circle: None
-                # Arc: Broken, aspect
-                # Polygon: Broken, aspect
+                # Arc: Width not respected
+                # Polygon: Width not respected
                 # Ellipse: None
                 # Pixel: Too small to see?, aspect
                 # CurvedLines: Broken, aspect
@@ -479,19 +497,29 @@ class RenderPipeline:
                     shape_index += 37
 
                 elif type(render_point) == _Pixel: # might be broken, cant see
-                    shape_index += 1 # might not be right
+                    shape_index += 37 # might not be right
 
                 elif type(render_point) == _CurvedLines: # broken
                     shape_index += len(render_point.get_hardware_accelerated_data()["indices"]) # might not be right
 
-            vbo = self._opengl.create_vbo(vertices).get()
-            cbo = self._opengl.create_cbo(colors).get()
-            ibo = self._opengl.create_ibo(indices).get()
-
             if self._vao is not None:
                 self._vao.release()
+            if self._vbo is not None:
+                self._vbo.quit()
+            if self._cbo is not None:
+                self._cbo.quit()
+            if self._ibo is not None:
+                self._ibo.quit()
+            if self._simple_shape_rendering_program is not None:
+                self._simple_shape_rendering_program.quit()
+
+            self._vbo = self._opengl.create_vbo(vertices)
+            self._cbo = self._opengl.create_cbo(colors)
+            self._ibo = self._opengl.create_ibo(indices)
+            self._simple_shape_rendering_program = self._opengl.get_simple_shape_rendering_program()
+
             #vao = self.opengl.create_vao(program, vbo, ).get() Not yet finished!!!
-            self._vao = Registry.context.vertex_array(self._opengl.get_simple_shape_rendering_program().get(), [(vbo, '2f', 'in_vert'), (cbo, '3f', 'in_color')], ibo)
+            self._vao = Registry.context.vertex_array(self._simple_shape_rendering_program.get(), [(self._vbo.get(), '2f', 'in_vert'), (self._cbo.get(), '3f', 'in_color')], self._ibo.get())
             self._vao.render(_moderngl.TRIANGLES)
         else:
             self._vao.render(_moderngl.TRIANGLES)

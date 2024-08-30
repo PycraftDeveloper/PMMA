@@ -13,8 +13,8 @@ display.create(1280, 720, full_screen=False)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-#rp.add(pmma.Rect([1, 0, 0], (0, 0), (0.8, 0.1)))
-rp.add(pmma.Arc([0, 1, 0], (0, 0), (0.5, 0.5), 90, 180))
+circ = pmma.Circle([0, 1, 0], (0, 0), 1)
+rp.add(circ)
 
 while pmma.Registry.running:
     events.handle()
@@ -31,8 +31,10 @@ while pmma.Registry.running:
     rp.render()
     end = time.perf_counter()
     print(1/(end-start))
+    #print(display.get_refresh_rate())
 
     #print(rect.hardware_accelerated_data)
+    #time.sleep(3)
 
     pmma.compute()
     display.refresh()

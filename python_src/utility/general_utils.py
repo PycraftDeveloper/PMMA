@@ -69,7 +69,9 @@ def convert_number_to_text(value):
     try:
         return _num2words.num2words(value, lang=get_language())
     except OverflowError:
-        log_development(f"Woah! {value} is a very large number - too big \
+        if not "number to word, large value encountered" in Registry.formatted_developer_messages:
+            Registry.formatted_developer_messages.append("number to word, large value encountered")
+            log_development(f"Woah! {value} is a very large number - too big \
 unfortunately to convert to words. Instead the value will be returned as a string.")
         return str(value)
 
@@ -87,7 +89,7 @@ def quit(show_statistics=None, terminate_application=True):
             time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
             log_information(f"PMMA statistics: {app_name} ran for: {time_formatter_instance.get_in_sentence_format()}")
             log_information(f"PMMA statistics: {app_name} had an average \
-    frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
+frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
 
         log_information(f"PMMA statistics: {app_name} used {Registry.number_of_instantiated_objects} instances of PMMA operations.")
 
@@ -108,11 +110,12 @@ nD size of 10 is enforced as larger values often result in excessive memory usag
 generating 3D arrays.")
 
     log_development("PMMA is now exiting. Thanks for using PMMA!")
-    keys = list(Registry.pmma_object_instances.keys())
+    keys = list(Registry.pmma_module_spine.keys())
     for key in keys:
-        log_information(f"Quitting: {Registry.pmma_object_instances[key].__class__.__name__} with ID: {key}")
-        Registry.pmma_object_instances[key].quit(do_garbage_collection=False)
-        del Registry.pmma_object_instances[key]
+        log_information(f"Quitting PMMA object with ID: {key}")
+        Registry.pmma_module_spine[key].quit(do_garbage_collection=False)
+
+    del Registry.pmma_module_spine
 
     if Registry.display_mode == Constants.PYGAME:
         _pygame.quit()
@@ -365,7 +368,6 @@ PMMA. To register it, make sure it exists in the 'Constants' object, and in its 
     if add_to_pmma_module_spine:
         Registry.pmma_module_spine[unique_instance] = instance
 
-    Registry.pmma_object_instances[id(instance)] = instance
     Registry.number_of_instantiated_objects += 1
 
 def create_cache_id(*args):
