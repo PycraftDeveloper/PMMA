@@ -87,10 +87,10 @@ class RenderPipeline:
 
                         # Define vertices in correct order (counter-clockwise for triangle strip)
                         vertices_list = [
-                            start[0] + offset[0], start[1] + offset[1],
-                            end[0] + offset[0], end[1] + offset[1],
-                            start[0] - offset[0], start[1] - offset[1],
-                            end[0] - offset[0], end[1] - offset[1],
+                            (start[0] + offset[0])/self._display.get_aspect_ratio(), start[1] + offset[1],
+                            (end[0] + offset[0])/self._display.get_aspect_ratio(), end[1] + offset[1],
+                            (start[0] - offset[0])/self._display.get_aspect_ratio(), start[1] - offset[1],
+                            (end[0] - offset[0])/self._display.get_aspect_ratio(), end[1] - offset[1],
                         ]
 
                         # Create vertex buffer and index buffer
