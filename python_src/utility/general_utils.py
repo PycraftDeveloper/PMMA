@@ -15,6 +15,7 @@ import psutil as _psutil
 import pyglet as _pyglet
 import getostheme as _getostheme
 import num2words as _num2words
+from word2number import w2n as _word2number
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants

@@ -26,9 +26,10 @@ Work on MIDI events when able to do so.
 Integrate events with custom event manager
 Create aggregated events like Pointer (similar to controller already added).
 
-Introduce number -> word and number <- word systems
 Introduce prefix adjustments for SI-units.
 Introduce Coodinate and Degree conversions.
 Introduce anti-aliasing, improve VBO creation and allow easier loading of other moderngl objects.
 Add object collision.
 Work on render pipeline.
+
+Wrap ModernGL & ModernGL_window objects through PMMA to enhance existing behavior, including deletes.
