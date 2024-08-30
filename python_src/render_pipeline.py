@@ -32,6 +32,7 @@ class RenderPipeline:
         self._vao = None
 
         self._opengl = _OpenGL()
+        self._display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -51,6 +52,9 @@ class RenderPipeline:
         if canvas is None:
             Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
 
+        if self._render_points == []:
+            return
+
         changed = False
         for render_point in self._render_points:
             if render_point.get_vertices_changed() or render_point.get_color_changed():
@@ -63,25 +67,44 @@ class RenderPipeline:
 
             for render_point in self._render_points:
                 if type(render_point) == _Line:
-                    total_number_of_vertices += 2
-                    total_number_of_indices += 2
+                    total_number_of_vertices += 4
+                    total_number_of_indices += 6
 
                     if render_point.get_vertices_changed():
                         render_point.set_vertices_changed(False)
-                        render_point.set_vertices_hardware_accelerated_data(_numpy.array([
-                            render_point.get_start()[0], render_point.get_start()[1],
-                            render_point.get_end()[0], render_point.get_end()[1]
-                        ]))
+                        start = _numpy.array(render_point.get_start(), dtype=_numpy.float32)
+                        end = _numpy.array(render_point.get_end(), dtype=_numpy.float32)
 
-                        render_point.set_indices_hardware_accelerated_data(_numpy.array([0, 1]))
+                        direction = end - start
+                        length = _numpy.linalg.norm(direction)
+
+                        # Normalize the direction vector
+                        direction = direction.astype(_numpy.float32) / length
+                        perpendicular = _numpy.array([-direction[1], direction[0]], dtype=_numpy.float32)
+
+                        width = render_point.get_width() /self._display.get_width()
+                        offset = perpendicular * width
+
+                        # Define vertices in correct order (counter-clockwise for triangle strip)
+                        vertices_list = [
+                            start[0] + offset[0], start[1] + offset[1],
+                            end[0] + offset[0], end[1] + offset[1],
+                            start[0] - offset[0], start[1] - offset[1],
+                            end[0] - offset[0], end[1] - offset[1],
+                        ]
+
+                        # Create vertex buffer and index buffer
+                        render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
+                        render_point.set_indices_hardware_accelerated_data(_numpy.array([0, 1, 2, 1, 3, 2], dtype=_numpy.uint32))
 
                     if render_point.get_color_changed():
                         render_point.set_color_changed(False)
                         render_point.set_colors_hardware_accelerated_data(_numpy.array([
                             render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]
-                        ]))
-
+                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
+                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
+                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
+                        ], dtype=_numpy.float32))
 
                 elif type(render_point) == _Lines:
                     num_points = len(render_point.get_points())
@@ -415,8 +438,8 @@ class RenderPipeline:
                 color_offset += len(render_point.get_hardware_accelerated_data()["colors"])
                 index_offset += len(render_point.get_hardware_accelerated_data()["indices"])
 
-                if type(render_point) == _Line: # broken, likely because its line and not filled, similar to next one down
-                    shape_index += 1 # might not be right
+                if type(render_point) == _Line:
+                    shape_index += 4
 
                 elif type(render_point) == _Lines: # shape_index right, but shape filled not line!
                     shape_index += len(render_point.get_points())

@@ -114,7 +114,7 @@ class Line:
         start_time = _time.perf_counter()
         Registry.number_of_draw_calls += 1
         if Registry.display_mode == Constants.PYGAME:
-            if Registry.anti_aliasing:
+            if Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aaline(
                     self._canvas.get_pygame_surface().get_pygame_surface(),
                     self._color,
@@ -240,7 +240,7 @@ class Lines:
                 end_time = _time.perf_counter()
                 Registry.total_time_spent_drawing += end_time - start_time
                 return
-            if Registry.anti_aliasing:
+            if Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aalines(
                     self._canvas.get_pygame_surface().get_pygame_surface(),
                     self._color,
@@ -1521,7 +1521,7 @@ class Draw:
         if canvas is None:
             canvas = self._canvas
         if Registry.display_mode == Constants.PYGAME:
-            if Registry.anti_aliasing:
+            if Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aaline(
                     canvas.get_pygame_surface(),
                     color,
@@ -1562,7 +1562,7 @@ class Draw:
                 end_time = _time.perf_counter()
                 Registry.total_time_spent_drawing += end_time - start_time
                 return
-            if Registry.anti_aliasing:
+            if Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aalines(
                     canvas.get_pygame_surface(),
                     color,
