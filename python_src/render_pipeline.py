@@ -66,7 +66,7 @@ class RenderPipeline:
             total_number_of_indices = 0
 
             for render_point in self._render_points:
-                if type(render_point) == _Line: # not sure on aspect scaling
+                if type(render_point) == _Line:
                     total_number_of_vertices += 4
                     total_number_of_indices += 6
 
@@ -208,13 +208,13 @@ class RenderPipeline:
                     if render_point.get_vertices_changed():
                         render_point.set_vertices_changed(False)
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array([
-                            render_point.get_position()[0],
+                            (render_point.get_position()[0])/self._display.get_aspect_ratio(),
                             render_point.get_position()[1],
-                            render_point.get_position()[0] + render_point.get_size()[0],
+                            (render_point.get_position()[0] + render_point.get_size()[0])/self._display.get_aspect_ratio(),
                             render_point.get_position()[1],
-                            render_point.get_position()[0] + render_point.get_size()[0],
+                            (render_point.get_position()[0] + render_point.get_size()[0])/self._display.get_aspect_ratio(),
                             render_point.get_position()[1] + render_point.get_size()[1],
-                            render_point.get_position()[0],
+                            (render_point.get_position()[0])/self._display.get_aspect_ratio(),
                             render_point.get_position()[1] + render_point.get_size()[1]]))
 
                         render_point.set_indices_hardware_accelerated_data(_numpy.array([
@@ -278,12 +278,12 @@ class RenderPipeline:
                     num_segments = 36
                     arc_length = render_point.get_stop_angle() - render_point.get_start_angle()
                     num_arc_segments = int(num_segments * arc_length / 360)
-                    total_number_of_vertices += num_arc_segments + 1
+                    total_number_of_vertices += num_arc_segments + 2  # +2 to account for the center and the last point on the arc
                     total_number_of_indices += num_arc_segments * 3
 
                     if render_point.get_vertices_changed():
                         render_point.set_vertices_changed(False)
-                        vertices_list = [render_point.get_position()[0], render_point.get_position()[1]]
+                        vertices_list = [render_point.get_position()[0], render_point.get_position()[1]]  # Center point of the arc
 
                         angle_step = arc_length / num_arc_segments
                         for i in range(num_arc_segments + 1):
@@ -293,7 +293,7 @@ class RenderPipeline:
                             vertices_list.extend([x, y])
 
                         indices_list = []
-                        for i in range(1, num_arc_segments):
+                        for i in range(1, num_arc_segments + 1):  # Loop through to include the last segment
                             indices_list.extend([0, i, i + 1])
 
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
@@ -302,7 +302,7 @@ class RenderPipeline:
                     if render_point.get_color_changed():
                         render_point.set_color_changed(False)
                         colors_list = []
-                        for _ in range(num_arc_segments + 1):
+                        for _ in range(num_arc_segments + 2):  # +2 for the center and the last point
                             colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
@@ -344,7 +344,7 @@ class RenderPipeline:
 
                         for i in range(num_segments):
                             angle = 2 * _numpy.pi * i / num_segments
-                            x = render_point.get_position()[0] + render_point.get_size()[0] * _numpy.cos(angle)
+                            x = (render_point.get_position()[0] + render_point.get_size()[0] * _numpy.cos(angle))/self._display.get_aspect_ratio()
                             y = render_point.get_position()[1] + render_point.get_size()[1] * _numpy.sin(angle)
                             vertices_list.extend([x, y])
 
@@ -438,22 +438,35 @@ class RenderPipeline:
                 color_offset += len(render_point.get_hardware_accelerated_data()["colors"])
                 index_offset += len(render_point.get_hardware_accelerated_data()["indices"])
 
+                # issues
+                # Line: None
+                # Lines: shape not filled, aspect
+                # AdvancedPolygon: None
+                # RotatedRect: Not rotated
+                # Rect: positioning wrong
+                # Circle: None
+                # Arc: Broken, aspect
+                # Polygon: Broken, aspect
+                # Ellipse: None
+                # Pixel: Too small to see?, aspect
+                # CurvedLines: Broken, aspect
+
                 if type(render_point) == _Line:
                     shape_index += 4
 
                 elif type(render_point) == _Lines: # shape_index right, but shape filled not line!
                     shape_index += len(render_point.get_points())
 
-                elif type(render_point) == _AdvancedPolygon: # aspect all good
+                elif type(render_point) == _AdvancedPolygon:
                     shape_index += render_point.get_number_of_sides()
 
-                elif type(render_point) == _RotatedRect: # rotation isnt working? / aspect all good
+                elif type(render_point) == _RotatedRect: # rotation isnt working?
                     shape_index += 4
 
-                elif type(render_point) == _Rect:
+                elif type(render_point) == _Rect: # positioning wrong
                     shape_index += 4
 
-                elif type(render_point) == _Circle: # aspect all good
+                elif type(render_point) == _Circle:
                     shape_index += 37
 
                 elif type(render_point) == _Arc: # broken
