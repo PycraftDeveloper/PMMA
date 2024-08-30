@@ -311,6 +311,12 @@ actively working to address this operating system limitation.")
         else:
             raise NotImplementedError
 
+    def get_aspect_ratio(self):
+        if Registry.display_mode == Constants.PYGAME:
+            return self._display.get_width() / self._display.get_height()
+        else:
+            raise NotImplementedError
+
     def refresh(
             self,
             refresh_rate=None,
@@ -357,7 +363,6 @@ this method call to ensure optimal performance and support!")
             aggregation_program["texture3d"].value = 1
             aggregation_program["pygame_texture"].value = 2
             aggregation_program["color_key"].write(self._color_key)
-            aggregation_program["aspect_ratio"].value = self.get_width() / self.get_height()
             self._two_dimension_texture.get().use(location=0)
             self._three_dimension_texture.get().use(location=1)
             self._pygame_surface_texture.get().use(location=2)

@@ -66,7 +66,7 @@ class RenderPipeline:
             total_number_of_indices = 0
 
             for render_point in self._render_points:
-                if type(render_point) == _Line:
+                if type(render_point) == _Line: # not sure on aspect scaling
                     total_number_of_vertices += 4
                     total_number_of_indices += 6
 
@@ -82,7 +82,7 @@ class RenderPipeline:
                         direction = direction.astype(_numpy.float32) / length
                         perpendicular = _numpy.array([-direction[1], direction[0]], dtype=_numpy.float32)
 
-                        width = render_point.get_width() /self._display.get_width()
+                        width = (render_point.get_width() / self._display.get_width()) * self._display.get_aspect_ratio()
                         offset = perpendicular * width
 
                         # Define vertices in correct order (counter-clockwise for triangle strip)
@@ -145,7 +145,7 @@ class RenderPipeline:
                             angle = render_point.get_rotation_angle() + i * angle_step
                             x = render_point.get_center()[0] + render_point.get_radius() * _numpy.cos(angle)
                             y = render_point.get_center()[1] + render_point.get_radius() * _numpy.sin(angle)
-                            vertices_list.extend([x, y])
+                            vertices_list.extend([x/self._display.get_aspect_ratio(), y])
 
                             if i > 1:
                                 indices_list.extend([0, i - 1, i])
@@ -175,16 +175,16 @@ class RenderPipeline:
                         sin_angle = _numpy.sin(angle_rad)
 
                         vertices_list = [
-                            render_point.get_center_of_rect()[0] + cos_angle * half_width - sin_angle * half_height,
+                            (render_point.get_center_of_rect()[0] + cos_angle * half_width - sin_angle * half_height)/self._display.get_aspect_ratio(),
                             render_point.get_center_of_rect()[1] + sin_angle * half_width + cos_angle * half_height,
 
-                            render_point.get_center_of_rect()[0] - cos_angle * half_width - sin_angle * half_height,
+                            (render_point.get_center_of_rect()[0] - cos_angle * half_width - sin_angle * half_height)/self._display.get_aspect_ratio(),
                             render_point.get_center_of_rect()[1] - sin_angle * half_width + cos_angle * half_height,
 
-                            render_point.get_center_of_rect()[0] - cos_angle * half_width + sin_angle * half_height,
+                            (render_point.get_center_of_rect()[0] - cos_angle * half_width + sin_angle * half_height)/self._display.get_aspect_ratio(),
                             render_point.get_center_of_rect()[1] - sin_angle * half_width - cos_angle * half_height,
 
-                            render_point.get_center_of_rect()[0] + cos_angle * half_width + sin_angle * half_height,
+                            (render_point.get_center_of_rect()[0] + cos_angle * half_width + sin_angle * half_height)/self._display.get_aspect_ratio(),
                             render_point.get_center_of_rect()[1] + sin_angle * half_width - cos_angle * half_height,
                         ]
 
@@ -256,7 +256,7 @@ class RenderPipeline:
                             angle = 2 * _numpy.pi * i / num_segments
                             x = render_point.get_center()[0] + render_point.get_radius() * _numpy.cos(angle)
                             y = render_point.get_center()[1] + render_point.get_radius() * _numpy.sin(angle)
-                            vertices_list.extend([x, y])
+                            vertices_list.extend([x/self._display.get_aspect_ratio(), y])
 
                         indices_list = []
                         for i in range(1, num_segments):
@@ -444,16 +444,16 @@ class RenderPipeline:
                 elif type(render_point) == _Lines: # shape_index right, but shape filled not line!
                     shape_index += len(render_point.get_points())
 
-                elif type(render_point) == _AdvancedPolygon:
+                elif type(render_point) == _AdvancedPolygon: # aspect all good
                     shape_index += render_point.get_number_of_sides()
 
-                elif type(render_point) == _RotatedRect:
+                elif type(render_point) == _RotatedRect: # rotation isnt working? / aspect all good
                     shape_index += 4
 
                 elif type(render_point) == _Rect:
                     shape_index += 4
 
-                elif type(render_point) == _Circle:
+                elif type(render_point) == _Circle: # aspect all good
                     shape_index += 37
 
                 elif type(render_point) == _Arc: # broken
