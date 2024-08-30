@@ -11,18 +11,17 @@ import moderngl_window as _moderngl_window
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.surface import Surface as _Surface
 from pmma.python_src.opengl import OpenGL as _OpenGL
-
-from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
 
 class Display:
     def __init__(self):
-        initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
+        _initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
 
         if Registry.display_mode == Constants.PYGAME:
             self._clock = _pygame.time.Clock()

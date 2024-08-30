@@ -4,16 +4,15 @@ import gc as _gc
 from PIL import Image as _ImageModule
 import pygame as _pygame
 
-from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Image:
     def __init__(self):
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
 
         self._memory_manager_instance = _MemoryManager()
 

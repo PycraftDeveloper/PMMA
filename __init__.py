@@ -29,6 +29,7 @@ with _contextlib.redirect_stdout(_buffer):
 
 Registry.pygame_launch_message = _buffer.getvalue().strip()
 
+from pmma.python_src.utility.general_utils import environ_to_registry as _environ_to_registry
 from pmma.python_src.general import *
 
 if get_operating_system() == Constants.LINUX:
@@ -39,7 +40,7 @@ if get_operating_system() == Constants.LINUX:
 Linux platform make sure to run this command first: 'sudo apt-get install portaudio19-dev' \
 first otherwise attempting to install the 'PyAudio' module may fail.")
 
-environ_to_registry()
+_environ_to_registry()
 
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
@@ -75,6 +76,7 @@ from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _M
 import pmma.python_src.utility.event_utils as _event_utils
 from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
 from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
+import pmma.python_src.utility.general_utils as _general_utils
 
 def init(
             optimize_python_extensions=True,
@@ -101,6 +103,8 @@ def init(
     Registry.python_acceleration_enabled = optimize_python_extensions
     Registry.cython_acceleration_enabled = compile_c_extensions
     Registry.power_saving_mode = is_battery_saver_enabled()
+
+    _general_utils.update_language()
 
     if optimize_python_extensions:
         benchmark = Benchmark() # cache this unique to device

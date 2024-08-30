@@ -2,16 +2,14 @@ import gc as _gc
 
 import pygame as _pygame
 
-from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.controller import Controller as _Controller
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class ControllersIntermediary:
     def __init__(self):
-        initialize(self, unique_instance=Constants.CONTROLLER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=Constants.CONTROLLER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._controllers = []
         for joy_num in range(_pygame.joystick.get_count()):

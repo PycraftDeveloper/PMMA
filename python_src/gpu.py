@@ -7,16 +7,17 @@ import pyadl as _pyadl
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.executor import Executor as _Executor
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 
 if get_operating_system() == Constants.WINDOWS:
     import pythoncom as _pythoncom
 
 class GPUs:
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -36,7 +37,7 @@ class GPUs:
 
 class GPU:
     def __init__(self, module_identification_indices):
-        initialize(self)
+        _initialize(self)
 
         self._module_identification_indices = module_identification_indices
         self._executor = _Executor()
@@ -494,7 +495,7 @@ class GPU:
         for priority in self._priorities:
             if priority == Constants.SMI and smi_data != "":
                 self._executor.run([
-                    find_executable_nvidia_smi(),
+                    _find_executable_nvidia_smi(),
                     f"--query-gpu={smi_data}",
                     "--format=csv,noheader,nounits",
                     f"-i={self._module_identification_indices[Constants.SMI]}"])

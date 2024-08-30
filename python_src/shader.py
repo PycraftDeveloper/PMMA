@@ -2,15 +2,16 @@ import os as _os
 import gc as _gc
 
 from pmma.python_src.file import path_builder as _path_builder
-
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.general_utils import OpenGLObject as _OpenGLObject
 
 class Shader:
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
         if not Constants.OPENGL_INTERMEDIARY_OBJECT in Registry.pmma_module_spine.keys():
             log_warning("OpenGL object does not exist.")
@@ -71,7 +72,7 @@ the 'OpenGL' class before instantiating this.")
             vertex_shader=self._vertex_shader,
             fragment_shader=self._fragment_shader)
 
-        self._program = OpenGLObject(program)
+        self._program = _OpenGLObject(program)
 
         self.analyze()
 

@@ -6,18 +6,18 @@ import gc as _gc
 import pygame as _pygame
 import pyglet as _pyglet
 
-from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.file import File as _File
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.general_utils import create_cache_id as _create_cache_id
+
 class Text:
     def __init__(self, canvas=None):
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
 
         self._canvas = canvas
 
@@ -142,7 +142,7 @@ class Text:
             "position": (x, y)
         }
 
-        identifier = create_cache_id(
+        identifier = _create_cache_id(
             font_identifiable_data,
             canvas_identifiable_data,
             text,

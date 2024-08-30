@@ -6,13 +6,13 @@ import wmi as _wmi
 import pyadl as _pyadl
 
 from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.gpu import GPU as _GPU
-
 from pmma.python_src.executor import Executor as _Executor
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 
 class GPUsIntermediary:
     def uuid_cleaner(self, uuid):
@@ -31,7 +31,7 @@ class GPUsIntermediary:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self, unique_instance=Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._unique_gpus = {} # {"bus": n, "uuid": n}: {SMI: n, ADL: n, WMI, n}
 
@@ -46,7 +46,7 @@ class GPUsIntermediary:
             self._unique_gpus[json_identifier] = {Constants.SMI: None, Constants.WMI: None, Constants.PYADL: adl_index}
             adl_index += 1
 
-        nvidia_smi = find_executable_nvidia_smi()
+        nvidia_smi = _find_executable_nvidia_smi()
         if nvidia_smi is not None:
             self._executor = _Executor()
             self._executor.run([

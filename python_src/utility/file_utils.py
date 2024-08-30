@@ -1,10 +1,7 @@
 import os
 
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEvent, FileSystemEventHandler
-
-from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
+from watchdog.events import FileSystemEventHandler
 
 class FileUtilityIntermediary:
     file_matrix = {}

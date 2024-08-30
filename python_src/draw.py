@@ -6,10 +6,10 @@ import pygame as _pygame
 import pygame.gfxdraw as _gfxdraw
 import pyglet as _pyglet
 
-from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Line:
     """
@@ -23,7 +23,7 @@ class Line:
             width=1,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -144,7 +144,7 @@ class Lines:
             closed=False,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -273,7 +273,7 @@ class AdvancedPolygon:
             wire_frame=False,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -457,7 +457,7 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         color (str):
             Name of the fill color, in HTML format.
         """
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -628,7 +628,7 @@ class Rect:
             border_bottom_right_radius=-1,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -791,7 +791,7 @@ class Circle:
             width=0,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -912,7 +912,7 @@ class Arc:
             width=1,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1043,7 +1043,7 @@ class Polygon:
             width=0,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1148,7 +1148,7 @@ class Ellipse:
             width=0,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1260,7 +1260,7 @@ class Pixel:
             position=None,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1369,7 +1369,7 @@ class CurvedLines:
             steps=2,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1489,7 +1489,7 @@ class Draw:
             self,
             canvas=None):
 
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]

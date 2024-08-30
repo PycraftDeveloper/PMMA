@@ -12,15 +12,13 @@ import dill as _dill
 import waiting as _waiting
 
 from pmma.python_src.file import path_builder as _path_builder
-
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPriorityList
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class MemoryManagerIntermediary:
     def __init__(
@@ -28,7 +26,7 @@ class MemoryManagerIntermediary:
             object_lifetime=2.5,
             target_size=Constants.AUTOMATIC):
 
-        initialize(self, unique_instance=Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:

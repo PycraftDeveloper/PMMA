@@ -1,16 +1,14 @@
 import time as _time
 import gc as _gc
 
-from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
 
 import pmma.python_src.utility.math_utils as _math_utils
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Benchmark:
     def __init__(self, n=None):
-        initialize(self)
+        _initialize(self)
 
         if n is None:
             if Registry.power_saving_mode:

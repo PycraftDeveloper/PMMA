@@ -7,14 +7,15 @@ import moderngl_window as _moderngl_window
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.shader import Shader as _Shader
 from pmma.python_src.file import path_builder as _path_builder
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.general_utils import OpenGLObject as _OpenGLObject
+
 class OpenGLIntermediary:
     def __init__(self):
-        initialize(self, unique_instance=Constants.OPENGL_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=Constants.OPENGL_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             if Registry.display_initialized is False:
@@ -104,7 +105,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 color_format)
 
         else:
-            if type(texture) == OpenGLObject:
+            if type(texture) == _OpenGLObject:
                 fbo_texture = texture.get()
             else:
                 fbo_texture = texture
@@ -112,7 +113,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         fbo = Registry.context.framebuffer(
             color_attachments=[fbo_texture])
 
-        return OpenGLObject(fbo)
+        return _OpenGLObject(fbo)
 
     def create_texture(
             self,
@@ -129,10 +130,10 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             color_component)
 
         texture.filter = (x_scaling_method, y_scaling_method)
-        return OpenGLObject(texture)
+        return _OpenGLObject(texture)
 
     def blit_image_to_texture(self, image, texture):
-        if type(texture) == OpenGLObject:
+        if type(texture) == _OpenGLObject:
             texture = texture.get()
         texture.write(image)
 
@@ -141,7 +142,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             data = _numpy.array(data, dtype=_numpy.float32)
 
         buffer = Registry.context.buffer(data)
-        return OpenGLObject(buffer)
+        return _OpenGLObject(buffer)
 
     def create_vbo(self, data):
         return self.create_buffer_object(data)
@@ -161,7 +162,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         if type(data_or_vbo) == _moderngl.Buffer:
             vbo = data_or_vbo
-        elif type(data_or_vbo) == OpenGLObject:
+        elif type(data_or_vbo) == _OpenGLObject:
             vbo = data_or_vbo.get()
         else:
             data = data_or_vbo
@@ -176,7 +177,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             else:
                 attributes = []
 
-        if type(index_buffer) == OpenGLObject:
+        if type(index_buffer) == _OpenGLObject:
             index_buffer = index_buffer.get()
 
         vao = Registry.context.simple_vertex_array(
@@ -184,4 +185,4 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             vbo,
             *attributes,
             index_buffer=index_buffer)
-        return OpenGLObject(vao)
+        return _OpenGLObject(vao)

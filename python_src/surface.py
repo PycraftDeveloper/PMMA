@@ -3,14 +3,14 @@ import gc as _gc
 import pygame as _pygame
 import pyglet as _pyglet
 
-from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Surface:
     def __init__(self):
-        initialize(self, requires_display_mode_set=True)
+        _initialize(self, requires_display_mode_set=True)
 
         if Registry.display_mode is None:
             raise Exception("Display mode not set")

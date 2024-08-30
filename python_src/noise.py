@@ -7,12 +7,11 @@ import numpy as _numpy
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
 
 import pmma.python_src.utility.math_utils as _math_utils
 from pmma.python_src.utility.noise_utils import NoiseIntermediary as _NoiseIntermediary
 from pmma.python_src.utility.noise_utils import prefill_optimizer as _prefill_optimizer
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Perlin:
     def __init__(
@@ -22,7 +21,7 @@ class Perlin:
             persistence=0.5,
             do_prefill=None):
 
-        initialize(self)
+        _initialize(self)
 
         if Registry.cython_acceleration_available:
             self._noise_module = _importlib.import_module(

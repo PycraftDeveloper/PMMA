@@ -5,13 +5,14 @@ import pygame as _pygame
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
 
+from pmma.python_src.utility.error_utils import *
 import pmma.python_src.utility.event_utils as _event_utils
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Controllers:
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

@@ -5,10 +5,10 @@ import pygame as _pygame
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.controller import Controllers as _Controllers
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Events:
     def __del__(self, do_garbage_collection=False):
@@ -22,7 +22,7 @@ class Events:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
+        _initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
 
         self.iteration_id = 0
 
@@ -1408,7 +1408,7 @@ class Backspace_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_double_tapped(value)
@@ -1446,7 +1446,7 @@ class Tab_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_double_tapped(value)
@@ -1484,7 +1484,7 @@ class Clear_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_double_tapped(value)
@@ -1522,7 +1522,7 @@ class Return_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_double_tapped(value)
@@ -1560,7 +1560,7 @@ class Pause_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_double_tapped(value)
@@ -1598,7 +1598,7 @@ class Escape_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_double_tapped(value)
@@ -1636,7 +1636,7 @@ class Space_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_double_tapped(value)
@@ -1674,7 +1674,7 @@ class ExclamationMark_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tapped(value)
@@ -1712,7 +1712,7 @@ class DoubleQuote_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tapped(value)
@@ -1750,7 +1750,7 @@ class Hashtag_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_double_tapped(value)
@@ -1788,7 +1788,7 @@ class Dollar_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_double_tapped(value)
@@ -1826,7 +1826,7 @@ class Ampersand_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_double_tapped(value)
@@ -1864,7 +1864,7 @@ class SingleQuote_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tapped(value)
@@ -1902,7 +1902,7 @@ class LeftParenthesis_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
@@ -1940,7 +1940,7 @@ class RightParenthesis_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
@@ -1978,7 +1978,7 @@ class Asterisk_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_double_tapped(value)
@@ -2016,7 +2016,7 @@ class Plus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_double_tapped(value)
@@ -2054,7 +2054,7 @@ class Comma_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_double_tapped(value)
@@ -2092,7 +2092,7 @@ class Minus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_double_tapped(value)
@@ -2130,7 +2130,7 @@ class Period_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_double_tapped(value)
@@ -2168,7 +2168,7 @@ class ForwardSlash_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_double_tapped(value)
@@ -2206,7 +2206,7 @@ class Primary0_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_double_tapped(value)
@@ -2244,7 +2244,7 @@ class Primary1_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_double_tapped(value)
@@ -2282,7 +2282,7 @@ class Primary2_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_double_tapped(value)
@@ -2320,7 +2320,7 @@ class Primary3_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_double_tapped(value)
@@ -2358,7 +2358,7 @@ class Primary4_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_double_tapped(value)
@@ -2396,7 +2396,7 @@ class Primary5_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_double_tapped(value)
@@ -2434,7 +2434,7 @@ class Primary6_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_double_tapped(value)
@@ -2472,7 +2472,7 @@ class Primary7_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_double_tapped(value)
@@ -2510,7 +2510,7 @@ class Primary8_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_double_tapped(value)
@@ -2548,7 +2548,7 @@ class Primary9_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_double_tapped(value)
@@ -2586,7 +2586,7 @@ class Colon_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_double_tapped(value)
@@ -2624,7 +2624,7 @@ class SemiColon_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_double_tapped(value)
@@ -2662,7 +2662,7 @@ class LessThan_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_double_tapped(value)
@@ -2700,7 +2700,7 @@ class Equals_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_double_tapped(value)
@@ -2738,7 +2738,7 @@ class GreaterThan_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_double_tapped(value)
@@ -2776,7 +2776,7 @@ class QuestionMark_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_double_tapped(value)
@@ -2814,7 +2814,7 @@ class At_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_double_tapped(value)
@@ -2852,7 +2852,7 @@ class LeftBracket_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_double_tapped(value)
@@ -2890,7 +2890,7 @@ class BackSlash_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_double_tapped(value)
@@ -2928,7 +2928,7 @@ class RightBracket_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tapped(value)
@@ -2966,7 +2966,7 @@ class Caret_KEY: # ^
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_double_tapped(value)
@@ -3004,7 +3004,7 @@ class Underscore_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_double_tapped(value)
@@ -3042,7 +3042,7 @@ class Grave_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_double_tapped(value)
@@ -3080,7 +3080,7 @@ class PrimaryA_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_double_tapped(value)
@@ -3118,7 +3118,7 @@ class PrimaryB_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_double_tapped(value)
@@ -3156,7 +3156,7 @@ class PrimaryC_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_double_tapped(value)
@@ -3194,7 +3194,7 @@ class PrimaryD_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_double_tapped(value)
@@ -3232,7 +3232,7 @@ class PrimaryE_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_double_tapped(value)
@@ -3270,7 +3270,7 @@ class PrimaryF_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_double_tapped(value)
@@ -3308,7 +3308,7 @@ class PrimaryG_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_double_tapped(value)
@@ -3346,7 +3346,7 @@ class PrimaryH_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_double_tapped(value)
@@ -3384,7 +3384,7 @@ class PrimaryI_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_double_tapped(value)
@@ -3422,7 +3422,7 @@ class PrimaryJ_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_double_tapped(value)
@@ -3460,7 +3460,7 @@ class PrimaryK_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_double_tapped(value)
@@ -3498,7 +3498,7 @@ class PrimaryL_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_double_tapped(value)
@@ -3536,7 +3536,7 @@ class PrimaryM_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_double_tapped(value)
@@ -3574,7 +3574,7 @@ class PrimaryN_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_double_tapped(value)
@@ -3612,7 +3612,7 @@ class PrimaryO_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_double_tapped(value)
@@ -3650,7 +3650,7 @@ class PrimaryP_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_double_tapped(value)
@@ -3688,7 +3688,7 @@ class PrimaryQ_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tapped(value)
@@ -3726,7 +3726,7 @@ class PrimaryR_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_double_tapped(value)
@@ -3764,7 +3764,7 @@ class PrimaryS_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_double_tapped(value)
@@ -3802,7 +3802,7 @@ class PrimaryT_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_double_tapped(value)
@@ -3840,7 +3840,7 @@ class PrimaryU_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_double_tapped(value)
@@ -3878,7 +3878,7 @@ class PrimaryV_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_double_tapped(value)
@@ -3916,7 +3916,7 @@ class PrimaryW_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_double_tapped(value)
@@ -3954,7 +3954,7 @@ class PrimaryX_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_double_tapped(value)
@@ -3992,7 +3992,7 @@ class PrimaryY_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_double_tapped(value)
@@ -4030,7 +4030,7 @@ class PrimaryZ_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_double_tapped(value)
@@ -4068,7 +4068,7 @@ class Delete_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_double_tapped(value)
@@ -4106,7 +4106,7 @@ class Numpad0_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_double_tapped(value)
@@ -4144,7 +4144,7 @@ class Numpad1_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_double_tapped(value)
@@ -4182,7 +4182,7 @@ class Numpad2_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_double_tapped(value)
@@ -4220,7 +4220,7 @@ class Numpad3_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_double_tapped(value)
@@ -4258,7 +4258,7 @@ class Numpad4_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_double_tapped(value)
@@ -4296,7 +4296,7 @@ class Numpad5_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_double_tapped(value)
@@ -4334,7 +4334,7 @@ class Numpad6_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_double_tapped(value)
@@ -4372,7 +4372,7 @@ class Numpad7_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_double_tapped(value)
@@ -4410,7 +4410,7 @@ class Numpad8_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_double_tapped(value)
@@ -4448,7 +4448,7 @@ class Numpad9_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_double_tapped(value)
@@ -4486,7 +4486,7 @@ class NumpadPeriod_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tapped(value)
@@ -4524,7 +4524,7 @@ class NumpadDivide_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tapped(value)
@@ -4562,7 +4562,7 @@ class NumpadMultiply_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tapped(value)
@@ -4600,7 +4600,7 @@ class NumpadMinus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_double_tapped(value)
@@ -4638,7 +4638,7 @@ class NumpadPlus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_double_tapped(value)
@@ -4676,7 +4676,7 @@ class NumpadEnter_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_double_tapped(value)
@@ -4714,7 +4714,7 @@ class NumpadEquals_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tapped(value)
@@ -4752,7 +4752,7 @@ class Up_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_double_tapped(value)
@@ -4790,7 +4790,7 @@ class Down_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_double_tapped(value)
@@ -4828,7 +4828,7 @@ class Right_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_double_tapped(value)
@@ -4866,7 +4866,7 @@ class Left_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_double_tapped(value)
@@ -4904,7 +4904,7 @@ class Insert_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_double_tapped(value)
@@ -4942,7 +4942,7 @@ class Home_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_double_tapped(value)
@@ -4980,7 +4980,7 @@ class End_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_double_tapped(value)
@@ -5018,7 +5018,7 @@ class PageUp_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_double_tapped(value)
@@ -5056,7 +5056,7 @@ class PageDown_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_double_tapped(value)
@@ -5094,7 +5094,7 @@ class Function1_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_double_tapped(value)
@@ -5132,7 +5132,7 @@ class Function2_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_double_tapped(value)
@@ -5170,7 +5170,7 @@ class Function3_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_double_tapped(value)
@@ -5208,7 +5208,7 @@ class Function4_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_double_tapped(value)
@@ -5246,7 +5246,7 @@ class Function5_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_double_tapped(value)
@@ -5284,7 +5284,7 @@ class Function6_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_double_tapped(value)
@@ -5322,7 +5322,7 @@ class Function7_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_double_tapped(value)
@@ -5360,7 +5360,7 @@ class Function8_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_double_tapped(value)
@@ -5398,7 +5398,7 @@ class Function9_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_double_tapped(value)
@@ -5436,7 +5436,7 @@ class Function10_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_double_tapped(value)
@@ -5474,7 +5474,7 @@ class Function11_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_double_tapped(value)
@@ -5512,7 +5512,7 @@ class Function12_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_double_tapped(value)
@@ -5550,7 +5550,7 @@ class Function13_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_double_tapped(value)
@@ -5588,7 +5588,7 @@ class Function14_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_double_tapped(value)
@@ -5626,7 +5626,7 @@ class Function15_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_double_tapped(value)
@@ -5664,7 +5664,7 @@ class NumLock_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_double_tapped(value)
@@ -5702,7 +5702,7 @@ class CapsLock_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_double_tapped(value)
@@ -5740,7 +5740,7 @@ class ScrollLock_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_double_tapped(value)
@@ -5778,7 +5778,7 @@ class RightShift_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tapped(value)
@@ -5816,7 +5816,7 @@ class LeftShift_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_double_tapped(value)
@@ -5854,7 +5854,7 @@ class Shift_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_double_tapped(value)
@@ -5892,7 +5892,7 @@ class RightControl_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tapped(value)
@@ -5930,7 +5930,7 @@ class LeftControl_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_double_tapped(value)
@@ -5968,7 +5968,7 @@ class Control_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_double_tapped(value)
@@ -6006,7 +6006,7 @@ class RightAlt_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_double_tapped(value)
@@ -6044,7 +6044,7 @@ class LeftAlt_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_double_tapped(value)
@@ -6082,7 +6082,7 @@ class Alt_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_double_tapped(value)
@@ -6120,7 +6120,7 @@ class RightMeta_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_double_tapped(value)
@@ -6158,7 +6158,7 @@ class LeftMeta_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_double_tapped(value)
@@ -6196,7 +6196,7 @@ class Meta_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_double_tapped(value)
@@ -6234,7 +6234,7 @@ class LeftSuper_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_double_tapped(value)
@@ -6272,7 +6272,7 @@ class RightSuper_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_double_tapped(value)
@@ -6310,7 +6310,7 @@ class Super_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_double_tapped(value)
@@ -6348,7 +6348,7 @@ class Mode_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_double_tapped(value)
@@ -6386,7 +6386,7 @@ class Help_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_double_tapped(value)
@@ -6424,7 +6424,7 @@ class Print_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_double_tapped(value)
@@ -6462,7 +6462,7 @@ class SystemRequest_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tapped(value)
@@ -6500,7 +6500,7 @@ class Break_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_double_tapped(value)
@@ -6538,7 +6538,7 @@ class Menu_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_double_tapped(value)
@@ -6576,7 +6576,7 @@ class Power_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_double_tapped(value)
@@ -6614,7 +6614,7 @@ class Euro_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_double_tapped(value)
@@ -6652,7 +6652,7 @@ class AndroidBack_KEY:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tapped(value)
@@ -6690,7 +6690,7 @@ class LeftButton_MOUSE:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
@@ -6728,7 +6728,7 @@ class MiddleButton_MOUSE:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tapped(value)
@@ -6766,7 +6766,7 @@ class RightButton_MOUSE:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_double_tapped(self, value):
         Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
@@ -6804,7 +6804,7 @@ class Mouse_SCROLL:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def get_x_displacement(self):
         return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_displacement()
@@ -6842,7 +6842,7 @@ class Mouse_POSITION:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def get_axis_displacement(self):
         return Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_axis_displacement()
@@ -6883,7 +6883,7 @@ class Active_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.ACTIVE_EVENT_OBJECT].set_value(value)
@@ -6903,7 +6903,7 @@ class AppTerminating_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].set_value(value)
@@ -6926,7 +6926,7 @@ class AppLowMemory_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(value)
@@ -6951,7 +6951,7 @@ class AppWillEnterBackground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(value)
@@ -6973,7 +6973,7 @@ class AppDidEnterBackground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(value)
@@ -6995,7 +6995,7 @@ class AppWillEnterForeground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(value)
@@ -7017,7 +7017,7 @@ class AppDidEnterForeground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(value)
@@ -7039,7 +7039,7 @@ class AudioDeviceAdded_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(value)
@@ -7059,7 +7059,7 @@ class AudioDeviceRemoved_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(value)
@@ -7079,7 +7079,7 @@ class ClipBoardUpdate_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(value)
@@ -7099,7 +7099,7 @@ class DropFile_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_file(self, file):
         Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].set_file(file)
@@ -7119,7 +7119,7 @@ class DropText_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_text(self, text):
         Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].set_text(text)
@@ -7151,7 +7151,7 @@ class DropBegin_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.DROPBEGIN_EVENT_OBJECT].set_value(value)
@@ -7171,7 +7171,7 @@ class DropComplete_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(value)
@@ -7191,7 +7191,7 @@ class FingerMotion_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.FINGERMOTION_EVENT_OBJECT].set_value(value)
@@ -7211,7 +7211,7 @@ class FingerDown_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.FINGERDOWN_EVENT_OBJECT].set_value(value)
@@ -7231,7 +7231,7 @@ class FingerUp_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].set_value(value)
@@ -7251,7 +7251,7 @@ class KeyMapChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(value)
@@ -7271,7 +7271,7 @@ class LocaleChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].set_value(value)
@@ -7291,7 +7291,7 @@ class MultiGesture_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def get_gesture_center_x(self):
         return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_x()
@@ -7335,7 +7335,7 @@ class NoEvent_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].set_value(value)
@@ -7355,7 +7355,7 @@ class Quit_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.QUIT_EVENT_OBJECT].set_value(value)
@@ -7375,7 +7375,7 @@ class RenderTargetsReset_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(value)
@@ -7395,7 +7395,7 @@ class RenderDeviceReset_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(value)
@@ -7415,7 +7415,7 @@ class SysWMEvent_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].set_value(value)
@@ -7435,7 +7435,7 @@ class VideoResize_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.VIDEORESIZE_EVENT_OBJECT].set_value(value)
@@ -7455,7 +7455,7 @@ class VideoExpose_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].set_value(value)
@@ -7475,7 +7475,7 @@ class MidiIn_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].set_value(value)
@@ -7495,7 +7495,7 @@ class MidiOut_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].set_value(value)
@@ -7515,7 +7515,7 @@ class WindowShown_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(value)
@@ -7535,7 +7535,7 @@ class WindowHidden_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(value)
@@ -7555,7 +7555,7 @@ class WindowExposed_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(value)
@@ -7575,7 +7575,7 @@ class WindowMoved_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWMOVED_EVENT_OBJECT].set_value(value)
@@ -7595,7 +7595,7 @@ class WindowResized_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(value)
@@ -7615,7 +7615,7 @@ class WindowSizeChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].set_value(value)
@@ -7635,7 +7635,7 @@ class WindowMinimized_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(value)
@@ -7655,7 +7655,7 @@ class WindowMaximized_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(value)
@@ -7675,7 +7675,7 @@ class WindowRestored_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(value)
@@ -7695,7 +7695,7 @@ class WindowEnter_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWENTER_EVENT_OBJECT].set_value(value)
@@ -7715,7 +7715,7 @@ class WindowLeave_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(value)
@@ -7735,7 +7735,7 @@ class WindowFocusGained_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(value)
@@ -7755,7 +7755,7 @@ class WindowFocusLost_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(value)
@@ -7775,7 +7775,7 @@ class WindowClose_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(value)
@@ -7795,7 +7795,7 @@ class WindowTakeFocus_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(value)
@@ -7815,7 +7815,7 @@ class WindowHitTest_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(value)
@@ -7835,7 +7835,7 @@ class WindowICCPROFChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(value)
@@ -7855,7 +7855,7 @@ class WindowDisplayChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(value)
@@ -7875,7 +7875,7 @@ class JoyDeviceAdded_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].set_value(value)
@@ -7895,7 +7895,7 @@ class JoyDeviceRemoved_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].set_value(value)

@@ -7,12 +7,13 @@ import numpy as _numpy
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
+
 from pmma.python_src.utility.error_utils import *
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Sampler:
     def __init__(self, chunk_size=2048, sampling_rate=44100, input_device_id=None):
-        initialize(self)
+        _initialize(self)
 
         self._pyaudio_instance = _pyaudio.PyAudio()
 

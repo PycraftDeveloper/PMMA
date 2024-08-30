@@ -2,13 +2,13 @@ import tkinter as _tk
 from tkinter import ttk as _ttk
 import gc as _gc
 
-from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
-from pmma.python_src.utility.error_utils import *
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Tkinter:
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

@@ -1,14 +1,13 @@
 import sys as _sys
 import threading as _threading
 
-from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Thread(_threading.Thread):
     def __init__(self, *args, **keywords):
         _threading.Thread.__init__(self, *args, **keywords)
 
-        initialize(self)
+        _initialize(self)
 
         self._killed = False
 

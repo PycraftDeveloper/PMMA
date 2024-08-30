@@ -2,8 +2,6 @@ import gc as _gc
 
 from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 

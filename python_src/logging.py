@@ -2,10 +2,10 @@ import datetime as _datetime
 import traceback as _traceback
 import gc as _gc
 
-import pmma.python_src.general as general
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
+
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Logger:
     def __init__(
@@ -18,7 +18,7 @@ class Logger:
             log_file=None,
             log_to_terminal=True):
 
-        general.initialize(self, unique_instance=Constants.LOGGING_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=Constants.LOGGING_OBJECT, add_to_pmma_module_spine=True)
 
         if log_development is None:
             log_development = Registry.development_mode

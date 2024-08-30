@@ -21,9 +21,11 @@ from pmma.python_src.draw import Ellipse as _Ellipse
 from pmma.python_src.draw import Pixel as _Pixel
 from pmma.python_src.draw import CurvedLines as _CurvedLines
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+
 class RenderPipeline:
     def __init__(self):
-        initialize(self)
+        _initialize(self)
 
         self._render_points = []
 

@@ -4,9 +4,6 @@ import numba
 import pyrr
 import numpy
 
-from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
-
 def raw_ranger(value, old, new):
     if value > old[1]:
         value = old[1]

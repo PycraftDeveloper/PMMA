@@ -1,17 +1,14 @@
 import gc as _gc
 
-from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 from pmma.python_src.noise import Perlin as _Perlin
 
 from pmma.python_src.utility.color_utils import ColorIntermediary as _ColorIntermediary
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Color:
     def __init__(self, seed=None):
-        initialize(self)
+        _initialize(self)
 
         self._color_intermediary = _ColorIntermediary()
 

@@ -1,10 +1,5 @@
 import numpy
 
-from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
-from pmma.python_src.constants import Constants
-from pmma.python_src.utility.error_utils import *
-
 def prefill_optimizer(x):
     x_array = numpy.linspace(0, x, x)
     x_out_array = x_array
