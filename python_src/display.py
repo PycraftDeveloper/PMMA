@@ -235,7 +235,7 @@ actively working to address this operating system limitation.")
 
             flags = self._generate_pygame_flags()
 
-            _pygame.display.quit()
+            _pygame.display.quit() # issues here with moderngl likely - but without more major windowing issues.
             _pygame.display.init()
 
             self.set_caption()
