@@ -1,3 +1,12 @@
+Notes
+-----
+Add typehint for returned classes at least where unclear (for intellicode) - eg:
+
+...
+    def get_controller(self, controller_index) -> 'Controller':
+        return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
+...
+
 Module Initialization Order
 ---------------------------
 
@@ -11,9 +20,11 @@ Internal (pmma.py_src./)
 
 Internal Utility (pmma.py_src.utility./)
 
+*ONLY import required modules.
+
 Search
 ======
-self.([A-Z]|[a-z])+
+Search for public attributes of a class: self.([A-Z]|[a-z])+
 
 Issues
 ======
@@ -22,7 +33,7 @@ Transparent display not working with opengl idk why.
 
 TO DO LIST
 ==========
-Add in Coordinate and color intermediaries for render pipeline
+Add in Coordinate intermediaries for render pipeline
 Work on MIDI events when able to do so.
 
 Integrate events with custom event manager
