@@ -220,6 +220,8 @@ class Events:
         self.joydeviceadded_event = JoyDeviceAdded_EVENT()
         self.joydeviceremoved_event = JoyDeviceRemoved_EVENT()
 
+        self.windowfullscreenstatechanged_event = WindowFullScreenStatusChanged_EVENT()
+
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         if self.iteration_id == Registry.iteration_id:
             log_development("You have called the 'handle()' method from events \
@@ -296,6 +298,8 @@ then enable it to see if it fixes or improves a desired feature.")
         self.mouse_scroll.set_y_displacement(0)
         self.mouse_position.set_x_axis_displacement(0)
         self.mouse_position.set_y_axis_displacement(0)
+
+        self.windowfullscreenstatechanged_event.set_value(False)
 
         if Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
@@ -826,6 +830,7 @@ then enable it to see if it fixes or improves a desired feature.")
                         if handle_full_screen_events:
                             if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
                                 Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].toggle_full_screen()
+                                self.windowfullscreenstatechanged_event.set_value(True)
 
                     elif event.key == _pygame.K_F12:
                         self.function12_key.set_pressed(True)
@@ -7902,3 +7907,23 @@ class JoyDeviceRemoved_EVENT:
 
     def get_value(self):
         return Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].get_value()
+
+class WindowFullScreenStatusChanged_EVENT:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
+    def __init__(self):
+        _initialize(self)
+
+    def set_value(self, value):
+        Registry.pmma_module_spine[Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].set_value(value)
+
+    def get_value(self):
+        return Registry.pmma_module_spine[Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].get_value()

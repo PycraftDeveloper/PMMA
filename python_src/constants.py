@@ -300,6 +300,7 @@ class Constants:
     WINDOWDISPLAYCHANGED_EVENT_OBJECT = "windowdisplaychanged_event_object"
     JOYDEVICEADDED_OBJECT = "joydeviceadded_event_object"
     JOYDEVICEREMOVED_OBJECT = "joydeviceremoved_event_object"
+    WINDOWFULLSCREENSTATECHANGED_OBJECT = "windowfullscreenstatuschanged_object"
 
     OBJECT_IDENTIFIERS = [
         DISPLAY_OBJECT,
@@ -541,7 +542,9 @@ class Constants:
         WINDOWICCPROFCHANGED_EVENT_OBJECT,
         WINDOWDISPLAYCHANGED_EVENT_OBJECT,
         JOYDEVICEADDED_OBJECT,
-        JOYDEVICEREMOVED_OBJECT
+        JOYDEVICEREMOVED_OBJECT,
+
+        WINDOWFULLSCREENSTATECHANGED_OBJECT
     ]
 
     CARTESIAN = "cartesian"

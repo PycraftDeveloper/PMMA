@@ -20,6 +20,7 @@ from pmma.python_src.draw import Polygon as _Polygon
 from pmma.python_src.draw import Ellipse as _Ellipse
 from pmma.python_src.draw import Pixel as _Pixel
 from pmma.python_src.draw import CurvedLines as _CurvedLines
+from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
@@ -37,6 +38,8 @@ class RenderPipeline:
 
         self._opengl = _OpenGL()
         self._display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
+        self._window_full_screen_status_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -59,11 +62,14 @@ class RenderPipeline:
         if self._render_points == []:
             return
 
-        changed = False
-        for render_point in self._render_points:
-            if render_point.get_vertices_changed() or render_point.get_color_changed():
-                changed = True
-                break
+        changed = self._window_full_screen_status_changed_event.get_value()
+
+        if changed is False:
+            changed = False
+            for render_point in self._render_points:
+                if render_point.get_vertices_changed() or render_point.get_color_changed():
+                    changed = True
+                    break
 
         if self._vao is None or changed:
             total_number_of_vertices = 0

@@ -13,7 +13,7 @@ display.create(1280, 720, full_screen=False)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-circ = pmma.Circle([0, 1, 0], (0, 0), 1)
+circ = pmma.Circle([0, 255, 0], (0, 0), 1)
 rp.add(circ)
 
 while pmma.Registry.running:

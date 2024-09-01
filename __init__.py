@@ -323,5 +323,7 @@ def init(
     _event_utils.JoyDeviceAdded_EVENT()
     _event_utils.JoyDeviceRemoved_EVENT()
 
+    _event_utils.WindowFullScreenStatusChanged_EVENT()
+
     if wait_for_initialization:
         cython_thread.join()
