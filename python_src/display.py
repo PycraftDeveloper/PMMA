@@ -15,6 +15,7 @@ from pmma.python_src.color import Color as _Color
 from pmma.python_src.surface import Surface as _Surface
 from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
+from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
@@ -52,6 +53,8 @@ class Display:
 
         self._window_in_focus = True
         self._window_minimized = False
+
+        self.window_full_screen_state_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
     def set_window_in_focus(self, value):
         self._window_in_focus = value
@@ -222,6 +225,8 @@ actively working to address this operating system limitation.")
         return color_key
 
     def toggle_full_screen(self):
+        self.window_full_screen_state_changed_event.set_value(True)
+
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
         if Registry.display_mode == Constants.PYGAME:
@@ -258,6 +263,8 @@ actively working to address this operating system limitation.")
                     hex_color = self._color_converter.output_color(format=Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+
+        self.display_resize()
 
     def blit(self, content, position=[0, 0]):
         self._pygame_surface.blit(content, position)

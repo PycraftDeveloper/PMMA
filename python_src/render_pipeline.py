@@ -254,6 +254,7 @@ class RenderPipeline:
                         ]))
 
                 elif type(render_point) == _Circle:
+                    print("YYYYY")
                     num_segments = 36  # Number of segments used to approximate the circle
                     total_number_of_vertices += num_segments + 1  # Circle center + edge points
                     total_number_of_indices += num_segments * 3  # Triangles to fill the circle
