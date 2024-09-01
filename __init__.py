@@ -30,15 +30,6 @@ with _contextlib.redirect_stdout(_buffer):
 Registry.pygame_launch_message = _buffer.getvalue().strip()
 
 from pmma.python_src.utility.general_utils import environ_to_registry as _environ_to_registry
-from pmma.python_src.general import *
-
-if get_operating_system() == Constants.LINUX:
-    try:
-        import pyaudio as _pyaudio
-    except ModuleNotFoundError:
-        log_development("Pyaudio hasn't been installed yet. Because your running on a \
-Linux platform make sure to run this command first: 'sudo apt-get install portaudio19-dev' \
-first otherwise attempting to install the 'PyAudio' module may fail.")
 
 _environ_to_registry()
 
@@ -58,6 +49,7 @@ from pmma.python_src.executor import *
 from pmma.python_src.sampler import *
 from pmma.python_src.display import *
 from pmma.python_src.surface import *
+from pmma.python_src.general import *
 from pmma.python_src.advmath import *
 from pmma.python_src.opengl import *
 from pmma.python_src.events import *
@@ -117,7 +109,7 @@ def init(
         object_lifetime=memory_management_max_object_lifetime,
         target_size=memory_management_max_size)
 
-    _Logger(
+    logger = _Logger(
         log_development=log_development,
         log_information=log_information,
         log_warning=log_warning,
@@ -125,6 +117,18 @@ def init(
         log_to_file=log_to_file,
         log_file=log_file,
         log_to_terminal=log_to_terminal)
+
+    logger.log_information("Thank you for using PMMA! Please note that PMMA \
+is still in an early stage of its development, bear with us as we \
+continue to work on improving it!")
+
+    if get_operating_system() == Constants.LINUX:
+        try:
+            import pyaudio as _pyaudio
+        except ModuleNotFoundError:
+            logger.log_development("Pyaudio hasn't been installed yet. Because your running on a \
+Linux platform make sure to run this command first: 'sudo apt-get install portaudio19-dev' \
+first otherwise attempting to install the 'PyAudio' module may fail.")
 
     register_application()
 

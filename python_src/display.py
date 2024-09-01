@@ -287,15 +287,17 @@ actively working to address this operating system limitation.")
         else:
             raise NotImplementedError
 
-    def clear(self, *args):
+    def clear(self, color=None, format=Constants.AUTODETECT):
         Registry.in_game_loop = True
 
-        if args == () or args == (None,):
-            args = (0, 0, 0)
-        if not (type(args[0]) == int or type(args[0]) == float):
-            args = args[0]
+        if color is None or color == [] or color == ():
+            self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
 
-        self._color_converter.input_color(args)
+        elif type(color) == _Color:
+            raw_color = color.output_color(Constants.RGBA)
+            self._color_converter.input_color(raw_color, format=Constants.RGBA)
+        else:
+            self._color_converter.input_color(color, format=format)
 
         # Set transparency color key
         hex_color = self._color_converter.output_color(format=Constants.HEX)

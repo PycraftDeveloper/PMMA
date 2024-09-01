@@ -5,6 +5,7 @@ import pyglet as _pyglet
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
+from pmma.python_src.color import Color as _Color
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
@@ -17,6 +18,8 @@ class Surface:
 
         self._alpha = None
         self._surface_initialized = False
+
+        self._color_converter = _Color()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -76,12 +79,20 @@ class Surface:
             else:
                 raise NotImplementedError
 
-    def clear(self, *args):
+    def clear(self, color=None, format=Constants.AUTODETECT):
         if self._surface_initialized:
-            if args == ():
-                args = (0, 0, 0)
+
+            if color is None or color == [] or color == ():
+                self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
+
+            elif type(color) == _Color:
+                raw_color = color.output_color(Constants.RGBA)
+                self._color_converter.input_color(raw_color, format=Constants.RGBA)
+            else:
+                self._color_converter.input_color(color, format=format)
+
             if Registry.display_mode == Constants.PYGAME:
-                self._pygame_surface.fill(args)
+                self._pygame_surface.fill(self._color_converter.output_color(Constants.RGBA))
             else:
                 raise NotImplementedError
 

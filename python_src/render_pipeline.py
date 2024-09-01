@@ -110,10 +110,10 @@ class RenderPipeline:
                     if render_point.get_color_changed():
                         render_point.set_color_changed(False)
                         render_point.set_colors_hardware_accelerated_data(_numpy.array([
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
                         ], dtype=_numpy.float32))
 
                 elif type(render_point) == _Lines:
@@ -137,7 +137,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in render_point.get_points():
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -167,7 +167,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(render_point.get_number_of_sides()):
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -204,10 +204,10 @@ class RenderPipeline:
                     if render_point.get_color_changed():
                         render_point.set_color_changed(False)
                         render_point.set_colors_hardware_accelerated_data(_numpy.array([
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
-                            render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2],
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
                         ], dtype=_numpy.float32))
 
 
@@ -239,22 +239,13 @@ class RenderPipeline:
                     if render_point.get_color_changed():
                         render_point.set_color_changed(False)
                         render_point.set_colors_hardware_accelerated_data(_numpy.array([
-                            render_point.get_color()[0],
-                            render_point.get_color()[1],
-                            render_point.get_color()[2],
-                            render_point.get_color()[0],
-                            render_point.get_color()[1],
-                            render_point.get_color()[2],
-                            render_point.get_color()[0],
-                            render_point.get_color()[1],
-                            render_point.get_color()[2],
-                            render_point.get_color()[0],
-                            render_point.get_color()[1],
-                            render_point.get_color()[2]
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB),
+                            *render_point.get_color().output_color(Constants.SMALL_RGB)
                         ]))
 
                 elif type(render_point) == _Circle:
-                    print("YYYYY")
                     num_segments = 36  # Number of segments used to approximate the circle
                     total_number_of_vertices += num_segments + 1  # Circle center + edge points
                     total_number_of_indices += num_segments * 3  # Triangles to fill the circle
@@ -281,7 +272,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_segments + 1):
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -314,7 +305,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_arc_segments + 2):  # +2 for the center and the last point
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -340,7 +331,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in render_point.get_points():
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -371,7 +362,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_segments + 1):
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -404,7 +395,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_segments + 1):
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 
@@ -437,7 +428,7 @@ class RenderPipeline:
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_segments):
-                            colors_list.extend([render_point.get_color()[0], render_point.get_color()[1], render_point.get_color()[2]])
+                            colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
 

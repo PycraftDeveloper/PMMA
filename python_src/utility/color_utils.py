@@ -25,7 +25,7 @@ class ColorIntermediary:
             else:
                 in_type = Constants.TEXT
 
-        elif color[0] > 1:
+        elif max(color) > 1:
             if color[0] <= 255:
                 if len(color) == 4:
                     in_type = Constants.RGBA

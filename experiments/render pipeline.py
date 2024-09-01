@@ -13,13 +13,16 @@ display.create(1280, 720, full_screen=False, resizable=True)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-circ = pmma.Circle([0, 255, 0], (0, 0), 1)
+circ = pmma.Circle([46, 255, 231], (0, 0), 1)
 rp.add(circ)
+
+color = pmma.Color()
+color.input_color((0, 0, 0))
 
 while pmma.Registry.running:
     events.handle()
 
-    display.clear(0, 0, 0)
+    display.clear(color)
 
     #second_rect.draw()
 

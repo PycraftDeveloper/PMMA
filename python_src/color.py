@@ -23,7 +23,7 @@ class Color:
     def output_color(self, format):
         return self._color_intermediary.get_color(format)
 
-    def output_color_format(self):
+    def get_color_format(self):
         return self._color_intermediary.get_color_format()
 
     def __del__(self, do_garbage_collection=False):
@@ -36,7 +36,16 @@ class Color:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def generate_color(self, value, format=Constants.RGBA, color_range=[0, 255], red_color_range=[0, 255], green_color_range=[0, 255], blue_color_range=[0, 255], alpha_color_range=[0, 255]):
+    def generate_color(
+            self,
+            value,
+            format=Constants.RGBA,
+            color_range=[0, 255],
+            red_color_range=[0, 255],
+            green_color_range=[0, 255],
+            blue_color_range=[0, 255],
+            alpha_color_range=[0, 255]):
+
         if color_range != [0, 255]:
             if red_color_range == [0, 255]:
                 red_color_range = color_range
@@ -48,10 +57,20 @@ class Color:
                 alpha_color_range = color_range
 
         color = [
-            self._red_noise.generate_1D_perlin_noise(value, new_range=red_color_range),
-            self._green_noise.generate_1D_perlin_noise(value, new_range=green_color_range),
-            self._blue_noise.generate_1D_perlin_noise(value, new_range=blue_color_range),
-            self._alpha_noise.generate_1D_perlin_noise(value, new_range=alpha_color_range)]
+            self._red_noise.generate_1D_perlin_noise(
+                value,
+                new_range=red_color_range),
+            self._green_noise.generate_1D_perlin_noise(
+                value,
+                new_range=green_color_range),
+            self._blue_noise.generate_1D_perlin_noise(
+                value,
+                new_range=blue_color_range),
+            self._alpha_noise.generate_1D_perlin_noise(
+                value,
+                new_range=alpha_color_range)]
 
-        self._color_intermediary.set_color(color, Constants.RGBA)
+        self._color_intermediary.set_color(
+            color,
+            Constants.RGBA)
         return self.output_color(format)
