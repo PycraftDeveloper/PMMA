@@ -25,27 +25,6 @@ from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
-class OpenGLObject:
-    def __init__(self, _object):
-        initialize(self)
-
-        self._object = _object
-
-    def get(self):
-        return self._object
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            self._object.release()
-            del self._object
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
 def check_if_object_is_class_or_function(param):
     if _inspect.isclass(param):
         return Constants.CLASS

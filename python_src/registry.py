@@ -1,3 +1,5 @@
+import moderngl as _moderngl
+
 class Registry:
     compile_math_functions = True
     display_mode = None
@@ -14,7 +16,7 @@ class Registry:
     development_mode = True
     refresh_rate = 60
     display_initialized = False
-    context = None
+    context: "_moderngl.Context" = None
     power_saving_mode = False
     number_of_draw_calls = 0
     total_time_spent_drawing = 0
