@@ -28,12 +28,7 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 
 Issues
 ======
-Crashes on display full screen toggle (and maybe resize) due to opengl context / window context. Release all OpenGL objects and recreate them?
-Link to custom moderngl wrapper. Partially fixed - colors not however (and manually setting color has no effect either). Creating custom objects is a must!
 Transparent display not working with opengl idk why.
-
-I have been building OpenGL objects. Anything that used the old system will be broken now and fixed shortly. Also, make sure to add opengl objects to central
-location and recreate them when display destroyed and recreated to address issues with opengl. Use Recreate for that!
 
 TO DO LIST
 ==========
@@ -45,8 +40,6 @@ Create aggregated events like Pointer (similar to controller already added).
 
 Introduce prefix adjustments for SI-units.
 Introduce Coordinate and Degree conversions.
-Introduce anti-aliasing, improve VBO creation and allow easier loading of other moderngl objects.
-Add object collision.                                                                   ^
-Work on render pipeline.                                                                |
-                                                                                        |
-Wrap ModernGL & ModernGL_window objects through PMMA to enhance existing behavior, including deletes.
+Introduce anti-aliasing.
+Add object collision.
+Work on render pipeline.

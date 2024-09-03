@@ -1,5 +1,6 @@
 import pmma
 import random
+import math
 
 import pygame
 
@@ -22,13 +23,13 @@ color.input_color((0, 0, 0))
 while pmma.Registry.running:
     events.handle()
 
-    color.generate_random_color(format=pmma.Constants.RGB)
-
     #display.clear(color.generate_random_color(format=pmma.Constants.RGB))
 
     #print(color.output_color(pmma.Constants.RGB))
 
-    display.clear([0, 123, 0])
+    display.clear(color)
+
+    #circ.set_radius((1+math.cos(nt))/2)
 
     #second_rect.draw()
 
@@ -46,6 +47,6 @@ while pmma.Registry.running:
     #time.sleep(3)
 
     pmma.compute()
-    display.refresh(refresh_rate=2000)
+    display.refresh(refresh_rate=60)
 
 pmma.quit()
