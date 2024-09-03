@@ -252,6 +252,9 @@ actively working to address this operating system limitation.")
             flags = self._generate_pygame_flags()
 
             _pygame.display.quit() # issues here with moderngl likely - but without more major windowing issues.
+
+            Registry.context.release()
+
             _pygame.display.init()
 
             self.set_caption()
@@ -282,6 +285,8 @@ actively working to address this operating system limitation.")
 
         for opengl_object in list(Registry.opengl_objects.keys()):
             Registry.opengl_objects[opengl_object].recreate()
+
+        self._display_quad = _geometry.quad_fs()
 
     def blit(self, content, position=[0, 0]):
         self._pygame_surface.blit(content, position)
@@ -390,8 +395,6 @@ this method call to ensure optimal performance and support!")
             self._two_dimension_texture.use(location=0)
             self._three_dimension_texture.use(location=1)
             self._pygame_surface_texture.use(location=2)
-            #import random
-            #self._two_dimension_texture.texture_to_PIL_image().save(f"imgs/{random.randint(0, 9999999)}.png")
 
             Registry.context.enable(_moderngl.BLEND)
             self._display_quad.render(self._texture_aggregation_program.get_program())

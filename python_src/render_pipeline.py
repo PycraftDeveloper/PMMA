@@ -79,7 +79,7 @@ class RenderPipeline:
                     changed = True
                     break
 
-        if True:# self._vao is None or changed:
+        if self._vao is None or changed:
             total_number_of_vertices = 0
             total_number_of_indices = 0
 
