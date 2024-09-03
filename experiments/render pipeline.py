@@ -37,9 +37,9 @@ while pmma.Registry.running:
 
     #pygame.draw.circle(display.pygame_surface.pygame_surface, (0, 0, 255), (100, 100), 50)
 
-    start = time.perf_counter()
+    #start = time.perf_counter()
     rp.render()
-    end = time.perf_counter()
+    #end = time.perf_counter()
     #print(1/(end-start))
     #print(display.get_refresh_rate())
 
@@ -47,6 +47,6 @@ while pmma.Registry.running:
     #time.sleep(3)
 
     pmma.compute()
-    display.refresh(refresh_rate=60)
+    display.refresh(refresh_rate=2000, lower_refresh_rate_on_low_battery=False, lower_refresh_rate_when_minimized=False, lower_refresh_rate_when_unfocused=False)
 
 pmma.quit()
