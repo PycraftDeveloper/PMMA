@@ -19,6 +19,11 @@ rp.add(circ)
 color = pmma.Color()
 color.input_color((0, 0, 0))
 
+import tracemalloc
+
+# Start tracing memory allocations
+tracemalloc.start()
+
 while pmma.Registry.running:
     events.handle()
 
@@ -48,4 +53,20 @@ while pmma.Registry.running:
     pmma.compute()
     display.refresh(refresh_rate=2000)
 
-pmma.quit()
+# Take a snapshot of memory allocations
+snapshot = tracemalloc.take_snapshot()
+
+# Filter and sort statistics by memory usage
+top_stats = snapshot.statistics('lineno')
+
+print("[ Top 10 memory consuming lines ]")
+for stat in top_stats[:10]:
+    print(stat)
+
+print("\n[ Memory consumption by object type ]")
+for stat in snapshot.statistics('traceback')[:10]:
+    print(f"{stat.count} objects of {stat.size / 1024:.1f} KiB each allocated at:\n")
+    for line in stat.traceback.format():
+        print(line)
+
+#pmma.quit()

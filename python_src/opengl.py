@@ -8,6 +8,7 @@ from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.file import path_builder as _path_builder
+from pmma.python_src.color import Color as _Color
 
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -348,13 +349,17 @@ class VertexArrayObject:
         if self._vao is not None:
             self._vao.release()
 
+            self._program.recreate()
             program = self._program.get_program()
+            self._vertex_buffer_object.recreate()
             vbo = self._vertex_buffer_object.get_vertex_buffer_object()
             if self._color_buffer_object is not None:
+                self._color_buffer_object.recreate()
                 cbo = self._color_buffer_object.get_color_buffer_object()
             else:
                 cbo = None
             if self._index_buffer_object is not None:
+                self._index_buffer_object.recreate()
                 ibo = self._index_buffer_object.get_index_buffer_object()
             else:
                 ibo = None
@@ -579,6 +584,10 @@ class Texture:
 
         self._scaling = (x_scaling, y_scaling)
 
+    def texture_to_PIL_image(self):
+        if self._texture is not None:
+            return _Image.frombytes("RGB", self._size, self._texture.read())
+
     def get_texture(self):
         return self._texture
 
@@ -648,6 +657,7 @@ class FrameBufferObject:
 
             color_attachments = []
             for color_attachment in self._color_attachments:
+                color_attachment.recreate()
                 color_attachments.append(color_attachment.get_texture())
 
             self._fbo = Registry.context.framebuffer(
@@ -657,6 +667,8 @@ class FrameBufferObject:
     def clear(self, color=None, depth=1.0, viewport=None):
         if color is None:
             color = (0.0, 0.0, 0.0, 0.0)
+        elif type(color) == _Color:
+            color = color.output_color(Constants.SMALL_RGBA)
         elif len(color) == 3:
             color = (*color, 0.0)
         if self._fbo is not None:

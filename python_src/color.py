@@ -1,4 +1,5 @@
 import gc as _gc
+import random as _random
 
 from pmma.python_src.constants import Constants
 from pmma.python_src.noise import Perlin as _Perlin
@@ -35,6 +36,13 @@ class Color:
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
+
+    def generate_random_color(self, format=Constants.RGBA):
+        color = [_random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255)]
+        self._color_intermediary.set_color(
+            color,
+            Constants.RGBA)
+        return self.output_color(format)
 
     def generate_color(
             self,

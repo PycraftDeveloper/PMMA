@@ -512,6 +512,8 @@ class RenderPipeline:
                 self._vbo.update(vertices)
                 self._cbo.update(colors)
                 self._ibo.update(indices)
+                self._vao.quit()
+                self._vao = _VertexArrayObject()
 
             else:
                 self._vbo.create(vertices)

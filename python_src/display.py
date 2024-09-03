@@ -53,8 +53,6 @@ class Display:
         self._display_attribute_hwnd = None
         self._display_attribute_transparent_display = False
 
-        self._clear_color = (0, 0, 0)
-
         self._window_in_focus = True
         self._window_minimized = False
 
@@ -272,10 +270,12 @@ actively working to address this operating system limitation.")
                     _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
 
                     # Set transparency color key
-                    self._color_converter.input_color(self._clear_color, format=Constants.RGB)
+                    self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
                     hex_color = self._color_converter.output_color(format=Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+
+        Registry.context = _moderngl.create_context()
 
         self.display_resize()
 
@@ -315,23 +315,23 @@ actively working to address this operating system limitation.")
         else:
             self._color_converter.input_color(color, format=format)
 
-        # Set transparency color key
-        hex_color = self._color_converter.output_color(format=Constants.HEX)
-        color_key = self.hex_color_to_windows_raw_color(hex_color)
+        if self._display_attribute_transparent_display:
+            # Set transparency color key
+            hex_color = self._color_converter.output_color(format=Constants.HEX)
+            color_key = self.hex_color_to_windows_raw_color(hex_color)
 
-        _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+            _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+
+        self._color_key = _numpy.array([*self._color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
 
         if Registry.display_mode == Constants.PYGAME:
             self._two_dimension_frame_buffer.use()
-            self._two_dimension_frame_buffer.clear()
+            self._two_dimension_frame_buffer.clear(self._color_converter)
             self._three_dimension_frame_buffer.use()
-            self._three_dimension_frame_buffer.clear()
-            self._fill_color = self._color_converter.output_color(format=Constants.RGB)
-            self._color_key = _numpy.array([*self._color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
-            self._pygame_surface.clear(self._fill_color)
+            self._three_dimension_frame_buffer.clear(self._color_converter)
+            self._pygame_surface.clear(self._color_converter)
             Registry.context.screen.use()
-            Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGBA))
-            self._clear_color = self._color_converter.output_color(format=Constants.RGB)
+            Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGB))
         else:
             raise NotImplementedError
 
@@ -389,6 +389,8 @@ this method call to ensure optimal performance and support!")
             self._two_dimension_texture.use(location=0)
             self._three_dimension_texture.use(location=1)
             self._pygame_surface_texture.use(location=2)
+            import random
+            self._two_dimension_texture.texture_to_PIL_image().save(f"imgs/{random.randint(0, 9999999)}.png")
 
             Registry.context.enable(_moderngl.BLEND)
             self._display_quad.render(self._texture_aggregation_program.get_program())
