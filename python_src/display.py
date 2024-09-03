@@ -83,13 +83,13 @@ class Display:
         self._pygame_surface = _Surface()
         self._pygame_surface.create(*size)
         self._pygame_surface_texture = _Texture()
-        self._pygame_surface_texture.create(size)
+        self._pygame_surface_texture.create(size, components=Constants.RGB)
         self._two_dimension_texture = _Texture()
-        self._two_dimension_texture.create(size)
+        self._two_dimension_texture.create(size, components=Constants.RGB)
         self._two_dimension_frame_buffer = _FrameBufferObject()
         self._two_dimension_frame_buffer.create(color_attachments=[self._two_dimension_texture])
         self._three_dimension_texture = _Texture()
-        self._three_dimension_texture.create(size)
+        self._three_dimension_texture.create(size, components=Constants.RGB)
         self._three_dimension_frame_buffer = _FrameBufferObject()
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
 
@@ -276,6 +276,7 @@ actively working to address this operating system limitation.")
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
         Registry.context = _moderngl.create_context()
+        _moderngl_window.activate_context(Registry.window_context, Registry.context)
 
         self.display_resize()
 
@@ -389,8 +390,8 @@ this method call to ensure optimal performance and support!")
             self._two_dimension_texture.use(location=0)
             self._three_dimension_texture.use(location=1)
             self._pygame_surface_texture.use(location=2)
-            import random
-            self._two_dimension_texture.texture_to_PIL_image().save(f"imgs/{random.randint(0, 9999999)}.png")
+            #import random
+            #self._two_dimension_texture.texture_to_PIL_image().save(f"imgs/{random.randint(0, 9999999)}.png")
 
             Registry.context.enable(_moderngl.BLEND)
             self._display_quad.render(self._texture_aggregation_program.get_program())
