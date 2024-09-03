@@ -46,6 +46,9 @@ class VertexBufferObject:
     def __init__(self):
         _initialize(self)
 
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
         self._data = None
         self._vbo = None
 
@@ -55,12 +58,15 @@ class VertexBufferObject:
 
     def recreate(self):
         if self._vbo is not None:
+            dynamic = self.get_dynamic()
+            reserve = self._size()
+
             self._vbo.release()
 
-            dynamic = self.get_dynamic()
-            reserve = self.get_size()
-
-            self._vbo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+            if self._data is None:
+                self._vbo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+            else:
+                self._vbo = Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._vbo is None:
@@ -93,9 +99,17 @@ class VertexBufferObject:
         if self._vbo is not None:
             self._vbo.bind_to_storage_buffer(binding)
 
-    def get_size(self):
+    def _size(self):
         if self._vbo is not None:
             return self._vbo.size
+
+    def get_size(self):
+        log_development("Just as a point of clarification, this gets the size of the \
+buffer, not the memory used to store it (either system memory or video memory)")
+        return self._size()
+
+    def get_vertex_buffer_object(self):
+        return self._vbo
 
     def get_dynamic(self):
         if self._vbo is not None:
@@ -105,6 +119,7 @@ class VertexBufferObject:
         if self._shut_down is False:
             if self._vbo is not None:
                 self._vbo.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -117,6 +132,9 @@ class ColorBufferObject:
     def __init__(self):
         _initialize(self)
 
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
         self._data = None
         self._cbo = None
 
@@ -126,12 +144,15 @@ class ColorBufferObject:
 
     def recreate(self):
         if self._cbo is not None:
+            dynamic = self.get_dynamic()
+            reserve = self._size()
+
             self._cbo.release()
 
-            dynamic = self.get_dynamic()
-            reserve = self.get_size()
-
-            self._cbo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+            if self._data is None:
+                self._cbo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+            else:
+                self._cbo = Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._cbo is None:
@@ -164,9 +185,17 @@ class ColorBufferObject:
         if self._cbo is not None:
             self._cbo.bind_to_storage_buffer(binding)
 
-    def get_size(self):
+    def _size(self):
         if self._cbo is not None:
             return self._cbo.size
+
+    def get_size(self):
+        log_development("Just as a point of clarification, this gets the size of the \
+buffer, not the memory used to store it (either system memory or video memory)")
+        return self._size()
+
+    def get_color_buffer_object(self):
+        return self._cbo
 
     def get_dynamic(self):
         if self._cbo is not None:
@@ -176,6 +205,7 @@ class ColorBufferObject:
         if self._shut_down is False:
             if self._cbo is not None:
                 self._cbo.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -188,6 +218,9 @@ class IndexBufferObject:
     def __init__(self):
         _initialize(self)
 
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
         self._data = None
         self._ibo = None
 
@@ -197,12 +230,15 @@ class IndexBufferObject:
 
     def recreate(self):
         if self._ibo is not None:
+            dynamic = self.get_dynamic()
+            reserve = self._size()
+
             self._ibo.release()
 
-            dynamic = self.get_dynamic()
-            reserve = self.get_size()
-
-            self._ibo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+            if self._data is None:
+                self._ibo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+            else:
+                self._ibo = Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._ibo is None:
@@ -218,6 +254,9 @@ class IndexBufferObject:
         else:
             if self._ibo is not None:
                 return self._ibo.read()
+
+    def get_index_buffer_object(self):
+        return self._ibo
 
     def get_vertex_buffer_object(self):
         return self._ibo
@@ -235,9 +274,14 @@ class IndexBufferObject:
         if self._ibo is not None:
             self._ibo.bind_to_storage_buffer(binding)
 
-    def get_size(self):
+    def _size(self):
         if self._ibo is not None:
             return self._ibo.size
+
+    def get_size(self):
+        log_development("Just as a point of clarification, this gets the size of the \
+buffer, not the memory used to store it (either system memory or video memory)")
+        return self._size()
 
     def get_dynamic(self):
         if self._ibo is not None:
@@ -247,6 +291,7 @@ class IndexBufferObject:
         if self._shut_down is False:
             if self._ibo is not None:
                 self._ibo.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -259,6 +304,9 @@ class VertexArrayObject:
     def __init__(self):
         _initialize(self)
 
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
         self._vao = None
         self._program = None
         self._vertex_buffer_object = None
@@ -268,7 +316,7 @@ class VertexArrayObject:
         self._index_buffer_object = None
         self._index_element_size = None
 
-    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=None, index_buffer_object=None, index_element_size=None):
+    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=None, index_buffer_object=None, index_element_size=4):
         self._program = program
         self._vertex_buffer_object = vertex_buffer_object
         self._vertex_buffer_shader_attributes = vertex_buffer_shader_attributes
@@ -277,25 +325,47 @@ class VertexArrayObject:
         self._index_buffer_object = index_buffer_object
         self._index_element_size = index_element_size
 
+        program = self._program.get_program()
+        vbo = self._vertex_buffer_object.get_vertex_buffer_object()
+        if self._color_buffer_object is not None:
+            cbo = self._color_buffer_object.get_color_buffer_object()
+        else:
+            cbo = None
+        if self._index_buffer_object is not None:
+            ibo = self._index_buffer_object.get_index_buffer_object()
+        else:
+            ibo = None
+
         self._vao = Registry.context.vertex_array(
-            self._program,
+            program,
             [
-                (self._vertex_buffer_object, *self._vertex_buffer_shader_attributes),
-                (self._color_buffer_object, *self._color_buffer_shader_attributes)],
-            index_buffer=self._index_buffer_object,
+                (vbo, *self._vertex_buffer_shader_attributes),
+                (cbo, *self._color_buffer_shader_attributes)],
+            index_buffer=ibo,
             index_element_size=self._index_element_size)
 
     def recreate(self):
         if self._vao is not None:
             self._vao.release()
 
+            program = self._program.get_program()
+            vbo = self._vertex_buffer_object.get_vertex_buffer_object()
+            if self._color_buffer_object is not None:
+                cbo = self._color_buffer_object.get_color_buffer_object()
+            else:
+                cbo = None
+            if self._index_buffer_object is not None:
+                ibo = self._index_buffer_object.get_index_buffer_object()
+            else:
+                ibo = None
+
             self._vao = Registry.context.vertex_array(
-                self._program,
-                [
-                    (self._vertex_buffer_object, *self._vertex_buffer_shader_attributes),
-                    (self._color_buffer_object, *self._color_buffer_shader_attributes)],
-                index_buffer=self._index_buffer_object,
-                index_element_size=self._index_element_size)
+            program,
+            [
+                (vbo, *self._vertex_buffer_shader_attributes),
+                (cbo, *self._color_buffer_shader_attributes)],
+            index_buffer=ibo,
+            index_element_size=self._index_element_size)
 
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
         if self._vao is not None:
@@ -333,6 +403,7 @@ class VertexArrayObject:
         if self._shut_down is False:
             if self._vao is not None:
                 self._vao.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -344,6 +415,9 @@ class VertexArrayObject:
 class Shader:
     def __init__(self):
         _initialize(self)
+
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
 
         self._program = None
         self._program_data = {"vertex": None, "fragment": None}
@@ -441,6 +515,7 @@ class Shader:
         if self._shut_down is False:
             if self._program is not None:
                 self._program.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -453,13 +528,16 @@ class Texture:
     def __init__(self):
         _initialize(self)
 
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
         self._texture = None
         self._size = (None, None)
         self._components = None
         self._data = None
         self._scaling = None
 
-    def create(self, size, data, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+    def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
         self._size = size
         self._components = len(components)
         self._data = data
@@ -472,6 +550,9 @@ class Texture:
 
         self._texture = Registry.context.texture(self._size, self._components, self._data)
         self._texture.filter = (self._scaling[0], self._scaling[1])
+
+    def write(self, data):
+        self._texture.write(data)
 
     def load_from_file(self, file_path, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
         image = _Image.open(file_path)
@@ -497,6 +578,9 @@ class Texture:
             y_scaling = scaling
 
         self._scaling = (x_scaling, y_scaling)
+
+    def get_texture(self):
+        return self._texture
 
     def use(self, location=0):
         if self._texture is not None:
@@ -526,6 +610,7 @@ class Texture:
         if self._shut_down is False:
             if self._texture is not None:
                 self._texture.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -538,6 +623,9 @@ class FrameBufferObject:
     def __init__(self):
         _initialize(self)
 
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
         self._fbo = None
         self._color_attachments = None
         self._depth_attachment = None
@@ -546,22 +634,43 @@ class FrameBufferObject:
         self._color_attachments = color_attachments
         self._depth_attachment = depth_attachment
 
+        color_attachments = []
+        for color_attachment in self._color_attachments:
+            color_attachments.append(color_attachment.get_texture())
+
         self._fbo = Registry.context.framebuffer(
-            color_attachments=self._color_attachments,
+            color_attachments=color_attachments,
             depth_attachment=self._depth_attachment)
 
-    def clear(self, color=None, depth=None, viewport=None):
+    def recreate(self):
+        if self._fbo is not None:
+            self._fbo.release()
+
+            color_attachments = []
+            for color_attachment in self._color_attachments:
+                color_attachments.append(color_attachment.get_texture())
+
+            self._fbo = Registry.context.framebuffer(
+                color_attachments=color_attachments,
+                depth_attachment=self._depth_attachment)
+
+    def clear(self, color=None, depth=1.0, viewport=None):
+        if color is None:
+            color = (0.0, 0.0, 0.0, 0.0)
+        elif len(color) == 3:
+            color = (*color, 0.0)
         if self._fbo is not None:
             self._fbo.clear(color=color, depth=depth, viewport=viewport)
 
-    def use(self, location=0):
+    def use(self):
         if self._fbo is not None:
-            self._fbo.use(location=location)
+            self._fbo.use()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             if self._fbo is not None:
                 self._fbo.release()
+            del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()

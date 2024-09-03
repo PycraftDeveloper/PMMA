@@ -33,3 +33,4 @@ class Registry:
     number_of_instantiated_objects = 0
     iteration_id = None
     language = None
+    opengl_objects = {}

@@ -8,7 +8,12 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
-from pmma.python_src.opengl import OpenGL as _OpenGL
+from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
+from pmma.python_src.opengl import ColorBufferObject as _ColorBufferObject
+from pmma.python_src.opengl import IndexBufferObject as _IndexBufferObject
+from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
+from pmma.python_src.opengl import Shader as _Shader
+from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.draw import Line as _Line
 from pmma.python_src.draw import Lines as _Lines
 from pmma.python_src.draw import AdvancedPolygon as _AdvancedPolygon
@@ -30,16 +35,19 @@ class RenderPipeline:
 
         self._render_points = []
 
-        self._vbo = None
-        self._cbo = None
-        self._ibo = None
-        self._vao = None
-        self._simple_shape_rendering_program = None
+        self._vbo = _VertexBufferObject()
+        self._cbo = _ColorBufferObject()
+        self._ibo = _IndexBufferObject()
+        self._vao = _VertexArrayObject()
+        self._simple_shape_rendering_program = _Shader()
+        self._simple_shape_rendering_program.load_shader_from_folder(_path_builder(Registry.base_path, "shaders", "simple_shape_renderer"))
+        self._simple_shape_rendering_program.create()
 
-        self._opengl = _OpenGL()
         self._display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._window_full_screen_status_changed_event = _WindowFullScreenStatusChanged_EVENT()
+
+        self._written_to_buffers = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -500,25 +508,20 @@ class RenderPipeline:
                 elif type(render_point) == _CurvedLines: # broken
                     shape_index += len(render_point.get_hardware_accelerated_data()["indices"]) # might not be right
 
-            if self._vao is not None:
-                self._vao.release()
-            if self._vbo is not None:
-                self._vbo.quit()
-            if self._cbo is not None:
-                self._cbo.quit()
-            if self._ibo is not None:
-                self._ibo.quit()
-            if self._simple_shape_rendering_program is not None:
-                self._simple_shape_rendering_program.quit()
+            if self._written_to_buffers:
+                self._vbo.update(vertices)
+                self._cbo.update(colors)
+                self._ibo.update(indices)
 
-            self._vbo = self._opengl.create_vbo(vertices)
-            self._cbo = self._opengl.create_cbo(colors)
-            self._ibo = self._opengl.create_ibo(indices)
-            self._simple_shape_rendering_program = self._opengl.get_simple_shape_rendering_program()
+            else:
+                self._vbo.create(vertices)
+                self._cbo.create(colors)
+                self._ibo.create(indices)
+                self._written_to_buffers = True
 
             #vao = self.opengl.create_vao(program, vbo, ).get() Not yet finished!!!
-            self._vao = Registry.context.vertex_array(self._simple_shape_rendering_program.get(), [(self._vbo.get(), '2f', 'in_vert'), (self._cbo.get(), '3f', 'in_color')], self._ibo.get())
-            self._vao.render(_moderngl.TRIANGLES)
+            self._vao.create(self._simple_shape_rendering_program, self._vbo, ['2f', 'in_vert'], color_buffer_object=self._cbo, color_buffer_shader_attributes=['3f', 'in_color'], index_buffer_object=self._ibo)
+            self._vao.render()
         else:
-            self._vao.render(_moderngl.TRIANGLES)
+            self._vao.render()
 

@@ -14,7 +14,6 @@ from pmma.python_src.utility.general_utils import convert_number_to_text as _con
 from pmma.python_src.utility.general_utils import get_language as _get_language
 from pmma.python_src.utility.general_utils import get_theme as _get_theme
 from pmma.python_src.utility.general_utils import check_if_object_is_class_or_function as _check_if_object_is_class_or_function
-from pmma.python_src.utility.general_utils import OpenGLObject as _OpenGLObject
 
 def check_if_object_is_class_or_function(param):
     return _check_if_object_is_class_or_function(param)

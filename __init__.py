@@ -33,6 +33,7 @@ from pmma.python_src.utility.general_utils import environ_to_registry as _enviro
 
 _environ_to_registry()
 
+from pmma.python_src.utility.error_utils import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
 from pmma.python_src.memory_manager import *
@@ -53,7 +54,7 @@ from pmma.python_src.general import *
 from pmma.python_src.advmath import *
 from pmma.python_src.opengl import *
 from pmma.python_src.events import *
-from pmma.python_src.shader import *
+from pmma.python_src.error import *
 from pmma.python_src.noise import *
 from pmma.python_src.color import *
 from pmma.python_src.image import *

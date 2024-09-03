@@ -14,8 +14,12 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.surface import Surface as _Surface
 from pmma.python_src.opengl import OpenGL as _OpenGL
+from pmma.python_src.opengl import Texture as _Texture
+from pmma.python_src.opengl import Shader as _Shader
+from pmma.python_src.opengl import FrameBufferObject as _FrameBufferObject
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
+from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
@@ -80,11 +84,16 @@ class Display:
     def __setup_layers(self, size):
         self._pygame_surface = _Surface()
         self._pygame_surface.create(*size)
-        self._pygame_surface_texture = self._opengl.create_texture(*size, color_format=Constants.RGB)
-        self._two_dimension_texture = self._opengl.create_texture(*size)
-        self._two_dimension_frame_buffer = self._opengl.create_fbo(*size, texture=self._two_dimension_texture)
-        self._three_dimension_texture = self._opengl.create_texture(*size)
-        self._three_dimension_frame_buffer = self._opengl.create_fbo(*size, texture=self._three_dimension_texture)
+        self._pygame_surface_texture = _Texture()
+        self._pygame_surface_texture.create(size)
+        self._two_dimension_texture = _Texture()
+        self._two_dimension_texture.create(size)
+        self._two_dimension_frame_buffer = _FrameBufferObject()
+        self._two_dimension_frame_buffer.create(color_attachments=[self._two_dimension_texture])
+        self._three_dimension_texture = _Texture()
+        self._three_dimension_texture.create(size)
+        self._three_dimension_frame_buffer = _FrameBufferObject()
+        self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
 
     def get_pygame_surface(self):
         if Registry.display_mode == Constants.PYGAME:
@@ -93,7 +102,7 @@ class Display:
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
-                self._two_dimension_frame_buffer.get().use()
+                self._two_dimension_frame_buffer.use()
             return self._two_dimension_frame_buffer
         else:
             raise NotImplementedError
@@ -101,7 +110,7 @@ class Display:
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
         if Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
-                self._three_dimension_frame_buffer.get().use()
+                self._three_dimension_frame_buffer.use()
             return self._three_dimension_frame_buffer
         else:
             raise NotImplementedError
@@ -195,6 +204,10 @@ actively working to address this operating system limitation.")
 
         _OpenGLIntermediary()
 
+        self._texture_aggregation_program = _Shader()
+        self._texture_aggregation_program.load_shader_from_folder(_path_builder(Registry.base_path, "shaders", "texture_aggregation"))
+        self._texture_aggregation_program.create()
+
         self.__setup_layers(size)
 
         self._display_quad = _geometry.quad_fs()
@@ -266,6 +279,9 @@ actively working to address this operating system limitation.")
 
         self.display_resize()
 
+        for opengl_object in list(Registry.opengl_objects.keys()):
+            Registry.opengl_objects[opengl_object].recreate()
+
     def blit(self, content, position=[0, 0]):
         self._pygame_surface.blit(content, position)
 
@@ -306,10 +322,10 @@ actively working to address this operating system limitation.")
         _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
         if Registry.display_mode == Constants.PYGAME:
-            self._two_dimension_frame_buffer.get().use()
-            self._two_dimension_frame_buffer.get().clear(0, 0, 0, 0)
-            self._three_dimension_frame_buffer.get().use()
-            self._three_dimension_frame_buffer.get().clear(0, 0, 0, 0)
+            self._two_dimension_frame_buffer.use()
+            self._two_dimension_frame_buffer.clear()
+            self._three_dimension_frame_buffer.use()
+            self._three_dimension_frame_buffer.clear()
             self._fill_color = self._color_converter.output_color(format=Constants.RGB)
             self._color_key = _numpy.array([*self._color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
             self._pygame_surface.clear(self._fill_color)
@@ -366,17 +382,16 @@ this method call to ensure optimal performance and support!")
                 byte_data,
                 self._pygame_surface_texture)
 
-            aggregation_program = self._opengl.get_texture_aggregation_program().get()
-            aggregation_program["texture2d"].value = 0
-            aggregation_program["texture3d"].value = 1
-            aggregation_program["pygame_texture"].value = 2
-            aggregation_program["color_key"].write(self._color_key)
-            self._two_dimension_texture.get().use(location=0)
-            self._three_dimension_texture.get().use(location=1)
-            self._pygame_surface_texture.get().use(location=2)
+            self._texture_aggregation_program.get_program()["texture2d"].value = 0
+            self._texture_aggregation_program.get_program()["texture3d"].value = 1
+            self._texture_aggregation_program.get_program()["pygame_texture"].value = 2
+            self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
+            self._two_dimension_texture.use(location=0)
+            self._three_dimension_texture.use(location=1)
+            self._pygame_surface_texture.use(location=2)
 
             Registry.context.enable(_moderngl.BLEND)
-            self._display_quad.render(aggregation_program)
+            self._display_quad.render(self._texture_aggregation_program.get_program())
             Registry.context.disable(_moderngl.BLEND)
 
             _pygame.display.flip()
