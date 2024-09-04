@@ -1,6 +1,7 @@
 import datetime as _datetime
 import traceback as _traceback
 import gc as _gc
+import threading as _threading
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -10,13 +11,14 @@ from pmma.python_src.utility.general_utils import initialize as _initialize
 class Logger:
     def __init__(
             self,
-            log_development=None,
-            log_information=False,
-            log_warning=False,
-            log_error=True,
-            log_to_file=False,
-            log_file=None,
-            log_to_terminal=True):
+            log_information_to_file=True,
+            log_information_to_terminal=True,
+            log_development_to_file=True,
+            log_development_to_terminal=None,
+            log_warning_to_file=True,
+            log_warning_to_terminal=True,
+            log_error_to_file=True,
+            log_error_to_terminal=True):
 
         _initialize(self, unique_instance=Constants.LOGGING_OBJECT, add_to_pmma_module_spine=True)
 
@@ -31,6 +33,8 @@ class Logger:
         self._do_log_to_terminal = log_to_terminal
         self._log_file = log_file
         self._development_messages = []
+
+        self._file_log_buffer = []
 
         self.log_information("Logging object initialized")
         self.log_information("Date format: DD/MM/YYYY @ HH:MM:SS:μS")
@@ -78,6 +82,7 @@ class Logger:
             first_line = False
         #message = f"{message.strip()} "
         start_of_message = self.initial_formatting(log_level)
+
         if do_traceback:
             trace = _traceback.print_exc()
             if trace == None:
@@ -92,6 +97,8 @@ class Logger:
         if self._do_log_to_terminal:
             print(finished_message)
             conveyed_message = True
+
+        self._file_log_buffer.append((finished_message, log_level))
 
         if self._do_log_to_file:
             with open(self._log_file, "a") as log_file:
