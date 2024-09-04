@@ -53,6 +53,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Display.set_icon() -> None
+
+   Not Yet Written
+
 .. py:method:: Display.display_resize() -> None
 
    Not Yet Written

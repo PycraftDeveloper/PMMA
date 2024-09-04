@@ -29,22 +29,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: pmma.log_development() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.log_information() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.log_warning() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.log_error() -> None
-
-   Not Yet Written
-
 .. py:method:: pmma.get_operating_system() -> None
 
    Not Yet Written

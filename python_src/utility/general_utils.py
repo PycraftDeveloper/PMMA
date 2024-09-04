@@ -76,6 +76,7 @@ frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
             logged_noise_statistics = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(f"PMMA statistics: {app_name} used Noise component. \
 In the prefilling process, {Registry.perlin_noise_prefill_single_samples} single \
 samples where used, and {Registry.perlin_noise_prefill_array_samples}/10 array samples where used.")
+
             if logged_noise_statistics:
                 Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("The Noise component of PMMA uses a prefilling process to try \
 and identify the minimum and maximum values for each noise method. This is required as depending \

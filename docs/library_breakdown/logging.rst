@@ -13,15 +13,71 @@ Create
 Methods
 -------
 
-.. py:method:: Logger.quit() -> None
+.. py:method:: Logger.set_log_development_messages_to_terminal() -> None
 
    Not Yet Written
 
-.. py:method:: Logger.initial_formatting() -> None
+.. py:method:: Logger.set_log_information_messages_to_terminal() -> None
 
    Not Yet Written
 
-.. py:method:: Logger.logger_core() -> None
+.. py:method:: Logger.set_log_warning_messages_to_terminal() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.set_log_error_messages_to_terminal() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.set_log_development_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.set_log_information_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.set_log_warning_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.set_log_error_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_development_messages_to_terminal() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_information_messages_to_terminal() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_warning_messages_to_terminal() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_error_messages_to_terminal() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_development_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_information_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_warning_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.get_log_error_messages_to_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Logger.set_log_levels() -> None
 
    Not Yet Written
 
