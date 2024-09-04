@@ -11,7 +11,7 @@ from pmma.python_src.utility.error_utils import LoggingNotInitializedError as _L
 
 class LoggerIntermediary:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=Constants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True, logging_instantiation=True)
 
         self._logged_messages = []
 
@@ -36,7 +36,6 @@ class LoggerIntermediary:
         self._external_log_information_messages_to_file = True
         self._external_log_warning_messages_to_file = True
         self._external_log_error_messages_to_file = True
-
 
     def set_external_log_development_messages_to_terminal(self, value):
         self._external_log_development_messages_to_terminal = value
@@ -85,7 +84,6 @@ class LoggerIntermediary:
 
     def get_external_log_error_messages_to_file(self):
         return self._external_log_error_messages_to_file
-
 
     def set_internal_log_development_messages_to_terminal(self, value):
         self._internal_log_development_messages_to_terminal = value
@@ -179,10 +177,13 @@ class LoggerIntermediary:
                     return False
                 self._logged_messages.append(message[0])
 
-            if len(message) == 2:
-                inserted_variables_to_message = message[0].format(*message[1])
-            else:
-                inserted_variables_to_message = message[0]
+            if type(message) == str:
+                inserted_variables_to_message = message
+            elif type(message) == list or type(message) == tuple:
+                if len(message) == 2:
+                    inserted_variables_to_message = message[0].format(*message[1])
+                else:
+                    inserted_variables_to_message = message
 
             message = ""
             now = _datetime.datetime.now()
@@ -232,6 +233,18 @@ class LoggerIntermediary:
 
         return False
 
+    def log_development(self, message, do_traceback=False, repeat_for_effect=False):
+        self.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True)
+
+    def log_information(self, message, do_traceback=False, repeat_for_effect=False):
+        self.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True)
+
+    def log_warning(self, message, do_traceback=False, repeat_for_effect=False):
+        self.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True)
+
+    def log_error(self, message, do_traceback=True, repeat_for_effect=False):
+        self.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True)
+
 class InternalLogger:
     def __init__(self):
         _initialize(self)
@@ -239,7 +252,7 @@ class InternalLogger:
         if not Constants.LOGGING_INTERMEDIARY_OBJECT in Registry.pmma_module_spine.keys():
             raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
         self._logger_intermediary.set_internal_log_development_messages_to_terminal()(value)

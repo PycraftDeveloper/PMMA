@@ -81,6 +81,8 @@ def init(
 
     startup_time = _time.perf_counter()
 
+    Registry.pmma_initialized = True
+
     _LoggerIntermediary()
 
     if optimize_python_extensions: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
@@ -96,7 +98,6 @@ def init(
     Registry.application_start_time = startup_time
     Backpack.application_start_time = startup_time
 
-    Registry.pmma_initialized = True
     Registry.python_acceleration_enabled = optimize_python_extensions
     Registry.cython_acceleration_enabled = compile_c_extensions
     Registry.power_saving_mode = is_battery_saver_enabled()

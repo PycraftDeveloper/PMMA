@@ -9,7 +9,11 @@ from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class ControllersIntermediary:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.CONTROLLER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(
+            self,
+            unique_instance=Constants.CONTROLLER_INTERMEDIARY_OBJECT,
+            add_to_pmma_module_spine=True,
+            requires_display_mode_set=True)
 
         self._controllers = []
         for joy_num in range(_pygame.joystick.get_count()):

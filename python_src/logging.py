@@ -9,9 +9,9 @@ class Logger:
         _initialize(self)
 
         if not Constants.LOGGING_INTERMEDIARY_OBJECT in Registry.pmma_module_spine.keys():
-            raise _LoggingNotInitializedError() # Integrate and test then add file logging. LOGGER_OBJECT to LOGGING_INTERMEDIARY_OBJECT too
+            raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
         self._logger_intermediary.set_external_log_development_messages_to_terminal()(value)
