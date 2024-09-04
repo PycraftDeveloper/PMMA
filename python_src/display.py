@@ -22,7 +22,6 @@ from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _Windo
 from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
-from pmma.python_src.utility.opengl_utils import OpenGLIntermediary as _OpenGLIntermediary
 
 class Display:
     def __init__(self):
@@ -96,6 +95,8 @@ class Display:
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
         self._blank_texture = _Texture()
         self._blank_texture.create(size, components=Constants.RGB)
+        self._blank_frame_buffer = _FrameBufferObject()
+        self._blank_frame_buffer.create(color_attachments=[self._blank_texture])
 
     def get_pygame_surface(self):
         if Registry.display_mode == Constants.PYGAME:
@@ -205,7 +206,19 @@ actively working to address this operating system limitation.")
 
         Registry.display_initialized = True
 
-        _OpenGLIntermediary()
+        try:
+            Registry.context = _moderngl.create_context()
+            _moderngl_window.activate_context(Registry.window_context, Registry.context)
+        except Exception as error:
+            log_error("Failed to create OpenGL context.")
+            log_development("Failed to create OpenGL context. The most \
+likely cause for this error is that there is no available display with OpenGL \
+support initiated; make sure to also call the 'create' function in the 'Display' \
+class to create it. Should that also not work, make sure that you have the \
+appropriate graphics drivers installed and make sure that your GPU supports OpenGL. \
+If this fails, try to run another OpenGL application first to attempt to isolate the problem.")
+
+            raise error
 
         self._texture_aggregation_program = _Shader()
         self._texture_aggregation_program.load_shader_from_folder(_path_builder(Registry.base_path, "shaders", "texture_aggregation"))
@@ -231,6 +244,7 @@ actively working to address this operating system limitation.")
         self._three_dimension_texture.quit()
         self._three_dimension_frame_buffer.quit()
         self._blank_texture.quit()
+        self._blank_frame_buffer.quit()
 
         self.__setup_layers(size)
 
@@ -342,6 +356,7 @@ actively working to address this operating system limitation.")
             #self._three_dimension_frame_buffer.use()
             self._three_dimension_frame_buffer.clear(self._color_converter)
             self._pygame_surface.clear(self._color_converter)
+            self._blank_frame_buffer.clear(self._color_converter)
             Registry.context.screen.use()
             Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGB))
         else:
@@ -367,6 +382,8 @@ actively working to address this operating system limitation.")
 important as it tells the operating system that the window is responding and \
 working correctly. It is strongly advised that when running a display, you \
 handle events too.")
+
+        Registry.handled_events = False
 
         if Registry.compute_component_called is False:
             log_warning("PMMA compute operation not called! Please call \

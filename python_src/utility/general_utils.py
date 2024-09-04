@@ -109,8 +109,6 @@ def compute():
 
     Registry.in_game_loop = True
 
-    Registry.handled_events = False
-
     Registry.compute_component_called = True
 
     new_iteration_id = _random.random()

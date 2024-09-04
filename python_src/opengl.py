@@ -28,7 +28,7 @@ class OpenGL:
         self._shut_down = True
 
     def _check_if_opengl_backend_initialized(self):
-        if not Constants.OPENGL_INTERMEDIARY_OBJECT in Registry.pmma_module_spine:
+        if Registry.display_initialized is False:
             log_development("OpenGL backend has not been initialized yet. This is \
 most likely due to not having created a Display through PMMA. You must do this \
 first if you want to be able to use these OpenGL functions.")
@@ -37,11 +37,11 @@ first if you want to be able to use these OpenGL functions.")
 
     def get_context(self):
         self._check_if_opengl_backend_initialized()
-        return Registry.pmma_module_spine[Constants.OPENGL_INTERMEDIARY_OBJECT].get_context()
+        return Registry.context
 
     def blit_image_to_texture(self, image, texture):
         self._check_if_opengl_backend_initialized()
-        Registry.pmma_module_spine[Constants.OPENGL_INTERMEDIARY_OBJECT].blit_image_to_texture(image, texture)
+        texture.write(image)
 
 class VertexBufferObject:
     def __init__(self):
