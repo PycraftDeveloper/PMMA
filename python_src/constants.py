@@ -82,6 +82,7 @@ class Constants:
     MEMORY_MANAGER_INTERMEDIARY_OBJECT = "memory manager intermediary"
     IMAGE_OBJECT = "image"
     LOGGING_OBJECT = "logging"
+    LOGGING_INTERMEDIARY_OBJECT = "logging intermediary"
     OPENGL_OBJECT = "opengl"
     OPENGL_INTERMEDIARY_OBJECT = "opengl intermediary"
     GPUS_OBJECT = "GPUs"
@@ -328,6 +329,7 @@ class Constants:
         OPENGL_OBJECT,
         OPENGL_INTERMEDIARY_OBJECT,
         CONTROLLER_INTERMEDIARY_OBJECT,
+        LOGGING_INTERMEDIARY_OBJECT,
 
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,

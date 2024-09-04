@@ -22,6 +22,7 @@ from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _Windo
 from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Display:
     def __init__(self):
@@ -59,6 +60,8 @@ class Display:
         self.window_full_screen_state_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
         self._using_pygame_surface = False
+
+        self._logger = _InternalLogger()
 
     def set_window_in_focus(self, value):
         self._window_in_focus = value
@@ -152,14 +155,14 @@ class Display:
 
         if self._display_attribute_transparent_display:
             if get_operating_system() == Constants.WINDOWS:
-                log_development("You are using PMMA's transparent display technology. \
+                self._logger.log_development("You are using PMMA's transparent display technology. \
 This means that the window you create is going to be completely transparent - including \
 its borders and captions. It might seem like the display 'pops-in' before disappearing, \
 this is message is really here to reassure you that this is expected behavior and that \
 the window is still there, but transparent.")
 
             else:
-                log_development("You are attempting to use PMMA's transparent display \
+                self._logger.log_development("You are attempting to use PMMA's transparent display \
 technology - however this isn't currently available on your operating system. We are \
 actively working to address this operating system limitation.")
 
@@ -217,8 +220,8 @@ actively working to address this operating system limitation.")
             Registry.context = _moderngl.create_context()
             _moderngl_window.activate_context(Registry.window_context, Registry.context)
         except Exception as error:
-            log_error("Failed to create OpenGL context.")
-            log_development("Failed to create OpenGL context. The most \
+            self._logger.log_error("Failed to create OpenGL context.")
+            self._logger.log_development("Failed to create OpenGL context. The most \
 likely cause for this error is that there is no available display with OpenGL \
 support initiated; make sure to also call the 'create' function in the 'Display' \
 class to create it. Should that also not work, make sure that you have the \
@@ -394,7 +397,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         Registry.in_game_loop = True
 
         if Registry.handled_events is False:
-            log_development("You are not using PMMA's event manager. This is \
+            self._logger.log_development("You are not using PMMA's event manager. This is \
 important as it tells the operating system that the window is responding and \
 working correctly. It is strongly advised that when running a display, you \
 handle events too.")
@@ -402,9 +405,9 @@ handle events too.")
         Registry.handled_events = False
 
         if Registry.compute_component_called is False:
-            log_warning("PMMA compute operation not called! Please call \
+            self._logger.log_warning("PMMA compute operation not called! Please call \
 this function before ending the game loop with this!")
-            log_development("PMMA compute operation not called! Calling \
+            self._logger.log_development("PMMA compute operation not called! Calling \
 this allows PMMA to perform more self-optimization and improve development \
 messages. Please place this compute function 'pmma.compute()' just before \
 you refresh the display to ensure optimal performance and support!")

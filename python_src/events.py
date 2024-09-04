@@ -9,6 +9,7 @@ from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.controller import Controllers as _Controllers
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Events:
     def __del__(self, do_garbage_collection=False):
@@ -222,9 +223,11 @@ class Events:
 
         self.windowfullscreenstatechanged_event = WindowFullScreenStatusChanged_EVENT()
 
+        self._logger = _InternalLogger()
+
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         if self.iteration_id == Registry.iteration_id and Registry.compute_component_called:
-            log_development("You have called the 'handle()' method from events \
+            self._logger.log_development("You have called the 'handle()' method from events \
 multiple times within a single game loop. Whilst this isn't always a bad thing, \
 it can lead to unexpected behavior a some events might not be captured reliably \
 at each method call. For instance, one event might appear randomly between two \
@@ -234,7 +237,7 @@ potentially save a lot of headaches later down the line.")
         self.iteration_id = Registry.iteration_id
 
         if grab_extended_keyboard_events:
-            log_development("You have set up PMMA's events system to handle a \
+            self._logger.log_development("You have set up PMMA's events system to handle a \
 wider range of keyboard events. This means that the application will take control of \
 keyboard events that are otherwise reserved for the operating system. This is useful for \
 example when creating Virtual Desktop applications usig PMMA, but should NOT be needed in \
@@ -6911,12 +6914,14 @@ class AppTerminating_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         if get_operating_system() != Constants.ANDROID:
-            log_development("This event is exclusive to the Android operating system. \
+            self._logger.log_development("This event is exclusive to the Android operating system. \
 Instead please use: 'Quit_EVENT' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].get_value()
 
@@ -6934,12 +6939,14 @@ class AppLowMemory_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         if get_operating_system() != Constants.ANDROID:
-            log_development("This event is exclusive to the Android operating system. \
+            self._logger.log_development("This event is exclusive to the Android operating system. \
 There is no alternative to this on other operating systems due to how memory is allocated. \
 If you are interested in getting information about memory, I'd recommend checking out PSUtil: \
 https://pypi.org/project/psutil/")
@@ -6959,11 +6966,13 @@ class AppWillEnterBackground_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        log_development("This event is exclusive to the Android operating system. \
+        self._logger.log_development("This event is exclusive to the Android operating system. \
 There is no alternative to this on other operating systems.")
         return Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].get_value()
 
@@ -6981,11 +6990,13 @@ class AppDidEnterBackground_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        log_development("This event is exclusive to the Android operating system. \
+        self._logger.log_development("This event is exclusive to the Android operating system. \
 Instead please use: 'WindowFocusLost' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].get_value()
 
@@ -7003,11 +7014,13 @@ class AppWillEnterForeground_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        log_development("This event is exclusive to the Android operating system. \
+        self._logger.log_development("This event is exclusive to the Android operating system. \
 There is no alternative to this on other operating systems.")
         return Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].get_value()
 
@@ -7025,11 +7038,13 @@ class AppDidEnterForeground_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_value(self, value):
         Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        log_development("This event is exclusive to the Android operating system. \
+        self._logger.log_development("This event is exclusive to the Android operating system. \
 Instead please use: 'WindowFocusGained' as this works across all platforms.")
         return Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].get_value()
 
@@ -7127,11 +7142,13 @@ class DropText_EVENT:
     def __init__(self):
         _initialize(self)
 
+        self._logger = _InternalLogger()
+
     def set_text(self, text):
         Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].set_text(text)
 
     def get_text(self):
-        log_development("Please note that this event is not yet reliably \
+        self._logger.log_development("Please note that this event is not yet reliably \
 supported across all operating systems. Windows compatability is generally \
 mixed, MacOS compatability is generally good, Linux compatability varies based \
 on what desktop envioment is being used and Android support being unofficial and \

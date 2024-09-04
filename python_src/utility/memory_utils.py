@@ -19,6 +19,7 @@ from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPri
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class MemoryManagerIntermediary:
     def __init__(
@@ -28,19 +29,21 @@ class MemoryManagerIntermediary:
 
         _initialize(self, unique_instance=Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
+        self._logger = _InternalLogger()
+
         self.limited_max_size = False
         if target_size == Constants.AUTOMATIC:
             target_size = (1/8) * _psutil.virtual_memory().available
             if target_size > 1000000000:
                 self.target_size = 1000000000 # 1 GB
                 self.limited_max_size = True
-                log_development(f"Limiting targeted memory management \
+                self._logger.log_development(f"Limiting targeted memory management \
 size to 1 GB, from automatically calculated size of: {target_size/1000000000} \
 GB. If needed, this target will be raised on the fly.")
             else:
                 self.target_size = target_size
 
-            log_development(f"Max memory management size has not been set, \
+            self._logger.log_development(f"Max memory management size has not been set, \
 therefore PMMA has determined that: {self.target_size/1000000000} GB shall be \
 targeted. Consider specifying a max size yourself if you find yourself exceeding \
 this limit.")
@@ -50,14 +53,14 @@ this limit.")
             self.assigned_target_size = True
             self.target_size = target_size
 
-        log_development(f"Note, PMMA will attempt to target: \
+        self._logger.log_development(f"Note, PMMA will attempt to target: \
 {self.target_size/1000000000} GB as its max size for memory management, \
 however this is a target NOT a maximum, and this limit can be exceeded, \
 with PMMA automatically taking corrective action in such cases. Additionally, \
 this memory will not be used until it's needed by PMMA.")
 
         if self.assigned_target_size is False and _PassportIntermediary.project_size is not None:
-            log_development("For applications with a defined project size, \
+            self._logger.log_development("For applications with a defined project size, \
 leaving the target size variable can be dangerous.")
 
         self.objects = {}
@@ -144,21 +147,21 @@ leaving the target size variable can be dangerous.")
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.75:
-                        log_development("No single object is recommended to take up \
+                        self._logger.log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
                 elif (_PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.5:
-                        log_development("No single object is recommended to take up \
+                        self._logger.log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
                 elif (_PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.25:
-                        log_development("No single object is recommended to take up \
+                        self._logger.log_development("No single object is recommended to take up \
 more than 25% of the assigned memory")
 
                 if obj_size > self.max_obj_size:
@@ -214,21 +217,21 @@ more than 25% of the assigned memory")
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.75:
-                            log_development("No single object is recommended to take up \
+                            self._logger.log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
                     elif (_PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.5:
-                            log_development("No single object is recommended to take up \
+                            self._logger.log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
                     elif (_PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.25:
-                            log_development("No single object is recommended to take up \
+                            self._logger.log_development("No single object is recommended to take up \
 more than 25% of the assigned memory")
 
                     if obj_size > self.max_obj_size:
@@ -286,7 +289,7 @@ more than 25% of the assigned memory")
 
                     return obj
                 elif obj_id in self.temporary_files:
-                    log_development(f"Loading object w/ ID: '{obj_id}' from temporary file.")
+                    self._logger.log_development(f"Loading object w/ ID: '{obj_id}' from temporary file.")
                     with open(self.temporary_files[obj_id], "rb") as file:
                         (stored_object,
                             identifier,
@@ -313,7 +316,7 @@ more than 25% of the assigned memory")
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
-                    log_development(f"Removing object w/ ID: \
+                    self._logger.log_development(f"Removing object w/ ID: \
 '{obj_id}' from memory.")
 
                     self.manager_thread_organized_data.remove_item(obj_id)
@@ -325,7 +328,7 @@ more than 25% of the assigned memory")
                     _gc.collect()
                     return True
                 elif obj_id in self.temporary_files:
-                    log_development(f"Removing temporary memory object w/ ID: \
+                    self._logger.log_development(f"Removing temporary memory object w/ ID: \
 '{obj_id}' from disk.")
 
                     _os.remove(self.temporary_files[obj_id])
@@ -346,12 +349,12 @@ more than 25% of the assigned memory")
         try:
             while self.enable_memory_management:
                 if self.total_size / self.target_size > 0.9:
-                    log_warning(f"Caution - memory management utilization \
+                    self._logger.log_warning(f"Caution - memory management utilization \
 is currently at: {round((self.total_size / self.target_size)*100, 2)}%. Consider \
 lowering this percentage before performance is negatively affected.")
 
                 if self.total_size / self.target_size >= 1:
-                    log_warning(f"Caution - memory management utilization is \
+                    self._logger.log_warning(f"Caution - memory management utilization is \
 currently at or above the target threshold. Performance may be negatively affected \
 as PMMA attempts to correct this.")
                 if self.manager_thread_organized_data.is_empty():
@@ -370,7 +373,7 @@ as PMMA attempts to correct this.")
                                 if stay_in_memory is False:
                                     self.total_size -= _sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
-                                        log_information(f"Dumping object w/ ID: \
+                                        self._logger.log_information(f"Dumping object w/ ID: \
 '{self.objects[obj_time][1]}' to temporary file.")
 
                                         with _tempfile.NamedTemporaryFile(
@@ -381,10 +384,10 @@ as PMMA attempts to correct this.")
                                             _dill.dump(self.objects[obj_time], file)
 
                                         self.temporary_files[self.objects[obj_time][1]] = file_name
-                                        log_information(f"Dumped object w/ ID: \
+                                        self._logger.log_information(f"Dumped object w/ ID: \
 '{self.objects[obj_time][1]}' to temporary file.")
 
-                                    log_information(f"Removing object w/ ID: \
+                                    self._logger.log_information(f"Removing object w/ ID: \
 '{self.objects[obj_time][1]}' from memory.")
 
                                     self.manager_thread_organized_data.remove_item(self.objects[obj_time][1])

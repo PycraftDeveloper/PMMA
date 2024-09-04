@@ -12,10 +12,13 @@ from pmma.python_src.color import Color as _Color
 
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class OpenGL:
     def __init__(self):
         _initialize(self)
+
+        self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -29,7 +32,7 @@ class OpenGL:
 
     def _check_if_opengl_backend_initialized(self):
         if Registry.display_initialized is False:
-            log_development("OpenGL backend has not been initialized yet. This is \
+            self._logger.log_development("OpenGL backend has not been initialized yet. This is \
 most likely due to not having created a Display through PMMA. You must do this \
 first if you want to be able to use these OpenGL functions.")
 
@@ -52,6 +55,8 @@ class VertexBufferObject:
 
         self._data = None
         self._vbo = None
+
+        self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
@@ -105,7 +110,7 @@ class VertexBufferObject:
             return self._vbo.size
 
     def get_size(self):
-        log_development("Just as a point of clarification, this gets the size of the \
+        self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
@@ -138,6 +143,8 @@ class ColorBufferObject:
 
         self._data = None
         self._cbo = None
+
+        self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
@@ -191,7 +198,7 @@ class ColorBufferObject:
             return self._cbo.size
 
     def get_size(self):
-        log_development("Just as a point of clarification, this gets the size of the \
+        self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
@@ -224,6 +231,8 @@ class IndexBufferObject:
 
         self._data = None
         self._ibo = None
+
+        self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
@@ -280,7 +289,7 @@ class IndexBufferObject:
             return self._ibo.size
 
     def get_size(self):
-        log_development("Just as a point of clarification, this gets the size of the \
+        self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
@@ -427,6 +436,8 @@ class Shader:
         self._program = None
         self._program_data = {"vertex": None, "fragment": None}
 
+        self._logger = _InternalLogger()
+
     def load_vertex_shader_from_file(self, file_path):
         with open(file_path, "r") as file:
             self._program_data["vertex"] = file.read()
@@ -485,7 +496,7 @@ class Shader:
                 fragment_shader = file.read()
 
         if vertex_shader is None or fragment_shader is None:
-            log_warning("Vertex shader or fragment shader not found.")
+            self._logger.log_warning("Vertex shader or fragment shader not found.")
             raise Exception("Vertex shader or fragment shader not found.")
 
         self._program_data["vertex"] = vertex_shader

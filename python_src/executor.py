@@ -6,6 +6,7 @@ from pmma.python_src.general import *
 from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Executor:
     def __init__(self):
@@ -14,6 +15,8 @@ class Executor:
         self._exit_code = None
         self._result = None
         self._thread = None
+
+        self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -48,7 +51,7 @@ class Executor:
                 else:
                     result = _subprocess.run(command, capture_output=True, text=True)
             else:
-                log_development("You are not using an array of arguments as your command. \
+                self._logger.log_development("You are not using an array of arguments as your command. \
 This has the potential to be less secure, especially when using the user's input as a \
 command. It is strongly recommended that you change your approach to use a list to avoid \
 'shell injection vulnerabilities' where the end user specifies the command to be run, not \
@@ -80,6 +83,8 @@ class AdvancedExecutor:
         self._thread = None
 
         self._command_running = False
+
+        self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -122,7 +127,7 @@ class AdvancedExecutor:
             else:
                 process = _subprocess.Popen(command, stdout=_subprocess.PIPE, text=True)
         else:
-            log_development("You are not using an array of arguments as your command. \
+            self._logger.log_development("You are not using an array of arguments as your command. \
 This has the potential to be less secure, especially when using the user's input as a \
 command. It is strongly recommended that you change your approach to use a list to avoid \
 'shell injection vulnerabilities' where the end user specifies the command to be run, not \

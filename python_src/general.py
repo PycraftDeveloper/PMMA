@@ -3,10 +3,6 @@ from pmma.python_src.utility.general_utils import set_display_mode as _set_displ
 from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
 from pmma.python_src.utility.general_utils import is_battery_saver_enabled as _is_battery_saver_enabled
 from pmma.python_src.utility.general_utils import get_operating_system as _get_operating_system
-from pmma.python_src.utility.general_utils import log_development as _log_development
-from pmma.python_src.utility.general_utils import log_information as _log_information
-from pmma.python_src.utility.general_utils import log_warning as _log_warning
-from pmma.python_src.utility.general_utils import log_error as _log_error
 from pmma.python_src.utility.general_utils import register_application as _register_application
 from pmma.python_src.utility.general_utils import compute as _compute
 from pmma.python_src.utility.general_utils import quit as _quit
@@ -35,18 +31,6 @@ def compute():
 
 def register_application():
     _register_application()
-
-def log_development(message, do_traceback=False, repeat_for_effect=False):
-    return _log_development(message, do_traceback=do_traceback, repeat_for_effect=repeat_for_effect)
-
-def log_information(message, do_traceback=False):
-    return _log_information(message, do_traceback=do_traceback)
-
-def log_warning(message, do_traceback=False):
-    return _log_warning(message, do_traceback=do_traceback)
-
-def log_error(message, do_traceback=True):
-    return _log_error(message, do_traceback=do_traceback)
 
 def get_operating_system():
     return _get_operating_system()

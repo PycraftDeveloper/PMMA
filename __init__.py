@@ -64,31 +64,35 @@ from pmma.python_src.text import *
 from pmma.python_src.gpu import *
 
 from pmma.python_src.utility import cython_utils as _cython_utils
-from pmma.python_src.logging import Logger as _Logger
 from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
 import pmma.python_src.utility.event_utils as _event_utils
 from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
 from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
 import pmma.python_src.utility.general_utils as _general_utils
+from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 def init(
             optimize_python_extensions=True,
             compile_c_extensions=True,
             wait_for_initialization=True,
             memory_management_max_object_lifetime=2.5,
-            memory_management_max_size=Constants.AUTOMATIC,
-            log_development=None,
-            log_information=True,
-            log_warning=False,
-            log_error=True,
-            log_to_file=False,
-            log_file=None,
-            log_to_terminal=True):
+            memory_management_max_size=Constants.AUTOMATIC):
+
+    startup_time = _time.perf_counter()
+
+    _LoggerIntermediary()
+
+    if optimize_python_extensions: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
+        benchmark = Benchmark() # cache this unique to device
+        benchmark.test_all()
+
+    if compile_c_extensions: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
+        cython_thread = _cython_utils.compile()
 
     root = _tkinter.Tk()
     root.withdraw()
 
-    startup_time = _time.perf_counter()
     Registry.application_start_time = startup_time
     Backpack.application_start_time = startup_time
 
@@ -99,25 +103,11 @@ def init(
 
     _general_utils.update_language()
 
-    if optimize_python_extensions:
-        benchmark = Benchmark() # cache this unique to device
-        benchmark.test_all()
-
-    if compile_c_extensions:
-        cython_thread = _cython_utils.compile()
-
     _MemoryManagerIntermediary(
         object_lifetime=memory_management_max_object_lifetime,
         target_size=memory_management_max_size)
 
-    logger = _Logger(
-        log_development=log_development,
-        log_information=log_information,
-        log_warning=log_warning,
-        log_error=log_error,
-        log_to_file=log_to_file,
-        log_file=log_file,
-        log_to_terminal=log_to_terminal)
+    logger = _InternalLogger()
 
     logger.log_information("Thank you for using PMMA! Please note that PMMA \
 is still in an early stage of its development, bear with us as we \

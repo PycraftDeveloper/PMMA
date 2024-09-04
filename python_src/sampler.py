@@ -10,6 +10,7 @@ from pmma.python_src.registry import Registry
 
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Sampler:
     def __init__(self, chunk_size=2048, sampling_rate=44100, input_device_id=None):
@@ -37,6 +38,8 @@ class Sampler:
             target=self.sampler)
         self._sampler_thread.daemon = True
         self._sampler_thread.name = "Sampler:Sampler_Thread"
+
+        self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -94,7 +97,7 @@ class Sampler:
         self._is_sampling_running = True
 
         if self._input_device is None:
-            log_development("No input device was found. The easiest reason \
+            self._logger.log_development("No input device was found. The easiest reason \
 for this is because the operating system hasn't detected any input device \
 either. Therefore the first step for troubleshooting this is to make sure \
 that you have an input device connected to your current machine. Likewise \
@@ -122,7 +125,7 @@ the operating system has detected your device, consider running the \
             try:
                 stream_data = stream.read(self._chunk_size)
             except Exception as error:
-                log_development("Unable to read the current audio sample. Whilst \
+                self._logger.log_development("Unable to read the current audio sample. Whilst \
 the exact cause of this error is unknown, it's likely that the cause for this error \
 was that the audio input device was disconnected without first having had the sampling \
 process stopped. Please use the existing 'stop()' method in order to avoid this error being \

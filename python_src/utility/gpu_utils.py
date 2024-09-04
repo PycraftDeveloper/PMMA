@@ -13,6 +13,7 @@ from pmma.python_src.executor import Executor as _Executor
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class GPUsIntermediary:
     def uuid_cleaner(self, uuid):
@@ -32,6 +33,8 @@ class GPUsIntermediary:
 
     def __init__(self):
         _initialize(self, unique_instance=Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+
+        self._logger = _InternalLogger()
 
         self._unique_gpus = {} # {"bus": n, "uuid": n}: {SMI: n, ADL: n, WMI, n}
 
@@ -95,8 +98,8 @@ class GPUsIntermediary:
             self._gpu_instances.append(gpu)
 
         if len(self._gpu_instances) == 0:
-            log_warning("No GPU devices were detected.")
-            log_development("PMMA was unable to detect any GPU devices. \
+            self._logger.log_warning("No GPU devices were detected.")
+            self._logger.log_development("PMMA was unable to detect any GPU devices. \
 Whilst this doesn't mean that PMMA wont run, it does mean that some \
 mechanics may run slower than expected.")
 

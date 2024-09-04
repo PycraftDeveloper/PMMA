@@ -4,6 +4,7 @@ from pmma.python_src.general import *
 from pmma.python_src.registry import Registry
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Passport:
     def __init__(
@@ -30,8 +31,10 @@ class Passport:
         sub-name example: "ExpandedEdition"
         """
 
+        self._logger = _InternalLogger()
+
         if Registry.pmma_initialized:
-            log_development("Whilst it may not always be possible to do, configuring your \
+            self._logger.log_development("Whilst it may not always be possible to do, configuring your \
 application's passport is best done before calling 'pmma.init()'. Doing so, as you have done, \
 afterwards may cause unintentional or unexpected behavior as some changes may not take effect. \
 This will only be true where limited by the capabilities of the operating system, as PMMA will \

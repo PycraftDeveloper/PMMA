@@ -21,3 +21,7 @@ class UnableToReadAudioSampleError(Exception):
 class OpenGLNotYetInitializedError(Exception):
     """OpenGL was not yet initialized!"""
     pass
+
+class LoggingNotInitializedError(Exception):
+    """Logging was not yet initialized!"""
+    pass

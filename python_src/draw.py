@@ -12,6 +12,7 @@ from pmma.python_src.color import Color as _Color
 from pmma.python_src.general import *
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Line:
     """
@@ -860,6 +861,8 @@ class Circle:
         self._color_changed = True
         self._vertices_changed = True
 
+        self._logger = _InternalLogger()
+
     def set_vertices_hardware_accelerated_data(self, data):
         self._hardware_accelerated_data["vertices"] = data
 
@@ -941,7 +944,7 @@ class Circle:
         if abs(self._radius) < 1:
             end_time = _time.perf_counter()
             Registry.total_time_spent_drawing += end_time - start_time
-            log_development("You have created a circle with radius of less than 1. \
+            self._logger.log_development("You have created a circle with radius of less than 1. \
 This means that the circle wont be visible onscreen, so we exit without even trying \
 for improved performance.")
             return
