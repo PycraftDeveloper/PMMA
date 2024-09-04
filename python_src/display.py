@@ -331,9 +331,9 @@ actively working to address this operating system limitation.")
         self._color_key = _numpy.array([*self._color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
 
         if Registry.display_mode == Constants.PYGAME:
-            self._two_dimension_frame_buffer.use()
+            #self._two_dimension_frame_buffer.use()
             self._two_dimension_frame_buffer.clear(self._color_converter)
-            self._three_dimension_frame_buffer.use()
+            #self._three_dimension_frame_buffer.use()
             self._three_dimension_frame_buffer.clear(self._color_converter)
             self._pygame_surface.clear(self._color_converter)
             Registry.context.screen.use()

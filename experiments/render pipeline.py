@@ -37,11 +37,10 @@ while pmma.Registry.running:
 
     #pygame.draw.circle(display.pygame_surface.pygame_surface, (0, 0, 255), (100, 100), 50)
 
-    #start = time.perf_counter()
+    start = time.perf_counter()
     rp.render()
-    #end = time.perf_counter()
-    #print(1/(end-start))
-    #print(display.get_refresh_rate())
+    end = time.perf_counter()
+    #print(1/(end-start), display.get_refresh_rate())
 
     #print(rect.hardware_accelerated_data)
     #time.sleep(3)
