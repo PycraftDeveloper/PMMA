@@ -245,7 +245,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if icon is None:
             icon = self._display_attribute_icon
         if Registry.display_mode == Constants.PYGAME:
-            print(icon)
             icon_img = _pygame.image.load(icon)
             _pygame.display.set_icon(icon_img)
             del icon_img
