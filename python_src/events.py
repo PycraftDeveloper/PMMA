@@ -223,7 +223,7 @@ class Events:
         self.windowfullscreenstatechanged_event = WindowFullScreenStatusChanged_EVENT()
 
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
-        if self.iteration_id == Registry.iteration_id:
+        if self.iteration_id == Registry.iteration_id and Registry.compute_component_called:
             log_development("You have called the 'handle()' method from events \
 multiple times within a single game loop. Whilst this isn't always a bad thing, \
 it can lead to unexpected behavior a some events might not be captured reliably \
@@ -242,6 +242,8 @@ most applications. We advise you make and test your application with this featur
 then enable it to see if it fixes or improves a desired feature.")
 
             _pygame.event.set_keyboard_grab(True)
+
+        Registry.handled_events = True
 
         self.appterminating_event.set_value(False)
         self.applowmemory_event.set_value(False)

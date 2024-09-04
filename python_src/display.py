@@ -362,13 +362,21 @@ actively working to address this operating system limitation.")
 
         Registry.in_game_loop = True
 
-        if Registry.number_of_draw_calls != 0:
+        if Registry.handled_events is False:
+            log_development("You are not using PMMA's event manager. This is \
+important as it tells the operating system that the window is responding and \
+working correctly. It is strongly advised that when running a display, you \
+handle events too.")
+
+        if Registry.compute_component_called is False:
             log_warning("PMMA compute operation not called! Please call \
 this function before ending the game loop with this!")
             log_development("PMMA compute operation not called! Calling \
 this allows PMMA to perform more self-optimization and improve development \
 messages. Please place this compute function 'pmma.compute()' just before \
-this method call to ensure optimal performance and support!")
+you refresh the display to ensure optimal performance and support!")
+        else:
+            Registry.compute_component_called = False
 
         if refresh_rate is None:
             refresh_rate = 60

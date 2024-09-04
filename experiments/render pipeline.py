@@ -22,7 +22,7 @@ color = pmma.Color()
 color.input_color((0, 0, 0))
 
 while pmma.Registry.running:
-    events.handle()
+    #events.handle()
 
     #display.clear(color.generate_random_color(format=pmma.Constants.RGB))
 
@@ -48,7 +48,7 @@ while pmma.Registry.running:
     #print(rect.hardware_accelerated_data)
     #time.sleep(3)
 
-    pmma.compute()
-    display.refresh(refresh_rate=60, lower_refresh_rate_on_low_battery=False, lower_refresh_rate_when_minimized=False, lower_refresh_rate_when_unfocused=False)
+    #pmma.compute()
+    display.refresh(refresh_rate=2000, lower_refresh_rate_on_low_battery=False, lower_refresh_rate_when_minimized=False, lower_refresh_rate_when_unfocused=False)
 
 pmma.quit()

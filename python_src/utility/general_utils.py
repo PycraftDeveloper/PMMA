@@ -109,6 +109,10 @@ def compute():
 
     Registry.in_game_loop = True
 
+    Registry.handled_events = False
+
+    Registry.compute_component_called = True
+
     new_iteration_id = _random.random()
     while new_iteration_id == Registry.iteration_id:
         new_iteration_id = _random.random()
@@ -127,7 +131,8 @@ def compute():
         log_development("You have created a display through PMMA, but haven't \
 created an events object. Handling events for your PMMA display is important as \
 it tells the operating system that the application is still running and allows the \
-user to interact with your application.")
+user to interact with your application. Failure to do this can lead to an unresponsive \
+window which can cause unexpected behavior.")
 
     if number_of_draw_calls > 600 and Registry.application_average_frame_rate['Samples'] > 3:
         if not "render performance is limiting" in Registry.formatted_developer_messages:

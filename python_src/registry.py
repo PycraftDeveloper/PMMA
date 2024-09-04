@@ -34,3 +34,5 @@ class Registry:
     iteration_id = None
     language = None
     opengl_objects = {}
+    handled_events = False
+    compute_component_called = False
