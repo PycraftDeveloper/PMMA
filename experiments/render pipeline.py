@@ -16,6 +16,7 @@ events = pmma.Events()
 rp = pmma.RenderPipeline()
 circ = pmma.Circle([46, 255, 231], (0, 0), 1)
 rp.add(circ)
+circ2 = pmma.Circle([46, 120, 231], (0, 0), 500, canvas=display)
 
 color = pmma.Color()
 color.input_color((0, 0, 0))
@@ -37,15 +38,17 @@ while pmma.Registry.running:
 
     #pygame.draw.circle(display.pygame_surface.pygame_surface, (0, 0, 255), (100, 100), 50)
 
-    start = time.perf_counter()
-    rp.render()
-    end = time.perf_counter()
+    #start = time.perf_counter()
+    #rp.render()
+    #end = time.perf_counter()
     #print(1/(end-start), display.get_refresh_rate())
+
+    #circ2.draw()
 
     #print(rect.hardware_accelerated_data)
     #time.sleep(3)
 
     pmma.compute()
-    display.refresh(refresh_rate=2000, lower_refresh_rate_on_low_battery=False, lower_refresh_rate_when_minimized=False, lower_refresh_rate_when_unfocused=False)
+    display.refresh(refresh_rate=60, lower_refresh_rate_on_low_battery=False, lower_refresh_rate_when_minimized=False, lower_refresh_rate_when_unfocused=False)
 
 pmma.quit()

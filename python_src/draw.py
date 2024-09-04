@@ -9,6 +9,7 @@ import pyglet as _pyglet
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
+from pmma.python_src.general import *
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
@@ -940,6 +941,9 @@ class Circle:
         if abs(self._radius) < 1:
             end_time = _time.perf_counter()
             Registry.total_time_spent_drawing += end_time - start_time
+            log_development("You have created a circle with radius of less than 1. \
+This means that the circle wont be visible onscreen, so we exit without even trying \
+for improved performance.")
             return
 
         if Registry.display_mode == Constants.PYGAME:
