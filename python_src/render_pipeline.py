@@ -13,6 +13,7 @@ from pmma.python_src.opengl import ColorBufferObject as _ColorBufferObject
 from pmma.python_src.opengl import IndexBufferObject as _IndexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
+from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.draw import Line as _Line
 from pmma.python_src.draw import Lines as _Lines
@@ -49,6 +50,8 @@ class RenderPipeline:
 
         self._written_to_buffers = False
 
+        self._window_resized_event = _WindowResized_EVENT()
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
@@ -70,7 +73,7 @@ class RenderPipeline:
         if self._render_points == []:
             return
 
-        changed = self._window_full_screen_status_changed_event.get_value()
+        changed = self._window_resized_event.get_value() or self._window_full_screen_status_changed_event.get_value()
 
         if changed is False:
             changed = False
