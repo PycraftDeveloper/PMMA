@@ -42,7 +42,7 @@ while pmma.Registry.running:
     rp.render()
     end = time.perf_counter()
     fr = 1/(end-start)
-    #print(1/(end-start), display.get_refresh_rate())
+    print(display.get_refresh_rate())
 
     #print(rect.hardware_accelerated_data)
     #time.sleep(3)

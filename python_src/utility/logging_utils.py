@@ -173,7 +173,10 @@ class LoggerIntermediary:
 
         if log_to_file or log_to_terminal:
             if repeat_for_effect is False:
-                if message[0] in self._logged_messages:
+                if type(message) == str:
+                    if message in self._logged_messages:
+                        return False
+                elif message[0] in self._logged_messages:
                     return False
                 self._logged_messages.append(message[0])
 

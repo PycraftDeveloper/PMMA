@@ -135,19 +135,19 @@ window which can cause unexpected behavior.")
     if number_of_draw_calls > 600 and Registry.application_average_frame_rate['Samples'] > 3:
         if not "render performance is limiting" in Registry.formatted_developer_messages:
             Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(f"Your application performance might soon be degraded by \
-    the time spent handling draw calls. Consider switching to the more optimized Render \
-    Pipeline through PMMA to avoid any potential slowdowns.")
+the time spent handling draw calls. Consider switching to the more optimized Render \
+Pipeline through PMMA to avoid any potential slowdowns.")
 
     if total_time_spent_drawing != 0:
         if 1/(total_time_spent_drawing) < Registry.refresh_rate * 0.9 and Registry.application_average_frame_rate['Samples'] > 3:
             if not "render performance is limiting" in Registry.formatted_developer_messages:
                 Registry.formatted_developer_messages.append("render performance is limiting")
                 Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(f"Your application performance is limited by the total \
-    number of draw calls being made. The program spent {total_time_spent_drawing}s on \
-    {number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
-    {1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
-    likely improve application performance. Note that this message will only appear once, but \
-    may reflect any degraded performance beyond this point.")
+number of draw calls being made. The program spent {total_time_spent_drawing}s on \
+{number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
+{1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
+likely improve application performance. Note that this message will only appear once, but \
+may reflect any degraded performance beyond this point.")
 
     if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
         if Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
@@ -293,9 +293,9 @@ def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, r
     if Registry.pmma_initialized is False:
         if not logging_instantiation:
             Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You haven't yet initialized PMMA. This can be \
-    done by calling 'pmma.init()' any time before using any of PMMA functions. It \
-    is vital that you do this prior to using PMMA as it ensures optimal configuration \
-    with your machine, and gets PMMA ready to be used.")
+done by calling 'pmma.init()' any time before using any of PMMA functions. It \
+is vital that you do this prior to using PMMA as it ensures optimal configuration \
+with your machine, and gets PMMA ready to be used.")
 
         if not logging_instantiation:
             Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_error("PMMA has not been initialized. Call 'pmma.init()' before using PMMA.")
