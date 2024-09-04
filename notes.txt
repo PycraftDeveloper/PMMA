@@ -28,7 +28,7 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 
 Issues
 ======
-Transparent display not working with opengl idk why.
+Transparent display not working with opengl, potentially signs of a bigger problem.
 
 TO DO LIST
 ==========
@@ -38,8 +38,8 @@ Work on MIDI events when able to do so.
 Integrate events with custom event manager
 Create aggregated events like Pointer (similar to controller already added).
 
-Introduce prefix adjustments for SI-units.
-Introduce Coordinate and Degree conversions.
-Introduce anti-aliasing.
+Introduce prefix adjustments for SI-units. **
+Introduce Coordinate and Degree conversions. **
+Introduce anti-aliasing. (shader texture changes and texture changes within OpenGL, global or local change?)
 Add object collision.
 Work on render pipeline.
