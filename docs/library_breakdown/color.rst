@@ -21,11 +21,15 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Color.output_color_format() -> None
+.. py:method:: Color.get_color_format() -> None
 
    Not Yet Written
 
 .. py:method:: Color.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: Color.generate_random_color() -> None
 
    Not Yet Written
 

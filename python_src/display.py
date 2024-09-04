@@ -51,6 +51,7 @@ class Display:
         self._display_attribute_caption = "PMMA Display"
         self._display_attribute_hwnd = None
         self._display_attribute_transparent_display = False
+        self._display_attribute_icon = _path_builder(Registry.base_path, "resources", "images", "PMMA icon.ico")
 
         self._window_in_focus = True
         self._window_minimized = False
@@ -140,6 +141,7 @@ class Display:
             no_frame=False,
             caption=None,
             vsync=True,
+            icon=None,
             transparent_display=False):
 
         self._display_attribute_resizable = resizable
@@ -164,6 +166,9 @@ actively working to address this operating system limitation.")
         if caption is not None:
             self._display_attribute_caption = caption
 
+        if icon is not None:
+            self._display_attribute_icon = icon
+
         if self._display_attribute_full_screen:
             if width is None:
                 width = 0
@@ -181,6 +186,8 @@ actively working to address this operating system limitation.")
             flags = self._generate_pygame_flags()
 
             self.set_caption()
+
+            self.set_icon()
 
             self._display = _pygame.display.set_mode(
                 self._display_attribute_size,
@@ -231,7 +238,17 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def set_caption(self, caption=None):
         if caption is None:
             caption = self._display_attribute_caption
-        _pygame.display.set_caption(str(caption))
+        if Registry.display_mode == Constants.PYGAME:
+            _pygame.display.set_caption(str(caption))
+
+    def set_icon(self, icon=None):
+        if icon is None:
+            icon = self._display_attribute_icon
+        if Registry.display_mode == Constants.PYGAME:
+            print(icon)
+            icon_img = _pygame.image.load(icon)
+            _pygame.display.set_icon(icon_img)
+            del icon_img
 
     def display_resize(self):
         size = _pygame.display.get_window_size()

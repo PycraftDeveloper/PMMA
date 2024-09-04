@@ -36,6 +36,10 @@ Create
 Methods
 -------
 
+.. py:method:: Backspace_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Backspace_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -82,6 +86,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Tab_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Tab_KEY.set_double_tapped() -> None
 
@@ -130,6 +138,10 @@ Create
 Methods
 -------
 
+.. py:method:: Clear_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Clear_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -176,6 +188,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Return_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Return_KEY.set_double_tapped() -> None
 
@@ -224,6 +240,10 @@ Create
 Methods
 -------
 
+.. py:method:: Pause_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Pause_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -270,6 +290,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Escape_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Escape_KEY.set_double_tapped() -> None
 
@@ -318,6 +342,10 @@ Create
 Methods
 -------
 
+.. py:method:: Space_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Space_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -364,6 +392,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: ExclamationMark_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: ExclamationMark_KEY.set_double_tapped() -> None
 
@@ -412,6 +444,10 @@ Create
 Methods
 -------
 
+.. py:method:: DoubleQuote_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: DoubleQuote_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -458,6 +494,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Hashtag_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Hashtag_KEY.set_double_tapped() -> None
 
@@ -506,6 +546,10 @@ Create
 Methods
 -------
 
+.. py:method:: Dollar_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Dollar_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -552,6 +596,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Ampersand_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Ampersand_KEY.set_double_tapped() -> None
 
@@ -600,6 +648,10 @@ Create
 Methods
 -------
 
+.. py:method:: SingleQuote_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: SingleQuote_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -646,6 +698,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LeftParenthesis_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LeftParenthesis_KEY.set_double_tapped() -> None
 
@@ -694,6 +750,10 @@ Create
 Methods
 -------
 
+.. py:method:: RightParenthesis_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: RightParenthesis_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -740,6 +800,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Asterisk_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Asterisk_KEY.set_double_tapped() -> None
 
@@ -788,6 +852,10 @@ Create
 Methods
 -------
 
+.. py:method:: Plus_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Plus_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -834,6 +902,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Comma_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Comma_KEY.set_double_tapped() -> None
 
@@ -882,6 +954,10 @@ Create
 Methods
 -------
 
+.. py:method:: Minus_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Minus_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -928,6 +1004,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Period_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Period_KEY.set_double_tapped() -> None
 
@@ -976,6 +1056,10 @@ Create
 Methods
 -------
 
+.. py:method:: ForwardSlash_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: ForwardSlash_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1022,6 +1106,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Primary0_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Primary0_KEY.set_double_tapped() -> None
 
@@ -1070,6 +1158,10 @@ Create
 Methods
 -------
 
+.. py:method:: Primary1_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Primary1_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1116,6 +1208,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Primary2_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Primary2_KEY.set_double_tapped() -> None
 
@@ -1164,6 +1260,10 @@ Create
 Methods
 -------
 
+.. py:method:: Primary3_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Primary3_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1210,6 +1310,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Primary4_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Primary4_KEY.set_double_tapped() -> None
 
@@ -1258,6 +1362,10 @@ Create
 Methods
 -------
 
+.. py:method:: Primary5_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Primary5_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1304,6 +1412,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Primary6_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Primary6_KEY.set_double_tapped() -> None
 
@@ -1352,6 +1464,10 @@ Create
 Methods
 -------
 
+.. py:method:: Primary7_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Primary7_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1398,6 +1514,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Primary8_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Primary8_KEY.set_double_tapped() -> None
 
@@ -1446,6 +1566,10 @@ Create
 Methods
 -------
 
+.. py:method:: Primary9_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Primary9_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1492,6 +1616,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Colon_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Colon_KEY.set_double_tapped() -> None
 
@@ -1540,6 +1668,10 @@ Create
 Methods
 -------
 
+.. py:method:: SemiColon_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: SemiColon_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1586,6 +1718,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LessThan_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LessThan_KEY.set_double_tapped() -> None
 
@@ -1634,6 +1770,10 @@ Create
 Methods
 -------
 
+.. py:method:: Equals_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Equals_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1680,6 +1820,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: GreaterThan_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: GreaterThan_KEY.set_double_tapped() -> None
 
@@ -1728,6 +1872,10 @@ Create
 Methods
 -------
 
+.. py:method:: QuestionMark_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: QuestionMark_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1774,6 +1922,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: At_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: At_KEY.set_double_tapped() -> None
 
@@ -1822,6 +1974,10 @@ Create
 Methods
 -------
 
+.. py:method:: LeftBracket_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: LeftBracket_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1868,6 +2024,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: BackSlash_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: BackSlash_KEY.set_double_tapped() -> None
 
@@ -1916,6 +2076,10 @@ Create
 Methods
 -------
 
+.. py:method:: RightBracket_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: RightBracket_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -1962,6 +2126,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Caret_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Caret_KEY.set_double_tapped() -> None
 
@@ -2010,6 +2178,10 @@ Create
 Methods
 -------
 
+.. py:method:: Underscore_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Underscore_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2056,6 +2228,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Grave_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Grave_KEY.set_double_tapped() -> None
 
@@ -2104,6 +2280,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryA_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryA_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2150,6 +2330,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryB_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryB_KEY.set_double_tapped() -> None
 
@@ -2198,6 +2382,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryC_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryC_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2244,6 +2432,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryD_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryD_KEY.set_double_tapped() -> None
 
@@ -2292,6 +2484,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryE_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryE_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2338,6 +2534,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryF_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryF_KEY.set_double_tapped() -> None
 
@@ -2386,6 +2586,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryG_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryG_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2432,6 +2636,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryH_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryH_KEY.set_double_tapped() -> None
 
@@ -2480,6 +2688,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryI_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryI_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2526,6 +2738,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryJ_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryJ_KEY.set_double_tapped() -> None
 
@@ -2574,6 +2790,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryK_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryK_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2620,6 +2840,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryL_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryL_KEY.set_double_tapped() -> None
 
@@ -2668,6 +2892,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryM_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryM_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2714,6 +2942,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryN_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryN_KEY.set_double_tapped() -> None
 
@@ -2762,6 +2994,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryO_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryO_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2808,6 +3044,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryP_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryP_KEY.set_double_tapped() -> None
 
@@ -2856,6 +3096,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryQ_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryQ_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2902,6 +3146,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryR_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryR_KEY.set_double_tapped() -> None
 
@@ -2950,6 +3198,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryS_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryS_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -2996,6 +3248,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryT_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryT_KEY.set_double_tapped() -> None
 
@@ -3044,6 +3300,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryU_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryU_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3090,6 +3350,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryV_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryV_KEY.set_double_tapped() -> None
 
@@ -3138,6 +3402,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryW_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryW_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3184,6 +3452,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryX_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryX_KEY.set_double_tapped() -> None
 
@@ -3232,6 +3504,10 @@ Create
 Methods
 -------
 
+.. py:method:: PrimaryY_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PrimaryY_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3278,6 +3554,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PrimaryZ_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PrimaryZ_KEY.set_double_tapped() -> None
 
@@ -3326,6 +3606,10 @@ Create
 Methods
 -------
 
+.. py:method:: Delete_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Delete_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3372,6 +3656,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Numpad0_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Numpad0_KEY.set_double_tapped() -> None
 
@@ -3420,6 +3708,10 @@ Create
 Methods
 -------
 
+.. py:method:: Numpad1_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Numpad1_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3466,6 +3758,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Numpad2_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Numpad2_KEY.set_double_tapped() -> None
 
@@ -3514,6 +3810,10 @@ Create
 Methods
 -------
 
+.. py:method:: Numpad3_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Numpad3_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3560,6 +3860,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Numpad4_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Numpad4_KEY.set_double_tapped() -> None
 
@@ -3608,6 +3912,10 @@ Create
 Methods
 -------
 
+.. py:method:: Numpad5_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Numpad5_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3654,6 +3962,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Numpad6_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Numpad6_KEY.set_double_tapped() -> None
 
@@ -3702,6 +4014,10 @@ Create
 Methods
 -------
 
+.. py:method:: Numpad7_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Numpad7_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3748,6 +4064,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Numpad8_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Numpad8_KEY.set_double_tapped() -> None
 
@@ -3796,6 +4116,10 @@ Create
 Methods
 -------
 
+.. py:method:: Numpad9_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Numpad9_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3842,6 +4166,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: NumpadPeriod_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: NumpadPeriod_KEY.set_double_tapped() -> None
 
@@ -3890,6 +4218,10 @@ Create
 Methods
 -------
 
+.. py:method:: NumpadDivide_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: NumpadDivide_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -3936,6 +4268,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: NumpadMultiply_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: NumpadMultiply_KEY.set_double_tapped() -> None
 
@@ -3984,6 +4320,10 @@ Create
 Methods
 -------
 
+.. py:method:: NumpadMinus_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: NumpadMinus_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4030,6 +4370,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: NumpadPlus_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: NumpadPlus_KEY.set_double_tapped() -> None
 
@@ -4078,6 +4422,10 @@ Create
 Methods
 -------
 
+.. py:method:: NumpadEnter_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: NumpadEnter_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4124,6 +4472,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: NumpadEquals_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: NumpadEquals_KEY.set_double_tapped() -> None
 
@@ -4172,6 +4524,10 @@ Create
 Methods
 -------
 
+.. py:method:: Up_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Up_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4218,6 +4574,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Down_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Down_KEY.set_double_tapped() -> None
 
@@ -4266,6 +4626,10 @@ Create
 Methods
 -------
 
+.. py:method:: Right_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Right_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4312,6 +4676,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Left_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Left_KEY.set_double_tapped() -> None
 
@@ -4360,6 +4728,10 @@ Create
 Methods
 -------
 
+.. py:method:: Insert_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Insert_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4406,6 +4778,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Home_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Home_KEY.set_double_tapped() -> None
 
@@ -4454,6 +4830,10 @@ Create
 Methods
 -------
 
+.. py:method:: End_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: End_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4500,6 +4880,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PageUp_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PageUp_KEY.set_double_tapped() -> None
 
@@ -4548,6 +4932,10 @@ Create
 Methods
 -------
 
+.. py:method:: PageDown_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: PageDown_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4594,6 +4982,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function1_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function1_KEY.set_double_tapped() -> None
 
@@ -4642,6 +5034,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function2_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function2_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4688,6 +5084,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function3_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function3_KEY.set_double_tapped() -> None
 
@@ -4736,6 +5136,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function4_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function4_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4782,6 +5186,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function5_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function5_KEY.set_double_tapped() -> None
 
@@ -4830,6 +5238,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function6_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function6_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4876,6 +5288,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function7_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function7_KEY.set_double_tapped() -> None
 
@@ -4924,6 +5340,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function8_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function8_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -4970,6 +5390,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function9_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function9_KEY.set_double_tapped() -> None
 
@@ -5018,6 +5442,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function10_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function10_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5064,6 +5492,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function11_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function11_KEY.set_double_tapped() -> None
 
@@ -5112,6 +5544,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function12_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function12_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5158,6 +5594,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function13_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function13_KEY.set_double_tapped() -> None
 
@@ -5206,6 +5646,10 @@ Create
 Methods
 -------
 
+.. py:method:: Function14_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Function14_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5252,6 +5696,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Function15_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Function15_KEY.set_double_tapped() -> None
 
@@ -5300,6 +5748,10 @@ Create
 Methods
 -------
 
+.. py:method:: NumLock_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: NumLock_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5346,6 +5798,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: CapsLock_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: CapsLock_KEY.set_double_tapped() -> None
 
@@ -5394,6 +5850,10 @@ Create
 Methods
 -------
 
+.. py:method:: ScrollLock_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: ScrollLock_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5440,6 +5900,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: RightShift_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: RightShift_KEY.set_double_tapped() -> None
 
@@ -5488,6 +5952,10 @@ Create
 Methods
 -------
 
+.. py:method:: LeftShift_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: LeftShift_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5534,6 +6002,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Shift_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Shift_KEY.set_double_tapped() -> None
 
@@ -5582,6 +6054,10 @@ Create
 Methods
 -------
 
+.. py:method:: RightControl_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: RightControl_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5628,6 +6104,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LeftControl_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LeftControl_KEY.set_double_tapped() -> None
 
@@ -5676,6 +6156,10 @@ Create
 Methods
 -------
 
+.. py:method:: Control_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Control_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5722,6 +6206,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: RightAlt_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: RightAlt_KEY.set_double_tapped() -> None
 
@@ -5770,6 +6258,10 @@ Create
 Methods
 -------
 
+.. py:method:: LeftAlt_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: LeftAlt_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5816,6 +6308,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Alt_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Alt_KEY.set_double_tapped() -> None
 
@@ -5864,6 +6360,10 @@ Create
 Methods
 -------
 
+.. py:method:: RightMeta_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: RightMeta_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -5910,6 +6410,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LeftMeta_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LeftMeta_KEY.set_double_tapped() -> None
 
@@ -5958,6 +6462,10 @@ Create
 Methods
 -------
 
+.. py:method:: Meta_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Meta_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6004,6 +6512,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LeftSuper_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LeftSuper_KEY.set_double_tapped() -> None
 
@@ -6052,6 +6564,10 @@ Create
 Methods
 -------
 
+.. py:method:: RightSuper_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: RightSuper_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6098,6 +6614,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Super_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Super_KEY.set_double_tapped() -> None
 
@@ -6146,6 +6666,10 @@ Create
 Methods
 -------
 
+.. py:method:: Mode_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Mode_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6192,6 +6716,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Help_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Help_KEY.set_double_tapped() -> None
 
@@ -6240,6 +6768,10 @@ Create
 Methods
 -------
 
+.. py:method:: Print_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Print_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6286,6 +6818,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: SystemRequest_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: SystemRequest_KEY.set_double_tapped() -> None
 
@@ -6334,6 +6870,10 @@ Create
 Methods
 -------
 
+.. py:method:: Break_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Break_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6380,6 +6920,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Menu_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Menu_KEY.set_double_tapped() -> None
 
@@ -6428,6 +6972,10 @@ Create
 Methods
 -------
 
+.. py:method:: Power_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Power_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6474,6 +7022,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Euro_KEY.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Euro_KEY.set_double_tapped() -> None
 
@@ -6522,6 +7074,10 @@ Create
 Methods
 -------
 
+.. py:method:: AndroidBack_KEY.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: AndroidBack_KEY.set_double_tapped() -> None
 
    Not Yet Written
@@ -6568,6 +7124,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LeftButton_MOUSE.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LeftButton_MOUSE.set_double_tapped() -> None
 
@@ -6616,6 +7176,10 @@ Create
 Methods
 -------
 
+.. py:method:: MiddleButton_MOUSE.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: MiddleButton_MOUSE.set_double_tapped() -> None
 
    Not Yet Written
@@ -6662,6 +7226,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: RightButton_MOUSE.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: RightButton_MOUSE.set_double_tapped() -> None
 
@@ -6710,15 +7278,39 @@ Create
 Methods
 -------
 
-.. py:method:: Mouse_SCROLL.get_scroll_displacement() -> None
+.. py:method:: Mouse_SCROLL.quit() -> None
 
    Not Yet Written
 
-.. py:method:: Mouse_SCROLL.get_scroll_value() -> None
+.. py:method:: Mouse_SCROLL.get_x_displacement() -> None
 
    Not Yet Written
 
-.. py:method:: Mouse_SCROLL.set_scroll_value() -> None
+.. py:method:: Mouse_SCROLL.set_x_displacement() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_SCROLL.get_x_value() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_SCROLL.set_x_value() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_SCROLL.get_y_displacement() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_SCROLL.set_y_displacement() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_SCROLL.get_y_value() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_SCROLL.set_y_value() -> None
 
    Not Yet Written
 
@@ -6736,6 +7328,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Mouse_POSITION.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Mouse_POSITION.get_axis_displacement() -> None
 
@@ -6765,6 +7361,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Mouse_POSITION.set_x_axis_displacement() -> None
+
+   Not Yet Written
+
+.. py:method:: Mouse_POSITION.set_y_axis_displacement() -> None
+
+   Not Yet Written
+
 Active Event (``pmma.Active_EVENT``)
 ====================================
 
@@ -6779,6 +7383,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Active_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Active_EVENT.set_value() -> None
 
@@ -6803,6 +7411,10 @@ Create
 Methods
 -------
 
+.. py:method:: AppTerminating_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: AppTerminating_EVENT.set_value() -> None
 
    Not Yet Written
@@ -6825,6 +7437,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: AppLowMemory_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: AppLowMemory_EVENT.set_value() -> None
 
@@ -6849,6 +7465,10 @@ Create
 Methods
 -------
 
+.. py:method:: AppWillEnterBackground_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: AppWillEnterBackground_EVENT.set_value() -> None
 
    Not Yet Written
@@ -6871,6 +7491,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: AppDidEnterBackground_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: AppDidEnterBackground_EVENT.set_value() -> None
 
@@ -6895,6 +7519,10 @@ Create
 Methods
 -------
 
+.. py:method:: AppWillEnterForeground_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: AppWillEnterForeground_EVENT.set_value() -> None
 
    Not Yet Written
@@ -6917,6 +7545,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: AppDidEnterForeground_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: AppDidEnterForeground_EVENT.set_value() -> None
 
@@ -6941,6 +7573,10 @@ Create
 Methods
 -------
 
+.. py:method:: AudioDeviceAdded_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: AudioDeviceAdded_EVENT.set_value() -> None
 
    Not Yet Written
@@ -6963,6 +7599,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: AudioDeviceRemoved_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: AudioDeviceRemoved_EVENT.set_value() -> None
 
@@ -6987,6 +7627,10 @@ Create
 Methods
 -------
 
+.. py:method:: ClipBoardUpdate_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: ClipBoardUpdate_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7010,11 +7654,15 @@ Create
 Methods
 -------
 
-.. py:method:: DropFile_EVENT.set_value() -> None
+.. py:method:: DropFile_EVENT.quit() -> None
 
    Not Yet Written
 
-.. py:method:: DropFile_EVENT.get_value() -> None
+.. py:method:: DropFile_EVENT.set_file() -> None
+
+   Not Yet Written
+
+.. py:method:: DropFile_EVENT.get_file() -> None
 
    Not Yet Written
 
@@ -7033,11 +7681,15 @@ Create
 Methods
 -------
 
-.. py:method:: DropText_EVENT.set_value() -> None
+.. py:method:: DropText_EVENT.quit() -> None
 
    Not Yet Written
 
-.. py:method:: DropText_EVENT.get_value() -> None
+.. py:method:: DropText_EVENT.set_text() -> None
+
+   Not Yet Written
+
+.. py:method:: DropText_EVENT.get_text() -> None
 
    Not Yet Written
 
@@ -7055,6 +7707,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: DropBegin_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: DropBegin_EVENT.set_value() -> None
 
@@ -7079,6 +7735,10 @@ Create
 Methods
 -------
 
+.. py:method:: DropComplete_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: DropComplete_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7101,6 +7761,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: FingerMotion_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: FingerMotion_EVENT.set_value() -> None
 
@@ -7125,6 +7789,10 @@ Create
 Methods
 -------
 
+.. py:method:: FingerDown_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: FingerDown_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7147,6 +7815,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: FingerUp_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: FingerUp_EVENT.set_value() -> None
 
@@ -7171,6 +7843,10 @@ Create
 Methods
 -------
 
+.. py:method:: KeyMapChanged_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: KeyMapChanged_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7193,6 +7869,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: LocaleChanged_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: LocaleChanged_EVENT.set_value() -> None
 
@@ -7217,11 +7897,47 @@ Create
 Methods
 -------
 
-.. py:method:: MultiGesture_EVENT.set_value() -> None
+.. py:method:: MultiGesture_EVENT.quit() -> None
 
    Not Yet Written
 
-.. py:method:: MultiGesture_EVENT.get_value() -> None
+.. py:method:: MultiGesture_EVENT.get_gesture_center_x() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.get_gesture_center_y() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.get_pinched_value() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.get_rotated_value() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.get_number_of_fingers() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.set_gesture_center_x() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.set_gesture_center_y() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.set_pinched_value() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.set_rotated_value() -> None
+
+   Not Yet Written
+
+.. py:method:: MultiGesture_EVENT.set_number_of_fingers() -> None
 
    Not Yet Written
 
@@ -7239,6 +7955,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: NoEvent_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: NoEvent_EVENT.set_value() -> None
 
@@ -7263,6 +7983,10 @@ Create
 Methods
 -------
 
+.. py:method:: Quit_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Quit_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7285,6 +8009,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: RenderTargetsReset_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: RenderTargetsReset_EVENT.set_value() -> None
 
@@ -7309,6 +8037,10 @@ Create
 Methods
 -------
 
+.. py:method:: RenderDeviceReset_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: RenderDeviceReset_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7332,57 +8064,15 @@ Create
 Methods
 -------
 
+.. py:method:: SysWMEvent_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: SysWMEvent_EVENT.set_value() -> None
 
    Not Yet Written
 
 .. py:method:: SysWMEvent_EVENT.get_value() -> None
-
-   Not Yet Written
-
-Text Input Event (``pmma.TextInput_EVENT``)
-===========================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.TextInput_EVENT() -> pmma.TextInput_EVENT
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: TextInput_EVENT.set_value() -> None
-
-   Not Yet Written
-
-.. py:method:: TextInput_EVENT.get_value() -> None
-
-   Not Yet Written
-
-Text Editing Event (``pmma.TextEditing_EVENT``)
-===============================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.TextEditing_EVENT() -> pmma.TextEditing_EVENT
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: TextEditing_EVENT.set_value() -> None
-
-   Not Yet Written
-
-.. py:method:: TextEditing_EVENT.get_value() -> None
 
    Not Yet Written
 
@@ -7400,6 +8090,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: VideoResize_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: VideoResize_EVENT.set_value() -> None
 
@@ -7424,6 +8118,10 @@ Create
 Methods
 -------
 
+.. py:method:: VideoExpose_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: VideoExpose_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7446,6 +8144,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: MidiIn_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: MidiIn_EVENT.set_value() -> None
 
@@ -7470,6 +8172,10 @@ Create
 Methods
 -------
 
+.. py:method:: MidiOut_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: MidiOut_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7492,6 +8198,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowShown_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowShown_EVENT.set_value() -> None
 
@@ -7516,6 +8226,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowHidden_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowHidden_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7538,6 +8252,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowExposed_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowExposed_EVENT.set_value() -> None
 
@@ -7562,6 +8280,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowMoved_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowMoved_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7584,6 +8306,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowResized_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowResized_EVENT.set_value() -> None
 
@@ -7608,6 +8334,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowSizeChanged_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowSizeChanged_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7630,6 +8360,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowMinimized_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowMinimized_EVENT.set_value() -> None
 
@@ -7654,6 +8388,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowMaximized_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowMaximized_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7676,6 +8414,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowRestored_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowRestored_EVENT.set_value() -> None
 
@@ -7700,6 +8442,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowEnter_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowEnter_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7722,6 +8468,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowLeave_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowLeave_EVENT.set_value() -> None
 
@@ -7746,6 +8496,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowFocusGained_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowFocusGained_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7768,6 +8522,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowFocusLost_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowFocusLost_EVENT.set_value() -> None
 
@@ -7792,6 +8550,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowClose_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowClose_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7814,6 +8576,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowTakeFocus_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowTakeFocus_EVENT.set_value() -> None
 
@@ -7838,6 +8604,10 @@ Create
 Methods
 -------
 
+.. py:method:: WindowHitTest_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowHitTest_EVENT.set_value() -> None
 
    Not Yet Written
@@ -7860,6 +8630,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: WindowICCPROFChanged_EVENT.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: WindowICCPROFChanged_EVENT.set_value() -> None
 
@@ -7884,11 +8658,96 @@ Create
 Methods
 -------
 
+.. py:method:: WindowDisplayChanged_EVENT.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: WindowDisplayChanged_EVENT.set_value() -> None
 
    Not Yet Written
 
 .. py:method:: WindowDisplayChanged_EVENT.get_value() -> None
+
+   Not Yet Written
+
+Joy Device Added Event (``pmma.JoyDeviceAdded_EVENT``)
+======================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.JoyDeviceAdded_EVENT() -> pmma.JoyDeviceAdded_EVENT
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: JoyDeviceAdded_EVENT.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: JoyDeviceAdded_EVENT.set_value() -> None
+
+   Not Yet Written
+
+.. py:method:: JoyDeviceAdded_EVENT.get_value() -> None
+
+   Not Yet Written
+
+Joy Device Removed Event (``pmma.JoyDeviceRemoved_EVENT``)
+==========================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.JoyDeviceRemoved_EVENT() -> pmma.JoyDeviceRemoved_EVENT
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: JoyDeviceRemoved_EVENT.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: JoyDeviceRemoved_EVENT.set_value() -> None
+
+   Not Yet Written
+
+.. py:method:: JoyDeviceRemoved_EVENT.get_value() -> None
+
+   Not Yet Written
+
+Window Full Screen Status Changed Event (``pmma.WindowFullScreenStatusChanged_EVENT``)
+======================================================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.WindowFullScreenStatusChanged_EVENT() -> pmma.WindowFullScreenStatusChanged_EVENT
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: WindowFullScreenStatusChanged_EVENT.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: WindowFullScreenStatusChanged_EVENT.set_value() -> None
+
+   Not Yet Written
+
+.. py:method:: WindowFullScreenStatusChanged_EVENT.get_value() -> None
 
    Not Yet Written
 

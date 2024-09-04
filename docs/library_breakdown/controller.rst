@@ -48,7 +48,7 @@ Create
 Methods
 -------
 
-.. py:method:: Controller.quit() -> None
+.. py:method:: Controller.get_track_ball_from_id() -> None
 
    Not Yet Written
 
@@ -340,67 +340,19 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Controller.set_right_trigger_double_tapped() -> None
+.. py:method:: Controller.get_left_trigger_value() -> None
 
    Not Yet Written
 
-.. py:method:: Controller.get_right_trigger_double_tapped() -> None
+.. py:method:: Controller.set_left_trigger_value() -> None
 
    Not Yet Written
 
-.. py:method:: Controller.get_right_trigger_last_tap_time() -> None
+.. py:method:: Controller.get_right_trigger_value() -> None
 
    Not Yet Written
 
-.. py:method:: Controller.set_right_trigger_last_tap_time() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.get_right_trigger_pressed() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.set_right_trigger_pressed() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.get_right_trigger_double_tap_timing() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.set_right_trigger_double_tap_timing() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.set_left_trigger_double_tapped() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.get_left_trigger_double_tapped() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.get_left_trigger_last_tap_time() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.set_left_trigger_last_tap_time() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.get_left_trigger_pressed() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.set_left_trigger_pressed() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.get_left_trigger_double_tap_timing() -> None
-
-   Not Yet Written
-
-.. py:method:: Controller.set_left_trigger_double_tap_timing() -> None
+.. py:method:: Controller.set_right_trigger_value() -> None
 
    Not Yet Written
 

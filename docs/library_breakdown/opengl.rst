@@ -21,27 +21,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: OpenGL.get_simple_texture_rendering_program() -> None
-
-   Not Yet Written
-
-.. py:method:: OpenGL.get_texture_aggregation_program() -> None
-
-   Not Yet Written
-
-.. py:method:: OpenGL.get_simple_shape_rendering_program() -> None
-
-   Not Yet Written
-
 .. py:method:: OpenGL.get_context() -> None
-
-   Not Yet Written
-
-.. py:method:: OpenGL.create_fbo() -> None
-
-   Not Yet Written
-
-.. py:method:: OpenGL.create_texture() -> None
 
    Not Yet Written
 
@@ -49,23 +29,436 @@ Methods
 
    Not Yet Written
 
-.. py:method:: OpenGL.create_buffer_object() -> None
+Vertex Buffer Object (``pmma.VertexBufferObject``)
+==================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.VertexBufferObject() -> pmma.VertexBufferObject
 
    Not Yet Written
 
-.. py:method:: OpenGL.create_vbo() -> None
+Methods
+-------
+
+.. py:method:: VertexBufferObject.create() -> None
 
    Not Yet Written
 
-.. py:method:: OpenGL.create_cbo() -> None
+.. py:method:: VertexBufferObject.recreate() -> None
 
    Not Yet Written
 
-.. py:method:: OpenGL.create_ibo() -> None
+.. py:method:: VertexBufferObject.update() -> None
 
    Not Yet Written
 
-.. py:method:: OpenGL.create_vao() -> None
+.. py:method:: VertexBufferObject.read() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.get_vertex_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.clear() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.bind_to_uniform_block() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.bind_to_shader_storage_buffer() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject._size() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.get_size() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.get_vertex_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.get_dynamic() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.quit() -> None
+
+   Not Yet Written
+
+Color Buffer Object (``pmma.ColorBufferObject``)
+================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.ColorBufferObject() -> pmma.ColorBufferObject
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: ColorBufferObject.create() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.update() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.read() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.get_vertex_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.clear() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.bind_to_uniform_block() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.bind_to_shader_storage_buffer() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject._size() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.get_size() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.get_color_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.get_dynamic() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.quit() -> None
+
+   Not Yet Written
+
+Index Buffer Object (``pmma.IndexBufferObject``)
+================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.IndexBufferObject() -> pmma.IndexBufferObject
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: IndexBufferObject.create() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.update() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.read() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.get_index_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.get_vertex_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.clear() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.bind_to_uniform_block() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.bind_to_shader_storage_buffer() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject._size() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.get_size() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.get_dynamic() -> None
+
+   Not Yet Written
+
+.. py:method:: IndexBufferObject.quit() -> None
+
+   Not Yet Written
+
+Vertex Array Object (``pmma.VertexArrayObject``)
+================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.VertexArrayObject() -> pmma.VertexArrayObject
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: VertexArrayObject.create() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.render() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_vertex_array_object() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_program() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_vertex_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_vertex_buffer_shader_attributes() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_color_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_color_buffer_shader_attributes() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_index_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_element_size() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.quit() -> None
+
+   Not Yet Written
+
+Shader (``pmma.Shader``)
+========================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.Shader() -> pmma.Shader
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: Shader.load_vertex_shader_from_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.load_fragment_shader_from_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.load_vertex_shader_from_string() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.load_fragment_shader_from_string() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.load_shader_from_string() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.load_shader_from_folder() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.create() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.get_program() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.get_vertex_shader() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.get_fragment_shader() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.get_program() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.quit() -> None
+
+   Not Yet Written
+
+Texture (``pmma.Texture``)
+==========================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.Texture() -> pmma.Texture
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: Texture.create() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.write() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.load_from_file() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.set_scaling() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.texture_to_PIL_image() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.get_texture() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.use() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.get_size() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.get_components() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.get_data() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.build_mipmaps() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.quit() -> None
+
+   Not Yet Written
+
+Frame Buffer Object (``pmma.FrameBufferObject``)
+================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.FrameBufferObject() -> pmma.FrameBufferObject
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: FrameBufferObject.create() -> None
+
+   Not Yet Written
+
+.. py:method:: FrameBufferObject.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: FrameBufferObject.clear() -> None
+
+   Not Yet Written
+
+.. py:method:: FrameBufferObject.use() -> None
+
+   Not Yet Written
+
+.. py:method:: FrameBufferObject.quit() -> None
 
    Not Yet Written
 

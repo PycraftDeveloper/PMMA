@@ -37,7 +37,6 @@ The full breakdown of what everything does!
     registry.rst
     render_pipeline.rst
     sampler.rst
-    shader.rst
     surface.rst
     text.rst
     video.rst
