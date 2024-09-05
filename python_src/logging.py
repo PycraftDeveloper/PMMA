@@ -14,7 +14,7 @@ class Logger:
         self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
-        self._logger_intermediary.set_external_log_development_messages_to_terminal()(value)
+        self._logger_intermediary.set_external_log_development_messages_to_terminal(value)
 
     def set_log_information_messages_to_terminal(self, value):
         self._logger_intermediary.set_external_log_information_messages_to_terminal(value)

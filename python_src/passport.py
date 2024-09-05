@@ -21,6 +21,7 @@ class Passport:
             project_python_src_directory=None,
             project_c_src_directory=None,
             project_pyx_src_directory=None,
+            project_log_directory=None,
             license=None,
             author=None,
             version=None,
@@ -54,6 +55,7 @@ try and work around this.")
         _PassportIntermediary.project_python_src_directory = project_python_src_directory
         _PassportIntermediary.project_c_src_directory = project_c_src_directory
         _PassportIntermediary.project_pyx_src_directory = project_pyx_src_directory
+        _PassportIntermediary.project_log_directory = project_log_directory
         _PassportIntermediary.license = license
         _PassportIntermediary.author = author
         _PassportIntermediary.version = version
@@ -61,6 +63,10 @@ try and work around this.")
         _PassportIntermediary.project_size = project_size
 
         self._shut_down = False
+
+    def set_project_log_directory(self, project_log_directory):
+        _PassportIntermediary.passport_changed = True
+        _PassportIntermediary.project_log_directory = project_log_directory
 
     def set_name(self, name):
         _PassportIntermediary.passport_changed = True

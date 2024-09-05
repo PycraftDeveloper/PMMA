@@ -59,7 +59,8 @@ def convert_number_to_text(value):
     try:
         return _num2words.num2words(value, lang=get_language())
     except OverflowError:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Woah! {} is a very large number - too big \
+        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            "Woah! {} is a very large number - too big \
 unfortunately to convert to words. Instead the value will be returned as a string.", variables=[value])
         return str(value)
 
@@ -75,19 +76,24 @@ def quit(show_statistics=None, terminate_application=True):
         if Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+                "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
             Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
 frame rate of {} Hz.", variables=[app_name, Registry.application_average_frame_rate['Mean']])
 
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, Registry.number_of_instantiated_objects])
+        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            "PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, Registry.number_of_instantiated_objects])
 
         if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
-            logged_noise_statistics = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} used Noise component. \
-In the prefilling process, {} single \
-samples where used, and {}/10 array samples where used.", variables=[app_name, Registry.perlin_noise_prefill_single_samples, Registry.perlin_noise_prefill_array_samples])
+            logged_noise_statistics = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+                "PMMA statistics: {} used Noise component. In the prefilling process, {} single \
+samples where used, and {}/10 array samples where used.",
+                variables=[app_name, Registry.perlin_noise_prefill_single_samples,
+                Registry.perlin_noise_prefill_array_samples])
 
             if logged_noise_statistics:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("The Noise component of PMMA uses a prefilling process to try \
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                    "The Noise component of PMMA uses a prefilling process to try \
 and identify the minimum and maximum values for each noise method. This is required as depending \
 on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
 used to represent floating point numbers may change. Also, 'single samples' refers to the methods \
@@ -98,10 +104,15 @@ operations, meaning that fewer need to be called for every single call. Addition
 nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
 generating 3D arrays.")
 
-    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("PMMA is now exiting. Thanks for using PMMA!")
+    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        "PMMA is now exiting. Thanks for using PMMA!")
     keys = list(Registry.pmma_module_spine.keys())
     for key in keys:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("Quitting PMMA object with ID: {}", variables=[key])
+        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            "Quitting PMMA object with ID: {}",
+            variables=[key],
+            repeat_for_effect=True)
+
         Registry.pmma_module_spine[key].quit(do_garbage_collection=False)
 
     del Registry.pmma_module_spine

@@ -11,6 +11,7 @@ class PassportIntermediary:
     project_python_src_directory = None
     project_c_src_directory = None
     project_pyx_src_directory = None
+    project_log_directory = None
     license = None
     author = None
     version = None
