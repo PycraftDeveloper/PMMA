@@ -38,10 +38,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-
-        if Registry.display_mode == Constants.PYGAME:
-            self._logger.log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                self._logger.log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -184,9 +185,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -337,9 +340,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -545,9 +550,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -740,9 +747,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -927,9 +936,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -1075,9 +1086,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -1230,9 +1243,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -1359,9 +1374,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -1495,9 +1512,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -1628,9 +1647,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
@@ -1772,9 +1793,11 @@ therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]

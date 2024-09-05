@@ -14,9 +14,11 @@ class Image:
     def __init__(self):
         _initialize(self)
 
-        if Registry.display_mode == Constants.PYGAME:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
-            _pygame.init()
+        if Registry.displayed_pygame_start_message is False:
+            Registry.displayed_pygame_start_message = True
+            if Registry.display_mode == Constants.PYGAME:
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+                _pygame.init()
 
         self._memory_manager_instance = _MemoryManager()
 

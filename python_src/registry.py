@@ -35,3 +35,4 @@ class Registry:
     opengl_objects = {}
     handled_events = False
     compute_component_called = False
+    displayed_pygame_start_message = False
