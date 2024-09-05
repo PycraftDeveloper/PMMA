@@ -61,8 +61,8 @@ def convert_number_to_text(value):
     except OverflowError:
         if not "number to word, large value encountered" in Registry.formatted_developer_messages:
             Registry.formatted_developer_messages.append("number to word, large value encountered")
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(f"Woah! {value} is a very large number - too big \
-unfortunately to convert to words. Instead the value will be returned as a string.")
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Woah! {} is a very large number - too big \
+unfortunately to convert to words. Instead the value will be returned as a string.", variables=[value])
         return str(value)
 
 def quit(show_statistics=None, terminate_application=True):
@@ -77,16 +77,16 @@ def quit(show_statistics=None, terminate_application=True):
         if Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(f"PMMA statistics: {app_name} ran for: {time_formatter_instance.get_in_sentence_format()}")
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(f"PMMA statistics: {app_name} had an average \
-frame rate of {Registry.application_average_frame_rate['Mean']} Hz.")
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
+frame rate of {} Hz.", variables=[app_name, Registry.application_average_frame_rate['Mean']])
 
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(f"PMMA statistics: {app_name} used {Registry.number_of_instantiated_objects} instances of PMMA operations.")
+        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, Registry.number_of_instantiated_objects])
 
         if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
-            logged_noise_statistics = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(f"PMMA statistics: {app_name} used Noise component. \
-In the prefilling process, {Registry.perlin_noise_prefill_single_samples} single \
-samples where used, and {Registry.perlin_noise_prefill_array_samples}/10 array samples where used.")
+            logged_noise_statistics = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} used Noise component. \
+In the prefilling process, {} single \
+samples where used, and {}/10 array samples where used.", variables=[app_name, Registry.perlin_noise_prefill_single_samples, Registry.perlin_noise_prefill_array_samples])
 
             if logged_noise_statistics:
                 Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("The Noise component of PMMA uses a prefilling process to try \
@@ -103,7 +103,7 @@ generating 3D arrays.")
     Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("PMMA is now exiting. Thanks for using PMMA!")
     keys = list(Registry.pmma_module_spine.keys())
     for key in keys:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(f"Quitting PMMA object with ID: {key}")
+        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("Quitting PMMA object with ID: {}", variables=[key])
         Registry.pmma_module_spine[key].quit(do_garbage_collection=False)
 
     del Registry.pmma_module_spine
@@ -146,7 +146,7 @@ window which can cause unexpected behavior.")
 
     if number_of_draw_calls > 600 and Registry.application_average_frame_rate['Samples'] > 3:
         if not "render performance is limiting" in Registry.formatted_developer_messages:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(f"Your application performance might soon be degraded by \
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
 the time spent handling draw calls. Consider switching to the more optimized Render \
 Pipeline through PMMA to avoid any potential slowdowns.")
 
@@ -154,12 +154,12 @@ Pipeline through PMMA to avoid any potential slowdowns.")
         if 1/(total_time_spent_drawing) < Registry.refresh_rate * 0.9 and Registry.application_average_frame_rate['Samples'] > 3:
             if not "render performance is limiting" in Registry.formatted_developer_messages:
                 Registry.formatted_developer_messages.append("render performance is limiting")
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(f"Your application performance is limited by the total \
-number of draw calls being made. The program spent {total_time_spent_drawing}s on \
-{number_of_draw_calls} total render calls, limiting your maximum refresh rate to: \
-{1/(total_time_spent_drawing)}. Switching to the more optimized Render Pipeline will \
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
+number of draw calls being made. The program spent {}s on \
+{} total render calls, limiting your maximum refresh rate to: \
+{}. Switching to the more optimized Render Pipeline will \
 likely improve application performance. Note that this message will only appear once, but \
-may reflect any degraded performance beyond this point.")
+may reflect any degraded performance beyond this point.", variables=[total_time_spent_drawing, number_of_draw_calls, 1/(total_time_spent_drawing)])
 
     if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
         if Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
@@ -308,7 +308,7 @@ with your machine, and gets PMMA ready to be used.")
         if unique_instance in Constants.OBJECT_IDENTIFIERS:
             if unique_instance in Registry.pmma_module_spine.keys():
                 if not logging_instantiation:
-                    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning(f"{unique_instance.capitalize()} object already exists.")
+                    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning("{} object already exists.", variables=[unique_instance.capitalize()])
 
                 if not logging_instantiation:
                     Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Some PMMA objects can only be initialized once. \
@@ -317,9 +317,9 @@ This is to avoid creating unexpected behavior.")
                 raise TooManyInstancesError(f"{unique_instance.capitalize()} object already exists.")
         else:
             if not logging_instantiation:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(f"{unique_instance.capitalize()} name was not recognized to \
+                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("{} name was not recognized to \
 PMMA. To register it, make sure it exists in the 'Constants' object, and in its attribute \
-'OBJECT_IDENTIFIERS' list.")
+'OBJECT_IDENTIFIERS' list.", variables=[unique_instance.capitalize()])
 
     if add_to_pmma_module_spine:
         Registry.pmma_module_spine[unique_instance] = instance

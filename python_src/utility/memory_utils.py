@@ -37,27 +37,27 @@ class MemoryManagerIntermediary:
             if target_size > 1000000000:
                 self.target_size = 1000000000 # 1 GB
                 self.limited_max_size = True
-                self._logger.log_development(f"Limiting targeted memory management \
-size to 1 GB, from automatically calculated size of: {target_size/1000000000} \
-GB. If needed, this target will be raised on the fly.")
+                self._logger.log_development("Limiting targeted memory management \
+size to 1 GB, from automatically calculated size of: {} \
+GB. If needed, this target will be raised on the fly.", variables=[target_size/1000000000])
             else:
                 self.target_size = target_size
 
-            self._logger.log_development(f"Max memory management size has not been set, \
-therefore PMMA has determined that: {self.target_size/1000000000} GB shall be \
+            self._logger.log_development("Max memory management size has not been set, \
+therefore PMMA has determined that: {} GB shall be \
 targeted. Consider specifying a max size yourself if you find yourself exceeding \
-this limit.")
+this limit.", variables=[self.target_size/1000000000])
 
             self.assigned_target_size = False
         else:
             self.assigned_target_size = True
             self.target_size = target_size
 
-        self._logger.log_development(f"Note, PMMA will attempt to target: \
-{self.target_size/1000000000} GB as its max size for memory management, \
+        self._logger.log_development("Note, PMMA will attempt to target: \
+{} GB as its max size for memory management, \
 however this is a target NOT a maximum, and this limit can be exceeded, \
 with PMMA automatically taking corrective action in such cases. Additionally, \
-this memory will not be used until it's needed by PMMA.")
+this memory will not be used until it's needed by PMMA.", variables=[self.target_size/1000000000])
 
         if self.assigned_target_size is False and _PassportIntermediary.project_size is not None:
             self._logger.log_development("For applications with a defined project size, \
@@ -289,7 +289,7 @@ more than 25% of the assigned memory")
 
                     return obj
                 elif obj_id in self.temporary_files:
-                    self._logger.log_development(f"Loading object w/ ID: '{obj_id}' from temporary file.")
+                    self._logger.log_development("Loading object w/ ID: '{}' from temporary file.", variables=[obj_id])
                     with open(self.temporary_files[obj_id], "rb") as file:
                         (stored_object,
                             identifier,
@@ -316,8 +316,8 @@ more than 25% of the assigned memory")
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
-                    self._logger.log_development(f"Removing object w/ ID: \
-'{obj_id}' from memory.")
+                    self._logger.log_development("Removing object w/ ID: \
+'{}' from memory.", variables=[obj_id])
 
                     self.manager_thread_organized_data.remove_item(obj_id)
 
@@ -328,8 +328,8 @@ more than 25% of the assigned memory")
                     _gc.collect()
                     return True
                 elif obj_id in self.temporary_files:
-                    self._logger.log_development(f"Removing temporary memory object w/ ID: \
-'{obj_id}' from disk.")
+                    self._logger.log_development("Removing temporary memory object w/ ID: \
+'{}' from disk.", variables=[obj_id])
 
                     _os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
@@ -349,12 +349,12 @@ more than 25% of the assigned memory")
         try:
             while self.enable_memory_management:
                 if self.total_size / self.target_size > 0.9:
-                    self._logger.log_warning(f"Caution - memory management utilization \
-is currently at: {round((self.total_size / self.target_size)*100, 2)}%. Consider \
-lowering this percentage before performance is negatively affected.")
+                    self._logger.log_warning("Caution - memory management utilization \
+is currently at: {}%. Consider \
+lowering this percentage before performance is negatively affected.", variables=[round((self.total_size / self.target_size)*100, 2)])
 
                 if self.total_size / self.target_size >= 1:
-                    self._logger.log_warning(f"Caution - memory management utilization is \
+                    self._logger.log_warning("Caution - memory management utilization is \
 currently at or above the target threshold. Performance may be negatively affected \
 as PMMA attempts to correct this.")
                 if self.manager_thread_organized_data.is_empty():
@@ -373,8 +373,8 @@ as PMMA attempts to correct this.")
                                 if stay_in_memory is False:
                                     self.total_size -= _sys.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
-                                        self._logger.log_information(f"Dumping object w/ ID: \
-'{self.objects[obj_time][1]}' to temporary file.")
+                                        self._logger.log_information("Dumping object w/ ID: \
+'{}' to temporary file.", variables=[self.objects[obj_time][1]])
 
                                         with _tempfile.NamedTemporaryFile(
                                                 dir=self.memory_management_directory,
@@ -384,11 +384,11 @@ as PMMA attempts to correct this.")
                                             _dill.dump(self.objects[obj_time], file)
 
                                         self.temporary_files[self.objects[obj_time][1]] = file_name
-                                        self._logger.log_information(f"Dumped object w/ ID: \
-'{self.objects[obj_time][1]}' to temporary file.")
+                                        self._logger.log_information("Dumped object w/ ID: \
+'{}' to temporary file.", variables=[self.objects[obj_time][1]])
 
-                                    self._logger.log_information(f"Removing object w/ ID: \
-'{self.objects[obj_time][1]}' from memory.")
+                                    self._logger.log_information("Removing object w/ ID: \
+'{}' from memory.", variables=[self.objects[obj_time][1]])
 
                                     self.manager_thread_organized_data.remove_item(self.objects[obj_time][1])
 
