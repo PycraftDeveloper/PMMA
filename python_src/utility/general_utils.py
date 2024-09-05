@@ -15,7 +15,6 @@ import psutil as _psutil
 import pyglet as _pyglet
 import getostheme as _getostheme
 import num2words as _num2words
-from word2number import w2n as _word2number
 
 from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
@@ -34,6 +33,18 @@ def check_if_object_is_class_or_function(param):
         return Constants.FUNCTION
     else:
         return Constants.UNKNOWN
+
+def set_display_mode(mode):
+    if Registry.display_mode_set:
+        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You \
+have attempted to set a display mode after it has already been set. If this is a surprise \
+to you, its probably because you are already using PMMA functions that use a display mode \
+so its been set for you. If you want to use a specific display mode, consider calling this \
+IMMEDIATELY before 'pmma.init()' to avoid this behavior. If this isn't a surprise to you, \
+then know that you can only set the display mode once whilst the application is running.")
+    else:
+        Registry.display_mode_set = True
+        Registry.display_mode = mode
 
 def get_theme():
     if _getostheme.isDarkMode():
@@ -219,17 +230,6 @@ def random_real_number(negatives=True):
     else:
         return abs(integer + decimal)
 
-def set_display_mode(display_mode=Constants.PYGAME):
-    Registry.display_mode = display_mode
-    Registry.display_mode_set = True
-    if display_mode == Constants.PYGAME:
-        _os.environ["SDL_VIDEO_CENTERED"] = "1"
-
-        if Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message) is False:
-            print(Registry.pygame_launch_message)
-
-        _pygame.init()
-
 def up(path: str) -> str:
     return path[::-1].split(_os.sep, 1)[-1][::-1]
 
@@ -325,9 +325,6 @@ PMMA. To register it, make sure it exists in the 'Constants' object, and in its 
         Registry.pmma_module_spine[unique_instance] = instance
 
     Registry.number_of_instantiated_objects += 1
-
-    if requires_display_mode_set and Registry.display_mode_set is False:
-        set_display_mode()
 
 def create_cache_id(*args):
     cache_id = ""

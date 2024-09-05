@@ -11,7 +11,11 @@ from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Surface:
     def __init__(self):
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
 
         if Registry.display_mode is None:
             raise Exception("Display mode not set")

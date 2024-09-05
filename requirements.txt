@@ -2,6 +2,7 @@
 cython
 getostheme
 moderngl
+num2words
 numba
 Pillow
 psutil

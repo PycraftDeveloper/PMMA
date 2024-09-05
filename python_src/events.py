@@ -23,7 +23,21 @@ class Events:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
+        _initialize(self, unique_instance=Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
 
         self.iteration_id = 0
 
@@ -222,8 +236,6 @@ class Events:
         self.joydeviceremoved_event = JoyDeviceRemoved_EVENT()
 
         self.windowfullscreenstatechanged_event = WindowFullScreenStatusChanged_EVENT()
-
-        self._logger = _InternalLogger()
 
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         if self.iteration_id == Registry.iteration_id and Registry.compute_component_called:

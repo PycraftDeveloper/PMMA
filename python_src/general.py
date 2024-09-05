@@ -42,7 +42,7 @@ def random_real_number(negatives=True):
     return _random_real_number(negatives=negatives)
 
 def set_display_mode(display_mode):
-    _set_display_mode(display_mode=display_mode)
+    _set_display_mode(display_mode)
 
 def up(path):
     return _up(path)

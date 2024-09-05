@@ -1,5 +1,6 @@
 import gc as _gc
 import ctypes as _ctypes
+import os as _os
 
 import numpy as _numpy
 import moderngl as _moderngl
@@ -26,7 +27,21 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 
 class Display:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True, requires_display_mode_set=True)
+        _initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
 
         if Registry.display_mode == Constants.PYGAME:
             self._clock = _pygame.time.Clock()
@@ -53,6 +68,7 @@ class Display:
         self._display_attribute_hwnd = None
         self._display_attribute_transparent_display = False
         self._display_attribute_icon = _path_builder(Registry.base_path, "resources", "images", "PMMA icon.ico")
+        self._display_attribute_centered = True
 
         self._window_in_focus = True
         self._window_minimized = False
@@ -60,8 +76,6 @@ class Display:
         self.window_full_screen_state_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
         self._using_pygame_surface = False
-
-        self._logger = _InternalLogger()
 
     def set_window_in_focus(self, value):
         self._window_in_focus = value
@@ -145,13 +159,15 @@ class Display:
             caption=None,
             vsync=True,
             icon=None,
-            transparent_display=False):
+            transparent_display=False,
+            centered=True):
 
         self._display_attribute_resizable = resizable
         self._display_attribute_full_screen = full_screen
         self._display_attribute_no_frame = no_frame
         self._display_attribute_vsync = vsync
         self._display_attribute_transparent_display = transparent_display
+        self._display_attribute_centered = centered
 
         if self._display_attribute_transparent_display:
             if get_operating_system() == Constants.WINDOWS:
@@ -191,6 +207,9 @@ actively working to address this operating system limitation.")
             self.set_caption()
 
             self.set_icon()
+
+            if self._display_attribute_centered:
+                _os.environ["SDL_VIDEO_CENTERED"] = "1"
 
             self._display = _pygame.display.set_mode(
                 self._display_attribute_size,

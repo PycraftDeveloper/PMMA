@@ -32,7 +32,7 @@ from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class RenderPipeline:
     def __init__(self):
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
 
         self._render_points = []
 

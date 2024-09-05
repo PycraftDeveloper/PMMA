@@ -143,7 +143,9 @@ class LoggerIntermediary:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def logger_core(self, message, do_traceback, repeat_for_effect, log_level, internal):
+    def logger_core(self, message, do_traceback, repeat_for_effect, log_level, internal, variables=[]):
+        if message == "":
+            return False
         if internal:
             if log_level == Constants.DEVELOPMENT:
                 log_to_file = self._internal_log_development_messages_to_file
@@ -172,21 +174,13 @@ class LoggerIntermediary:
                 log_to_terminal = self._external_log_error_messages_to_terminal
 
         if log_to_file or log_to_terminal:
-            if repeat_for_effect is False:
-                if type(message) == str:
-                    if message in self._logged_messages:
-                        return False
-                elif message[0] in self._logged_messages:
+            if repeat_for_effect:
+                if message in self._logged_messages:
                     return False
-                self._logged_messages.append(message[0])
-
-            if type(message) == str:
-                inserted_variables_to_message = message
-            elif type(message) == list or type(message) == tuple:
-                if len(message) == 2:
-                    inserted_variables_to_message = message[0].format(*message[1])
                 else:
-                    inserted_variables_to_message = message
+                    self._logged_messages.append(message)
+
+            inserted_variables_to_message = message.format(*variables)
 
             message = ""
             now = _datetime.datetime.now()
@@ -229,24 +223,30 @@ class LoggerIntermediary:
 
             formatted_message = formatted_message.strip()
 
+            logged = False
+
             if log_to_terminal:
                 print(formatted_message)
+                logged = True
             if log_to_file:
                 self._file_log_buffer.append((formatted_message, log_level, internal))
+                logged = True
+
+            return logged
 
         return False
 
-    def log_development(self, message, do_traceback=False, repeat_for_effect=False):
-        self.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True)
+    def log_development(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
+        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True, variables=variables)
 
-    def log_information(self, message, do_traceback=False, repeat_for_effect=False):
-        self.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True)
+    def log_information(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
+        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True, variables=variables)
 
-    def log_warning(self, message, do_traceback=False, repeat_for_effect=False):
-        self.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True)
+    def log_warning(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
+        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True, variables=variables)
 
-    def log_error(self, message, do_traceback=True, repeat_for_effect=False):
-        self.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True)
+    def log_error(self, message,  variables=[], do_traceback=True, repeat_for_effect=False):
+        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True, variables=variables)
 
 class InternalLogger:
     def __init__(self):
@@ -332,14 +332,14 @@ class InternalLogger:
         self._logger_intermediary.set_internal_log_warning_messages_to_file(log_warning_messages_to_file)
         self._logger_intermediary.set_internal_log_error_messages_to_file(log_error_messages_to_file)
 
-    def log_development(self, message, do_traceback=False, repeat_for_effect=False):
-        self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True)
+    def log_development(self, message, variables=[],do_traceback=False, repeat_for_effect=False):
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True, variables=variables)
 
-    def log_information(self, message, do_traceback=False, repeat_for_effect=False):
-        self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True)
+    def log_information(self, message, variables=[], do_traceback=False, repeat_for_effect=False):
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True, variables=variables)
 
-    def log_warning(self, message, do_traceback=False, repeat_for_effect=False):
-        self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True)
+    def log_warning(self, message, variables=[], do_traceback=False, repeat_for_effect=False):
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True, variables=variables)
 
-    def log_error(self, message, do_traceback=True, repeat_for_effect=False):
-        self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True)
+    def log_error(self, message, variables=[], do_traceback=True, repeat_for_effect=False):
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True, variables=variables)

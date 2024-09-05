@@ -26,7 +26,23 @@ class Line:
             width=1,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+
+        if Registry.display_mode == Constants.PYGAME:
+            self._logger.log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -156,7 +172,22 @@ class Lines:
             closed=False,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -294,7 +325,22 @@ class AdvancedPolygon:
             wire_frame=False,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -487,7 +533,22 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
         color (str):
             Name of the fill color, in HTML format.
         """
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -667,7 +728,22 @@ class Rect:
             border_bottom_right_radius=-1,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -839,7 +915,22 @@ class Circle:
             width=0,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -860,8 +951,6 @@ class Circle:
 
         self._color_changed = True
         self._vertices_changed = True
-
-        self._logger = _InternalLogger()
 
     def set_vertices_hardware_accelerated_data(self, data):
         self._hardware_accelerated_data["vertices"] = data
@@ -974,7 +1063,22 @@ class Arc:
             width=1,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1114,7 +1218,22 @@ class Polygon:
             width=0,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1228,7 +1347,22 @@ class Ellipse:
             width=0,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1349,7 +1483,22 @@ class Pixel:
             position=None,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1467,7 +1616,22 @@ class CurvedLines:
             steps=2,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
+
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1596,7 +1760,21 @@ class Draw:
             self,
             canvas=None):
 
-        _initialize(self, requires_display_mode_set=True)
+        _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if Registry.display_mode_set is False:
+            Registry.display_mode_set = True
+            Registry.display_mode = Constants.PYGAME
+            self._logger.log_development("You haven't yet set a display mode, \
+therefore it has been decided for you! To manually pick a display mode, call \
+'pmma.set_display_mode()' with your preferred display mode. The default display \
+mode is Pygame.")
+
+        if Registry.display_mode == Constants.PYGAME:
+            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+            _pygame.init()
 
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
             canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
