@@ -460,17 +460,44 @@ you refresh the display to ensure optimal performance and support!")
                     byte_data,
                     self._pygame_surface_texture)
 
-            self._texture_aggregation_program.get_program()["texture2d"].value = 0
-            self._texture_aggregation_program.get_program()["texture3d"].value = 1
-            self._texture_aggregation_program.get_program()["pygame_texture"].value = 2
-            self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
-            self._two_dimension_texture.use(location=0)
-            self._three_dimension_texture.use(location=1)
+            if self._two_dimension_texture.get_samples() == 0:
+                self._texture_aggregation_program.get_program()["texture2d"].value = 0
+                self._two_dimension_texture.use(location=0)
+            else:
+                self._texture_aggregation_program.get_program()["texture2d_ms"].value = 0
+                self._two_dimension_texture.use(location=0)
+            self._texture_aggregation_program.get_program()["texture2d_samples"].value = self._two_dimension_texture.get_samples()
+            self._texture_aggregation_program.get_program()["texture2d_resolution"].value = self._two_dimension_texture.get_size()
+
+            if self._three_dimension_texture.get_samples() == 0:
+                self._texture_aggregation_program.get_program()["texture3d"].value = 1
+                self._three_dimension_texture.use(location=1)
+            else:
+                self._texture_aggregation_program.get_program()["texture3d_ms"].value = 1
+                self._three_dimension_texture.use(location=1)
+            self._texture_aggregation_program.get_program()["texture3d_samples"].value = self._three_dimension_texture.get_samples()
+            self._texture_aggregation_program.get_program()["texture3d_resolution"].value = self._three_dimension_texture.get_size()
 
             if self._using_pygame_surface:
-                self._pygame_surface_texture.use(location=2)
+                if self._pygame_surface_texture.get_samples() == 0:
+                    self._texture_aggregation_program.get_program()["pygame_texture"].value = 2
+                    self._pygame_surface_texture.use(location=2)
+                else:
+                    self._texture_aggregation_program.get_program()["pygame_texture_ms"].value = 2
+                    self._pygame_surface_texture.use(location=2)
+                self._texture_aggregation_program.get_program()["pygame_texture_samples"].value = self._pygame_surface_texture.get_samples()
+                self._texture_aggregation_program.get_program()["pygame_texture_resolution"].value = self._pygame_surface_texture.get_size()
             else:
-                self._blank_texture.use(location=2)
+                if self._blank_texture.get_samples() == 0:
+                    self._texture_aggregation_program.get_program()["pygame_texture"].value = 2
+                    self._blank_texture.use(location=2)
+                else:
+                    self._texture_aggregation_program.get_program()["pygame_texture_ms"].value = 2
+                    self._blank_texture.use(location=2)
+                self._texture_aggregation_program.get_program()["pygame_texture_samples"].value = self._blank_texture.get_samples()
+                self._texture_aggregation_program.get_program()["pygame_texture_resolution"].value = self._blank_texture.get_size()
+
+            self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
 
             Registry.context.enable(_moderngl.BLEND)
             self._display_quad.render(self._texture_aggregation_program.get_program())

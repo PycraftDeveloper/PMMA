@@ -566,13 +566,19 @@ class Texture:
 
         if samples is None:
             samples = Registry.anti_aliasing_level
-        if Registry.do_anti_aliasing:
+        if Registry.do_anti_aliasing is False:
             samples = 0
 
         if samples != 0:
             self._logger.log_development("You are using an anti-aliased texture. Therefore, please \
 make sure that you update your shader that uses this texture accordingly, otherwise you will \
 encounter visual issues with that texture when you go to render something using it.")
+
+        if samples > Registry.context.max_samples:
+            self._logger.log_development("The requested number of samples is greater than the maximum \
+number of samples supported by your system. The maximum number of samples will be used instead. The \
+maximum number of samples supported by your system is: {}", variables=[Registry.context.max_samples])
+            samples = Registry.context.max_samples
 
         self._samples = samples
 
@@ -652,7 +658,7 @@ encounter visual issues with that texture when you go to render something using 
 
             if samples is None:
                 samples = Registry.anti_aliasing_level
-            if Registry.do_anti_aliasing:
+            if Registry.do_anti_aliasing is False:
                 samples = 0
 
             self._samples = samples

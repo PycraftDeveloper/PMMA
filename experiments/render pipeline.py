@@ -8,6 +8,9 @@ import time
 
 pmma.init()
 
+#pmma.Registry.do_anti_aliasing = True
+#pmma.Registry.anti_aliasing_level = 16
+
 display = pmma.Display()
 display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 
