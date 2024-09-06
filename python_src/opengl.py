@@ -552,11 +552,30 @@ class Texture:
         self._components = None
         self._data = None
         self._scaling = None
+        self._samples = None
+        self._intended_samples = None
 
-    def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+        self._logger = _InternalLogger()
+
+    def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None):
         self._size = size
         self._components = len(components)
         self._data = data
+
+        self._intended_samples = samples
+
+        if samples is None:
+            samples = Registry.anti_aliasing_level
+        if Registry.do_anti_aliasing:
+            samples = 0
+
+        if samples != 0:
+            self._logger.log_development("You are using an anti-aliased texture. Therefore, please \
+make sure that you update your shader that uses this texture accordingly, otherwise you will \
+encounter visual issues with that texture when you go to render something using it.")
+
+        self._samples = samples
+
         if x_scaling is None:
             x_scaling = scaling
         if y_scaling is None:
@@ -564,7 +583,7 @@ class Texture:
 
         self._scaling = (x_scaling, y_scaling)
 
-        self._texture = Registry.context.texture(self._size, self._components, self._data)
+        self._texture = Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
         self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def write(self, data):
@@ -595,6 +614,12 @@ class Texture:
 
         self._scaling = (x_scaling, y_scaling)
 
+    def get_samples(self):
+        return self._samples
+
+    def get_intended_samples(self):
+        return self._intended_samples
+
     def texture_to_PIL_image(self):
         if self._texture is not None:
             return _Image.frombytes("RGB", self._size, self._texture.read())
@@ -623,7 +648,16 @@ class Texture:
         if self._texture is not None:
             self._texture.release()
 
-            self._texture = Registry.context.texture(self._size, self._components, self._data)
+            samples = self._intended_samples
+
+            if samples is None:
+                samples = Registry.anti_aliasing_level
+            if Registry.do_anti_aliasing:
+                samples = 0
+
+            self._samples = samples
+
+            self._texture = Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
             self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def __del__(self, do_garbage_collection=False):

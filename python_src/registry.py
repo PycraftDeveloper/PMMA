@@ -13,6 +13,7 @@ class Registry:
     python_acceleration_enabled = False
     pmma_module_spine = {}
     do_anti_aliasing = True
+    anti_aliasing_level = 1
     development_mode = True
     refresh_rate = 60
     display_initialized = False
