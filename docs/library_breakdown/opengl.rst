@@ -84,15 +84,74 @@ Methods
 
    Not Yet Written
 
-.. py:method:: VertexBufferObject.get_vertex_buffer_object() -> None
-
-   Not Yet Written
-
 .. py:method:: VertexBufferObject.get_dynamic() -> None
 
    Not Yet Written
 
 .. py:method:: VertexBufferObject.quit() -> None
+
+   Not Yet Written
+
+Generic Buffer Object (``pmma.GenericBufferObject``)
+====================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.GenericBufferObject() -> pmma.GenericBufferObject
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: GenericBufferObject.create() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.update() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.read() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.get_generic_buffer_object() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.clear() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.bind_to_uniform_block() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.bind_to_shader_storage_buffer() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject._size() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.get_size() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.get_dynamic() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.quit() -> None
 
    Not Yet Written
 
@@ -124,10 +183,6 @@ Methods
    Not Yet Written
 
 .. py:method:: ColorBufferObject.read() -> None
-
-   Not Yet Written
-
-.. py:method:: ColorBufferObject.get_vertex_buffer_object() -> None
 
    Not Yet Written
 
@@ -195,10 +250,6 @@ Methods
    Not Yet Written
 
 .. py:method:: IndexBufferObject.get_index_buffer_object() -> None
-
-   Not Yet Written
-
-.. py:method:: IndexBufferObject.get_vertex_buffer_object() -> None
 
    Not Yet Written
 
@@ -388,6 +439,14 @@ Methods
    Not Yet Written
 
 .. py:method:: Texture.set_scaling() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.get_samples() -> None
+
+   Not Yet Written
+
+.. py:method:: Texture.get_intended_samples() -> None
 
    Not Yet Written
 
