@@ -120,19 +120,19 @@ try and work around this.")
 
     def set_project_log_directory(self, project_log_directory):
         _PassportIntermediary.passport_changed
-        _PassportIntermediary.project_log_directory
+        _PassportIntermediary.project_log_directory = project_log_directory
 
     def set_name(self, name):
         _PassportIntermediary.passport_changed
-        _PassportIntermediary.name
+        _PassportIntermediary.name = name
 
     def set_sub_name(self, sub_name):
         _PassportIntermediary.passport_changed
-        _PassportIntermediary.sub_name
+        _PassportIntermediary.sub_name = sub_name
 
     def set_short_description(self, short_description):
         _PassportIntermediary.passport_changed
-        _PassportIntermediary.short_description
+        _PassportIntermediary.short_description = short_description
 
     def set_long_description(self, long_description):
         _PassportIntermediary.passport_changed = True
