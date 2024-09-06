@@ -1,4 +1,5 @@
 import gc as _gc
+import math as _math
 
 import numpy as _numpy
 import moderngl as _moderngl
@@ -40,6 +41,7 @@ class RenderPipeline:
         self._cbo = _ColorBufferObject()
         self._ibo = _IndexBufferObject()
         self._vao = _VertexArrayObject()
+
         self._simple_shape_rendering_program = _Shader()
         self._simple_shape_rendering_program.load_shader_from_folder(_path_builder(Registry.base_path, "shaders", "simple_shape_renderer"))
         self._simple_shape_rendering_program.create()
@@ -108,10 +110,10 @@ class RenderPipeline:
 
                         # Define vertices in correct order (counter-clockwise for triangle strip)
                         vertices_list = [
-                            (start[0] + offset[0])/self._display.get_aspect_ratio(), start[1] + offset[1],
-                            (end[0] + offset[0])/self._display.get_aspect_ratio(), end[1] + offset[1],
-                            (start[0] - offset[0])/self._display.get_aspect_ratio(), start[1] - offset[1],
-                            (end[0] - offset[0])/self._display.get_aspect_ratio(), end[1] - offset[1],
+                            (start[0] + offset[0]), start[1] + offset[1],
+                            (end[0] + offset[0]), end[1] + offset[1],
+                            (start[0] - offset[0]), start[1] - offset[1],
+                            (end[0] - offset[0]), end[1] - offset[1],
                         ]
 
                         # Create vertex buffer and index buffer
@@ -136,7 +138,7 @@ class RenderPipeline:
                         render_point.set_vertices_changed(False)
                         vertices_list = []
                         for point in render_point.get_points():
-                            vertices_list.extend([point[0]/self._display.get_aspect_ratio(), point[1]])
+                            vertices_list.extend([point[0], point[1]])
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
 
                         indices_list = list(range(num_points))
@@ -166,7 +168,7 @@ class RenderPipeline:
                             angle = render_point.get_rotation_angle() + i * angle_step
                             x = render_point.get_center()[0] + render_point.get_radius() * _numpy.cos(angle)
                             y = render_point.get_center()[1] + render_point.get_radius() * _numpy.sin(angle)
-                            vertices_list.extend([x/self._display.get_aspect_ratio(), y])
+                            vertices_list.extend([x, y])
 
                             if i > 1:
                                 indices_list.extend([0, i - 1, i])
@@ -196,16 +198,16 @@ class RenderPipeline:
                         sin_angle = _numpy.sin(angle_rad)
 
                         vertices_list = [
-                            (render_point.get_center_of_rect()[0] + cos_angle * half_width - sin_angle * half_height)/self._display.get_aspect_ratio(),
+                            (render_point.get_center_of_rect()[0] + cos_angle * half_width - sin_angle * half_height),
                             render_point.get_center_of_rect()[1] + sin_angle * half_width + cos_angle * half_height,
 
-                            (render_point.get_center_of_rect()[0] - cos_angle * half_width - sin_angle * half_height)/self._display.get_aspect_ratio(),
+                            (render_point.get_center_of_rect()[0] - cos_angle * half_width - sin_angle * half_height),
                             render_point.get_center_of_rect()[1] - sin_angle * half_width + cos_angle * half_height,
 
-                            (render_point.get_center_of_rect()[0] - cos_angle * half_width + sin_angle * half_height)/self._display.get_aspect_ratio(),
+                            (render_point.get_center_of_rect()[0] - cos_angle * half_width + sin_angle * half_height),
                             render_point.get_center_of_rect()[1] - sin_angle * half_width - cos_angle * half_height,
 
-                            (render_point.get_center_of_rect()[0] + cos_angle * half_width + sin_angle * half_height)/self._display.get_aspect_ratio(),
+                            (render_point.get_center_of_rect()[0] + cos_angle * half_width + sin_angle * half_height),
                             render_point.get_center_of_rect()[1] + sin_angle * half_width - cos_angle * half_height,
                         ]
 
@@ -229,13 +231,13 @@ class RenderPipeline:
                     if render_point.get_vertices_changed():
                         render_point.set_vertices_changed(False)
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array([
-                            (render_point.get_position()[0])/self._display.get_aspect_ratio(),
+                            (render_point.get_position()[0]),
                             render_point.get_position()[1],
-                            (render_point.get_position()[0] + render_point.get_size()[0])/self._display.get_aspect_ratio(),
+                            (render_point.get_position()[0] + render_point.get_size()[0]),
                             render_point.get_position()[1],
-                            (render_point.get_position()[0] + render_point.get_size()[0])/self._display.get_aspect_ratio(),
+                            (render_point.get_position()[0] + render_point.get_size()[0]),
                             render_point.get_position()[1] + render_point.get_size()[1],
-                            (render_point.get_position()[0])/self._display.get_aspect_ratio(),
+                            (render_point.get_position()[0]),
                             render_point.get_position()[1] + render_point.get_size()[1]]))
 
                         render_point.set_indices_hardware_accelerated_data(_numpy.array([
@@ -257,19 +259,29 @@ class RenderPipeline:
                         ]))
 
                 elif type(render_point) == _Circle:
-                    num_segments = 36  # Number of segments used to approximate the circle
+                    try:
+                        quality = 0.75
+                        num_segments = 1 + int((Constants.TAU/_math.asin(1/(render_point.get_radius()*(self._display.get_height()/2))))*quality)
+                        #num_segments = 1 + int(Constants.TAU/_math.asin(1/(render_point.get_radius()))) will eventually be this when coordinate system added.
+                    except:
+                        num_segments = 36
+
+                    if num_segments < 3:
+                        num_segments = 3
+
                     total_number_of_vertices += num_segments + 1  # Circle center + edge points
                     total_number_of_indices += num_segments * 3  # Triangles to fill the circle
 
+                    render_point.set_vertices_changed(True) # segment count no longer constant
+
                     if render_point.get_vertices_changed():
-                        render_point.set_vertices_changed(False)
                         vertices_list = [render_point.get_center()[0], render_point.get_center()[1]]  # Circle center
 
                         for i in range(num_segments):
                             angle = 2 * _numpy.pi * i / num_segments
                             x = render_point.get_center()[0] + render_point.get_radius() * _numpy.cos(angle)
                             y = render_point.get_center()[1] + render_point.get_radius() * _numpy.sin(angle)
-                            vertices_list.extend([x/self._display.get_aspect_ratio(), y])
+                            vertices_list.extend([x, y])
 
                         indices_list = []
                         for i in range(1, num_segments):
@@ -279,12 +291,14 @@ class RenderPipeline:
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
                         render_point.set_indices_hardware_accelerated_data(_numpy.array(indices_list, dtype=_numpy.uint32))
 
-                    if render_point.get_color_changed():
+                    if render_point.get_color_changed() or render_point.get_vertices_changed(): # check if vertices are different as color to match each vertex, no longer constant.
                         render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_segments + 1):
                             colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
+
+                    render_point.set_vertices_changed(False)  # segment count no longer constant
 
 
                 elif type(render_point) == _Arc: # problem
@@ -303,7 +317,7 @@ class RenderPipeline:
                             angle = _numpy.radians(render_point.get_start_angle() + i * angle_step)
                             x = render_point.get_position()[0] + render_point.get_size()[0] * _numpy.cos(angle)
                             y = render_point.get_position()[1] + render_point.get_size()[1] * _numpy.sin(angle)
-                            vertices_list.extend([x/self._display.get_aspect_ratio(), y])
+                            vertices_list.extend([x, y])
 
                         indices_list = []
                         for i in range(1, num_arc_segments + 1):  # Loop through to include the last segment
@@ -329,7 +343,7 @@ class RenderPipeline:
                         render_point.set_vertices_changed(False)
                         vertices_list = []
                         for point in render_point.get_points():
-                            vertices_list.extend([point[0]/self._display.get_aspect_ratio(), point[1]])
+                            vertices_list.extend([point[0], point[1]])
 
                         indices_list = []
                         for i in range(1, num_points - 1):
@@ -357,7 +371,7 @@ class RenderPipeline:
 
                         for i in range(num_segments):
                             angle = 2 * _numpy.pi * i / num_segments
-                            x = (render_point.get_position()[0] + render_point.get_size()[0] * _numpy.cos(angle))/self._display.get_aspect_ratio()
+                            x = (render_point.get_position()[0] + render_point.get_size()[0] * _numpy.cos(angle))
                             y = render_point.get_position()[1] + render_point.get_size()[1] * _numpy.sin(angle)
                             vertices_list.extend([x, y])
 
@@ -442,7 +456,6 @@ class RenderPipeline:
                             colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
 
-
             vertices_np = _numpy.empty(total_number_of_vertices * 2, dtype=_numpy.float32)
             colors_np = _numpy.empty(total_number_of_vertices * 3, dtype=_numpy.float32)
             indices_np = _numpy.empty(total_number_of_indices, dtype=_numpy.int32)
@@ -457,13 +470,15 @@ class RenderPipeline:
             shape_index = 0
 
             for render_point in self._render_points:
-                vertices[vertex_offset:vertex_offset + len(render_point.get_hardware_accelerated_data()["vertices"])] = render_point.get_hardware_accelerated_data()["vertices"]
-                indices[index_offset:index_offset + len(render_point.get_hardware_accelerated_data()["indices"])] = shape_index + render_point.get_hardware_accelerated_data()["indices"]
-                colors[color_offset:color_offset + len(render_point.get_hardware_accelerated_data()["colors"])] = render_point.get_hardware_accelerated_data()["colors"]
+                hardware_data = render_point.get_hardware_accelerated_data()
 
-                vertex_offset += len(render_point.get_hardware_accelerated_data()["vertices"])
-                color_offset += len(render_point.get_hardware_accelerated_data()["colors"])
-                index_offset += len(render_point.get_hardware_accelerated_data()["indices"])
+                vertices[vertex_offset:vertex_offset + len(hardware_data["vertices"])] = hardware_data["vertices"]
+                indices[index_offset:index_offset + len(hardware_data["indices"])] = shape_index + hardware_data["indices"]
+                colors[color_offset:color_offset + len(hardware_data["colors"])] = hardware_data["colors"]
+
+                vertex_offset += len(hardware_data["vertices"])
+                color_offset += len(hardware_data["colors"])
+                index_offset += len(hardware_data["indices"])
 
                 # issues
                 # Line: None
@@ -512,19 +527,18 @@ class RenderPipeline:
                     shape_index += len(render_point.get_hardware_accelerated_data()["indices"]) # might not be right
 
             if self._written_to_buffers:
-                self._vbo.update(vertices)
-                self._cbo.update(colors)
-                self._ibo.update(indices)
                 self._vao.quit()
                 self._vao = _VertexArrayObject()
-
             else:
-                self._vbo.create(vertices)
-                self._cbo.create(colors)
-                self._ibo.create(indices)
                 self._written_to_buffers = True
 
-            #vao = self.opengl.create_vao(program, vbo, ).get() Not yet finished!!!
+            # Create buffers
+            self._vbo.create(vertices)
+            self._cbo.create(colors)
+            self._ibo.create(indices)
+
+            self._simple_shape_rendering_program.get_program()["aspect_ratio"].value = self._display.get_aspect_ratio()
+
             self._vao.create(self._simple_shape_rendering_program, self._vbo, ['2f', 'in_vert'], color_buffer_object=self._cbo, color_buffer_shader_attributes=['3f', 'in_color'], index_buffer_object=self._ibo)
             self._vao.render()
         else:

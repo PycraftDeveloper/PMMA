@@ -7,6 +7,8 @@ Add typehint for returned classes at least where unclear (for intellicode) - eg:
         return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
 ...
 
+When adjusting the number of segments in circular shapes, or shapes with varying numbers of points, make sure to also update color data too!
+
 Module Initialization Order
 ---------------------------
 
@@ -40,6 +42,9 @@ Create aggregated events like Pointer (similar to controller already added).
 
 Introduce prefix adjustments for SI-units. **
 Introduce Coordinate and Degree conversions. **
-Introduce anti-aliasing. (shader texture changes and texture changes within OpenGL, global or local change?)
 Add object collision.
 Work on render pipeline.
+
+**MANGLED RENDER PIPELINE CIRCLES, FIX BY ADDING SEGMENTS PROPERTY TO SHAPE AND CHECKING THAT AS WELL AS VERTEX/COLOR CHANGED, AND MAKE SHAPE QUALITY A CUSTOM. ATTRIBUTE [CENTRALIZE CHANGES AS BOTH LINKED]**
+**ALSO, ADJUST SHAPE INDEXES**
+**FOR POINTS, X: 1/DISPLAY X SIZE, Y: 1/DISPLAY Y SIZE?**

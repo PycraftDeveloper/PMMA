@@ -359,13 +359,13 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
     def get_height(self):
         if Registry.display_mode == Constants.PYGAME:
-            return self._display.get_height()
+            return _pygame.display.get_window_size()[1]
         else:
             raise NotImplementedError
 
     def get_width(self):
         if Registry.display_mode == Constants.PYGAME:
-            return self._display.get_width()
+            return _pygame.display.get_window_size()[0]
         else:
             raise NotImplementedError
 
@@ -404,7 +404,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
     def get_aspect_ratio(self):
         if Registry.display_mode == Constants.PYGAME:
-            return self._display.get_width() / self._display.get_height()
+            size = _pygame.display.get_window_size()
+            return size[0] / size[1]
         else:
             raise NotImplementedError
 

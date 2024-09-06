@@ -114,9 +114,6 @@ class VertexBufferObject:
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
-    def get_vertex_buffer_object(self):
-        return self._vbo
-
     def get_dynamic(self):
         if self._vbo is not None:
             return self._vbo.dynamic
@@ -125,6 +122,91 @@ buffer, not the memory used to store it (either system memory or video memory)")
         if self._shut_down is False:
             if self._vbo is not None:
                 self._vbo.release()
+            del Registry.opengl_objects[self._unique_identifier]
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
+class GenericBufferObject:
+    def __init__(self):
+        _initialize(self)
+
+        self._unique_identifier = id(self)
+        Registry.opengl_objects[self._unique_identifier] = self
+
+        self._data = None
+        self._gbo = None
+
+        self._logger = _InternalLogger()
+
+    def create(self, data, dynamic=False, reserve=0):
+        self._data = data
+        self._gbo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+
+    def recreate(self):
+        if self._gbo is not None:
+            dynamic = self.get_dynamic()
+            reserve = self._size()
+
+            self._gbo.release()
+
+            if self._data is None:
+                self._gbo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+            else:
+                self._gbo = Registry.context.buffer(self._data, dynamic=dynamic)
+
+    def update(self, data):
+        if self._gbo is None:
+            self.create(data)
+            return
+
+        self._data = data
+        self._gbo.write(self._data)
+
+    def read(self, from_gbo=False):
+        if from_gbo:
+            return self._data
+        else:
+            if self._gbo is not None:
+                return self._gbo.read()
+
+    def get_generic_buffer_object(self):
+        return self._gbo
+
+    def clear(self):
+        self._data = None
+        if self._gbo is not None:
+            self._gbo.clear()
+
+    def bind_to_uniform_block(self, binding):
+        if self._gbo is not None:
+            self._gbo.bind_to_uniform_block(binding)
+
+    def bind_to_shader_storage_buffer(self, binding):
+        if self._gbo is not None:
+            self._gbo.bind_to_storage_buffer(binding)
+
+    def _size(self):
+        if self._gbo is not None:
+            return self._gbo.size
+
+    def get_size(self):
+        self._logger.log_development("Just as a point of clarification, this gets the size of the \
+buffer, not the memory used to store it (either system memory or video memory)")
+        return self._size()
+
+    def get_dynamic(self):
+        if self._gbo is not None:
+            return self._gbo.dynamic
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            if self._gbo is not None:
+                self._gbo.release()
             del Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
@@ -176,9 +258,6 @@ class ColorBufferObject:
         else:
             if self._cbo is not None:
                 return self._cbo.read()
-
-    def get_vertex_buffer_object(self):
-        return self._cbo
 
     def clear(self):
         self._data = None
@@ -268,9 +347,6 @@ class IndexBufferObject:
     def get_index_buffer_object(self):
         return self._ibo
 
-    def get_vertex_buffer_object(self):
-        return self._ibo
-
     def clear(self):
         self._data = None
         if self._ibo is not None:
@@ -325,8 +401,10 @@ class VertexArrayObject:
         self._color_buffer_shader_attributes = None
         self._index_buffer_object = None
         self._index_element_size = None
+        self._additional_buffers = None
+        self._additional_buffer_attributes = None
 
-    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=None, index_buffer_object=None, index_element_size=4):
+    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=None, index_buffer_object=None, index_element_size=4, additional_buffers=[], additional_buffer_attributes=[]):
         self._program = program
         self._vertex_buffer_object = vertex_buffer_object
         self._vertex_buffer_shader_attributes = vertex_buffer_shader_attributes
@@ -334,6 +412,8 @@ class VertexArrayObject:
         self._color_buffer_shader_attributes = color_buffer_shader_attributes
         self._index_buffer_object = index_buffer_object
         self._index_element_size = index_element_size
+        self._additional_buffers = additional_buffers
+        self._additional_buffer_attributes = additional_buffer_attributes
 
         program = self._program.get_program()
         vbo = self._vertex_buffer_object.get_vertex_buffer_object()
@@ -346,11 +426,16 @@ class VertexArrayObject:
         else:
             ibo = None
 
+        buffer_passthrough = [
+                (vbo, *self._vertex_buffer_shader_attributes),
+                (cbo, *self._color_buffer_shader_attributes)]
+
+        for buffer_count in range(len(additional_buffers)):
+            buffer_passthrough.append((additional_buffers[buffer_count].get_generic_buffer_object(), *additional_buffer_attributes[buffer_count]))
+
         self._vao = Registry.context.vertex_array(
             program,
-            [
-                (vbo, *self._vertex_buffer_shader_attributes),
-                (cbo, *self._color_buffer_shader_attributes)],
+            buffer_passthrough,
             index_buffer=ibo,
             index_element_size=self._index_element_size)
 
@@ -372,6 +457,16 @@ class VertexArrayObject:
                 ibo = self._index_buffer_object.get_index_buffer_object()
             else:
                 ibo = None
+
+            for buffer in self._additional_buffers:
+                buffer.recreate()
+
+            buffer_passthrough = [
+                (vbo, *self._vertex_buffer_shader_attributes),
+                (cbo, *self._color_buffer_shader_attributes)]
+
+            for buffer_count in range(len(self._additional_buffers)):
+                buffer_passthrough.append((self._additional_buffers[buffer_count].get_generic_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
 
             self._vao = Registry.context.vertex_array(
             program,

@@ -8,7 +8,7 @@ import time
 
 pmma.init()
 
-#pmma.Registry.do_anti_aliasing = True
+pmma.Registry.do_anti_aliasing = False
 #pmma.Registry.anti_aliasing_level = 16
 
 display = pmma.Display()
@@ -17,7 +17,7 @@ display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-circ = pmma.Circle([46, 255, 231], (0, 0), 1)
+circ = pmma.Circle([46, 255, 231], (0, 0), 0.1)
 rp.add(circ)
 circ2 = pmma.Circle([46, 120, 231], (0, 0), 500, canvas=display)
 
@@ -46,6 +46,9 @@ while pmma.Registry.running:
     end = time.perf_counter()
     fr = 1/(end-start)
     #print(display.get_refresh_rate())
+    print(fr)
+
+    #circ.set_radius(1+(math.sin(time.time())))
 
     #print(rect.hardware_accelerated_data)
     #time.sleep(3)
