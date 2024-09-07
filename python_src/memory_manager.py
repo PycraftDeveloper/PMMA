@@ -1,4 +1,4 @@
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 from pmma.python_src.constants import Constants
 
 class MemoryManager:

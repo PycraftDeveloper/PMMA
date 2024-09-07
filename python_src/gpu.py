@@ -5,7 +5,7 @@ import wmi as _wmi
 import pyadl as _pyadl
 
 from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.executor import Executor as _Executor
 

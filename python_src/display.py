@@ -10,7 +10,7 @@ from moderngl_window import geometry as _geometry
 import moderngl_window as _moderngl_window
 
 from pmma.python_src.general import *
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.surface import Surface as _Surface

@@ -2,7 +2,7 @@ import tkinter as _tk
 from tkinter import ttk as _ttk
 import gc as _gc
 
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 

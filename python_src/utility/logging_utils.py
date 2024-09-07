@@ -7,7 +7,7 @@ import shutil as _shutil
 
 import waiting as _waiting
 
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.file import path_builder as _path_builder
 

@@ -16,7 +16,7 @@ import pyglet as _pyglet
 import getostheme as _getostheme
 import num2words as _num2words
 
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.backpack import Backpack
 from pmma.python_src.formatters import TimeFormatter as _TimeFormatter

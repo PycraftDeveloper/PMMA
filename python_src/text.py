@@ -6,7 +6,7 @@ import gc as _gc
 import pygame as _pygame
 import pyglet as _pyglet
 
-from pmma.python_src.registry import Registry
+from pmma.python_src.utils.registry import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.file import File as _File
