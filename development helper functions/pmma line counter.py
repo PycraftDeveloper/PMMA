@@ -11,6 +11,11 @@ for r, d, f in os.walk(base):
             files.append(os.path.join(r, file))
 
 line_count = 0
+variable_count = 0
+comparison_count = 0
+class_count = 0
+function_count = 0
+nothing_count = 0
 for file in files:
     try:
         with open(file, 'r') as f:
@@ -20,5 +25,20 @@ for file in files:
 
     for line in content:
         line_count += 1
+        if "if" in line or "else" in line or "elif" in line:
+            comparison_count += 1
+        if "class" in line:
+            class_count += 1
+        if "def" in line:
+            function_count += 1
+        if "=" in line:
+            variable_count += 1
+        if line.strip() == "":
+            nothing_count += 1
 
-print(f"PMMA is: {line_count} lines long!")
+print(f"PMMA is: {line_count} lines long|")
+print(f"PMMA has: {variable_count} variables! {round((variable_count/line_count)*100, 2)} %")
+print(f"PMMA has: {comparison_count} comparisons! {round((comparison_count/line_count)*100, 2)} %")
+print(f"PMMA has: {nothing_count} blank lines! {round((nothing_count/line_count)*100, 2)} %")
+print(f"PMMA has: {function_count} functions! {round((function_count/line_count)*100, 2)} %")
+print(f"PMMA has: {class_count} classes! {round((class_count/line_count)*100, 2)} %")
