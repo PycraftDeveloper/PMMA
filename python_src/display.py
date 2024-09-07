@@ -319,6 +319,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
             self.set_caption()
 
+            self.set_icon()
+
             self._display = _pygame.display.set_mode(
                 size,
                 flags,
