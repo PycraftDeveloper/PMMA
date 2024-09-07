@@ -277,6 +277,7 @@ class RenderPipeline:
 
                     if render_point.get_vertices_changed():
                         render_point.set_vertices_changed(False)
+                        render_point.set_color_changed(False)
                         vertices_list = [*render_point.get_center(format=Constants.OPENGL_COORDINATES)]  # Circle center
 
                         for i in range(num_segments):

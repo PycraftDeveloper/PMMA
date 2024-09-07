@@ -48,6 +48,7 @@ while pmma.Backpack.running:
     rp.render()
     end = time.perf_counter()
     fr = 1/(end-start)
+    print(fr)
     #print(display.get_refresh_rate())
     #print(fr)
     #coord = (random.randint(0, 1280), random.randint(0, 720))
