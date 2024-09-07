@@ -260,11 +260,10 @@ class RenderPipeline:
 
                 elif type(render_point) == _Circle:
                     try:
-                        quality = 0.75
-                        num_segments = 1 + int((Constants.TAU/_math.asin(1/(render_point.get_radius()*(self._display.get_height()/2))))*quality)
-                        #num_segments = 1 + int(Constants.TAU/_math.asin(1/(render_point.get_radius()))) will eventually be this when coordinate system added.
+                        quality = 1#0.75
+                        num_segments = 1 + int((Constants.TAU/_math.asin(1/render_point.get_radius()))*quality)
                     except:
-                        num_segments = 36
+                        num_segments = 0
 
                     if num_segments < 3:
                         num_segments = 3
@@ -272,15 +271,16 @@ class RenderPipeline:
                     total_number_of_vertices += num_segments + 1  # Circle center + edge points
                     total_number_of_indices += num_segments * 3  # Triangles to fill the circle
 
-                    render_point.set_vertices_changed(True) # segment count no longer constant
+                    #render_point.set_vertices_changed(True) # segment count no longer constant
 
                     if render_point.get_vertices_changed():
-                        vertices_list = [render_point.get_center()[0], render_point.get_center()[1]]  # Circle center
+                        render_point.set_vertices_changed(False)
+                        vertices_list = [render_point.get_center(format=Constants.OPENGL_COORDINATES)[0], render_point.get_center(format=Constants.OPENGL_COORDINATES)[1]]  # Circle center
 
                         for i in range(num_segments):
                             angle = 2 * _numpy.pi * i / num_segments
-                            x = render_point.get_center()[0] + render_point.get_radius() * _numpy.cos(angle)
-                            y = render_point.get_center()[1] + render_point.get_radius() * _numpy.sin(angle)
+                            x = render_point.get_center(format=Constants.OPENGL_COORDINATES)[0] + render_point.get_radius(format=Constants.OPENGL_COORDINATES) * _numpy.cos(angle)
+                            y = render_point.get_center(format=Constants.OPENGL_COORDINATES)[1] + render_point.get_radius(format=Constants.OPENGL_COORDINATES) * _numpy.sin(angle)
                             vertices_list.extend([x, y])
 
                         indices_list = []
@@ -291,14 +291,10 @@ class RenderPipeline:
                         render_point.set_vertices_hardware_accelerated_data(_numpy.array(vertices_list, dtype=_numpy.float32))
                         render_point.set_indices_hardware_accelerated_data(_numpy.array(indices_list, dtype=_numpy.uint32))
 
-                    if render_point.get_color_changed() or render_point.get_vertices_changed(): # check if vertices are different as color to match each vertex, no longer constant.
-                        render_point.set_color_changed(False)
                         colors_list = []
                         for _ in range(num_segments + 1):
                             colors_list.extend([*render_point.get_color().output_color(Constants.SMALL_RGB)])
                         render_point.set_colors_hardware_accelerated_data(_numpy.array(colors_list, dtype=_numpy.float32))
-
-                    render_point.set_vertices_changed(False)  # segment count no longer constant
 
 
                 elif type(render_point) == _Arc: # problem

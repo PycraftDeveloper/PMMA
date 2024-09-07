@@ -10,6 +10,7 @@ from pmma.python_src.registry import Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.general import *
+from pmma.python_src.coordinate import Coordinate as _Coordinate
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
@@ -1005,15 +1006,20 @@ mode is Pygame.")
         self._vertices_changed = True
         self._center = center
 
-    def get_center(self):
-        return self._center
+    def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._center)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_radius(self, radius):
         self._vertices_changed = True
         self._radius = radius
 
-    def get_radius(self):
-        return self._radius
+    def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._radius
+        elif format == Constants.OPENGL_COORDINATES:
+            return self._radius / (self._canvas.get_height() / 2)
 
     def set_width(self, width):
         self._width = width

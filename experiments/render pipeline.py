@@ -17,7 +17,7 @@ display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 events = pmma.Events()
 
 rp = pmma.RenderPipeline()
-circ = pmma.Circle([46, 255, 231], (0, 0), 0.1)
+circ = pmma.Circle([46, 255, 231], (0, 0), 360)
 rp.add(circ)
 circ2 = pmma.Circle([46, 120, 231], (0, 0), 500, canvas=display)
 
@@ -46,7 +46,11 @@ while pmma.Registry.running:
     end = time.perf_counter()
     fr = 1/(end-start)
     #print(display.get_refresh_rate())
-    print(fr)
+    #print(fr)
+    #coord = (random.randint(0, 1280), random.randint(0, 720))
+
+    #coordinate.input_coordinates(coord)
+    #print(coord, coordinate.output_coordinates(format=pmma.Constants.OPENGL_COORDINATES))
 
     #circ.set_radius(1+(math.sin(time.time())))
 

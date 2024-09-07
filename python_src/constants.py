@@ -2,6 +2,9 @@ import math as _math
 import os as _os
 
 class Constants:
+    CONVENTIONAL_COORDINATES = "conventional coordinates"
+    OPENGL_COORDINATES = "opengl coordinates"
+
     VALUE = "value"
     UPDATING = "updating"
     MANUALLY_SET = "manually set"

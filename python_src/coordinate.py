@@ -6,13 +6,16 @@ from pmma.python_src.utility.coordinate_utils import CoordinateIntermediary as _
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Coordinate:
-    def __init__(self, in_type=Constants.CARTESIAN, *args):
+    def __init__(self):
         _initialize(self)
 
-        self._in_type = in_type
-        self._points = args
+        self._intermediary = _CoordinateIntermediary()
 
-        self._intermediary = _CoordinateIntermediary(in_type, *args)
+    def input_coordinates(self, coordinate, format=Constants.CONVENTIONAL_COORDINATES):
+        self._intermediary.set_coordinate(coordinate, in_type=format)
+
+    def output_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
+        return self._intermediary.get_coordinate(out_type=format)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -23,9 +26,3 @@ class Coordinate:
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
-
-    def out(self, out_type):
-        return self._intermediary.out(out_type)
-
-    def convert_range(self, in_range, out_range):
-        return self._intermediary.convert_range(in_range, out_range)
