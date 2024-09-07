@@ -657,12 +657,10 @@ class Texture:
         self._components = len(components)
         self._data = data
 
-        self._intended_samples = samples
-
         if samples is None:
-            samples = _Registry.anti_aliasing_level
-        if _Registry.do_anti_aliasing is False:
             samples = 0
+
+        self._intended_samples = samples
 
         if samples != 0:
             self._logger.log_development("You are using an anti-aliased texture. Therefore, please \
@@ -748,15 +746,6 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
     def recreate(self):
         if self._texture is not None:
             self._texture.release()
-
-            samples = self._intended_samples
-
-            if samples is None:
-                samples = _Registry.anti_aliasing_level
-            if _Registry.do_anti_aliasing is False:
-                samples = 0
-
-            self._samples = samples
 
             self._texture = _Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
             self._texture.filter = (self._scaling[0], self._scaling[1])

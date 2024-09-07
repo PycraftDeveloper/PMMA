@@ -16,11 +16,14 @@ import pyglet as _pyglet
 import getostheme as _getostheme
 import num2words as _num2words
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.backpack import Backpack
 from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
+from pmma.python_src.settings import get_language as _get_language
+from pmma.python_src.settings import set_allow_anti_aliasing as _set_allow_anti_aliasing
+from pmma.python_src.settings import set_anti_aliasing_level as _set_anti_aliasing_level
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
@@ -34,30 +37,15 @@ def check_if_object_is_class_or_function(param):
     else:
         return Constants.UNKNOWN
 
-def set_display_mode(mode):
-    if _Registry.display_mode_set:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You \
-have attempted to set a display mode after it has already been set. If this is a surprise \
-to you, its probably because you are already using PMMA functions that use a display mode \
-so its been set for you. If you want to use a specific display mode, consider calling this \
-IMMEDIATELY before 'pmma.init()' to avoid this behavior. If this isn't a surprise to you, \
-then know that you can only set the display mode once whilst the application is running.")
-    else:
-        _Registry.display_mode_set = True
-        _Registry.display_mode = mode
-
 def get_theme():
     if _getostheme.isDarkMode():
         return Constants.DARK
     else:
         return Constants.LIGHT
 
-def get_language():
-    return _Registry.language
-
 def convert_number_to_text(value):
     try:
-        return _num2words.num2words(value, lang=get_language())
+        return _num2words.num2words(value, lang=_get_language())
     except OverflowError:
         _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Woah! {} is a very large number - too big \
@@ -125,8 +113,24 @@ generating 3D arrays.")
     if terminate_application:
         _sys.exit(0)
 
-def compute():
+def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
     _Registry.power_saving_mode = is_battery_saver_enabled()
+
+    if _Registry.power_saving_mode:
+        if allow_anti_aliasing_adjustments_for_low_power_mode:
+            _set_allow_anti_aliasing(False)
+            _set_anti_aliasing_level(0)
+    else:
+        if allow_anti_aliasing_adjustments_for_low_power_mode:
+            if _Registry.manually_set_do_anti_aliasing is None:
+                _set_allow_anti_aliasing(True)
+            else:
+                _set_allow_anti_aliasing(_Registry.manually_set_do_anti_aliasing)
+
+            if _Registry.manually_set_anti_aliasing_level is None:
+                _set_anti_aliasing_level(2)
+            else:
+                _set_anti_aliasing_level(_Registry.manually_set_anti_aliasing_level)
 
     _Registry.in_game_loop = True
 
@@ -364,19 +368,3 @@ def can_swizzle(in_format, data, out_format):
     elif len(data) != len(in_format):
         return False
     return True
-
-def environ_to_registry():
-    for key in _Registry.__dict__:
-        check_key = f"PMMA_{key}"
-        if check_key in _os.environ:
-            value = _os.environ[check_key]
-            if "." in value:
-                data_type, value = value.split(".")
-                data_type = data_type.lower()
-                if data_type == "int":
-                    value = int(value)
-                elif data_type == "float":
-                    value = float(value)
-                elif data_type == "bool":
-                    value = bool(0) if value.lower() == "false" else bool(1)
-            setattr(Registry, key, value)

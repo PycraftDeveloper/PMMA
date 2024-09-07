@@ -1,10 +1,9 @@
 import moderngl as _moderngl
 
 class Registry:
-    compile_math_functions = True
-    display_mode = None
-    running = True
-    precise_math_constants = True
+    compile_math_functions = True #
+    display_mode = None #
+    running = True #
     temporary_files_path = None
     base_path = None
     custom_compiled_behavior = {}
@@ -12,13 +11,15 @@ class Registry:
     cython_acceleration_enabled = False
     python_acceleration_enabled = False
     pmma_module_spine = {}
-    do_anti_aliasing = True
-    anti_aliasing_level = 2
-    development_mode = True
+    do_anti_aliasing = False #
+    anti_aliasing_level = 0 #
+    manually_set_anti_aliasing_level = None #
+    manually_set_do_anti_aliasing = None #
+    development_mode = True #
     refresh_rate = 60
     display_initialized = False
     context: "_moderngl.Context" = None
-    power_saving_mode = False
+    power_saving_mode = False #
     number_of_draw_calls = 0
     total_time_spent_drawing = 0
     pmma_initialized = False
@@ -32,7 +33,7 @@ class Registry:
     display_mode_set = False
     number_of_instantiated_objects = 0
     iteration_id = None
-    language = None
+    language = None #
     opengl_objects = {}
     handled_events = False
     compute_component_called = False

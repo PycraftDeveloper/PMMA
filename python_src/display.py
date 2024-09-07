@@ -100,17 +100,22 @@ mode is Pygame.")
     def destroy(self):
         _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
-    def __setup_layers(self, size):
+    def _setup_layers(self, size):
+        if _Registry.do_anti_aliasing is False:
+            samples = 0
+        else:
+            samples = _Registry.anti_aliasing_level
+
         self._pygame_surface = _Surface()
         self._pygame_surface.create(*size)
         self._pygame_surface_texture = _Texture()
-        self._pygame_surface_texture.create(size, components=Constants.RGB)
+        self._pygame_surface_texture.create(size, components=Constants.RGB, samples=samples)
         self._two_dimension_texture = _Texture()
-        self._two_dimension_texture.create(size, components=Constants.RGB)
+        self._two_dimension_texture.create(size, components=Constants.RGB, samples=samples)
         self._two_dimension_frame_buffer = _FrameBufferObject()
         self._two_dimension_frame_buffer.create(color_attachments=[self._two_dimension_texture])
         self._three_dimension_texture = _Texture()
-        self._three_dimension_texture.create(size, components=Constants.RGB)
+        self._three_dimension_texture.create(size, components=Constants.RGB, samples=samples)
         self._three_dimension_frame_buffer = _FrameBufferObject()
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
         self._blank_texture = _Texture()
@@ -255,7 +260,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._texture_aggregation_program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "texture_aggregation"))
         self._texture_aggregation_program.create()
 
-        self.__setup_layers(size)
+        self._setup_layers(size)
 
         self._display_quad = _geometry.quad_fs()
 
@@ -286,7 +291,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._blank_texture.quit()
         self._blank_frame_buffer.quit()
 
-        self.__setup_layers(size)
+        self._setup_layers(size)
 
         _Registry.context.viewport = (0, 0, *size)
 

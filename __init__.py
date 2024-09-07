@@ -29,10 +29,6 @@ with _contextlib.redirect_stdout(_buffer):
 
 _Registry.pygame_launch_message = _buffer.getvalue().strip()
 
-from pmma.python_src.utility.general_utils import environ_to_registry as _environ_to_registry
-
-_environ_to_registry()
-
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
@@ -47,6 +43,7 @@ from pmma.python_src.optimizer import *
 from pmma.python_src.backpack import *
 from pmma.python_src.passport import *
 from pmma.python_src.executor import *
+from pmma.python_src.settings import *
 from pmma.python_src.sampler import *
 from pmma.python_src.display import *
 from pmma.python_src.surface import *

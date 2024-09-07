@@ -8,6 +8,9 @@ import time
 
 pmma.init()
 
+pmma.set_allow_anti_aliasing(True)
+pmma.set_anti_aliasing_level(8)
+
 #pmma._Registry.do_anti_aliasing = False
 #pmma._Registry.anti_aliasing_level = 16
 
