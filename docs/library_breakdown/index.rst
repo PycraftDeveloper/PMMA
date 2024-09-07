@@ -40,3 +40,4 @@ The full breakdown of what everything does!
     surface.rst
     text.rst
     video.rst
+    miscellaneous.rst

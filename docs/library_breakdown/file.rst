@@ -1,10 +1,3 @@
-Methods
-=======
-
-.. py:method:: pmma.path_builder() -> None
-
-   Not Yet Written
-
 File (``pmma.File``)
 ====================
 

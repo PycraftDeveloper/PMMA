@@ -301,6 +301,7 @@ The full breakdown of what everything does!
 for file in files:
     file_name = os.path.basename(file).split(".")[0]
     index_start += f"    {file_name}.rst\n"
+index_start += f"    miscellaneous.rst\n"
 
 index_file_path = path_builder(documentation_path, "index.rst")
 with open(index_file_path, "w") as index_file:
@@ -404,5 +405,34 @@ for file in files:
     with open(path_builder(documentation_path, f"{file_name}.rst"), "w") as documentation_file:
         documentation_file.write(documentation)
 
-    print(documentation)
-### end
+general_documentation = """
+PMMA Miscellaneous Methods (``pmma.``)
+====================
+
+Here you will find all the subroutines that aren't grouped into a specific object. Don't let the title fool you however, the subroutines found here can be incredibly powerful and helpful.
+
+"""
+files = glob.glob(documentation_path + os.sep + "*.rst")
+for file in files:
+    with open(file, "r") as doc_file:
+        content = doc_file.readlines()
+    if len(content) == 0:
+        continue
+    if content[0].strip() == "Methods" and content[1].strip() == "=======":
+        #print(content[3])
+        line_no = 3
+        while line_no < len(content):
+            line = content[line_no]
+            if " (``" in line:
+                break
+            general_documentation += line
+
+            line_no += 1
+
+        content = content[line_no:]
+        file_content = "".join(content)
+        with open(file, "w") as doc_file:
+            doc_file.write(file_content)
+
+with open(path_builder(documentation_path, "miscellaneous.rst"), "w") as documentation_file:
+    documentation_file.write(general_documentation)
