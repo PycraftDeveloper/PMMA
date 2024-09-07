@@ -30,10 +30,10 @@ class GPUs:
         self._shut_down = True
 
     def identify_gpus(self):
-        Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].identify_gpus()
+        _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].identify_gpus()
 
     def get_gpu(self, gpu_index):
-        return Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].get_gpu(gpu_index)
+        return _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].get_gpu(gpu_index)
 
 class GPU:
     def __init__(self, module_identification_indices):

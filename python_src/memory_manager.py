@@ -3,7 +3,7 @@ from pmma.python_src.constants import Constants
 
 class MemoryManager:
     def __init__(self):
-        self._memory_manager = Registry.pmma_module_spine[Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT]
+        self._memory_manager = _Registry.pmma_module_spine[Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT]
 
     def add(
             self,

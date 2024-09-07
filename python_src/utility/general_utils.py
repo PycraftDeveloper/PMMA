@@ -35,16 +35,16 @@ def check_if_object_is_class_or_function(param):
         return Constants.UNKNOWN
 
 def set_display_mode(mode):
-    if Registry.display_mode_set:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You \
+    if _Registry.display_mode_set:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You \
 have attempted to set a display mode after it has already been set. If this is a surprise \
 to you, its probably because you are already using PMMA functions that use a display mode \
 so its been set for you. If you want to use a specific display mode, consider calling this \
 IMMEDIATELY before 'pmma.init()' to avoid this behavior. If this isn't a surprise to you, \
 then know that you can only set the display mode once whilst the application is running.")
     else:
-        Registry.display_mode_set = True
-        Registry.display_mode = mode
+        _Registry.display_mode_set = True
+        _Registry.display_mode = mode
 
 def get_theme():
     if _getostheme.isDarkMode():
@@ -53,46 +53,46 @@ def get_theme():
         return Constants.LIGHT
 
 def get_language():
-    return Registry.language
+    return _Registry.language
 
 def convert_number_to_text(value):
     try:
         return _num2words.num2words(value, lang=get_language())
     except OverflowError:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Woah! {} is a very large number - too big \
 unfortunately to convert to words. Instead the value will be returned as a string.", variables=[value])
         return str(value)
 
 def quit(show_statistics=None, terminate_application=True):
     if show_statistics is None:
-        show_statistics = Registry.development_mode
+        show_statistics = _Registry.development_mode
 
     if show_statistics:
         app_name = _PassportIntermediary.name
         if app_name is None:
             app_name = "The application"
 
-        if Registry.display_initialized:
+        if _Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
-            time_formatter_instance.set_from_second(_time.perf_counter() - Registry.application_start_time)
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            time_formatter_instance.set_from_second(_time.perf_counter() - _Registry.application_start_time)
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
-frame rate of {} Hz.", variables=[app_name, Registry.application_average_frame_rate['Mean']])
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
+frame rate of {} Hz.", variables=[app_name, _Registry.application_average_frame_rate['Mean']])
 
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
-            "PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, Registry.number_of_instantiated_objects])
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            "PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, _Registry.number_of_instantiated_objects])
 
-        if Registry.perlin_noise_prefill_single_samples != 0 or Registry.perlin_noise_prefill_array_samples != 0:
-            logged_noise_statistics = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+        if _Registry.perlin_noise_prefill_single_samples != 0 or _Registry.perlin_noise_prefill_array_samples != 0:
+            logged_noise_statistics = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} used Noise component. In the prefilling process, {} single \
 samples where used, and {}/10 array samples where used.",
-                variables=[app_name, Registry.perlin_noise_prefill_single_samples,
-                Registry.perlin_noise_prefill_array_samples])
+                variables=[app_name, _Registry.perlin_noise_prefill_single_samples,
+                _Registry.perlin_noise_prefill_array_samples])
 
             if logged_noise_statistics:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                     "The Noise component of PMMA uses a prefilling process to try \
 and identify the minimum and maximum values for each noise method. This is required as depending \
 on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
@@ -104,20 +104,20 @@ operations, meaning that fewer need to be called for every single call. Addition
 nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
 generating 3D arrays.")
 
-    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
         "PMMA is now exiting. Thanks for using PMMA!")
-    keys = list(Registry.pmma_module_spine.keys())
+    keys = list(_Registry.pmma_module_spine.keys())
     for key in keys:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
             "Quitting PMMA object with ID: {}",
             variables=[key],
             repeat_for_effect=True)
 
-        Registry.pmma_module_spine[key].quit(do_garbage_collection=False)
+        _Registry.pmma_module_spine[key].quit(do_garbage_collection=False)
 
-    del Registry.pmma_module_spine
+    del _Registry.pmma_module_spine
 
-    if Registry.display_mode == Constants.PYGAME:
+    if _Registry.display_mode == Constants.PYGAME:
         _pygame.quit()
 
     _gc.collect()
@@ -126,56 +126,56 @@ generating 3D arrays.")
         _sys.exit(0)
 
 def compute():
-    Registry.power_saving_mode = is_battery_saver_enabled()
+    _Registry.power_saving_mode = is_battery_saver_enabled()
 
-    Registry.in_game_loop = True
+    _Registry.in_game_loop = True
 
-    Registry.compute_component_called = True
+    _Registry.compute_component_called = True
 
     new_iteration_id = _random.random()
-    while new_iteration_id == Registry.iteration_id:
+    while new_iteration_id == _Registry.iteration_id:
         new_iteration_id = _random.random()
-    Registry.iteration_id = new_iteration_id
+    _Registry.iteration_id = new_iteration_id
 
-    number_of_draw_calls = Registry.number_of_draw_calls
-    total_time_spent_drawing = Registry.total_time_spent_drawing
-    Registry.number_of_draw_calls = 0
-    Registry.total_time_spent_drawing = 0
+    number_of_draw_calls = _Registry.number_of_draw_calls
+    total_time_spent_drawing = _Registry.total_time_spent_drawing
+    _Registry.number_of_draw_calls = 0
+    _Registry.total_time_spent_drawing = 0
 
     if _PassportIntermediary.passport_changed:
         _PassportIntermediary.passport_changed = False
         register_application()
 
-    if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys() and not Constants.EVENTS_OBJECT in Registry.pmma_module_spine.keys():
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have created a display through PMMA, but haven't \
+    if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys() and not Constants.EVENTS_OBJECT in _Registry.pmma_module_spine.keys():
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have created a display through PMMA, but haven't \
 created an events object. Handling events for your PMMA display is important as \
 it tells the operating system that the application is still running and allows the \
 user to interact with your application. Failure to do this can lead to an unresponsive \
 window which can cause unexpected behavior.")
 
-    if number_of_draw_calls > 600 and Registry.application_average_frame_rate['Samples'] > 3:
-        Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
+    if number_of_draw_calls > 600 and _Registry.application_average_frame_rate['Samples'] > 3:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
 the time spent handling draw calls. Consider switching to the more optimized Render \
 Pipeline through PMMA to avoid any potential slowdowns.")
 
     if total_time_spent_drawing != 0:
-        if 1/(total_time_spent_drawing) < Registry.refresh_rate * 0.9 and Registry.application_average_frame_rate['Samples'] > 3:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
+        if 1/(total_time_spent_drawing) < _Registry.refresh_rate * 0.9 and _Registry.application_average_frame_rate['Samples'] > 3:
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
 number of draw calls being made. The program spent {}s on \
 {} total render calls, limiting your maximum refresh rate to: \
 {}. Switching to the more optimized Render Pipeline will \
 likely improve application performance. Note that this message will only appear once, but \
 may reflect any degraded performance beyond this point.", variables=[total_time_spent_drawing, number_of_draw_calls, 1/(total_time_spent_drawing)])
 
-    if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
-        if Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
-            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(False)
-        elif Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
-            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        if Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
-            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
-        elif Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
-            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
+    if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+        if _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(False)
+        elif _Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(True)
+        if _Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
+        elif _Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def register_application():
     if get_operating_system() == Constants.WINDOWS:
@@ -290,47 +290,47 @@ def update_language():
     if detected_language is None:
         detected_language = "en_US"
 
-    Registry.language = detected_language
+    _Registry.language = detected_language
     Backpack.language = detected_language
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, requires_display_mode_set=False, logging_instantiation=False):
     instance._shut_down = False
     instance._attributes = []
 
-    if Registry.pmma_initialized is False:
+    if _Registry.pmma_initialized is False:
         if not logging_instantiation:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You haven't yet initialized PMMA. This can be \
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You haven't yet initialized PMMA. This can be \
 done by calling 'pmma.init()' any time before using any of PMMA functions. It \
 is vital that you do this prior to using PMMA as it ensures optimal configuration \
 with your machine, and gets PMMA ready to be used.")
 
         if not logging_instantiation:
-            Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_error("PMMA has not been initialized. Call 'pmma.init()' before using PMMA.")
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_error("PMMA has not been initialized. Call 'pmma.init()' before using PMMA.")
 
         if not logging_instantiation:
             raise DidNotInitializeError("Call 'pmma.init()' before using PMMA")
 
     if unique_instance is not None:
         if unique_instance in Constants.OBJECT_IDENTIFIERS:
-            if unique_instance in Registry.pmma_module_spine.keys():
+            if unique_instance in _Registry.pmma_module_spine.keys():
                 if not logging_instantiation:
-                    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning("{} object already exists.", variables=[unique_instance.capitalize()])
+                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning("{} object already exists.", variables=[unique_instance.capitalize()])
 
                 if not logging_instantiation:
-                    Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Some PMMA objects can only be initialized once. \
+                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Some PMMA objects can only be initialized once. \
 This is to avoid creating unexpected behavior.")
 
                 raise TooManyInstancesError(f"{unique_instance.capitalize()} object already exists.")
         else:
             if not logging_instantiation:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("{} name was not recognized to \
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("{} name was not recognized to \
 PMMA. To register it, make sure it exists in the 'Constants' object, and in its attribute \
 'OBJECT_IDENTIFIERS' list.", variables=[unique_instance.capitalize()])
 
     if add_to_pmma_module_spine:
-        Registry.pmma_module_spine[unique_instance] = instance
+        _Registry.pmma_module_spine[unique_instance] = instance
 
-    Registry.number_of_instantiated_objects += 1
+    _Registry.number_of_instantiated_objects += 1
 
 def create_cache_id(*args):
     cache_id = ""
@@ -366,7 +366,7 @@ def can_swizzle(in_format, data, out_format):
     return True
 
 def environ_to_registry():
-    for key in Registry.__dict__:
+    for key in _Registry.__dict__:
         check_key = f"PMMA_{key}"
         if check_key in _os.environ:
             value = _os.environ[check_key]

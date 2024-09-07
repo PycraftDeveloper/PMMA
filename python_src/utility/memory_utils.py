@@ -83,7 +83,7 @@ leaving the target size variable can be dangerous.")
         self.memory_manager_thread_lock = _threading.Lock()
 
         self.memory_management_directory = _path_builder(
-            Registry.base_path,
+            _Registry.base_path,
             "temporary",
             "memory management dumps")
 

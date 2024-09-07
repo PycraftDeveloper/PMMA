@@ -118,7 +118,7 @@ the operating system has detected your device, consider running the \
         while self._do_sampling:
             if self._do_pause_sampling:
                 if wait_time is None:
-                    wait_time = 1/Registry.refresh_rate
+                    wait_time = 1/_Registry.refresh_rate
                 _time.sleep(wait_time)
                 continue
 

@@ -27,18 +27,18 @@ class Events:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self.iteration_id = 0
@@ -240,7 +240,7 @@ mode is Pygame.")
         self.windowfullscreenstatechanged_event = WindowFullScreenStatusChanged_EVENT()
 
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
-        if self.iteration_id == Registry.iteration_id and Registry.compute_component_called:
+        if self.iteration_id == _Registry.iteration_id and _Registry.compute_component_called:
             self._logger.log_development("You have called the 'handle()' method from events \
 multiple times within a single game loop. Whilst this isn't always a bad thing, \
 it can lead to unexpected behavior a some events might not be captured reliably \
@@ -248,7 +248,7 @@ at each method call. For instance, one event might appear randomly between two \
 different event loops, instead of consistently at one you might be expecting to \
 find it at. If this isn't something you where intending to do, changing this will \
 potentially save a lot of headaches later down the line.")
-        self.iteration_id = Registry.iteration_id
+        self.iteration_id = _Registry.iteration_id
 
         if grab_extended_keyboard_events:
             self._logger.log_development("You have set up PMMA's events system to handle a \
@@ -260,7 +260,7 @@ then enable it to see if it fixes or improves a desired feature.")
 
             _pygame.event.set_keyboard_grab(True)
 
-        Registry.handled_events = True
+        _Registry.handled_events = True
 
         self.appterminating_event.set_value(False)
         self.applowmemory_event.set_value(False)
@@ -320,7 +320,7 @@ then enable it to see if it fixes or improves a desired feature.")
 
         self.windowfullscreenstatechanged_event.set_value(False)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()
             for event in raw_events:
                 if event.type == _pygame.APP_TERMINATING:
@@ -538,7 +538,7 @@ then enable it to see if it fixes or improves a desired feature.")
                     elif event.key == _pygame.K_ESCAPE:
                         self.escape_key.set_pressed(True)
                         if handle_exit_events:
-                            Registry.running = False
+                            _Registry.running = False
                             _Backpack.running = False
 
                     elif event.key == _pygame.K_SPACE:
@@ -847,8 +847,8 @@ then enable it to see if it fixes or improves a desired feature.")
                     elif event.key == _pygame.K_F11:
                         self.function11_key.set_pressed(True)
                         if handle_full_screen_events:
-                            if Constants.DISPLAY_OBJECT in Registry.pmma_module_spine:
-                                Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].toggle_full_screen()
+                            if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                                _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].toggle_full_screen()
 
                     elif event.key == _pygame.K_F12:
                         self.function12_key.set_pressed(True)
@@ -1344,7 +1344,7 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.type == _pygame.QUIT:
                     self.quit_event.set_value(True)
                     if handle_exit_events:
-                        Registry.running = False
+                        _Registry.running = False
                         _Backpack.running = False
 
                 elif event.type == _pygame.RENDER_TARGETS_RESET:
@@ -1434,28 +1434,28 @@ class Backspace_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.BACKSPACE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Tab_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1472,28 +1472,28 @@ class Tab_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.TAB_KEY_OBJECT].set_double_tap_timing(value)
 
 class Clear_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1510,28 +1510,28 @@ class Clear_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.CLEAR_KEY_OBJECT].set_double_tap_timing(value)
 
 class Return_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1548,28 +1548,28 @@ class Return_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RETURN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Pause_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1586,28 +1586,28 @@ class Pause_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PAUSE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Escape_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1624,28 +1624,28 @@ class Escape_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.ESCAPE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Space_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1662,28 +1662,28 @@ class Space_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SPACE_KEY_OBJECT].set_double_tap_timing(value)
 
 class ExclamationMark_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1700,28 +1700,28 @@ class ExclamationMark_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tap_timing(value)
 
 class DoubleQuote_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1738,28 +1738,28 @@ class DoubleQuote_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Hashtag_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1776,28 +1776,28 @@ class Hashtag_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.HASHTAG_KEY_OBJECT].set_double_tap_timing(value)
 
 class Dollar_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1814,28 +1814,28 @@ class Dollar_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.DOLLAR_KEY_OBJECT].set_double_tap_timing(value)
 
 class Ampersand_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1852,28 +1852,28 @@ class Ampersand_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.AMPERSAND_KEY_OBJECT].set_double_tap_timing(value)
 
 class SingleQuote_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1890,28 +1890,28 @@ class SingleQuote_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftParenthesis_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1928,28 +1928,28 @@ class LeftParenthesis_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightParenthesis_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1966,28 +1966,28 @@ class RightParenthesis_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Asterisk_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2004,28 +2004,28 @@ class Asterisk_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.ASTERISK_KEY_OBJECT].set_double_tap_timing(value)
 
 class Plus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2042,28 +2042,28 @@ class Plus_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PLUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Comma_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2080,28 +2080,28 @@ class Comma_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.COMMA_KEY_OBJECT].set_double_tap_timing(value)
 
 class Minus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2118,28 +2118,28 @@ class Minus_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.MINUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Period_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2156,28 +2156,28 @@ class Period_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PERIOD_KEY_OBJECT].set_double_tap_timing(value)
 
 class ForwardSlash_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2194,28 +2194,28 @@ class ForwardSlash_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FORWARDSLASH_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary0_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2232,28 +2232,28 @@ class Primary0_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY0_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary1_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2270,28 +2270,28 @@ class Primary1_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY1_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary2_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2308,28 +2308,28 @@ class Primary2_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY2_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary3_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2346,28 +2346,28 @@ class Primary3_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY3_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary4_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2384,28 +2384,28 @@ class Primary4_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY4_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary5_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2422,28 +2422,28 @@ class Primary5_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY5_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary6_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2460,28 +2460,28 @@ class Primary6_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY6_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary7_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2498,28 +2498,28 @@ class Primary7_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY7_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary8_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2536,28 +2536,28 @@ class Primary8_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY8_KEY_OBJECT].set_double_tap_timing(value)
 
 class Primary9_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2574,28 +2574,28 @@ class Primary9_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARY9_KEY_OBJECT].set_double_tap_timing(value)
 
 class Colon_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2612,28 +2612,28 @@ class Colon_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.COLON_KEY_OBJECT].set_double_tap_timing(value)
 
 class SemiColon_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2650,28 +2650,28 @@ class SemiColon_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SEMICOLON_KEY_OBJECT].set_double_tap_timing(value)
 
 class LessThan_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2688,28 +2688,28 @@ class LessThan_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LESSTHAN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Equals_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2726,28 +2726,28 @@ class Equals_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.EQUALS_KEY_OBJECT].set_double_tap_timing(value)
 
 class GreaterThan_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2764,28 +2764,28 @@ class GreaterThan_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.GREATERTHAN_KEY_OBJECT].set_double_tap_timing(value)
 
 class QuestionMark_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2802,28 +2802,28 @@ class QuestionMark_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.QUESTIONMARK_KEY_OBJECT].set_double_tap_timing(value)
 
 class At_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2840,28 +2840,28 @@ class At_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.AT_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftBracket_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2878,28 +2878,28 @@ class LeftBracket_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
 
 class BackSlash_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2916,28 +2916,28 @@ class BackSlash_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.BACKSLASH_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightBracket_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2954,28 +2954,28 @@ class RightBracket_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
 
 class Caret_KEY: # ^
     def __del__(self, do_garbage_collection=False):
@@ -2992,28 +2992,28 @@ class Caret_KEY: # ^
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.CARET_KEY_OBJECT].set_double_tap_timing(value)
 
 class Underscore_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3030,28 +3030,28 @@ class Underscore_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.UNDERSCORE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Grave_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3068,28 +3068,28 @@ class Grave_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.GRAVE_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryA_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3106,28 +3106,28 @@ class PrimaryA_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYA_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryB_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3144,28 +3144,28 @@ class PrimaryB_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYB_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryC_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3182,28 +3182,28 @@ class PrimaryC_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYC_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryD_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3220,28 +3220,28 @@ class PrimaryD_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYD_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryE_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3258,28 +3258,28 @@ class PrimaryE_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYE_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryF_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3296,28 +3296,28 @@ class PrimaryF_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYF_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryG_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3334,28 +3334,28 @@ class PrimaryG_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYG_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryH_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3372,28 +3372,28 @@ class PrimaryH_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYH_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryI_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3410,28 +3410,28 @@ class PrimaryI_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYI_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryJ_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3448,28 +3448,28 @@ class PrimaryJ_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYJ_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryK_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3486,28 +3486,28 @@ class PrimaryK_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYK_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryL_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3524,28 +3524,28 @@ class PrimaryL_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYL_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryM_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3562,28 +3562,28 @@ class PrimaryM_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYM_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryN_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3600,28 +3600,28 @@ class PrimaryN_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYN_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryO_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3638,28 +3638,28 @@ class PrimaryO_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYO_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryP_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3676,28 +3676,28 @@ class PrimaryP_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYP_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryQ_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3714,28 +3714,28 @@ class PrimaryQ_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYQ_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryR_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3752,28 +3752,28 @@ class PrimaryR_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYR_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryS_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3790,28 +3790,28 @@ class PrimaryS_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYS_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryT_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3828,28 +3828,28 @@ class PrimaryT_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYT_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryU_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3866,28 +3866,28 @@ class PrimaryU_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYU_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryV_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3904,28 +3904,28 @@ class PrimaryV_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYV_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryW_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3942,28 +3942,28 @@ class PrimaryW_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYW_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryX_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3980,28 +3980,28 @@ class PrimaryX_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYX_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryY_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4018,28 +4018,28 @@ class PrimaryY_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYY_KEY_OBJECT].set_double_tap_timing(value)
 
 class PrimaryZ_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4056,28 +4056,28 @@ class PrimaryZ_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRIMARYZ_KEY_OBJECT].set_double_tap_timing(value)
 
 class Delete_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4094,28 +4094,28 @@ class Delete_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.DELETE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad0_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4132,28 +4132,28 @@ class Numpad0_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD0_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad1_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4170,28 +4170,28 @@ class Numpad1_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD1_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad2_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4208,28 +4208,28 @@ class Numpad2_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD2_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad3_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4246,28 +4246,28 @@ class Numpad3_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD3_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad4_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4284,28 +4284,28 @@ class Numpad4_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD4_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad5_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4322,28 +4322,28 @@ class Numpad5_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD5_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad6_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4360,28 +4360,28 @@ class Numpad6_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD6_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad7_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4398,28 +4398,28 @@ class Numpad7_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD7_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad8_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4436,28 +4436,28 @@ class Numpad8_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD8_KEY_OBJECT].set_double_tap_timing(value)
 
 class Numpad9_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4474,28 +4474,28 @@ class Numpad9_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPAD9_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadPeriod_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4512,28 +4512,28 @@ class NumpadPeriod_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadDivide_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4550,28 +4550,28 @@ class NumpadDivide_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadMultiply_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4588,28 +4588,28 @@ class NumpadMultiply_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadMinus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4626,28 +4626,28 @@ class NumpadMinus_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADMINUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadPlus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4664,28 +4664,28 @@ class NumpadPlus_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADPLUS_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadEnter_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4702,28 +4702,28 @@ class NumpadEnter_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADENTER_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumpadEquals_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4740,28 +4740,28 @@ class NumpadEquals_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tap_timing(value)
 
 class Up_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4778,28 +4778,28 @@ class Up_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.UP_KEY_OBJECT].set_double_tap_timing(value)
 
 class Down_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4816,28 +4816,28 @@ class Down_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.DOWN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Right_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4854,28 +4854,28 @@ class Right_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Left_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4892,28 +4892,28 @@ class Left_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Insert_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4930,28 +4930,28 @@ class Insert_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.INSERT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Home_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4968,28 +4968,28 @@ class Home_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.HOME_KEY_OBJECT].set_double_tap_timing(value)
 
 class End_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5006,28 +5006,28 @@ class End_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.END_KEY_OBJECT].set_double_tap_timing(value)
 
 class PageUp_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5044,28 +5044,28 @@ class PageUp_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PAGEUP_KEY_OBJECT].set_double_tap_timing(value)
 
 class PageDown_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5082,28 +5082,28 @@ class PageDown_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PAGEDOWN_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function1_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5120,28 +5120,28 @@ class Function1_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION1_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function2_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5158,28 +5158,28 @@ class Function2_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION2_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function3_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5196,28 +5196,28 @@ class Function3_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION3_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function4_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5234,28 +5234,28 @@ class Function4_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION4_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function5_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5272,28 +5272,28 @@ class Function5_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION5_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function6_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5310,28 +5310,28 @@ class Function6_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION6_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function7_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5348,28 +5348,28 @@ class Function7_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION7_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function8_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5386,28 +5386,28 @@ class Function8_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION8_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function9_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5424,28 +5424,28 @@ class Function9_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION9_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function10_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5462,28 +5462,28 @@ class Function10_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION10_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function11_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5500,28 +5500,28 @@ class Function11_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION11_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function12_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5538,28 +5538,28 @@ class Function12_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION12_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function13_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5576,28 +5576,28 @@ class Function13_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION13_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function14_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5614,28 +5614,28 @@ class Function14_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION14_KEY_OBJECT].set_double_tap_timing(value)
 
 class Function15_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5652,28 +5652,28 @@ class Function15_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.FUNCTION15_KEY_OBJECT].set_double_tap_timing(value)
 
 class NumLock_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5690,28 +5690,28 @@ class NumLock_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.NUMLOCK_KEY_OBJECT].set_double_tap_timing(value)
 
 class CapsLock_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5728,28 +5728,28 @@ class CapsLock_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.CAPSLOCK_KEY_OBJECT].set_double_tap_timing(value)
 
 class ScrollLock_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5766,28 +5766,28 @@ class ScrollLock_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SCROLLLOCK_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightShift_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5804,28 +5804,28 @@ class RightShift_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftShift_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5842,28 +5842,28 @@ class LeftShift_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Shift_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5880,28 +5880,28 @@ class Shift_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SHIFT_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightControl_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5918,28 +5918,28 @@ class RightControl_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftControl_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5956,28 +5956,28 @@ class LeftControl_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
 
 class Control_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5994,28 +5994,28 @@ class Control_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.CONTROL_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightAlt_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6032,28 +6032,28 @@ class RightAlt_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTALT_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftAlt_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6070,28 +6070,28 @@ class LeftAlt_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTALT_KEY_OBJECT].set_double_tap_timing(value)
 
 class Alt_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6108,28 +6108,28 @@ class Alt_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.ALT_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightMeta_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6146,28 +6146,28 @@ class RightMeta_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTMETA_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftMeta_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6184,28 +6184,28 @@ class LeftMeta_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTMETA_KEY_OBJECT].set_double_tap_timing(value)
 
 class Meta_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6222,28 +6222,28 @@ class Meta_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.META_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftSuper_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6260,28 +6260,28 @@ class LeftSuper_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTSUPER_KEY_OBJECT].set_double_tap_timing(value)
 
 class RightSuper_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6298,28 +6298,28 @@ class RightSuper_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTSUPER_KEY_OBJECT].set_double_tap_timing(value)
 
 class Super_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6336,28 +6336,28 @@ class Super_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SUPER_KEY_OBJECT].set_double_tap_timing(value)
 
 class Mode_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6374,28 +6374,28 @@ class Mode_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.MODE_KEY_OBJECT].set_double_tap_timing(value)
 
 class Help_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6412,28 +6412,28 @@ class Help_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.HELP_KEY_OBJECT].set_double_tap_timing(value)
 
 class Print_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6450,28 +6450,28 @@ class Print_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.PRINT_KEY_OBJECT].set_double_tap_timing(value)
 
 class SystemRequest_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6488,28 +6488,28 @@ class SystemRequest_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tap_timing(value)
 
 class Break_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6526,28 +6526,28 @@ class Break_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.BREAK_KEY_OBJECT].set_double_tap_timing(value)
 
 class Menu_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6564,28 +6564,28 @@ class Menu_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.MENU_KEY_OBJECT].set_double_tap_timing(value)
 
 class Power_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6602,28 +6602,28 @@ class Power_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.POWER_KEY_OBJECT].set_double_tap_timing(value)
 
 class Euro_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6640,28 +6640,28 @@ class Euro_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.EURO_KEY_OBJECT].set_double_tap_timing(value)
 
 class AndroidBack_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6678,28 +6678,28 @@ class AndroidBack_KEY:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.ANDROIDBACK_KEY_OBJECT].set_double_tap_timing(value)
 
 class LeftButton_MOUSE:
     def __del__(self, do_garbage_collection=False):
@@ -6716,28 +6716,28 @@ class LeftButton_MOUSE:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
 
 class MiddleButton_MOUSE:
     def __del__(self, do_garbage_collection=False):
@@ -6754,28 +6754,28 @@ class MiddleButton_MOUSE:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
 
 class RightButton_MOUSE:
     def __del__(self, do_garbage_collection=False):
@@ -6792,28 +6792,28 @@ class RightButton_MOUSE:
         _initialize(self)
 
     def set_double_tapped(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
 
     def get_double_tapped(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_double_tapped()
+        return _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_double_tapped()
 
     def get_last_tap_time(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_last_tap_time()
+        return _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
 
     def get_pressed(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_pressed()
+        return _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(value)
 
     def get_double_tap_timing(self):
-        return Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_double_tap_timing()
+        return _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
+        _Registry.pmma_module_spine[Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
 
 class Mouse_SCROLL:
     def __del__(self, do_garbage_collection=False):
@@ -6830,28 +6830,28 @@ class Mouse_SCROLL:
         _initialize(self)
 
     def get_x_displacement(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_displacement()
+        return _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_displacement()
 
     def set_x_displacement(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(value)
 
     def get_x_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_value()
+        return _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_x_value()
 
     def set_x_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_x_value(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_x_value(value)
 
     def get_y_displacement(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_y_displacement()
+        return _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_y_displacement()
 
     def set_y_displacement(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(value)
 
     def get_y_value(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_y_value()
+        return _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].get_y_value()
 
     def set_y_value(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_value(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_SCROLL_OBJECT].set_y_value(value)
 
 class Mouse_POSITION:
     def __del__(self, do_garbage_collection=False):
@@ -6868,31 +6868,31 @@ class Mouse_POSITION:
         _initialize(self)
 
     def get_axis_displacement(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_axis_displacement()
+        return _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_axis_displacement()
 
     def get_x_axis_displacement(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_x_axis_displacement()
+        return _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_x_axis_displacement()
 
     def get_y_axis_displacement(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_y_axis_displacement()
+        return _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_y_axis_displacement()
 
     def get_x_axis(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_x_axis()
+        return _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_x_axis()
 
     def get_y_axis(self):
-        return Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_y_axis()
+        return _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].get_y_axis()
 
     def set_x_axis(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_x_axis(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_x_axis(value)
 
     def set_y_axis(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis(value)
 
     def set_x_axis_displacement(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(value)
 
     def set_y_axis_displacement(self, value):
-        Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(value)
+        _Registry.pmma_module_spine[Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(value)
 
 class Active_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6909,10 +6909,10 @@ class Active_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.ACTIVE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.ACTIVE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.ACTIVE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.ACTIVE_EVENT_OBJECT].get_value()
 
 class AppTerminating_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6931,13 +6931,13 @@ class AppTerminating_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         if get_operating_system() != Constants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. \
 Instead please use: 'Quit_EVENT' as this works across all platforms.")
-        return Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.APPTERMINATING_EVENT_OBJECT].get_value()
 
 class AppLowMemory_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6956,7 +6956,7 @@ class AppLowMemory_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         if get_operating_system() != Constants.ANDROID:
@@ -6964,7 +6964,7 @@ class AppLowMemory_EVENT:
 There is no alternative to this on other operating systems due to how memory is allocated. \
 If you are interested in getting information about memory, I'd recommend checking out PSUtil: \
 https://pypi.org/project/psutil/")
-        return Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.APPLOWMEMORY_EVENT_OBJECT].get_value()
 
 class AppWillEnterBackground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6983,12 +6983,12 @@ class AppWillEnterBackground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         self._logger.log_development("This event is exclusive to the Android operating system. \
 There is no alternative to this on other operating systems.")
-        return Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].get_value()
 
 class AppDidEnterBackground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7007,12 +7007,12 @@ class AppDidEnterBackground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         self._logger.log_development("This event is exclusive to the Android operating system. \
 Instead please use: 'WindowFocusLost' as this works across all platforms.")
-        return Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].get_value()
 
 class AppWillEnterForeground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7031,12 +7031,12 @@ class AppWillEnterForeground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         self._logger.log_development("This event is exclusive to the Android operating system. \
 There is no alternative to this on other operating systems.")
-        return Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].get_value()
 
 class AppDidEnterForeground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7055,12 +7055,12 @@ class AppDidEnterForeground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
         self._logger.log_development("This event is exclusive to the Android operating system. \
 Instead please use: 'WindowFocusGained' as this works across all platforms.")
-        return Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].get_value()
 
 class AudioDeviceAdded_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7077,10 +7077,10 @@ class AudioDeviceAdded_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.AUDIODEVICEADDED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.AUDIODEVICEADDED_EVENT_OBJECT].get_value()
 
 class AudioDeviceRemoved_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7097,10 +7097,10 @@ class AudioDeviceRemoved_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].get_value()
 
 class ClipBoardUpdate_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7117,10 +7117,10 @@ class ClipBoardUpdate_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.CLIPBOARDUPDATE_EVENT_OBJECT].get_value()
 
 class DropFile_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7137,10 +7137,10 @@ class DropFile_EVENT:
         _initialize(self)
 
     def set_file(self, file):
-        Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].set_file(file)
+        _Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].set_file(file)
 
     def get_file(self):
-        return Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].get_file()
+        return _Registry.pmma_module_spine[Constants.DROPFILE_EVENT_OBJECT].get_file()
 
 class DropText_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7159,7 +7159,7 @@ class DropText_EVENT:
         self._logger = _InternalLogger()
 
     def set_text(self, text):
-        Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].set_text(text)
+        _Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].set_text(text)
 
     def get_text(self):
         self._logger.log_development("Please note that this event is not yet reliably \
@@ -7174,7 +7174,7 @@ should work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with th
 dropping a text file, then open and read that for text inputs instead. In short - \
 this event is not known to work reliably, using other events instead is recommended!")
 
-        return Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].get_text()
+        return _Registry.pmma_module_spine[Constants.DROPTEXT_EVENT_OBJECT].get_text()
 
 class DropBegin_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7191,10 +7191,10 @@ class DropBegin_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.DROPBEGIN_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.DROPBEGIN_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.DROPBEGIN_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.DROPBEGIN_EVENT_OBJECT].get_value()
 
 class DropComplete_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7211,10 +7211,10 @@ class DropComplete_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.DROPCOMPLETE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.DROPCOMPLETE_EVENT_OBJECT].get_value()
 
 class FingerMotion_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7231,10 +7231,10 @@ class FingerMotion_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.FINGERMOTION_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.FINGERMOTION_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.FINGERMOTION_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.FINGERMOTION_EVENT_OBJECT].get_value()
 
 class FingerDown_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7251,10 +7251,10 @@ class FingerDown_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.FINGERDOWN_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.FINGERDOWN_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.FINGERDOWN_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.FINGERDOWN_EVENT_OBJECT].get_value()
 
 class FingerUp_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7271,10 +7271,10 @@ class FingerUp_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.FINGERUP_EVENT_OBJECT].get_value()
 
 class KeyMapChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7291,10 +7291,10 @@ class KeyMapChanged_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.KEYMAPCHANGED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.KEYMAPCHANGED_EVENT_OBJECT].get_value()
 
 class LocaleChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7311,10 +7311,10 @@ class LocaleChanged_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.LOCALECHANGED_EVENT_OBJECT].get_value()
 
 class MultiGesture_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7331,34 +7331,34 @@ class MultiGesture_EVENT:
         _initialize(self)
 
     def get_gesture_center_x(self):
-        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_x()
+        return _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_x()
 
     def get_gesture_center_y(self):
-        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_y()
+        return _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_y()
 
     def get_pinched_value(self):
-        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_pinched_value()
+        return _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_pinched_value()
 
     def get_rotated_value(self):
-        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_rotated_value()
+        return _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_rotated_value()
 
     def get_number_of_fingers(self):
-        return Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_number_of_fingers()
+        return _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].get_number_of_fingers()
 
     def set_gesture_center_x(self, value):
-        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(value)
+        _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(value)
 
     def set_gesture_center_y(self, value):
-        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(value)
+        _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(value)
 
     def set_pinched_value(self, value):
-        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(value)
+        _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(value)
 
     def set_rotated_value(self, value):
-        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(value)
+        _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(value)
 
     def set_number_of_fingers(self, value):
-        Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(value)
+        _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(value)
 
 class NoEvent_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7375,10 +7375,10 @@ class NoEvent_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].get_value()
 
 class Quit_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7395,10 +7395,10 @@ class Quit_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.QUIT_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.QUIT_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.QUIT_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.QUIT_EVENT_OBJECT].get_value()
 
 class RenderTargetsReset_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7415,10 +7415,10 @@ class RenderTargetsReset_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.RENDERTARGETSRESET_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.RENDERTARGETSRESET_EVENT_OBJECT].get_value()
 
 class RenderDeviceReset_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7435,10 +7435,10 @@ class RenderDeviceReset_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.RENDERDEVICERESET_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.RENDERDEVICERESET_EVENT_OBJECT].get_value()
 
 class SysWMEvent_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7455,10 +7455,10 @@ class SysWMEvent_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.SYSWMEVENT_EVENT_OBJECT].get_value()
 
 class VideoResize_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7475,10 +7475,10 @@ class VideoResize_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.VIDEORESIZE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.VIDEORESIZE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.VIDEORESIZE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.VIDEORESIZE_EVENT_OBJECT].get_value()
 
 class VideoExpose_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7495,10 +7495,10 @@ class VideoExpose_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].get_value()
 
 class MidiIn_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7515,10 +7515,10 @@ class MidiIn_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].get_value()
 
 class MidiOut_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7535,10 +7535,10 @@ class MidiOut_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].get_value()
 
 class WindowShown_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7555,10 +7555,10 @@ class WindowShown_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWSHOWN_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWSHOWN_EVENT_OBJECT].get_value()
 
 class WindowHidden_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7575,10 +7575,10 @@ class WindowHidden_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWHIDDEN_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWHIDDEN_EVENT_OBJECT].get_value()
 
 class WindowExposed_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7595,10 +7595,10 @@ class WindowExposed_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWEXPOSED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWEXPOSED_EVENT_OBJECT].get_value()
 
 class WindowMoved_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7615,10 +7615,10 @@ class WindowMoved_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWMOVED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWMOVED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWMOVED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWMOVED_EVENT_OBJECT].get_value()
 
 class WindowResized_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7635,10 +7635,10 @@ class WindowResized_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].get_value()
 
 class WindowSizeChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7655,10 +7655,10 @@ class WindowSizeChanged_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].get_value()
 
 class WindowMinimized_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7675,10 +7675,10 @@ class WindowMinimized_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()
 
 class WindowMaximized_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7695,10 +7695,10 @@ class WindowMaximized_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWMAXIMIZED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWMAXIMIZED_EVENT_OBJECT].get_value()
 
 class WindowRestored_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7715,10 +7715,10 @@ class WindowRestored_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value()
 
 class WindowEnter_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7735,10 +7735,10 @@ class WindowEnter_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWENTER_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWENTER_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWENTER_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWENTER_EVENT_OBJECT].get_value()
 
 class WindowLeave_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7755,10 +7755,10 @@ class WindowLeave_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWLEAVE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWLEAVE_EVENT_OBJECT].get_value()
 
 class WindowFocusGained_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7775,10 +7775,10 @@ class WindowFocusGained_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()
 
 class WindowFocusLost_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7795,10 +7795,10 @@ class WindowFocusLost_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()
 
 class WindowClose_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7815,10 +7815,10 @@ class WindowClose_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWCLOSE_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWCLOSE_EVENT_OBJECT].get_value()
 
 class WindowTakeFocus_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7835,10 +7835,10 @@ class WindowTakeFocus_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].get_value()
 
 class WindowHitTest_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7855,10 +7855,10 @@ class WindowHitTest_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWHITTEST_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWHITTEST_EVENT_OBJECT].get_value()
 
 class WindowICCPROFChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7875,10 +7875,10 @@ class WindowICCPROFChanged_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].get_value()
 
 class WindowDisplayChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7895,10 +7895,10 @@ class WindowDisplayChanged_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].get_value()
 
 class JoyDeviceAdded_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7915,10 +7915,10 @@ class JoyDeviceAdded_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.JOYDEVICEADDED_OBJECT].get_value()
 
 class JoyDeviceRemoved_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7935,10 +7935,10 @@ class JoyDeviceRemoved_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.JOYDEVICEREMOVED_OBJECT].get_value()
 
 class WindowFullScreenStatusChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7955,7 +7955,7 @@ class WindowFullScreenStatusChanged_EVENT:
         _initialize(self)
 
     def set_value(self, value):
-        Registry.pmma_module_spine[Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].set_value(value)
+        _Registry.pmma_module_spine[Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].set_value(value)
 
     def get_value(self):
-        return Registry.pmma_module_spine[Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].get_value()
+        return _Registry.pmma_module_spine[Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].get_value()

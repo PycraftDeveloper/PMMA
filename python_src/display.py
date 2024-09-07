@@ -31,21 +31,21 @@ class Display:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             self._clock = _pygame.time.Clock()
 
         self._color_converter = _Color()
@@ -69,7 +69,7 @@ mode is Pygame.")
         self._display_attribute_caption = "PMMA Display"
         self._display_attribute_hwnd = None
         self._display_attribute_transparent_display = False
-        self._display_attribute_icon = _path_builder(Registry.base_path, "resources", "images", "PMMA icon.ico")
+        self._display_attribute_icon = _path_builder(_Registry.base_path, "resources", "images", "PMMA icon.ico")
         self._display_attribute_centered = True
 
         self._window_in_focus = True
@@ -87,7 +87,7 @@ mode is Pygame.")
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            if Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == Constants.PYGAME:
                 _pygame.display.quit()
             del self
             if do_garbage_collection:
@@ -98,7 +98,7 @@ mode is Pygame.")
         self._shut_down = True
 
     def destroy(self):
-        Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT] = None
 
     def __setup_layers(self, size):
         self._pygame_surface = _Surface()
@@ -119,12 +119,12 @@ mode is Pygame.")
         self._blank_frame_buffer.create(color_attachments=[self._blank_texture])
 
     def get_pygame_surface(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             self._using_pygame_surface = True
             return self._pygame_surface
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
                 self._two_dimension_frame_buffer.use()
             return self._two_dimension_frame_buffer
@@ -132,7 +132,7 @@ mode is Pygame.")
             raise NotImplementedError
 
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
                 self._three_dimension_frame_buffer.use()
             return self._three_dimension_frame_buffer
@@ -203,7 +203,7 @@ actively working to address this operating system limitation.")
 
         self._display_attribute_size = (width, height)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             flags = self._generate_pygame_flags()
 
             self.set_caption()
@@ -219,7 +219,7 @@ actively working to address this operating system limitation.")
                 vsync=self._display_attribute_vsync)
 
             size = _pygame.display.get_window_size()
-            Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
+            _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
 
             if self._display_attribute_transparent_display:
                 if get_operating_system() == Constants.WINDOWS:
@@ -235,11 +235,11 @@ actively working to address this operating system limitation.")
         else:
             raise NotImplementedError
 
-        Registry.display_initialized = True
+        _Registry.display_initialized = True
 
         try:
-            Registry.context = _moderngl.create_context()
-            _moderngl_window.activate_context(Registry.window_context, Registry.context)
+            _Registry.context = _moderngl.create_context()
+            _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
         except Exception as error:
             self._logger.log_error("Failed to create OpenGL context.")
             self._logger.log_development("Failed to create OpenGL context. The most \
@@ -252,7 +252,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             raise error
 
         self._texture_aggregation_program = _Shader()
-        self._texture_aggregation_program.load_shader_from_folder(_path_builder(Registry.base_path, "shaders", "texture_aggregation"))
+        self._texture_aggregation_program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "texture_aggregation"))
         self._texture_aggregation_program.create()
 
         self.__setup_layers(size)
@@ -262,13 +262,13 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def set_caption(self, caption=None):
         if caption is None:
             caption = self._display_attribute_caption
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             _pygame.display.set_caption(str(caption))
 
     def set_icon(self, icon=None):
         if icon is None:
             icon = self._display_attribute_icon
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             icon_img = _pygame.image.load(icon)
             _pygame.display.set_icon(icon_img)
             del icon_img
@@ -288,7 +288,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self.__setup_layers(size)
 
-        Registry.context.viewport = (0, 0, *size)
+        _Registry.context.viewport = (0, 0, *size)
 
     def hex_color_to_windows_raw_color(self, value):
         color_key = int(value[1:], 16)
@@ -300,7 +300,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if self._display_attribute_full_screen:
                 size = (0, 0)
                 self._display_attribute_size = self.get_size()
@@ -313,7 +313,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
             _pygame.display.quit() # issues here with moderngl likely - but without more major windowing issues.
 
-            Registry.context.release()
+            _Registry.context.release()
 
             _pygame.display.init()
 
@@ -340,13 +340,13 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
-        Registry.context = _moderngl.create_context()
-        _moderngl_window.activate_context(Registry.window_context, Registry.context)
+        _Registry.context = _moderngl.create_context()
+        _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
 
         self.display_resize()
 
-        for opengl_object in list(Registry.opengl_objects.keys()):
-            Registry.opengl_objects[opengl_object].recreate()
+        for opengl_object in list(_Registry.opengl_objects.keys()):
+            _Registry.opengl_objects[opengl_object].recreate()
 
         self._display_quad = _geometry.quad_fs()
 
@@ -354,25 +354,25 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._pygame_surface.blit(content, position)
 
     def get_size(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             return _pygame.display.get_window_size()
         else:
             raise NotImplementedError
 
     def get_height(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             return _pygame.display.get_window_size()[1]
         else:
             raise NotImplementedError
 
     def get_width(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             return _pygame.display.get_window_size()[0]
         else:
             raise NotImplementedError
 
     def clear(self, color=None, format=Constants.AUTODETECT):
-        Registry.in_game_loop = True
+        _Registry.in_game_loop = True
 
         if color is None or color == [] or color == ():
             self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
@@ -392,20 +392,20 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._color_key = _numpy.array([*self._color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             #self._two_dimension_frame_buffer.use()
             self._two_dimension_frame_buffer.clear(self._color_converter)
             #self._three_dimension_frame_buffer.use()
             self._three_dimension_frame_buffer.clear(self._color_converter)
             self._pygame_surface.clear(self._color_converter)
             self._blank_frame_buffer.clear(self._color_converter)
-            Registry.context.screen.use()
-            Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGB))
+            _Registry.context.screen.use()
+            _Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGB))
         else:
             raise NotImplementedError
 
     def get_aspect_ratio(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             size = _pygame.display.get_window_size()
             return size[0] / size[1]
         else:
@@ -418,17 +418,17 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             lower_refresh_rate_when_unfocused=True,
             lower_refresh_rate_on_low_battery=True):
 
-        Registry.in_game_loop = True
+        _Registry.in_game_loop = True
 
-        if Registry.handled_events is False:
+        if _Registry.handled_events is False:
             self._logger.log_development("You are not using PMMA's event manager. This is \
 important as it tells the operating system that the window is responding and \
 working correctly. It is strongly advised that when running a display, you \
 handle events too.")
 
-        Registry.handled_events = False
+        _Registry.handled_events = False
 
-        if Registry.compute_component_called is False:
+        if _Registry.compute_component_called is False:
             self._logger.log_warning("PMMA compute operation not called! Please call \
 this function before ending the game loop with this!")
             self._logger.log_development("PMMA compute operation not called! Calling \
@@ -436,12 +436,12 @@ this allows PMMA to perform more self-optimization and improve development \
 messages. Please place this compute function 'pmma.compute()' just before \
 you refresh the display to ensure optimal performance and support!")
         else:
-            Registry.compute_component_called = False
+            _Registry.compute_component_called = False
 
         if refresh_rate is None:
             refresh_rate = 60
 
-        if Registry.power_saving_mode and lower_refresh_rate_on_low_battery:
+        if _Registry.power_saving_mode and lower_refresh_rate_on_low_battery:
             refresh_rate = int(refresh_rate * 0.75)
 
         if lower_refresh_rate_when_unfocused and not self._window_in_focus:
@@ -453,10 +453,10 @@ you refresh the display to ensure optimal performance and support!")
         if refresh_rate < 5:
             refresh_rate = 5
 
-        Registry.context.screen.use()
+        _Registry.context.screen.use()
 
-        Registry.refresh_rate = refresh_rate
-        if Registry.display_mode == Constants.PYGAME:
+        _Registry.refresh_rate = refresh_rate
+        if _Registry.display_mode == Constants.PYGAME:
             if self._using_pygame_surface:
                 byte_data = self._pygame_surface.to_string(flipped=True)
                 self._opengl.blit_image_to_texture(
@@ -502,9 +502,9 @@ you refresh the display to ensure optimal performance and support!")
 
             self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
 
-            Registry.context.enable(_moderngl.BLEND)
+            _Registry.context.enable(_moderngl.BLEND)
             self._display_quad.render(self._texture_aggregation_program.get_program())
-            Registry.context.disable(_moderngl.BLEND)
+            _Registry.context.disable(_moderngl.BLEND)
 
             _pygame.display.flip()
 
@@ -514,14 +514,14 @@ you refresh the display to ensure optimal performance and support!")
                 self.display_resize()
 
             frame_rate = self.get_fps()
-            if Registry.application_average_frame_rate["Samples"] == 0:
-                Registry.application_average_frame_rate["Mean"] = frame_rate
-                Registry.application_average_frame_rate["Samples"] = 1
+            if _Registry.application_average_frame_rate["Samples"] == 0:
+                _Registry.application_average_frame_rate["Mean"] = frame_rate
+                _Registry.application_average_frame_rate["Samples"] = 1
             else:
-                mean = Registry.application_average_frame_rate["Mean"] * Registry.application_average_frame_rate["Samples"]
+                mean = _Registry.application_average_frame_rate["Mean"] * _Registry.application_average_frame_rate["Samples"]
                 mean += frame_rate
-                Registry.application_average_frame_rate["Samples"] += 1
-                Registry.application_average_frame_rate["Mean"] = mean / Registry.application_average_frame_rate["Samples"]
+                _Registry.application_average_frame_rate["Samples"] += 1
+                _Registry.application_average_frame_rate["Mean"] = mean / _Registry.application_average_frame_rate["Samples"]
 
             if refresh_rate > 0:
                 self._clock.tick(refresh_rate)
@@ -529,13 +529,13 @@ you refresh the display to ensure optimal performance and support!")
             raise NotImplementedError
 
     def close(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             _pygame.quit()
         else:
             raise NotImplementedError
 
     def get_fps(self):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             return self._clock.get_fps()
         else:
             raise NotImplementedError
@@ -544,7 +544,7 @@ you refresh the display to ensure optimal performance and support!")
         return self.get_fps()
 
     def get_center(self, as_integer=True):
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if as_integer:
                 return self._display.get_width() // 2, self._display.get_height() // 2
             return self._display.get_width() / 2, self._display.get_height() / 2

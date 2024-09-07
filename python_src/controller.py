@@ -25,16 +25,16 @@ class Controllers:
         self._shut_down = True
 
     def identify_controllers(self):
-        Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
+        _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
 
     def get_controller(self, controller_index) -> 'Controller':
-        return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
+        return _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
 
     def update_controllers(self):
-        Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
+        _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
 
     def list_controllers(self):
-        return Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
+        return _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
 
 class Controller:
     def __init__(self, joy_num):

@@ -106,7 +106,7 @@ class FileCore:
         self._shut_down = True
 
     def update_locations(self, project_directory=None, force_refresh=True):
-        self._locations = [Registry.base_path]
+        self._locations = [_Registry.base_path]
         if project_directory is not None:
             self._locations.append(project_directory)
         if _PassportIntermediary.project_directory is not None:

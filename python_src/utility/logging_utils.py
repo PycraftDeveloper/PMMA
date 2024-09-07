@@ -23,22 +23,22 @@ class LoggerIntermediary:
 
         self._file_log_buffer = []
 
-        self._internal_log_development_messages_to_terminal = Registry.development_mode
+        self._internal_log_development_messages_to_terminal = _Registry.development_mode
         self._internal_log_information_messages_to_terminal = True
         self._internal_log_warning_messages_to_terminal = False
         self._internal_log_error_messages_to_terminal = True
 
-        self._internal_log_development_messages_to_file = Registry.development_mode
+        self._internal_log_development_messages_to_file = _Registry.development_mode
         self._internal_log_information_messages_to_file = True
         self._internal_log_warning_messages_to_file = True
         self._internal_log_error_messages_to_file = True
 
-        self._external_log_development_messages_to_terminal = Registry.development_mode
+        self._external_log_development_messages_to_terminal = _Registry.development_mode
         self._external_log_information_messages_to_terminal = True
         self._external_log_warning_messages_to_terminal = False
         self._external_log_error_messages_to_terminal = True
 
-        self._external_log_development_messages_to_file = Registry.development_mode
+        self._external_log_development_messages_to_file = _Registry.development_mode
         self._external_log_information_messages_to_file = True
         self._external_log_warning_messages_to_file = True
         self._external_log_error_messages_to_file = True
@@ -53,7 +53,7 @@ class LoggerIntermediary:
 
         self._project_log_folder = None
 
-        self._log_directory = _path_builder(Registry.base_path, "logs")
+        self._log_directory = _path_builder(_Registry.base_path, "logs")
         try:
             _os.mkdir(self._log_directory)
         except:
@@ -62,13 +62,13 @@ class LoggerIntermediary:
         now = _datetime.datetime.now()
         log_file_identifier = now.strftime("log %d-%m-%Y @ %H-%M-%S")
 
-        self._log_folders_directory = _path_builder(Registry.base_path, "logs", log_file_identifier)
+        self._log_folders_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier)
         try:
             _os.mkdir(self._log_folders_directory)
         except:
             pass
 
-        self._internal_log_directory = _path_builder(Registry.base_path, "logs", log_file_identifier, "pmma")
+        self._internal_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, "pmma")
         try:
             _os.mkdir(self._internal_log_directory)
         except:
@@ -78,7 +78,7 @@ class LoggerIntermediary:
             name = _PassportIntermediary.name
         else:
             name = "application"
-        self._external_log_directory = _path_builder(Registry.base_path, "logs", log_file_identifier, name)
+        self._external_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, name)
         try:
             _os.mkdir(self._external_log_directory)
         except:
@@ -462,10 +462,10 @@ class InternalLogger:
     def __init__(self):
         _initialize(self)
 
-        if not Constants.LOGGING_INTERMEDIARY_OBJECT in Registry.pmma_module_spine.keys():
+        if not Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
         self._logger_intermediary.set_internal_log_development_messages_to_terminal()(value)
@@ -527,7 +527,7 @@ class InternalLogger:
             log_error_messages_to_file=True):
 
         if log_development_messages_to_terminal is None:
-            self._logger_intermediary.set_internal_log_development_messages_to_terminal(Registry.development_mode)
+            self._logger_intermediary.set_internal_log_development_messages_to_terminal(_Registry.development_mode)
         else:
             self._logger_intermediary.set_internal_log_development_messages_to_terminal(log_development_messages_to_terminal)
         self._logger_intermediary.set_internal_log_information_messages_to_terminal(log_information_messages_to_terminal)
@@ -535,7 +535,7 @@ class InternalLogger:
         self._logger_intermediary.set_internal_log_error_messages_to_terminal(log_error_messages_to_terminal)
 
         if log_development_messages_to_terminal is None:
-            self._logger_intermediary.set_internal_log_development_messages_to_file(Registry.development_mode)
+            self._logger_intermediary.set_internal_log_development_messages_to_file(_Registry.development_mode)
         else:
             self._logger_intermediary.set_internal_log_development_messages_to_file(log_development_messages_to_file)
         self._logger_intermediary.set_internal_log_information_messages_to_file(log_information_messages_to_file)

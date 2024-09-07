@@ -23,7 +23,7 @@ class Perlin:
 
         _initialize(self)
 
-        if Registry.cython_acceleration_available:
+        if _Registry.cython_acceleration_available:
             self._noise_module = _importlib.import_module(
                 "pmma.bin.perlin_noise")
 
@@ -77,10 +77,10 @@ class Perlin:
 
     def prefill(self):
         try:
-            Registry.perlin_noise_prefill_single_samples = 0
+            _Registry.perlin_noise_prefill_single_samples = 0
             x_samples = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
             for _ in range(1, 1_000):
-                Registry.perlin_noise_prefill_single_samples += 1
+                _Registry.perlin_noise_prefill_single_samples += 1
                 x = random_real_number()
                 self.generate_1D_perlin_noise(x/100)
                 self.generate_2D_perlin_noise(x/100, -x/100)
@@ -88,7 +88,7 @@ class Perlin:
 
             x = x_samples[0]
             del x_samples[0]
-            Registry.perlin_noise_prefill_array_samples += 1
+            _Registry.perlin_noise_prefill_array_samples += 1
             x_array, y_array, z_array = _prefill_optimizer(x)
 
             self.generate_1D_perlin_noise_from_array(x_array)
@@ -101,9 +101,9 @@ class Perlin:
             self.generate_2D_perlin_noise_from_range([x], [x])
             self.generate_3D_perlin_noise_from_range([x], [x], [x])
 
-            while Registry.in_game_loop is False or Registry.power_saving_mode:
+            while _Registry.in_game_loop is False or _Registry.power_saving_mode:
                 for _ in range(100):
-                    Registry.perlin_noise_prefill_single_samples += 1
+                    _Registry.perlin_noise_prefill_single_samples += 1
                     x = random_real_number()
                     self.generate_1D_perlin_noise(x/100)
                     self.generate_2D_perlin_noise(x/100, -x/100)
@@ -112,7 +112,7 @@ class Perlin:
                 if x_samples != []:
                     x = x_samples[0]
                     del x_samples[0]
-                    Registry.perlin_noise_prefill_array_samples += 1
+                    _Registry.perlin_noise_prefill_array_samples += 1
                     x_array, y_array, z_array = _prefill_optimizer(x)
 
                     self.generate_1D_perlin_noise_from_array(x_array)

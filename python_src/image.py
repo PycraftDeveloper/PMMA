@@ -14,10 +14,10 @@ class Image:
     def __init__(self):
         _initialize(self)
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._memory_manager_instance = _MemoryManager()
@@ -77,7 +77,7 @@ class Image:
             pil_image = self._memory_manager_instance.get(
                 self._pil_image_address)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             graphics_backend_image = _pygame.image.fromstring(
                 pil_image.tobytes(),
                 pil_image.size,
@@ -100,7 +100,7 @@ class Image:
 
     def blit(self, position, surface=None):
         if surface is None:
-            surface = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if self._memory_manager_instance.get(self._graphics_backend_image_address) is None:
             object = self.image_to_display_renderable_object()

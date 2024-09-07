@@ -43,10 +43,10 @@ class RenderPipeline:
         self._vao = _VertexArrayObject()
 
         self._simple_shape_rendering_program = _Shader()
-        self._simple_shape_rendering_program.load_shader_from_folder(_path_builder(Registry.base_path, "shaders", "simple_shape_renderer"))
+        self._simple_shape_rendering_program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "simple_shape_renderer"))
         self._simple_shape_rendering_program.create()
 
-        self._display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._window_full_screen_status_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
@@ -70,7 +70,7 @@ class RenderPipeline:
 
     def render(self, canvas=None): # not sure on width yet.
         if canvas is None:
-            Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
+            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
 
         if self._render_points == []:
             return

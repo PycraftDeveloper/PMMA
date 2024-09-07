@@ -10,13 +10,13 @@ class CoordinateIntermediary:
         self._logger = _InternalLogger()
 
     def set_coordinate(self, coordinate, in_type=Constants.CONVENTIONAL_COORDINATES):
-        if Registry.display_initialized is False:
+        if _Registry.display_initialized is False:
             self._logger.log_development("You need to have first created a display in \
 order to be able to use this function. This is because OpenGL coordinates vary depending \
 on the screen size and aspect ratio.")
             raise _DisplayNotYetCreatedError()
         else:
-            display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(coordinate) == list or type(coordinate) == tuple:
             coordinate = list(coordinate)
@@ -43,13 +43,13 @@ on the screen size and aspect ratio.")
             self._coordinate = [x, y]
 
     def get_coordinate(self, out_type=Constants.CONVENTIONAL_COORDINATES):
-        if Registry.display_initialized is False:
+        if _Registry.display_initialized is False:
             self._logger.log_development("You need to have first created a display in \
 order to be able to use this function. This is because OpenGL coordinates vary depending \
 on the screen size and aspect ratio.")
             raise _DisplayNotYetCreatedError()
         else:
-            display = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._coordinate

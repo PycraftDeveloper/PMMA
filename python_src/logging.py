@@ -8,10 +8,10 @@ class Logger:
     def __init__(self):
         _initialize(self)
 
-        if not Constants.LOGGING_INTERMEDIARY_OBJECT in Registry.pmma_module_spine.keys():
+        if not Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
         self._logger_intermediary.set_external_log_development_messages_to_terminal(value)
@@ -73,7 +73,7 @@ class Logger:
             log_error_messages_to_file=True):
 
         if log_development_messages_to_terminal is None:
-            self._logger_intermediary.set_external_log_development_messages_to_terminal(Registry.development_mode)
+            self._logger_intermediary.set_external_log_development_messages_to_terminal(_Registry.development_mode)
         else:
             self._logger_intermediary.set_external_log_development_messages_to_terminal(log_development_messages_to_terminal)
         self._logger_intermediary.set_external_log_information_messages_to_terminal(log_information_messages_to_terminal)
@@ -81,7 +81,7 @@ class Logger:
         self._logger_intermediary.set_external_log_error_messages_to_terminal(log_error_messages_to_terminal)
 
         if log_development_messages_to_terminal is None:
-            self._logger_intermediary.set_external_log_development_messages_to_file(Registry.development_mode)
+            self._logger_intermediary.set_external_log_development_messages_to_file(_Registry.development_mode)
         else:
             self._logger_intermediary.set_external_log_development_messages_to_file(log_development_messages_to_file)
         self._logger_intermediary.set_external_log_information_messages_to_file(log_information_messages_to_file)

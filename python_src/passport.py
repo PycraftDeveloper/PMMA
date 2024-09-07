@@ -34,7 +34,7 @@ class Passport:
 
         self._logger = _InternalLogger()
 
-        if Registry.pmma_initialized:
+        if _Registry.pmma_initialized:
             self._logger.log_development("Whilst it may not always be possible to do, configuring your \
 application's passport is best done before calling 'pmma.init()'. Doing so, as you have done, \
 afterwards may cause unintentional or unexpected behavior as some changes may not take effect. \

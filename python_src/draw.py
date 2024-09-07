@@ -31,24 +31,24 @@ class Line:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                self._logger.log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -135,8 +135,8 @@ mode is Pygame.")
         return self._width
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -152,9 +152,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
-        if Registry.display_mode == Constants.PYGAME:
-            if Registry.do_anti_aliasing:
+        _Registry.number_of_draw_calls += 1
+        if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aaline(
                     self._canvas.get_pygame_surface().get_pygame_surface(),
                     self._color.output_color(Constants.RGBA),
@@ -172,7 +172,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Lines:
@@ -188,24 +188,24 @@ class Lines:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -290,8 +290,8 @@ mode is Pygame.")
         return self._closed
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -307,14 +307,14 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if len(self._points) < 2:
                 end_time = _time.perf_counter()
-                Registry.total_time_spent_drawing += end_time - start_time
+                _Registry.total_time_spent_drawing += end_time - start_time
                 return
-            if Registry.do_anti_aliasing:
+            if _Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aalines(
                     self._canvas.get_pygame_surface().get_pygame_surface(),
                     self._color.output_color(Constants.RGBA),
@@ -332,7 +332,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class AdvancedPolygon:
@@ -351,24 +351,24 @@ class AdvancedPolygon:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -476,8 +476,8 @@ mode is Pygame.")
         return self._wire_frame
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -493,10 +493,10 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._wire_frame:
             for i in range(0, self._number_of_sides):
-                if Registry.display_mode == Constants.PYGAME:
+                if _Registry.display_mode == Constants.PYGAME:
                     _pygame.draw.line(
                         self._canvas.get_pygame_surface().get_pygame_surface(),
                         self._color.output_color(Constants.RGBA),
@@ -511,7 +511,7 @@ mode is Pygame.")
         if self._wire_frame:
             width = 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
                 self._canvas.get_pygame_surface().get_pygame_surface(),
                 self._color.output_color(Constants.RGBA),
@@ -520,7 +520,7 @@ mode is Pygame.")
         else:
             return None, self._cache
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class RotatedRect: # https://stackoverflow.com/a/73855696
@@ -569,24 +569,24 @@ class RotatedRect: # https://stackoverflow.com/a/73855696
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -689,8 +689,8 @@ mode is Pygame.")
         return self._width
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -722,7 +722,7 @@ mode is Pygame.")
             Name of the fill color, in HTML format.
         """
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         x, y = self._center_of_rect
         points = []
 
@@ -746,7 +746,7 @@ mode is Pygame.")
             x_offset = radius * _math.cos(angle + rot_radians)
             points.append((x + x_offset, y + y_offset))
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
                 self._canvas.get_pygame_surface().get_pygame_surface(),
                 self._color.output_color(Constants.RGBA),
@@ -756,7 +756,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Rect:
@@ -777,24 +777,24 @@ class Rect:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -924,8 +924,8 @@ mode is Pygame.")
         return self._border_bottom_right_radius
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -941,9 +941,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*self._position, *self._size)
 
             returnable = _pygame.draw.rect(
@@ -960,7 +960,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Circle:
@@ -976,24 +976,24 @@ class Circle:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -1078,8 +1078,8 @@ mode is Pygame.")
         return self._width
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1095,17 +1095,17 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
         if abs(self._radius) < 1:
             end_time = _time.perf_counter()
-            Registry.total_time_spent_drawing += end_time - start_time
+            _Registry.total_time_spent_drawing += end_time - start_time
             self._logger.log_development("You have created a circle with radius of less than 1. \
 This means that the circle wont be visible onscreen, so we exit without even trying \
 for improved performance.")
             return
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.circle(
                 self._canvas.get_pygame_surface().get_pygame_surface(),
                 self._color.output_color(Constants.RGBA),
@@ -1116,7 +1116,7 @@ for improved performance.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Arc:
@@ -1134,24 +1134,24 @@ class Arc:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -1254,8 +1254,8 @@ mode is Pygame.")
         return self._width
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1271,9 +1271,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*self._position, *self._size)
             returnable = _pygame.draw.arc(
                 self._canvas.get_pygame_surface().get_pygame_surface(),
@@ -1286,7 +1286,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Polygon:
@@ -1301,24 +1301,24 @@ class Polygon:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -1395,8 +1395,8 @@ mode is Pygame.")
         return self._width
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1412,9 +1412,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
                 self._canvas.get_pygame_surface().get_pygame_surface(),
                 self._color.output_color(Constants.RGBA),
@@ -1424,7 +1424,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Ellipse:
@@ -1440,24 +1440,24 @@ class Ellipse:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -1544,8 +1544,8 @@ mode is Pygame.")
         return self._width
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1561,9 +1561,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*self._position, *self._size)
             returnable = _pygame.draw.ellipse(
                 self._canvas.get_pygame_surface().get_pygame_surface(),
@@ -1574,7 +1574,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Pixel:
@@ -1588,24 +1588,24 @@ class Pixel:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -1672,8 +1672,8 @@ mode is Pygame.")
         return coordinate_converter.output_coordinates(format=format)
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1689,9 +1689,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             try:
                 returnable = _gfxdraw.pixel(
                     self._canvas.get_pygame_surface().get_pygame_surface(),
@@ -1713,7 +1713,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class CurvedLines:
@@ -1728,24 +1728,24 @@ class CurvedLines:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         if type(color) != _Color:
             self._color = _Color()
@@ -1825,8 +1825,8 @@ mode is Pygame.")
         return self._steps
 
     def set_canvas(self, canvas):
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1842,9 +1842,9 @@ mode is Pygame.")
 
     def draw(self):
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if len(self._points) > 2:
                 try:
                     returnable = _gfxdraw.bezier(
@@ -1854,7 +1854,7 @@ mode is Pygame.")
                         self._color.output_color(Constants.RGBA)), True
 
                     end_time = _time.perf_counter()
-                    Registry.total_time_spent_drawing += end_time - start_time
+                    _Registry.total_time_spent_drawing += end_time - start_time
                     return returnable
                 except:
                     pass
@@ -1870,7 +1870,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
 class Draw:
@@ -1882,22 +1882,22 @@ class Draw:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
         self._canvas = canvas
 
@@ -1920,9 +1920,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -1930,8 +1930,8 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
-            if Registry.do_anti_aliasing:
+        if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aaline(
                     canvas.get_pygame_surface(),
                     color,
@@ -1950,7 +1950,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def lines(
@@ -1962,9 +1962,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -1972,12 +1972,12 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if len(points) < 2:
                 end_time = _time.perf_counter()
-                Registry.total_time_spent_drawing += end_time - start_time
+                _Registry.total_time_spent_drawing += end_time - start_time
                 return
-            if Registry.do_anti_aliasing:
+            if _Registry.do_anti_aliasing:
                 returnable = _pygame.draw.aalines(
                     canvas.get_pygame_surface(),
                     color,
@@ -1996,7 +1996,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def advanced_polygon(
@@ -2012,9 +2012,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2023,7 +2023,7 @@ mode is Pygame.")
             color.input_color(color)
 
         if cache is not None:
-            if Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == Constants.PYGAME:
                 returnable = _pygame.draw.polygon(
                     canvas.get_pygame_surface(),
                     color,
@@ -2031,17 +2031,17 @@ mode is Pygame.")
                     width=width), cache
 
                 end_time = _time.perf_counter()
-                Registry.total_time_spent_drawing += end_time - start_time
+                _Registry.total_time_spent_drawing += end_time - start_time
                 return returnable
             else:
                 end_time = _time.perf_counter()
-                Registry.total_time_spent_drawing += end_time - start_time
+                _Registry.total_time_spent_drawing += end_time - start_time
                 return None, cache
 
         if wire_frame:
             for i in range(0, number_of_sides):
-                Registry.number_of_draw_calls += 1
-                if Registry.display_mode == Constants.PYGAME:
+                _Registry.number_of_draw_calls += 1
+                if _Registry.display_mode == Constants.PYGAME:
                     _pygame.draw.line(
                         canvas.get_pygame_surface(),
                         color,
@@ -2056,7 +2056,7 @@ mode is Pygame.")
         if wire_frame:
             width = 1
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
                 canvas.get_pygame_surface(),
                 color,
@@ -2064,10 +2064,10 @@ mode is Pygame.")
                 width=width), points
         else:
             end_time = _time.perf_counter()
-            Registry.total_time_spent_drawing += end_time - start_time
+            _Registry.total_time_spent_drawing += end_time - start_time
             return None, cache
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def rotated_rect(
@@ -2097,9 +2097,9 @@ mode is Pygame.")
             Name of the fill color, in HTML format.
         """
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2108,7 +2108,7 @@ mode is Pygame.")
             color.input_color(color)
 
         if cache is not None:
-            if Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == Constants.PYGAME:
                 returnable = _pygame.draw.polygon(
                     canvas.get_pygame_surface(),
                     color,
@@ -2116,11 +2116,11 @@ mode is Pygame.")
                     width=width), cache
 
                 end_time = _time.perf_counter()
-                Registry.total_time_spent_drawing += end_time - start_time
+                _Registry.total_time_spent_drawing += end_time - start_time
                 return returnable
             else:
                 end_time = _time.perf_counter()
-                Registry.total_time_spent_drawing += end_time - start_time
+                _Registry.total_time_spent_drawing += end_time - start_time
                 return None, cache
 
         x, y = center_of_rect
@@ -2146,7 +2146,7 @@ mode is Pygame.")
             x_offset = radius * _math.cos(angle + rot_radians)
             points.append((x + x_offset, y + y_offset))
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
                 canvas.get_pygame_surface(),
                 color,
@@ -2156,7 +2156,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def rect(
@@ -2173,9 +2173,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2183,7 +2183,7 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             rect = _pygame.Rect(*position, *size)
             returnable = _pygame.draw.rect(
                 canvas.get_pygame_surface(),
@@ -2199,7 +2199,7 @@ mode is Pygame.")
             raise NotImplementedError
 
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def circle(
@@ -2211,21 +2211,21 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
         if abs(radius) < 1:
             end_time = _time.perf_counter()
-            Registry.total_time_spent_drawing += end_time - start_time
+            _Registry.total_time_spent_drawing += end_time - start_time
             return
 
         if type(color) != _Color:
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.circle(
                 canvas.get_pygame_surface(),
                 color,
@@ -2237,7 +2237,7 @@ mode is Pygame.")
             raise NotImplementedError
 
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def arc(
@@ -2250,9 +2250,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2260,7 +2260,7 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.arc(
                 canvas.get_pygame_surface(),
                 color,
@@ -2272,7 +2272,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def polygon(
@@ -2283,9 +2283,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2293,7 +2293,7 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.polygon(
             canvas.get_pygame_surface(),
             color,
@@ -2303,7 +2303,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def ellipse(
@@ -2314,9 +2314,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2324,7 +2324,7 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             returnable = _pygame.draw.ellipse(
                 canvas.get_pygame_surface(),
                 color,
@@ -2333,7 +2333,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def pixel(
@@ -2343,9 +2343,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2353,7 +2353,7 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             try:
                 returnable = _gfxdraw.pixel(
                     canvas.get_pygame_surface(),
@@ -2375,7 +2375,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
 
     def curved_lines(
@@ -2386,9 +2386,9 @@ mode is Pygame.")
             canvas=None):
 
         start_time = _time.perf_counter()
-        Registry.number_of_draw_calls += 1
+        _Registry.number_of_draw_calls += 1
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         if canvas is None:
             canvas = self._canvas
 
@@ -2396,7 +2396,7 @@ mode is Pygame.")
             color = _Color()
             color.input_color(color)
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             if len(points) > 2:
                 try:
                     returnable = _gfxdraw.bezier(
@@ -2406,7 +2406,7 @@ mode is Pygame.")
                         color), True
 
                     end_time = _time.perf_counter()
-                    Registry.total_time_spent_drawing += end_time - start_time
+                    _Registry.total_time_spent_drawing += end_time - start_time
                     return returnable
                 except:
                     pass
@@ -2420,5 +2420,5 @@ mode is Pygame.")
         else:
             raise NotImplementedError
         end_time = _time.perf_counter()
-        Registry.total_time_spent_drawing += end_time - start_time
+        _Registry.total_time_spent_drawing += end_time - start_time
         return returnable

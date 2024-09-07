@@ -19,10 +19,10 @@ class Text:
     def __init__(self, canvas=None):
         _initialize(self)
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._canvas = canvas
@@ -53,7 +53,7 @@ class Text:
         if italic is None:
             italic = system_font_dictionary["slant"] == "italic"
 
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             return _pygame.font.SysFont(name, size), [name, size]
         else:
             raise NotImplementedError
@@ -61,7 +61,7 @@ class Text:
     def render_text_with_transparent_background(self, in_text, bg_color):
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
-        if Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == Constants.PYGAME:
             alpha_surface = _pygame.Surface(
                 (width, height),
                 _pygame.SRCALPHA)
@@ -99,7 +99,7 @@ class Text:
         canvas_identifiable_data = "param_based_canvas"
 
         if self._canvas is None and canvas is None:
-            canvas = Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
             canvas_identifiable_data = Constants.DISPLAY_OBJECT
         if canvas is None:
             canvas = self._canvas
@@ -111,7 +111,7 @@ class Text:
             font_identifiable_data = [font, size]
             file_object = _File(font)
             font_argument_is_path = file_object.exists()
-            if Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == Constants.PYGAME:
                 if font_argument_is_path:
                     font = _pygame.font.Font(font, size)
                 else:
@@ -166,7 +166,7 @@ class Text:
         if result is None:
             start = _time.perf_counter()
             x, y = 0, 0
-            if Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == Constants.PYGAME:
                 surface = _pygame.Surface(
                     canvas.get_size(),
                     _pygame.SRCALPHA)
@@ -225,7 +225,7 @@ class Text:
                         elif syntax == "nln":
                             temporary_text = font.render(
                                 " ",
-                                Registry.do_anti_aliasing,
+                                _Registry.do_anti_aliasing,
                                 foreground_color,
                                 background_color)
 
@@ -249,7 +249,7 @@ class Text:
                 else:
                     rendered_word = font.render(
                         word+" ",
-                        Registry.do_anti_aliasing,
+                        _Registry.do_anti_aliasing,
                         foreground_color)
 
                     if rendered_word.get_width() > surface.get_width():
@@ -257,7 +257,7 @@ class Text:
                         for letter in word:
                             rendered_word = font.render(
                                 letter,
-                                Registry.do_anti_aliasing,
+                                _Registry.do_anti_aliasing,
                                 foreground_color)
 
                             if rendered_word.get_width() + x > surface.get_width():

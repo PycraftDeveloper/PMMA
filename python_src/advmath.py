@@ -31,15 +31,15 @@ class Math:
     def get_function_pythag(self):
         """
         🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.
-        This depends on the state of PMMA's registry entry: ``Registry.custom_compiled_behavior["raw_pythag"]``.
+        This depends on the state of PMMA's registry entry: ``_Registry.custom_compiled_behavior["raw_pythag"]``.
         For more information on this behavior, check out the Registry section, or look at the welcome page.
 
         Returns:
             Pythag function (Callable) - The requested function.
         """
-        if Registry.compile_math_functions:
-            if "raw_pythag" in Registry.custom_compiled_behavior.keys():
-                if Registry.custom_compiled_behavior["raw_pythag"]:
+        if _Registry.compile_math_functions:
+            if "raw_pythag" in _Registry.custom_compiled_behavior.keys():
+                if _Registry.custom_compiled_behavior["raw_pythag"]:
                     return _math_utils.raw_pythag
                 else:
                     return _math_utils.raw_pythag.py_func
@@ -79,9 +79,9 @@ class Math:
         return self.get_function_gl_look_at()(eye, target, up)
 
     def get_function_compute_position(self):
-        if Registry.compile_math_functions:
-            if "raw_compute_position" in Registry.custom_compiled_behavior.keys():
-                if Registry.custom_compiled_behavior["raw_compute_position"]:
+        if _Registry.compile_math_functions:
+            if "raw_compute_position" in _Registry.custom_compiled_behavior.keys():
+                if _Registry.custom_compiled_behavior["raw_compute_position"]:
                     return _math_utils.raw_compute_position
                 else:
                     return _math_utils.raw_compute_position.py_func
@@ -94,9 +94,9 @@ class Math:
         return self.get_function_compute_position()(pos, target, up)
 
     def get_function_perspective_fov(self):
-        if Registry.compile_math_functions:
-            if "raw_perspective_fov" in Registry.custom_compiled_behavior.keys():
-                if Registry.custom_compiled_behavior["raw_perspective_fov"]:
+        if _Registry.compile_math_functions:
+            if "raw_perspective_fov" in _Registry.custom_compiled_behavior.keys():
+                if _Registry.custom_compiled_behavior["raw_perspective_fov"]:
                     return _math_utils.raw_perspective_fov
                 else:
                     return _math_utils.raw_perspective_fov.py_func
@@ -109,9 +109,9 @@ class Math:
         return self.get_function_perspective_fov()(fov, aspect_ratio, near_plane, far_plane)
 
     def get_function_look_at(self):
-        if Registry.compile_math_functions:
-            if "raw_look_at" in Registry.custom_compiled_behavior.keys():
-                if Registry.custom_compiled_behavior["raw_look_at"]:
+        if _Registry.compile_math_functions:
+            if "raw_look_at" in _Registry.custom_compiled_behavior.keys():
+                if _Registry.custom_compiled_behavior["raw_look_at"]:
                     return _math_utils.raw_look_at
                 else:
                     return _math_utils.raw_look_at.py_func
@@ -124,9 +124,9 @@ class Math:
         return self.get_function_look_at()(camera_position, camera_target, up_vector)
 
     def get_function_multiply(self):
-        if Registry.compile_math_functions:
-            if "raw_multiply" in Registry.custom_compiled_behavior.keys():
-                if Registry.custom_compiled_behavior["raw_multiply"]:
+        if _Registry.compile_math_functions:
+            if "raw_multiply" in _Registry.custom_compiled_behavior.keys():
+                if _Registry.custom_compiled_behavior["raw_multiply"]:
                     return _math_utils.raw_multiply
                 else:
                     return _math_utils.raw_multiply.py_func

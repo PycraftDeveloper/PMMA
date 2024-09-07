@@ -31,7 +31,7 @@ class OpenGL:
         self._shut_down = True
 
     def _check_if_opengl_backend_initialized(self):
-        if Registry.display_initialized is False:
+        if _Registry.display_initialized is False:
             self._logger.log_development("OpenGL backend has not been initialized yet. This is \
 most likely due to not having created a Display through PMMA. You must do this \
 first if you want to be able to use these OpenGL functions.")
@@ -40,7 +40,7 @@ first if you want to be able to use these OpenGL functions.")
 
     def get_context(self):
         self._check_if_opengl_backend_initialized()
-        return Registry.context
+        return _Registry.context
 
     def blit_image_to_texture(self, image, texture):
         self._check_if_opengl_backend_initialized()
@@ -51,7 +51,7 @@ class VertexBufferObject:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._data = None
         self._vbo = None
@@ -60,7 +60,7 @@ class VertexBufferObject:
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
-        self._vbo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
 
     def recreate(self):
         if self._vbo is not None:
@@ -70,9 +70,9 @@ class VertexBufferObject:
             self._vbo.release()
 
             if self._data is None:
-                self._vbo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+                self._vbo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
             else:
-                self._vbo = Registry.context.buffer(self._data, dynamic=dynamic)
+                self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._vbo is None:
@@ -122,7 +122,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         if self._shut_down is False:
             if self._vbo is not None:
                 self._vbo.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -136,7 +136,7 @@ class GenericBufferObject:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._data = None
         self._gbo = None
@@ -145,7 +145,7 @@ class GenericBufferObject:
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
-        self._gbo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
 
     def recreate(self):
         if self._gbo is not None:
@@ -155,9 +155,9 @@ class GenericBufferObject:
             self._gbo.release()
 
             if self._data is None:
-                self._gbo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+                self._gbo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
             else:
-                self._gbo = Registry.context.buffer(self._data, dynamic=dynamic)
+                self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._gbo is None:
@@ -207,7 +207,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         if self._shut_down is False:
             if self._gbo is not None:
                 self._gbo.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -221,7 +221,7 @@ class ColorBufferObject:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._data = None
         self._cbo = None
@@ -230,7 +230,7 @@ class ColorBufferObject:
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
-        self._cbo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
 
     def recreate(self):
         if self._cbo is not None:
@@ -240,9 +240,9 @@ class ColorBufferObject:
             self._cbo.release()
 
             if self._data is None:
-                self._cbo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+                self._cbo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
             else:
-                self._cbo = Registry.context.buffer(self._data, dynamic=dynamic)
+                self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._cbo is None:
@@ -292,7 +292,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         if self._shut_down is False:
             if self._cbo is not None:
                 self._cbo.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -306,7 +306,7 @@ class IndexBufferObject:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._data = None
         self._ibo = None
@@ -315,7 +315,7 @@ class IndexBufferObject:
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
-        self._ibo = Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
 
     def recreate(self):
         if self._ibo is not None:
@@ -325,9 +325,9 @@ class IndexBufferObject:
             self._ibo.release()
 
             if self._data is None:
-                self._ibo = Registry.context.buffer(dynamic=dynamic, reserve=reserve)
+                self._ibo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
             else:
-                self._ibo = Registry.context.buffer(self._data, dynamic=dynamic)
+                self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
         if self._ibo is None:
@@ -377,7 +377,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         if self._shut_down is False:
             if self._ibo is not None:
                 self._ibo.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -391,7 +391,7 @@ class VertexArrayObject:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._vao = None
         self._program = None
@@ -433,7 +433,7 @@ class VertexArrayObject:
         for buffer_count in range(len(additional_buffers)):
             buffer_passthrough.append((additional_buffers[buffer_count].get_generic_buffer_object(), *additional_buffer_attributes[buffer_count]))
 
-        self._vao = Registry.context.vertex_array(
+        self._vao = _Registry.context.vertex_array(
             program,
             buffer_passthrough,
             index_buffer=ibo,
@@ -468,7 +468,7 @@ class VertexArrayObject:
             for buffer_count in range(len(self._additional_buffers)):
                 buffer_passthrough.append((self._additional_buffers[buffer_count].get_generic_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
 
-            self._vao = Registry.context.vertex_array(
+            self._vao = _Registry.context.vertex_array(
             program,
             [
                 (vbo, *self._vertex_buffer_shader_attributes),
@@ -479,10 +479,10 @@ class VertexArrayObject:
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
         if self._vao is not None:
             if allow_shaders_to_adjust_point_size:
-                Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
+                _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
             self._vao.render(mode=mode)
             if allow_shaders_to_adjust_point_size:
-                Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
+                _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
 
     def get_vertex_array_object(self):
         return self._vao
@@ -512,7 +512,7 @@ class VertexArrayObject:
         if self._shut_down is False:
             if self._vao is not None:
                 self._vao.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -526,7 +526,7 @@ class Shader:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._program = None
         self._program_data = {"vertex": None, "fragment": None}
@@ -598,7 +598,7 @@ class Shader:
         self._program_data["fragment"] = fragment_shader
 
     def create(self):
-        self._program = Registry.context.program(
+        self._program = _Registry.context.program(
             vertex_shader=self._program_data["vertex"],
             fragment_shader=self._program_data["fragment"])
 
@@ -606,7 +606,7 @@ class Shader:
         if self._program is not None:
             self._program.release()
 
-            self._program = Registry.context.program(
+            self._program = _Registry.context.program(
                 vertex_shader=self._program_data["vertex"],
                 fragment_shader=self._program_data["fragment"])
 
@@ -626,7 +626,7 @@ class Shader:
         if self._shut_down is False:
             if self._program is not None:
                 self._program.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -640,7 +640,7 @@ class Texture:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._texture = None
         self._size = (None, None)
@@ -660,8 +660,8 @@ class Texture:
         self._intended_samples = samples
 
         if samples is None:
-            samples = Registry.anti_aliasing_level
-        if Registry.do_anti_aliasing is False:
+            samples = _Registry.anti_aliasing_level
+        if _Registry.do_anti_aliasing is False:
             samples = 0
 
         if samples != 0:
@@ -669,11 +669,11 @@ class Texture:
 make sure that you update your shader that uses this texture accordingly, otherwise you will \
 encounter visual issues with that texture when you go to render something using it.")
 
-        if samples > Registry.context.max_samples:
+        if samples > _Registry.context.max_samples:
             self._logger.log_development("The requested number of samples is greater than the maximum \
 number of samples supported by your system. The maximum number of samples will be used instead. The \
-maximum number of samples supported by your system is: {}", variables=[Registry.context.max_samples])
-            samples = Registry.context.max_samples
+maximum number of samples supported by your system is: {}", variables=[_Registry.context.max_samples])
+            samples = _Registry.context.max_samples
 
         self._samples = samples
 
@@ -684,7 +684,7 @@ maximum number of samples supported by your system is: {}", variables=[Registry.
 
         self._scaling = (x_scaling, y_scaling)
 
-        self._texture = Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
+        self._texture = _Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
         self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def write(self, data):
@@ -704,7 +704,7 @@ maximum number of samples supported by your system is: {}", variables=[Registry.
 
         self._scaling = (x_scaling, y_scaling)
 
-        self._texture = Registry.context.texture(self._size, self._components, self._data)
+        self._texture = _Registry.context.texture(self._size, self._components, self._data)
         self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def set_scaling(self, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
@@ -752,20 +752,20 @@ maximum number of samples supported by your system is: {}", variables=[Registry.
             samples = self._intended_samples
 
             if samples is None:
-                samples = Registry.anti_aliasing_level
-            if Registry.do_anti_aliasing is False:
+                samples = _Registry.anti_aliasing_level
+            if _Registry.do_anti_aliasing is False:
                 samples = 0
 
             self._samples = samples
 
-            self._texture = Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
+            self._texture = _Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
             self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             if self._texture is not None:
                 self._texture.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -779,7 +779,7 @@ class FrameBufferObject:
         _initialize(self)
 
         self._unique_identifier = id(self)
-        Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._fbo = None
         self._color_attachments = None
@@ -793,7 +793,7 @@ class FrameBufferObject:
         for color_attachment in self._color_attachments:
             color_attachments.append(color_attachment.get_texture())
 
-        self._fbo = Registry.context.framebuffer(
+        self._fbo = _Registry.context.framebuffer(
             color_attachments=color_attachments,
             depth_attachment=self._depth_attachment)
 
@@ -806,7 +806,7 @@ class FrameBufferObject:
                 color_attachment.recreate()
                 color_attachments.append(color_attachment.get_texture())
 
-            self._fbo = Registry.context.framebuffer(
+            self._fbo = _Registry.context.framebuffer(
                 color_attachments=color_attachments,
                 depth_attachment=self._depth_attachment)
 
@@ -828,7 +828,7 @@ class FrameBufferObject:
         if self._shut_down is False:
             if self._fbo is not None:
                 self._fbo.release()
-            del Registry.opengl_objects[self._unique_identifier]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc.collect()

@@ -51,7 +51,7 @@ class Tkinter:
 
     def set_size(self, x, y, root=None):
         if root is None:
-            root = Registry.root
+            root = _Registry.root
 
         screen_size = self.get_display_size()
         window_size = (x, y)

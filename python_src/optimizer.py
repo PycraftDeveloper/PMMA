@@ -11,7 +11,7 @@ class Benchmark:
         _initialize(self)
 
         if n is None:
-            if Registry.power_saving_mode:
+            if _Registry.power_saving_mode:
                 n = 1_000
             else:
                 n = 10_000
@@ -56,4 +56,4 @@ class Benchmark:
             end = _time.perf_counter()
             total_raw_time += end - start
 
-        Registry.custom_compiled_behavior["raw_pythag"] = total_compiled_time < total_raw_time
+        _Registry.custom_compiled_behavior["raw_pythag"] = total_compiled_time < total_raw_time

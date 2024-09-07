@@ -18,18 +18,18 @@ class ControllersIntermediary:
 
         self._logger = _InternalLogger()
 
-        if Registry.display_mode_set is False:
-            Registry.display_mode_set = True
-            Registry.display_mode = Constants.PYGAME
+        if _Registry.display_mode_set is False:
+            _Registry.display_mode_set = True
+            _Registry.display_mode = Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
 mode is Pygame.")
 
-        if Registry.displayed_pygame_start_message is False:
-            Registry.displayed_pygame_start_message = True
-            if Registry.display_mode == Constants.PYGAME:
-                Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(Registry.pygame_launch_message)
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            if _Registry.display_mode == Constants.PYGAME:
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._controllers = []

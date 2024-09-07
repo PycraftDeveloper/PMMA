@@ -8,8 +8,8 @@ import time
 
 pmma.init()
 
-pmma.Registry.do_anti_aliasing = False
-#pmma.Registry.anti_aliasing_level = 16
+pmma._Registry.do_anti_aliasing = False
+#pmma._Registry.anti_aliasing_level = 16
 
 display = pmma.Display()
 display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
@@ -24,7 +24,7 @@ circ2 = pmma.Circle([46, 120, 231], (0, 0), 500, canvas=display)
 color = pmma.Color()
 color.input_color((255, 255, 255))
 
-while pmma.Registry.running:
+while pmma._Registry.running:
     events.handle()
 
     #display.clear(color.generate_random_color(format=pmma.Constants.RGB))
