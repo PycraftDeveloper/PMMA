@@ -84,8 +84,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self) -> "_Color":
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def set_color_changed(self, value=False):
         self._color_changed = value
@@ -108,15 +108,25 @@ mode is Pygame.")
         self._vertices_changed = True
         self._start = start
 
-    def get_start(self):
-        return self._start
+    def get_start(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._start
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._start)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_end(self, end):
         self._vertices_changed = True
         self._end = end
 
-    def get_end(self):
-        return self._end
+    def get_end(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._end
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._end)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_width(self, width):
         self._width = width
@@ -237,8 +247,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -255,8 +265,16 @@ mode is Pygame.")
         self._vertices_changed = True
         self._points = points
 
-    def get_points(self):
-        return self._points
+    def get_points(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._points
+
+        coordinate_converter = _Coordinate()
+        points = []
+        for point in self._points:
+            coordinate_converter.input_coordinates(point)
+            points.append(coordinate_converter.output_coordinates(format=format))
+        return points
 
     def set_width(self, width):
         self._width = width
@@ -358,7 +376,7 @@ mode is Pygame.")
         else:
             self._color = color
 
-        self._centre = centre
+        self._center = centre
         self._radius = radius
         self._number_of_sides = number_of_sides
         self._rotation_angle = rotation_angle
@@ -395,8 +413,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -409,19 +427,27 @@ mode is Pygame.")
         else:
             self._color = color
 
-    def set_centre(self, centre):
+    def set_center(self, centre):
         self._vertices_changed = True
-        self._centre = centre
+        self._center = centre
 
-    def get_center(self):
-        return self._centre
+    def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._center
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._center)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_radius(self, radius):
         self._vertices_changed = True
         self._radius = radius
 
-    def get_radius(self):
-        return self._radius
+    def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._radius
+        elif format == Constants.OPENGL_COORDINATES:
+            return self._radius / (self._canvas.get_height() / 2)
 
     def set_number_of_sides(self, number_of_sides):
         self._vertices_changed = True
@@ -474,13 +500,13 @@ mode is Pygame.")
                     _pygame.draw.line(
                         self._canvas.get_pygame_surface().get_pygame_surface(),
                         self._color.output_color(Constants.RGBA),
-                        self._centre, (
-                            _math.cos(i / self._number_of_sides * Constants.TAU) * self._radius + self._centre[0],
-                            _math.sin(i / self._number_of_sides * Constants.TAU) * self._radius + self._centre[1]))
+                        self._center, (
+                            _math.cos(i / self._number_of_sides * Constants.TAU) * self._radius + self._center[0],
+                            _math.sin(i / self._number_of_sides * Constants.TAU) * self._radius + self._center[1]))
 
         points = [
-            (_math.cos(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._centre[0],
-                _math.sin(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._centre[1]) for i in range(0, self._number_of_sides)]
+            (_math.cos(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._center[0],
+                _math.sin(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._center[1]) for i in range(0, self._number_of_sides)]
 
         if self._wire_frame:
             width = 1
@@ -604,8 +630,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -622,22 +648,33 @@ mode is Pygame.")
         self._vertices_changed = True
         self._center_of_rect = center_of_rect
 
-    def get_center_of_rect(self):
-        return self._center_of_rect
+    def get_center_of_rect(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._center_of_rect
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._center_of_rect)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_radius(self, radius):
         self._vertices_changed = True
         self._radius = radius
 
-    def get_radius(self):
-        return self._radius
+    def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._radius
+        elif format == Constants.OPENGL_COORDINATES:
+            return self._radius / (self._canvas.get_height() / 2)
 
     def set_height(self, height):
         self._vertices_changed = True
         self._height = height
 
-    def get_height(self):
-        return self._height
+    def get_height(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._height
+        elif format == Constants.OPENGL_COORDINATES:
+            return self._height / (self._canvas.get_height() / 2) # not sure if this this right.
 
     def set_rotation_angle(self, rotation_angle):
         self._rotation_angle = rotation_angle
@@ -804,8 +841,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -818,22 +855,32 @@ mode is Pygame.")
         else:
             self._color = color
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def set_position(self, position):
         self._vertices_changed = True
         self._position = position
 
-    def get_position(self):
-        return self._position
+    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._position
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._position)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_size(self, size):
         self._vertices_changed = True
         self._size = size
 
-    def get_size(self):
-        return self._size
+    def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._size
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._size)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_width(self, width):
         self._width = width
@@ -988,8 +1035,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -1007,6 +1054,9 @@ mode is Pygame.")
         self._center = center
 
     def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._center
+
         coordinate_converter = _Coordinate()
         coordinate_converter.input_coordinates(self._center)
         return coordinate_converter.output_coordinates(format=format)
@@ -1145,8 +1195,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -1163,15 +1213,25 @@ mode is Pygame.")
         self._vertices_changed = True
         self._position = position
 
-    def get_position(self):
-        return self._position
+    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._position
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._position)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_size(self, size):
         self._vertices_changed = True
         self._size = size
 
-    def get_size(self):
-        return self._size
+    def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._size
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._size)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_start_angle(self, start_angle):
         self._vertices_changed = True
@@ -1299,8 +1359,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -1317,8 +1377,16 @@ mode is Pygame.")
         self._vertices_changed = True
         self._points = points
 
-    def get_points(self):
-        return self._points
+    def get_points(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._points
+
+        coordinate_converter = _Coordinate()
+        points = []
+        for point in self._points:
+            coordinate_converter.input_coordinates(point)
+            points.append(coordinate_converter.output_coordinates(format=format))
+        return points
 
     def set_width(self, width):
         self._width = width
@@ -1431,8 +1499,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -1449,15 +1517,25 @@ mode is Pygame.")
         self._vertices_changed = True
         self._position = position
 
-    def get_position(self):
-        return self._position
+    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._position
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._position)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_size(self, size):
         self._vertices_changed = True
         self._size = size
 
-    def get_size(self):
-        return self._size
+    def get_size(self, format=Constants.CONVENTIONAL_COORDINATES): # radius = max(x, y)/2
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._size
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._size)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_width(self, width):
         self._width = width
@@ -1567,8 +1645,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -1585,8 +1663,13 @@ mode is Pygame.")
         self._vertices_changed = True
         self._position = point
 
-    def get_position(self):
-        return self._position
+    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._position
+
+        coordinate_converter = _Coordinate()
+        coordinate_converter.input_coordinates(self._position)
+        return coordinate_converter.output_coordinates(format=format)
 
     def set_canvas(self, canvas):
         if canvas is None and Constants.DISPLAY_OBJECT in Registry.pmma_module_spine.keys():
@@ -1705,8 +1788,8 @@ mode is Pygame.")
     def get_color_changed(self):
         return self._color_changed
 
-    def get_color(self):
-        return self._color
+    def get_color(self, format=Constants.RGBA):
+        return self._color.output_color(format=format)
 
     def get_vertices_changed(self):
         return self._vertices_changed
@@ -1723,8 +1806,16 @@ mode is Pygame.")
         self._vertices_changed = True
         self._points = points
 
-    def get_points(self):
-        return self._points
+    def get_points(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            return self._points
+
+        coordinate_converter = _Coordinate()
+        points = []
+        for point in self._points:
+            coordinate_converter.input_coordinates(point)
+            points.append(coordinate_converter.output_coordinates(format=format))
+        return points
 
     def set_steps(self, steps):
         self._vertices_changed = True

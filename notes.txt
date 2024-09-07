@@ -31,17 +31,17 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
+Potential issue in draw.py with approximated solution for height - need to test its purpose.
 
 TO DO LIST
 ==========
-Add in Coordinate intermediaries for render pipeline
 Work on MIDI events when able to do so.
 
 Integrate events with custom event manager
 Create aggregated events like Pointer (similar to controller already added).
 
 Introduce prefix adjustments for SI-units. **
-Introduce Coordinate and Degree conversions. **
+Introduce Degree conversions. (Angle converter (degrees, gradians, radians)) **
 Add object collision.
 Work on render pipeline.
 

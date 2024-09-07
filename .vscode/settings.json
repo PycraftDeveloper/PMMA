@@ -4,6 +4,7 @@
         "focuscolor",
         "focusthickness",
         "globaltrace",
+        "gradians",
         "localtrace",
         "nparray",
         "Numba",
