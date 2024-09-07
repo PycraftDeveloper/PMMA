@@ -55,7 +55,7 @@ on the screen size and aspect ratio.")
             return self._coordinate
         elif out_type == Constants.OPENGL_COORDINATES:
             display_size = display.get_size()
-            half_display_size = [display_size[0] / 2, display_size[1] / 2]
-            x = (self._coordinate[0] / half_display_size[0]) - 1
-            y = (self._coordinate[1] / -half_display_size[1]) + 1
+            x = -(2 * self._coordinate[0]) / display_size[0] - 1
+            x *= display.get_aspect_ratio()
+            y = 1-(2 * self._coordinate[1]) / display_size[1]
             return [x, y]

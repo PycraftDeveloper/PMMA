@@ -77,8 +77,12 @@ class RenderPipeline:
 
         changed = self._window_resized_event.get_value() or self._window_full_screen_status_changed_event.get_value()
 
+        if changed:
+            for render_point in self._render_points:
+                render_point.set_vertices_changed(True)
+                render_point.set_color_changed(True)
+
         if changed is False:
-            changed = False
             for render_point in self._render_points:
                 if render_point.get_vertices_changed() or render_point.get_color_changed():
                     changed = True
