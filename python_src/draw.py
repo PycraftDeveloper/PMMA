@@ -6,7 +6,7 @@ import pygame as _pygame
 import pygame.gfxdraw as _gfxdraw
 import pyglet as _pyglet
 
-from pmma.python_src.utils.registry import Registry as _Registry
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
 from pmma.python_src.general import *

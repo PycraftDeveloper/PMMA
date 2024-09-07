@@ -5,7 +5,7 @@ import moderngl as _moderngl
 from PIL import Image as _Image
 
 from pmma.python_src.general import *
-from pmma.python_src.utils.registry import Registry as _Registry
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.color import Color as _Color

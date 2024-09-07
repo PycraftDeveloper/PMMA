@@ -1,2 +1,2 @@
-from pmma.python_src.utils.registry import Registry as _Registry
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 

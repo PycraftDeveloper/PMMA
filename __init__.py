@@ -16,18 +16,18 @@ _temporary_files_path = _base_path + _os.sep + "temporary"
 _sys.pycache_prefix = _temporary_files_path
 _numba.config.CACHE_DIR = _temporary_files_path
 
-from pmma.python_src.registry import *
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import *
 
-Registry.temporary_files_path = _temporary_files_path
-Registry.base_path = _base_path
+_Registry.temporary_files_path = _temporary_files_path
+_Registry.base_path = _base_path
 
 _buffer = _io.StringIO()
 
 with _contextlib.redirect_stdout(_buffer):
     import pygame as _pygame
 
-Registry.pygame_launch_message = _buffer.getvalue().strip()
+_Registry.pygame_launch_message = _buffer.getvalue().strip()
 
 from pmma.python_src.utility.general_utils import environ_to_registry as _environ_to_registry
 
@@ -81,7 +81,7 @@ def init(
 
     startup_time = _time.perf_counter()
 
-    Registry.pmma_initialized = True
+    _Registry.pmma_initialized = True
 
     _LoggerIntermediary()
 
@@ -95,12 +95,12 @@ def init(
     root = _tkinter.Tk()
     root.withdraw()
 
-    Registry.application_start_time = startup_time
+    _Registry.application_start_time = startup_time
     Backpack.application_start_time = startup_time
 
-    Registry.python_acceleration_enabled = optimize_python_extensions
-    Registry.cython_acceleration_enabled = compile_c_extensions
-    Registry.power_saving_mode = is_battery_saver_enabled()
+    _Registry.python_acceleration_enabled = optimize_python_extensions
+    _Registry.cython_acceleration_enabled = compile_c_extensions
+    _Registry.power_saving_mode = is_battery_saver_enabled()
 
     _general_utils.update_language()
 
