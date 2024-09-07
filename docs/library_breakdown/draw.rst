@@ -247,7 +247,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: AdvancedPolygon.set_centre() -> None
+.. py:method:: AdvancedPolygon.set_center() -> None
 
    Not Yet Written
 

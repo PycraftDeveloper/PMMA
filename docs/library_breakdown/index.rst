@@ -34,9 +34,9 @@ The full breakdown of what everything does!
     passport.rst
     quickstart.rst
     recorder.rst
-    registry.rst
     render_pipeline.rst
     sampler.rst
+    settings.rst
     surface.rst
     text.rst
     video.rst

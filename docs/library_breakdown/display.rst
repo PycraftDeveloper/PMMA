@@ -29,6 +29,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Display._setup_layers() -> None
+
+   Not Yet Written
+
 .. py:method:: Display.get_pygame_surface() -> None
 
    Not Yet Written

@@ -9,10 +9,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: pmma.get_language() -> None
-
-   Not Yet Written
-
 .. py:method:: pmma.convert_number_to_text() -> None
 
    Not Yet Written
@@ -38,10 +34,6 @@ Methods
    Not Yet Written
 
 .. py:method:: pmma.random_real_number() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.set_display_mode() -> None
 
    Not Yet Written
 

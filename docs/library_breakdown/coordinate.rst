@@ -13,15 +13,15 @@ Create
 Methods
 -------
 
+.. py:method:: Coordinate.input_coordinates() -> None
+
+   Not Yet Written
+
+.. py:method:: Coordinate.output_coordinates() -> None
+
+   Not Yet Written
+
 .. py:method:: Coordinate.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Coordinate.out() -> None
-
-   Not Yet Written
-
-.. py:method:: Coordinate.convert_range() -> None
 
    Not Yet Written
 
