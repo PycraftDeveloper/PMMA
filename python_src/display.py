@@ -13,7 +13,6 @@ from pmma.python_src.general import *
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.color import Color as _Color
-from pmma.python_src.surface import Surface as _Surface
 from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.opengl import Texture as _Texture
 from pmma.python_src.opengl import Shader as _Shader
@@ -77,8 +76,6 @@ mode is Pygame.")
 
         self.window_full_screen_state_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
-        self._using_pygame_surface = False
-
     def set_window_in_focus(self, value):
         self._window_in_focus = value
 
@@ -106,10 +103,6 @@ mode is Pygame.")
         else:
             samples = _Registry.anti_aliasing_level
 
-        self._pygame_surface = _Surface()
-        self._pygame_surface.create(*size)
-        self._pygame_surface_texture = _Texture()
-        self._pygame_surface_texture.create(size, components=Constants.RGB, samples=samples)
         self._two_dimension_texture = _Texture()
         self._two_dimension_texture.create(size, components=Constants.RGB, samples=samples)
         self._two_dimension_frame_buffer = _FrameBufferObject()
@@ -118,15 +111,6 @@ mode is Pygame.")
         self._three_dimension_texture.create(size, components=Constants.RGB, samples=samples)
         self._three_dimension_frame_buffer = _FrameBufferObject()
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
-        self._blank_texture = _Texture()
-        self._blank_texture.create(size, components=Constants.RGB)
-        self._blank_frame_buffer = _FrameBufferObject()
-        self._blank_frame_buffer.create(color_attachments=[self._blank_texture])
-
-    def get_pygame_surface(self):
-        if _Registry.display_mode == Constants.PYGAME:
-            self._using_pygame_surface = True
-            return self._pygame_surface
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if _Registry.display_mode == Constants.PYGAME:
@@ -281,15 +265,10 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def display_resize(self):
         size = _pygame.display.get_window_size()
 
-        self._pygame_surface.quit()
-
-        self._pygame_surface_texture.quit()
         self._two_dimension_texture.quit()
         self._two_dimension_frame_buffer.quit()
         self._three_dimension_texture.quit()
         self._three_dimension_frame_buffer.quit()
-        self._blank_texture.quit()
-        self._blank_frame_buffer.quit()
 
         self._setup_layers(size)
 
@@ -355,9 +334,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._display_quad = _geometry.quad_fs()
 
-    def blit(self, content, position=[0, 0]):
-        self._pygame_surface.blit(content, position)
-
     def get_size(self):
         if _Registry.display_mode == Constants.PYGAME:
             return _pygame.display.get_window_size()
@@ -402,8 +378,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             self._two_dimension_frame_buffer.clear(self._color_converter)
             #self._three_dimension_frame_buffer.use()
             self._three_dimension_frame_buffer.clear(self._color_converter)
-            self._pygame_surface.clear(self._color_converter)
-            self._blank_frame_buffer.clear(self._color_converter)
             _Registry.context.screen.use()
             _Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGB))
         else:
@@ -462,12 +436,6 @@ you refresh the display to ensure optimal performance and support!")
 
         _Registry.refresh_rate = refresh_rate
         if _Registry.display_mode == Constants.PYGAME:
-            if self._using_pygame_surface:
-                byte_data = self._pygame_surface.to_string(flipped=True)
-                self._opengl.blit_image_to_texture(
-                    byte_data,
-                    self._pygame_surface_texture)
-
             if self._two_dimension_texture.get_samples() == 0:
                 self._texture_aggregation_program.get_program()["texture2d"].value = 0
                 self._two_dimension_texture.use(location=0)
@@ -486,25 +454,6 @@ you refresh the display to ensure optimal performance and support!")
             self._texture_aggregation_program.get_program()["texture3d_samples"].value = self._three_dimension_texture.get_samples()
             self._texture_aggregation_program.get_program()["texture3d_resolution"].value = self._three_dimension_texture.get_size()
 
-            if self._using_pygame_surface:
-                if self._pygame_surface_texture.get_samples() == 0:
-                    self._texture_aggregation_program.get_program()["pygame_texture"].value = 2
-                    self._pygame_surface_texture.use(location=2)
-                else:
-                    self._texture_aggregation_program.get_program()["pygame_texture_ms"].value = 2
-                    self._pygame_surface_texture.use(location=2)
-                self._texture_aggregation_program.get_program()["pygame_texture_samples"].value = self._pygame_surface_texture.get_samples()
-                self._texture_aggregation_program.get_program()["pygame_texture_resolution"].value = self._pygame_surface_texture.get_size()
-            else:
-                if self._blank_texture.get_samples() == 0:
-                    self._texture_aggregation_program.get_program()["pygame_texture"].value = 2
-                    self._blank_texture.use(location=2)
-                else:
-                    self._texture_aggregation_program.get_program()["pygame_texture_ms"].value = 2
-                    self._blank_texture.use(location=2)
-                self._texture_aggregation_program.get_program()["pygame_texture_samples"].value = self._blank_texture.get_samples()
-                self._texture_aggregation_program.get_program()["pygame_texture_resolution"].value = self._blank_texture.get_size()
-
             self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
 
             _Registry.context.enable(_moderngl.BLEND)
@@ -512,8 +461,6 @@ you refresh the display to ensure optimal performance and support!")
             _Registry.context.disable(_moderngl.BLEND)
 
             _pygame.display.flip()
-
-            self._using_pygame_surface = False
 
             if self.resized_event.get_value():
                 self.display_resize()

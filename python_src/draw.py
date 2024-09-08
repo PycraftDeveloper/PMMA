@@ -153,27 +153,10 @@ mode is Pygame.")
     def draw(self):
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
-        if _Registry.display_mode == Constants.PYGAME:
-            if _Registry.do_anti_aliasing:
-                returnable = _pygame.draw.aaline(
-                    self._canvas.get_pygame_surface().get_pygame_surface(),
-                    self._color.output_color(Constants.RGBA),
-                    self._start,
-                    self._end,
-                    self._width)
 
-            else:
-                returnable = _pygame.draw.line(
-                    self._canvas.get_pygame_surface().get_pygame_surface(),
-                    self._color.output_color(Constants.RGBA),
-                    self._start,
-                    self._end,
-                    self._width)
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
+        return None #returnable
 
 class Lines:
     def __init__(
@@ -309,28 +292,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            if len(self._points) < 2:
-                end_time = _time.perf_counter()
-                _Registry.total_time_spent_drawing += end_time - start_time
-                return
-            if _Registry.do_anti_aliasing:
-                returnable = _pygame.draw.aalines(
-                    self._canvas.get_pygame_surface().get_pygame_surface(),
-                    self._color.output_color(Constants.RGBA),
-                    self._closed,
-                    self._points,
-                    self._width)
-
-            else:
-                returnable = _pygame.draw.lines(
-                    self._canvas.get_pygame_surface().get_pygame_surface(),
-                    self._color.output_color(Constants.RGBA),
-                    self._closed,
-                    self._points,
-                    self._width)
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -494,31 +455,7 @@ mode is Pygame.")
     def draw(self):
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
-        if self._wire_frame:
-            for i in range(0, self._number_of_sides):
-                if _Registry.display_mode == Constants.PYGAME:
-                    _pygame.draw.line(
-                        self._canvas.get_pygame_surface().get_pygame_surface(),
-                        self._color.output_color(Constants.RGBA),
-                        self._center, (
-                            _math.cos(i / self._number_of_sides * Constants.TAU) * self._radius + self._center[0],
-                            _math.sin(i / self._number_of_sides * Constants.TAU) * self._radius + self._center[1]))
 
-        points = [
-            (_math.cos(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._center[0],
-                _math.sin(i / self._number_of_sides * Constants.TAU + self._rotation_angle) * self._radius + self._center[1]) for i in range(0, self._number_of_sides)]
-
-        if self._wire_frame:
-            width = 1
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.polygon(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                points,
-                width=width), points
-        else:
-            return None, self._cache
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -746,15 +683,6 @@ mode is Pygame.")
             x_offset = radius * _math.cos(angle + rot_radians)
             points.append((x + x_offset, y + y_offset))
 
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.polygon(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                points,
-                width=self._width)
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -943,22 +871,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*self._position, *self._size)
-
-            returnable = _pygame.draw.rect(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                rect,
-                self._width,
-                self._border_radius,
-                self._border_top_left_radius,
-                self._border_top_right_radius,
-                self._border_bottom_left_radius,
-                self._border_bottom_right_radius)
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -1105,16 +1017,6 @@ This means that the circle wont be visible onscreen, so we exit without even try
 for improved performance.")
             return
 
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.circle(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                self._center,
-                abs(self._radius),
-                self._width)
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -1273,18 +1175,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*self._position, *self._size)
-            returnable = _pygame.draw.arc(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                rect,
-                self._start_angle,
-                self._stop_angle,
-                self._width)
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -1414,15 +1304,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.polygon(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                self._points,
-                self._width)
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -1563,16 +1444,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*self._position, *self._size)
-            returnable = _pygame.draw.ellipse(
-                self._canvas.get_pygame_surface().get_pygame_surface(),
-                self._color.output_color(Constants.RGBA),
-                rect,
-                self._width)
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -1691,27 +1562,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            try:
-                returnable = _gfxdraw.pixel(
-                    self._canvas.get_pygame_surface().get_pygame_surface(),
-                    self._color.output_color(Constants.RGBA),
-                    self._position), True
-
-            except:
-                temp_rect = _pygame.rect.Rect(
-                    *self._position,
-                    1,
-                    1)
-
-                returnable = _pygame.draw.rect(
-                    self._canvas.get_pygame_surface().get_pygame_surface(),
-                    self._color.output_color(Constants.RGBA),
-                    temp_rect,
-                    1), False
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable
@@ -1844,581 +1694,6 @@ mode is Pygame.")
         start_time = _time.perf_counter()
         _Registry.number_of_draw_calls += 1
 
-        if _Registry.display_mode == Constants.PYGAME:
-            if len(self._points) > 2:
-                try:
-                    returnable = _gfxdraw.bezier(
-                        self._canvas.get_pygame_surface().get_pygame_surface(),
-                        self._points,
-                        self._steps,
-                        self._color.output_color(Constants.RGBA)), True
-
-                    end_time = _time.perf_counter()
-                    _Registry.total_time_spent_drawing += end_time - start_time
-                    return returnable
-                except:
-                    pass
-
-            self._alternative.set_canvas(self._canvas)
-            self._alternative.set_color(self._color)
-            self._alternative.set_points(self._points)
-            self._alternative.set_width(1)
-            self._alternative.set_closed(False)
-
-            returnable = self._alternative.draw(), False
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-class Draw:
-    def __init__(
-            self,
-            canvas=None):
-
-        _initialize(self)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.display_mode_set is False:
-            _Registry.display_mode_set = True
-            _Registry.display_mode = Constants.PYGAME
-            self._logger.log_development("You haven't yet set a display mode, \
-therefore it has been decided for you! To manually pick a display mode, call \
-'pmma.set_display_mode()' with your preferred display mode. The default display \
-mode is Pygame.")
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
-                _pygame.init()
-
-        if canvas is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self._canvas = canvas
-
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def line(
-            self,
-            color,
-            start,
-            end,
-            width,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            if _Registry.do_anti_aliasing:
-                returnable = _pygame.draw.aaline(
-                    canvas.get_pygame_surface(),
-                    color,
-                    start,
-                    end,
-                    width)
-
-            else:
-                returnable = _pygame.draw.line(
-                    canvas.get_pygame_surface(),
-                    color,
-                    start,
-                    end,
-                    width)
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def lines(
-            self,
-            color,
-            points,
-            width=1,
-            closed=False,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            if len(points) < 2:
-                end_time = _time.perf_counter()
-                _Registry.total_time_spent_drawing += end_time - start_time
-                return
-            if _Registry.do_anti_aliasing:
-                returnable = _pygame.draw.aalines(
-                    canvas.get_pygame_surface(),
-                    color,
-                    closed,
-                    points,
-                    width)
-
-            else:
-                returnable = _pygame.draw.lines(
-                    canvas.get_pygame_surface(),
-                    color,
-                    closed,
-                    points,
-                    width)
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def advanced_polygon(
-            self,
-            color,
-            centre,
-            radius,
-            number_of_sides,
-            rotation_angle=0,
-            width=0,
-            cache=None,
-            wire_frame=False,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if cache is not None:
-            if _Registry.display_mode == Constants.PYGAME:
-                returnable = _pygame.draw.polygon(
-                    canvas.get_pygame_surface(),
-                    color,
-                    points,
-                    width=width), cache
-
-                end_time = _time.perf_counter()
-                _Registry.total_time_spent_drawing += end_time - start_time
-                return returnable
-            else:
-                end_time = _time.perf_counter()
-                _Registry.total_time_spent_drawing += end_time - start_time
-                return None, cache
-
-        if wire_frame:
-            for i in range(0, number_of_sides):
-                _Registry.number_of_draw_calls += 1
-                if _Registry.display_mode == Constants.PYGAME:
-                    _pygame.draw.line(
-                        canvas.get_pygame_surface(),
-                        color,
-                        centre, (
-                            _math.cos(i / number_of_sides * Constants.TAU) * radius + centre[0],
-                            _math.sin(i / number_of_sides * Constants.TAU) * radius + centre[1]))
-
-        points = [
-            (_math.cos(i / number_of_sides * Constants.TAU + rotation_angle) * radius + centre[0],
-                _math.sin(i / number_of_sides * Constants.TAU + rotation_angle) * radius + centre[1]) for i in range(0, number_of_sides)]
-
-        if wire_frame:
-            width = 1
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.polygon(
-                canvas.get_pygame_surface(),
-                color,
-                points,
-                width=width), points
-        else:
-            end_time = _time.perf_counter()
-            _Registry.total_time_spent_drawing += end_time - start_time
-            return None, cache
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def rotated_rect(
-            self,
-            color,
-            center_of_rect,
-            radius,
-            height,
-            rotation_angle=0,
-            cache=None,
-            width=0,
-            canvas=None):
-        """
-        Draw a rectangle, centered at x, y.
-        All credit to Tim Swast for this function!
-
-        Arguments:
-        x (int/float):
-            The x coordinate of the center of the shape.
-        y (int/float):
-            The y coordinate of the center of the shape.
-        radius (int/float):
-            The radius of the rectangle.
-        height (int/float):
-            The height of the rectangle.
-        color (str):
-            Name of the fill color, in HTML format.
-        """
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if cache is not None:
-            if _Registry.display_mode == Constants.PYGAME:
-                returnable = _pygame.draw.polygon(
-                    canvas.get_pygame_surface(),
-                    color,
-                    points,
-                    width=width), cache
-
-                end_time = _time.perf_counter()
-                _Registry.total_time_spent_drawing += end_time - start_time
-                return returnable
-            else:
-                end_time = _time.perf_counter()
-                _Registry.total_time_spent_drawing += end_time - start_time
-                return None, cache
-
-        x, y = center_of_rect
-        points = []
-
-        # The distance from the center of the rectangle to
-        # one of the corners is the same for each corner.
-        radius = _math.sqrt((height / 2)**2 + (radius / 2)**2)
-
-        # Get the angle to one of the corners with respect
-        # to the x-axis.
-        angle = _math.atan2(height / 2, radius / 2)
-
-        # Transform that angle to reach each corner of the rectangle.
-        angles = [angle, -angle + _math.pi, angle + _math.pi, -angle]
-
-        # Convert rotation from degrees to radians.
-        rot_radians = (_math.pi / 180) * rotation_angle
-
-        # Calculate the coordinates of each point.
-        for angle in angles:
-            y_offset = -1 * radius * _math.sin(angle + rot_radians)
-            x_offset = radius * _math.cos(angle + rot_radians)
-            points.append((x + x_offset, y + y_offset))
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.polygon(
-                canvas.get_pygame_surface(),
-                color,
-                points,
-                width=width)
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def rect(
-            self,
-            color,
-            position,
-            size,
-            width=0,
-            border_radius=-1,
-            border_top_left_radius=-1,
-            border_top_right_radius=-1,
-            border_bottom_left_radius=-1,
-            border_bottom_right_radius=-1,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            rect = _pygame.Rect(*position, *size)
-            returnable = _pygame.draw.rect(
-                canvas.get_pygame_surface(),
-                color,
-                rect,
-                width,
-                border_radius,
-                border_top_left_radius,
-                border_top_right_radius,
-                border_bottom_left_radius,
-                border_bottom_right_radius)
-        else:
-            raise NotImplementedError
-
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def circle(
-            self,
-            color,
-            center,
-            radius,
-            width=0,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-        if abs(radius) < 1:
-            end_time = _time.perf_counter()
-            _Registry.total_time_spent_drawing += end_time - start_time
-            return
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.circle(
-                canvas.get_pygame_surface(),
-                color,
-                center,
-                abs(radius),
-                width)
-
-        else:
-            raise NotImplementedError
-
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def arc(
-            self,
-            color,
-            rect,
-            start_angle,
-            stop_angle,
-            width=1,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.arc(
-                canvas.get_pygame_surface(),
-                color,
-                rect,
-                start_angle,
-                stop_angle,
-                width)
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def polygon(
-            self,
-            color,
-            points,
-            width=0,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.polygon(
-            canvas.get_pygame_surface(),
-            color,
-            points,
-            width)
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def ellipse(
-            self,
-            color,
-            rect,
-            width=0,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            returnable = _pygame.draw.ellipse(
-                canvas.get_pygame_surface(),
-                color,
-                rect,
-                width)
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def pixel(
-            self,
-            color,
-            position,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            try:
-                returnable = _gfxdraw.pixel(
-                    canvas.get_pygame_surface(),
-                    color,
-                    position), True
-
-            except:
-                temp_rect = _pygame.rect.Rect(
-                    *position,
-                    1,
-                    1)
-
-                returnable = _pygame.draw.rect(
-                    canvas.get_pygame_surface(),
-                    color,
-                    temp_rect,
-                    1), False
-
-        else:
-            raise NotImplementedError
-        end_time = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end_time - start_time
-        return returnable
-
-    def curved_lines(
-            self,
-            color,
-            points,
-            steps=2,
-            canvas=None):
-
-        start_time = _time.perf_counter()
-        _Registry.number_of_draw_calls += 1
-        if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        if canvas is None:
-            canvas = self._canvas
-
-        if type(color) != _Color:
-            color = _Color()
-            color.input_color(color)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            if len(points) > 2:
-                try:
-                    returnable = _gfxdraw.bezier(
-                        canvas.get_pygame_surface(),
-                        points,
-                        steps,
-                        color), True
-
-                    end_time = _time.perf_counter()
-                    _Registry.total_time_spent_drawing += end_time - start_time
-                    return returnable
-                except:
-                    pass
-            returnable = self.lines(
-                canvas,
-                color,
-                points,
-                width=1,
-                closed=False), False
-
-        else:
-            raise NotImplementedError
         end_time = _time.perf_counter()
         _Registry.total_time_spent_drawing += end_time - start_time
         return returnable

@@ -280,8 +280,6 @@ class RenderPipeline:
                     if num_segments < 3:
                         num_segments = 3
 
-                    num_segments = 18
-
                     total_number_of_vertices += num_segments + 1  # Circle center + edge points
                     total_number_of_indices += num_segments * 3  # Triangles to fill the circle
 

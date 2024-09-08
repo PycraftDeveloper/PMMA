@@ -4,19 +4,15 @@ in vec2 v_uv;
 
 uniform sampler2D texture2d;
 uniform sampler2D texture3d;
-uniform sampler2D pygame_texture;
 
 uniform sampler2DMS texture2d_ms;
 uniform sampler2DMS texture3d_ms;
-uniform sampler2DMS pygame_texture_ms;
 
 uniform int texture2d_samples;
 uniform int texture3d_samples;
-uniform int pygame_texture_samples;
 
 uniform vec2 texture2d_resolution;
 uniform vec2 texture3d_resolution;
-uniform vec2 pygame_texture_resolution;
 
 uniform vec3 color_key;
 out vec4 frag_color;
@@ -39,7 +35,6 @@ vec4 multi_sample(sampler2DMS multi_sample_texture, int samples, vec2 v_uv, vec2
 void main() {
     vec4 color2d = vec4(0.0);
     vec4 color3d = vec4(0.0);
-    vec4 pygame_color = vec4(0.0);
 
     if (texture2d_samples == 0) {
         color2d = texture(texture2d, v_uv);
@@ -59,17 +54,7 @@ void main() {
         color3d = vec4(0, 0, 0, 0);
     }
 
-    if (pygame_texture_samples == 0) {
-        pygame_color = texture(pygame_texture, v_uv);
-    } else {
-        pygame_color = multi_sample(pygame_texture_ms, pygame_texture_samples, v_uv, pygame_texture_resolution);
-    }
-    if (pygame_color.rgb == color_key) {
-        pygame_color = vec4(0, 0, 0, 0);
-    }
-
     vec4 primary_layer = layer(color3d, color2d);
-    vec4 blended_color = layer(pygame_color, primary_layer);
 
-    frag_color = blended_color;  // Final color output
+    frag_color = primary_layer;  // Final color output
 }
