@@ -3,12 +3,13 @@ import os as _os
 
 import moderngl as _moderngl
 from PIL import Image as _Image
+import numpy as _numpy
 
 from pmma.python_src.general import *
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.color import Color as _Color
+from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -56,11 +57,24 @@ class VertexBufferObject:
         self._data = None
         self._vbo = None
 
+        self._created = False
+
         self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
+        if type(data) == list or type(data) == tuple:
+            data = _numpy.array(data, dtype=_numpy.float32)
+            self._logger.log_development("Converting list or tuple to numpy array for compatibility \
+with OpenGL. The data you submit to this 'create' method should be in a 'C-Like' format. A great \
+example of a 'C-Like' format would be a numpy array. Theoretically this conversion process should \
+work fine, however can be an 'inefficient' representation of the data it contains as we air on the \
+side of caution when it is created, effectively meaning it might use up more memory than absolutely \
+required. If however you see this message and encounter strange rendering behavior, this should always \
+be the first issue you address - it might not fix the problem, but there is a good chance it might.")
+
         self._data = data
         self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._created = True
 
     def recreate(self):
         if self._vbo is not None:
@@ -89,7 +103,7 @@ class VertexBufferObject:
             if self._vbo is not None:
                 return self._vbo.read()
 
-    def get_vertex_buffer_object(self):
+    def get_buffer_object(self):
         return self._vbo
 
     def clear(self):
@@ -131,6 +145,9 @@ buffer, not the memory used to store it (either system memory or video memory)")
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class GenericBufferObject:
     def __init__(self):
         _initialize(self)
@@ -141,11 +158,14 @@ class GenericBufferObject:
         self._data = None
         self._gbo = None
 
+        self._created = False
+
         self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
         self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._created = True
 
     def recreate(self):
         if self._gbo is not None:
@@ -174,7 +194,7 @@ class GenericBufferObject:
             if self._gbo is not None:
                 return self._gbo.read()
 
-    def get_generic_buffer_object(self):
+    def get_buffer_object(self):
         return self._gbo
 
     def clear(self):
@@ -216,6 +236,9 @@ buffer, not the memory used to store it (either system memory or video memory)")
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class ColorBufferObject:
     def __init__(self):
         _initialize(self)
@@ -226,11 +249,14 @@ class ColorBufferObject:
         self._data = None
         self._cbo = None
 
+        self._created = False
+
         self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
         self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._created = True
 
     def recreate(self):
         if self._cbo is not None:
@@ -281,7 +307,7 @@ class ColorBufferObject:
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
-    def get_color_buffer_object(self):
+    def get_buffer_object(self):
         return self._cbo
 
     def get_dynamic(self):
@@ -301,6 +327,9 @@ buffer, not the memory used to store it (either system memory or video memory)")
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class IndexBufferObject:
     def __init__(self):
         _initialize(self)
@@ -311,11 +340,14 @@ class IndexBufferObject:
         self._data = None
         self._ibo = None
 
+        self._created = False
+
         self._logger = _InternalLogger()
 
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
         self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+        self._created = True
 
     def recreate(self):
         if self._ibo is not None:
@@ -344,7 +376,7 @@ class IndexBufferObject:
             if self._ibo is not None:
                 return self._ibo.read()
 
-    def get_index_buffer_object(self):
+    def get_buffer_object(self):
         return self._ibo
 
     def clear(self):
@@ -386,6 +418,9 @@ buffer, not the memory used to store it (either system memory or video memory)")
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class VertexArrayObject:
     def __init__(self):
         _initialize(self)
@@ -393,51 +428,75 @@ class VertexArrayObject:
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
+        self._created = False
+
         self._vao = None
         self._program = None
         self._vertex_buffer_object = None
         self._vertex_buffer_shader_attributes = None
-        self._color_buffer_object = None
-        self._color_buffer_shader_attributes = None
         self._index_buffer_object = None
         self._index_element_size = None
         self._additional_buffers = None
         self._additional_buffer_attributes = None
 
-    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=None, index_buffer_object=None, index_element_size=4, additional_buffers=[], additional_buffer_attributes=[]):
+        self._logger = _InternalLogger()
+
+    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=[], index_buffer_object=None, index_element_size=4, additional_buffers=[], additional_buffer_attributes=[]):
+        if program is None:
+            raise ValueError("Program cannot be None")
+        if program.get_created() is False:
+            program.create()
+
         self._program = program
+
+        if vertex_buffer_object is None:
+            raise ValueError("Vertex buffer object cannot be None")
+        if vertex_buffer_object.get_created() is False:
+            raise ValueError("Vertex buffer object has not been created yet")
+
         self._vertex_buffer_object = vertex_buffer_object
+
+        if not (type(vertex_buffer_shader_attributes) is list or type(vertex_buffer_shader_attributes) is tuple):
+            vertex_buffer_shader_attributes = [vertex_buffer_shader_attributes]
+
         self._vertex_buffer_shader_attributes = vertex_buffer_shader_attributes
-        self._color_buffer_object = color_buffer_object
-        self._color_buffer_shader_attributes = color_buffer_shader_attributes
         self._index_buffer_object = index_buffer_object
         self._index_element_size = index_element_size
+
+        if color_buffer_object is not None:
+            additional_buffers = [color_buffer_object] + additional_buffers
+            additional_buffer_attributes = [color_buffer_shader_attributes] + additional_buffer_attributes
+
         self._additional_buffers = additional_buffers
         self._additional_buffer_attributes = additional_buffer_attributes
 
         program = self._program.get_program()
-        vbo = self._vertex_buffer_object.get_vertex_buffer_object()
-        if self._color_buffer_object is not None:
-            cbo = self._color_buffer_object.get_color_buffer_object()
-        else:
-            cbo = None
+
+        all_attributes = self._vertex_buffer_shader_attributes + [attribute for attribute_list in self._additional_buffer_attributes for attribute in attribute_list]
+        if len(all_attributes) % 2 == 1:
+            self._logger.log_development("Whilst we can't be certain here, it appears that your \
+missing attribute data. Each attribute is commonly assigned an attribute format so that OpenGL \
+knows what data type and data structure it needs to use. If you are missing attribute data, then \
+you will likely see an error that looks similar to this `_moderngl.Error: content[0][1] is an \
+invalid format` in a moment.")
+
         if self._index_buffer_object is not None:
-            ibo = self._index_buffer_object.get_index_buffer_object()
+            ibo = self._index_buffer_object.get_buffer_object()
         else:
             ibo = None
 
         buffer_passthrough = [
-                (vbo, *self._vertex_buffer_shader_attributes),
-                (cbo, *self._color_buffer_shader_attributes)]
+                (vertex_buffer_object.get_buffer_object(), *self._vertex_buffer_shader_attributes)]
 
         for buffer_count in range(len(additional_buffers)):
-            buffer_passthrough.append((additional_buffers[buffer_count].get_generic_buffer_object(), *additional_buffer_attributes[buffer_count]))
+            buffer_passthrough.append((additional_buffers[buffer_count].get_buffer_object(), *additional_buffer_attributes[buffer_count]))
 
         self._vao = _Registry.context.vertex_array(
             program,
             buffer_passthrough,
             index_buffer=ibo,
             index_element_size=self._index_element_size)
+        self._created = True
 
     def recreate(self):
         if self._vao is not None:
@@ -446,15 +505,10 @@ class VertexArrayObject:
             self._program.recreate()
             program = self._program.get_program()
             self._vertex_buffer_object.recreate()
-            vbo = self._vertex_buffer_object.get_vertex_buffer_object()
-            if self._color_buffer_object is not None:
-                self._color_buffer_object.recreate()
-                cbo = self._color_buffer_object.get_color_buffer_object()
-            else:
-                cbo = None
+
             if self._index_buffer_object is not None:
                 self._index_buffer_object.recreate()
-                ibo = self._index_buffer_object.get_index_buffer_object()
+                ibo = self._index_buffer_object.get_buffer_object()
             else:
                 ibo = None
 
@@ -462,17 +516,14 @@ class VertexArrayObject:
                 buffer.recreate()
 
             buffer_passthrough = [
-                (vbo, *self._vertex_buffer_shader_attributes),
-                (cbo, *self._color_buffer_shader_attributes)]
+                (self._vertex_buffer_object.get_buffer_object(), *self._vertex_buffer_shader_attributes)]
 
             for buffer_count in range(len(self._additional_buffers)):
-                buffer_passthrough.append((self._additional_buffers[buffer_count].get_generic_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
+                buffer_passthrough.append((self._additional_buffers[buffer_count].get_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
 
             self._vao = _Registry.context.vertex_array(
             program,
-            [
-                (vbo, *self._vertex_buffer_shader_attributes),
-                (cbo, *self._color_buffer_shader_attributes)],
+            buffer_passthrough,
             index_buffer=ibo,
             index_element_size=self._index_element_size)
 
@@ -525,6 +576,9 @@ class VertexArrayObject:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class Shader:
     def __init__(self):
         _initialize(self)
@@ -534,6 +588,8 @@ class Shader:
 
         self._program = None
         self._program_data = {"vertex": None, "fragment": None}
+
+        self._created = False
 
         self._logger = _InternalLogger()
 
@@ -605,6 +661,7 @@ class Shader:
         self._program = _Registry.context.program(
             vertex_shader=self._program_data["vertex"],
             fragment_shader=self._program_data["fragment"])
+        self._created = True
 
     def recreate(self):
         if self._program is not None:
@@ -639,6 +696,9 @@ class Shader:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class Texture:
     def __init__(self):
         _initialize(self)
@@ -653,6 +713,8 @@ class Texture:
         self._scaling = None
         self._samples = None
         self._intended_samples = None
+
+        self._created = False
 
         self._logger = _InternalLogger()
 
@@ -688,6 +750,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
 
         self._texture = _Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
         self._texture.filter = (self._scaling[0], self._scaling[1])
+        self._created = True
 
     def write(self, data):
         self._texture.write(data)
@@ -767,6 +830,9 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_created(self):
+        return self._created
+
 class FrameBufferObject:
     def __init__(self):
         _initialize(self)
@@ -775,6 +841,7 @@ class FrameBufferObject:
         _Registry.opengl_objects[self._unique_identifier] = self
 
         self._fbo = None
+        self._created = False
         self._color_attachments = None
         self._depth_attachment = None
 
@@ -789,6 +856,7 @@ class FrameBufferObject:
         self._fbo = _Registry.context.framebuffer(
             color_attachments=color_attachments,
             depth_attachment=self._depth_attachment)
+        self._created = True
 
     def recreate(self):
         if self._fbo is not None:
@@ -806,7 +874,7 @@ class FrameBufferObject:
     def clear(self, color=None, depth=1.0, viewport=None):
         if color is None:
             color = (0.0, 0.0, 0.0, 0.0)
-        elif type(color) == _Color:
+        elif type(color) == _ColorConverter:
             color = color.output_color(Constants.SMALL_RGBA)
         elif len(color) == 3:
             color = (*color, 0.0)
@@ -829,3 +897,6 @@ class FrameBufferObject:
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
+
+    def get_created(self):
+        return self._created

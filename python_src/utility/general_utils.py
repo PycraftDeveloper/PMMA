@@ -19,7 +19,6 @@ import num2words as _num2words
 from pmma.python_src.constants import Constants
 from pmma.python_src.backpack import Backpack
 from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
-from pmma.python_src.settings import get_language as _get_language
 from pmma.python_src.settings import set_allow_anti_aliasing as _set_allow_anti_aliasing
 from pmma.python_src.settings import set_anti_aliasing_level as _set_anti_aliasing_level
 
@@ -45,7 +44,7 @@ def get_theme():
 
 def convert_number_to_text(value):
     try:
-        return _num2words.num2words(value, lang=_get_language())
+        return _num2words.num2words(value, lang=_Registry.language)
     except OverflowError:
         _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Woah! {} is a very large number - too big \

@@ -5,13 +5,13 @@ import gc as _gc
 
 import numpy as _numpy
 
-from pmma.python_src.general import *
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 import pmma.python_src.utility.math_utils as _math_utils
 from pmma.python_src.utility.noise_utils import NoiseIntermediary as _NoiseIntermediary
 from pmma.python_src.utility.noise_utils import prefill_optimizer as _prefill_optimizer
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
 
 class Perlin:
     def __init__(
@@ -81,7 +81,7 @@ class Perlin:
             x_samples = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
             for _ in range(1, 1_000):
                 _Registry.perlin_noise_prefill_single_samples += 1
-                x = random_real_number()
+                x = _random_real_number()
                 self.generate_1D_perlin_noise(x/100)
                 self.generate_2D_perlin_noise(x/100, -x/100)
                 self.generate_3D_perlin_noise(x/100, -x/100, x/100)
@@ -104,7 +104,7 @@ class Perlin:
             while _Registry.in_game_loop is False or _Registry.power_saving_mode:
                 for _ in range(100):
                     _Registry.perlin_noise_prefill_single_samples += 1
-                    x = random_real_number()
+                    x = _random_real_number()
                     self.generate_1D_perlin_noise(x/100)
                     self.generate_2D_perlin_noise(x/100, -x/100)
                     self.generate_3D_perlin_noise(x/100, -x/100, x/100)

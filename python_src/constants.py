@@ -2,6 +2,13 @@ import math as _math
 import os as _os
 
 class Constants:
+    DEGREES = "degrees"
+    RADIANS = "radians"
+    GRADIANS = "gradians"
+
+    DECIMAL = "decimal"
+    PERCENTAGE = "percentage"
+
     CONVENTIONAL_COORDINATES = "conventional coordinates"
     OPENGL_COORDINATES = "opengl coordinates"
 

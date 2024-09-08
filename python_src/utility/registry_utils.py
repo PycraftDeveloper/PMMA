@@ -38,3 +38,4 @@ class Registry:
     handled_events = False
     compute_component_called = False
     displayed_pygame_start_message = False
+    shape_quality = 0.75

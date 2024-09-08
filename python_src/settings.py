@@ -1,4 +1,5 @@
 from pmma.python_src.constants import Constants
+
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 def set_development_mode(value):
@@ -78,3 +79,15 @@ then know that you can only set the display mode once whilst the application is 
     else:
         _Registry.display_mode_set = True
         _Registry.display_mode = mode
+
+def set_shape_quality(value, format=Constants.PERCENTAGE):
+    from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
+    proportion = _ProportionConverter()
+    proportion.set_value(value, format)
+    _Registry.shape_quality = proportion.get_value(format=Constants.DECIMAL)
+
+def get_shape_quality(format=Constants.PERCENTAGE):
+    from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
+    proportion = _ProportionConverter()
+    proportion.set_value(_Registry.shape_quality, Constants.DECIMAL)
+    return proportion.get_value(format=format)

@@ -8,7 +8,7 @@ import pyglet as _pyglet
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.color import Color as _Color
+from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.file import File as _File
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
@@ -203,12 +203,12 @@ class _Text:
                         size_pattern_match = _re.match(size_pattern, syntax)
                         if foreground_color_pattern_match:
                             raw_foreground_color = foreground_color_pattern_match.group(1)
-                            foreground_color = _Color(raw_foreground_color).convert_format(
+                            foreground_color = _ColorConverter(raw_foreground_color).convert_format(
                                 Constants.RGBA)
 
                         elif background_color_pattern_match:
                             raw_background_color = background_color_pattern_match.group(1)
-                            background_color = _Color(raw_background_color).convert_format(
+                            background_color = _ColorConverter(raw_background_color).convert_format(
                                 Constants.RGBA)
 
                         elif size_pattern_match:

@@ -12,7 +12,7 @@ import moderngl_window as _moderngl_window
 from pmma.python_src.general import *
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
-from pmma.python_src.color import Color as _Color
+from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.opengl import Texture as _Texture
 from pmma.python_src.opengl import Shader as _Shader
@@ -47,7 +47,7 @@ mode is Pygame.")
         if _Registry.display_mode == Constants.PYGAME:
             self._clock = _pygame.time.Clock()
 
-        self._color_converter = _Color()
+        self._color_converter = _ColorConverter()
 
         self._display_creation_attributes = []
 
@@ -358,7 +358,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if color is None or color == [] or color == ():
             self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
 
-        elif type(color) == _Color:
+        elif type(color) == _ColorConverter:
             raw_color = color.output_color(Constants.RGBA)
             self._color_converter.input_color(raw_color, format=Constants.RGBA)
         else:

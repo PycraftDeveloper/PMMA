@@ -46,3 +46,13 @@ Add object collision.
 Work on render pipeline.
 
 **ALSO, ADJUST SHAPE INDEXES**
+
+TEMPORARY TO DO LIST
+====================
+Shader program analysis to fix `get_program()["attr"].value`
+automatically detect types and move them to BEFORE attr name.
+Remove excessive imports to general
+Finish defining other shapes
+Create shapes like circle from RadialPolygon
+Update shapes when aspect ratio changes
+Update render pipeline

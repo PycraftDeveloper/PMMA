@@ -17,16 +17,12 @@ from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.draw import Line as _Line
-from pmma.python_src.draw import Lines as _Lines
-from pmma.python_src.draw import AdvancedPolygon as _AdvancedPolygon
-from pmma.python_src.draw import RotatedRect as _RotatedRect
+from pmma.python_src.draw import RadialPolygon as _RadialPolygon
 from pmma.python_src.draw import Rect as _Rect
-from pmma.python_src.draw import Circle as _Circle
 from pmma.python_src.draw import Arc as _Arc
 from pmma.python_src.draw import Polygon as _Polygon
 from pmma.python_src.draw import Ellipse as _Ellipse
 from pmma.python_src.draw import Pixel as _Pixel
-from pmma.python_src.draw import CurvedLines as _CurvedLines
 from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
