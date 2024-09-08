@@ -1,11 +1,11 @@
 import gc as _gc
 
 from pmma.python_src.general import *
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.display import Display as _Display
 from pmma.python_src.events import Events as _Events
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class QuickStart:

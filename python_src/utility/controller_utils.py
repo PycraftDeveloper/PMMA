@@ -2,10 +2,10 @@ import gc as _gc
 
 import pygame as _pygame
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.controller import Controller as _Controller
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 

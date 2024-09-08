@@ -8,12 +8,9 @@ import moderngl as _moderngl
 import numpy as _numpy
 
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
-from pmma.python_src.opengl import ColorBufferObject as _ColorBufferObject
-from pmma.python_src.opengl import IndexBufferObject as _IndexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.constants import Constants
-from pmma.python_src.general import *
 from pmma.python_src.number_converter import CoordinateConverter as _CoordinateConverter
 from pmma.python_src.number_converter import PointConverter as _PointConverter
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter

@@ -3,12 +3,13 @@ import gc as _gc
 import pygame as _pygame
 
 from pmma.python_src.general import *
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
 import pmma.python_src.utility.event_utils as _event_utils
 from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Controllers:
     def __init__(self):
@@ -68,6 +69,8 @@ class Controller:
             track_ball = _event_utils.Track_BALL()
             track_ball.set_id(instance)
             self._track_balls.append(track_ball)
+
+        self._logger = _InternalLogger()
 
     def get_track_ball_from_id(self, id) -> '_event_utils.Track_BALL':
         return self._track_balls[id]
@@ -518,7 +521,7 @@ class Controller:
 
     def start_rumble(self, strong_rumble, weak_rumble, duration):
         if weak_rumble > 0:
-            log_development("You are asking the controller to perform a \
+            self._logger.log_development("You are asking the controller to perform a \
 weak rumble. Note that some controllers only support the strong rumble and \
 in such events, setting the weak rumble value has no effect. Unfortunately \
 its not possible to determine if the associated controller has support for \
@@ -527,7 +530,7 @@ weak rumble at the moment.")
         result = self._joy.rumble(strong_rumble, weak_rumble, duration)
 
         if result is False:
-            log_development("This controller does not support strong or weak rumbling.")
+            self._logger.log_development("This controller does not support strong or weak rumbling.")
 
         return result
 

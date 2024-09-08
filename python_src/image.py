@@ -4,10 +4,10 @@ import gc as _gc
 from PIL import Image as _ImageModule
 import pygame as _pygame
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Image:

@@ -10,7 +10,6 @@ from moderngl_window import geometry as _geometry
 import moderngl_window as _moderngl_window
 
 from pmma.python_src.general import *
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.opengl import OpenGL as _OpenGL
@@ -21,6 +20,7 @@ from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 

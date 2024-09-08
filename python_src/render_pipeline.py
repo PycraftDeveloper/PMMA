@@ -4,8 +4,6 @@ import math as _math
 import numpy as _numpy
 import moderngl as _moderngl
 
-from pmma.python_src.general import *
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.utility.error_utils import *
 
@@ -25,6 +23,7 @@ from pmma.python_src.draw import Ellipse as _Ellipse
 from pmma.python_src.draw import Pixel as _Pixel
 from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class RenderPipeline:

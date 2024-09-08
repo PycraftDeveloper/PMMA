@@ -1,6 +1,6 @@
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import LoggerIntermediary, _LoggingNotInitializedError
 from pmma.python_src.utility.general_utils import initialize as _initialize
 

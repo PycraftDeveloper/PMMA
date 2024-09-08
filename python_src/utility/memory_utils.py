@@ -12,11 +12,10 @@ import dill as _dill
 import waiting as _waiting
 
 from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.general import *
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPriorityList
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger

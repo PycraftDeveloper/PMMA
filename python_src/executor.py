@@ -2,7 +2,6 @@ import subprocess as _subprocess
 import threading as _threading
 import gc as _gc
 
-from pmma.python_src.general import *
 from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize

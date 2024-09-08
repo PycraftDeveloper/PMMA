@@ -5,10 +5,10 @@ import wmi as _wmi
 import pyadl as _pyadl
 
 from pmma.python_src.general import *
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import Constants
 from pmma.python_src.executor import Executor as _Executor
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 

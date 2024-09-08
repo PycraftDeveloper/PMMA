@@ -6,7 +6,6 @@ import gc as _gc
 import numpy as _numpy
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-
 import pmma.python_src.utility.math_utils as _math_utils
 from pmma.python_src.utility.noise_utils import NoiseIntermediary as _NoiseIntermediary
 from pmma.python_src.utility.noise_utils import prefill_optimizer as _prefill_optimizer

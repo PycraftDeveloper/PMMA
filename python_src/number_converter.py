@@ -1,5 +1,6 @@
 import gc as _gc
 import random as _random
+import math as _math
 
 from pmma.python_src.constants import Constants
 from pmma.python_src.noise import Perlin as _Perlin
@@ -8,8 +9,6 @@ from pmma.python_src.utility.number_converter_utils import ColorIntermediary as 
 from pmma.python_src.utility.number_converter_utils import CoordinateIntermediary as _CoordinateIntermediary
 from pmma.python_src.utility.number_converter_utils import PointIntermediary as _PointIntermediary
 from pmma.python_src.utility.general_utils import initialize as _initialize
-import math as _math
-import math as _math
 
 class AngleConverter:
     def __init__(self):

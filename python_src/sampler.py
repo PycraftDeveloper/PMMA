@@ -5,9 +5,7 @@ import time as _time
 import pyaudio as _pyaudio
 import numpy as _numpy
 
-from pmma.python_src.general import *
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger

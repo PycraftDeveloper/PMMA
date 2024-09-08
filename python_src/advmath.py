@@ -1,7 +1,6 @@
 import gc as _gc
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-
 import pmma.python_src.utility.math_utils as _math_utils
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
