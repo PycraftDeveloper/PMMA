@@ -440,7 +440,7 @@ class VertexArrayObject:
 
         self._logger = _InternalLogger()
 
-    def analyse_and_filter_buffer_attributes(self, attributes):
+    def _analyse_and_filter_buffer_attributes(self, attributes):
         if not (type(attributes) is list or type(attributes) is tuple):
             self._logger.log_development("Your buffer shader attributes must always be \
 an array of 2 or more components, specifying the data type and shader value that each element in the \
@@ -505,7 +505,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
         self._vertex_buffer_object = vertex_buffer_object
 
-        self._vertex_buffer_shader_attributes = self.analyse_and_filter_buffer_attributes(vertex_buffer_shader_attributes)
+        self._vertex_buffer_shader_attributes = self._analyse_and_filter_buffer_attributes(vertex_buffer_shader_attributes)
         self._index_buffer_object = index_buffer_object
         self._index_element_size = index_element_size
 
@@ -515,7 +515,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
         filtered_buffer_attributes = []
         for buffer_attribute in additional_buffer_attributes:
-            filtered_buffer_attributes.append(self.analyse_and_filter_buffer_attributes(buffer_attribute))
+            filtered_buffer_attributes.append(self._analyse_and_filter_buffer_attributes(buffer_attribute))
 
         self._additional_buffers = additional_buffers
         self._additional_buffer_attributes = filtered_buffer_attributes
@@ -594,11 +594,11 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
     def get_vertex_buffer_shader_attributes(self):
         return self._vertex_buffer_shader_attributes
 
-    def get_color_buffer_object(self):
-        return self._color_buffer_object
+    def get_additional_buffers(self):
+        return self._additional_buffers
 
-    def get_color_buffer_shader_attributes(self):
-        return self._color_buffer_shader_attributes
+    def get_additional_buffer_attributes(self):
+        return self._additional_buffer_attributes
 
     def get_index_buffer_object(self):
         return self._index_buffer_object
