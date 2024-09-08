@@ -60,7 +60,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: VertexBufferObject.get_vertex_buffer_object() -> None
+.. py:method:: VertexBufferObject.get_buffer_object() -> None
 
    Not Yet Written
 
@@ -89,6 +89,10 @@ Methods
    Not Yet Written
 
 .. py:method:: VertexBufferObject.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexBufferObject.get_created() -> None
 
    Not Yet Written
 
@@ -123,7 +127,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: GenericBufferObject.get_generic_buffer_object() -> None
+.. py:method:: GenericBufferObject.get_buffer_object() -> None
 
    Not Yet Written
 
@@ -152,6 +156,10 @@ Methods
    Not Yet Written
 
 .. py:method:: GenericBufferObject.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.get_created() -> None
 
    Not Yet Written
 
@@ -206,7 +214,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: ColorBufferObject.get_color_buffer_object() -> None
+.. py:method:: ColorBufferObject.get_buffer_object() -> None
 
    Not Yet Written
 
@@ -215,6 +223,10 @@ Methods
    Not Yet Written
 
 .. py:method:: ColorBufferObject.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorBufferObject.get_created() -> None
 
    Not Yet Written
 
@@ -249,7 +261,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: IndexBufferObject.get_index_buffer_object() -> None
+.. py:method:: IndexBufferObject.get_buffer_object() -> None
 
    Not Yet Written
 
@@ -281,6 +293,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: IndexBufferObject.get_created() -> None
+
+   Not Yet Written
+
 Vertex Array Object (``pmma.VertexArrayObject``)
 ================================================
 
@@ -296,11 +312,19 @@ Create
 Methods
 -------
 
+.. py:method:: VertexArrayObject._analyse_and_filter_buffer_attributes() -> None
+
+   Not Yet Written
+
 .. py:method:: VertexArrayObject.create() -> None
 
    Not Yet Written
 
 .. py:method:: VertexArrayObject.recreate() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.render_wire_frame() -> None
 
    Not Yet Written
 
@@ -324,11 +348,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: VertexArrayObject.get_color_buffer_object() -> None
+.. py:method:: VertexArrayObject.get_additional_buffers() -> None
 
    Not Yet Written
 
-.. py:method:: VertexArrayObject.get_color_buffer_shader_attributes() -> None
+.. py:method:: VertexArrayObject.get_additional_buffer_attributes() -> None
 
    Not Yet Written
 
@@ -341,6 +365,10 @@ Methods
    Not Yet Written
 
 .. py:method:: VertexArrayObject.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: VertexArrayObject.get_created() -> None
 
    Not Yet Written
 
@@ -358,6 +386,26 @@ Create
 
 Methods
 -------
+
+.. py:method:: Shader.get_buffer_input_variable_names() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader._analyze_shader_component() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.set_shader_variable() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.get_shader_variable() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.analyze() -> None
+
+   Not Yet Written
 
 .. py:method:: Shader.load_vertex_shader_from_file() -> None
 
@@ -395,6 +443,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Shader.use_program() -> None
+
+   Not Yet Written
+
 .. py:method:: Shader.get_vertex_shader() -> None
 
    Not Yet Written
@@ -408,6 +460,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Shader.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: Shader.get_created() -> None
 
    Not Yet Written
 
@@ -486,6 +542,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Texture.get_created() -> None
+
+   Not Yet Written
+
 Frame Buffer Object (``pmma.FrameBufferObject``)
 ================================================
 
@@ -518,6 +578,10 @@ Methods
    Not Yet Written
 
 .. py:method:: FrameBufferObject.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: FrameBufferObject.get_created() -> None
 
    Not Yet Written
 

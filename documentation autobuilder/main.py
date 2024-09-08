@@ -300,8 +300,10 @@ The full breakdown of what everything does!
 """
 for file in files:
     file_name = os.path.basename(file).split(".")[0]
-    index_start += f"    {file_name}.rst\n"
+    if file_name != "events":
+        index_start += f"    {file_name}.rst\n"
 index_start += f"    miscellaneous.rst\n"
+index_start += f"    events.rst\n" # do last due to large number of classes - may help with documentation contents.
 
 index_file_path = path_builder(documentation_path, "index.rst")
 with open(index_file_path, "w") as index_file:

@@ -33,10 +33,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Display.get_pygame_surface() -> None
-
-   Not Yet Written
-
 .. py:method:: Display.get_2D_hardware_accelerated_surface() -> None
 
    Not Yet Written
@@ -70,10 +66,6 @@ Methods
    Not Yet Written
 
 .. py:method:: Display.toggle_full_screen() -> None
-
-   Not Yet Written
-
-.. py:method:: Display.blit() -> None
 
    Not Yet Written
 

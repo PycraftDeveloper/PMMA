@@ -13,6 +13,14 @@ Create
 Methods
 -------
 
+.. py:method:: RenderPipeline.set_render_wire_frame() -> None
+
+   Not Yet Written
+
+.. py:method:: RenderPipeline.get_render_wire_frame() -> None
+
+   Not Yet Written
+
 .. py:method:: RenderPipeline.quit() -> None
 
    Not Yet Written

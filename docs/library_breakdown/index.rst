@@ -11,15 +11,12 @@ The full breakdown of what everything does!
     advtkinter.rst
     audio.rst
     backpack.rst
-    color.rst
     constants.rst
     controller.rst
-    coordinate.rst
     data_structures.rst
     display.rst
     draw.rst
     error.rst
-    events.rst
     executor.rst
     file.rst
     formatters.rst
@@ -29,6 +26,7 @@ The full breakdown of what everything does!
     logging.rst
     memory_manager.rst
     noise.rst
+    number_converter.rst
     opengl.rst
     optimizer.rst
     passport.rst
@@ -41,3 +39,4 @@ The full breakdown of what everything does!
     text.rst
     video.rst
     miscellaneous.rst
+    events.rst

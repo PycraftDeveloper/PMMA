@@ -1,7 +1,7 @@
 Line (``pmma.Line``)
 ====================
 
-Draws a line.
+Draws a basic line.
 
 Create
 ------
@@ -12,50 +12,6 @@ Create
 
 Methods
 -------
-
-.. py:method:: Line.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.set_color() -> None
-
-   Not Yet Written
 
 .. py:method:: Line.set_start() -> None
 
@@ -73,6 +29,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Line.set_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_color() -> None
+
+   Not Yet Written
+
 .. py:method:: Line.set_width() -> None
 
    Not Yet Written
@@ -81,374 +45,93 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Line.set_canvas() -> None
+.. py:method:: Line.set_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Line.quit() -> None
+.. py:method:: Line.get_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Line.draw() -> None
+.. py:method:: Line._update_buffers() -> None
 
    Not Yet Written
 
-Lines (``pmma.Lines``)
-======================
+.. py:method:: Line.render() -> None
 
-Not Yet Written
+   Not Yet Written
+
+Radial Polygon (``pmma.RadialPolygon``)
+=======================================
+
+Draws a radial polygon.
 
 Create
 ------
 
-.. py:method:: pmma.Lines() -> pmma.Lines
+.. py:method:: pmma.RadialPolygon() -> pmma.RadialPolygon
 
    Not Yet Written
 
 Methods
 -------
 
-.. py:method:: Lines.set_vertices_hardware_accelerated_data() -> None
+.. py:method:: RadialPolygon.set_radius() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_indices_hardware_accelerated_data() -> None
+.. py:method:: RadialPolygon.get_radius() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_colors_hardware_accelerated_data() -> None
+.. py:method:: RadialPolygon.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.get_hardware_accelerated_data() -> None
+.. py:method:: RadialPolygon.get_color() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_hardware_accelerated_data() -> None
+.. py:method:: RadialPolygon.set_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_color_changed() -> None
+.. py:method:: RadialPolygon.get_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_vertices_changed() -> None
+.. py:method:: RadialPolygon.set_point_count() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.get_color_changed() -> None
+.. py:method:: RadialPolygon.get_point_count() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.get_color() -> None
+.. py:method:: RadialPolygon.set_center() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.get_vertices_changed() -> None
+.. py:method:: RadialPolygon.get_center() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_color() -> None
+.. py:method:: RadialPolygon.set_width() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.set_points() -> None
+.. py:method:: RadialPolygon.get_width() -> None
 
    Not Yet Written
 
-.. py:method:: Lines.get_points() -> None
+.. py:method:: RadialPolygon.render() -> None
 
    Not Yet Written
-
-.. py:method:: Lines.set_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Lines.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Lines.set_closed() -> None
-
-   Not Yet Written
-
-.. py:method:: Lines.get_closed() -> None
-
-   Not Yet Written
-
-.. py:method:: Lines.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: Lines.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Lines.draw() -> None
-
-   Not Yet Written
-
-Advanced Polygon (``pmma.AdvancedPolygon``)
-===========================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.AdvancedPolygon() -> pmma.AdvancedPolygon
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: AdvancedPolygon.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_color() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_center() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_center() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_number_of_sides() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_number_of_sides() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_rotation_angle() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_rotation_angle() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_width() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_wire_frame() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.get_wire_frame() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedPolygon.draw() -> None
-
-   Not Yet Written
-
-Rotated Rect (``pmma.RotatedRect``)
-===================================
-
-Draw a rectangle, centered at x, y.
-All credit to Tim Swast for this function!
-
-Arguments:
-    x (int/float):
-    The x coordinate of the center of the shape.
-    y (int/float):
-    The y coordinate of the center of the shape.
-    radius (int/float):
-    The radius of the rectangle.
-    height (int/float):
-    The height of the rectangle.
-    color (str):
-    Name of the fill color, in HTML format.
-
-Create
-------
-
-.. py:method:: pmma.RotatedRect() -> pmma.RotatedRect
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: RotatedRect.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_color() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_center_of_rect() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_center_of_rect() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_height() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_height() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_rotation_angle() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_rotation_angle() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_width() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: RotatedRect.draw(x: int/float) -> None
-
-    Draw a rectangle, centered at x, y.
-    All credit to Tim Swast for this function!
-    
-    Arguments:
-        x (int/float):
-        The x coordinate of the center of the shape.
-        y (int/float):
-        The y coordinate of the center of the shape.
-        radius (int/float):
-        The radius of the rectangle.
-        height (int/float):
-        The height of the rectangle.
-        color (str):
-        Name of the fill color, in HTML format.
-        
 
 Rect (``pmma.Rect``)
 ====================
 
-Not Yet Written
+Draws a rectangle.
 
 Create
 ------
@@ -459,54 +142,6 @@ Create
 
 Methods
 -------
-
-.. py:method:: Rect.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_color() -> None
-
-   Not Yet Written
 
 .. py:method:: Rect.set_position() -> None
 
@@ -524,165 +159,22 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Rect.set_width() -> None
+.. py:method:: Rect.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.get_width() -> None
+.. py:method:: Rect.get_color() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.set_border_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_border_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_border_top_left_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_border_top_left_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_border_top_right_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_border_top_right_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_border_bottom_left_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_border_bottom_left_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_border_bottom_right_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.get_border_bottom_right_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Rect.draw() -> None
-
-   Not Yet Written
-
-Circle (``pmma.Circle``)
-========================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.Circle() -> pmma.Circle
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: Circle.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_center() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_center() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_radius() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Circle.draw() -> None
+.. py:method:: Rect.render() -> None
 
    Not Yet Written
 
 Arc (``pmma.Arc``)
 ==================
 
-Not Yet Written
+Draws am arc.
 
 Create
 ------
@@ -694,47 +186,19 @@ Create
 Methods
 -------
 
-.. py:method:: Arc.set_vertices_hardware_accelerated_data() -> None
+.. py:method:: Arc.set_start_angle() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.set_indices_hardware_accelerated_data() -> None
+.. py:method:: Arc.get_start_angle() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.set_colors_hardware_accelerated_data() -> None
+.. py:method:: Arc.set_stop_angle() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.set_color() -> None
+.. py:method:: Arc.get_stop_angle() -> None
 
    Not Yet Written
 
@@ -754,133 +218,30 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Arc.set_start_angle() -> None
+.. py:method:: Arc.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.get_start_angle() -> None
+.. py:method:: Arc.get_color() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.set_stop_angle() -> None
+.. py:method:: Arc.set_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.get_stop_angle() -> None
+.. py:method:: Arc.get_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.set_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.draw() -> None
-
-   Not Yet Written
-
-Polygon (``pmma.Polygon``)
-==========================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.Polygon() -> pmma.Polygon
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: Polygon.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_points() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_points() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.draw() -> None
+.. py:method:: Arc.render() -> None
 
    Not Yet Written
 
 Ellipse (``pmma.Ellipse``)
 ==========================
 
-Not Yet Written
+Draws an ellipse.
 
 Create
 ------
@@ -891,50 +252,6 @@ Create
 
 Methods
 -------
-
-.. py:method:: Ellipse.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_color() -> None
-
-   Not Yet Written
 
 .. py:method:: Ellipse.set_position() -> None
 
@@ -952,30 +269,89 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Ellipse.set_width() -> None
+.. py:method:: Ellipse.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: Ellipse.get_width() -> None
+.. py:method:: Ellipse.get_color() -> None
 
    Not Yet Written
 
-.. py:method:: Ellipse.set_canvas() -> None
+.. py:method:: Ellipse.set_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Ellipse.quit() -> None
+.. py:method:: Ellipse.get_surface() -> None
 
    Not Yet Written
 
-.. py:method:: Ellipse.draw() -> None
+.. py:method:: Ellipse.render() -> None
+
+   Not Yet Written
+
+Polygon (``pmma.Polygon``)
+==========================
+
+Draws a polygon.
+
+Create
+------
+
+.. py:method:: pmma.Polygon() -> pmma.Polygon
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: Polygon.set_curved() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_curved() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_closed() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_closed() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_points() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_points() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_surface() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_surface() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.render() -> None
 
    Not Yet Written
 
 Pixel (``pmma.Pixel``)
 ======================
 
-Not Yet Written
+Draws a Pixel.
 
 Create
 ------
@@ -987,50 +363,6 @@ Create
 Methods
 -------
 
-.. py:method:: Pixel.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_color() -> None
-
-   Not Yet Written
-
 .. py:method:: Pixel.set_position() -> None
 
    Not Yet Written
@@ -1039,179 +371,23 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Pixel.set_canvas() -> None
+.. py:method:: Pixel.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: Pixel.quit() -> None
+.. py:method:: Pixel.get_color() -> None
 
    Not Yet Written
 
-.. py:method:: Pixel.draw() -> None
+.. py:method:: Pixel.set_surface() -> None
 
    Not Yet Written
 
-Curved Lines (``pmma.CurvedLines``)
-===================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.CurvedLines() -> pmma.CurvedLines
+.. py:method:: Pixel.get_surface() -> None
 
    Not Yet Written
 
-Methods
--------
-
-.. py:method:: CurvedLines.set_vertices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_indices_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_colors_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.get_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_hardware_accelerated_data() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.get_color_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.get_vertices_changed() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_color() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_points() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.get_points() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_steps() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.get_steps() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.set_canvas() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: CurvedLines.draw() -> None
-
-   Not Yet Written
-
-Draw (``pmma.Draw``)
-====================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.Draw() -> pmma.Draw
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: Draw.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.line() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.lines() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.advanced_polygon() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.rotated_rect(x: int/float) -> None
-
-    Draw a rectangle, centered at x, y.
-    All credit to Tim Swast for this function!
-    
-    Arguments:
-        x (int/float):
-        The x coordinate of the center of the shape.
-        y (int/float):
-        The y coordinate of the center of the shape.
-        radius (int/float):
-        The radius of the rectangle.
-        height (int/float):
-        The height of the rectangle.
-        color (str):
-        Name of the fill color, in HTML format.
-        
-
-.. py:method:: Draw.rect() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.circle() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.arc() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.polygon() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.ellipse() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.pixel() -> None
-
-   Not Yet Written
-
-.. py:method:: Draw.curved_lines() -> None
+.. py:method:: Pixel.render() -> None
 
    Not Yet Written
 
