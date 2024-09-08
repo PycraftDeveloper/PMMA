@@ -54,6 +54,14 @@ class RenderPipeline:
 
         self._window_resized_event = _WindowResized_EVENT()
 
+        self._wire_frame = False
+
+    def set_render_wire_frame(self, value):
+        self._wire_frame = value
+
+    def get_render_wire_frame(self):
+        return self._wire_frame
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
@@ -271,6 +279,8 @@ class RenderPipeline:
 
                     if num_segments < 3:
                         num_segments = 3
+
+                    num_segments = 18
 
                     total_number_of_vertices += num_segments + 1  # Circle center + edge points
                     total_number_of_indices += num_segments * 3  # Triangles to fill the circle
@@ -539,7 +549,14 @@ class RenderPipeline:
             self._simple_shape_rendering_program.get_program()["aspect_ratio"].value = self._display.get_aspect_ratio()
 
             self._vao.create(self._simple_shape_rendering_program, self._vbo, ['2f', 'in_vert'], color_buffer_object=self._cbo, color_buffer_shader_attributes=['3f', 'in_color'], index_buffer_object=self._ibo)
-            self._vao.render()
+
+            if self._wire_frame:
+                self._vao.render_wire_frame()
+            else:
+                self._vao.render()
         else:
-            self._vao.render()
+            if self._wire_frame:
+                self._vao.render_wire_frame()
+            else:
+                self._vao.render()
 

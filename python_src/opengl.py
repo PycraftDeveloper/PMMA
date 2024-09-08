@@ -476,6 +476,10 @@ class VertexArrayObject:
             index_buffer=ibo,
             index_element_size=self._index_element_size)
 
+    def render_wire_frame(self):
+        if self._vao is not None:
+            self._vao.render(mode=_moderngl.LINE_LOOP)
+
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
         if self._vao is not None:
             if allow_shaders_to_adjust_point_size:
