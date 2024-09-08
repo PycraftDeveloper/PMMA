@@ -122,13 +122,13 @@ class Line:
             else:
                 self._vbo.update(vertices)
 
-            self._program.get_program()['aspect_ratio'].value = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
         if self._color_changed:
             color = self.get_color(format=Constants.SMALL_RGBA)
-            self._program.get_program()['color'].value = tuple(color)  # Set uniform color in the shader
+            self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
     def render(self):

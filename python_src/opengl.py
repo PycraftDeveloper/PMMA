@@ -470,8 +470,6 @@ class VertexArrayObject:
         self._additional_buffers = additional_buffers
         self._additional_buffer_attributes = additional_buffer_attributes
 
-        program = self._program.get_program()
-
         all_attributes = self._vertex_buffer_shader_attributes + [attribute for attribute_list in self._additional_buffer_attributes for attribute in attribute_list]
         if len(all_attributes) % 2 == 1:
             self._logger.log_development("Whilst we can't be certain here, it appears that your \
@@ -491,6 +489,8 @@ invalid format` in a moment.")
         for buffer_count in range(len(additional_buffers)):
             buffer_passthrough.append((additional_buffers[buffer_count].get_buffer_object(), *additional_buffer_attributes[buffer_count]))
 
+        program = self._program.use_program()
+
         self._vao = _Registry.context.vertex_array(
             program,
             buffer_passthrough,
@@ -503,7 +503,6 @@ invalid format` in a moment.")
             self._vao.release()
 
             self._program.recreate()
-            program = self._program.get_program()
             self._vertex_buffer_object.recreate()
 
             if self._index_buffer_object is not None:
@@ -520,6 +519,8 @@ invalid format` in a moment.")
 
             for buffer_count in range(len(self._additional_buffers)):
                 buffer_passthrough.append((self._additional_buffers[buffer_count].get_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
+
+            program = self._program.use_program()
 
             self._vao = _Registry.context.vertex_array(
             program,
@@ -593,23 +594,61 @@ class Shader:
 
         self._logger = _InternalLogger()
 
+        self._uniform_values = {}
+
+    def _analyze_shader_component(self, file_data):
+        uniform_names = []
+
+        # Parse file data for uniform declarations
+        for line in file_data:
+            if "uniform" in line:
+                uniform_name = line.split(" ")[-1].strip().replace(";", "")
+                uniform_names.append(uniform_name)
+
+        # Dynamically create getter and setter functions for each uniform
+        for name in uniform_names:
+            self._uniform_values[name] = None
+
+    def set_shader_variable(self, name, value):
+        if name in self._uniform_values:
+            self._uniform_values[name] = value
+        else:
+            raise ValueError(f"Uniform '{name}' not found in the shader")
+
+    def get_shader_variable(self, name):
+        if name in self._uniform_values:
+            return self._uniform_values[name]
+        else:
+            raise ValueError(f"Uniform '{name}' not found in the shader")
+
+    def analyze(self):
+        if self._program_data["vertex"] is not None:
+            self._analyze_shader_component(self._program_data["vertex"].split("\n"))
+        if self._program_data["fragment"] is not None:
+            self._analyze_shader_component(self._program_data["fragment"].split("\n"))
+
     def load_vertex_shader_from_file(self, file_path):
         with open(file_path, "r") as file:
             self._program_data["vertex"] = file.read()
+        self.analyze()
 
     def load_fragment_shader_from_file(self, file_path):
         with open(file_path, "r") as file:
             self._program_data["fragment"] = file.read()
+        self.analyze()
 
     def load_vertex_shader_from_string(self, string):
         self._program_data["vertex"] = string
+        self.analyze()
 
     def load_fragment_shader_from_string(self, string):
         self._program_data["fragment"] = string
+        self.analyze()
 
     def load_shader_from_string(self, vertex_string, fragment_shader):
         self._program_data["vertex"] = vertex_string
         self._program_data["fragment"] = fragment_shader
+        self.analyze()
 
     def load_shader_from_folder(self, directory):
         if _os.path.exists(_path_builder(directory, "vertex.glsl")):
@@ -656,6 +695,7 @@ class Shader:
 
         self._program_data["vertex"] = vertex_shader
         self._program_data["fragment"] = fragment_shader
+        self.analyze()
 
     def create(self):
         self._program = _Registry.context.program(
@@ -672,6 +712,12 @@ class Shader:
                 fragment_shader=self._program_data["fragment"])
 
     def get_program(self):
+        return self._program
+
+    def use_program(self):
+        for key in self._uniform_values:
+            if self._uniform_values[key] is not None:
+                self._program[key].value = self._uniform_values[key]
         return self._program
 
     def get_vertex_shader(self):
