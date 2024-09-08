@@ -2,6 +2,25 @@ import math as _math
 import os as _os
 
 class Constants:
+    DATA_INTERPRETATIONS = [
+        "1f",
+        "2f",
+        "3f",
+        "4f",
+        "1i",
+        "2i",
+        "3i",
+        "4i",
+        "1u",
+        "2u",
+        "3u",
+        "4u",
+        "1d",
+        "2d",
+        "3d",
+        "4d"
+    ]
+
     DEGREES = "degrees"
     RADIANS = "radians"
     GRADIANS = "gradians"

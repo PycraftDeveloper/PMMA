@@ -441,6 +441,56 @@ class VertexArrayObject:
 
         self._logger = _InternalLogger()
 
+    def analyse_and_filter_buffer_attributes(self, attributes):
+        if not (type(attributes) is list or type(attributes) is tuple):
+            self._logger.log_development("Your buffer shader attributes must always be \
+an array of 2 or more components, specifying the data type and shader value that each element in the \
+vertex buffer object the GLSL shader will use. For example: [data_type, variable_name] or ['3f', 'in_position']")
+            raise UnexpectedBufferAttributeFormatError()
+
+        filtered_data_types = ""
+        filtered_variable_names = []
+        program_buffer_inputs = self._program.get_buffer_input_variable_names()
+
+        if " " in attributes[0]: # ModernGL style [all data types, variable name 1, variable name 2 ...]
+            split_data_type_attributes = attributes[0].split(" ") # gets data types
+            for data_type in split_data_type_attributes:
+                if data_type.lower() in Constants.DATA_INTERPRETATIONS:
+                    filtered_data_types += data_type.lower() + " "
+                else:
+                    self._logger.log_development(f"Unexpected data type found in buffer attribute analysis. \
+It must be one of the following formats: {','.join(Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
+                    raise UnknownDataTypeError
+            filtered_data_types = filtered_data_types.strip()
+        else: # PMMA style [data type 1, variable name 1, data type 2, variable name 2 ...]
+            if attributes[0].lower() in Constants.DATA_INTERPRETATIONS:
+                variable_position = 0
+            else:
+                variable_position = 1
+            for attribute_index in range(len(attributes)):
+                if attribute_index % 2 == variable_position:
+                    if attributes[attribute_index].lower() in Constants.DATA_INTERPRETATIONS:
+                        filtered_data_types += attributes[attribute_index].lower() + " "
+                    else:
+                        self._logger.log_development(f"Unexpected data type found in buffer attribute analysis. \
+It must be one of the following formats: {','.join(Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
+                        raise UnknownDataTypeError()
+                else:
+                    if attributes[attribute_index] in program_buffer_inputs:
+                        filtered_variable_names.append(attributes[attribute_index]) # check this against shader inputs l8r
+                    else:
+                        self._logger.log_development("You attempted to assign a buffer object to a variable in \
+your shader that doesn't exist. The available shader buffer inputs that you can write to are: {}", variables=program_buffer_inputs)
+                        raise UnexpectedBufferAttributeError()
+
+            filtered_data_types = filtered_data_types.strip()
+
+        if len(filtered_data_types.split(" ")) != len(filtered_variable_names):
+            self._logger.log_development("It appears you are missing either a data type, or a variable \
+name in your buffer attributes. Remember, each buffer attribute must have its own data type and variable name.")
+
+        return [filtered_data_types, *filtered_variable_names]
+
     def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=[], index_buffer_object=None, index_element_size=4, additional_buffers=[], additional_buffer_attributes=[]):
         if program is None:
             raise ValueError("Program cannot be None")
@@ -456,10 +506,7 @@ class VertexArrayObject:
 
         self._vertex_buffer_object = vertex_buffer_object
 
-        if not (type(vertex_buffer_shader_attributes) is list or type(vertex_buffer_shader_attributes) is tuple):
-            vertex_buffer_shader_attributes = [vertex_buffer_shader_attributes]
-
-        self._vertex_buffer_shader_attributes = vertex_buffer_shader_attributes
+        self._vertex_buffer_shader_attributes = self.analyse_and_filter_buffer_attributes(vertex_buffer_shader_attributes)
         self._index_buffer_object = index_buffer_object
         self._index_element_size = index_element_size
 
@@ -467,16 +514,12 @@ class VertexArrayObject:
             additional_buffers = [color_buffer_object] + additional_buffers
             additional_buffer_attributes = [color_buffer_shader_attributes] + additional_buffer_attributes
 
-        self._additional_buffers = additional_buffers
-        self._additional_buffer_attributes = additional_buffer_attributes
+        filtered_buffer_attributes = []
+        for buffer_attribute in additional_buffer_attributes:
+            filtered_buffer_attributes.append(self.analyse_and_filter_buffer_attributes(buffer_attribute))
 
-        all_attributes = self._vertex_buffer_shader_attributes + [attribute for attribute_list in self._additional_buffer_attributes for attribute in attribute_list]
-        if len(all_attributes) % 2 == 1:
-            self._logger.log_development("Whilst we can't be certain here, it appears that your \
-missing attribute data. Each attribute is commonly assigned an attribute format so that OpenGL \
-knows what data type and data structure it needs to use. If you are missing attribute data, then \
-you will likely see an error that looks similar to this `_moderngl.Error: content[0][1] is an \
-invalid format` in a moment.")
+        self._additional_buffers = additional_buffers
+        self._additional_buffer_attributes = filtered_buffer_attributes
 
         if self._index_buffer_object is not None:
             ibo = self._index_buffer_object.get_buffer_object()
@@ -595,6 +638,10 @@ class Shader:
         self._logger = _InternalLogger()
 
         self._uniform_values = {}
+        self._buffer_input_variable_names = []
+
+    def get_buffer_input_variable_names(self):
+        return self._buffer_input_variable_names
 
     def _analyze_shader_component(self, file_data):
         uniform_names = []
@@ -604,6 +651,9 @@ class Shader:
             if "uniform" in line:
                 uniform_name = line.split(" ")[-1].strip().replace(";", "")
                 uniform_names.append(uniform_name)
+            elif "in " in line:
+                buffer_input_variable_name = line.split(" ")[-1].strip().replace(";", "")
+                self._buffer_input_variable_names.append(buffer_input_variable_name)
 
         # Dynamically create getter and setter functions for each uniform
         for name in uniform_names:

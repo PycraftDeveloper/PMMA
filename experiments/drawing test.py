@@ -24,16 +24,21 @@ line.set_start((300, 300))
 line.set_end((1000, 700))
 line.set_color([255, 0, 0])
 
+start = time.perf_counter()
 while pmma.Backpack.running:
     events.handle()
 
     display.clear([255, 255, 255])
 
+    start = time.perf_counter()
     line.render()
+    end = time.perf_counter()
+    print(1/(end-start))
 
-    line.set_end((500, 0))
+    #line.set_end((500, 60*(time.perf_counter()-start)))
 
     pmma.compute()
     display.refresh(refresh_rate=60)
+    #print(display.get_refresh_rate())
 
 pmma.quit()

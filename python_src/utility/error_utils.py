@@ -29,3 +29,15 @@ class LoggingNotInitializedError(Exception):
 class DisplayNotYetCreatedError(Exception):
     """Display was not yet created!"""
     pass
+
+class UnexpectedBufferAttributeFormatError(Exception):
+    """Unexpected buffer attribute format!"""
+    pass
+
+class UnknownDataTypeError(Exception):
+    """Unkown data type!"""
+    pass
+
+class UnexpectedBufferAttributeError(Exception):
+    """Unexpected buffer attribute!"""
+    pass

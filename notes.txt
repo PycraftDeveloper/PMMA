@@ -49,7 +49,6 @@ Work on render pipeline.
 
 TEMPORARY TO DO LIST
 ====================
-automatically detect types and move them to BEFORE attr name.
 Remove excessive imports to general
 Finish defining other shapes
 Create shapes like circle from RadialPolygon
