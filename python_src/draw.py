@@ -135,8 +135,8 @@ class Line:
         cos_angle = _numpy.cos(angle)
         sin_angle = _numpy.sin(angle)
 
-        x_prime = (cos_angle * translated_x - sin_angle * translated_y) / self._surface.get_aspect_ratio()
-        y_prime = (sin_angle * translated_x + cos_angle * translated_y) * self._surface.get_aspect_ratio()
+        x_prime = cos_angle * translated_x - sin_angle * translated_y
+        y_prime = sin_angle * translated_x + cos_angle * translated_y
 
         # Translate the point back to its original position (relative to the center)
         return [x_prime + center[0], y_prime + center[1]]
@@ -226,17 +226,26 @@ class RadialPolygon:
         self._width = None
         self._radius = None
         self._rotation = None
+        self._vertices_changed = True  # Mark vertices as changed initially
+        self._color_changed = True  # Mark color as changed initially
+        self._program = _Shader()
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_radial_polygon"))
+        self._program.create()
+        self._vbo = _VertexBufferObject()
+        self._vao = _VertexArrayObject()
+        self._rotation = _AngleConverter()
 
     def set_rotation(self, rotation, format=Constants.RADIANS):
+        self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation = _AngleConverter()
-            self._rotation.input_angle(rotation, format=format)
+            self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
     def get_rotation(self, format=Constants.RADIANS):
         if self._rotation is not None:
-            return self._rotation.output_angle(format=format)
+            return self._rotation.get_angle(format=format)
 
     def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -271,8 +280,8 @@ class RadialPolygon:
 
     def set_point_count(self, point_count=None):
         self._vertices_changed = True
-        if self._point_count is None:
-            self._point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius))*_Registry.shape_quality)
+        if point_count is None:
+            point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.output_point(format=Constants.OPENGL_COORDINATES)))*_Registry.shape_quality)
         self._point_count = point_count
 
     def get_point_count(self):
@@ -296,8 +305,54 @@ class RadialPolygon:
     def get_width(self):
         return self._width
 
+    def _update_buffers(self):
+        """
+        Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
+        """
+        if self._vertices_changed:
+            if self._radius is None or self._center is None or self._point_count is None:
+                return None  # Cannot proceed without these
+
+            angle_step = 2 * _math.pi / self._point_count
+            vertices = []
+
+            rotation = self.get_rotation()  # Get the current rotation angle
+
+            center = self._center.output_coordinates(Constants.OPENGL_COORDINATES)
+            radius = self._radius.output_point(Constants.OPENGL_COORDINATES)
+
+            for i in range(self._point_count):
+                angle = i * angle_step + rotation
+                x = center[0] + radius * _math.cos(angle)
+                y = center[1] + radius * _math.sin(angle)
+                vertices.append([x, y])
+
+            vertices = _numpy.array(vertices, dtype='f4')
+
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
+            self._vertices_changed = False  # Reset the flag
+
+            if self._vbo.get_created() is False:
+                self._vbo.create(vertices)
+            else:
+                self._vbo.update(vertices)
+
+        if self._color_changed:
+            color = self.get_color(format=Constants.SMALL_RGBA)
+            self._program.set_shader_variable('color', color)
+            self._color_changed = False  # Reset the flag
+
     def render(self):
-        print("Not yet finished!!!")
+        self._surface.get_2D_hardware_accelerated_surface()
+        # Update VBO with any changes to vertices or colors
+        self._update_buffers()
+
+        if self._vao.get_created() is False:
+            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
+
+        # Draw the polygon using triangle fan (good for convex shapes)
+        self._vao.render(_moderngl.TRIANGLE_FAN)
 
 class Rect:
     """
@@ -728,7 +783,7 @@ class Pixel:
             else:
                 self._vbo.update(position_data)
 
-            self._vertices_changed = True
+            self._vertices_changed = False
 
         if self._color_changed:
             color = self.get_color(format=Constants.SMALL_RGBA)

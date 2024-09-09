@@ -28,6 +28,12 @@ pixel = pmma.Pixel()
 pixel.set_position((100, 100))
 pixel.set_color([255, 255, 255])
 
+radial_polygon = pmma.RadialPolygon()
+radial_polygon.set_center([500, 500])
+radial_polygon.set_radius(100)
+radial_polygon.set_color([255, 0, 0])
+radial_polygon.set_point_count(point_count=30)
+
 s = time.perf_counter()
 while pmma.Backpack.running:
     events.handle()
@@ -35,12 +41,13 @@ while pmma.Backpack.running:
     display.clear([0, 0, 0])
 
     start = time.perf_counter()
-    pixel.render()
+    radial_polygon.render()
     line.render()
     end = time.perf_counter()
     #print(1/(end-start))
+    #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
-    #line.set_rotation((time.perf_counter()-s)*5)
+    line.set_rotation((time.perf_counter()-s)*5)
     #line.set_end((500, 60*(time.perf_counter()-start)))
 
     pmma.compute()
