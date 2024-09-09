@@ -91,3 +91,9 @@ def get_shape_quality(format=Constants.PERCENTAGE):
     proportion = _ProportionConverter()
     proportion.set_value(_Registry.shape_quality, Constants.DECIMAL)
     return proportion.get_value(format=format)
+
+def set_in_game_loop(value):
+    _Registry.in_game_loop = value
+
+def get_in_game_loop():
+    return _Registry.in_game_loop
