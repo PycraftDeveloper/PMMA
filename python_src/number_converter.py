@@ -14,7 +14,7 @@ class AngleConverter:
     def __init__(self):
         _initialize(self)
 
-        self._angle = None
+        self._angle = 0
 
     def set_angle(self, angle, format=Constants.DEGREES):
         if format == Constants.DEGREES:

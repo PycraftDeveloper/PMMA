@@ -576,10 +576,12 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
         if self._vao is not None:
-            if allow_shaders_to_adjust_point_size:
+            if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
                 _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
+                self._logger.log_development("We have automatically detected that you want to render \
+using points, and have therefore enabled support within GLSL for customizable point sizes just in case.")
             self._vao.render(mode=mode)
-            if allow_shaders_to_adjust_point_size:
+            if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
                 _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
 
     def get_vertex_array_object(self):

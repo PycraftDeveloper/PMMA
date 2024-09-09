@@ -42,7 +42,10 @@ class Line:
         self._start = None
         self._end = None
         self._width = 1
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -50,6 +53,19 @@ class Line:
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
+        self._rotation = _AngleConverter()
+
+    def set_rotation(self, rotation, format=Constants.RADIANS):
+        self._vertices_changed = True
+        if type(rotation) != _AngleConverter:
+            self._rotation = _AngleConverter()
+            self._rotation.set_angle(rotation, format=format)
+        else:
+            self._rotation = rotation
+
+    def get_rotation(self, format=Constants.RADIANS):
+        if self._rotation is not None:
+            return self._rotation.get_angle(format=format)
 
     def set_start(self, start, start_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -102,16 +118,56 @@ class Line:
     def get_surface(self):
         return self._surface
 
+    def _rotate_point_around_center(self, point, center, angle):
+        """
+        Rotates a 2D point around a given center by the given angle in radians.
+
+        :param point: A list or tuple representing the x and y coordinates (x, y)
+        :param center: The center of rotation as (cx, cy)
+        :param angle: The angle to rotate by, in radians.
+        :return: The rotated point as a [x', y'] list.
+        """
+        # Translate the point to the origin (relative to the center)
+        translated_x = point[0] - center[0]
+        translated_y = point[1] - center[1]
+
+        # Apply 2D rotation matrix
+        cos_angle = _numpy.cos(angle)
+        sin_angle = _numpy.sin(angle)
+
+        x_prime = (cos_angle * translated_x - sin_angle * translated_y) / self._surface.get_aspect_ratio()
+        y_prime = (sin_angle * translated_x + cos_angle * translated_y) * self._surface.get_aspect_ratio()
+
+        # Translate the point back to its original position (relative to the center)
+        return [x_prime + center[0], y_prime + center[1]]
+
+    def _rotate_line(self, angle):
+        """
+        Rotates the line around its center by the given angle in radians.
+        """
+        # Get start and end points
+        start_coords = self.get_start(format=Constants.OPENGL_COORDINATES)
+        end_coords = self.get_end(format=Constants.OPENGL_COORDINATES)
+
+        # Calculate the center of the line
+        center_x = (start_coords[0] + end_coords[0]) / 2
+        center_y = (start_coords[1] + end_coords[1]) / 2
+        center = [center_x, center_y]
+
+        # Rotate both start and end points around the center
+        rotated_start = self._rotate_point_around_center(start_coords, center, angle)
+        rotated_end = self._rotate_point_around_center(end_coords, center, angle)
+
+        return [*rotated_start, *rotated_end]
+
     def _update_buffers(self):
         # This method is used to update the VBO with new vertex data if vertices have changed
         if self._vertices_changed:
-            start_coords = self.get_start(format=Constants.OPENGL_COORDINATES)
-            end_coords = self.get_end(format=Constants.OPENGL_COORDINATES)
+            rotated_line_points = self._rotate_line(self._rotation.get_angle(format=Constants.RADIANS))
 
             # Convert vertices to a numpy array (float32 type for ModernGL compatibility)
             vertices = _numpy.array([
-                *start_coords,  # Start position
-                *end_coords  # End position
+                *rotated_line_points
             ], dtype='f4')  # 'f4' means float32
 
             if self._vbo.get_created() is False:
@@ -129,7 +185,7 @@ class Line:
             self._color_changed = False  # Reset the flag
 
     def render(self):
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
+        self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
 
@@ -161,11 +217,26 @@ class RadialPolygon:
 
         self._color = None
         self._point_count = None
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._radius = None
         self._center = None
         self._width = None
         self._radius = None
+        self._rotation = None
+
+    def set_rotation(self, rotation, format=Constants.RADIANS):
+        if type(rotation) != _AngleConverter:
+            self._rotation = _AngleConverter()
+            self._rotation.input_angle(rotation, format=format)
+        else:
+            self._rotation = rotation
+
+    def get_rotation(self, format=Constants.RADIANS):
+        if self._rotation is not None:
+            return self._rotation.output_angle(format=format)
 
     def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -246,9 +317,24 @@ class Rect:
                 _pygame.init()
 
         self._color = None
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._position = None
         self._size = None
+        self._rotation = None
+
+    def set_rotation(self, rotation, format=Constants.RADIANS):
+        if type(rotation) != _AngleConverter:
+            self._rotation = _AngleConverter()
+            self._rotation.input_angle(rotation, format=format)
+        else:
+            self._rotation = rotation
+
+    def get_rotation(self, format=Constants.RADIANS):
+        if self._rotation is not None:
+            return self._rotation.output_angle(format=format)
 
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -305,11 +391,26 @@ class Arc:
                 _pygame.init()
 
         self._color = None
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._position = None
         self._size = None
         self._start_angle = None
         self._stop_angle = None
+        self._rotation = None
+
+    def set_rotation(self, rotation, format=Constants.RADIANS):
+        if type(rotation) != _AngleConverter:
+            self._rotation = _AngleConverter()
+            self._rotation.input_angle(rotation, format=format)
+        else:
+            self._rotation = rotation
+
+    def get_rotation(self, format=Constants.RADIANS):
+        if self._rotation is not None:
+            return self._rotation.output_angle(format=format)
 
     def set_start_angle(self, start_angle, angle_format=Constants.RADIANS):
         self._vertices_changed = True
@@ -395,9 +496,24 @@ class Ellipse:
                 _pygame.init()
 
         self._color = None
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._position = None
         self._size = None
+        self._rotation = None
+
+    def set_rotation(self, rotation, format=Constants.RADIANS):
+        if type(rotation) != _AngleConverter:
+            self._rotation = _AngleConverter()
+            self._rotation.input_angle(rotation, format=format)
+        else:
+            self._rotation = rotation
+
+    def get_rotation(self, format=Constants.RADIANS):
+        if self._rotation is not None:
+            return self._rotation.output_angle(format=format)
 
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -463,10 +579,25 @@ class Polygon:
                 _pygame.init()
 
         self._color = None
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._points = []
         self._closed = True
         self._curved = False
+        self._rotation = None
+
+    def set_rotation(self, rotation, format=Constants.RADIANS):
+        if type(rotation) != _AngleConverter:
+            self._rotation = _AngleConverter()
+            self._rotation.input_angle(rotation, format=format)
+        else:
+            self._rotation = rotation
+
+    def get_rotation(self, format=Constants.RADIANS):
+        if self._rotation is not None:
+            return self._rotation.output_angle(format=format)
 
     def set_curved(self, curved=False):
         self._curved = curved
@@ -539,8 +670,17 @@ class Pixel:
                 _pygame.init()
 
         self._color = None
-        self._surface = None
+        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        else:
+            self._surface = None
         self._position = None
+        self._program = _Shader()
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
+        self._program.create()
+        self._vbo = _VertexBufferObject()
+        self._vao = _VertexArrayObject()
+        self._rotation = _AngleConverter()
 
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -575,5 +715,57 @@ class Pixel:
     def get_surface(self):
         return self._surface
 
-    def render(self):
-        print("Not yet finished!!!")
+    def _update_buffers(self):
+        # This method is used to update the VBO with new vertex data if vertices have changed
+        if self._vertices_changed:
+            position_coords = self.get_position(format=Constants.OPENGL_COORDINATES)
+
+            # Store the pixel position in the VBO
+            position_data = _numpy.array(position_coords, dtype='f4')
+
+            if self._vbo.get_created() is False:
+                self._vbo.create(position_data)
+            else:
+                self._vbo.update(position_data)
+
+            self._vertices_changed = True
+
+        if self._color_changed:
+            color = self.get_color(format=Constants.SMALL_RGBA)
+            self._program.set_shader_variable('color', color)
+            self._color_changed = False  # Reset the flag
+
+    def render(self, point_size=None):
+        self._surface.get_2D_hardware_accelerated_surface()
+
+        self._update_buffers()
+
+        if self._vao.get_created() is False:
+            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
+
+        if point_size is None:
+            if _Registry.do_anti_aliasing:
+                self._logger.log_development("When using anti-aliasing we need to slightly \
+increase the point size to ensure that it is rendered visibly onscreen. That is why sometimes \
+your single pixel might appear like a 2x2 instead of 1x1 pixels wide. This behavior can be \
+forced back to 1 by using the 'point_size' key word argument to this method call, however \
+we generally don't recommend this without good reason.")
+                if _Registry.anti_aliasing_level > 8:
+                    self._logger.log_development("You are using an anti-aliasing level of \
+more than 8. When using high anti-aliasing samples we automatically increase the pixel size \
+slightly to ensure that it is still visible. However in testing we where not able to exceed \
+an anti-aliasing level of 8, you have here so we cannot guarantee that the pixel will be \
+visible. If the pixel cannot be found then adjust the point size parameter to this method \
+call to larger than 2.")
+                _Registry.context.point_size = 2
+            else:
+                _Registry.context.point_size = 1
+        else:
+            _Registry.context.point_size = point_size
+            self._logger.log_development("You have specified a custom point size. This should \
+only really be used to fix any potential problems with anti-aliasing and small pixels being \
+simply 'aliased-away'. You can use this to make points appear larger, however its generally \
+recommended to do this in the shader it's self with: `gl_PointSize`.")
+
+        self._vao.render(mode=_moderngl.POINTS)
+
