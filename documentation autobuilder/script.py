@@ -274,11 +274,9 @@ def capture_docstring(name, content, line_no, is_class=False):
 ### setup
 base_path = ""
 
-python_source_code_path = path_builder(base_path, "python_src")
-documentation_path = path_builder(base_path, "docs", "library_breakdown")
-temporary_documentation_path = path_builder(base_path, "documentation_autobuilder", "temp_docs")
-print(python_source_code_path)
-quit()
+python_source_code_path = path_builder("python_src")
+documentation_path = path_builder("docs", "library_breakdown")
+temporary_documentation_path = path_builder("documentation_autobuilder", "temp_docs")
 
 files = glob.glob(python_source_code_path + os.sep + "*.py")
 
