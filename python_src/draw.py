@@ -105,6 +105,10 @@ class Line:
             return self._color.output_color(format=format)
 
     def set_width(self, width=1):
+        if width <= 0:
+            width = 1
+        if width is None:
+            width = 1
         self._width = width
 
     def get_width(self):
@@ -308,6 +312,8 @@ class RadialPolygon:
             return self._center.output_coordinates(format=format)
 
     def set_width(self, width=None):
+        if width <= 0:
+            width = None
         self._width = width
 
     def get_width(self):
@@ -406,6 +412,8 @@ class Rectangle:
         self._width = None
 
     def set_width(self, width=None):
+        if width <= 0:
+            width = None
         self._width = width
 
     def get_width(self):
@@ -565,7 +573,11 @@ class Arc:
         self._rotation = _AngleConverter()
         self._width = None
 
-    def set_width(self, width=None):
+    def set_width(self, width=1):
+        if width <= 0:
+            width = 1
+        if width is None:
+            width = 1
         self._width = width
 
     def get_width(self):
@@ -753,6 +765,8 @@ class Ellipse:
         self._width = None
 
     def set_width(self, width=None):
+        if width <= 0:
+            width = None
         self._width = width
 
     def get_width(self):
@@ -987,6 +1001,8 @@ class Polygon:
         return self._surface
 
     def set_width(self, width=None):
+        if width <= 0:
+            width = None
         self._width = width
 
     def get_width(self):
