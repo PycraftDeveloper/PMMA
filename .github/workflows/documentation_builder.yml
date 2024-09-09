@@ -5,6 +5,7 @@ on:
   schedule:
     # Run once every 24 hours
     - cron: '0 0 * * *'  # This will run at midnight UTC every day
+  workflow_dispatch:  # Allows manual triggering
 
 # The list of jobs to be run as part of this workflow
 jobs:
