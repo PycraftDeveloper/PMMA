@@ -577,12 +577,17 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
         if self._vao is not None:
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
-                _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
-                self._logger.log_development("We have automatically detected that you want to render \
-using points, and have therefore enabled support within GLSL for customizable point sizes just in case.") # detect glpointsize in shader? possible improvement
+                if self._program.get_using_gl_point_size_syntax():
+                    _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
+                    self._logger.log_development("We have automatically detected that you want to \
+render points with their size individually specified in your shader. By default this isn't enabled \
+in OpenGL, but we have enabled it here so you don't have to. This behavior can be controlled \
+using the `allow_shaders_to_adjust_point_size` keyword argument.")
+
             self._vao.render(mode=mode)
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
-                _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
+                if self._program.get_using_gl_point_size_syntax():
+                    _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
 
     def get_vertex_array_object(self):
         return self._vao
@@ -640,12 +645,14 @@ class Shader:
 
         self._uniform_values = {}
         self._buffer_input_variable_names = []
+        self._using_gl_point_size_syntax = False
 
     def get_buffer_input_variable_names(self):
         return self._buffer_input_variable_names
 
     def _analyze_shader_component(self, file_data):
         uniform_names = []
+        self._using_gl_point_size_syntax = False
 
         # Parse file data for uniform declarations
         for line in file_data:
@@ -656,9 +663,15 @@ class Shader:
                 buffer_input_variable_name = line.split(" ")[-1].strip().replace(";", "")
                 self._buffer_input_variable_names.append(buffer_input_variable_name)
 
+            if "gl_PointSize" in line:
+                self._using_gl_point_size_syntax = True
+
         # Dynamically create getter and setter functions for each uniform
         for name in uniform_names:
             self._uniform_values[name] = None
+
+    def get_using_gl_point_size_syntax(self):
+        return self._using_gl_point_size_syntax
 
     def set_shader_variable(self, name, value):
         if name in self._uniform_values:
