@@ -27,7 +27,7 @@ jobs:
 
       # Step 4: Run your Python script
       - name: Documentation Auto-Builder process
-        run: python "pmma/documentation autobuilder/main.py"
+        run: python "documentation autobuilder/script.py"
 
       # Step 5: Commit the generated file back to the repository
       - name: Updated documentation

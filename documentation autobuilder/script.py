@@ -1,9 +1,6 @@
 import os
 import glob
 
-def _up(path: str) -> str:
-    return path[::-1].split(os.sep, 1)[-1][::-1]
-
 def path_builder(*args):
     result = ""
     for arg in args:
@@ -275,11 +272,13 @@ def capture_docstring(name, content, line_no, is_class=False):
     return docstring, args, returns
 
 ### setup
-base_path = _up(_up(__file__))
+base_path = ""
 
 python_source_code_path = path_builder(base_path, "python_src")
 documentation_path = path_builder(base_path, "docs", "library_breakdown")
 temporary_documentation_path = path_builder(base_path, "documentation_autobuilder", "temp_docs")
+print(python_source_code_path)
+quit()
 
 files = glob.glob(python_source_code_path + os.sep + "*.py")
 
