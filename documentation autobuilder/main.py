@@ -1,9 +1,6 @@
 import os
 import glob
 
-def _up(path: str) -> str:
-    return path[::-1].split(os.sep, 1)[-1][::-1]
-
 def path_builder(*args):
     result = ""
     for arg in args:
