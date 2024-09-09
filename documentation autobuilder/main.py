@@ -275,7 +275,7 @@ def capture_docstring(name, content, line_no, is_class=False):
     return docstring, args, returns
 
 ### setup
-base_path = _up(_up(__file__))
+base_path = "pmma"
 
 python_source_code_path = path_builder(base_path, "python_src")
 documentation_path = path_builder(base_path, "docs", "library_breakdown")
