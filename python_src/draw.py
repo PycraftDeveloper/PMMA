@@ -78,7 +78,7 @@ class Line:
 
     def get_start(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._start is not None:
-            return self._start.output_coordinates(format=format)
+            return self._start.get_coordinates(format=format)
 
     def set_end(self, end, end_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -90,7 +90,7 @@ class Line:
 
     def get_end(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._end is not None:
-            return self._end.output_coordinates(format=format)
+            return self._end.get_coordinates(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -309,7 +309,7 @@ class RadialPolygon:
 
     def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._center is not None:
-            return self._center.output_coordinates(format=format)
+            return self._center.get_coordinates(format=format)
 
     def set_width(self, width=None):
         if width <= 0:
@@ -332,7 +332,7 @@ class RadialPolygon:
 
             rotation = self.get_rotation()  # Get the current rotation angle
 
-            center = self._center.output_coordinates(Constants.OPENGL_COORDINATES)
+            center = self._center.get_coordinates(Constants.OPENGL_COORDINATES)
             radius = self._radius.output_point(Constants.OPENGL_COORDINATES)
 
             for i in range(self._point_count):
@@ -441,7 +441,7 @@ class Rectangle:
 
     def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
-            return self._position.output_coordinates(format=format)
+            return self._position.get_coordinates(format=format)
 
     def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -451,7 +451,7 @@ class Rectangle:
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
-            return self._size.output_coordinates(format=format)
+            return self._size.get_coordinates(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -482,10 +482,10 @@ class Rectangle:
                 return None  # Cannot proceed without these
 
             # Unpack size and position
-            size = self._size.output_coordinates(Constants.OPENGL_COORDINATES)
+            size = self._size.get_coordinates(Constants.OPENGL_COORDINATES)
             half_width = size[0] / 2
             half_height = size[1] / 2
-            cx, cy = self._position.output_coordinates(Constants.OPENGL_COORDINATES)
+            cx, cy = self._position.get_coordinates(Constants.OPENGL_COORDINATES)
 
             # Define the unrotated rectangle vertices relative to the center
             vertices = _numpy.array([
@@ -625,7 +625,7 @@ class Arc:
 
     def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._center is not None:
-            return self._center.output_coordinates(format=format)
+            return self._center.get_coordinates(format=format)
 
     def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -674,7 +674,7 @@ class Arc:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
-            center_x, center_y = self._center.output_coordinates(format=Constants.OPENGL_COORDINATES)
+            center_x, center_y = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
             start_angle = self._start_angle.get_angle(format=Constants.RADIANS)
             stop_angle = self._stop_angle.get_angle(format=Constants.RADIANS)
             radius = self._radius.output_point(format=Constants.OPENGL_COORDINATES)
@@ -794,7 +794,7 @@ class Ellipse:
 
     def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
-            return self._position.output_coordinates(format=format)
+            return self._position.get_coordinates(format=format)
 
     def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -804,7 +804,7 @@ class Ellipse:
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
-            return self._size.output_coordinates(format=format)
+            return self._size.get_coordinates(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -843,10 +843,10 @@ class Ellipse:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these parameters
 
-            center_x, center_y = self._position.output_coordinates(format=Constants.OPENGL_COORDINATES)
-            size_x, size_y = self._size.output_coordinates(format=Constants.OPENGL_COORDINATES)
+            center_x, center_y = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)
+            size_x, size_y = self._size.get_coordinates(format=Constants.OPENGL_COORDINATES)
 
-            radius = self._math.pythag(self._size.output_coordinates(format=Constants.CONVENTIONAL_COORDINATES))
+            radius = self._math.pythag(self._size.get_coordinates(format=Constants.CONVENTIONAL_COORDINATES))
 
             # Number of points to generate for the ellipse
             num_points = _Registry.shape_quality
@@ -976,7 +976,7 @@ class Polygon:
     def get_points(self, format=Constants.CONVENTIONAL_COORDINATES):
         points = []
         for point in self._points:
-            points.append(point.output_coordinates(format=format))
+            points.append(point.get_coordinates(format=format))
         return points
 
     def set_color(self, color, format=Constants.AUTODETECT):
@@ -1024,7 +1024,7 @@ class Polygon:
             if not self._points:
                 return None  # No points to form the polygon
 
-            points = _numpy.array([p.output_coordinates(format=Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
+            points = _numpy.array([p.get_coordinates(format=Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
 
             # Calculate center (average of points)
             center_x, center_y = _numpy.mean(points, axis=0)
@@ -1116,7 +1116,7 @@ class Pixel:
 
     def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
-            return self._position.output_coordinates(format=format)
+            return self._position.get_coordinates(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True

@@ -177,7 +177,7 @@ class CoordinateConverter:
     def set_coordinates(self, coordinate, format=Constants.CONVENTIONAL_COORDINATES):
         self._intermediary.set_coordinate(coordinate, in_type=format)
 
-    def output_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
         return self._intermediary.get_coordinate(out_type=format)
 
     def __del__(self, do_garbage_collection=False):
