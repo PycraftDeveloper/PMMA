@@ -326,81 +326,83 @@ for file in files:
     for line in content:
         indent_whitespace = len(line[:-len(line.lstrip())]) // 4
         if "def " in line and not "__" in line:
-            if in_class != in_class and indent_whitespace == 1:
-                methods_header_written = False
+            if not "def _" in line: # hide hidden methods
+                if in_class != in_class and indent_whitespace == 1:
+                    methods_header_written = False
 
-            in_class = in_class and indent_whitespace == 1
-            if in_class is False:
-                class_name = "pmma"
-            name = line.split("def ")[-1].split("(")[0].strip()
+                in_class = in_class and indent_whitespace == 1
+                if in_class is False:
+                    class_name = "pmma"
+                name = line.split("def ")[-1].split("(")[0].strip()
 
-            docstring, args, returns = capture_docstring(name, content, line_no, is_class=False)
-            formatted_args = ", ".join(args)
-            formatted_returns = ", ".join(returns)
-            if formatted_returns == "":
-                formatted_returns = "None"
+                docstring, args, returns = capture_docstring(name, content, line_no, is_class=False)
+                formatted_args = ", ".join(args)
+                formatted_returns = ", ".join(returns)
+                if formatted_returns == "":
+                    formatted_returns = "None"
 
-            if methods_header_written is False:
-                methods_header_written = True
-                ln = "Methods\n"
-                if class_name == "pmma":
-                    section_marker = "="
-                else:
-                    section_marker = "-"
-                documentation += "Methods\n"
-                documentation += section_marker*(len(ln)-1) + "\n\n"
-            documentation += f".. py:method:: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
-            documentation += docstring + "\n"
+                if methods_header_written is False:
+                    methods_header_written = True
+                    ln = "Methods\n"
+                    if class_name == "pmma":
+                        section_marker = "="
+                    else:
+                        section_marker = "-"
+                    documentation += "Methods\n"
+                    documentation += section_marker*(len(ln)-1) + "\n\n"
+                documentation += f".. py:method:: {class_name}.{name}({formatted_args}) -> {formatted_returns}\n\n"
+                documentation += docstring + "\n"
 
         elif "class " in line and ":" in line:
-            name = line.split("class ")[-1].split("(")[0]
-            name = name.split(":")[0].strip()
-            formatted_name = ""
-            for character in name:
-                if character in ALPHABET or character in NUMBERS:
-                    formatted_name += " "
-                formatted_name += character
+            if not "class _" in line: # hide hidden classes
+                name = line.split("class ")[-1].split("(")[0]
+                name = name.split(":")[0].strip()
+                formatted_name = ""
+                for character in name:
+                    if character in ALPHABET or character in NUMBERS:
+                        formatted_name += " "
+                    formatted_name += character
 
-            formatted_name = formatted_name.replace("Open G L", "OpenGL").strip()
-            formatted_name = formatted_name.replace("G P U", "GPU").strip()
-            formatted_name = formatted_name.replace("_ GPU", "_GPU").strip()
-            formatted_name = formatted_name.replace("_ E V E N T", " Event").strip()
-            formatted_name = formatted_name.replace("_ K E Y", " Key").strip()
-            formatted_name = formatted_name.replace("_ M O U S E", " Mouse").strip()
-            formatted_name = formatted_name.replace("_ S C R O L L", " Scroll").strip()
-            formatted_name = formatted_name.replace("_ P O S I T I O N", " Position").strip()
-            formatted_name = formatted_name.replace(" I C C P R O F ", " ICC Profile ").strip()
-            formatted_name = formatted_name.replace("Sys W M", "System Window Management").strip()
-            formatted_name = formatted_name.replace("Event Event", "Event").strip()
+                formatted_name = formatted_name.replace("Open G L", "OpenGL").strip()
+                formatted_name = formatted_name.replace("G P U", "GPU").strip()
+                formatted_name = formatted_name.replace("_ GPU", "_GPU").strip()
+                formatted_name = formatted_name.replace("_ E V E N T", " Event").strip()
+                formatted_name = formatted_name.replace("_ K E Y", " Key").strip()
+                formatted_name = formatted_name.replace("_ M O U S E", " Mouse").strip()
+                formatted_name = formatted_name.replace("_ S C R O L L", " Scroll").strip()
+                formatted_name = formatted_name.replace("_ P O S I T I O N", " Position").strip()
+                formatted_name = formatted_name.replace(" I C C P R O F ", " ICC Profile ").strip()
+                formatted_name = formatted_name.replace("Sys W M", "System Window Management").strip()
+                formatted_name = formatted_name.replace("Event Event", "Event").strip()
 
-            formatted_name = formatted_name.replace("1 0", "10").strip()
-            formatted_name = formatted_name.replace("1 1", "11").strip()
-            formatted_name = formatted_name.replace("1 2", "12").strip()
-            formatted_name = formatted_name.replace("1 3", "13").strip()
-            formatted_name = formatted_name.replace("1 4", "14").strip()
-            formatted_name = formatted_name.replace("1 5", "15").strip()
-            formatted_name = formatted_name.replace("1 6", "16").strip()
-            formatted_name = formatted_name.replace("1 7", "17").strip()
-            formatted_name = formatted_name.replace("1 8", "18").strip()
-            formatted_name = formatted_name.replace("1 9", "19").strip()
-            formatted_name = formatted_name.replace("2 0", "20").strip()
+                formatted_name = formatted_name.replace("1 0", "10").strip()
+                formatted_name = formatted_name.replace("1 1", "11").strip()
+                formatted_name = formatted_name.replace("1 2", "12").strip()
+                formatted_name = formatted_name.replace("1 3", "13").strip()
+                formatted_name = formatted_name.replace("1 4", "14").strip()
+                formatted_name = formatted_name.replace("1 5", "15").strip()
+                formatted_name = formatted_name.replace("1 6", "16").strip()
+                formatted_name = formatted_name.replace("1 7", "17").strip()
+                formatted_name = formatted_name.replace("1 8", "18").strip()
+                formatted_name = formatted_name.replace("1 9", "19").strip()
+                formatted_name = formatted_name.replace("2 0", "20").strip()
 
-            in_class = True
-            methods_header_written = False
-            docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)
-            init_docstring, init_args, init_returns = capture_docstring("__init__", content, line_no)
-            formatted_init_args = ", ".join(init_args)
-            class_name = name
-            ln = f"{formatted_name} (``pmma.{name}``)\n"
-            documentation += f"{formatted_name} (``pmma.{name}``)\n"
-            documentation += "="*(len(ln)-1) + "\n\n"
-            documentation += docstring.strip() + "\n\n"
+                in_class = True
+                methods_header_written = False
+                docstring, args, returns = capture_docstring(name, content, line_no, is_class=True)
+                init_docstring, init_args, init_returns = capture_docstring("__init__", content, line_no)
+                formatted_init_args = ", ".join(init_args)
+                class_name = name
+                ln = f"{formatted_name} (``pmma.{name}``)\n"
+                documentation += f"{formatted_name} (``pmma.{name}``)\n"
+                documentation += "="*(len(ln)-1) + "\n\n"
+                documentation += docstring.strip() + "\n\n"
 
-            ln = "Create\n"
-            documentation += "Create\n"
-            documentation += "-"*(len(ln)-1) + "\n\n"
-            documentation += f".. py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}\n\n"
-            documentation += init_docstring + "\n"
+                ln = "Create\n"
+                documentation += "Create\n"
+                documentation += "-"*(len(ln)-1) + "\n\n"
+                documentation += f".. py:method:: pmma.{name}({formatted_init_args}) -> pmma.{name}\n\n"
+                documentation += init_docstring + "\n"
 
         line_no += 1
 

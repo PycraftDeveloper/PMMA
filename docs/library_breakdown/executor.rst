@@ -21,10 +21,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Executor._run() -> None
-
-   Not Yet Written
-
 .. py:method:: Executor.get_exit_code() -> None
 
    Not Yet Written
@@ -61,14 +57,6 @@ Methods
    Not Yet Written
 
 .. py:method:: AdvancedExecutor.get_result() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedExecutor._update_result() -> None
-
-   Not Yet Written
-
-.. py:method:: AdvancedExecutor._run() -> None
 
    Not Yet Written
 

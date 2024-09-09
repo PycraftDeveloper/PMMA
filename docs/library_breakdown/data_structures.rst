@@ -174,16 +174,6 @@ Methods
     Return the value with the highest priority without removing it from the queue.
     
 
-.. py:method:: PriorityQueue._sift_up() -> None
-
-    Move the element at the given index up to its proper position based on priority.
-    
-
-.. py:method:: PriorityQueue._sift_down() -> None
-
-    Move the element at the given index down to its proper position based on priority.
-    
-
 .. py:method:: PriorityQueue.is_empty() -> None
 
     Return True if the queue is empty, False otherwise.
@@ -236,16 +226,6 @@ Methods
 .. py:method:: InvertedPriorityQueue.peek() -> None
 
     Return the value with the highest priority (lowest priority value) without removing it from the queue.
-    
-
-.. py:method:: InvertedPriorityQueue._sift_up() -> None
-
-    Move the element at the given index up to its proper position based on priority.
-    
-
-.. py:method:: InvertedPriorityQueue._sift_down() -> None
-
-    Move the element at the given index down to its proper position based on priority.
     
 
 .. py:method:: InvertedPriorityQueue.is_empty() -> None
@@ -312,16 +292,6 @@ Methods
     Return the value with the highest priority without removing it from the queue.
     
 
-.. py:method:: PriorityList._sift_up() -> None
-
-    Move the element at the given index up to its proper position based on priority.
-    
-
-.. py:method:: PriorityList._sift_down() -> None
-
-    Move the element at the given index down to its proper position based on priority.
-    
-
 .. py:method:: PriorityList.is_empty() -> None
 
     Return True if the queue is empty, False otherwise.
@@ -384,16 +354,6 @@ Methods
 .. py:method:: InvertedPriorityList.peek() -> None
 
     Return the value with the highest priority (lowest priority value) without removing it from the queue.
-    
-
-.. py:method:: InvertedPriorityList._sift_up() -> None
-
-    Move the element at the given index up to its proper position based on priority.
-    
-
-.. py:method:: InvertedPriorityList._sift_down() -> None
-
-    Move the element at the given index down to its proper position based on priority.
     
 
 .. py:method:: InvertedPriorityList.is_empty() -> None

@@ -112,3 +112,27 @@ Here you will find all the subroutines that aren't grouped into a specific objec
 
    Not Yet Written
 
+.. py:method:: pmma.set_in_game_loop() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.get_in_game_loop() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.get_system_font() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.render_text_with_transparent_background() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.render() -> None
+
+   Not Yet Written
+

@@ -13,6 +13,14 @@ Create
 Methods
 -------
 
+.. py:method:: Line.set_rotation() -> None
+
+   Not Yet Written
+
+.. py:method:: Line.get_rotation() -> None
+
+   Not Yet Written
+
 .. py:method:: Line.set_start() -> None
 
    Not Yet Written
@@ -53,10 +61,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Line._update_buffers() -> None
-
-   Not Yet Written
-
 .. py:method:: Line.render() -> None
 
    Not Yet Written
@@ -75,6 +79,14 @@ Create
 
 Methods
 -------
+
+.. py:method:: RadialPolygon.set_rotation() -> None
+
+   Not Yet Written
+
+.. py:method:: RadialPolygon.get_rotation() -> None
+
+   Not Yet Written
 
 .. py:method:: RadialPolygon.set_radius() -> None
 
@@ -143,6 +155,14 @@ Create
 Methods
 -------
 
+.. py:method:: Rect.set_rotation() -> None
+
+   Not Yet Written
+
+.. py:method:: Rect.get_rotation() -> None
+
+   Not Yet Written
+
 .. py:method:: Rect.set_position() -> None
 
    Not Yet Written
@@ -185,6 +205,14 @@ Create
 
 Methods
 -------
+
+.. py:method:: Arc.set_rotation() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_rotation() -> None
+
+   Not Yet Written
 
 .. py:method:: Arc.set_start_angle() -> None
 
@@ -253,6 +281,14 @@ Create
 Methods
 -------
 
+.. py:method:: Ellipse.set_rotation() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_rotation() -> None
+
+   Not Yet Written
+
 .. py:method:: Ellipse.set_position() -> None
 
    Not Yet Written
@@ -303,6 +339,14 @@ Create
 
 Methods
 -------
+
+.. py:method:: Polygon.set_rotation() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_rotation() -> None
+
+   Not Yet Written
 
 .. py:method:: Polygon.set_curved() -> None
 

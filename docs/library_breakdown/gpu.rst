@@ -44,10 +44,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: GPU._update() -> None
-
-   Not Yet Written
-
 .. py:method:: GPU.quit() -> None
 
    Not Yet Written

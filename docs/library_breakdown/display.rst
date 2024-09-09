@@ -29,19 +29,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Display._setup_layers() -> None
-
-   Not Yet Written
-
 .. py:method:: Display.get_2D_hardware_accelerated_surface() -> None
 
    Not Yet Written
 
 .. py:method:: Display.get_3D_hardware_accelerated_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: Display._generate_pygame_flags() -> None
 
    Not Yet Written
 

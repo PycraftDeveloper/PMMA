@@ -17,10 +17,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: OpenGL._check_if_opengl_backend_initialized() -> None
-
-   Not Yet Written
-
 .. py:method:: OpenGL.get_context() -> None
 
    Not Yet Written
@@ -73,10 +69,6 @@ Methods
    Not Yet Written
 
 .. py:method:: VertexBufferObject.bind_to_shader_storage_buffer() -> None
-
-   Not Yet Written
-
-.. py:method:: VertexBufferObject._size() -> None
 
    Not Yet Written
 
@@ -143,10 +135,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: GenericBufferObject._size() -> None
-
-   Not Yet Written
-
 .. py:method:: GenericBufferObject.get_size() -> None
 
    Not Yet Written
@@ -203,10 +191,6 @@ Methods
    Not Yet Written
 
 .. py:method:: ColorBufferObject.bind_to_shader_storage_buffer() -> None
-
-   Not Yet Written
-
-.. py:method:: ColorBufferObject._size() -> None
 
    Not Yet Written
 
@@ -277,10 +261,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: IndexBufferObject._size() -> None
-
-   Not Yet Written
-
 .. py:method:: IndexBufferObject.get_size() -> None
 
    Not Yet Written
@@ -311,10 +291,6 @@ Create
 
 Methods
 -------
-
-.. py:method:: VertexArrayObject._analyse_and_filter_buffer_attributes() -> None
-
-   Not Yet Written
 
 .. py:method:: VertexArrayObject.create() -> None
 
@@ -388,10 +364,6 @@ Methods
 -------
 
 .. py:method:: Shader.get_buffer_input_variable_names() -> None
-
-   Not Yet Written
-
-.. py:method:: Shader._analyze_shader_component() -> None
 
    Not Yet Written
 
