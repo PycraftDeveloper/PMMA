@@ -579,7 +579,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
                 _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
                 self._logger.log_development("We have automatically detected that you want to render \
-using points, and have therefore enabled support within GLSL for customizable point sizes just in case.")
+using points, and have therefore enabled support within GLSL for customizable point sizes just in case.") # detect glpointsize in shader? possible improvement
             self._vao.render(mode=mode)
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
                 _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
