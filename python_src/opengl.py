@@ -13,6 +13,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.shader_utils import ShaderIntermediary as _ShaderIntermediary
 
 class OpenGL:
     def __init__(self):
@@ -696,13 +697,31 @@ class Shader:
             self._analyze_shader_component(self._program_data["fragment"].split("\n"))
 
     def load_vertex_shader_from_file(self, file_path):
-        with open(file_path, "r") as file:
-            self._program_data["vertex"] = file.read()
+        if file_path in _ShaderIntermediary.loaded_shaders:
+            if "vertex" in _ShaderIntermediary.loaded_shaders[file_path]:
+                self._program_data["vertex"] = _ShaderIntermediary.loaded_shaders[file_path]["vertex"]
+            else:
+                with open(file_path, "r") as file:
+                    self._program_data["vertex"] = file.read()
+                _ShaderIntermediary.loaded_shaders[file_path]["vertex"] = self._program_data["vertex"]
+        else:
+            with open(file_path, "r") as file:
+                self._program_data["vertex"] = file.read()
+            _ShaderIntermediary.loaded_shaders[file_path] = {"vertex": self._program_data["vertex"]}
         self.analyze()
 
     def load_fragment_shader_from_file(self, file_path):
-        with open(file_path, "r") as file:
-            self._program_data["fragment"] = file.read()
+        if file_path in _ShaderIntermediary.loaded_shaders:
+            if "fragment" in _ShaderIntermediary.loaded_shaders[file_path]:
+                self._program_data["fragment"] = _ShaderIntermediary.loaded_shaders[file_path]["fragment"]
+            else:
+                with open(file_path, "r") as file:
+                    self._program_data["fragment"] = file.read()
+                _ShaderIntermediary.loaded_shaders[file_path]["fragment"] = self._program_data["fragment"]
+        else:
+            with open(file_path, "r") as file:
+                self._program_data["fragment"] = file.read()
+            _ShaderIntermediary.loaded_shaders[file_path] = {"fragment": self._program_data["fragment"]}
         self.analyze()
 
     def load_vertex_shader_from_string(self, string):
@@ -719,43 +738,43 @@ class Shader:
         self.analyze()
 
     def load_shader_from_folder(self, directory):
-        if _os.path.exists(_path_builder(directory, "vertex.glsl")):
-            with open(_path_builder(directory, "vertex.glsl"), "r") as file:
-                vertex_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "vert.glsl")):
-            with open(_path_builder(directory, "vert.glsl"), "r") as file:
-                vertex_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "vertex_shader.glsl")):
-            with open(_path_builder(directory, "vertex_shader.glsl"), "r") as file:
-                vertex_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "vert_shader.glsl")):
-            with open(_path_builder(directory, "vert_shader.glsl"), "r") as file:
-                vertex_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "vertex shader.glsl")):
-            with open(_path_builder(directory, "vertex shader.glsl"), "r") as file:
-                vertex_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "vert shader.glsl")):
-            with open(_path_builder(directory, "vert shader.glsl"), "r") as file:
-                vertex_shader = file.read()
+        vertex_aliases = ["vertex", "vert", "vertex_shader", "vert_shader", "vertex shader", "vert shader"]
+        vertex_shader = None
+        for name in vertex_aliases:
+            path = _path_builder(directory, f"{name}.glsl")
+            if path in _ShaderIntermediary.loaded_shaders or _os.path.exists(path):
+                if path in _ShaderIntermediary.loaded_shaders:
+                    if "vertex" in _ShaderIntermediary.loaded_shaders[path]:
+                        vertex_shader = _ShaderIntermediary.loaded_shaders[path]["vertex"]
+                    else:
+                        with open(path, "r") as file:
+                            vertex_shader = file.read()
+                        _ShaderIntermediary.loaded_shaders[path]["vertex"] = vertex_shader
+                else:
+                    with open(path, "r") as file:
+                        vertex_shader = file.read()
+                    _ShaderIntermediary.loaded_shaders[path] = {"vertex": vertex_shader}
 
-        if _os.path.exists(_path_builder(directory, "fragment.glsl")):
-            with open(_path_builder(directory, "fragment.glsl"), "r") as file:
-                fragment_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "frag.glsl")):
-            with open(_path_builder(directory, "frag.glsl"), "r") as file:
-                fragment_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "fragment_shader.glsl")):
-            with open(_path_builder(directory, "fragment_shader.glsl"), "r") as file:
-                fragment_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "frag_shader.glsl")):
-            with open(_path_builder(directory, "frag_shader.glsl"), "r") as file:
-                fragment_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "fragment shader.glsl")):
-            with open(_path_builder(directory, "fragment shader.glsl"), "r") as file:
-                fragment_shader = file.read()
-        elif _os.path.exists(_path_builder(directory, "frag shader.glsl")):
-            with open(_path_builder(directory, "frag shader.glsl"), "r") as file:
-                fragment_shader = file.read()
+                break
+
+        fragment_aliases = ["fragment", "frag", "fragment_shader", "frag_shader", "fragment shader", "frag shader"]
+        fragment_shader = None
+        for name in fragment_aliases:
+            path = _path_builder(directory, f"{name}.glsl")
+            if path in _ShaderIntermediary.loaded_shaders or _os.path.exists(path):
+                if path in _ShaderIntermediary.loaded_shaders:
+                    if "fragment" in _ShaderIntermediary.loaded_shaders[path]:
+                        fragment_shader = _ShaderIntermediary.loaded_shaders[path]["fragment"]
+                    else:
+                        with open(path, "r") as file:
+                            fragment_shader = file.read()
+                        _ShaderIntermediary.loaded_shaders[path]["fragment"] = vertex_shader
+                else:
+                    with open(path, "r") as file:
+                        fragment_shader = file.read()
+                    _ShaderIntermediary.loaded_shaders[path] = {"fragment": fragment_shader}
+
+                break
 
         if vertex_shader is None or fragment_shader is None:
             self._logger.log_warning("Vertex shader or fragment shader not found.")

@@ -2,6 +2,7 @@ import random as _random
 import importlib as _importlib
 import threading as _threading
 import gc as _gc
+import time as _time
 
 import numpy as _numpy
 
@@ -78,12 +79,14 @@ class Perlin:
         try:
             _Registry.perlin_noise_prefill_single_samples = 0
             x_samples = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-            for _ in range(1, 1_000):
-                _Registry.perlin_noise_prefill_single_samples += 1
-                x = _random_real_number()
-                self.generate_1D_perlin_noise(x/100)
-                self.generate_2D_perlin_noise(x/100, -x/100)
-                self.generate_3D_perlin_noise(x/100, -x/100, x/100)
+            for _ in range(0, 10):
+                for _ in range(100):
+                    _Registry.perlin_noise_prefill_single_samples += 1
+                    x = _random_real_number()
+                    self.generate_1D_perlin_noise(x/100)
+                    self.generate_2D_perlin_noise(x/100, -x/100)
+                    self.generate_3D_perlin_noise(x/100, -x/100, x/100)
+                _time.sleep(1/45)
 
             x = x_samples[0]
             del x_samples[0]
@@ -123,6 +126,7 @@ class Perlin:
                     self.generate_1D_perlin_noise_from_range([x])
                     self.generate_2D_perlin_noise_from_range([x], [x])
                     self.generate_3D_perlin_noise_from_range([x], [x], [x])
+                _time.sleep(1/30)
         except Exception as error:
             print(error)
 
