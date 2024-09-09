@@ -1,0 +1,29 @@
+name: Documentation Auto-Builder
+
+# Controls when the action will run
+on:
+  schedule:
+    # Run once every 24 hours
+    - cron: '0 0 * * *'  # This will run at midnight UTC every day
+
+# The list of jobs to be run as part of this workflow
+jobs:
+  run-python:
+    runs-on: ubuntu-latest  # The environment to run the job
+
+    steps:
+      # Step 1: Checkout the repository to get access to your Python script
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'  # Specify the Python version you need
+
+      # Step 3: Install dependencies (optional) - skipped as not required
+
+      # Step 4: Run your Python script
+      - name: Documentation Auto-Builder process
+        run: python "pmma/documentation autobuilder/main.py"
