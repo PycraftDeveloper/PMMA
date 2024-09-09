@@ -93,6 +93,7 @@ be the first issue you address - it might not fix the problem, but there is a go
             return
 
         self._data = data
+        self._vbo.clear()
         self._vbo.write(self._data)
 
     def read(self, from_vbo=False):
@@ -184,6 +185,7 @@ class GenericBufferObject:
             return
 
         self._data = data
+        self._gbo.clear()
         self._gbo.write(self._data)
 
     def read(self, from_gbo=False):
@@ -275,6 +277,7 @@ class ColorBufferObject:
             return
 
         self._data = data
+        self._cbo.clear()
         self._cbo.write(self._data)
 
     def read(self, from_vbo=False):
@@ -366,6 +369,7 @@ class IndexBufferObject:
             return
 
         self._data = data
+        self._ibo.clear()
         self._ibo.write(self._data)
 
     def read(self, from_vbo=False):

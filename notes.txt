@@ -59,4 +59,4 @@ Update render pipeline
 
 IMPROVEMENTS
 ============
-Auto detect use of 'glpointsize' in shader and enable custom point sizes only when required in OpenGL (VAO, render)
+change input/output to set/get in num convert

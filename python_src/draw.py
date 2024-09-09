@@ -281,7 +281,12 @@ class RadialPolygon:
     def set_point_count(self, point_count=None):
         self._vertices_changed = True
         if point_count is None:
-            point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.output_point(format=Constants.OPENGL_COORDINATES)))*_Registry.shape_quality)
+            try:
+                point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.output_point(format=Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
+            except ValueError:
+                point_count = 3
+            if point_count < 3:
+                point_count = 3
         self._point_count = point_count
 
     def get_point_count(self):
@@ -348,13 +353,15 @@ class RadialPolygon:
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
 
+        print(_Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         # Draw the polygon using triangle fan (good for convex shapes)
         self._vao.render(_moderngl.TRIANGLE_FAN)
 
-class Rect:
+class Rectangle:
     """
     Draws a rectangle.
     """
@@ -379,17 +386,26 @@ class Rect:
         self._position = None
         self._size = None
         self._rotation = None
+        self._vertices_changed = True  # Mark vertices as changed initially
+        self._color_changed = True  # Mark color as changed initially
+        self._program = _Shader()
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_rectangle"))
+        self._program.create()
+        self._vbo = _VertexBufferObject()
+        self._vao = _VertexArrayObject()
+        self._rotation = _AngleConverter()
 
     def set_rotation(self, rotation, format=Constants.RADIANS):
+        self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation = _AngleConverter()
-            self._rotation.input_angle(rotation, format=format)
+            self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
     def get_rotation(self, format=Constants.RADIANS):
         if self._rotation is not None:
-            return self._rotation.output_angle(format=format)
+            return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -405,13 +421,13 @@ class Rect:
 
     def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(size) != _PointConverter():
-            self._size = _PointConverter()
-            self._size.input_point(size, format=size_format)
+        if type(size) != _CoordinateConverter():
+            self._size = _CoordinateConverter()
+            self._size.input_coordinates(size, format=size_format)
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
-            return self._size.output_point(format=format)
+            return self._size.output_coordinates(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -425,8 +441,68 @@ class Rect:
         if self._color is not None:
             return self._color.output_color(format=format)
 
+    def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
+        dx = x - cx
+        dy = y - cy
+        return [
+            cx + dx * cos_theta - dy * sin_theta,
+            cy + dx * sin_theta + dy * cos_theta
+        ]
+
+    def _update_buffers(self):
+        """
+        Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
+        """
+        if self._vertices_changed:
+            if self._position is None or self._size is None:
+                return None  # Cannot proceed without these
+
+            # Unpack size and position
+            size = self._size.output_coordinates(Constants.OPENGL_COORDINATES)
+            half_width = size[0] / 2
+            half_height = size[1] / 2
+            cx, cy = self._position.output_coordinates(Constants.OPENGL_COORDINATES)
+
+            # Define the unrotated rectangle vertices relative to the center
+            vertices = _numpy.array([
+                [cx - half_width, cy - half_height],  # Bottom-left
+                [cx + half_width, cy - half_height],  # Bottom-right
+                [cx + half_width, cy + half_height],  # Top-right
+                [cx - half_width, cy + half_height],  # Top-left
+            ], dtype='f4')
+
+            # Apply rotation around the center
+            rotation = self._rotation.get_angle(format=Constants.RADIANS)
+            cos_theta = _numpy.cos(rotation)
+            sin_theta = _numpy.sin(rotation)
+
+            # Rotate each vertex around the center
+            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], cx, cy, cos_theta, sin_theta) for v in vertices], dtype='f4')
+
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
+            self._vertices_changed = False  # Reset the flag
+
+            if self._vbo.get_created() is False:
+                self._vbo.create(rotated_vertices)
+            else:
+                self._vbo.update(rotated_vertices)
+
+        if self._color_changed:
+            color = self.get_color(format=Constants.SMALL_RGBA)
+            self._program.set_shader_variable('color', color)
+            self._color_changed = False  # Reset the flag
+
     def render(self):
-        print("Not yet finished!!!")
+        self._surface.get_2D_hardware_accelerated_surface()
+        # Update VBO with any changes to vertices or colors
+        self._update_buffers()
+
+        if self._vao.get_created() is False:
+            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
+
+        # Draw the polygon using triangle fan (good for convex shapes)
+        self._vao.render(_moderngl.TRIANGLE_FAN)
 
 class Arc:
     """
@@ -450,13 +526,22 @@ class Arc:
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
-        self._position = None
-        self._size = None
+        self._center = None
+        self._radius = None
         self._start_angle = None
         self._stop_angle = None
         self._rotation = None
+        self._vertices_changed = True  # Mark vertices as changed initially
+        self._color_changed = True  # Mark color as changed initially
+        self._program = _Shader()
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_arc"))
+        self._program.create()
+        self._vbo = _VertexBufferObject()
+        self._vao = _VertexArrayObject()
+        self._rotation = _AngleConverter()
 
     def set_rotation(self, rotation, format=Constants.RADIANS):
+        self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation = _AngleConverter()
             self._rotation.input_angle(rotation, format=format)
@@ -487,27 +572,27 @@ class Arc:
         if self._stop_angle is not None:
             return self._stop_angle.get_angle(format=format)
 
-    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_center(self, centre, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(position) != _CoordinateConverter:
-            self._position = _CoordinateConverter()
-            self._position.input_coordinates(position, format=position_format)
+        if type(centre) != _CoordinateConverter:
+            self._center = _CoordinateConverter()
+            self._center.input_coordinates(centre, format=format)
         else:
-            self._position = position
+            self._center = centre
 
-    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
-        if self._position is not None:
-            return self._position.output_coordinates(format=format)
+    def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if self._center is not None:
+            return self._center.output_coordinates(format=format)
 
-    def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(size) != _PointConverter():
-            self._size = _PointConverter()
-            self._size.input_point(size, format=size_format)
+        if type(value) != _PointConverter():
+            self._radius = _PointConverter()
+            self._radius.input_point(value, format=format)
 
-    def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
-        if self._size is not None:
-            return self._size.output_point(format=format)
+    def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
+        if self._radius is not None:
+            return self._radius.output_point(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -530,8 +615,71 @@ class Arc:
     def get_surface(self):
         return self._surface
 
+    def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
+        dx = x - cx
+        dy = y - cy
+        return [
+            cx + dx * cos_theta - dy * sin_theta,
+            cy + dx * sin_theta + dy * cos_theta
+        ]
+
+    def _update_buffers(self):
+        """
+        Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
+        """
+        if self._vertices_changed:
+            if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
+                return None  # Cannot proceed without these parameters
+
+            center_x, center_y = self._center.output_coordinates(format=Constants.OPENGL_COORDINATES)
+            start_angle = self._start_angle.get_angle(format=Constants.RADIANS)
+            stop_angle = self._stop_angle.get_angle(format=Constants.RADIANS)
+            radius = self._radius.output_point(format=Constants.OPENGL_COORDINATES)
+
+            # Number of points to generate for the arc
+            try:
+                proportion_of_circle = abs(stop_angle - start_angle) / Constants.TAU
+                point_count = 1 + int(((Constants.TAU/_math.asin(1/self._radius.output_point(format=Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
+            except ValueError:
+                point_count = 3
+            if point_count < 3:
+                point_count = 3
+
+            # Generate points along the arc
+            angles = _numpy.linspace(start_angle, stop_angle, point_count)
+            vertices = _numpy.array([[center_x + radius * _numpy.cos(angle), center_y + radius * _numpy.sin(angle)] for angle in angles], dtype='f4')
+
+            # Apply rotation to each vertex if applicable
+            rotation = self._rotation.get_angle(format=Constants.RADIANS)
+            cos_theta = _numpy.cos(rotation)
+            sin_theta = _numpy.sin(rotation)
+
+            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
+            self._vertices_changed = False  # Reset the flag
+
+            if self._vbo.get_created() is False:
+                self._vbo.create(rotated_vertices)
+            else:
+                self._vbo.update(rotated_vertices)
+
+        if self._color_changed:
+            color = self.get_color(format=Constants.SMALL_RGBA)
+            self._program.set_shader_variable('color', color)
+            self._color_changed = False  # Reset the flag
+
     def render(self):
-        print("Not yet finished!!!")
+        self._surface.get_2D_hardware_accelerated_surface()
+        # Update VBO with any changes to vertices or colors
+        self._update_buffers()
+
+        if self._vao.get_created() is False:
+            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
+
+        # Draw the polygon using triangle fan (good for convex shapes)
+        self._vao.render(_moderngl.LINE_STRIP)
 
 class Ellipse:
     """
