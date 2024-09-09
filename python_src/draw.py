@@ -258,7 +258,7 @@ class RadialPolygon:
         self._vertices_changed = True
         if type(value) != _PointConverter():
             self._radius = _PointConverter()
-            self._radius.input_point(value, format=format)
+            self._radius.set_point(value, format=format)
 
     def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._radius is not None:
@@ -631,7 +631,7 @@ class Arc:
         self._vertices_changed = True
         if type(value) != _PointConverter():
             self._radius = _PointConverter()
-            self._radius.input_point(value, format=format)
+            self._radius.set_point(value, format=format)
 
     def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._radius is not None:

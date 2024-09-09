@@ -152,7 +152,7 @@ class PointConverter:
 
         self._intermediary = _PointIntermediary()
 
-    def input_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
+    def set_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
         self._intermediary.set_point(point, in_type=format)
 
     def output_point(self, format=Constants.CONVENTIONAL_COORDINATES):
