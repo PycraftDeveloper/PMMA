@@ -72,7 +72,7 @@ class Line:
         self._vertices_changed = True
         if type(start) != _CoordinateConverter:
             self._start = _CoordinateConverter()
-            self._start.input_coordinates(start, format=start_format)
+            self._start.set_coordinates(start, format=start_format)
         else:
             self._start = start
 
@@ -84,7 +84,7 @@ class Line:
         self._vertices_changed = True
         if type(end) != _CoordinateConverter:
             self._end = _CoordinateConverter()
-            self._end.input_coordinates(end, format=end_format)
+            self._end.set_coordinates(end, format=end_format)
         else:
             self._end = end
 
@@ -303,7 +303,7 @@ class RadialPolygon:
         self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
             self._center = _CoordinateConverter()
-            self._center.input_coordinates(centre, format=format)
+            self._center.set_coordinates(centre, format=format)
         else:
             self._center = centre
 
@@ -435,7 +435,7 @@ class Rectangle:
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
             self._position = _CoordinateConverter()
-            self._position.input_coordinates(position, format=position_format)
+            self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
 
@@ -447,7 +447,7 @@ class Rectangle:
         self._vertices_changed = True
         if type(size) != _CoordinateConverter():
             self._size = _CoordinateConverter()
-            self._size.input_coordinates(size, format=size_format)
+            self._size.set_coordinates(size, format=size_format)
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
@@ -619,7 +619,7 @@ class Arc:
         self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
             self._center = _CoordinateConverter()
-            self._center.input_coordinates(centre, format=format)
+            self._center.set_coordinates(centre, format=format)
         else:
             self._center = centre
 
@@ -788,7 +788,7 @@ class Ellipse:
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
             self._position = _CoordinateConverter()
-            self._position.input_coordinates(position, format=position_format)
+            self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
 
@@ -800,7 +800,7 @@ class Ellipse:
         self._vertices_changed = True
         if type(size) != _CoordinateConverter():
             self._size = _CoordinateConverter()
-            self._size.input_coordinates(size, format=size_format)
+            self._size.set_coordinates(size, format=size_format)
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
@@ -968,7 +968,7 @@ class Polygon:
         for point in points:
             if type(point) != _CoordinateConverter:
                 new_point = _CoordinateConverter()
-                new_point.input_coordinates(point, format=format)
+                new_point.set_coordinates(point, format=format)
                 self._points.append(new_point)
             else:
                 self._points.append(point)
@@ -1110,7 +1110,7 @@ class Pixel:
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
             self._position = _CoordinateConverter()
-            self._position.input_coordinates(position, format=position_format)
+            self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
 
