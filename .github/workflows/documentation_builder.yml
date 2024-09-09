@@ -39,3 +39,11 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 6: Trigger Read the Docs build
+      - name: Trigger Read the Docs build
+        run: |
+          curl -X POST -H "Authorization: Token ${{ secrets.RTD_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{"branch": "main"}' \
+          https://readthedocs.org/api/v3/projects/pmma/versions/latest/builds/
