@@ -155,7 +155,7 @@ class PointConverter:
     def set_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
         self._intermediary.set_point(point, in_type=format)
 
-    def output_point(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_point(self, format=Constants.CONVENTIONAL_COORDINATES):
         return self._intermediary.get_point(out_type=format)
 
     def __del__(self, do_garbage_collection=False):

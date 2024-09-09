@@ -262,7 +262,7 @@ class RadialPolygon:
 
     def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._radius is not None:
-            return self._radius.output_point(format=format)
+            return self._radius.get_point(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -289,7 +289,7 @@ class RadialPolygon:
         self._vertices_changed = True
         if point_count is None:
             try:
-                point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.output_point(format=Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
+                point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.get_point(format=Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
             except ValueError:
                 point_count = 3
             if point_count < 3:
@@ -333,7 +333,7 @@ class RadialPolygon:
             rotation = self.get_rotation()  # Get the current rotation angle
 
             center = self._center.get_coordinates(Constants.OPENGL_COORDINATES)
-            radius = self._radius.output_point(Constants.OPENGL_COORDINATES)
+            radius = self._radius.get_point(Constants.OPENGL_COORDINATES)
 
             for i in range(self._point_count):
                 angle = i * angle_step + rotation
@@ -635,7 +635,7 @@ class Arc:
 
     def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._radius is not None:
-            return self._radius.output_point(format=format)
+            return self._radius.get_point(format=format)
 
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
@@ -677,12 +677,12 @@ class Arc:
             center_x, center_y = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
             start_angle = self._start_angle.get_angle(format=Constants.RADIANS)
             stop_angle = self._stop_angle.get_angle(format=Constants.RADIANS)
-            radius = self._radius.output_point(format=Constants.OPENGL_COORDINATES)
+            radius = self._radius.get_point(format=Constants.OPENGL_COORDINATES)
 
             # Number of points to generate for the arc
             try:
                 proportion_of_circle = abs(stop_angle - start_angle) / Constants.TAU
-                point_count = 1 + int(((Constants.TAU/_math.asin(1/self._radius.output_point(format=Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
+                point_count = 1 + int(((Constants.TAU/_math.asin(1/self._radius.get_point(format=Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
             except ValueError:
                 point_count = 3
             if point_count < 3:
