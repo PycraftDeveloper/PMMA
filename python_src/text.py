@@ -35,11 +35,11 @@ class _Text:
             if do_garbage_collection:
                 _gc.collect()
 
-    def quit(self, do_garbage_collection=True):
+    def _quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def get_system_font(self, size=None, bold=None, italic=None):
+    def _get_system_font(self, size=None, bold=None, italic=None):
         system_font = _font.nametofont("TkTextFont")
         system_font_dictionary = system_font.actual()
 
@@ -58,7 +58,7 @@ class _Text:
         else:
             raise NotImplementedError
 
-    def render_text_with_transparent_background(self, in_text, bg_color):
+    def _render_text_with_transparent_background(self, in_text, bg_color):
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
         if _Registry.display_mode == Constants.PYGAME:
@@ -76,7 +76,7 @@ class _Text:
 
         return alpha_surface
 
-    def render(
+    def _render(
             self,
             text,
             position=None,
