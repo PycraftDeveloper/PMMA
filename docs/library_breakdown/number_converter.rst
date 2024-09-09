@@ -67,11 +67,11 @@ Create
 Methods
 -------
 
-.. py:method:: ColorConverter.input_color() -> None
+.. py:method:: ColorConverter.set_color() -> None
 
    Not Yet Written
 
-.. py:method:: ColorConverter.output_color() -> None
+.. py:method:: ColorConverter.get_color() -> None
 
    Not Yet Written
 
@@ -106,11 +106,11 @@ Create
 Methods
 -------
 
-.. py:method:: PointConverter.input_point() -> None
+.. py:method:: PointConverter.set_point() -> None
 
    Not Yet Written
 
-.. py:method:: PointConverter.output_point() -> None
+.. py:method:: PointConverter.get_point() -> None
 
    Not Yet Written
 
@@ -133,11 +133,11 @@ Create
 Methods
 -------
 
-.. py:method:: CoordinateConverter.input_coordinates() -> None
+.. py:method:: CoordinateConverter.set_coordinates() -> None
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.output_coordinates() -> None
+.. py:method:: CoordinateConverter.get_coordinates() -> None
 
    Not Yet Written
 

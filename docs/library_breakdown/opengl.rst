@@ -367,6 +367,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Shader.get_using_gl_point_size_syntax() -> None
+
+   Not Yet Written
+
 .. py:method:: Shader.set_shader_variable() -> None
 
    Not Yet Written

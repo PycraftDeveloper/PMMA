@@ -140,54 +140,62 @@ Methods
 
    Not Yet Written
 
-Rect (``pmma.Rect``)
-====================
+Rectangle (``pmma.Rectangle``)
+==============================
 
 Draws a rectangle.
 
 Create
 ------
 
-.. py:method:: pmma.Rect() -> pmma.Rect
+.. py:method:: pmma.Rectangle() -> pmma.Rectangle
 
    Not Yet Written
 
 Methods
 -------
 
-.. py:method:: Rect.set_rotation() -> None
+.. py:method:: Rectangle.set_width() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.get_rotation() -> None
+.. py:method:: Rectangle.get_width() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.set_position() -> None
+.. py:method:: Rectangle.set_rotation() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.get_position() -> None
+.. py:method:: Rectangle.get_rotation() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.set_size() -> None
+.. py:method:: Rectangle.set_position() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.get_size() -> None
+.. py:method:: Rectangle.get_position() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.set_color() -> None
+.. py:method:: Rectangle.set_size() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.get_color() -> None
+.. py:method:: Rectangle.get_size() -> None
 
    Not Yet Written
 
-.. py:method:: Rect.render() -> None
+.. py:method:: Rectangle.set_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Rectangle.get_color() -> None
+
+   Not Yet Written
+
+.. py:method:: Rectangle.render() -> None
 
    Not Yet Written
 
@@ -205,6 +213,14 @@ Create
 
 Methods
 -------
+
+.. py:method:: Arc.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Arc.get_width() -> None
+
+   Not Yet Written
 
 .. py:method:: Arc.set_rotation() -> None
 
@@ -230,19 +246,19 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Arc.set_position() -> None
+.. py:method:: Arc.set_center() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.get_position() -> None
+.. py:method:: Arc.get_center() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.set_size() -> None
+.. py:method:: Arc.set_radius() -> None
 
    Not Yet Written
 
-.. py:method:: Arc.get_size() -> None
+.. py:method:: Arc.get_radius() -> None
 
    Not Yet Written
 
@@ -280,6 +296,14 @@ Create
 
 Methods
 -------
+
+.. py:method:: Ellipse.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Ellipse.get_width() -> None
+
+   Not Yet Written
 
 .. py:method:: Ellipse.set_rotation() -> None
 
@@ -385,6 +409,14 @@ Methods
    Not Yet Written
 
 .. py:method:: Polygon.get_surface() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.set_width() -> None
+
+   Not Yet Written
+
+.. py:method:: Polygon.get_width() -> None
 
    Not Yet Written
 
