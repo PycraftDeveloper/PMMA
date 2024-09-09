@@ -31,7 +31,6 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
-Potential issue in draw.py with approximated solution for height - need to test its purpose.
 
 TO DO LIST
 ==========
@@ -41,7 +40,6 @@ Integrate events with custom event manager
 Create aggregated events like Pointer (similar to controller already added).
 
 Introduce prefix adjustments for SI-units. **
-Introduce Degree conversions. (Angle converter (degrees, gradians, radians)) **
 Add object collision.
 Work on render pipeline.
 
@@ -58,4 +56,4 @@ Update render pipeline
 
 IMPROVEMENTS
 ============
-change input/output to set/get in num convert
+None :)
