@@ -49,7 +49,6 @@ Work on render pipeline.
 
 TEMPORARY TO DO LIST
 ====================
-Remove excessive imports to general
 Finish defining other shapes
 Create shapes like circle from RadialPolygon
 Update shapes when aspect ratio changes
