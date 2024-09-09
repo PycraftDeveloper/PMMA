@@ -1356,9 +1356,6 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.type == _pygame.SYSWMEVENT:
                     self.syswmevent_event.set_value(True)
 
-                elif event.type == _pygame.TEXTINPUT:
-                    self.textinput_event.set_value(True)
-
                 elif event.type == _pygame.MIDIIN:
                     self.midiin_event.set_value(True)
 
