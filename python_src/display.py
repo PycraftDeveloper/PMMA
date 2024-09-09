@@ -319,7 +319,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                     _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
 
                     # Set transparency color key
-                    self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
+                    self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
                     hex_color = self._color_converter.output_color(format=Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
@@ -356,13 +356,13 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         _Registry.in_game_loop = True
 
         if color is None or color == [] or color == ():
-            self._color_converter.input_color((0, 0, 0), format=Constants.RGB)
+            self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
 
         elif type(color) == _ColorConverter:
             raw_color = color.output_color(Constants.RGBA)
-            self._color_converter.input_color(raw_color, format=Constants.RGBA)
+            self._color_converter.set_color(raw_color, format=Constants.RGBA)
         else:
-            self._color_converter.input_color(color, format=format)
+            self._color_converter.set_color(color, format=format)
 
         if self._display_attribute_transparent_display:
             # Set transparency color key

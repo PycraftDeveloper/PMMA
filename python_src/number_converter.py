@@ -81,7 +81,7 @@ class ColorConverter:
         self._blue_noise = _Perlin(seed=seed)
         self._alpha_noise = _Perlin(seed=seed)
 
-    def input_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.AUTODETECT):
         self._color_intermediary.set_color(color, format)
 
     def output_color(self, format):

@@ -96,7 +96,7 @@ class Line:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
@@ -268,7 +268,7 @@ class RadialPolygon:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
@@ -457,7 +457,7 @@ class Rectangle:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
@@ -641,7 +641,7 @@ class Arc:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
@@ -810,7 +810,7 @@ class Ellipse:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
@@ -983,7 +983,7 @@ class Polygon:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
@@ -1122,7 +1122,7 @@ class Pixel:
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color = _ColorConverter()
-            self._color.input_color(color, format=format)
+            self._color.set_color(color, format=format)
         else:
             self._color = color
 
