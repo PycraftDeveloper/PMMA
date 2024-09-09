@@ -16,6 +16,7 @@ comparison_count = 0
 class_count = 0
 function_count = 0
 nothing_count = 0
+chars = 0
 for file in files:
     try:
         with open(file, 'r') as f:
@@ -25,6 +26,7 @@ for file in files:
 
     for line in content:
         line_count += 1
+        chars += len(line)
         if "if" in line or "else" in line or "elif" in line:
             comparison_count += 1
         if "class" in line:
@@ -37,8 +39,10 @@ for file in files:
             nothing_count += 1
 
 print(f"PMMA is: {line_count} lines long|")
+print(f"PMMA has: {chars:_} characters!")
 print(f"PMMA has: {variable_count} variables! {round((variable_count/line_count)*100, 2)} %")
 print(f"PMMA has: {comparison_count} comparisons! {round((comparison_count/line_count)*100, 2)} %")
 print(f"PMMA has: {nothing_count} blank lines! {round((nothing_count/line_count)*100, 2)} %")
 print(f"PMMA has: {function_count} functions! {round((function_count/line_count)*100, 2)} %")
 print(f"PMMA has: {class_count} classes! {round((class_count/line_count)*100, 2)} %")
+print(f"PMMA has an estimated line size of {((chars*8)/1000)/1000} MB!")
