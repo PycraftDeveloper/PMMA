@@ -102,7 +102,7 @@ class Line:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def set_width(self, width=1):
         if width <= 0:
@@ -274,7 +274,7 @@ class RadialPolygon:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
         if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -463,7 +463,7 @@ class Rectangle:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         dx = x - cx
@@ -647,7 +647,7 @@ class Arc:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
         if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -816,7 +816,7 @@ class Ellipse:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
         if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -989,7 +989,7 @@ class Polygon:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
         if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -1128,7 +1128,7 @@ class Pixel:
 
     def get_color(self, format=Constants.RGBA):
         if self._color is not None:
-            return self._color.output_color(format=format)
+            return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
         if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():

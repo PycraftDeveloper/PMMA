@@ -84,7 +84,7 @@ class ColorConverter:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_intermediary.set_color(color, format)
 
-    def output_color(self, format):
+    def get_color(self, format):
         return self._color_intermediary.get_color(format)
 
     def get_color_format(self):
@@ -105,7 +105,7 @@ class ColorConverter:
         self._color_intermediary.set_color(
             color,
             Constants.RGBA)
-        return self.output_color(format)
+        return self.get_color(format)
 
     def generate_color(
             self,
@@ -144,7 +144,7 @@ class ColorConverter:
         self._color_intermediary.set_color(
             color,
             Constants.RGBA)
-        return self.output_color(format)
+        return self.get_color(format)
 
 class PointConverter:
     def __init__(self):

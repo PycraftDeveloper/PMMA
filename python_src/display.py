@@ -320,7 +320,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
                     # Set transparency color key
                     self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
-                    hex_color = self._color_converter.output_color(format=Constants.HEX)
+                    hex_color = self._color_converter.get_color(format=Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
@@ -359,19 +359,19 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
 
         elif type(color) == _ColorConverter:
-            raw_color = color.output_color(Constants.RGBA)
+            raw_color = color.get_color(Constants.RGBA)
             self._color_converter.set_color(raw_color, format=Constants.RGBA)
         else:
             self._color_converter.set_color(color, format=format)
 
         if self._display_attribute_transparent_display:
             # Set transparency color key
-            hex_color = self._color_converter.output_color(format=Constants.HEX)
+            hex_color = self._color_converter.get_color(format=Constants.HEX)
             color_key = self.hex_color_to_windows_raw_color(hex_color)
 
             _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
-        self._color_key = _numpy.array([*self._color_converter.output_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
+        self._color_key = _numpy.array([*self._color_converter.get_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
 
         if _Registry.display_mode == Constants.PYGAME:
             #self._two_dimension_frame_buffer.use()
@@ -379,7 +379,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             #self._three_dimension_frame_buffer.use()
             self._three_dimension_frame_buffer.clear(self._color_converter)
             _Registry.context.screen.use()
-            _Registry.context.clear(*self._color_converter.output_color(format=Constants.SMALL_RGB))
+            _Registry.context.clear(*self._color_converter.get_color(format=Constants.SMALL_RGB))
         else:
             raise NotImplementedError
 

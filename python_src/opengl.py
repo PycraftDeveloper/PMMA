@@ -989,7 +989,7 @@ class FrameBufferObject:
         if color is None:
             color = (0.0, 0.0, 0.0, 0.0)
         elif type(color) == _ColorConverter:
-            color = color.output_color(Constants.SMALL_RGBA)
+            color = color.get_color(Constants.SMALL_RGBA)
         elif len(color) == 3:
             color = (*color, 0.0)
         if self._fbo is not None:
