@@ -19,8 +19,8 @@ import num2words as _num2words
 from pmma.python_src.constants import Constants
 from pmma.python_src.backpack import Backpack
 from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
-from pmma.python_src.settings import set_allow_anti_aliasing as _set_allow_anti_aliasing
-from pmma.python_src.settings import set_anti_aliasing_level as _set_anti_aliasing_level
+from pmma.python_src.utility.settings_utils import set_allow_anti_aliasing as _set_allow_anti_aliasing
+from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _set_anti_aliasing_level
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
