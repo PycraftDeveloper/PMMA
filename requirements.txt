@@ -5,6 +5,7 @@ moderngl
 num2words
 numba
 Pillow
+pprofile
 psutil
 pyadl
 pygame
