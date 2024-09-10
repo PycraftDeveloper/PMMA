@@ -13,7 +13,7 @@ from pmma.python_src.general import *
 from pmma.python_src.constants import Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.opengl import OpenGL as _OpenGL
-from pmma.python_src.opengl import Texture as _Texture
+from pmma.python_src.utility.opengl_utils import Texture as _Texture
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.opengl import FrameBufferObject as _FrameBufferObject
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
