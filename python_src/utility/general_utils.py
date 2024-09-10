@@ -109,10 +109,13 @@ generating 3D arrays.")
         _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].quit(do_garbage_collection=False)
         del _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
+    logger = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+    del _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+
     keys = list(_Registry.pmma_module_spine.keys())
 
     for key in keys:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+        logger.log_information(
             "Quitting PMMA object with ID: {}",
             variables=[key],
             repeat_for_effect=True)
@@ -125,6 +128,12 @@ generating 3D arrays.")
         _pygame.quit()
 
     _gc.collect()
+
+    logger.log_information(
+        "Quitting PMMA object with ID: logging intermediary",
+        repeat_for_effect=True)
+
+    logger.quit(do_garbage_collection=True)
 
     if terminate_application:
         _sys.exit(0)
