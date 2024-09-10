@@ -39,7 +39,7 @@ class Line:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = _ColorConverter()
         self._start = None
         self._end = None
         self._width = 1
@@ -108,7 +108,6 @@ class Line:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -241,7 +240,7 @@ class RadialPolygon:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = _ColorConverter()
         self._point_count = None
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
@@ -299,7 +298,6 @@ class RadialPolygon:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -432,7 +430,7 @@ class Rectangle:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = _ColorConverter()
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
@@ -508,7 +506,6 @@ class Rectangle:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -612,7 +609,7 @@ class Arc:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = _ColorConverter()
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
@@ -712,7 +709,6 @@ class Arc:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -824,7 +820,7 @@ class Ellipse:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = _ColorConverter()
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
@@ -901,7 +897,6 @@ class Ellipse:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -1017,7 +1012,7 @@ class Polygon:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = _ColorConverter()
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
@@ -1094,7 +1089,6 @@ class Polygon:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -1212,7 +1206,7 @@ class Pixel:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = self._color = _ColorConverter()
+        self._color = _ColorConverter()
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
