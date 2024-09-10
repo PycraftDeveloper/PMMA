@@ -65,6 +65,12 @@ def quit(show_statistics=None, terminate_application=True):
             time_formatter_instance.set_from_second(_time.perf_counter() - _Registry.application_start_time)
             _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
+
+            if _Registry.application_finished_loading_time is not None:
+                time_formatter_instance.set_from_second(_Registry.application_finished_loading_time - _Registry.application_start_time)
+                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+                    "PMMA statistics: {} loaded in: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
+
             _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
 frame rate of {} Hz.", variables=[app_name, _Registry.application_average_frame_rate['Mean']])
 
@@ -93,7 +99,18 @@ generating 3D arrays.")
 
     _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
         "PMMA is now exiting. Thanks for using PMMA!")
+
+    if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            "Quitting PMMA object with ID: {}",
+            variables=[Constants.DISPLAY_OBJECT],
+            repeat_for_effect=True)
+
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].quit(do_garbage_collection=False)
+        del _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+
     keys = list(_Registry.pmma_module_spine.keys())
+
     for key in keys:
         _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
             "Quitting PMMA object with ID: {}",
@@ -131,6 +148,9 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
             else:
                 _set_anti_aliasing_level(_Registry.manually_set_anti_aliasing_level)
 
+    if _Registry.in_game_loop is False: # first run detection
+        _Registry.application_finished_loading_time = _time.perf_counter()
+
     _Registry.in_game_loop = True
 
     _Registry.compute_component_called = True
@@ -163,12 +183,15 @@ Pipeline through PMMA to avoid any potential slowdowns.")
 
     if total_time_spent_drawing != 0:
         if 1/(total_time_spent_drawing) < _Registry.refresh_rate * 0.9 and _Registry.application_average_frame_rate['Samples'] > 3:
+            time_formatter_instance = _TimeFormatter()
+            time_formatter_instance.set_from_second(total_time_spent_drawing)
+
             _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
-number of draw calls being made. The program spent {}s on \
+number of draw calls being made. The program spent {} on \
 {} total render calls, limiting your maximum refresh rate to: \
-{}. Switching to the more optimized Render Pipeline will \
+{} Hz. Switching to the more optimized Render Pipeline will \
 likely improve application performance. Note that this message will only appear once, but \
-may reflect any degraded performance beyond this point.", variables=[total_time_spent_drawing, number_of_draw_calls, 1/(total_time_spent_drawing)])
+may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_draw_calls, 1/(total_time_spent_drawing)])
 
     if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
         if _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():

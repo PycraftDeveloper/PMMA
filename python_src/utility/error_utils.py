@@ -35,9 +35,13 @@ class UnexpectedBufferAttributeFormatError(Exception):
     pass
 
 class UnknownDataTypeError(Exception):
-    """Unkown data type!"""
+    """Unknown data type!"""
     pass
 
 class UnexpectedBufferAttributeError(Exception):
     """Unexpected buffer attribute!"""
+    pass
+
+class ShaderReferenceManagerNotInitializedError(Exception):
+    """Shader reference manager was not initialized!"""
     pass

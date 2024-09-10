@@ -168,6 +168,7 @@ class Line:
     def _update_buffers(self):
         # This method is used to update the VBO with new vertex data if vertices have changed
         if self._vertices_changed:
+            _Registry.number_of_draw_calls += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=Constants.RADIANS))
 
             # Convert vertices to a numpy array (float32 type for ModernGL compatibility)
@@ -190,6 +191,8 @@ class Line:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -204,6 +207,9 @@ class Line:
         self._vao.render(mode=_moderngl.LINES)
 
         _Registry.context.line_width = 1 # unreliable
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 
 class RadialPolygon:
     """
@@ -327,6 +333,8 @@ class RadialPolygon:
             if self._radius is None or self._center is None or self._point_count is None:
                 return None  # Cannot proceed without these
 
+            _Registry.number_of_draw_calls += 1
+
             angle_step = 2 * _math.pi / self._point_count
             vertices = []
 
@@ -358,6 +366,8 @@ class RadialPolygon:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -375,6 +385,9 @@ class RadialPolygon:
         self._vao.render(mode)
 
         _Registry.context.line_width = 1 # unreliable
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 
 class Rectangle:
     """
@@ -481,6 +494,8 @@ class Rectangle:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these
 
+            _Registry.number_of_draw_calls += 1
+
             # Unpack size and position
             size = self._size.get_coordinates(Constants.OPENGL_COORDINATES)
             half_width = size[0] / 2
@@ -518,6 +533,8 @@ class Rectangle:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -535,6 +552,9 @@ class Rectangle:
         self._vao.render(mode)
 
         _Registry.context.line_width = 1 # unreliable
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 
 class Arc:
     """
@@ -674,6 +694,8 @@ class Arc:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
+            _Registry.number_of_draw_calls += 1
+
             center_x, center_y = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
             start_angle = self._start_angle.get_angle(format=Constants.RADIANS)
             stop_angle = self._stop_angle.get_angle(format=Constants.RADIANS)
@@ -714,6 +736,8 @@ class Arc:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -727,6 +751,9 @@ class Arc:
         self._vao.render(_moderngl.LINE_STRIP)
 
         _Registry.context.line_width = 1 # unreliable
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 
 class Ellipse:
     """
@@ -843,6 +870,8 @@ class Ellipse:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these parameters
 
+            _Registry.number_of_draw_calls += 1
+
             center_x, center_y = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)
             size_x, size_y = self._size.get_coordinates(format=Constants.OPENGL_COORDINATES)
 
@@ -883,6 +912,8 @@ class Ellipse:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -900,6 +931,9 @@ class Ellipse:
         self._vao.render(mode)
 
         _Registry.context.line_width = 1 # unreliable
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 
 class Polygon:
     """
@@ -1024,6 +1058,8 @@ class Polygon:
             if not self._points:
                 return None  # No points to form the polygon
 
+            _Registry.number_of_draw_calls += 1
+
             points = _numpy.array([p.get_coordinates(format=Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
 
             # Calculate center (average of points)
@@ -1055,6 +1091,8 @@ class Polygon:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -1075,6 +1113,9 @@ class Polygon:
         self._vao.render(mode)
 
         _Registry.context.line_width = 1 # unreliable
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 
 class Pixel:
     """
@@ -1142,6 +1183,8 @@ class Pixel:
     def _update_buffers(self):
         # This method is used to update the VBO with new vertex data if vertices have changed
         if self._vertices_changed:
+            _Registry.number_of_draw_calls += 1
+
             position_coords = self.get_position(format=Constants.OPENGL_COORDINATES)
 
             # Store the pixel position in the VBO
@@ -1160,6 +1203,8 @@ class Pixel:
             self._color_changed = False  # Reset the flag
 
     def render(self, point_size=None):
+        start = _time.perf_counter()
+
         self._surface.get_2D_hardware_accelerated_surface()
 
         self._update_buffers()
@@ -1192,4 +1237,7 @@ simply 'aliased-away'. You can use this to make points appear larger, however it
 recommended to do this in the shader it's self with: `gl_PointSize`.")
 
         self._vao.render(mode=_moderngl.POINTS)
+
+        end = _time.perf_counter()
+        _Registry.total_time_spent_drawing += end-start
 

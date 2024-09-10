@@ -67,6 +67,7 @@ from pmma.python_src.utility.controller_utils import ControllersIntermediary as 
 import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
 
 def init(
             optimize_python_extensions=True,
@@ -122,6 +123,8 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
 
     _GPUsIntermediary()
     _ControllersIntermediary()
+
+    _LoadedShaderReferenceManager()
 
     _event_utils.Backspace_KEY()
     _event_utils.Tab_KEY()

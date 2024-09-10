@@ -340,6 +340,9 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         else:
             raise NotImplementedError
 
+    def get_frame_time(self):
+        return 1/self.get_fps()
+
     def get_height(self):
         if _Registry.display_mode == Constants.PYGAME:
             return _pygame.display.get_window_size()[1]
@@ -353,8 +356,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             raise NotImplementedError
 
     def clear(self, color=None, format=Constants.AUTODETECT):
-        _Registry.in_game_loop = True
-
         if color is None or color == [] or color == ():
             self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
 

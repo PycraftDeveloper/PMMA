@@ -13,8 +13,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.shader_utils import ShaderIntermediary as _ShaderIntermediary
-
+from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
 class OpenGL:
     def __init__(self):
         _initialize(self)
@@ -484,7 +483,7 @@ It must be one of the following formats: {','.join(Constants.DATA_COLLECTION_MET
                         filtered_variable_names.append(attributes[attribute_index]) # check this against shader inputs l8r
                     else:
                         self._logger.log_development("You attempted to assign a buffer object to a variable in \
-your shader that doesn't exist. The available shader buffer inputs that you can write to are: {}", variables=program_buffer_inputs)
+your shader that doesn't exist. The available shader buffer inputs that you can write to are: {}", variables=[program_buffer_inputs])
                         raise UnexpectedBufferAttributeError()
 
             filtered_data_types = filtered_data_types.strip()
@@ -651,6 +650,8 @@ class Shader:
         self._uniform_values = {}
         self._buffer_input_variable_names = []
         self._using_gl_point_size_syntax = False
+        self._shader_manager = _ShaderManager()
+        self._shader_loaded_from_directory = None
 
     def get_buffer_input_variable_names(self):
         return self._buffer_input_variable_names
@@ -697,31 +698,13 @@ class Shader:
             self._analyze_shader_component(self._program_data["fragment"].split("\n"))
 
     def load_vertex_shader_from_file(self, file_path):
-        if file_path in _ShaderIntermediary.loaded_shaders:
-            if "vertex" in _ShaderIntermediary.loaded_shaders[file_path]:
-                self._program_data["vertex"] = _ShaderIntermediary.loaded_shaders[file_path]["vertex"]
-            else:
-                with open(file_path, "r") as file:
-                    self._program_data["vertex"] = file.read()
-                _ShaderIntermediary.loaded_shaders[file_path]["vertex"] = self._program_data["vertex"]
-        else:
-            with open(file_path, "r") as file:
-                self._program_data["vertex"] = file.read()
-            _ShaderIntermediary.loaded_shaders[file_path] = {"vertex": self._program_data["vertex"]}
+        with open(file_path, "r") as file:
+            self._program_data["vertex"] = file.read()
         self.analyze()
 
     def load_fragment_shader_from_file(self, file_path):
-        if file_path in _ShaderIntermediary.loaded_shaders:
-            if "fragment" in _ShaderIntermediary.loaded_shaders[file_path]:
-                self._program_data["fragment"] = _ShaderIntermediary.loaded_shaders[file_path]["fragment"]
-            else:
-                with open(file_path, "r") as file:
-                    self._program_data["fragment"] = file.read()
-                _ShaderIntermediary.loaded_shaders[file_path]["fragment"] = self._program_data["fragment"]
-        else:
-            with open(file_path, "r") as file:
-                self._program_data["fragment"] = file.read()
-            _ShaderIntermediary.loaded_shaders[file_path] = {"fragment": self._program_data["fragment"]}
+        with open(file_path, "r") as file:
+            self._program_data["fragment"] = file.read()
         self.analyze()
 
     def load_vertex_shader_from_string(self, string):
@@ -740,49 +723,69 @@ class Shader:
     def load_shader_from_folder(self, directory):
         vertex_aliases = ["vertex", "vert", "vertex_shader", "vert_shader", "vertex shader", "vert shader"]
         vertex_shader = None
-        for name in vertex_aliases:
-            path = _path_builder(directory, f"{name}.glsl")
-            if path in _ShaderIntermediary.loaded_shaders or _os.path.exists(path):
-                if path in _ShaderIntermediary.loaded_shaders:
-                    if "vertex" in _ShaderIntermediary.loaded_shaders[path]:
-                        vertex_shader = _ShaderIntermediary.loaded_shaders[path]["vertex"]
+        fragment_aliases = ["fragment", "frag", "fragment_shader", "frag_shader", "fragment shader", "frag shader"]
+        fragment_shader = None
+        self._uniform_values = {}
+        self._using_gl_point_size_syntax = False
+        self._buffer_input_variable_names = []
+
+        if self._shader_loaded_from_directory is not None:
+            self._shader_manager.remove_shader_from_memory(self._shader_loaded_from_directory)
+
+        if self._shader_manager.check_if_shader_exists(directory):
+            self._program_data["vertex"], self._program_data["fragment"], self._using_gl_point_size_syntax, self._uniform_values, self._buffer_input_variable_names = self._shader_manager.get_shader(directory)
+
+        else:
+            loaded_from_file = False
+            for name in vertex_aliases:
+                path = _path_builder(directory, f"{name}.glsl")
+                shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=Constants.VERTEX_ONLY)
+                if shader_exists or _os.path.exists(path):
+                    if shader_exists:
+                        vertex_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=Constants.VERTEX_ONLY)
+                        self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
+                        self._buffer_input_variable_names.extend(buffer_names)
+                        for key in uniform_values:
+                            if key not in self._uniform_values:
+                                self._uniform_values[key] = uniform_values[key]
                     else:
                         with open(path, "r") as file:
                             vertex_shader = file.read()
-                        _ShaderIntermediary.loaded_shaders[path]["vertex"] = vertex_shader
-                else:
-                    with open(path, "r") as file:
-                        vertex_shader = file.read()
-                    _ShaderIntermediary.loaded_shaders[path] = {"vertex": vertex_shader}
+                        loaded_from_file = True
+                    break
 
-                break
-
-        fragment_aliases = ["fragment", "frag", "fragment_shader", "frag_shader", "fragment shader", "frag shader"]
-        fragment_shader = None
-        for name in fragment_aliases:
-            path = _path_builder(directory, f"{name}.glsl")
-            if path in _ShaderIntermediary.loaded_shaders or _os.path.exists(path):
-                if path in _ShaderIntermediary.loaded_shaders:
-                    if "fragment" in _ShaderIntermediary.loaded_shaders[path]:
-                        fragment_shader = _ShaderIntermediary.loaded_shaders[path]["fragment"]
+            for name in fragment_aliases:
+                path = _path_builder(directory, f"{name}.glsl")
+                shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=Constants.FRAGMENT_ONLY)
+                if shader_exists or _os.path.exists(path):
+                    if shader_exists:
+                        fragment_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=Constants.FRAGMENT_ONLY)
+                        self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
+                        self._buffer_input_variable_names.extend(buffer_names)
+                        for key in uniform_values:
+                            if key not in self._uniform_values:
+                                self._uniform_values[key] = uniform_values[key]
                     else:
                         with open(path, "r") as file:
                             fragment_shader = file.read()
-                        _ShaderIntermediary.loaded_shaders[path]["fragment"] = vertex_shader
-                else:
-                    with open(path, "r") as file:
-                        fragment_shader = file.read()
-                    _ShaderIntermediary.loaded_shaders[path] = {"fragment": fragment_shader}
+                        loaded_from_file = True
+                    break
 
-                break
+            if vertex_shader is None:
+                self._logger.log_warning("Vertex shader not found.")
+                raise Exception("Vertex shader not found.")
+            if fragment_shader is None:
+                self._logger.log_warning("Fragment shader not found.")
+                raise Exception("Fragment shader not found.")
 
-        if vertex_shader is None or fragment_shader is None:
-            self._logger.log_warning("Vertex shader or fragment shader not found.")
-            raise Exception("Vertex shader or fragment shader not found.")
+            self._program_data["vertex"] = vertex_shader
+            self._program_data["fragment"] = fragment_shader
+            if loaded_from_file:
+                self.analyze()
 
-        self._program_data["vertex"] = vertex_shader
-        self._program_data["fragment"] = fragment_shader
-        self.analyze()
+            self._shader_manager.add_shader_from_file(directory, vertex=vertex_shader, fragment=fragment_shader, using_gl_point_size_syntax=self._using_gl_point_size_syntax, uniform_values=self._uniform_values, buffer_names=self._buffer_input_variable_names)
+
+            self._shader_loaded_from_directory = directory
 
     def create(self):
         self._program = _Registry.context.program(
@@ -818,6 +821,8 @@ class Shader:
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
+            if self._shader_loaded_from_directory is not None:
+                self._shader_manager.remove_shader_from_memory(self._shader_loaded_from_directory)
             if self._program is not None:
                 self._program.release()
             del _Registry.opengl_objects[self._unique_identifier]

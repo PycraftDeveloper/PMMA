@@ -2,6 +2,10 @@ import math as _math
 import os as _os
 
 class Constants:
+    BOTH = "both"
+    VERTEX_ONLY = "vertex"
+    FRAGMENT_ONLY = "fragment"
+
     DATA_INTERPRETATIONS = [
         "1f",
         "2f",
@@ -117,6 +121,7 @@ class Constants:
     GPUS_OBJECT = "GPUs"
     GPUS_INTERMEDIARY_OBJECT = "GPUs intermediary"
     CONTROLLER_INTERMEDIARY_OBJECT = "controller intermediary"
+    SHADER_REFERENCE_MANAGER_OBJECT = "shader reference manager"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
@@ -359,6 +364,7 @@ class Constants:
         OPENGL_INTERMEDIARY_OBJECT,
         CONTROLLER_INTERMEDIARY_OBJECT,
         LOGGING_INTERMEDIARY_OBJECT,
+        SHADER_REFERENCE_MANAGER_OBJECT,
 
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,
