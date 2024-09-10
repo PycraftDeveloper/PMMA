@@ -56,6 +56,6 @@ Update render pipeline
 
 IMPROVEMENTS
 ============
-PMMA is really slow to start on: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py
+PMMA is really slow on: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py - not just in updating points. On subject, only update points/color when integer value changed.
 
 Convert all number converters into Cython for improved performance.

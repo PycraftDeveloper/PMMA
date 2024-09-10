@@ -153,6 +153,13 @@ mode is Pygame.")
             transparent_display=False,
             centered=True):
 
+        if vsync:
+            self._logger.log_development("Your display is using vsync. Therefore the \
+maximum refresh rate of the display is limited by either the refresh rate, app performance \
+or the refresh rate vof the monitor - WHICHEVER IS SMALLEST. If you are testing the performance \
+of your application make sure to disable this, but otherwise its best left enabled as it can \
+reduce graphical tearing and other rendering anomalies.")
+
         self._display_attribute_resizable = resizable
         self._display_attribute_full_screen = full_screen
         self._display_attribute_no_frame = no_frame
