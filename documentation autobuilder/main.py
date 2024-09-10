@@ -1,6 +1,12 @@
 import os
 import glob
 
+input("Please note you are using a program that has now been automated \
+using GitHib actions. You are still able to use this program, however \
+it will put unnecessary strain on services like ReadTheDocs. This program \
+runs nightly and its generally best to leave it as such. Proceed only \
+if you absolutely have to.")
+
 def _up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
 

@@ -57,5 +57,3 @@ Update render pipeline
 IMPROVEMENTS
 ============
 PMMA is really slow to start on: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py
-
-number_of_render_updates to number_of_draw_updates
