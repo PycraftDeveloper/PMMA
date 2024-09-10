@@ -168,7 +168,7 @@ class Line:
     def _update_buffers(self):
         # This method is used to update the VBO with new vertex data if vertices have changed
         if self._vertices_changed:
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=Constants.RADIANS))
 
             # Convert vertices to a numpy array (float32 type for ModernGL compatibility)
@@ -333,7 +333,7 @@ class RadialPolygon:
             if self._radius is None or self._center is None or self._point_count is None:
                 return None  # Cannot proceed without these
 
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
 
             angle_step = 2 * _math.pi / self._point_count
             vertices = []
@@ -494,7 +494,7 @@ class Rectangle:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these
 
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
 
             # Unpack size and position
             size = self._size.get_coordinates(Constants.OPENGL_COORDINATES)
@@ -694,7 +694,7 @@ class Arc:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
 
             center_x, center_y = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
             start_angle = self._start_angle.get_angle(format=Constants.RADIANS)
@@ -870,7 +870,7 @@ class Ellipse:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these parameters
 
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
 
             center_x, center_y = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)
             size_x, size_y = self._size.get_coordinates(format=Constants.OPENGL_COORDINATES)
@@ -1058,7 +1058,7 @@ class Polygon:
             if not self._points:
                 return None  # No points to form the polygon
 
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
 
             points = _numpy.array([p.get_coordinates(format=Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
 
@@ -1183,7 +1183,7 @@ class Pixel:
     def _update_buffers(self):
         # This method is used to update the VBO with new vertex data if vertices have changed
         if self._vertices_changed:
-            _Registry.number_of_draw_calls += 1
+            _Registry.number_of_render_updates += 1
 
             position_coords = self.get_position(format=Constants.OPENGL_COORDINATES)
 

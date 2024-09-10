@@ -57,7 +57,5 @@ Update render pipeline
 IMPROVEMENTS
 ============
 PMMA is really slow to start on: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py
-PMMA program create is slow (parallelize or share, likely latter)
-PMMA program analysis is slow, again share with ShaderIntermediary
 
-number_of_draw_calls to number_of_draw_updates
+number_of_render_updates to number_of_draw_updates

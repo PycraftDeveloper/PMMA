@@ -160,9 +160,9 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
         new_iteration_id = _random.random()
     _Registry.iteration_id = new_iteration_id
 
-    number_of_draw_calls = _Registry.number_of_draw_calls
+    number_of_render_updates = _Registry.number_of_render_updates
     total_time_spent_drawing = _Registry.total_time_spent_drawing
-    _Registry.number_of_draw_calls = 0
+    _Registry.number_of_render_updates = 0
     _Registry.total_time_spent_drawing = 0
 
     if _PassportIntermediary.passport_changed:
@@ -176,7 +176,7 @@ it tells the operating system that the application is still running and allows t
 user to interact with your application. Failure to do this can lead to an unresponsive \
 window which can cause unexpected behavior.")
 
-    if number_of_draw_calls > 600 and _Registry.application_average_frame_rate['Samples'] > 3:
+    if number_of_render_updates > 600 and _Registry.application_average_frame_rate['Samples'] > 3:
         _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
 the time spent handling draw calls. Consider switching to the more optimized Render \
 Pipeline through PMMA to avoid any potential slowdowns.")
@@ -191,7 +191,7 @@ number of draw calls being made. The program spent {} on \
 {} total render calls, limiting your maximum refresh rate to: \
 {} Hz. Switching to the more optimized Render Pipeline will \
 likely improve application performance. Note that this message will only appear once, but \
-may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_draw_calls, 1/(total_time_spent_drawing)])
+may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_render_updates, 1/(total_time_spent_drawing)])
 
     if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
         if _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():

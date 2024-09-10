@@ -20,7 +20,7 @@ class Registry:
     display_initialized = False
     context: "_moderngl.Context" = None
     power_saving_mode = False #
-    number_of_draw_calls = 0
+    number_of_render_updates = 0
     total_time_spent_drawing = 0
     pmma_initialized = False
     pygame_launch_message = ""
