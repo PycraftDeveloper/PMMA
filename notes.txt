@@ -57,3 +57,5 @@ Update render pipeline
 IMPROVEMENTS
 ============
 PMMA is really slow to start on: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py
+
+Convert all number converters into Cython for improved performance.
