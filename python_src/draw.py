@@ -1212,7 +1212,7 @@ class Pixel:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
-        self._color = None
+        self._color = self._color = _ColorConverter()
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
@@ -1255,7 +1255,6 @@ class Pixel:
     def set_color(self, color, format=Constants.AUTODETECT):
         self._color_changed = True
         if type(color) != _ColorConverter:
-            self._color = _ColorConverter()
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -1357,4 +1356,3 @@ recommended to do this in the shader it's self with: `gl_PointSize`.")
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
-

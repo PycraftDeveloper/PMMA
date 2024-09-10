@@ -1,5 +1,6 @@
-from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.constants import Constants
 
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import up as _up
 from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
 from pmma.python_src.utility.general_utils import is_battery_saver_enabled as _is_battery_saver_enabled

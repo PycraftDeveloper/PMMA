@@ -332,7 +332,7 @@ for file in files:
     for line in content:
         indent_whitespace = len(line[:-len(line.lstrip())]) // 4
         if "def " in line and not "__" in line:
-            if not "def _" in line: # hide hidden methods
+            if not ("def _" in line or "def wrapper(" in line): # hide hidden methods
                 if in_class != in_class and indent_whitespace == 1:
                     methods_header_written = False
 
