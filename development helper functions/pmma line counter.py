@@ -19,8 +19,9 @@ nothing_count = 0
 chars = 0
 for file in files:
     try:
-        with open(file, 'r') as f:
-            content = f.readlines()
+        if not ("pmma"+os.sep+"temporary"+os.sep in file or "pmma"+os.sep+"logs"+os.sep in file):
+            with open(file, 'r') as f:
+                content = f.readlines()
     except:
         continue
 
