@@ -1,4 +1,5 @@
 import moderngl as _moderngl
+import pprofile as _pprofile
 
 class Registry:
     compile_math_functions = True #
@@ -40,3 +41,8 @@ class Registry:
     compute_component_called = False
     displayed_pygame_start_message = False
     shape_quality = 0.75
+    profiler: "_pprofile.Profile" = None
+    general_profile_application = None
+    targeted_profile_application = None
+    profile_result_path = None
+    logging_path = None

@@ -84,6 +84,8 @@ class LoggerIntermediary:
         except:
             pass
 
+        _Registry.logging_path = [_path_builder(self._internal_log_directory, "profile.txt"), _path_builder(self._external_log_directory, "profile.txt")]
+
     def set_external_log_development_messages_to_terminal(self, value):
         self._external_log_development_messages_to_terminal = value
 

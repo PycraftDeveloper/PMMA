@@ -1,3 +1,5 @@
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+
 from pmma.python_src.utility.general_utils import up as _up
 from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
 from pmma.python_src.utility.general_utils import is_battery_saver_enabled as _is_battery_saver_enabled
@@ -8,6 +10,38 @@ from pmma.python_src.utility.general_utils import quit as _quit
 from pmma.python_src.utility.general_utils import convert_number_to_text as _convert_number_to_text
 from pmma.python_src.utility.general_utils import get_theme as _get_theme
 from pmma.python_src.utility.general_utils import check_if_object_is_class_or_function as _check_if_object_is_class_or_function
+from pmma.python_src.utility.general_utils import targeted_profile_end as _targeted_profile_end
+from pmma.python_src.utility.general_utils import targeted_profile_start as _targeted_profile_start
+
+def targeted_profile_start():
+    _targeted_profile_start()
+
+def targeted_profile_end():
+    _targeted_profile_end()
+
+def profile_this(func):
+    def wrapper(*args, **kwargs):
+        if _Registry.profiler is None:
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                "Just a quick heads up, you are attempting to profile this specific method \
+however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
+            return func(*args, **kwargs)
+        if _Registry.targeted_profile_application:
+            _Registry.profiler.enable()
+
+            # Call the original function
+            result = func(*args, **kwargs)
+
+            # Stop the profiler
+            _Registry.profiler.disable()       # Stop profiling
+            return result
+        else:
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                "Just a quick heads up, you are attempting to profile this specific method \
+however you already specified that you want to profile everything, so this has no effect. \
+This behavior can be configured in 'pmma.init()'.")
+            return func(*args, **kwargs)
+    return wrapper
 
 def check_if_object_is_class_or_function(param):
     return _check_if_object_is_class_or_function(param)

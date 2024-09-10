@@ -101,3 +101,9 @@ def set_in_game_loop(value):
 
 def get_in_game_loop():
     return _Registry.in_game_loop
+
+def set_profile_result_path(path):
+    _Registry.profile_result_path = path
+
+def get_profile_result_path():
+    return _Registry.profile_result_path

@@ -26,6 +26,36 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
+def targeted_profile_start():
+    if _Registry.profiler is None:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            "Just a quick heads up, you are attempting to profile this specifically \
+however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
+
+        return
+    if _Registry.targeted_profile_application:
+        _Registry.profiler.enable()
+    else:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            "Just a quick heads up, you are attempting to profile this specifically \
+however you already specified that you want to profile everything, so this has no effect. \
+This behavior can be configured in 'pmma.init()'.")
+
+def targeted_profile_end():
+    if _Registry.profiler is None:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            "Just a quick heads up, you are attempting to profile this specifically \
+however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
+
+        return
+    if _Registry.targeted_profile_application:
+        _Registry.profiler.disable()
+    else:
+        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            "Just a quick heads up, you are attempting to profile this specifically \
+however you already specified that you want to profile everything, so this has no effect. \
+This behavior can be configured in 'pmma.init()'.")
+
 def check_if_object_is_class_or_function(param):
     if _inspect.isclass(param):
         return Constants.CLASS
@@ -52,6 +82,25 @@ unfortunately to convert to words. Instead the value will be returned as a strin
         return str(value)
 
 def quit(show_statistics=None, terminate_application=True):
+    if _Registry.profiler is not None:
+        _Registry.profiler.disable()
+        if _Registry.profile_result_path is None:
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                "We are using the default locations for storing profile information as you never \
+specified where you would like them to be placed. This can be done through: \
+`pmma.set_profile_result_path(path)`. Instead we are going to be storing your profiled results here: {}",
+                variables=[", ".join(_Registry.logging_path)])
+            path =_Registry.logging_path
+        else:
+            path = _Registry.profile_result_path
+
+        if type(path) == list or type(path) == tuple:
+            for locations in path:
+                _Registry.profiler.dump_stats(locations)
+        else:
+            with open(path, "w") as file:
+                _Registry.profiler.dump_stats(file)
+
     if show_statistics is None:
         show_statistics = _Registry.development_mode
 

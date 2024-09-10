@@ -786,7 +786,7 @@ class Shader:
 
             self._shader_manager.add_shader_from_file(directory, vertex=vertex_shader, fragment=fragment_shader, using_gl_point_size_syntax=self._using_gl_point_size_syntax, uniform_values=self._uniform_values, buffer_names=self._buffer_input_variable_names)
 
-            self._shader_loaded_from_directory = directory
+        self._shader_loaded_from_directory = directory
 
     def create(self):
         self._program = _Registry.context.program(

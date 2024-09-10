@@ -56,6 +56,19 @@ class Line:
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
@@ -248,6 +261,19 @@ class RadialPolygon:
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
@@ -424,6 +450,19 @@ class Rectangle:
         self._rotation = _AngleConverter()
         self._width = None
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def set_width(self, width=None):
         if width <= 0:
             width = None
@@ -592,6 +631,19 @@ class Arc:
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
         self._width = None
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def set_width(self, width=1):
         if width <= 0:
@@ -791,6 +843,19 @@ class Ellipse:
         self._math = _Math()
         self._width = None
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def set_width(self, width=None):
         if width <= 0:
             width = None
@@ -972,6 +1037,19 @@ class Polygon:
         self._math = _Math()
         self._width = None
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
@@ -1140,12 +1218,27 @@ class Pixel:
         else:
             self._surface = None
         self._position = None
+        self._vertices_changed = True  # Mark vertices as changed initially
+        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            self._program.quit()
+            self._vbo.quit()
+            self._vao.quit()
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
@@ -1202,7 +1295,31 @@ class Pixel:
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
-    def render(self, point_size=None):
+    def render(self, point_size=None, dynamic_rendering=True):
+        if dynamic_rendering:
+            if self._position is None:
+                self._logger.log_development("You didn't set a position for this shape. \
+Therefore we not be rendering it to avoid any potential errors. This can be an effectively \
+technique to 'prepare' a shape for rendering later on. This behavior can be controlled by \
+setting the 'dynamic_rendering' key word argument to False. This message will only appear \
+once to improve performance, but will continue to have an effect.")
+                return None
+            conventional_position = self.get_position(format=Constants.CONVENTIONAL_COORDINATES)
+            if conventional_position[0] < 0 or conventional_position[1] < 0:
+                self._logger.log_development("Your position for this shape is off the \
+screen, therefore as a performance improving feature we wont bother rendering it \
+(because you wont see it). This behavior can be controlled by setting the \
+'dynamic_rendering' key word argument to False. This message will only appear \
+once to improve performance, but will continue to have an effect.")
+                return None
+            if conventional_position[0] > self._surface.get_width() or conventional_position[1] > self._surface.get_height():
+                self._logger.log_development("Your position for this shape is off the \
+screen, therefore as a performance improving feature we wont bother rendering it \
+(because you wont see it). This behavior can be controlled by setting the \
+'dynamic_rendering' key word argument to False. This message will only appear \
+once to improve performance, but will continue to have an effect.")
+                return None
+
         start = _time.perf_counter()
 
         self._surface.get_2D_hardware_accelerated_surface()

@@ -18,6 +18,14 @@ from pmma.python_src.utility.settings_utils import set_shape_quality as _set_sha
 from pmma.python_src.utility.settings_utils import get_shape_quality as _get_shape_quality
 from pmma.python_src.utility.settings_utils import set_in_game_loop as _set_in_game_loop
 from pmma.python_src.utility.settings_utils import get_in_game_loop as _get_in_game_loop
+from pmma.python_src.utility.settings_utils import set_profile_result_path as _set_profile_result_path
+from pmma.python_src.utility.settings_utils import get_profile_result_path as _get_profile_result_path
+
+def set_profile_result_path(value):
+    _set_profile_result_path(value)
+
+def get_profile_result_path():
+    return _get_profile_result_path()
 
 def set_development_mode(value):
     _set_development_mode(value, internal=False)

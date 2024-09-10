@@ -6,6 +6,7 @@ import contextlib as _contextlib
 import time as _time
 
 import numba as _numba
+import pprofile as _pprofile
 
 def _up(path: str) -> str:
     return path[::-1].split(_os.sep, 1)[-1][::-1]
@@ -74,7 +75,17 @@ def init(
             compile_c_extensions=True,
             wait_for_initialization=True,
             memory_management_max_object_lifetime=2.5,
-            memory_management_max_size=Constants.AUTOMATIC):
+            memory_management_max_size=Constants.AUTOMATIC,
+            general_profile_application=False,
+            targeted_profile_application=False):
+
+    _Registry.general_profile_application = general_profile_application
+    _Registry.targeted_profile_application = targeted_profile_application and not general_profile_application
+
+    if general_profile_application or targeted_profile_application:
+        _Registry.profiler = _pprofile.Profile()
+        if general_profile_application:
+            _Registry.profiler.enable()
 
     startup_time = _time.perf_counter()
 
