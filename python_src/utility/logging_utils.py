@@ -231,13 +231,13 @@ class LoggerIntermediary:
                     hour, minute, second = time[0], time[1], time[2]
                     past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
                     time_difference = abs(past-now).days
-                    if time_difference > 2:
+                    if time_difference > 1:
                         _shutil.rmtree(
                         _path_builder(self._log_directory, original_log_folder),
                         ignore_errors=True)
 
     def _file_logger_thread(self): # self._file_log_buffer.append((formatted_message, log_level, internal))
-        self.log_development("Any logs older than 7 days are automatically deleted to prevent excessive build up.")
+        self.log_development("Any logs older than 1 day are automatically deleted to prevent excessive build up.")
 
         old_logs = _os.listdir(self._log_directory)
         now = _datetime.datetime.now()
@@ -251,7 +251,7 @@ class LoggerIntermediary:
             hour, minute, second = time[0], time[1], time[2]
             past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
             time_difference = abs(past-now).days
-            if time_difference > 2:
+            if time_difference > 1:
                 self.log_information(
                     "Removing log: {}, which was {} days old.",
                     variables=[original_log_folder, time_difference],
