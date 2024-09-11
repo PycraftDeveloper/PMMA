@@ -50,8 +50,6 @@ TEMPORARY TO DO LIST
 Create shapes like circle from RadialPolygon
 Create shapes like lines from Polygon (with closed=False)
 Update shapes when aspect ratio changes
-add custom logging duration
-logging customize aggregation behavior (separate or combined)
 Update render pipeline
 
 IMPROVEMENTS
