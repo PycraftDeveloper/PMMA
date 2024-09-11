@@ -1211,7 +1211,8 @@ class Pixel:
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
-        self._position = None
+        self._position = _CoordinateConverter()
+        self._temp_position = _CoordinateConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -1235,12 +1236,12 @@ class Pixel:
         self._shut_down = True
 
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
-        self._vertices_changed = True
         if type(position) != _CoordinateConverter:
-            self._position = _CoordinateConverter()
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
+
+        self._vertices_changed = True
 
     def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
