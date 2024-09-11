@@ -17,12 +17,20 @@ class Logger:
         _Registry.internal_log_duration = value
         self._logger_intermediary.log_development("Note that updating this will automatically \
 remove all logs older than {} days old.", variables=[value])
+        if value > 7:
+            self._logger_intermediary.log_development("You have set the log lifetime to more \
+than 1 week, please note that in most situations its not necessary to do this, and may cause \
+excessive storage usage.")
         self._logger_intermediary.clear_internal_logs()
 
     def set_application_log_lifetime(self, value):
         _Registry.external_log_duration = value
         self._logger_intermediary.log_development("Note that updating this will automatically \
 remove all logs older than {} days old.", variables=[value])
+        if value > 7:
+            self._logger_intermediary.log_development("You have set the log lifetime to more \
+than 1 week, please note that in most situations its not necessary to do this, and may cause \
+excessive storage usage.")
         self._logger_intermediary.clear_external_logs()
 
     def set_log_development_messages_to_terminal(self, value):
