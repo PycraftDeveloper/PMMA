@@ -1235,13 +1235,34 @@ class Pixel:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES, disable_optimizations=False):
+        if disable_optimizations:
+            self._logger.log_development("You have disabled positional optimizations \
+in Pixel shape rendering, this can negatively effect performance, but if your \
+experiencing any rendering issues, it can help to diagnose the problem.")
+            if type(position) != _CoordinateConverter:
+                self._position.set_coordinates(position, format=position_format)
+            else:
+                self._position = position
+            self._vertices_changed = True
+            return
+
         if type(position) != _CoordinateConverter:
-            self._position.set_coordinates(position, format=position_format)
-        else:
-            self._position = position
+            self._temp_position.set_coordinates(position, format=position_format)
+
+        existing_position_coords = self._position.get_coordinates()
+        if existing_position_coords is None:
+            self._vertices_changed = True
+            self._position.set_coordinates(self._temp_position.get_coordinates())
+            return
+
+        temp_coords = self._temp_position.get_coordinates()
+
+        if int(temp_coords[0]) == int(existing_position_coords[0]) and int(temp_coords[1]) == int(existing_position_coords[1]):
+            return None
 
         self._vertices_changed = True
+        self._position.set_coordinates(self._temp_position.get_coordinates())
 
     def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
