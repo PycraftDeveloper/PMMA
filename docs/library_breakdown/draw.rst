@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: Line.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Line.set_rotation() -> None
 
    Not Yet Written
@@ -79,6 +83,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: RadialPolygon.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: RadialPolygon.set_rotation() -> None
 
@@ -155,6 +163,10 @@ Create
 Methods
 -------
 
+.. py:method:: Rectangle.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Rectangle.set_width() -> None
 
    Not Yet Written
@@ -213,6 +225,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Arc.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Arc.set_width() -> None
 
@@ -297,6 +313,10 @@ Create
 Methods
 -------
 
+.. py:method:: Ellipse.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Ellipse.set_width() -> None
 
    Not Yet Written
@@ -363,6 +383,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Polygon.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Polygon.set_rotation() -> None
 
@@ -438,6 +462,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Pixel.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Pixel.set_position() -> None
 

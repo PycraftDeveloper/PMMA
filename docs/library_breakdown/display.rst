@@ -65,6 +65,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Display.get_frame_time() -> None
+
+   Not Yet Written
+
 .. py:method:: Display.get_height() -> None
 
    Not Yet Written

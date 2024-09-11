@@ -8,6 +8,14 @@ Here you will find all the subroutines that aren't grouped into a specific objec
 
    Not Yet Written
 
+.. py:method:: pmma.set_profile_result_path() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.get_profile_result_path() -> None
+
+   Not Yet Written
+
 .. py:method:: pmma.set_development_mode() -> None
 
    Not Yet Written
@@ -77,6 +85,18 @@ Here you will find all the subroutines that aren't grouped into a specific objec
    Not Yet Written
 
 .. py:method:: pmma.get_in_game_loop() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.targeted_profile_start() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.targeted_profile_end() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.profile_this() -> None
 
    Not Yet Written
 

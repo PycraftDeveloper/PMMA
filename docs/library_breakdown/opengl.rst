@@ -466,7 +466,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Texture.load_from_file() -> None
+.. py:method:: Texture.load_texture() -> None
 
    Not Yet Written
 
