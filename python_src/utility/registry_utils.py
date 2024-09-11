@@ -46,3 +46,5 @@ class Registry:
     targeted_profile_application = None
     profile_result_path = None
     logging_path = None
+    internal_log_duration = 1
+    external_log_duration = 1

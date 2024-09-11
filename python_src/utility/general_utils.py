@@ -146,6 +146,9 @@ operations, meaning that fewer need to be called for every single call. Addition
 nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
 generating 3D arrays.")
 
+    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].clear_internal_logs()
+    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].clear_external_logs()
+
     _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
         "PMMA is now exiting. Thanks for using PMMA!")
 

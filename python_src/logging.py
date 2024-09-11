@@ -13,6 +13,18 @@ class Logger:
 
         self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
 
+    def set_pmma_log_lifetime(self, value):
+        _Registry.internal_log_duration = value
+        self._logger_intermediary.log_development("Note that updating this will automatically \
+remove all logs older than {} days old.", variables=[value])
+        self._logger_intermediary.clear_internal_logs()
+
+    def set_application_log_lifetime(self, value):
+        _Registry.external_log_duration = value
+        self._logger_intermediary.log_development("Note that updating this will automatically \
+remove all logs older than {} days old.", variables=[value])
+        self._logger_intermediary.clear_external_logs()
+
     def set_log_development_messages_to_terminal(self, value):
         self._logger_intermediary.set_external_log_development_messages_to_terminal(value)
 

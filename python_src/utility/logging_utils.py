@@ -215,30 +215,7 @@ class LoggerIntermediary:
             return True
         return False
 
-    def _update_project_log_folder(self):
-        if self._project_log_folder_has_changed():
-            project_log_directory = self._determine_project_log_folder()
-            if project_log_directory is not None:
-                old_logs = _os.listdir(project_log_directory)
-                now = _datetime.datetime.now()
-                for log_folder in old_logs:
-                    original_log_folder = log_folder
-                    log_folder = log_folder.split("log ")[-1]
-                    split_date = log_folder.split(" @ ")
-                    date = split_date[0].split("-")
-                    time = split_date[1].split("-")
-                    day, month, year = date[0], date[1], date[2]
-                    hour, minute, second = time[0], time[1], time[2]
-                    past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
-                    time_difference = abs(past-now).days
-                    if time_difference > 1:
-                        _shutil.rmtree(
-                        _path_builder(self._log_directory, original_log_folder),
-                        ignore_errors=True)
-
-    def _file_logger_thread(self): # self._file_log_buffer.append((formatted_message, log_level, internal))
-        self.log_development("Any logs older than 1 day are automatically deleted to prevent excessive build up.")
-
+    def clear_internal_logs(self):
         old_logs = _os.listdir(self._log_directory)
         now = _datetime.datetime.now()
         for log_folder in old_logs:
@@ -251,9 +228,9 @@ class LoggerIntermediary:
             hour, minute, second = time[0], time[1], time[2]
             past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
             time_difference = abs(past-now).days
-            if time_difference > 1:
+            if time_difference > _Registry.internal_log_duration:
                 self.log_information(
-                    "Removing log: {}, which was {} days old.",
+                    "Removing internal log: {}, which was {} days old.",
                     variables=[original_log_folder, time_difference],
                     repeat_for_effect=True)
 
@@ -261,90 +238,50 @@ class LoggerIntermediary:
                 _path_builder(self._log_directory, original_log_folder),
                 ignore_errors=True)
 
-        self._update_project_log_folder()
+    def clear_external_logs(self):
+        project_log_directory = self._determine_project_log_folder()
+        if project_log_directory is not None:
+            old_logs = _os.listdir(project_log_directory)
+            now = _datetime.datetime.now()
+            for log_folder in old_logs:
+                original_log_folder = log_folder
+                log_folder = log_folder.split("log ")[-1]
+                split_date = log_folder.split(" @ ")
+                date = split_date[0].split("-")
+                time = split_date[1].split("-")
+                day, month, year = date[0], date[1], date[2]
+                hour, minute, second = time[0], time[1], time[2]
+                past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
+                time_difference = abs(past-now).days
+                if time_difference > _Registry.external_log_duration:
+                    self.log_information(
+                    "Removing external log: {}, which was {} days old.",
+                    variables=[original_log_folder, time_difference],
+                    repeat_for_effect=True)
 
+                    _shutil.rmtree(
+                    _path_builder(self._log_directory, original_log_folder),
+                    ignore_errors=True)
+
+    def _update_project_log_folder(self):
+        if self._project_log_folder_has_changed():
+            self.clear_external_logs()
+
+    def _file_logger_thread(self): # self._file_log_buffer.append((formatted_message, log_level, internal))
         while self._logging_thread_active:
             _waiting.wait(self._file_logger_thread_wait_for_load)
             if not len(self._file_log_buffer) > 0:
                 continue
-            with self._logging_thread_lock:
-                self._update_project_log_folder()
 
+            with self._logging_thread_lock:
                 for message in self._file_log_buffer:
                     formatted_message, log_level, internal = message
                     if internal:
-                        if log_level == Constants.DEVELOPMENT:
-                            with open(_path_builder(self._internal_log_directory, "development.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, "pmma", "development.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        elif log_level == Constants.INFORMATION:
-                            with open(_path_builder(self._internal_log_directory, "information.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, "pmma", "information.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        elif log_level == Constants.WARNING:
-                            with open(_path_builder(self._internal_log_directory, "warning.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, "pmma", "warning.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        elif log_level == Constants.ERROR:
-                            with open(_path_builder(self._internal_log_directory, "error.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, "pmma", "error.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        with open(_path_builder(self._internal_log_directory, "all.txt"), "a") as file:
+                        with open(_path_builder(self._internal_log_directory, "log.txt"), "a") as file:
                             file.write(formatted_message+"\n")
                             if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, "pmma", "all.txt"), "a") as file:
+                                with open(_path_builder(self._project_log_folder, "pmma", "log.txt"), "a") as file:
                                     file.write(formatted_message+"\n")
-                    else:
-                        if _PassportIntermediary.name is not None:
-                            name = _PassportIntermediary.name
-                        else:
-                            name = "application"
-
-                        if log_level == Constants.DEVELOPMENT:
-                            with open(_path_builder(self._external_log_directory, "development.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, name, "development.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        elif log_level == Constants.INFORMATION:
-                            with open(_path_builder(self._external_log_directory, "information.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, name, "information.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        elif log_level == Constants.WARNING:
-                            with open(_path_builder(self._external_log_directory, "warning.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, name, "warning.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        elif log_level == Constants.ERROR:
-                            with open(_path_builder(self._external_log_directory, "error.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
-                            if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, name, "error.txt"), "a") as file:
-                                    file.write(formatted_message+"\n")
-
-                        with open(_path_builder(self._external_log_directory, "all.txt"), "a") as file:
-                            file.write(formatted_message+"\n")
-                        if self._project_log_folder is not None:
-                            with open(_path_builder(self._project_log_folder, name, "all.txt"), "a") as file:
-                                file.write(formatted_message+"\n")
 
                     with open(_path_builder(self._log_folders_directory, "all.txt"), "a") as file:
                         file.write(formatted_message+"\n")
