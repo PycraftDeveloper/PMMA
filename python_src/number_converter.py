@@ -15,22 +15,33 @@ class AngleConverter:
         _initialize(self)
 
         self._angle = 0
+        self._angle_cache = {}
 
     def set_angle(self, angle, format=Constants.DEGREES):
-        if format == Constants.DEGREES:
-            self._angle = angle
-        elif format == Constants.RADIANS:
-            self._angle = (angle / _math.pi) * 180
-        elif format == Constants.GRADIANS:
-            self._angle = angle * (10/9)
+        if not (format in self._angle_cache and self._angle_cache[format] == angle):
+            self._angle_cache = {}
+            self._angle_cache[format] = angle
+
+            if format == Constants.DEGREES:
+                self._angle = angle
+            elif format == Constants.RADIANS:
+                self._angle = (angle / _math.pi) * 180
+            elif format == Constants.GRADIANS:
+                self._angle = angle * (10/9)
 
     def get_angle(self, format=Constants.DEGREES):
-        if format == Constants.DEGREES:
-            return self._angle
-        elif format == Constants.RADIANS:
-            return (self._angle / 180) * _math.pi
-        elif format == Constants.GRADIANS:
-            return self._angle / (10/9)
+        if format in self._angle_cache:
+            return self._angle_cache[format]
+        else:
+            if format == Constants.DEGREES:
+                angle =  self._angle
+            elif format == Constants.RADIANS:
+                angle = (self._angle / 180) * _math.pi
+            elif format == Constants.GRADIANS:
+                angle = self._angle / (10/9)
+
+            self._angle_cache[format] = angle
+            return angle
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -47,18 +58,28 @@ class ProportionConverter:
         _initialize(self)
 
         self._value = None
+        self._value_cache = {}
 
     def set_value(self, value, format=Constants.DECIMAL):
-        if format == Constants.DECIMAL:
-            self._value = value
-        elif format == Constants.PERCENTAGE:
-            self._value = value / 100
+        if not (format in self._value_cache and self._value_cache[format] == value):
+            self._value_cache = {}
+            self._value_cache[format] = value
+            if format == Constants.DECIMAL:
+                self._value = value
+            elif format == Constants.PERCENTAGE:
+                self._value = value / 100
 
     def get_value(self, format=Constants.DECIMAL):
-        if format == Constants.DECIMAL:
-            return self._value
-        elif format == Constants.PERCENTAGE:
-            return self._value * 100
+        if format in self._value_cache:
+            return self._value_cache[format]
+        else:
+            if format == Constants.DECIMAL:
+                point = self._value
+            elif format == Constants.PERCENTAGE:
+                point = self._value * 100
+
+            self._value_cache[format] = point
+            return point
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -81,11 +102,21 @@ class ColorConverter:
         self._blue_noise = _Perlin(seed=seed)
         self._alpha_noise = _Perlin(seed=seed)
 
+        self._color_cache = {}
+
     def set_color(self, color, format=Constants.AUTODETECT):
-        self._color_intermediary.set_color(color, format)
+        if not (format in self._color_cache and self._color_cache[format] == color):
+            self._color_cache = {}
+            self._color_cache[format] = color
+            self._color_intermediary.set_color(color, format)
 
     def get_color(self, format):
-        return self._color_intermediary.get_color(format)
+        if format in self._color_cache:
+            return self._color_cache[format]
+        else:
+            point = self._color_intermediary.get_color(out_type=format)
+            self._color_cache[format] = point
+            return point
 
     def get_color_format(self):
         return self._color_intermediary.get_color_format()
@@ -150,13 +181,22 @@ class PointConverter:
     def __init__(self):
         _initialize(self)
 
-        self._intermediary = _PointIntermediary()
+        self._point_intermediary = _PointIntermediary()
+        self._point_cache = {}
 
     def set_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
-        self._intermediary.set_point(point, in_type=format)
+        if not (format in self._point_cache and self._point_cache[format] == point):
+            self._point_cache = {}
+            self._point_cache[format] = point
+            self._point_intermediary.set_point(point, in_type=format)
 
     def get_point(self, format=Constants.CONVENTIONAL_COORDINATES):
-        return self._intermediary.get_point(out_type=format)
+        if format in self._point_cache:
+            return self._point_cache[format]
+        else:
+            point = self._point_intermediary.get_point(out_type=format)
+            self._point_cache[format] = point
+            return point
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -172,13 +212,22 @@ class CoordinateConverter:
     def __init__(self):
         _initialize(self)
 
-        self._intermediary = _CoordinateIntermediary()
+        self._coordinate_intermediary = _CoordinateIntermediary()
+        self._coordinate_cache = {}
 
     def set_coordinates(self, coordinate, format=Constants.CONVENTIONAL_COORDINATES):
-        self._intermediary.set_coordinate(coordinate, in_type=format)
+        if not (format in self._coordinate_cache and self._coordinate_cache[format] == coordinate):
+            self._coordinate_cache = {}
+            self._coordinate_cache[format] = coordinate
+            self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
 
     def get_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
-        return self._intermediary.get_coordinate(out_type=format)
+        if format in self._coordinate_cache:
+            return self._coordinate_cache[format]
+        else:
+            coordinate = self._coordinate_intermediary.get_coordinate(out_type=format)
+            self._coordinate_cache[format] = coordinate
+            return coordinate
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
