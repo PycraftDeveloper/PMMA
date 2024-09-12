@@ -33,91 +33,34 @@ class ColorIntermediary:
 
 class PointIntermediary:
     def __init__(self):
-        self._point = None
-        self._logger = _InternalLogger()
+        if _Registry.cython_acceleration_available:
+            self._number_converter_module = _importlib.import_module(
+                "pmma.bin.number_converter")
+        else:
+            self._number_converter_module = _importlib.import_module(
+                "pmma.python_src.pyx_alternatives.utility.number_converter")
+
+        self._internal_number_converter = self._number_converter_module.Point()
 
     def set_point(self, value, in_type=Constants.CONVENTIONAL_COORDINATES):
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to have first created a display in \
-order to be able to use this function. This is because OpenGL values vary depending \
-on the screen size and aspect ratio.")
-            raise _DisplayNotYetCreatedError()
-        else:
-            display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        if in_type == Constants.CONVENTIONAL_COORDINATES:
-            self._point = value
-        elif in_type == Constants.OPENGL_COORDINATES:
-            display_size = display.get_size()
-            half_display_height = display_size[1] / 2
-            self._point = (value * half_display_height)
+        self._internal_number_converter.set_point(value, in_type=in_type)
 
     def get_point(self, out_type=Constants.CONVENTIONAL_COORDINATES):
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to have first created a display in \
-order to be able to use this function. This is because OpenGL coordinates vary depending \
-on the screen size and aspect ratio.")
-            raise _DisplayNotYetCreatedError()
-        else:
-            display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return self._point
-        elif out_type == Constants.OPENGL_COORDINATES:
-            display_size = display.get_size()
-            return self._point / (display_size[1] / 2)
+        return self._internal_number_converter.get_point(out_type)
 
 class CoordinateIntermediary:
     def __init__(self):
-        self._coordinate = None
-        self._logger = _InternalLogger()
+        if _Registry.cython_acceleration_available:
+            self._number_converter_module = _importlib.import_module(
+                "pmma.bin.number_converter")
+        else:
+            self._number_converter_module = _importlib.import_module(
+                "pmma.python_src.pyx_alternatives.utility.number_converter")
+
+        self._internal_number_converter = self._number_converter_module.Coordinate()
 
     def set_coordinate(self, coordinate, in_type=Constants.CONVENTIONAL_COORDINATES):
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to have first created a display in \
-order to be able to use this function. This is because OpenGL coordinates vary depending \
-on the screen size and aspect ratio.")
-            raise _DisplayNotYetCreatedError()
-        else:
-            display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        if type(coordinate) == list or type(coordinate) == tuple:
-            coordinate = list(coordinate)
-        else:
-            coordinate = [float(coordinate)]
-
-        if len(coordinate) == 0:
-            coordinate = [0, 0]
-            in_type == Constants.CONVENTIONAL_COORDINATES
-        elif len(coordinate) == 1:
-            coordinate = [coordinate[0], 0]
-        elif len(coordinate) > 2:
-            self._logger.log_development("This process is only required for coordinates in 2D or 1D space.")
-            coordinate = coordinate[:2]
-
-
-        if in_type == Constants.CONVENTIONAL_COORDINATES:
-            self._coordinate = coordinate
-        elif in_type == Constants.OPENGL_COORDINATES:
-            display_size = display.get_size()
-            half_display_size = [display_size[0] / 2, display_size[1] / 2]
-            x = half_display_size[0] * (coordinate[0] + 1)
-            y = -half_display_size[1] * (coordinate[1] - 1)
-            self._coordinate = [x, y]
+        self._internal_number_converter.set_coordinate(coordinate, in_type=in_type)
 
     def get_coordinate(self, out_type=Constants.CONVENTIONAL_COORDINATES):
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to have first created a display in \
-order to be able to use this function. This is because OpenGL coordinates vary depending \
-on the screen size and aspect ratio.")
-            raise _DisplayNotYetCreatedError()
-        else:
-            display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return self._coordinate
-        elif out_type == Constants.OPENGL_COORDINATES:
-            display_size = display.get_size()
-            x = (2 * self._coordinate[0]) / display_size[0] - 1  # Removed the extra negative
-            y = 1 - (2 * self._coordinate[1]) / display_size[1]  # This is correct
-            return [x, y]
+        return self._internal_number_converter.get_coordinate(out_type)

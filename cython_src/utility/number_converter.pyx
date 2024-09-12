@@ -1,5 +1,7 @@
 import colorsys
+
 from pmma.python_src.constants import Constants
+
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
@@ -143,3 +145,110 @@ cdef class Color:
             return '#%02x%02x%02x%02x' % tuple(self.color)
         elif out_type == Constants.TEXT:
             return [value for value, key in Constants.TEXT_BASED_COLORS.items() if key == self.color]
+
+cdef class Point:
+    cdef double _point
+    cdef object _logger
+
+    def __init__(self):
+        self._point = 0.0
+        self._logger = _InternalLogger()
+
+    cpdef void set_point(self, double value, object in_type=Constants.CONVENTIONAL_COORDINATES):
+        if not _Registry.display_initialized:
+            self._logger.log_development(
+                "You need to have first created a display in order to use this function. "
+                "This is because OpenGL values vary depending on the screen size and aspect ratio."
+            )
+            raise _DisplayNotYetCreatedError()
+
+        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        cdef double half_display_height
+
+        if in_type == Constants.CONVENTIONAL_COORDINATES:
+            self._point = value
+        elif in_type == Constants.OPENGL_COORDINATES:
+            half_display_height = display.get_size()[1] / 2.0
+            self._point = value * half_display_height
+
+    cpdef double get_point(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
+        if not _Registry.display_initialized:
+            self._logger.log_development(
+                "You need to have first created a display in order to use this function. "
+                "This is because OpenGL coordinates vary depending on the screen size and aspect ratio."
+            )
+            raise _DisplayNotYetCreatedError()
+
+        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        cdef double display_height
+
+        if out_type == Constants.CONVENTIONAL_COORDINATES:
+            return self._point
+        elif out_type == Constants.OPENGL_COORDINATES:
+            display_height = display.get_size()[1]
+            return self._point / (display_height / 2.0)
+
+cdef class Coordinate:
+    cdef list _coordinate
+    cdef object _logger
+
+    def __init__(self):
+        self._coordinate = [0.0, 0.0]
+        self._logger = _InternalLogger()
+
+    cpdef void set_coordinate(self, object coordinate, object in_type=Constants.CONVENTIONAL_COORDINATES):
+        if not _Registry.display_initialized:
+            self._logger.log_development(
+                "You need to have first created a display in order to use this function. "
+                "This is because OpenGL coordinates vary depending on the screen size and aspect ratio."
+            )
+            raise _DisplayNotYetCreatedError()
+
+        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        cdef list converted_coordinate
+
+        if isinstance(coordinate, (list, tuple)):
+            converted_coordinate = list(coordinate)
+        else:
+            converted_coordinate = [float(coordinate)]
+
+        if len(converted_coordinate) == 0:
+            converted_coordinate = [0.0, 0.0]
+        elif len(converted_coordinate) == 1:
+            converted_coordinate.append(0.0)
+        elif len(converted_coordinate) > 2:
+            self._logger.log_development("This process is only required for coordinates in 2D or 1D space.")
+            converted_coordinate = converted_coordinate[:2]
+
+        cdef double half_display_width, half_display_height, x, y
+
+        if in_type == Constants.CONVENTIONAL_COORDINATES:
+            self._coordinate = converted_coordinate
+        elif in_type == Constants.OPENGL_COORDINATES:
+            display_size = display.get_size()
+            half_display_width = display_size[0] / 2.0
+            half_display_height = display_size[1] / 2.0
+            x = half_display_width * (converted_coordinate[0] + 1)
+            y = -half_display_height * (converted_coordinate[1] - 1)
+            self._coordinate = [x, y]
+
+    cpdef list get_coordinate(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
+        if not _Registry.display_initialized:
+            self._logger.log_development(
+                "You need to have first created a display in order to use this function. "
+                "This is because OpenGL coordinates vary depending on the screen size and aspect ratio."
+            )
+            raise _DisplayNotYetCreatedError()
+
+        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        cdef double display_width, display_height, x, y
+
+        if out_type == Constants.CONVENTIONAL_COORDINATES:
+            return self._coordinate
+        elif out_type == Constants.OPENGL_COORDINATES:
+            display_size = display.get_size()
+            display_width = display_size[0]
+            display_height = display_size[1]
+            x = (2.0 * self._coordinate[0]) / display_width - 1.0
+            y = 1.0 - (2.0 * self._coordinate[1]) / display_height
+            return [x, y]

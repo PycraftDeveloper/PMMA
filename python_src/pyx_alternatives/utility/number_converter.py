@@ -186,7 +186,7 @@ class Color:
         elif out_type == Constants.TEXT:
             return [value for value, key in Constants.TEXT_BASED_COLORS.items() if key == self.color]
 
-class PointIntermediary:
+class Point:
     def __init__(self):
         self._point = None
         self._logger = _InternalLogger()
@@ -222,7 +222,7 @@ on the screen size and aspect ratio.")
             display_size = display.get_size()
             return self._point / (display_size[1] / 2)
 
-class CoordinateIntermediary:
+class Coordinate:
     def __init__(self):
         self._coordinate = None
         self._logger = _InternalLogger()
