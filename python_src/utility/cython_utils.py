@@ -18,6 +18,7 @@ def compile_libraries():
     try:
         import pmma.bin.perlin_noise
         import pmma.bin.extended_perlin_noise
+        import pmma.bin.number_converter
         _Registry.cython_acceleration_available = True
     except ImportError:
         try:
@@ -30,6 +31,7 @@ def check_for_compiled_libraries():
     try:
         import pmma.bin.perlin_noise
         import pmma.bin.extended_perlin_noise
+        import pmma.bin.number_converter
         _Registry.cython_acceleration_available = True
     except ImportError:
         _Registry.cython_acceleration_available = False

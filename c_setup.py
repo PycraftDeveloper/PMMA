@@ -26,6 +26,12 @@ if compiler == "msvc":
             [cython_src_path+"extended_perlin_noise.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["-O3", "/O2"],
+        ),
+        Extension(
+            "number_converter",
+            [cython_src_path+"number_converter.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["-O3", "/O2"],
         )
     ]
 elif compiler == "gcc" or compiler == "unix":
@@ -40,6 +46,12 @@ elif compiler == "gcc" or compiler == "unix":
             [cython_src_path+"extended_perlin_noise.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["-O3"],
+        ),
+        Extension(
+            "number_converter",
+            [cython_src_path+"number_converter.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["-O3"],
         )
     ]
 else:
@@ -51,6 +63,11 @@ else:
         Extension(
             "extended_perlin_noise",
             [cython_src_path+"extended_perlin_noise.pyx"],
+            include_dirs=[numpy.get_include()],
+        ),
+        Extension(
+            "number_converter",
+            [cython_src_path+"number_converter.pyx"],
             include_dirs=[numpy.get_include()],
         )
     ]
