@@ -60,6 +60,8 @@ mode is Pygame.")
 
         self.resized_event = _WindowResized_EVENT()
 
+        self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
+
         self._display_attribute_resizable = False
         self._display_attribute_full_screen = True
         self._display_attribute_no_frame = True
@@ -115,7 +117,9 @@ mode is Pygame.")
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if _Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
-                self._two_dimension_frame_buffer.use()
+                if self._currently_active_frame_buffer != Constants.TWO_DIMENSION_FRAME_BUFFER:
+                    self._currently_active_frame_buffer = Constants.TWO_DIMENSION_FRAME_BUFFER
+                    self._two_dimension_frame_buffer.use()
             return self._two_dimension_frame_buffer
         else:
             raise NotImplementedError
@@ -123,7 +127,9 @@ mode is Pygame.")
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
         if _Registry.display_mode == Constants.PYGAME:
             if set_to_be_used:
-                self._three_dimension_frame_buffer.use()
+                if self._currently_active_frame_buffer != Constants.THREE_DIMENSION_FRAME_BUFFER:
+                    self._currently_active_frame_buffer = Constants.THREE_DIMENSION_FRAME_BUFFER
+                    self._three_dimension_frame_buffer.use()
             return self._three_dimension_frame_buffer
         else:
             raise NotImplementedError

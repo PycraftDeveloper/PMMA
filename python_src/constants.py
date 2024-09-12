@@ -2,6 +2,10 @@ import math as _math
 import os as _os
 
 class Constants:
+    DISPLAY_FRAME_BUFFER = "display frame buffer"
+    TWO_DIMENSION_FRAME_BUFFER = "2d frame buffer"
+    THREE_DIMENSION_FRAME_BUFFER = "3d frame buffer"
+
     BOTH = "both"
     VERTEX_ONLY = "vertex"
     FRAGMENT_ONLY = "fragment"
