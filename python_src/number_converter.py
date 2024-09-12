@@ -28,6 +28,8 @@ class AngleConverter:
                 self._angle = (angle / _math.pi) * 180
             elif format == Constants.GRADIANS:
                 self._angle = angle * (10/9)
+            return True
+        return False
 
     def get_angle(self, format=Constants.DEGREES):
         if format in self._angle_cache:
@@ -68,6 +70,8 @@ class ProportionConverter:
                 self._value = value
             elif format == Constants.PERCENTAGE:
                 self._value = value / 100
+            return True
+        return False
 
     def get_value(self, format=Constants.DECIMAL):
         if format in self._value_cache:
@@ -104,11 +108,19 @@ class ColorConverter:
 
         self._color_cache = {}
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
+        if format == Constants.RGB:
+            color = [int(color[0]), int(color[1]), int(color[2])]
+        elif format == Constants.RGBA:
+            color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+        ### extend this, ignore HEX and SMALL values!!!
+
         if not (format in self._color_cache and self._color_cache[format] == color):
             self._color_cache = {}
             self._color_cache[format] = color
             self._color_intermediary.set_color(color, format)
+            return True
+        return False
 
     def get_color(self, format):
         if format in self._color_cache:
@@ -133,7 +145,7 @@ class ColorConverter:
 
     def generate_random_color(self, format=Constants.RGBA):
         color = [_random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255)]
-        self._color_intermediary.set_color(
+        self.set_color(
             color,
             Constants.RGBA)
         return self.get_color(format)
@@ -172,7 +184,7 @@ class ColorConverter:
                 value,
                 new_range=alpha_color_range)]
 
-        self._color_intermediary.set_color(
+        self.set_color(
             color,
             Constants.RGBA)
         return self.get_color(format)
@@ -185,10 +197,15 @@ class PointConverter:
         self._point_cache = {}
 
     def set_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            point = int(point)
+
         if not (format in self._point_cache and self._point_cache[format] == point):
             self._point_cache = {}
             self._point_cache[format] = point
             self._point_intermediary.set_point(point, in_type=format)
+            return True
+        return False
 
     def get_point(self, format=Constants.CONVENTIONAL_COORDINATES):
         if format in self._point_cache:
@@ -216,10 +233,15 @@ class CoordinateConverter:
         self._coordinate_cache = {}
 
     def set_coordinates(self, coordinate, format=Constants.CONVENTIONAL_COORDINATES):
+        if format == Constants.CONVENTIONAL_COORDINATES:
+            coordinate = [int(coordinate[0]), int(coordinate[1])]
+
         if not (format in self._coordinate_cache and self._coordinate_cache[format] == coordinate):
             self._coordinate_cache = {}
             self._coordinate_cache[format] = coordinate
             self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
+            return True
+        return False
 
     def get_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
         if format in self._coordinate_cache:

@@ -362,7 +362,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         else:
             raise NotImplementedError
 
-    def clear(self, color=None, format=Constants.AUTODETECT):
+    def clear(self, color=None, format=Constants.RGB):
         if color is None or color == [] or color == ():
             self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
 

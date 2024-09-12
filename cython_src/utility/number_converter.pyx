@@ -15,50 +15,10 @@ cdef class Color:
         self.in_type = None
         self.color = None
 
-    cpdef object detect_color_type(self, color):
-        cdef object in_type = None
-        if isinstance(color, str):
-            if ("#" in color or "a" in color or "b" in color or
-                "c" in color or "d" in color or "e" in color or "f" in color):
-                if len(color) == 8:
-                    in_type = Constants.HEXA
-                elif len(color) == 6:
-                    in_type = Constants.HEX
-                else:
-                    in_type = Constants.TEXT
-            else:
-                in_type = Constants.TEXT
-        elif max(color) > 1:
-            if color[0] <= 255:
-                if len(color) == 4:
-                    in_type = Constants.RGBA
-                else:
-                    in_type = Constants.RGB
-            else:
-                if color[0] < 360:
-                    if color[1] > 1:
-                        if len(color) == 4:
-                            in_type = Constants.HSLA
-                        else:
-                            in_type = Constants.HSL
-                    else:
-                        if len(color) == 4:
-                            in_type = Constants.SMALL_HSLA
-                        else:
-                            in_type = Constants.SMALL_HSL
-        else:
-            if len(color) == 4:
-                in_type = Constants.SMALL_RGBA
-            else:
-                in_type = Constants.SMALL_RGB
-        return in_type
-
-    cpdef void set_color(self, color, object in_type=Constants.AUTODETECT):
+    cpdef void set_color(self, color, object in_type=Constants.RGB):
         if isinstance(color, str):
             color = color.lower()
 
-        if in_type == Constants.AUTODETECT:
-            in_type = self.detect_color_type(color)
         self.in_type = in_type
 
         cdef list color_list = list(color)

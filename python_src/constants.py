@@ -654,8 +654,6 @@ class Constants:
 
     PATH_SEPARATOR = _os.sep
 
-    AUTODETECT = "autodetect"
-
     PYGAME = "pygame"
     PYGLET = "pyglet"
     DISPLAY_MODES = [

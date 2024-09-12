@@ -105,7 +105,7 @@ class Line:
         if self._end is not None:
             return self._end.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
@@ -295,7 +295,7 @@ class RadialPolygon:
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
@@ -503,7 +503,7 @@ class Rectangle:
         if self._size is not None:
             return self._size.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
@@ -706,7 +706,7 @@ class Arc:
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
@@ -894,7 +894,7 @@ class Ellipse:
         if self._size is not None:
             return self._size.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
@@ -1086,7 +1086,7 @@ class Polygon:
             points.append(point.get_coordinates(format=format))
         return points
 
-    def set_color(self, color, format=Constants.AUTODETECT):
+    def set_color(self, color, format=Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
@@ -1235,47 +1235,23 @@ class Pixel:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES, disable_optimizations=False):
-        if disable_optimizations:
-            self._logger.log_development("You have disabled positional optimizations \
-in Pixel shape rendering, this can negatively effect performance, but if your \
-experiencing any rendering issues, it can help to diagnose the problem.")
-            if type(position) != _CoordinateConverter:
-                self._position.set_coordinates(position, format=position_format)
-            else:
-                self._position = position
-            self._vertices_changed = True
-            return
-
+    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         if type(position) != _CoordinateConverter:
-            self._temp_position.set_coordinates(position, format=position_format)
-
-        existing_position_coords = self._position.get_coordinates()
-        if existing_position_coords is None:
-            self._vertices_changed = True
-            self._position.set_coordinates(self._temp_position.get_coordinates())
-            return
-
-        temp_coords = self._temp_position.get_coordinates()
-
-        if int(temp_coords[0]) == int(existing_position_coords[0]) and int(temp_coords[1]) == int(existing_position_coords[1]):
-            return None
-
-        self._vertices_changed = True
-        self._position.set_coordinates(self._temp_position.get_coordinates())
+            self._vertices_changed = self._position.set_coordinates(position, format=position_format)
+        else:
+            self._vertices_changed = self._position.set_coordinates(position.get_coordinates(format=position_format))
 
     def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.AUTODETECT):
-        self._color_changed = True
+    def set_color(self, color, format=Constants.RGB):
         if type(color) != _ColorConverter:
-            self._color.set_color(color, format=format)
+            self._color_changed = self._color.set_color(color, format=format)
         else:
-            self._color = color
+            self._color_changed = self._color.set_color(color.get_color(format=format))
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=Constants.RGB):
         if self._color is not None:
             return self._color.get_color(format=format)
 

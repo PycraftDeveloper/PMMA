@@ -8,58 +8,9 @@ from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _Di
 from pmma.python_src.utility.general_utils import swizzle as _swizzle
 
 class Color:
-    def detect_color_type(self, color):
-        in_type = None
-        if type(color) == str:
-            if ("#" in color or
-                    "a" in color or
-                    "b" in color or
-                    "c" in color or
-                    "d" in color or
-                    "e" in color or
-                    "f" in color):
-
-                if len(color) == 8:
-                    in_type = Constants.HEXA
-                elif len(color) == 6:
-                    in_type = Constants.HEX
-                else:
-                    in_type = Constants.TEXT
-            else:
-                in_type = Constants.TEXT
-
-        elif max(color) > 1:
-            if color[0] <= 255:
-                if len(color) == 4:
-                    in_type = Constants.RGBA
-                else:
-                    in_type = Constants.RGB
-            else:
-                if color[0] < 360:
-                    if color[1] > 1:
-                        if len(color) == 4:
-                            in_type = Constants.HSLA
-                        else:
-                            in_type = Constants.HSL
-                    else:
-                        if len(color) == 4:
-                            in_type = Constants.SMALL_HSLA
-                        else:
-                            in_type = Constants.SMALL_HSL
-
-        else:
-            if len(color) == 4:
-                in_type = Constants.SMALL_RGBA
-            else:
-                in_type = Constants.SMALL_RGB
-
-        return in_type
-
-    def set_color(self, color, in_type=Constants.AUTODETECT): # converts to RGBA
+    def set_color(self, color, in_type=Constants.RGB): # converts to RGBA
         if type(color) == str:
             color = color.lower()
-        if in_type == Constants.AUTODETECT:
-            in_type = self.detect_color_type(color)
         self.in_type = in_type
 
         color = color

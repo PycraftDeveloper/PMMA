@@ -18,7 +18,7 @@ class ColorIntermediary:
     def detect_color_type(self, color):
         return self._internal_number_converter.detect_color_type(color)
 
-    def set_color(self, color, in_type=Constants.AUTODETECT): # converts to RGBA
+    def set_color(self, color, in_type=Constants.RGB): # converts to RGBA
         self._internal_number_converter.set_color(color, in_type=in_type)
 
     def get_color_format(self):

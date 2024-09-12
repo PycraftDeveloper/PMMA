@@ -16,6 +16,8 @@ class LoadedShaderReferenceManager:
     def __init__(self):
         _initialize(self, unique_instance=Constants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
+        self.reference_manager_lock = _threading.Lock()
+
         self._reference_manager_thread = _threading.Thread(target=self.reference_manager)
         self._reference_manager_thread.daemon = True
         self._reference_manager_thread.name = "LoadedShaderReferenceManager:Reference_Checker_Thread"
@@ -52,10 +54,11 @@ class LoadedShaderReferenceManager:
 
             self._loaded_shaders_from_file_changed = False
 
-            for shader in self._shader_intermediary.loaded_shaders_from_file:
-                shader_object = self._shader_intermediary.loaded_shaders_from_file[shader]
-                if shader_object["reference_count"] == 0:
-                    del self._shader_intermediary.loaded_shaders_from_file[shader]
+            with self.reference_manager_lock:
+                for shader in self._shader_intermediary.loaded_shaders_from_file:
+                    shader_object = self._shader_intermediary.loaded_shaders_from_file[shader]
+                    if shader_object["reference_count"] == 0:
+                        del self._shader_intermediary.loaded_shaders_from_file[shader]
 
 class ShaderManager:
     def __init__(self):
@@ -78,7 +81,8 @@ class ShaderManager:
 
     def add_shader_from_file(self, file_name, vertex=None, fragment=None, using_gl_point_size_syntax=False, uniform_values=[], buffer_names=[]):
         if not file_name in ShaderIntermediary.loaded_shaders_from_file:
-            ShaderIntermediary.loaded_shaders_from_file[file_name] = {"vertex": vertex, "fragment": fragment, "reference_count": 1, "using_gl_point_size_syntax": using_gl_point_size_syntax, "uniform_values": uniform_values, "buffer_names":buffer_names}
+            with self._shader_reference_manager.reference_manager_lock:
+                ShaderIntermediary.loaded_shaders_from_file[file_name] = {"vertex": vertex, "fragment": fragment, "reference_count": 1, "using_gl_point_size_syntax": using_gl_point_size_syntax, "uniform_values": uniform_values, "buffer_names":buffer_names}
 
     def check_if_shader_exists(self, file_name, shader_type=Constants.BOTH):
         if file_name in ShaderIntermediary.loaded_shaders_from_file:
@@ -102,5 +106,6 @@ class ShaderManager:
 
     def remove_shader_from_memory(self, file_name):
         if file_name in ShaderIntermediary.loaded_shaders_from_file:
-            ShaderIntermediary.loaded_shaders_from_file[file_name]["reference_count"] -= 1
+            with self._shader_reference_manager.reference_manager_lock:
+                ShaderIntermediary.loaded_shaders_from_file[file_name]["reference_count"] -= 1
             self._shader_reference_manager._loaded_shaders_from_file_changed = True
