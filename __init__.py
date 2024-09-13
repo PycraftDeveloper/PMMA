@@ -69,6 +69,7 @@ import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
+from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 
 def init(
             optimize_python_extensions=True,
@@ -310,7 +311,6 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
     _event_utils.WindowExposed_EVENT()
     _event_utils.WindowMoved_EVENT()
     _event_utils.WindowResized_EVENT()
-    _event_utils.WindowSizeChanged_EVENT()
     _event_utils.WindowMinimized_EVENT()
     _event_utils.WindowMaximized_EVENT()
     _event_utils.WindowRestored_EVENT()
@@ -327,6 +327,8 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
     _event_utils.JoyDeviceRemoved_EVENT()
 
     _event_utils.WindowFullScreenStatusChanged_EVENT()
+
+    _DisplayIntermediary()
 
     if wait_for_initialization:
         cython_thread.join()

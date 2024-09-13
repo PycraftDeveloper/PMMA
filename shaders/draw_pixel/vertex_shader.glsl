@@ -1,4 +1,5 @@
 #version 330
+
 in vec2 in_position;
 
 uniform vec2 offset;

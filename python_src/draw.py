@@ -21,6 +21,7 @@ from pmma.python_src.advmath import Math as _Math
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.error_utils import ShapeRadiusNotSpecifiedError as _ShapeRadiusNotSpecifiedError
 
 class Line:
     """
@@ -254,8 +255,8 @@ class RadialPolygon:
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
-        self._radius = None
-        self._center = None
+        self._radius = _PointConverter()
+        self._center = _CoordinateConverter()
         self._width = None
         self._radius = None
         self._rotation = None
@@ -267,6 +268,43 @@ class RadialPolygon:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+        self._rotation.set_angle(0)
+        self._created_shape = False
+
+    def _create_shape(self):
+        if self._radius.get_point_set() is False:
+            raise _ShapeRadiusNotSpecifiedError()
+
+        if self._point_count is None:
+            try:
+                point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.get_point(format=Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
+            except ValueError:
+                point_count = 3
+            if point_count < 3:
+                point_count = 3
+        else:
+            point_count = self._point_count
+
+        angle_step = 2 * _math.pi / point_count
+        vertices = []
+
+        rotation = self._rotation.get_angle(Constants.RADIANS)  # Get the current rotation angle
+
+        center = [0, 0]
+        radius = self._radius.get_point(Constants.OPENGL_COORDINATES)
+
+        for i in range(point_count):
+            angle = i * angle_step + rotation
+            x = center[0] + radius * _math.cos(angle)
+            y = center[1] + radius * _math.sin(angle)
+            vertices.append([x, y])
+
+        vertices = _numpy.array(vertices, dtype='f4')
+
+        if self._vbo.get_created():
+            self._vbo.update(vertices)
+        else:
+            self._vbo.create(vertices)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -283,6 +321,7 @@ class RadialPolygon:
 
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
+        self._created_shape = False
         if type(rotation) != _AngleConverter:
             self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
@@ -295,6 +334,7 @@ class RadialPolygon:
 
     def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
+        self._created_shape = False
         if type(value) != _PointConverter():
             self._radius = _PointConverter()
             self._radius.set_point(value, format=format)
@@ -325,13 +365,6 @@ class RadialPolygon:
 
     def set_point_count(self, point_count=None):
         self._vertices_changed = True
-        if point_count is None:
-            try:
-                point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.get_point(format=Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
-            except ValueError:
-                point_count = 3
-            if point_count < 3:
-                point_count = 3
         self._point_count = point_count
 
     def get_point_count(self):
@@ -357,46 +390,6 @@ class RadialPolygon:
     def get_width(self):
         return self._width
 
-    def _update_buffers(self):
-        """
-        Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
-        """
-        if self._vertices_changed:
-            if self._radius is None or self._center is None or self._point_count is None:
-                return None  # Cannot proceed without these
-
-            _Registry.number_of_render_updates += 1
-
-            angle_step = 2 * _math.pi / self._point_count
-            vertices = []
-
-            rotation = self.get_rotation()  # Get the current rotation angle
-
-            center = self._center.get_coordinates(Constants.OPENGL_COORDINATES)
-            radius = self._radius.get_point(Constants.OPENGL_COORDINATES)
-
-            for i in range(self._point_count):
-                angle = i * angle_step + rotation
-                x = center[0] + radius * _math.cos(angle)
-                y = center[1] + radius * _math.sin(angle)
-                vertices.append([x, y])
-
-            vertices = _numpy.array(vertices, dtype='f4')
-
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
-            self._vertices_changed = False  # Reset the flag
-
-            if self._vbo.get_created() is False:
-                self._vbo.create(vertices)
-            else:
-                self._vbo.update(vertices)
-
-        if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
-            self._color_changed = False  # Reset the flag
-
     def render(self):
         start = _time.perf_counter()
 
@@ -410,7 +403,21 @@ class RadialPolygon:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        self._update_buffers()
+        if self._created_shape is False:
+            self._create_shape()
+            self._created_shape = True
+
+        if self._vertices_changed:
+            offset = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
+            self._program.set_shader_variable('offset', offset)
+            self._vertices_changed = False
+
+        if self._color_changed:
+            color = self.get_color(format=Constants.SMALL_RGBA)
+            self._program.set_shader_variable('color', color)
+            self._color_changed = False  # Reset the flag
+
+        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -1260,16 +1267,21 @@ class Pixel:
         else:
             self._surface = None
         self._position = _CoordinateConverter()
-        self._temp_position = _CoordinateConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
         self._program.create()
         self._vbo = _VertexBufferObject()
-        self._vbo.create(_numpy.array([0, 0], dtype='f4'))
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+        self._created_shape = False
+
+    def _create_shape(self):
+        if self._vbo.get_created():
+            self._vbo.update(_numpy.array([0, 0], dtype='f4'))
+        else:
+            self._vbo.create(_numpy.array([0, 0], dtype='f4'))
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -1349,6 +1361,10 @@ once to improve performance, but will continue to have an effect.")
             return None
 
         self._surface.get_2D_hardware_accelerated_surface()
+
+        if self._created_shape is False:
+            self._create_shape()
+            self._created_shape = True
 
         if self._vertices_changed:
             offset = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)

@@ -16,6 +16,7 @@ class AngleConverter:
 
         self._angle = 0
         self._angle_cache = {}
+        self._angle_set = False
 
     def set_angle(self, angle, format=Constants.DEGREES):
         if not (format in self._angle_cache and self._angle_cache[format] == angle):
@@ -28,8 +29,12 @@ class AngleConverter:
                 self._angle = (angle / _math.pi) * 180
             elif format == Constants.GRADIANS:
                 self._angle = angle * (10/9)
+            self._angle_set = True
             return True
         return False
+
+    def get_angle_set(self):
+        return self._angle_set
 
     def get_angle(self, format=Constants.DEGREES):
         if format in self._angle_cache:
@@ -61,6 +66,7 @@ class ProportionConverter:
 
         self._value = None
         self._value_cache = {}
+        self._proportion_set = False
 
     def set_value(self, value, format=Constants.DECIMAL):
         if not (format in self._value_cache and self._value_cache[format] == value):
@@ -70,8 +76,12 @@ class ProportionConverter:
                 self._value = value
             elif format == Constants.PERCENTAGE:
                 self._value = value / 100
+            self._proportion_set = True
             return True
         return False
+
+    def get_proportion_set(self):
+        return self._proportion_set
 
     def get_value(self, format=Constants.DECIMAL):
         if format in self._value_cache:
@@ -108,6 +118,8 @@ class ColorConverter:
 
         self._color_cache = {}
 
+        self._color_set = False
+
     def set_color(self, color, format=Constants.RGB):
         if format == Constants.RGB:
             color = [int(color[0]), int(color[1]), int(color[2])]
@@ -119,8 +131,12 @@ class ColorConverter:
             self._color_cache = {}
             self._color_cache[format] = color
             self._color_intermediary.set_color(color, format)
+            self._color_set = True
             return True
         return False
+
+    def get_color_set(self):
+        return self._color_set
 
     def get_color(self, format):
         if format in self._color_cache:
@@ -196,6 +212,8 @@ class PointConverter:
         self._point_intermediary = _PointIntermediary()
         self._point_cache = {}
 
+        self._point_set = False
+
     def set_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
         if format == Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
@@ -204,8 +222,12 @@ class PointConverter:
             self._point_cache = {}
             self._point_cache[format] = point
             self._point_intermediary.set_point(point, in_type=format)
+            self._point_set = True
             return True
         return False
+
+    def get_point_set(self):
+        return self._point_set
 
     def get_point(self, format=Constants.CONVENTIONAL_COORDINATES):
         if format in self._point_cache:
@@ -232,6 +254,8 @@ class CoordinateConverter:
         self._coordinate_intermediary = _CoordinateIntermediary()
         self._coordinate_cache = {}
 
+        self._coordinate_set = False
+
     def set_coordinates(self, coordinate, format=Constants.CONVENTIONAL_COORDINATES):
         if format == Constants.CONVENTIONAL_COORDINATES:
             coordinate = [int(coordinate[0]), int(coordinate[1])]
@@ -240,8 +264,12 @@ class CoordinateConverter:
             self._coordinate_cache = {}
             self._coordinate_cache[format] = coordinate
             self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
+            self._coordinate_set = True
             return True
         return False
+
+    def get_coordinate_set(self):
+        return self._coordinate_set
 
     def get_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
         if format in self._coordinate_cache:

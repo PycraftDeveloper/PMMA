@@ -218,7 +218,6 @@ mode is Pygame.")
         self.windowexposed_event = WindowExposed_EVENT()
         self.windowmoved_event = WindowMoved_EVENT()
         self.windowresized_event = WindowResized_EVENT()
-        self.windowsizechanged_event = WindowSizeChanged_EVENT()
         self.windowminimized_event = WindowMinimized_EVENT()
         self.windowmaximized_event = WindowMaximized_EVENT()
         self.windowrestored_event = WindowRestored_EVENT()
@@ -291,7 +290,6 @@ then enable it to see if it fixes or improves a desired feature.")
         self.windowexposed_event.set_value(False)
         self.windowmoved_event.set_value(False)
         self.windowresized_event.set_value(False)
-        self.windowsizechanged_event.set_value(False)
         self.windowminimized_event.set_value(False)
         self.windowmaximized_event.set_value(False)
         self.windowrestored_event.set_value(False)
@@ -1359,11 +1357,8 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.type == _pygame.WINDOWMOVED:
                     self.windowmoved_event.set_value(True)
 
-                elif event.type == _pygame.WINDOWRESIZED:
+                elif event.type == _pygame.WINDOWRESIZED or event.type == _pygame.WINDOWSIZECHANGED:
                     self.windowresized_event.set_value(True)
-
-                elif event.type == _pygame.WINDOWSIZECHANGED:
-                    self.windowsizechanged_event.set_value(True)
 
                 elif event.type == _pygame.WINDOWMINIMIZED:
                     self.windowminimized_event.set_value(True)
@@ -7561,26 +7556,6 @@ class WindowResized_EVENT:
 
     def get_value(self):
         return _Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].get_value()
-
-class WindowSizeChanged_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        _initialize(self)
-
-    def set_value(self, value):
-        _Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return _Registry.pmma_module_spine[Constants.WINDOWSIZECHANGED_EVENT_OBJECT].get_value()
 
 class WindowMinimized_EVENT:
     def __del__(self, do_garbage_collection=False):

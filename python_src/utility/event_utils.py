@@ -8998,28 +8998,6 @@ class WindowResized_EVENT:
     def get_value(self):
         return self._value
 
-class WindowSizeChanged_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWSIZECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
-
-        self._value = None
-
-    def set_value(self, value):
-        self._value = value
-
-    def get_value(self):
-        return self._value
-
 class WindowMinimized_EVENT:
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
