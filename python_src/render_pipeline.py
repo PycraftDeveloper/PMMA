@@ -21,7 +21,6 @@ from pmma.python_src.draw import Arc as _Arc
 from pmma.python_src.draw import Polygon as _Polygon
 from pmma.python_src.draw import Ellipse as _Ellipse
 from pmma.python_src.draw import Pixel as _Pixel
-from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -42,8 +41,6 @@ class RenderPipeline:
         self._simple_shape_rendering_program.create()
 
         self._display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-
-        self._window_full_screen_status_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
         self._written_to_buffers = False
 
@@ -78,7 +75,7 @@ class RenderPipeline:
         if self._render_points == []:
             return
 
-        changed = self._window_resized_event.get_value() or self._window_full_screen_status_changed_event.get_value()
+        changed = self._window_resized_event.get_value()
 
         if changed:
             for render_point in self._render_points:

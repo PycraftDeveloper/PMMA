@@ -233,8 +233,6 @@ mode is Pygame.")
         self.joydeviceadded_event = JoyDeviceAdded_EVENT()
         self.joydeviceremoved_event = JoyDeviceRemoved_EVENT()
 
-        self.windowfullscreenstatechanged_event = WindowFullScreenStatusChanged_EVENT()
-
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         if self.iteration_id == _Registry.iteration_id and _Registry.compute_component_called:
             self._logger.log_development("You have called the 'handle()' method from events \
@@ -309,8 +307,6 @@ then enable it to see if it fixes or improves a desired feature.")
         self.mouse_scroll.set_y_displacement(0)
         self.mouse_position.set_x_axis_displacement(0)
         self.mouse_position.set_y_axis_displacement(0)
-
-        self.windowfullscreenstatechanged_event.set_value(False)
 
         if _Registry.display_mode == Constants.PYGAME:
             raw_events = _pygame.event.get()

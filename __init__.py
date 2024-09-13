@@ -326,8 +326,6 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
     _event_utils.JoyDeviceAdded_EVENT()
     _event_utils.JoyDeviceRemoved_EVENT()
 
-    _event_utils.WindowFullScreenStatusChanged_EVENT()
-
     _DisplayIntermediary()
 
     if wait_for_initialization:

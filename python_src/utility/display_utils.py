@@ -17,7 +17,6 @@ from pmma.python_src.utility.opengl_utils import Texture as _Texture
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.opengl import FrameBufferObject as _FrameBufferObject
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
-from pmma.python_src.events import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -60,8 +59,6 @@ class DisplayIntermediary:
 
         self._window_in_focus = True
         self._window_minimized = False
-
-        self.window_full_screen_state_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
         self._clear_called_but_skipped = False
         self._render_calls = 0
@@ -433,7 +430,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def toggle_full_screen(self):
         if self._object_updated is False:
             self.update_class()
-        self.window_full_screen_state_changed_event.set_value(True)
+        self.resized_event.set_value(True)
 
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
