@@ -676,20 +676,31 @@ class Shader:
 
         # Dynamically create getter and setter functions for each uniform
         for name in uniform_names:
-            self._uniform_values[name] = None
+            self._uniform_values[name] = {"value": None, "updated": False}
 
     def get_using_gl_point_size_syntax(self):
         return self._using_gl_point_size_syntax
 
     def set_shader_variable(self, name, value):
         if name in self._uniform_values:
-            self._uniform_values[name] = value
+            if self._uniform_values[name]["value"] is None:
+                self._uniform_values[name] = {"value": value, "updated": True}
+                return
+
+            if type(value) == _numpy.ndarray and type(self._uniform_values[name]["value"]) == _numpy.ndarray:
+                if _numpy.array_equal(value, self._uniform_values[name]["value"]) is False:
+                    self._uniform_values[name] = {"value": value, "updated": True}
+                return
+
+            if self._uniform_values[name]["value"] != value:
+                self._uniform_values[name] = {"value": value, "updated": True}
+                return
         else:
             raise ValueError(f"Uniform '{name}' not found in the shader")
 
     def get_shader_variable(self, name):
         if name in self._uniform_values:
-            return self._uniform_values[name]
+            return self._uniform_values[name]["value"]
         else:
             raise ValueError(f"Uniform '{name}' not found in the shader")
 
@@ -808,14 +819,16 @@ class Shader:
 
     def use_program(self):
         for key in self._uniform_values:
-            if self._uniform_values[key] is not None:
+            if self._uniform_values[key]["value"] is not None:
                 data = self._uniform_values[key]
-                if isinstance(data, (float, int, tuple, list)):
-                    self._program[key].value = data
-                elif isinstance(data, (bytes, bytearray, _numpy.ndarray)):
-                    self._program[key].write(data)
-                else:
-                    raise TypeError("Invalid data type for uniform variable")
+                if data["updated"]:
+                    if isinstance(data["value"], (float, int, tuple, list)):
+                        self._program[key].value = data["value"]
+                    elif isinstance(data["value"], (bytes, bytearray, _numpy.ndarray)):
+                        self._program[key].write(data["value"])
+                    else:
+                        raise TypeError("Invalid data type for uniform variable")
+                    self._uniform_values[key]["updated"] = False
         return self._program
 
     def get_vertex_shader(self):
