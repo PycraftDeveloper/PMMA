@@ -84,7 +84,7 @@ while pmma.Backpack.running:
     #line.set_end((500, 60*(time.perf_counter()-start)))
     #rectangle.set_rotation((time.perf_counter()-s)*10)
 
-    ellipse.set_rotation((time.perf_counter()-s))
+    #ellipse.set_rotation((time.perf_counter()-s))
     #arc.set_rotation((time.perf_counter()-s)*50)
 
     pmma.compute()
