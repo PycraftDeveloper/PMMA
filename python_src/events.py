@@ -209,13 +209,10 @@ mode is Pygame.")
         self.keymapchanged_event = KeyMapChanged_EVENT()
         self.localechanged_event = LocaleChanged_EVENT()
         self.multigesture_event = MultiGesture_EVENT()
-        self.noevent_event = NoEvent_EVENT()
         self.quit_event = Quit_EVENT()
         self.rendertargetsreset_event = RenderTargetsReset_EVENT()
         self.renderdevicereset_event = RenderDeviceReset_EVENT()
         self.syswmevent_event = SysWMEvent_EVENT()
-        self.midiin_event = MidiIn_EVENT()
-        self.midiout_event = MidiOut_EVENT()
         self.windowshown_event = WindowShown_EVENT()
         self.windowhidden_event = WindowHidden_EVENT()
         self.windowexposed_event = WindowExposed_EVENT()
@@ -285,13 +282,10 @@ then enable it to see if it fixes or improves a desired feature.")
         self.multigesture_event.set_number_of_fingers(None)
         self.multigesture_event.set_rotated_value(None)
         self.multigesture_event.set_pinched_value(None)
-        self.noevent_event.set_value(False)
         self.quit_event.set_value(False)
         self.rendertargetsreset_event.set_value(False)
         self.renderdevicereset_event.set_value(False)
         self.syswmevent_event.set_value(False)
-        self.midiin_event.set_value(False)
-        self.midiout_event.set_value(False)
         self.windowshown_event.set_value(False)
         self.windowhidden_event.set_value(False)
         self.windowexposed_event.set_value(False)
@@ -1338,9 +1332,6 @@ then enable it to see if it fixes or improves a desired feature.")
                     self.multigesture_event.set_rotated_value(event.rotated)
                     self.multigesture_event.set_pinched_value(event.pinched)
 
-                elif event.type == _pygame.NOEVENT:
-                    self.noevent_event.set_value(True)
-
                 elif event.type == _pygame.QUIT:
                     self.quit_event.set_value(True)
                     if handle_exit_events:
@@ -1355,12 +1346,6 @@ then enable it to see if it fixes or improves a desired feature.")
 
                 elif event.type == _pygame.SYSWMEVENT:
                     self.syswmevent_event.set_value(True)
-
-                elif event.type == _pygame.MIDIIN:
-                    self.midiin_event.set_value(True)
-
-                elif event.type == _pygame.MIDIOUT:
-                    self.midiout_event.set_value(True)
 
                 elif event.type == _pygame.WINDOWSHOWN:
                     self.windowshown_event.set_value(True)
@@ -7357,26 +7342,6 @@ class MultiGesture_EVENT:
     def set_number_of_fingers(self, value):
         _Registry.pmma_module_spine[Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(value)
 
-class NoEvent_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        _initialize(self)
-
-    def set_value(self, value):
-        _Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return _Registry.pmma_module_spine[Constants.NOEVENT_EVENT_OBJECT].get_value()
-
 class Quit_EVENT:
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -7496,46 +7461,6 @@ class VideoExpose_EVENT:
 
     def get_value(self):
         return _Registry.pmma_module_spine[Constants.VIDEOEXPOSE_EVENT_OBJECT].get_value()
-
-class MidiIn_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        _initialize(self)
-
-    def set_value(self, value):
-        _Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return _Registry.pmma_module_spine[Constants.MIDIIN_EVENT_OBJECT].get_value()
-
-class MidiOut_EVENT:
-    def __del__(self, do_garbage_collection=False):
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc.collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def __init__(self):
-        _initialize(self)
-
-    def set_value(self, value):
-        _Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].set_value(value)
-
-    def get_value(self):
-        return _Registry.pmma_module_spine[Constants.MIDIOUT_EVENT_OBJECT].get_value()
 
 class WindowShown_EVENT:
     def __del__(self, do_garbage_collection=False):

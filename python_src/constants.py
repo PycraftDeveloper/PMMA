@@ -266,6 +266,7 @@ class Constants:
     POWER_KEY_OBJECT = "power_key_object"
     EURO_KEY_OBJECT = "euro_key_object"
     ANDROIDBACK_KEY_OBJECT = "androidback_key_object"
+
     Y_BUTTON_OBJECT = "y_button_object"
     B_BUTTON_OBJECT = "b_button_object"
     A_BUTTON_OBJECT = "a_button_object"
@@ -286,11 +287,13 @@ class Constants:
     DOWNHAT_BUTTON_OBJECT = "downhat_button_object"
     LEFTHAT_BUTTON_OBJECT = "lefthat_button_object"
     RIGHTHAT_BUTTON_OBJECT = "righthat_button_object"
+
     LEFTBUTTON_MOUSE_OBJECT = "leftbutton_mouse_object"
     MIDDLEBUTTON_MOUSE_OBJECT = "middlebutton_mouse_object"
     RIGHTBUTTON_MOUSE_OBJECT = "rightbutton_mouse_object"
     MOUSE_SCROLL_OBJECT = "mouse_scroll_object"
     MOUSE_POSITION_OBJECT = "mouse_position_object"
+
     APPTERMINATING_EVENT_OBJECT = "appterminating_event_object"
     APPLOWMEMORY_EVENT_OBJECT = "applowmemory_event_object"
     APPWILLENTERBACKGROUND_EVENT_OBJECT = "appwillenterbackground_event_object"
@@ -310,15 +313,12 @@ class Constants:
     KEYMAPCHANGED_EVENT_OBJECT = "keymapchanged_event_object"
     LOCALECHANGED_EVENT_OBJECT = "localechanged_event_object"
     MULTIGESTURE_EVENT_OBJECT = "multigesture_event_object"
-    NOEVENT_EVENT_OBJECT = "noevent_event_object"
     QUIT_EVENT_OBJECT = "quit_event_object"
     RENDERTARGETSRESET_EVENT_OBJECT = "rendertargetsreset_event_object"
     RENDERDEVICERESET_EVENT_OBJECT = "renderdevicereset_event_object"
     SYSWMEVENT_EVENT_OBJECT = "syswmevent_event_object"
     VIDEORESIZE_EVENT_OBJECT = "videoresize_event_object"
     VIDEOEXPOSE_EVENT_OBJECT = "videoexpose_event_object"
-    MIDIIN_EVENT_OBJECT = "midiin_event_object"
-    MIDIOUT_EVENT_OBJECT = "midiout_event_object"
     WINDOWSHOWN_EVENT_OBJECT = "windowshown_event_object"
     WINDOWHIDDEN_EVENT_OBJECT = "windowhidden_event_object"
     WINDOWEXPOSED_EVENT_OBJECT = "windowexposed_event_object"
@@ -555,15 +555,12 @@ class Constants:
         KEYMAPCHANGED_EVENT_OBJECT,
         LOCALECHANGED_EVENT_OBJECT,
         MULTIGESTURE_EVENT_OBJECT,
-        NOEVENT_EVENT_OBJECT,
         QUIT_EVENT_OBJECT,
         RENDERTARGETSRESET_EVENT_OBJECT,
         RENDERDEVICERESET_EVENT_OBJECT,
         SYSWMEVENT_EVENT_OBJECT,
         VIDEORESIZE_EVENT_OBJECT,
         VIDEOEXPOSE_EVENT_OBJECT,
-        MIDIIN_EVENT_OBJECT,
-        MIDIOUT_EVENT_OBJECT,
         WINDOWSHOWN_EVENT_OBJECT,
         WINDOWHIDDEN_EVENT_OBJECT,
         WINDOWEXPOSED_EVENT_OBJECT,
