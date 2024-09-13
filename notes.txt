@@ -31,6 +31,7 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
+Display wont do full screen properly.
 
 TO DO LIST
 ==========
@@ -53,6 +54,4 @@ Update render pipeline
 
 IMPROVEMENTS
 ============
-Work out slow operation in: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py
 Introduce a 'get execution time' function that returns the time delta for the function and its result, and optional as 1/ttime flag :)
-PMMA is really slow on: H:\Documents\GitHub\Graphical-Python-Effects\src\particles.py - not just in updating points. On subject, only update points/color when integer value changed.
