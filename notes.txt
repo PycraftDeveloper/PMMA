@@ -9,6 +9,8 @@ Add typehint for returned classes at least where unclear (for intellicode) - eg:
 
 When adjusting the number of segments in circular shapes, or shapes with varying numbers of points, make sure to also update color data too!
 
+2 fps particles demo w/ circs instead of pix - temporary benchmark
+
 Module Initialization Order
 ---------------------------
 
@@ -31,7 +33,7 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
-Display wont do full screen properly.
+Display wont do full screen properly. (Try display recreation from the top instead)
 
 TO DO LIST
 ==========
