@@ -9,7 +9,7 @@ Add typehint for returned classes at least where unclear (for intellicode) - eg:
 
 When adjusting the number of segments in circular shapes, or shapes with varying numbers of points, make sure to also update color data too!
 
-2 fps particles demo w/ circs instead of pix - temporary benchmark
+2 fps particles demo w/ circs instead of pix - temporary benchmark DO NOT COMMIT
 
 Module Initialization Order
 ---------------------------
