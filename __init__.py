@@ -110,6 +110,7 @@ def init(
     _Registry.python_acceleration_enabled = optimize_python_extensions
     _Registry.cython_acceleration_enabled = compile_c_extensions
     _Registry.power_saving_mode = is_battery_saver_enabled()
+    _Registry.power_status_checked_time = _time.perf_counter()
 
     _general_utils.update_language()
 

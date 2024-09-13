@@ -191,7 +191,11 @@ generating 3D arrays.")
         _sys.exit(0)
 
 def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
-    _Registry.power_saving_mode = is_battery_saver_enabled()
+    if _Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].on_window_size_changed()
+
+    if _time.perf_counter() - _Registry.power_status_checked_time > 10:
+        _Registry.power_saving_mode = is_battery_saver_enabled()
 
     if _Registry.power_saving_mode:
         if allow_anti_aliasing_adjustments_for_low_power_mode:

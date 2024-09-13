@@ -69,6 +69,11 @@ class DisplayIntermediary:
 
         self._object_updated = False
 
+        self._two_dimension_texture = _Texture()
+        self._two_dimension_frame_buffer = _FrameBufferObject()
+        self._three_dimension_texture = _Texture()
+        self._three_dimension_frame_buffer = _FrameBufferObject()
+
     def update_class(self):
         if self._object_updated is False:
             self._object_updated = True
@@ -218,19 +223,10 @@ mode is Pygame.")
         else:
             samples = _Registry.anti_aliasing_level
 
-        self._current_display_size = _pygame.display.get_window_size()
-
-        self._two_dimension_texture = _Texture()
         self._two_dimension_texture.create(size, components=Constants.RGB, samples=samples)
-        self._two_dimension_frame_buffer = _FrameBufferObject()
         self._two_dimension_frame_buffer.create(color_attachments=[self._two_dimension_texture])
-        self._three_dimension_texture = _Texture()
         self._three_dimension_texture.create(size, components=Constants.RGB, samples=samples)
-        self._three_dimension_frame_buffer = _FrameBufferObject()
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
-
-        self._refresh_optimization_override = True
-        self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if self._object_updated is False:
@@ -347,7 +343,6 @@ actively working to address this operating system limitation.")
                 flags,
                 vsync=self._display_attribute_vsync)
 
-            size = _pygame.display.get_window_size()
             _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
 
             if self._display_attribute_transparent_display:
@@ -371,11 +366,8 @@ actively working to address this operating system limitation.")
             _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
         except Exception as error:
             self._logger.log_error("Failed to create OpenGL context.")
-            self._logger.log_development("Failed to create OpenGL context. The most \
-likely cause for this error is that there is no available display with OpenGL \
-support initiated; make sure to also call the 'create' function in the 'Display' \
-class to create it. Should that also not work, make sure that you have the \
-appropriate graphics drivers installed and make sure that your GPU supports OpenGL. \
+            self._logger.log_development("Failed to create OpenGL context. Make sure that \
+you have the appropriate graphics drivers installed and make sure that your GPU supports OpenGL. \
 If this fails, try to run another OpenGL application first to attempt to isolate the problem.")
 
             raise error
@@ -384,7 +376,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._texture_aggregation_program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "texture_aggregation"))
         self._texture_aggregation_program.create()
 
-        self._setup_layers(size)
+        self.on_window_size_changed()
 
         self._display_quad = _geometry.quad_fs()
 
@@ -406,19 +398,20 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             _pygame.display.set_icon(icon_img)
             del icon_img
 
-    def display_resize(self):
+    def on_window_size_changed(self):
         if self._object_updated is False:
             self.update_class()
-        size = _pygame.display.get_window_size()
 
-        self._two_dimension_texture.quit()
-        self._two_dimension_frame_buffer.quit()
-        self._three_dimension_texture.quit()
-        self._three_dimension_frame_buffer.quit()
+        size = _pygame.display.get_window_size()
 
         self._setup_layers(size)
 
         _Registry.context.viewport = (0, 0, *size)
+
+        self._current_display_size = size
+
+        self._refresh_optimization_override = True
+        self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
 
     def hex_color_to_windows_raw_color(self, value):
         if self._object_updated is False:
@@ -430,7 +423,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def toggle_full_screen(self):
         if self._object_updated is False:
             self.update_class()
-        self.resized_event.set_value(True)
 
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
@@ -475,9 +467,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
         _Registry.context = _moderngl.create_context()
+        _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
         _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
-
-        self.display_resize()
 
         for opengl_object in list(_Registry.opengl_objects.keys()):
             _Registry.opengl_objects[opengl_object].recreate()
@@ -595,9 +586,6 @@ you refresh the display to ensure optimal performance and support!")
                 _Registry.context.disable(_moderngl.BLEND)
 
                 _pygame.display.flip()
-
-            if self.resized_event.get_value():
-                self.display_resize()
 
             frame_rate = self.get_fps()
             if _Registry.application_average_frame_rate["Samples"] == 0:

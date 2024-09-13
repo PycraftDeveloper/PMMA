@@ -29,6 +29,9 @@ class Texture:
         self._logger = _InternalLogger()
 
     def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
+        if self._texture is not None:
+            self._texture.release()
+
         self._size = size
         self._components = len(components)
         self._data = data

@@ -837,6 +837,7 @@ then enable it to see if it fixes or improves a desired feature.")
                         if handle_full_screen_events:
                             if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
                                 _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].toggle_full_screen()
+                                self.windowresized_event.set_value(True)
 
                     elif event.key == _pygame.K_F12:
                         self.function12_key.set_pressed(True)
