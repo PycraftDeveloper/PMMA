@@ -205,6 +205,14 @@ class Line:
     def render(self):
         start = _time.perf_counter()
 
+        self._surface.update_attempted_render_calls(1)
+
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -392,6 +400,14 @@ class RadialPolygon:
     def render(self):
         start = _time.perf_counter()
 
+        self._surface.update_attempted_render_calls(1)
+
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -570,6 +586,14 @@ class Rectangle:
 
     def render(self):
         start = _time.perf_counter()
+
+        self._surface.update_attempted_render_calls(1)
+
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
@@ -786,6 +810,14 @@ class Arc:
     def render(self):
         start = _time.perf_counter()
 
+        self._surface.update_attempted_render_calls(1)
+
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -973,6 +1005,14 @@ class Ellipse:
 
     def render(self):
         start = _time.perf_counter()
+
+        self._surface.update_attempted_render_calls(1)
+
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
@@ -1165,6 +1205,14 @@ class Polygon:
     def render(self):
         start = _time.perf_counter()
 
+        self._surface.update_attempted_render_calls(1)
+
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
+
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
@@ -1287,6 +1335,10 @@ class Pixel:
             self._color_changed = False  # Reset the flag
 
     def render(self, point_size=None, dynamic_rendering=True):
+        start = _time.perf_counter()
+
+        self._surface.update_attempted_render_calls(1)
+
         if dynamic_rendering:
             if self._position is None:
                 self._logger.log_development("You didn't set a position for this shape. \
@@ -1311,7 +1363,11 @@ screen, therefore as a performance improving feature we wont bother rendering it
 once to improve performance, but will continue to have an effect.")
                 return None
 
-        start = _time.perf_counter()
+        if self._color_changed or self._vertices_changed:
+            self._surface.set_refresh_optimization_override(True)
+
+        if self._surface.get_clear_called_but_skipped():
+            return None
 
         self._surface.get_2D_hardware_accelerated_surface()
 

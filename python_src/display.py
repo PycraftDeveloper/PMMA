@@ -78,6 +78,88 @@ mode is Pygame.")
 
         self.window_full_screen_state_changed_event = _WindowFullScreenStatusChanged_EVENT()
 
+        self._clear_called_but_skipped = False
+        self._render_calls = 0
+        self._attempted_render_calls = 0 # interface my interface!
+        self._refresh_optimization_override = False
+        self._previous_frame_color = None
+
+    def get_clear_called_but_skipped(self): # internal use only
+        return self._clear_called_but_skipped
+
+    def set_clear_called_but_skipped(self, value): # internal use only
+        self._clear_called_but_skipped = value
+
+    def get_render_calls(self): # internal use only
+        return self._render_calls
+
+    def set_render_calls(self, value): # internal use only
+        self._render_calls = value
+
+    def update_render_calls(self, value): # internal use only
+        self._attempted_render_calls += value
+
+    def get_attempted_render_calls(self): # internal use only
+        return self._render_calls
+
+    def set_attempted_render_calls(self, value): # internal use only
+        self._render_calls = value
+
+    def update_attempted_render_calls(self, value): # internal use only
+        self._attempted_render_calls += value
+
+    def get_refresh_optimization_override(self): # internal use only
+        return self._refresh_optimization_override
+
+    def set_refresh_optimization_override(self, value): # internal use only
+        self._refresh_optimization_override = value
+
+    def clear(self, color=None, format=Constants.RGB):
+        if color is None or color == [] or color == ():
+            self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
+
+        elif type(color) == _ColorConverter:
+            raw_color = color.get_color(Constants.RGBA)
+            self._color_converter.set_color(raw_color, format=Constants.RGBA)
+        else:
+            self._color_converter.set_color(color, format=format)
+
+        if self._previous_frame_color is not None:
+            if self._color_converter.get_color(format=Constants.RGBA) == self._previous_frame_color.get_color(format=Constants.RGBA):
+                if self._refresh_optimization_override is False:
+                    if self._render_calls == self._attempted_render_calls:
+                        self._render_calls = self._attempted_render_calls
+                        self._attempted_render_calls = 0
+                        self._clear_called_but_skipped = True
+                        return
+
+        self._previous_frame_color = _ColorConverter()
+        self._previous_frame_color.set_color(self._color_converter.get_color(format=Constants.RGBA), format=Constants.RGBA)
+
+        self._clear_called_but_skipped = False
+        self._refresh_optimization_override = False
+        self._render_calls = self._attempted_render_calls
+        self._attempted_render_calls = 0
+
+        if self._display_attribute_transparent_display:
+            # Set transparency color key
+            hex_color = self._color_converter.get_color(format=Constants.HEX)
+            color_key = self.hex_color_to_windows_raw_color(hex_color)
+
+            _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+
+        self._color_key = _numpy.array([*self._color_converter.get_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
+
+        if _Registry.display_mode == Constants.PYGAME:
+            #self._two_dimension_frame_buffer.use()
+            self._two_dimension_frame_buffer.clear(self._color_converter)
+            #self._three_dimension_frame_buffer.use()
+            self._three_dimension_frame_buffer.clear(self._color_converter)
+            _Registry.context.screen.use()
+            _Registry.context.clear(*self._color_converter.get_color(format=Constants.SMALL_RGB))
+        else:
+            raise NotImplementedError
+
     def set_window_in_focus(self, value):
         self._window_in_focus = value
 
@@ -113,6 +195,8 @@ mode is Pygame.")
         self._three_dimension_texture.create(size, components=Constants.RGB, samples=samples)
         self._three_dimension_frame_buffer = _FrameBufferObject()
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
+
+        self._refresh_optimization_override = True
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if _Registry.display_mode == Constants.PYGAME:
@@ -368,35 +452,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         else:
             raise NotImplementedError
 
-    def clear(self, color=None, format=Constants.RGB):
-        if color is None or color == [] or color == ():
-            self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
-
-        elif type(color) == _ColorConverter:
-            raw_color = color.get_color(Constants.RGBA)
-            self._color_converter.set_color(raw_color, format=Constants.RGBA)
-        else:
-            self._color_converter.set_color(color, format=format)
-
-        if self._display_attribute_transparent_display:
-            # Set transparency color key
-            hex_color = self._color_converter.get_color(format=Constants.HEX)
-            color_key = self.hex_color_to_windows_raw_color(hex_color)
-
-            _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
-
-        self._color_key = _numpy.array([*self._color_converter.get_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
-
-        if _Registry.display_mode == Constants.PYGAME:
-            #self._two_dimension_frame_buffer.use()
-            self._two_dimension_frame_buffer.clear(self._color_converter)
-            #self._three_dimension_frame_buffer.use()
-            self._three_dimension_frame_buffer.clear(self._color_converter)
-            _Registry.context.screen.use()
-            _Registry.context.clear(*self._color_converter.get_color(format=Constants.SMALL_RGB))
-        else:
-            raise NotImplementedError
-
     def get_aspect_ratio(self):
         if _Registry.display_mode == Constants.PYGAME:
             size = _pygame.display.get_window_size()
@@ -446,35 +501,38 @@ you refresh the display to ensure optimal performance and support!")
         if refresh_rate < 5:
             refresh_rate = 5
 
-        _Registry.context.screen.use()
-
         _Registry.refresh_rate = refresh_rate
         if _Registry.display_mode == Constants.PYGAME:
-            if self._two_dimension_texture.get_samples() == 0:
-                self._texture_aggregation_program.get_program()["texture2d"].value = 0
-                self._two_dimension_texture.use(location=0)
-            else:
-                self._texture_aggregation_program.get_program()["texture2d_ms"].value = 0
-                self._two_dimension_texture.use(location=0)
-            self._texture_aggregation_program.get_program()["texture2d_samples"].value = self._two_dimension_texture.get_samples()
-            self._texture_aggregation_program.get_program()["texture2d_resolution"].value = self._two_dimension_texture.get_size()
+            if self._clear_called_but_skipped is False:
+                _Registry.context.screen.use()
+                self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
 
-            if self._three_dimension_texture.get_samples() == 0:
-                self._texture_aggregation_program.get_program()["texture3d"].value = 1
-                self._three_dimension_texture.use(location=1)
-            else:
-                self._texture_aggregation_program.get_program()["texture3d_ms"].value = 1
-                self._three_dimension_texture.use(location=1)
-            self._texture_aggregation_program.get_program()["texture3d_samples"].value = self._three_dimension_texture.get_samples()
-            self._texture_aggregation_program.get_program()["texture3d_resolution"].value = self._three_dimension_texture.get_size()
+                if self._two_dimension_texture.get_samples() == 0:
+                    self._texture_aggregation_program.set_shader_variable("texture2d", 0)
+                    self._two_dimension_texture.use(location=0)
+                else:
+                    self._texture_aggregation_program.set_shader_variable("texture2d_ms", 0)
+                    self._two_dimension_texture.use(location=0)
+                self._texture_aggregation_program.set_shader_variable("texture2d_samples", self._two_dimension_texture.get_samples())
+                self._texture_aggregation_program.set_shader_variable("texture2d_resolution", self._two_dimension_texture.get_size())
 
-            self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
+                if self._three_dimension_texture.get_samples() == 0:
+                    self._texture_aggregation_program.set_shader_variable("texture3d", 1)
+                    self._three_dimension_texture.use(location=1)
+                else:
+                    self._texture_aggregation_program.set_shader_variable("texture3d_ms", 1)
+                    self._three_dimension_texture.use(location=1)
+                self._texture_aggregation_program.set_shader_variable("texture3d_samples", self._three_dimension_texture.get_samples())
+                self._texture_aggregation_program.set_shader_variable("texture3d_resolution", self._three_dimension_texture.get_size())
 
-            _Registry.context.enable(_moderngl.BLEND)
-            self._display_quad.render(self._texture_aggregation_program.get_program())
-            _Registry.context.disable(_moderngl.BLEND)
+                #self._texture_aggregation_program.set_shader_variable("color_key", self._color_key)
+                self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
 
-            _pygame.display.flip()
+                _Registry.context.enable(_moderngl.BLEND)
+                self._display_quad.render(self._texture_aggregation_program.get_program())
+                _Registry.context.disable(_moderngl.BLEND)
+
+                _pygame.display.flip()
 
             if self.resized_event.get_value():
                 self.display_resize()
