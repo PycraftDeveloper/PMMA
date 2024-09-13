@@ -34,7 +34,7 @@ Transparent display not working with opengl, potentially signs of a bigger probl
 
 TO DO LIST
 ==========
-Work on MIDI events when able to do so.
+Work on MIDI events when able to do so. Update: Not possible with Pygame, will need to do more RnD first.
 
 Create aggregated events like Pointer (similar to controller already added).
 

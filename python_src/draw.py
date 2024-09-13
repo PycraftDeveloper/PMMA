@@ -1267,6 +1267,7 @@ class Pixel:
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
         self._program.create()
         self._vbo = _VertexBufferObject()
+        self._vbo.create(_numpy.array([0, 0], dtype='f4'))
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
 
@@ -1312,32 +1313,8 @@ class Pixel:
     def get_surface(self):
         return self._surface
 
-    def _update_buffers(self):
-        # This method is used to update the VBO with new vertex data if vertices have changed
-        if self._vertices_changed:
-            _Registry.number_of_render_updates += 1
-
-            position_coords = self.get_position(format=Constants.OPENGL_COORDINATES)
-
-            # Store the pixel position in the VBO
-            position_data = _numpy.array(position_coords, dtype='f4')
-
-            if self._vbo.get_created() is False:
-                self._vbo.create(position_data)
-            else:
-                self._vbo.update(position_data)
-
-            self._vertices_changed = False
-
-        if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
-            self._color_changed = False  # Reset the flag
-
     def render(self, point_size=None, dynamic_rendering=True):
         start = _time.perf_counter()
-
-        self._surface.update_attempted_render_calls(1)
 
         if dynamic_rendering:
             if self._position is None:
@@ -1363,6 +1340,8 @@ screen, therefore as a performance improving feature we wont bother rendering it
 once to improve performance, but will continue to have an effect.")
                 return None
 
+        self._surface.update_attempted_render_calls(1)
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -1371,7 +1350,15 @@ once to improve performance, but will continue to have an effect.")
 
         self._surface.get_2D_hardware_accelerated_surface()
 
-        self._update_buffers()
+        if self._vertices_changed:
+            offset = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)
+            self._program.set_shader_variable('offset', offset)
+            self._vertices_changed = False
+
+        if self._color_changed:
+            color = self._color.get_color(format=Constants.SMALL_RGBA)
+            self._program.set_shader_variable('color', color)
+            self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])

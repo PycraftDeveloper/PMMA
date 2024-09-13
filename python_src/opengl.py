@@ -581,6 +581,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
         if self._vao is not None:
+            self._program.use_program()
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
                 if self._program.get_using_gl_point_size_syntax():
                     _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
