@@ -808,7 +808,13 @@ class Shader:
     def use_program(self):
         for key in self._uniform_values:
             if self._uniform_values[key] is not None:
-                self._program[key].value = self._uniform_values[key]
+                data = self._uniform_values[key]
+                if isinstance(data, (float, int, tuple, list)):
+                    self._program[key].value = data
+                elif isinstance(data, (bytes, bytearray, _numpy.ndarray)):
+                    self._program[key].write(data)
+                else:
+                    raise TypeError("Invalid data type for uniform variable")
         return self._program
 
     def get_vertex_shader(self):

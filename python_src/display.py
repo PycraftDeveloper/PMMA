@@ -525,11 +525,10 @@ you refresh the display to ensure optimal performance and support!")
                 self._texture_aggregation_program.set_shader_variable("texture3d_samples", self._three_dimension_texture.get_samples())
                 self._texture_aggregation_program.set_shader_variable("texture3d_resolution", self._three_dimension_texture.get_size())
 
-                #self._texture_aggregation_program.set_shader_variable("color_key", self._color_key)
-                self._texture_aggregation_program.get_program()["color_key"].write(self._color_key)
+                self._texture_aggregation_program.set_shader_variable("color_key", self._color_key)
 
                 _Registry.context.enable(_moderngl.BLEND)
-                self._display_quad.render(self._texture_aggregation_program.get_program())
+                self._display_quad.render(self._texture_aggregation_program.use_program())
                 _Registry.context.disable(_moderngl.BLEND)
 
                 _pygame.display.flip()
