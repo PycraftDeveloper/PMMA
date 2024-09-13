@@ -83,6 +83,7 @@ mode is Pygame.")
         self._attempted_render_calls = 0 # interface my interface!
         self._refresh_optimization_override = False
         self._previous_frame_color = None
+        self._current_display_size = [None, None]
 
     def get_clear_called_but_skipped(self): # internal use only
         return self._clear_called_but_skipped
@@ -186,6 +187,8 @@ mode is Pygame.")
             samples = 0
         else:
             samples = _Registry.anti_aliasing_level
+
+        self._current_display_size = _pygame.display.get_window_size()
 
         self._two_dimension_texture = _Texture()
         self._two_dimension_texture.create(size, components=Constants.RGB, samples=samples)
@@ -433,7 +436,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
     def get_size(self):
         if _Registry.display_mode == Constants.PYGAME:
-            return _pygame.display.get_window_size()
+            return self._current_display_size
         else:
             raise NotImplementedError
 
@@ -442,20 +445,19 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
     def get_height(self):
         if _Registry.display_mode == Constants.PYGAME:
-            return _pygame.display.get_window_size()[1]
+            return self._current_display_size[1]
         else:
             raise NotImplementedError
 
     def get_width(self):
         if _Registry.display_mode == Constants.PYGAME:
-            return _pygame.display.get_window_size()[0]
+            return self._current_display_size[0]
         else:
             raise NotImplementedError
 
     def get_aspect_ratio(self):
         if _Registry.display_mode == Constants.PYGAME:
-            size = _pygame.display.get_window_size()
-            return size[0] / size[1]
+            return self._current_display_size[0] / self._current_display_size[1]
         else:
             raise NotImplementedError
 
