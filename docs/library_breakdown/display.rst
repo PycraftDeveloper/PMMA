@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: Display.clear() -> None
+
+   Not Yet Written
+
 .. py:method:: Display.set_window_in_focus() -> None
 
    Not Yet Written
@@ -22,10 +26,6 @@ Methods
    Not Yet Written
 
 .. py:method:: Display.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: Display.destroy() -> None
 
    Not Yet Written
 
@@ -49,14 +49,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Display.display_resize() -> None
-
-   Not Yet Written
-
-.. py:method:: Display.hex_color_to_windows_raw_color() -> None
-
-   Not Yet Written
-
 .. py:method:: Display.toggle_full_screen() -> None
 
    Not Yet Written
@@ -74,10 +66,6 @@ Methods
    Not Yet Written
 
 .. py:method:: Display.get_width() -> None
-
-   Not Yet Written
-
-.. py:method:: Display.clear() -> None
 
    Not Yet Written
 

@@ -7941,33 +7941,6 @@ Methods
 
    Not Yet Written
 
-No Event (``pmma.NoEvent_EVENT``)
-=================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.NoEvent_EVENT() -> pmma.NoEvent_EVENT
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: NoEvent_EVENT.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: NoEvent_EVENT.set_value() -> None
-
-   Not Yet Written
-
-.. py:method:: NoEvent_EVENT.get_value() -> None
-
-   Not Yet Written
-
 Quit Event (``pmma.Quit_EVENT``)
 ================================
 
@@ -8130,60 +8103,6 @@ Methods
 
    Not Yet Written
 
-Midi In Event (``pmma.MidiIn_EVENT``)
-=====================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.MidiIn_EVENT() -> pmma.MidiIn_EVENT
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: MidiIn_EVENT.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: MidiIn_EVENT.set_value() -> None
-
-   Not Yet Written
-
-.. py:method:: MidiIn_EVENT.get_value() -> None
-
-   Not Yet Written
-
-Midi Out Event (``pmma.MidiOut_EVENT``)
-=======================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.MidiOut_EVENT() -> pmma.MidiOut_EVENT
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: MidiOut_EVENT.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: MidiOut_EVENT.set_value() -> None
-
-   Not Yet Written
-
-.. py:method:: MidiOut_EVENT.get_value() -> None
-
-   Not Yet Written
-
 Window Shown Event (``pmma.WindowShown_EVENT``)
 ===============================================
 
@@ -8316,33 +8235,6 @@ Methods
    Not Yet Written
 
 .. py:method:: WindowResized_EVENT.get_value() -> None
-
-   Not Yet Written
-
-Window Size Changed Event (``pmma.WindowSizeChanged_EVENT``)
-============================================================
-
-Not Yet Written
-
-Create
-------
-
-.. py:method:: pmma.WindowSizeChanged_EVENT() -> pmma.WindowSizeChanged_EVENT
-
-   Not Yet Written
-
-Methods
--------
-
-.. py:method:: WindowSizeChanged_EVENT.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: WindowSizeChanged_EVENT.set_value() -> None
-
-   Not Yet Written
-
-.. py:method:: WindowSizeChanged_EVENT.get_value() -> None
 
    Not Yet Written
 

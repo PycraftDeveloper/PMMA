@@ -17,6 +17,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: AngleConverter.get_angle_set() -> None
+
+   Not Yet Written
+
 .. py:method:: AngleConverter.get_angle() -> None
 
    Not Yet Written
@@ -44,6 +48,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: ProportionConverter.get_proportion_set() -> None
+
+   Not Yet Written
+
 .. py:method:: ProportionConverter.get_value() -> None
 
    Not Yet Written
@@ -68,6 +76,10 @@ Methods
 -------
 
 .. py:method:: ColorConverter.set_color() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.get_color_set() -> None
 
    Not Yet Written
 
@@ -110,6 +122,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: PointConverter.get_point_set() -> None
+
+   Not Yet Written
+
 .. py:method:: PointConverter.get_point() -> None
 
    Not Yet Written
@@ -134,6 +150,10 @@ Methods
 -------
 
 .. py:method:: CoordinateConverter.set_coordinates() -> None
+
+   Not Yet Written
+
+.. py:method:: CoordinateConverter.get_coordinate_set() -> None
 
    Not Yet Written
 
