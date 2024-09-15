@@ -41,8 +41,8 @@ class Line:
                 _pygame.init()
 
         self._color = _ColorConverter()
-        self._start = None
-        self._end = None
+        self._start = _CoordinateConverter()
+        self._end = _CoordinateConverter()
         self._width = 1
         if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
@@ -56,6 +56,7 @@ class Line:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+        self._rotation.set_angle(0)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -73,7 +74,6 @@ class Line:
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
-            self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -85,7 +85,6 @@ class Line:
     def set_start(self, start, start_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(start) != _CoordinateConverter:
-            self._start = _CoordinateConverter()
             self._start.set_coordinates(start, format=start_format)
         else:
             self._start = start
@@ -97,7 +96,6 @@ class Line:
     def set_end(self, end, end_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(end) != _CoordinateConverter:
-            self._end = _CoordinateConverter()
             self._end.set_coordinates(end, format=end_format)
         else:
             self._end = end
@@ -458,9 +456,10 @@ class Rectangle:
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
-        self._position = None
-        self._size = None
-        self._rotation = None
+        self._position = _CoordinateConverter()
+        self._size = _CoordinateConverter()
+        self._rotation = _AngleConverter()
+        self._rotation.set_angle(0)
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -468,7 +467,6 @@ class Rectangle:
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
         self._width = None
 
     def __del__(self, do_garbage_collection=False):
@@ -495,7 +493,6 @@ class Rectangle:
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
-            self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -507,7 +504,6 @@ class Rectangle:
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
-            self._position = _CoordinateConverter()
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -519,7 +515,6 @@ class Rectangle:
     def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(size) != _CoordinateConverter():
-            self._size = _CoordinateConverter()
             self._size.set_coordinates(size, format=size_format)
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
@@ -645,11 +640,10 @@ class Arc:
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
-        self._center = None
-        self._radius = None
-        self._start_angle = None
-        self._stop_angle = None
-        self._rotation = None
+        self._radius = _PointConverter()
+        self._center = _CoordinateConverter()
+        self._start_angle = _AngleConverter()
+        self._stop_angle = _AngleConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -658,6 +652,7 @@ class Arc:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+        self._rotation.set_angle(0)
         self._width = None
 
     def __del__(self, do_garbage_collection=False):
@@ -686,7 +681,6 @@ class Arc:
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
-            self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -698,7 +692,6 @@ class Arc:
     def set_start_angle(self, start_angle, angle_format=Constants.RADIANS):
         self._vertices_changed = True
         if type(start_angle) != _AngleConverter:
-            self._start_angle = _AngleConverter()
             self._start_angle.set_angle(start_angle, format=angle_format)
 
     def get_start_angle(self, format=Constants.RADIANS):
@@ -708,7 +701,6 @@ class Arc:
     def set_stop_angle(self, stop_angle, angle_format=Constants.RADIANS):
         self._vertices_changed = True
         if type(stop_angle) != _AngleConverter:
-            self._stop_angle = _AngleConverter()
             self._stop_angle.set_angle(stop_angle, format=angle_format)
 
     def get_stop_angle(self, format=Constants.RADIANS):
@@ -718,7 +710,6 @@ class Arc:
     def set_center(self, centre, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
-            self._center = _CoordinateConverter()
             self._center.set_coordinates(centre, format=format)
         else:
             self._center = centre
@@ -730,7 +721,6 @@ class Arc:
     def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(value) != _PointConverter():
-            self._radius = _PointConverter()
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
@@ -864,9 +854,9 @@ class Ellipse:
             self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
-        self._position = None
-        self._size = None
-        self._rotation = None
+        self._position = _CoordinateConverter()
+        self._size = _CoordinateConverter()
+        self._rotation = _AngleConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -875,6 +865,7 @@ class Ellipse:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+        self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
 
@@ -902,7 +893,6 @@ class Ellipse:
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
-            self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -914,7 +904,6 @@ class Ellipse:
     def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
-            self._position = _CoordinateConverter()
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -926,7 +915,6 @@ class Ellipse:
     def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(size) != _CoordinateConverter():
-            self._size = _CoordinateConverter()
             self._size.set_coordinates(size, format=size_format)
 
     def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
@@ -1067,7 +1055,6 @@ class Polygon:
         self._points = []
         self._closed = True
         self._curved = False
-        self._rotation = None
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -1076,6 +1063,7 @@ class Polygon:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
+        self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
 
@@ -1274,7 +1262,6 @@ class Pixel:
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
         self._created_shape = False
 
     def _create_shape(self):
