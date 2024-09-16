@@ -263,11 +263,10 @@ class LoggerIntermediary:
                     _path_builder(self._log_directory, original_log_folder),
                     ignore_errors=True)
 
-    def _update_project_log_folder(self):
-        if self._project_log_folder_has_changed():
-            self.clear_external_logs()
-
     def _file_logger_thread(self): # self._file_log_buffer.append((formatted_message, log_level, internal))
+        self.clear_internal_logs()
+        self.clear_external_logs()
+
         while self._logging_thread_active:
             _waiting.wait(self._file_logger_thread_wait_for_load)
             if not len(self._file_log_buffer) > 0:
