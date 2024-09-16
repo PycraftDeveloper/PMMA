@@ -1,6 +1,7 @@
 import json as _json
 import gc as _gc
 import threading as _threading
+from typing import List
 
 import wmi as _wmi
 import pyadl as _pyadl
@@ -40,7 +41,7 @@ class GPUsIntermediary:
         adl_index = 0
         for raw_gpu in raw_GPUs:
             adl_bus = raw_gpu.__dict__["busNumber"]
-            adl_uuid = raw_gpu.__dict__["uuid"]
+            adl_uuid: bytes = raw_gpu.__dict__["uuid"]
             adl_uuid = adl_uuid.decode("utf-8")
             adl_uuid = self.uuid_cleaner(adl_uuid)
             json_identifier = _json.dumps({"bus": adl_bus, "uuid": adl_uuid})
@@ -52,11 +53,11 @@ class GPUsIntermediary:
             self._executor = _Executor()
             self._executor.run([
                 f"{nvidia_smi}",
-                "--query-gpu=index,pci.bus",
+                "--query-gpu=index,pci.bus,gpu_name",
                 "--format=csv,noheader"])
 
             for line in self._executor.get_result().splitlines():
-                index, hex_bus = line.split(",")
+                index, hex_bus, name = line.split(",")
                 smi_index = int(index.strip())
                 smi_bus = int(hex_bus.strip(), base=16)
                 for key in self._unique_gpus:
@@ -77,12 +78,12 @@ class GPUsIntermediary:
             wmi_index += 1
 
 
-        gpu_instances = []
-        self._gpu_instances = []
+        gpu_instances: List[_GPU] = []
+        self._gpu_instances: List[_GPU] = []
         for key in self._unique_gpus:
             gpu_instances.append(_GPU(self._unique_gpus[key]))
 
-        threads = []
+        threads: List[_threading.Thread] = []
         for gpu in gpu_instances:
             thread = _threading.Thread(target=gpu.update, kwargs={"everything": True, "wait_for_completion": True})
             thread.name = "GPUs:Get_Data_Thread"
@@ -91,6 +92,16 @@ class GPUsIntermediary:
 
         for thread in threads:
             thread.join()
+
+        all_gpus_are_unique = True
+        gpu_names = []
+        for gpu in gpu_instances:
+            if all_gpus_are_unique:
+                if gpu.get_name() in gpu_names:
+                    all_gpus_are_unique = False
+                    break
+
+        self._all_gpus_are_unique = all_gpus_are_unique
 
         for gpu in gpu_instances:
             self._gpu_instances.append(gpu)
@@ -107,3 +118,6 @@ mechanics may run slower than expected.")
 
     def get_gpu(self, gpu_index):
         return self._gpu_instances[gpu_index]
+
+    def all_gpus_are_unique(self):
+        return self._all_gpus_are_unique

@@ -35,6 +35,9 @@ class GPUs:
     def get_gpu(self, gpu_index):
         return _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].get_gpu(gpu_index)
 
+    def all_gpus_are_unique(self):
+        return _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].all_gpus_are_unique()
+
 class GPU:
     def __init__(self, module_identification_indices):
         _initialize(self)
