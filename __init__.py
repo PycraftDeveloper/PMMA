@@ -36,6 +36,7 @@ from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
 from pmma.python_src.memory_manager import *
 from pmma.python_src.advthreading import *
+from pmma.python_src.transitions import *
 from pmma.python_src.controller import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
@@ -71,6 +72,7 @@ from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerI
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
 
 def init(
             optimize_python_extensions=True,
@@ -120,6 +122,8 @@ def init(
         target_size=memory_management_max_size)
 
     logger = _InternalLogger()
+
+    _TransitionManager()
 
     logger.log_information("Thank you for using PMMA! Please note that PMMA \
 is still in an early stage of its development, bear with us as we \

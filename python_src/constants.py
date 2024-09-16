@@ -2,6 +2,20 @@ import math as _math
 import os as _os
 
 class Constants:
+    LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
+    SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)
+    TRANSITION_MOVEMENT_TYPES = [
+        LINEAR_TRANSITION,
+        SMOOTH_TRANSITION
+    ]
+
+    VALUE_TRANSITION = "value transition"
+    COORDINATE_TRANSITION = "coordinate transition"
+    TRANSITION_TYPES = [
+        VALUE_TRANSITION,
+        COORDINATE_TRANSITION
+    ]
+
     DISPLAY_FRAME_BUFFER = "display frame buffer"
     TWO_DIMENSION_FRAME_BUFFER = "2d frame buffer"
     THREE_DIMENSION_FRAME_BUFFER = "3d frame buffer"
@@ -126,6 +140,8 @@ class Constants:
     GPUS_INTERMEDIARY_OBJECT = "GPUs intermediary"
     CONTROLLER_INTERMEDIARY_OBJECT = "controller intermediary"
     SHADER_REFERENCE_MANAGER_OBJECT = "shader reference manager"
+    TRANSITION_OBJECT =  "transition"
+    TRANSITION_MANAGER_OBJECT = "transition manager"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
