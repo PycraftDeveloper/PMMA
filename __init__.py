@@ -55,6 +55,7 @@ from pmma.python_src.events import *
 from pmma.python_src.error import *
 from pmma.python_src.noise import *
 from pmma.python_src.image import *
+from pmma.python_src.audio import *
 from pmma.python_src.draw import *
 from pmma.python_src.file import *
 from pmma.python_src.text import *

@@ -4,6 +4,7 @@ getostheme
 moderngl
 num2words
 numba
+pedalboard
 Pillow
 pprofile
 psutil
@@ -12,6 +13,8 @@ pygame
 pyrr
 requests
 send2trash
+sounddevice
+soundfile
 waiting
 watchdog
 wmi
