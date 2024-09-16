@@ -68,5 +68,6 @@ class TransitionManager:
                             result = difference * (current_run_duration / transition_duration) + np_start
                             if current_run_duration >= transition_duration:
                                 transition._animation_running = False
-                                transition._animation_current_position = np_end.tolist()
-                            transition._animation_current_position = result.tolist()
+                                transition._animation_current_position = transition._animation_end
+                            else:
+                                transition._animation_current_position = result.tolist()

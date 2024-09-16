@@ -39,7 +39,7 @@ for file in files:
         if line.strip() == "":
             nothing_count += 1
 
-print(f"PMMA is: {line_count} lines long|")
+print(f"PMMA is: {line_count} lines long")
 print(f"PMMA has: {chars:_} characters!")
 print(f"PMMA has: {variable_count} variables! {round((variable_count/line_count)*100, 2)} %")
 print(f"PMMA has: {comparison_count} comparisons! {round((comparison_count/line_count)*100, 2)} %")

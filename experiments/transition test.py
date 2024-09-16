@@ -4,7 +4,7 @@ import pmma
 pmma.init()
 
 transition = pmma.Transition()
-transition.create(None, pmma.Constants.COORDINATE_TRANSITION, [0, 0], [10, 10], 10)
+transition.create(None, pmma.Constants.COORDINATE_TRANSITION, [0, 0], [10, 10], 3)
 transition.start()
 while True:
     time.sleep(1)
