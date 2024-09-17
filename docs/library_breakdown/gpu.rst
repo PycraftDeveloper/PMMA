@@ -25,6 +25,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: GPUs.all_gpus_are_unique() -> None
+
+   Not Yet Written
+
 GPU (``pmma.GPU``)
 ==================
 

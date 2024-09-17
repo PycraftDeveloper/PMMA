@@ -33,6 +33,7 @@ The full breakdown of what everything does!
     sampler.rst
     advtkinter.rst
     formatters.rst
+    transitions.rst
     controller.rst
     video.rst
     draw.rst
