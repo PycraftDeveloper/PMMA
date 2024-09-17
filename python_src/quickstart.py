@@ -9,11 +9,33 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class QuickStart:
-    def __init__(self, width=None, height=None, fullscreen=True, resizable=False, caption="PMMA Display", vsync=True, alpha=False):
+    def __init__(self,
+            width=None,
+            height=None,
+            full_screen=True,
+            resizable=False,
+            no_frame=False,
+            caption=None,
+            vsync=True,
+            icon=None,
+            transparent_display=False,
+            centered=True):
+
         _initialize(self)
 
         self._display = _Display()
-        self._display.create(width=width, height=height, fullscreen=fullscreen, resizable=resizable, caption=caption, vsync=vsync, alpha=alpha)
+        self._display.create(
+            width=width,
+            height=height,
+            full_screen=full_screen,
+            resizable=resizable,
+            no_frame=no_frame,
+            caption=caption,
+            vsync=vsync,
+            icon=icon,
+            transparent_display=transparent_display,
+            centered=centered)
+
         self._events = _Events()
 
     def __del__(self, do_garbage_collection=False):
@@ -28,8 +50,19 @@ class QuickStart:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def start(self, do_display_clearing=True, clear_color=None, enable_toggle_fullscreen=True, enable_close=True, return_events=True):
-        self._events.handle(enable_toggle_fullscreen=enable_toggle_fullscreen, enable_close=enable_close, return_events=return_events)
+    def start(
+            self,
+            do_display_clearing=True,
+            clear_color=None,
+            handle_full_screen_events=True,
+            handle_exit_events=True,
+            grab_extended_keyboard_events=False):
+
+        self._events.handle(
+            handle_full_screen_events=handle_full_screen_events,
+            handle_exit_events=handle_exit_events,
+            grab_extended_keyboard_events=grab_extended_keyboard_events)
+
         if do_display_clearing:
             self._display.clear(clear_color)
 

@@ -9,6 +9,7 @@ import gc as _gc
 import inspect as _inspect
 import time as _time
 import sys as _sys
+import importlib as _importlib
 
 import pygame as _pygame
 import psutil as _psutil
@@ -384,31 +385,31 @@ def update_language():
     _Registry.language = detected_language
     Backpack.language = detected_language
 
-def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, requires_display_mode_set=False, logging_instantiation=False):
+def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, logging_instantiation=False):
     instance._shut_down = False
     instance._attributes = []
 
     if _Registry.pmma_initialized is False:
         if not logging_instantiation:
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You haven't yet initialized PMMA. This can be \
-done by calling 'pmma.init()' any time before using any of PMMA functions. It \
-is vital that you do this prior to using PMMA as it ensures optimal configuration \
-with your machine, and gets PMMA ready to be used.")
-
-        if not logging_instantiation:
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_error("PMMA has not been initialized. Call 'pmma.init()' before using PMMA.")
-
-        if not logging_instantiation:
-            raise DidNotInitializeError("Call 'pmma.init()' before using PMMA")
+            _importlib.import_module("pmma.__init__").init()
+            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                "You haven't yet initialized PMMA. This can be done by calling \
+'pmma.init()' any time before using any of PMMA functions. As you haven't called \
+`pmma.init()` yet, we have initialized PMMA for you, and made assumptions about \
+how you intend to use it. Whilst this shouldn't be a problem for most people, \
+doing this can heavily customize PMMA's behavior.")
 
     if unique_instance is not None:
         if unique_instance in Constants.OBJECT_IDENTIFIERS:
             if unique_instance in _Registry.pmma_module_spine.keys():
                 if not logging_instantiation:
-                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning("{} object already exists.", variables=[unique_instance.capitalize()])
+                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning(
+                        "{} object already exists.",
+                        variables=[unique_instance.capitalize()])
 
                 if not logging_instantiation:
-                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Some PMMA objects can only be initialized once. \
+                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                        "Some PMMA objects can only be initialized once. \
 This is to avoid creating unexpected behavior.")
 
                 raise TooManyInstancesError(f"{unique_instance.capitalize()} object already exists.")
