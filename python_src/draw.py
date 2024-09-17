@@ -321,7 +321,6 @@ class RadialPolygon:
         self._vertices_changed = True
         self._created_shape = False
         if type(rotation) != _AngleConverter:
-            self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -334,7 +333,6 @@ class RadialPolygon:
         self._vertices_changed = True
         self._created_shape = False
         if type(value) != _PointConverter():
-            self._radius = _PointConverter()
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
@@ -371,7 +369,6 @@ class RadialPolygon:
     def set_center(self, centre, format=Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
-            self._center = _CoordinateConverter()
             self._center.set_coordinates(centre, format=format)
         else:
             self._center = centre
@@ -1083,7 +1080,6 @@ class Polygon:
     def set_rotation(self, rotation, format=Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
-            self._rotation = _AngleConverter()
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
