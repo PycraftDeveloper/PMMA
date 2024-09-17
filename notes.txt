@@ -34,6 +34,7 @@ Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
 Display wont do full screen properly. (Try display recreation from the top instead)
+Rendering Polygon fails.
 
 TO DO LIST
 ==========
