@@ -67,10 +67,85 @@ class Audio:
         self._start_frame += frames
 
 class BitCrush(_Bitcrush):
-    def __init__(self, bit_depth=8, *args, **kwargs):
-        super().__init__(bit_depth=bit_depth, *args, **kwargs)
-        self._bit_depth = bit_depth
+    def __init__(self, bit_depth=8):
+        super().__init__(bit_depth=bit_depth)
 
     def set_bit_depth(self, bit_depth): # from transition manager :)
-        self._bit_depth = bit_depth
         self.bit_depth = bit_depth  # Update the internal bit depth of the effect
+
+    def get_bit_depth(self): # from transition manager :)
+        return self.bit_depth
+
+class Chorus(_Chorus):
+    def __init__(self, rate=1, depth=0.25, center_delay_ms=7, feedback=0, mix=0.5):
+        super().__init__(rate_hz=rate, depth=depth, centre_delay_ms=center_delay_ms, feedback=feedback, mix=mix)
+
+    def set_rate(self, rate):
+        self.rate_hz = rate
+
+    def get_rate(self):
+        return self.rate_hz
+
+    def set_depth(self, depth):
+        self.depth = depth
+
+    def get_depth(self):
+        return self.depth
+
+    def set_center_delay_ms(self, center_delay_ms):
+        self.centre_delay_ms = center_delay_ms
+
+    def get_center_delay_ms(self):
+        return self.centre_delay_ms
+
+    def set_feedback(self, feedback):
+        self.feedback = feedback
+
+    def get_feedback(self):
+        return self.feedback
+
+    def set_mix(self, mix):
+        self.mix = mix
+
+    def get_mix(self):
+        return self.mix
+
+class Reverb(_Reverb):
+    def __init__(self, room_size=1, damping=0.5, wet_level=0.33, dry_level=0.4, width=1, freeze_mode=False): # percentages eventually
+        super().__init__(room_size=room_size, damping=damping, wet_level=wet_level, dry_level=dry_level, width=width, freeze_mode=freeze_mode)
+
+    def set_room_size(self, room_size):
+        self.room_size = room_size
+
+    def get_room_size(self):
+        return self.room_size
+
+    def set_damping(self, damping):
+        self.damping = damping
+
+    def get_damping(self):
+        return self.damping
+
+    def set_wet_level(self, wet_level):
+        self.wet_level = wet_level
+
+    def get_wet_level(self):
+        return self.wet_level
+
+    def set_dry_level(self, dry_level):
+        self.dry_level = dry_level
+
+    def get_dry_level(self):
+        return self.dry_level
+
+    def set_width(self, width):
+        self.width = width
+
+    def get_width(self):
+        return self.width
+
+    def set_freeze_mode(self, freeze_mode):
+        self.freeze_mode = freeze_mode
+
+    def get_freeze_mode(self):
+        return self.freeze_mode

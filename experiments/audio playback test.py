@@ -6,18 +6,22 @@ import time
 pmma.init()
 
 def lower(inst):
-    bd = 8
+    bd = 0
     while True:
-        bd -= 0.3
-        inst.set_bit_depth(bd)
-        if bd < 3:
+        bd += 1.66666666666666666666666666666666666
+        inst.set_room_size(bd/100)
+        if bd > 100:
+            inst.set_room_size(1)
             break
+        print(bd)
         time.sleep(1)
 
 audio = pmma.Audio()
 audio.load_from_file(r"H:\Downloads\videoplayback (1).wav")
-crush = pmma.BitCrush()
+crush = pmma.Reverb()
 audio.add_effect(crush)
-threading.Thread(target=lower, args=(crush,)).start()
+crush.set_freeze_mode(True)
+crush.set_room_size(1)
+threading.Thread(target=lower, args=(crush,))#.start()
 
 audio.play()
