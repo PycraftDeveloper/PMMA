@@ -21,11 +21,12 @@ class LoadedShaderReferenceManager:
         self._reference_manager_thread = _threading.Thread(target=self.reference_manager)
         self._reference_manager_thread.daemon = True
         self._reference_manager_thread.name = "LoadedShaderReferenceManager:Reference_Checker_Thread"
-        self._reference_manager_thread.start()
 
         self._enable_reference_checking = True
         self._shader_intermediary = ShaderIntermediary
         self._loaded_shaders_from_file_changed = False
+
+        self._reference_manager_thread.start()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

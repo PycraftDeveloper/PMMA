@@ -49,7 +49,6 @@ class LoggerIntermediary:
         self._log_to_file_thread = _threading.Thread(target=self._file_logger_thread)
         self._log_to_file_thread.daemon = True
         self._log_to_file_thread.name = "LoggingIntermediary:Log_To_Files_Thread"
-        self._log_to_file_thread.start()
 
         self._project_log_folder = None
 
@@ -85,6 +84,8 @@ class LoggerIntermediary:
             pass
 
         _Registry.logging_path = [_path_builder(self._internal_log_directory, "profile.txt"), _path_builder(self._external_log_directory, "profile.txt")]
+
+        self._log_to_file_thread.start()
 
     def set_external_log_development_messages_to_terminal(self, value):
         self._external_log_development_messages_to_terminal = value

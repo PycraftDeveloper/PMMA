@@ -18,7 +18,7 @@ Built in (standard library)
 
 External (pip)
 
-Internal Core (registry, error_utils, constants)
+Internal TopLevel (pmma.__init__ / pmma.c_setup / pmma.setup)
 
 Internal (pmma.py_src./)
 
