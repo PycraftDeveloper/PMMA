@@ -6,7 +6,6 @@ import waiting as _waiting
 import numpy as _numpy
 
 from pmma.python_src.constants import Constants
-#from pmma.python_src.transitions import Transition as _Transition
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
@@ -22,9 +21,10 @@ class TransitionManager:
         self._transition_manager = _threading.Thread(target=self._manage_transitions)
         self._transition_manager.daemon = True
         self._transition_manager.name = "TransitionManager:Manage_Transitions_Thread"
-        self._transition_manager.start()
 
         self._enable_transition_management = True
+
+        self._transition_manager.start()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
