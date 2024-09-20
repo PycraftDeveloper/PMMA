@@ -114,20 +114,20 @@ class Clipping(_Clipping):
     def __init__(self, threshold_db=-6):
         super().__init__(threshold_db=threshold_db)
 
-    def set_threshold_db(self, threshold_db):
+    def set_threshold(self, threshold_db):
         self.threshold_db = threshold_db
 
-    def get_threshold_db(self):
+    def get_threshold(self):
         return self.threshold_db
 
 class Compressor(_Compressor):
     def __init__(self, threshold_db=0, ratio=4, attack_ms=1, release_ms=100):
         super().__init__(threshold_db=threshold_db, ratio=ratio, attack_ms=attack_ms, release_ms=release_ms)
 
-    def set_threshold_db(self, threshold_db):
+    def set_threshold(self, threshold_db):
         self.threshold_db = threshold_db
 
-    def get_threshold_db(self):
+    def get_threshold(self):
         return self.threshold_db
 
     def set_ratio(self, ratio):
@@ -163,6 +163,268 @@ class Convolution(_Convolution):
 
     def get_mix(self):
         return self.mix
+
+    def set_sample_rate(self, sample_rate):
+        self.sample_rate = sample_rate
+
+    def get_sample_rate(self):
+        return self.sample_rate
+
+class Delay(_Delay):
+    def __init__(self, delay_seconds=0.5, feedback=0, mix=0.5):
+        super().__init__(delay_seconds=delay_seconds, feedback=feedback, mix=mix)
+
+    def set_delay_seconds(self, delay_seconds):
+        self.delay_seconds = delay_seconds
+
+    def get_delay_seconds(self):
+        return self.delay_seconds
+
+    def set_feedback(self, feedback):
+        self.feedback = feedback
+
+    def get_feedback(self):
+        return self.feedback
+
+    def set_mix(self, mix):
+        self.mix = mix
+
+    def get_mix(self):
+        return self.mix
+
+class Distortion(_Distortion):
+    def __init__(self, drive_db=10):
+        super().__init__(drive_db=drive_db)
+
+    def set_drive(self, drive_db):
+        self.drive_db = drive_db
+
+    def get_drive(self):
+        return self.drive_db
+
+class GSMFullRateCompressor(_GSMFullRateCompressor):
+    def __init__(self):
+        super().__init__()
+
+class Gain(_Gain):
+    def __init__(self, gain_db=1):
+        super().__init__(gain_db=gain_db)
+
+    def set_gain(self, gain_db):
+        self.gain_db = gain_db
+
+    def get_gain(self):
+        return self.gain_db
+
+class HighShelfFilter(_HighShelfFilter):
+    def __init__(self, cutoff_hz=440, gain_db=0, q=0.7071067690849304):
+        super().__init__(cutoff_hz=cutoff_hz, gain_db=gain_db, q=q)
+
+    def set_cutoff(self, cutoff_hz):
+        self.cutoff_hz = cutoff_hz
+
+    def get_cutoff(self):
+        return self.cutoff_hz
+
+    def set_gain(self, gain_db):
+        self.gain_db = gain_db
+
+    def get_gain(self):
+        return self.gain_db
+
+    def set_q(self, q):
+        self.q = q
+
+    def get_q(self):
+        return self.q
+
+class HighPassFilter(_HighpassFilter):
+    def __init__(self, cutoff_hz=50):
+        super().__init__(cutoff_hz=cutoff_hz)
+
+    def set_cutoff(self, cutoff_hz):
+        self.cutoff_hz = cutoff_hz
+
+    def get_cutoff(self):
+        return self.cutoff_hz
+
+class LadderFilter(_LadderFilter):
+    def __init__(self, cutoff_hz=200, resonance=0, drive=1):
+        super().__init__(cutoff_hz=cutoff_hz, resonance=resonance, drive=drive)
+
+    def set_cutoff(self, cutoff_hz):
+        self.cutoff_hz = cutoff_hz
+
+    def get_cutoff(self):
+        return self.cutoff_hz
+
+    def set_resonance(self, resonance):
+        self.resonance = resonance
+
+    def get_resonance(self):
+        return self.resonance
+
+    def set_drive(self, drive):
+        self.drive = drive
+
+    def get_drive(self):
+        return self.drive
+
+class Limiter(_Limiter):
+    def __init__(self, threshold_db=-10, release_ms=100):
+        super().__init__(threshold_db=threshold_db, release_ms=release_ms)
+
+    def set_threshold(self, threshold_db):
+        self.threshold_db = threshold_db
+
+    def get_threshold(self):
+        return self.threshold_db
+
+    def set_release_ms(self, release_ms):
+        self.release_ms = release_ms
+
+    def get_release_ms(self):
+        return self.release_ms
+
+class LowShelfFilter(_LowShelfFilter):
+    def __init__(self, cutoff_hz=440, gain_db=0, q=0.7071067690849304):
+        super().__init__(cutoff_hz=cutoff_hz, gain_db=gain_db, q=q)
+
+    def set_cutoff(self, cutoff_hz):
+        self.cutoff_hz = cutoff_hz
+
+    def get_cutoff(self):
+        return self.cutoff_hz
+
+    def set_gain(self, gain_db):
+        self.gain_db = gain_db
+
+    def get_gain(self):
+        return self.gain_db
+
+    def set_q(self, q):
+        self.q = q
+
+    def get_q(self):
+        return self.q
+
+class LowPassFilter(_LowpassFilter):
+    def __init__(self, cutoff_hz=50):
+        super().__init__(cutoff_hz=cutoff_hz)
+
+    def set_cutoff(self, cutoff_hz):
+        self.cutoff_hz = cutoff_hz
+
+    def get_cutoff(self):
+        return self.cutoff_hz
+
+class MP3Compressor(_MP3Compressor):
+    def __init__(self, vbr_quality=3):
+        super().__init__(vbr_quality=vbr_quality)
+
+    def set_vbr_quality(self, vbr_quality):
+        self.vbr_quality = vbr_quality
+
+    def get_vbr_quality(self):
+        return self.vbr_quality
+
+class NoiseGate(_NoiseGate):
+    def __init__(self, threshold_db=-100, ratio=10, attack_ms=1, release_ms=100):
+        super().__init__(threshold_db=threshold_db, ratio=ratio, attack_ms=attack_ms, release_ms=release_ms)
+
+    def set_threshold(self, threshold_db):
+        self.threshold_db = threshold_db
+
+    def get_threshold(self):
+        return self.threshold_db
+
+    def set_ratio(self, ratio):
+        self.ratio = ratio
+
+    def get_ratio(self):
+        return self.ratio
+
+    def set_attack_ms(self, attack_ms):
+        self.attack_ms = attack_ms
+
+    def get_attack_ms(self):
+        return self.attack_ms
+
+    def set_release_ms(self, release_ms):
+        self.release_ms = release_ms
+
+    def get_release_ms(self):
+        return self.release_ms
+
+class PeakFilter(_PeakFilter):
+    def __init__(self, frequency_hz=1000, gain_db=0, q=0.7071067690849304):
+        super().__init__(frequency_hz=frequency_hz, gain_db=gain_db, q=q)
+
+    def set_frequency(self, frequency_hz):
+        self.frequency_hz = frequency_hz
+
+    def get_frequency(self):
+        return self.frequency_hz
+
+    def set_gain(self, gain_db):
+        self.gain_db = gain_db
+
+    def get_gain(self):
+        return self.gain_db
+
+    def set_q(self, q):
+        self.q = q
+
+    def get_q(self):
+        return self.q
+
+class Phaser(_Phaser):
+    def __init__(self, rate_hz=1, depth=0.5, center_frequency_hz=1300, feedback=0, mix=0.5):
+        super().__init__(rate_hz=rate_hz, depth=depth, centre_frequency_hz=center_frequency_hz, feedback=feedback, mix=mix)
+
+    def set_rate(self, rate_hz):
+        self.rate_hz = rate_hz
+
+    def get_rate(self):
+        return self.rate_hz
+
+    def set_depth(self, depth):
+        self.depth = depth
+
+    def get_depth(self):
+        return self.depth
+
+    def set_center_frequency(self, center_frequency_hz):
+        self.centre_frequency_hz = center_frequency_hz
+
+    def get_center_frequency(self):
+        return self.centre_frequency_hz
+
+    def set_feedback(self, feedback):
+        self.feedback = feedback
+
+    def get_feedback(self):
+        return self.feedback
+
+    def set_mix(self, mix):
+        self.mix = mix
+
+    def get_mix(self):
+        return self.mix
+
+class PitchShift(_PitchShift):
+    def __init__(self, semitones=0):
+        super().__init__(semitones=semitones)
+
+    def set_semitones(self, pitch_shift_semitones):
+        self.pitch_shift_semitones = pitch_shift_semitones
+
+    def get_semitones(self):
+        return self.pitch_shift_semitones
+
+class ReSample(_Resample):
+    def __init__(self, sample_rate=8000):
+        super().__init__(sample_rate=sample_rate)
 
     def set_sample_rate(self, sample_rate):
         self.sample_rate = sample_rate
