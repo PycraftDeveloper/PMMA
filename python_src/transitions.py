@@ -22,11 +22,14 @@ class Transition:
         self._animation_end_time = None
         self._animation_keyword_arguments = None
         self._animation_current_position = None
+        self._animation_max_speed = None
+        self._animation_acceleration_time = None
+        self._animation_deceleration_time = None
 
         self._transition_manager: "_TransitionManager" = _Registry.pmma_module_spine[Constants.TRANSITION_MANAGER_OBJECT]
         self._transition_manager.add(self._transition_id, self)
 
-    def create(self, object, transition_type, start, end, duration, transition_mode=Constants.LINEAR_TRANSITION, **kwargs):
+    def create(self, transition_type, start, end, duration, transition_mode=Constants.LINEAR_TRANSITION, object=None, max_speed=None, acceleration_time=None, deceleration_time=None, **kwargs):
         if type(start) == _numpy.ndarray:
             start = start.tolist()
 
@@ -41,9 +44,57 @@ class Transition:
         self._animation_duration = duration
         self._animation_keyword_arguments = kwargs
         self._animation_current_position = self._animation_start
+        self._animation_max_speed = max_speed
+        self._animation_acceleration_time = acceleration_time
+        self._animation_deceleration_time = deceleration_time
+
+    def get_acceleration_time(self):
+        return self._animation_acceleration_time
+
+    def get_deceleration_time(self):
+        return self._animation_deceleration_time
+
+    def get_max_speed(self):
+        return self._animation_max_speed
+
+    def set_animation_running(self, value):
+        self._animation_running = value
+
+    def get_start_time(self):
+        return self._animation_start_time
+
+    def get_end_time(self):
+        return self._animation_end_time
+
+    def get_start(self):
+        return self._animation_start
+
+    def get_end(self):
+        return self._animation_end
+
+    def get_object(self):
+        return self._animation_object
+
+    def get_type(self):
+        return self._animation_type
+
+    def get_mode(self):
+        return self._animation_mode
+
+    def get_kwargs(self):
+        return self._animation_keyword_arguments
+
+    def get_duration(self):
+        return self._animation_duration
 
     def get_animated_value(self):
         return self._animation_current_position
+
+    def get_animation_running(self):
+        return self._animation_running
+
+    def set_current_position(self, value):
+        self._animation_current_position = value
 
     def pause(self): # test this behavior
         now_time = _time.perf_counter()

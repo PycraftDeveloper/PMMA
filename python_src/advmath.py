@@ -27,6 +27,12 @@ class Math:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
+    def get_function_smooth_step(self):
+        return _math_utils.raw_smooth_step
+
+    def smooth_step(self, value):
+        return self.get_function_smooth_step()(value)
+
     def get_function_pythag(self):
         """
         🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.

@@ -3,9 +3,31 @@ import pmma
 
 pmma.init()
 
+# Print iterations progress
+def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█', printEnd = "\r"):
+    """
+    Call in a loop to create terminal progress bar
+    @params:
+        iteration   - Required  : current iteration (Int)
+        total       - Required  : total iterations (Int)
+        prefix      - Optional  : prefix string (Str)
+        suffix      - Optional  : suffix string (Str)
+        decimals    - Optional  : positive number of decimals in percent complete (Int)
+        length      - Optional  : character length of bar (Int)
+        fill        - Optional  : bar fill character (Str)
+        printEnd    - Optional  : end character (e.g. "\r", "\r\n") (Str)
+    """
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end = printEnd)
+    # Print New Line on Complete
+    if iteration == total:
+        print()
+
 transition = pmma.Transition()
-transition.create(None, pmma.Constants.COORDINATE_TRANSITION, [0, 0], [10, 10], 3)
+transition.create(pmma.Constants.COORDINATE_TRANSITION, [0, 0], [100, 100], 30, transition_mode=pmma.Constants.SMOOTH_TRANSITION, max_speed=6)
 transition.start()
 while transition._animation_running:
-    time.sleep(1)
-    print(transition.get_animated_value())
+    pass#print(transition._animation_current_position)
+    printProgressBar(transition._animation_current_position[0], transition._animation_end[0], prefix = 'Progress:', suffix = 'Complete', length = 150)

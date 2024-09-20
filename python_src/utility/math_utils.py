@@ -4,6 +4,10 @@ import numba
 import pyrr
 import numpy
 
+def raw_smooth_step(t):
+    # Cubic smoothstep function for acceleration/deceleration
+    return t * t * (3 - 2 * t)
+
 def raw_ranger(value, old, new):
     if value > old[1]:
         value = old[1]
