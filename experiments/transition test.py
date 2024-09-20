@@ -26,8 +26,8 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
         print()
 
 transition = pmma.Transition()
-transition.create(pmma.Constants.COORDINATE_TRANSITION, [0, 0], [100, 100], 30, transition_mode=pmma.Constants.SMOOTH_TRANSITION, max_speed=6)
+transition.create(pmma.Constants.VALUE_TRANSITION, 0, 100, 30, transition_mode=pmma.Constants.LINEAR_TRANSITION)
 transition.start()
 while transition._animation_running:
     pass#print(transition._animation_current_position)
-    printProgressBar(transition._animation_current_position[0], transition._animation_end[0], prefix = 'Progress:', suffix = 'Complete', length = 150)
+    printProgressBar(transition._animation_current_position, transition._animation_end, prefix = 'Progress:', suffix = 'Complete', length = 150)

@@ -67,6 +67,19 @@ class TransitionManager:
         else:
             transition.set_current_position(result.tolist())
 
+    def _linear_value_transition(self, transition):
+        start = transition.get_start()
+        end = transition.get_end()
+        difference = abs(start - end)
+        current_run_duration = _time.perf_counter() - transition.get_start_time()
+        transition_duration = transition.get_duration()
+        result = difference * (current_run_duration / transition_duration) + start
+        if current_run_duration >= transition_duration:
+            transition.set_animation_running(False)
+            transition.set_current_position(end)
+        else:
+            transition.set_current_position(result)
+
     def _smooth_coordinate_transition(self, transition):
         current_run_duration = _time.perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
@@ -86,6 +99,25 @@ class TransitionManager:
         else:
             transition.set_current_position(result.tolist())
 
+    def _smooth_value_transition(self, transition):
+        current_run_duration = _time.perf_counter() - transition.get_start_time()
+        transition_duration = transition.get_duration()
+
+        start = _numpy.array(transition.get_start())
+        end = _numpy.array(transition.get_end())
+        difference = abs(start - end)
+        normalized_time = current_run_duration / transition_duration
+        # Calculate the velocity based on a sine curve between 0 and pi
+        sine_velocity = _math.sin((_math.pi / 2) * normalized_time)
+        # Position based on velocity integrated over time
+        result = start + difference * sine_velocity
+
+        if current_run_duration >= transition_duration:
+            transition.set_animation_running(False)
+            transition.set_current_position(end)
+        else:
+            transition.set_current_position(result)
+
     def _manage_transitions(self):
         while self._enable_transition_management:
             _waiting.wait(self._wait_for_transitions)
@@ -100,10 +132,16 @@ class TransitionManager:
                         if transition_type == Constants.COORDINATE_TRANSITION:
                             self._linear_coordinate_transition(
                                 transition)
+                        elif transition_type == Constants.VALUE_TRANSITION:
+                            self._linear_value_transition(
+                                transition)
 
                     elif transition_mode == Constants.SMOOTH_TRANSITION:
                         if transition_type == Constants.COORDINATE_TRANSITION:
                             self._smooth_coordinate_transition(
+                                transition)
+                        elif transition_type == Constants.VALUE_TRANSITION:
+                            self._smooth_value_transition(
                                 transition)
 
             _time.sleep(1 / _Registry.refresh_rate)
