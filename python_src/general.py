@@ -13,6 +13,15 @@ from pmma.python_src.utility.general_utils import get_theme as _get_theme
 from pmma.python_src.utility.general_utils import check_if_object_is_class_or_function as _check_if_object_is_class_or_function
 from pmma.python_src.utility.general_utils import targeted_profile_end as _targeted_profile_end
 from pmma.python_src.utility.general_utils import targeted_profile_start as _targeted_profile_start
+from pmma.python_src.utility.general_utils import get_execution_time as _get_execution_time
+from pmma.python_src.utility.general_utils import get_execution_inverse_time as _get_execution_inverse_time
+
+
+def get_execution_time():
+    return _get_execution_time()
+
+def get_execution_inverse_time():
+    return _get_execution_inverse_time()
 
 def targeted_profile_start():
     _targeted_profile_start()

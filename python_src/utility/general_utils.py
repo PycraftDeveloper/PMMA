@@ -27,6 +27,20 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
+def get_execution_time(function, *args, **kwargs):
+    start_time = _time.time()
+    result = function(*args, **kwargs)
+    end_time = _time.time()
+    execution_time = end_time - start_time
+    return result, execution_time
+
+def get_execution_inverse_time(function, *args, **kwargs):
+    start_time = _time.time()
+    result = function(*args, **kwargs)
+    end_time = _time.time()
+    execution_time = end_time - start_time
+    return result, 1/execution_time
+
 def targeted_profile_start():
     if _Registry.profiler is None:
         _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
