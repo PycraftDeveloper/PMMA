@@ -70,10 +70,10 @@ class BitCrush(_Bitcrush):
     def __init__(self, bit_depth=8):
         super().__init__(bit_depth=bit_depth)
 
-    def set_bit_depth(self, bit_depth): # from transition manager :)
-        self.bit_depth = bit_depth  # Update the internal bit depth of the effect
+    def set_bit_depth(self, bit_depth):
+        self.bit_depth = bit_depth
 
-    def get_bit_depth(self): # from transition manager :)
+    def get_bit_depth(self):
         return self.bit_depth
 
 class Chorus(_Chorus):

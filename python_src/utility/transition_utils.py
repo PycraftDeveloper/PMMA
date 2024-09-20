@@ -76,9 +76,9 @@ class TransitionManager:
         result = difference * (current_run_duration / transition_duration) + start
         if current_run_duration >= transition_duration:
             transition.set_animation_running(False)
-            transition.set_current_position(end)
+            transition.set_current_value(end)
         else:
-            transition.set_current_position(result)
+            transition.set_current_value(result)
 
     def _smooth_coordinate_transition(self, transition):
         current_run_duration = _time.perf_counter() - transition.get_start_time()
@@ -114,9 +114,9 @@ class TransitionManager:
 
         if current_run_duration >= transition_duration:
             transition.set_animation_running(False)
-            transition.set_current_position(end)
+            transition.set_current_value(end)
         else:
-            transition.set_current_position(result)
+            transition.set_current_value(result)
 
     def _manage_transitions(self):
         while self._enable_transition_management:

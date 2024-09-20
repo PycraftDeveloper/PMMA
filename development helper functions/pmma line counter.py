@@ -39,8 +39,8 @@ for file in files:
         if line.strip() == "":
             nothing_count += 1
 
-    with open(r"H:\Downloads\PMMA aggregate.txt", "a") as file:
-        file.writelines(content)
+    #with open(r"H:\Downloads\PMMA aggregate.txt", "a") as file:
+        #file.writelines(content)
 
 print(f"PMMA is: {line_count} lines long")
 print(f"PMMA has: {chars:_} characters!")
