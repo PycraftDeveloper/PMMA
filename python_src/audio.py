@@ -110,6 +110,66 @@ class Chorus(_Chorus):
     def get_mix(self):
         return self.mix
 
+class Clipping(_Clipping):
+    def __init__(self, threshold_db=-6):
+        super().__init__(threshold_db=threshold_db)
+
+    def set_threshold_db(self, threshold_db):
+        self.threshold_db = threshold_db
+
+    def get_threshold_db(self):
+        return self.threshold_db
+
+class Compressor(_Compressor):
+    def __init__(self, threshold_db=0, ratio=4, attack_ms=1, release_ms=100):
+        super().__init__(threshold_db=threshold_db, ratio=ratio, attack_ms=attack_ms, release_ms=release_ms)
+
+    def set_threshold_db(self, threshold_db):
+        self.threshold_db = threshold_db
+
+    def get_threshold_db(self):
+        return self.threshold_db
+
+    def set_ratio(self, ratio):
+        self.ratio = ratio
+
+    def get_ratio(self):
+        return self.ratio
+
+    def set_attack_ms(self, attack_ms):
+        self.attack_ms = attack_ms
+
+    def get_attack_ms(self):
+        return self.attack_ms
+
+    def set_release_ms(self, release_ms):
+        self.release_ms = release_ms
+
+    def get_release_ms(self):
+        return self.release_ms
+
+class Convolution(_Convolution):
+    def __init__(self, impulse_response_filename, mix=1, sample_rate=None):
+        super().__init__(impulse_response_filename=impulse_response_filename, mix=mix, sample_rate=sample_rate)
+
+    def set_impulse_response_filename(self, impulse_response):
+        self.impulse_response = impulse_response
+
+    def get_impulse_response_filename(self):
+        return self.impulse_response
+
+    def set_mix(self, mix):
+        self.mix = mix
+
+    def get_mix(self):
+        return self.mix
+
+    def set_sample_rate(self, sample_rate):
+        self.sample_rate = sample_rate
+
+    def get_sample_rate(self):
+        return self.sample_rate
+
 class Reverb(_Reverb):
     def __init__(self, room_size=1, damping=0.5, wet_level=0.33, dry_level=0.4, width=1, freeze_mode=False): # percentages eventually
         super().__init__(room_size=room_size, damping=damping, wet_level=wet_level, dry_level=dry_level, width=width, freeze_mode=freeze_mode)
