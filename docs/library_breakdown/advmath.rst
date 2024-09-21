@@ -21,6 +21,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Math.get_function_smooth_step() -> None
+
+   Not Yet Written
+
+.. py:method:: Math.smooth_step() -> None
+
+   Not Yet Written
+
 .. py:method:: Math.get_function_pythag() -> Callable
 
     🟩 **R** - Exposes either the raw Python pythagoras function in PMMA's utility library, or the JIT function with the same operation.

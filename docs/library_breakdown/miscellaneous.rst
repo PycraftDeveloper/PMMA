@@ -4,6 +4,14 @@ PMMA Miscellaneous Methods (``pmma.``)
 
 Here you will find all the subroutines that aren't grouped into a specific object. Don't let the title fool you however, the subroutines found here can be incredibly powerful and helpful.
 
+.. py:method:: pmma.get_execution_time() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.get_execution_inverse_time() -> None
+
+   Not Yet Written
+
 .. py:method:: pmma.targeted_profile_start() -> None
 
    Not Yet Written
