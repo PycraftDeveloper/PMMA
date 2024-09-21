@@ -273,7 +273,7 @@ number of draw calls being made. The program spent {} on \
 likely improve application performance. Note that this message will only appear once, but \
 may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_render_updates, 1/(total_time_spent_drawing)])
 
-    if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+    if _Registry.display_initialized:
         if _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
             _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(False)
         elif _Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():

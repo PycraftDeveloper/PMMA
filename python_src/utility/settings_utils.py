@@ -36,7 +36,7 @@ to this value can cause uncomfortable flickering and other rendering issues as c
 on the display is cleared in this process. Excessive changes to this value can also negatively \
 effect performance too, so this setting is best used sparingly (for example as a toggle with an \
 application's setting menu).")
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+        if _Registry.display_initialized:
             _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].on_window_size_changed()
 
 def get_allow_anti_aliasing():
@@ -55,7 +55,7 @@ to this value can cause uncomfortable flickering and other rendering issues as c
 on the display is cleared in this process. Excessive changes to this value can also negatively \
 effect performance too, so this setting is best used sparingly (for example as a toggle with an \
 application's setting menu).")
-            if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+            if _Registry.display_initialized:
                 _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].on_window_size_changed()
 
 def get_anti_aliasing_level():
