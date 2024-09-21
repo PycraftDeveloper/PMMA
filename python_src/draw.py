@@ -256,8 +256,6 @@ class RadialPolygon:
         self._radius = _PointConverter()
         self._center = _CoordinateConverter()
         self._width = None
-        self._radius = None
-        self._rotation = None
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()

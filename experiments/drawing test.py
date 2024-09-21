@@ -15,7 +15,7 @@ pmma.set_anti_aliasing_level(8)
 #pmma._Registry.anti_aliasing_level = 16
 
 display = pmma.Display()
-display.create(1280, 720, full_screen=False, resizable=True, vsync=False, transparent_display=True)
+display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 
 events = pmma.Events()
 
