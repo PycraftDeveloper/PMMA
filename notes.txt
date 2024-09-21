@@ -35,6 +35,7 @@ Issues
 Transparent display not working with opengl, potentially signs of a bigger problem.
 Display wont do full screen properly. (Try display recreation from the top instead)
 Rendering Polygon fails.
+Rendering shapes need to be updated when window resized. Note though that this breaks pretty much all positioning and shapes so IDK what to do about that at the moment lol.
 
 TO DO LIST
 ==========

@@ -177,17 +177,48 @@ class Line:
         return [*rotated_start, *rotated_end]
 
     def _update_buffers(self):
-        # This method is used to update the VBO with new vertex data if vertices have changed
         if self._vertices_changed:
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=Constants.RADIANS))
 
-            # Convert vertices to a numpy array (float32 type for ModernGL compatibility)
-            vertices = _numpy.array([
-                *rotated_line_points
-            ], dtype='f4')  # 'f4' means float32
+            if self._width > 1:
+                start_coords = rotated_line_points[:2]  # Start point (x1, y1)
+                end_coords = rotated_line_points[2:]    # End point (x2, y2)
 
-            if self._vbo.get_created() is False:
+                # Calculate direction of the line
+                direction = _numpy.array(end_coords) - _numpy.array(start_coords)
+                direction_length = _numpy.linalg.norm(direction)
+                direction_normalized = direction / direction_length
+
+                # Calculate perpendicular (normal) vector to the line
+                width = self._surface.get_width()
+                height = self._surface.get_height()
+                if width < height:
+                    width = ((self._width / self._surface.get_width()) * self._surface.get_aspect_ratio())
+                else:
+                    width = ((self._width / self._surface.get_height()) / self._surface.get_aspect_ratio())
+
+                normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
+
+                # Calculate the vertices of the line as a rectangle
+                v1 = start_coords - normal
+                v2 = start_coords + normal
+                v3 = end_coords - normal
+                v4 = end_coords + normal
+
+                # Create the vertex array for two triangles representing the line
+                vertices = _numpy.array([
+                    *v1, *v2, *v3,  # First triangle
+                    *v3, *v2, *v4   # Second triangle
+                ], dtype='f4')
+
+            else:
+                # Convert vertices to a numpy array (float32 type for ModernGL compatibility)
+                vertices = _numpy.array([
+                    *rotated_line_points
+                ], dtype='f4')  # 'f4' means float32
+
+            if not self._vbo.get_created():
                 self._vbo.create(vertices)
             else:
                 self._vbo.update(vertices)
@@ -219,13 +250,11 @@ class Line:
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
-        # Set line width
-        _Registry.context.line_width = self._width # unreliable
-
         # Render the line
-        self._vao.render(mode=_moderngl.LINES)
-
-        _Registry.context.line_width = 1 # unreliable
+        if self._width > 1:
+            self._vao.render(mode=_moderngl.TRIANGLES)
+        else:
+            self._vao.render(mode=_moderngl.LINES)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start

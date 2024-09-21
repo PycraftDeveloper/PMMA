@@ -8,7 +8,7 @@ import time
 
 pmma.init()
 
-pmma.set_allow_anti_aliasing(True)
+pmma.set_allow_anti_aliasing(False)
 pmma.set_anti_aliasing_level(8)
 
 #pmma._Registry.do_anti_aliasing = False
@@ -21,9 +21,9 @@ events = pmma.Events()
 
 line = pmma.Line()
 line.set_start((300, 300))
-line.set_end((500, 500))
+line.set_end((500, 300))
 line.set_color([255, 0, 0])
-line.set_width(10)
+line.set_width(3)
 
 pixel = pmma.Pixel()
 pixel.set_position((100, 100))
