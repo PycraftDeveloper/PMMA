@@ -31,6 +31,7 @@ with _contextlib.redirect_stdout(_buffer):
 _Registry.pygame_launch_message = _buffer.getvalue().strip()
 
 from pmma.python_src.utility.error_utils import *
+from pmma.python_src.gpu_distribution import *
 from pmma.python_src.number_converter import *
 from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
@@ -73,6 +74,7 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
+from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
 
 def init(
             optimize_python_extensions=True,
@@ -140,6 +142,7 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
     register_application()
 
     _GPUsIntermediary()
+    _GPUDistributionManager()
     _ControllersIntermediary()
 
     _LoadedShaderReferenceManager()

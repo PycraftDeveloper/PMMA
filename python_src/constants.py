@@ -142,6 +142,8 @@ class Constants:
     SHADER_REFERENCE_MANAGER_OBJECT = "shader reference manager"
     TRANSITION_OBJECT =  "transition"
     TRANSITION_MANAGER_OBJECT = "transition manager"
+    GPU_DISTRIBUTION_MANAGER_OBJECT = "gpu distribution manager"
+    GPU_DISTRIBUTION_OBJECT = "gpu distribution"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"

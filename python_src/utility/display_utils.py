@@ -380,6 +380,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._display_quad = _geometry.quad_fs()
 
+        _Registry.pmma_module_spine[Constants.GPU_DISTRIBUTION_MANAGER_OBJECT].update_gpu_roles(initialization_override=True)
+
     def set_caption(self, caption=None):
         if self._object_updated is False:
             self.update_class()

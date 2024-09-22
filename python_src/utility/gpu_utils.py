@@ -121,3 +121,9 @@ mechanics may run slower than expected.")
 
     def all_gpus_are_unique(self):
         return self._all_gpus_are_unique
+
+    def get_gpu_count(self):
+        return len(self._gpu_instances)
+
+    def get_all_gpus(self):
+        return self._gpu_instances
