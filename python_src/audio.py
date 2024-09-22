@@ -1,3 +1,5 @@
+import threading as _threading
+
 import sounddevice as _sound_device
 import soundfile as _sound_file
 from pedalboard import Pedalboard as _Pedalboard
@@ -32,6 +34,9 @@ class Audio:
         self._audio_loaded = False
         self._effects_list = []
         self._start_frame = 0
+        self._paused = False
+        self._stop_signal = False
+        self._playback_thread = None
 
     def load_from_file(self, file_path):
         self._input_audio, self._sample_rate = _sound_file.read(file_path)
@@ -40,16 +45,42 @@ class Audio:
     def add_effect(self, effect):
         self._effects_list.append(effect)
 
-    def play(self):
+    def play(self, blocking=True):
         if self._audio_loaded:
             self._effects = _Pedalboard(self._effects_list)
-            # Start the audio stream
-            with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._input_audio.shape[1]):
-                _sound_device.sleep(int(len(self._input_audio) / self._sample_rate * 1000))  # Play for the duration of the file
+            self._paused = False
+            self._stop_signal = False
+
+            if blocking:
+                # Start playback in the current thread (blocking)
+                self._start_playback()
+            else:
+                # Start playback in a separate thread (non-blocking)
+                self._playback_thread = _threading.Thread(target=self._start_playback)
+                self._playback_thread.daemon = True
+                self._playback_thread.start()
+
+    def play_in_background(self):
+        self.play(blocking=False)
+
+    def play_in_foreground(self):
+        self.play(blocking=True)
+
+    def _start_playback(self):
+        # Start the audio stream
+        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._input_audio.shape[1]):
+            # Loop while playback is ongoing and not stopped
+            while self._start_frame < len(self._input_audio) and not self._stop_signal:
+                _sound_device.sleep(100)  # Check every 100 ms
 
     def _audio_callback(self, outdata, frames, time, status):
         if status:
             print(status)
+
+        if self._paused or self._stop_signal:
+            # Output silence if paused or stopped
+            outdata[:] = _numpy.zeros(outdata.shape)
+            return
 
         # Slice the input audio correctly based on the frames
         chunk = self._input_audio[self._start_frame:self._start_frame + frames]
@@ -65,6 +96,20 @@ class Audio:
         outdata[:len(processed_audio)] = processed_audio
 
         self._start_frame += frames
+
+    def pause(self):
+        self._paused = True
+
+    def resume(self):
+        if self._paused:
+            self._paused = False
+
+    def stop(self):
+        self._stop_signal = True
+        self._start_frame = 0  # Reset the playback position
+
+    def is_playing(self):
+        return self._playback_thread is not None and self._playback_thread.is_alive()
 
 class BitCrush(_Bitcrush):
     def __init__(self, bit_depth=8):
