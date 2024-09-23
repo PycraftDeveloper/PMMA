@@ -25,6 +25,30 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Audio.play_in_background() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.play_in_foreground() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.pause() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.resume() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.stop() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.is_playing() -> None
+
+   Not Yet Written
+
 Bit Crush (``pmma.BitCrush``)
 =============================
 

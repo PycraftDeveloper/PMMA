@@ -37,6 +37,7 @@ The full breakdown of what everything does!
     recorder.rst
     controller.rst
     quickstart.rst
+    gpu_distribution.rst
     backpack.rst
     executor.rst
     miscellaneous.rst
