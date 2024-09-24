@@ -30,7 +30,7 @@ import waiting as _waiting
 
 class Audio:
     def __init__(self):
-        self._input_audio = None
+        self._file = None
         self._sample_rate = None
         self._audio_loaded = False
         self._effects_list = []
@@ -38,13 +38,24 @@ class Audio:
         self._paused = False
         self._stop_signal = False
         self._playback_thread = None
+        self._volume = 1.0  # Default volume is 100%
+        self._pan = 0.0  # Pan: -1 (left) to 1 (right), 0 is center
 
     def load_from_file(self, file_path):
-        self._input_audio, self._sample_rate = _sound_file.read(file_path)
+        self._file = _sound_file.SoundFile(file_path)
+        self._sample_rate = self._file.samplerate
         self._audio_loaded = True
 
     def add_effect(self, effect):
         self._effects_list.append(effect)
+
+    def set_volume(self, volume):
+        """Set the volume (0.0 to 1.0)"""
+        self._volume = volume
+
+    def set_pan(self, pan):
+        """Set the panning (-1.0 to 1.0, where 0 is center)"""
+        self._pan = pan
 
     def play(self, blocking=True):
         if self._audio_loaded:
@@ -61,18 +72,12 @@ class Audio:
                 self._playback_thread.daemon = True
                 self._playback_thread.start()
 
-    def play_in_background(self):
-        self.play(blocking=False)
-
-    def play_in_foreground(self):
-        self.play(blocking=True)
-
     def _wait_for_chunk_to_play(self):
-        return not (self._start_frame < len(self._input_audio) and not self._stop_signal)
+        return not (self._start_frame < len(self._file) and not self._stop_signal)
 
     def _start_playback(self):
         # Start the audio stream
-        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._input_audio.shape[1]):
+        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._file.channels):
             # Loop while playback is ongoing and not stopped
             _waiting.wait(self._wait_for_chunk_to_play)
 
@@ -81,24 +86,35 @@ class Audio:
             print(status)
 
         if self._paused or self._stop_signal:
-            # Output silence if paused or stopped
             outdata[:] = _numpy.zeros(outdata.shape)
             return
 
-        # Slice the input audio correctly based on the frames
-        chunk = self._input_audio[self._start_frame:self._start_frame + frames]
-
-        # Ensure the chunk is the correct size
+        # Read frames from the file
+        chunk = self._file.read(frames, dtype='float32')
         if len(chunk) < frames:
             chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
 
-        # Apply the effects
+        # Apply volume and panning
+        chunk = self._apply_volume_and_pan(chunk)
+
+        # Apply effects
         processed_audio = self._effects(chunk, self._sample_rate)
 
         # Output the processed audio
         outdata[:len(processed_audio)] = processed_audio
 
         self._start_frame += frames
+
+    def _apply_volume_and_pan(self, chunk):
+        """Apply volume and panning to the chunk of audio"""
+        chunk = chunk * self._volume
+
+        if self._file.channels == 2:  # Stereo audio
+            left = 1 - max(self._pan, 0)  # Reduce left channel when panning right
+            right = 1 - max(-self._pan, 0)  # Reduce right channel when panning left
+            chunk[:, 0] *= left
+            chunk[:, 1] *= right
+        return chunk
 
     def pause(self):
         self._paused = True
@@ -109,7 +125,7 @@ class Audio:
 
     def stop(self):
         self._stop_signal = True
-        self._start_frame = 0  # Reset the playback position
+        self._start_frame = 0  # Reset playback position
 
     def is_playing(self):
         return self._playback_thread is not None and self._playback_thread.is_alive()
