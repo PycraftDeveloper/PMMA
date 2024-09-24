@@ -67,4 +67,4 @@ _Note: I am working on supporting additional compilers directly, however they sh
 
 ## Final Notes
 
-We are currently working on improving the design of PMMA, bear with us as we continue to make changes over the next few days!
+PMMA is still in active development. PLease bear with us as we continue to make changes, and consult the documentation for advise on what features are 'safe to use'!
