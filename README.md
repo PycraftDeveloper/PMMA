@@ -24,8 +24,6 @@ After many years of development and optimization, I gained extensive knowledge o
 As I worked on other projects, I found myself copying over these utility programs, revising them and gradually evolving my implementation of specific functions or classes. Eventually, this set of utility programs grew to be longer typically than the applications using them, and I decided it was time to separate my applications into two: the application itself, and PMMA.
 
 ## Features
-Bear with me, there are a fair few!
-
 * Object Oriented Programming - Most of PMMA exists as specific objects, making it super easy to customize what you want.
   * [Cython](https://github.com/cython/cython) and JIT ([Numba](https://github.com/numba/numba)) acceleration - Where native Python is "too slow" we switch it out for these alternatives, dynamically choosing at runtime which one is fastest.
 * GPU accelerated - PMMA can use GPU acceleration for 2D and 3D rendering.
