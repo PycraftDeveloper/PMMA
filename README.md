@@ -34,17 +34,19 @@ Bear with me, there are a fair few!
 * Advanced Tkinter - PMMA includes some advanced Tkinter functions, like getting window size, and default operating system fonts.
 * Simple shared memory - PMMA allows you to have a shared memory space for variables, as a replacement for global variables, which can be accessed easily through threads.
 * Dynamic color and coordinates - PMMA can easily convert between different color and coordinate formats.
-* Pipelines - PMMA uses these to allow for the bulk execution of functions, typically for rendering purposes.
+* Pipelines - PMMA combines complex 2D and 3D objects together and renders them at the same time for significantly improved performance.
 * Easy display management - PMMA allows you to easily manage your application window, including size, captions, display modes and v-sync.
 * Efficient shape rendering - PMMA includes support for a wide range of shapes, and can render these using GPU acceleration.
 * Advanced memory management - PMMA will automatically manage large objects stored in memory.
-* Image manipulation - PMMA will automatically convert image formats as needed for your application, and cache them for improved performance.
 * Fast noise generation - PMMA can very efficiently create noise patterns in 1D, 2D or 3D.
 * Application customization - PMMA can be told details about your application, and dynamically change its behavior.
-* Efficient text rendering - PMMA can render and format text easily, with its own formatting language and powerful appearance controls.
 * Video playback - PMMA can play back videos from a file, in your application.
+* Simplified Audio playback - PMMA includes support for very efficient audio playback, including steaming music directly from a file instead of reading the whole file at once.
+* Realtime Effects - PMMA can be used to apply effects to audio in realtime.
+* Transitions - PMMA can automatically manage the animation of values and coordinates for you with a variety of different styles. Useful as a way of moving objects about onscreen.
+* Advanced GPU information collection - PMMA can gather extremely detailed information about all installed GPUs.
+* Dynamic GPU allocation - PMMA can automatically distribute some graphics tasks to multiple installed GPUs to prevent excessive use on a single one.
 
-_Note: GPU acceleration is only available when using the rendering pipeline with either the default (Pygame) or Pyglet graphics API._
 _Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible._
 
 ## Optional Dependencies
