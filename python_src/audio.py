@@ -28,6 +28,9 @@ from pedalboard import Reverb as _Reverb
 import numpy as _numpy
 import waiting as _waiting
 
+from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
+
 class Audio:
     def __init__(self):
         self._file = None
@@ -38,8 +41,10 @@ class Audio:
         self._paused = False
         self._stop_signal = False
         self._playback_thread = None
-        self._volume = 1.0  # Default volume is 100%
-        self._pan = 0.0  # Pan: -1 (left) to 1 (right), 0 is center
+        self._volume = _ProportionConverter()  # Default volume is 100%
+        self._volume.set_value(1.0)
+        self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
+        self._pan.set_value(0.0)
 
     def load_from_file(self, file_path):
         self._file = _sound_file.SoundFile(file_path)
@@ -49,13 +54,13 @@ class Audio:
     def add_effect(self, effect):
         self._effects_list.append(effect)
 
-    def set_volume(self, volume):
+    def set_volume(self, volume, format=_Constants.PERCENTAGE):
         """Set the volume (0.0 to 1.0)"""
-        self._volume = volume
+        self._volume.set_value(volume, format=format)
 
-    def set_pan(self, pan):
+    def set_pan(self, pan, format=_Constants.PERCENTAGE):
         """Set the panning (-1.0 to 1.0, where 0 is center)"""
-        self._pan = pan
+        self._pan.set_value(pan, format=format)
 
     def play(self, blocking=True):
         if self._audio_loaded:
@@ -107,11 +112,11 @@ class Audio:
 
     def _apply_volume_and_pan(self, chunk):
         """Apply volume and panning to the chunk of audio"""
-        chunk = chunk * self._volume
+        chunk = chunk * self._volume.get_value()
 
         if self._file.channels == 2:  # Stereo audio
-            left = 1 - max(self._pan, 0)  # Reduce left channel when panning right
-            right = 1 - max(-self._pan, 0)  # Reduce right channel when panning left
+            left = 1 - max(self._pan.get_value(), 0)  # Reduce left channel when panning right
+            right = 1 - max(-self._pan.get_value(), 0)  # Reduce right channel when panning left
             chunk[:, 0] *= left
             chunk[:, 1] *= right
         return chunk
@@ -141,8 +146,38 @@ class BitCrush(_Bitcrush):
         return self.bit_depth
 
 class Chorus(_Chorus):
-    def __init__(self, rate=1, depth=0.25, center_delay_ms=7, feedback=0, mix=0.5):
-        super().__init__(rate_hz=rate, depth=depth, centre_delay_ms=center_delay_ms, feedback=feedback, mix=mix)
+    def __init__(
+            self,
+            rate=1,
+            depth=25,
+            center_delay=0.007,
+            feedback=0,
+            mix=50,
+            format=_Constants.PERCENTAGE,
+            depth_format=None,
+            feedback_format=None,
+            mix_format=None):
+
+        if depth_format is None:
+            depth_format = format
+        if feedback_format is None:
+            feedback_format = format
+        if mix_format is None:
+            mix_format = format
+
+        self._proportion_adjusted_depth = _ProportionConverter()
+        self._proportion_adjusted_depth.set_value(depth, format=depth_format)
+        self._proportion_adjusted_feedback = _ProportionConverter()
+        self._proportion_adjusted_feedback.set_value(feedback, format=feedback_format)
+        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix.set_value(mix, format=mix_format)
+
+        super().__init__(
+            rate_hz=rate,
+            depth=self._proportion_adjusted_depth.get_value(format=_Constants.DECIMAL),
+            centre_delay_ms=center_delay * 1000, # s to ms
+            feedback=self._proportion_adjusted_feedback.get_value(format=_Constants.DECIMAL),
+            mix=self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL))
 
     def set_rate(self, rate):
         self.rate_hz = rate
@@ -150,46 +185,59 @@ class Chorus(_Chorus):
     def get_rate(self):
         return self.rate_hz
 
-    def set_depth(self, depth):
-        self.depth = depth
+    def set_depth(self, depth, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_depth.set_value(depth, format=format)
+        self.depth = self._proportion_adjusted_depth.get_value(format=_Constants.DECIMAL)
 
-    def get_depth(self):
-        return self.depth
+    def get_depth(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_depth.get_value(format=format)
 
-    def set_center_delay_ms(self, center_delay_ms):
-        self.centre_delay_ms = center_delay_ms
+    def set_center_delay(self, center_delay):
+        self.centre_delay_ms = center_delay * 1000
 
-    def get_center_delay_ms(self):
-        return self.centre_delay_ms
+    def get_center_delay(self):
+        return self.centre_delay_ms / 1000
 
-    def set_feedback(self, feedback):
-        self.feedback = feedback
+    def set_feedback(self, feedback, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_feedback.set_value(feedback, format=format)
+        self.feedback = self._proportion_adjusted_feedback.get_value(format=_Constants.DECIMAL)
 
-    def get_feedback(self):
-        return self.feedback
+    def get_feedback(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_feedback.get_value(format=format)
 
-    def set_mix(self, mix):
-        self.mix = mix
+    def set_mix(self, mix, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_mix.set_value(mix, format=format)
+        self.mix = self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL)
 
-    def get_mix(self):
-        return self.mix
+    def get_mix(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_mix.get_value(format=format)
 
 class Clipping(_Clipping):
-    def __init__(self, threshold_db=-6):
-        super().__init__(threshold_db=threshold_db)
+    def __init__(self, threshold=-6):
+        super().__init__(threshold_db=threshold)
 
-    def set_threshold(self, threshold_db):
-        self.threshold_db = threshold_db
+    def set_threshold(self, threshold):
+        self.threshold_db = threshold
 
     def get_threshold(self):
         return self.threshold_db
 
 class Compressor(_Compressor):
-    def __init__(self, threshold_db=0, ratio=4, attack_ms=1, release_ms=100):
-        super().__init__(threshold_db=threshold_db, ratio=ratio, attack_ms=attack_ms, release_ms=release_ms)
+    def __init__(
+            self,
+            threshold=0,
+            ratio=4,
+            attack=0.001,
+            release=0.1):
 
-    def set_threshold(self, threshold_db):
-        self.threshold_db = threshold_db
+        super().__init__(
+            threshold_db=threshold,
+            ratio=ratio,
+            attack_ms=attack * 1000,
+            release_ms=release * 1000)
+
+    def set_threshold(self, threshold):
+        self.threshold_db = threshold
 
     def get_threshold(self):
         return self.threshold_db
@@ -200,21 +248,37 @@ class Compressor(_Compressor):
     def get_ratio(self):
         return self.ratio
 
-    def set_attack_ms(self, attack_ms):
-        self.attack_ms = attack_ms
+    def set_attack(self, attack):
+        self.attack_ms = attack * 1000
 
-    def get_attack_ms(self):
-        return self.attack_ms
+    def get_attack(self):
+        return self.attack_ms / 1000
 
-    def set_release_ms(self, release_ms):
-        self.release_ms = release_ms
+    def set_release(self, release):
+        self.release_ms = release * 1000
 
-    def get_release_ms(self):
-        return self.release_ms
+    def get_release(self):
+        return self.release_ms / 1000
 
 class Convolution(_Convolution):
-    def __init__(self, impulse_response_filename, mix=1, sample_rate=None):
-        super().__init__(impulse_response_filename=impulse_response_filename, mix=mix, sample_rate=sample_rate)
+    def __init__(
+            self,
+            impulse_response_filename,
+            mix=100,
+            sample_rate=None,
+            format=_Constants.PERCENTAGE,
+            mix_format=None):
+
+        if mix_format is None:
+            mix_format = format
+
+        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix.set_value(mix, format=mix_format)
+
+        super().__init__(
+            impulse_response_filename=impulse_response_filename,
+            mix=self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL),
+            sample_rate=sample_rate)
 
     def set_impulse_response_filename(self, impulse_response):
         self.impulse_response = impulse_response
@@ -222,11 +286,12 @@ class Convolution(_Convolution):
     def get_impulse_response_filename(self):
         return self.impulse_response
 
-    def set_mix(self, mix):
-        self.mix = mix
+    def set_mix(self, mix, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_mix.set_value(mix, format=format)
+        self.mix = self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL)
 
-    def get_mix(self):
-        return self.mix
+    def get_mix(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_mix.get_value(format=format)
 
     def set_sample_rate(self, sample_rate):
         self.sample_rate = sample_rate
@@ -235,33 +300,56 @@ class Convolution(_Convolution):
         return self.sample_rate
 
 class Delay(_Delay):
-    def __init__(self, delay_seconds=0.5, feedback=0, mix=0.5):
-        super().__init__(delay_seconds=delay_seconds, feedback=feedback, mix=mix)
+    def __init__(
+            self,
+            delay=0.5,
+            feedback=0,
+            mix=50,
+            format=_Constants.PERCENTAGE,
+            feedback_format=None,
+            mix_format=None):
 
-    def set_delay_seconds(self, delay_seconds):
-        self.delay_seconds = delay_seconds
+        if feedback_format is None:
+            feedback_format = format
+        if mix_format is None:
+            mix_format = format
 
-    def get_delay_seconds(self):
+        self._proportion_adjusted_feedback = _ProportionConverter()
+        self._proportion_adjusted_feedback.set_value(feedback, format=feedback_format)
+        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix.set_value(mix, format=mix_format)
+
+        super().__init__(
+            delay_seconds=delay,
+            feedback=self._proportion_adjusted_feedback.get_value(format=_Constants.DECIMAL),
+            mix=self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL))
+
+    def set_delay(self, delay):
+        self.delay_seconds = delay
+
+    def get_delay(self):
         return self.delay_seconds
 
-    def set_feedback(self, feedback):
-        self.feedback = feedback
+    def set_feedback(self, feedback, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_feedback.set_value(feedback, format=format)
+        self.feedback = self._proportion_adjusted_feedback.get_value(format=_Constants.DECIMAL)
 
-    def get_feedback(self):
-        return self.feedback
+    def get_feedback(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_feedback.get_value(format=format)
 
-    def set_mix(self, mix):
-        self.mix = mix
+    def set_mix(self, mix, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_mix.set_value(mix, format=format)
+        self.mix = self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL)
 
     def get_mix(self):
-        return self.mix
+        return self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL)
 
 class Distortion(_Distortion):
-    def __init__(self, drive_db=10):
-        super().__init__(drive_db=drive_db)
+    def __init__(self, drive=10):
+        super().__init__(drive_db=drive)
 
-    def set_drive(self, drive_db):
-        self.drive_db = drive_db
+    def set_drive(self, drive):
+        self.drive_db = drive
 
     def get_drive(self):
         return self.drive_db
@@ -271,27 +359,27 @@ class GSMFullRateCompressor(_GSMFullRateCompressor):
         super().__init__()
 
 class Gain(_Gain):
-    def __init__(self, gain_db=1):
-        super().__init__(gain_db=gain_db)
+    def __init__(self, gain=1):
+        super().__init__(gain_db=gain)
 
-    def set_gain(self, gain_db):
-        self.gain_db = gain_db
+    def set_gain(self, gain):
+        self.gain_db = gain
 
     def get_gain(self):
         return self.gain_db
 
 class HighShelfFilter(_HighShelfFilter):
-    def __init__(self, cutoff_hz=440, gain_db=0, q=0.7071067690849304):
-        super().__init__(cutoff_hz=cutoff_hz, gain_db=gain_db, q=q)
+    def __init__(self, cutoff=440, gain=0, q=0.7071067690849304):
+        super().__init__(cutoff_hz=cutoff, gain_db=gain, q=q)
 
-    def set_cutoff(self, cutoff_hz):
-        self.cutoff_hz = cutoff_hz
+    def set_cutoff(self, cutoff):
+        self.cutoff_hz = cutoff
 
     def get_cutoff(self):
         return self.cutoff_hz
 
-    def set_gain(self, gain_db):
-        self.gain_db = gain_db
+    def set_gain(self, gain):
+        self.gain_db = gain
 
     def get_gain(self):
         return self.gain_db
@@ -303,21 +391,21 @@ class HighShelfFilter(_HighShelfFilter):
         return self.q
 
 class HighPassFilter(_HighpassFilter):
-    def __init__(self, cutoff_hz=50):
-        super().__init__(cutoff_hz=cutoff_hz)
+    def __init__(self, cutoff=50):
+        super().__init__(cutoff_hz=cutoff)
 
-    def set_cutoff(self, cutoff_hz):
-        self.cutoff_hz = cutoff_hz
+    def set_cutoff(self, cutoff):
+        self.cutoff_hz = cutoff
 
     def get_cutoff(self):
         return self.cutoff_hz
 
 class LadderFilter(_LadderFilter):
-    def __init__(self, cutoff_hz=200, resonance=0, drive=1):
-        super().__init__(cutoff_hz=cutoff_hz, resonance=resonance, drive=drive)
+    def __init__(self, cutoff=200, resonance=0, drive=1):
+        super().__init__(cutoff_hz=cutoff, resonance=resonance, drive=drive)
 
-    def set_cutoff(self, cutoff_hz):
-        self.cutoff_hz = cutoff_hz
+    def set_cutoff(self, cutoff):
+        self.cutoff_hz = cutoff
 
     def get_cutoff(self):
         return self.cutoff_hz
@@ -335,33 +423,33 @@ class LadderFilter(_LadderFilter):
         return self.drive
 
 class Limiter(_Limiter):
-    def __init__(self, threshold_db=-10, release_ms=100):
-        super().__init__(threshold_db=threshold_db, release_ms=release_ms)
+    def __init__(self, threshold=-10, release=0.1):
+        super().__init__(threshold_db=threshold, release_ms=release / 1000)
 
-    def set_threshold(self, threshold_db):
-        self.threshold_db = threshold_db
+    def set_threshold(self, threshold):
+        self.threshold_db = threshold
 
     def get_threshold(self):
         return self.threshold_db
 
-    def set_release_ms(self, release_ms):
-        self.release_ms = release_ms
+    def set_release(self, release):
+        self.release_ms = release * 1000
 
-    def get_release_ms(self):
-        return self.release_ms
+    def get_release(self):
+        return self.release_ms / 1000
 
 class LowShelfFilter(_LowShelfFilter):
-    def __init__(self, cutoff_hz=440, gain_db=0, q=0.7071067690849304):
-        super().__init__(cutoff_hz=cutoff_hz, gain_db=gain_db, q=q)
+    def __init__(self, cutoff=440, gain=0, q=0.7071067690849304):
+        super().__init__(cutoff_hz=cutoff, gain_db=gain, q=q)
 
-    def set_cutoff(self, cutoff_hz):
-        self.cutoff_hz = cutoff_hz
+    def set_cutoff(self, cutoff):
+        self.cutoff_hz = cutoff
 
     def get_cutoff(self):
         return self.cutoff_hz
 
-    def set_gain(self, gain_db):
-        self.gain_db = gain_db
+    def set_gain(self, gain):
+        self.gain_db = gain
 
     def get_gain(self):
         return self.gain_db
@@ -373,11 +461,11 @@ class LowShelfFilter(_LowShelfFilter):
         return self.q
 
 class LowPassFilter(_LowpassFilter):
-    def __init__(self, cutoff_hz=50):
-        super().__init__(cutoff_hz=cutoff_hz)
+    def __init__(self, cutoff=50):
+        super().__init__(cutoff_hz=cutoff)
 
-    def set_cutoff(self, cutoff_hz):
-        self.cutoff_hz = cutoff_hz
+    def set_cutoff(self, cutoff):
+        self.cutoff_hz = cutoff
 
     def get_cutoff(self):
         return self.cutoff_hz
@@ -393,11 +481,21 @@ class MP3Compressor(_MP3Compressor):
         return self.vbr_quality
 
 class NoiseGate(_NoiseGate):
-    def __init__(self, threshold_db=-100, ratio=10, attack_ms=1, release_ms=100):
-        super().__init__(threshold_db=threshold_db, ratio=ratio, attack_ms=attack_ms, release_ms=release_ms)
+    def __init__(
+            self,
+            threshold=-100,
+            ratio=10,
+            attack=0.001,
+            release=0.1):
 
-    def set_threshold(self, threshold_db):
-        self.threshold_db = threshold_db
+        super().__init__(
+            threshold_db=threshold,
+            ratio=ratio,
+            attack_ms=attack * 1000,
+            release_ms=release * 1000)
+
+    def set_threshold(self, threshold):
+        self.threshold_db = threshold
 
     def get_threshold(self):
         return self.threshold_db
@@ -408,30 +506,30 @@ class NoiseGate(_NoiseGate):
     def get_ratio(self):
         return self.ratio
 
-    def set_attack_ms(self, attack_ms):
-        self.attack_ms = attack_ms
+    def set_attack(self, attack):
+        self.attack_ms = attack * 1000
 
-    def get_attack_ms(self):
-        return self.attack_ms
+    def get_attack(self):
+        return self.attack_ms / 1000
 
-    def set_release_ms(self, release_ms):
-        self.release_ms = release_ms
+    def set_release(self, release):
+        self.release_ms = release * 1000
 
-    def get_release_ms(self):
-        return self.release_ms
+    def get_release(self):
+        return self.release_ms / 1000
 
 class PeakFilter(_PeakFilter):
-    def __init__(self, frequency_hz=1000, gain_db=0, q=0.7071067690849304):
-        super().__init__(frequency_hz=frequency_hz, gain_db=gain_db, q=q)
+    def __init__(self, frequency=1000, gain=0, q=0.7071067690849304):
+        super().__init__(frequency_hz=frequency, gain_db=gain, q=q)
 
-    def set_frequency(self, frequency_hz):
-        self.frequency_hz = frequency_hz
+    def set_frequency(self, frequency):
+        self.frequency_hz = frequency
 
     def get_frequency(self):
         return self.frequency_hz
 
-    def set_gain(self, gain_db):
-        self.gain_db = gain_db
+    def set_gain(self, gain):
+        self.gain_db = gain
 
     def get_gain(self):
         return self.gain_db
@@ -443,38 +541,71 @@ class PeakFilter(_PeakFilter):
         return self.q
 
 class Phaser(_Phaser):
-    def __init__(self, rate_hz=1, depth=0.5, center_frequency_hz=1300, feedback=0, mix=0.5):
-        super().__init__(rate_hz=rate_hz, depth=depth, centre_frequency_hz=center_frequency_hz, feedback=feedback, mix=mix)
+    def __init__(
+            self,
+            rate=1,
+            depth=50,
+            center_frequency=1300,
+            feedback=0,
+            mix=50,
+            format=_Constants.PERCENTAGE,
+            depth_format=None,
+            feedback_format=None,
+            mix_format=None):
 
-    def set_rate(self, rate_hz):
-        self.rate_hz = rate_hz
+        if depth_format is None:
+            depth_format = format
+        if feedback_format is None:
+            feedback_format = format
+        if mix_format is None:
+            mix_format = format
+
+        self._proportion_adjusted_depth = _ProportionConverter()
+        self._proportion_adjusted_depth.set_value(depth, format=depth_format)
+        self._proportion_adjusted_feedback = _ProportionConverter()
+        self._proportion_adjusted_feedback.set_value(feedback, format=feedback_format)
+        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix.set_value(mix, format=mix_format)
+
+        super().__init__(
+            rate_hz=rate,
+            depth=self._proportion_adjusted_depth.get_value(_Constants.DECIMAL),
+            centre_frequency_hz=center_frequency,
+            feedback=self._proportion_adjusted_feedback.get_value(_Constants.DECIMAL),
+            mix=self._proportion_adjusted_mix.get_value(_Constants.DECIMAL))
+
+    def set_rate(self, rate):
+        self.rate_hz = rate
 
     def get_rate(self):
         return self.rate_hz
 
-    def set_depth(self, depth):
-        self.depth = depth
+    def set_depth(self, depth, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_depth.set_value(depth, format=format)
+        self.depth = self._proportion_adjusted_depth.get_value(_Constants.DECIMAL)
 
-    def get_depth(self):
-        return self.depth
+    def get_depth(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_depth.get_value(format=format)
 
-    def set_center_frequency(self, center_frequency_hz):
-        self.centre_frequency_hz = center_frequency_hz
+    def set_center_frequency(self, center_frequency):
+        self.centre_frequency_hz = center_frequency
 
     def get_center_frequency(self):
         return self.centre_frequency_hz
 
-    def set_feedback(self, feedback):
-        self.feedback = feedback
+    def set_feedback(self, feedback, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_feedback.set_value(feedback, format=format)
+        self.feedback = self._proportion_adjusted_feedback.get_value(_Constants.DECIMAL)
 
-    def get_feedback(self):
-        return self.feedback
+    def get_feedback(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_feedback.get_value(format=format)
 
-    def set_mix(self, mix):
-        self.mix = mix
+    def set_mix(self, mix, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_mix.set_value(mix, format=format)
+        self.mix = self._proportion_adjusted_mix.get_value(_Constants.DECIMAL)
 
-    def get_mix(self):
-        return self.mix
+    def get_mix(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_mix.get_value(format=format)
 
 class PitchShift(_PitchShift):
     def __init__(self, semitones=0):
@@ -497,38 +628,85 @@ class ReSample(_Resample):
         return self.sample_rate
 
 class Reverb(_Reverb):
-    def __init__(self, room_size=1, damping=0.5, wet_level=0.33, dry_level=0.4, width=1, freeze_mode=False): # percentages eventually
-        super().__init__(room_size=room_size, damping=damping, wet_level=wet_level, dry_level=dry_level, width=width, freeze_mode=freeze_mode)
+    def __init__(
+            self,
+            room_size=100,
+            damping=50,
+            wet_level=33,
+            dry_level=40,
+            width=100,
+            freeze_mode=False,
+            format=_Constants.PERCENTAGE,
+            room_size_format=None,
+            damping_format=None,
+            wet_level_format=None,
+            dry_level_format=None,
+            width_format=None):
 
-    def set_room_size(self, room_size):
-        self.room_size = room_size
+        if room_size_format is None:
+            room_size_format = format
+        if damping_format is None:
+            damping_format = format
+        if wet_level_format is None:
+            wet_level_format = format
+        if dry_level_format is None:
+            dry_level_format = format
+        if width_format is None:
+            width_format = format
+
+        self._proportion_adjusted_room_size = _ProportionConverter()
+        self._proportion_adjusted_room_size.set_value(room_size, format=room_size_format)
+        self._proportion_adjusted_damping = _ProportionConverter()
+        self._proportion_adjusted_damping.set_value(damping, format=damping_format)
+        self._proportion_adjusted_wet_level = _ProportionConverter()
+        self._proportion_adjusted_wet_level.set_value(wet_level, format=wet_level_format)
+        self._proportion_adjusted_dry_level = _ProportionConverter()
+        self._proportion_adjusted_dry_level.set_value(dry_level, format=dry_level_format)
+        self._proportion_adjusted_width = _ProportionConverter()
+        self._proportion_adjusted_width.set_value(width, format=width_format)
+
+        super().__init__(
+            room_size=self._proportion_adjusted_room_size.get_value(_Constants.DECIMAL),
+            damping=self._proportion_adjusted_damping.get_value(_Constants.DECIMAL),
+            wet_level=self._proportion_adjusted_wet_level.get_value(_Constants.DECIMAL),
+            dry_level=self._proportion_adjusted_dry_level.get_value(_Constants.DECIMAL),
+            width=self._proportion_adjusted_width.get_value(_Constants.DECIMAL),
+            freeze_mode=freeze_mode)
+
+    def set_room_size(self, room_size, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_room_size.set_value(room_size, format=format)
+        self.room_size = self._proportion_adjusted_room_size.get_value(_Constants.DECIMAL)
 
     def get_room_size(self):
-        return self.room_size
+        return self._proportion_adjusted_room_size.get_value(_Constants.PERCENTAGE)
 
-    def set_damping(self, damping):
-        self.damping = damping
+    def set_damping(self, damping, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_damping.set_value(damping, format=format)
+        self.damping = self._proportion_adjusted_damping.get_value(_Constants.DECIMAL)
 
-    def get_damping(self):
-        return self.damping
+    def get_damping(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_damping.get_value(format=format)
 
-    def set_wet_level(self, wet_level):
-        self.wet_level = wet_level
+    def set_wet_level(self, wet_level, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_wet_level.set_value(wet_level, format=format)
+        self.wet_level = self._proportion_adjusted_wet_level.get_value(_Constants.DECIMAL)
 
-    def get_wet_level(self):
-        return self.wet_level
+    def get_wet_level(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_wet_level.get_value(format=format)
 
-    def set_dry_level(self, dry_level):
-        self.dry_level = dry_level
+    def set_dry_level(self, dry_level, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_dry_level.set_value(dry_level, format=format)
+        self.dry_level = self._proportion_adjusted_dry_level.get_value(_Constants.DECIMAL)
 
-    def get_dry_level(self):
-        return self.dry_level
+    def get_dry_level(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_dry_level.get_value(format=format)
 
-    def set_width(self, width):
-        self.width = width
+    def set_width(self, width, format=_Constants.PERCENTAGE):
+        self._proportion_adjusted_width.set_value(width, format=format)
+        self.width = self._proportion_adjusted_width.get_value(_Constants.DECIMAL)
 
-    def get_width(self):
-        return self.width
+    def get_width(self, format=_Constants.PERCENTAGE):
+        return self._proportion_adjusted_width.get_value(format=format)
 
     def set_freeze_mode(self, freeze_mode):
         self.freeze_mode = freeze_mode
