@@ -24,8 +24,6 @@ After many years of development and optimization, I gained extensive knowledge o
 As I worked on other projects, I found myself copying over these utility programs, revising them and gradually evolving my implementation of specific functions or classes. Eventually, this set of utility programs grew to be longer typically than the applications using them, and I decided it was time to separate my applications into two: the application itself, and PMMA.
 
 ## Features
-Bear with me, there are a fair few!
-
 * Object Oriented Programming - Most of PMMA exists as specific objects, making it super easy to customize what you want.
   * [Cython](https://github.com/cython/cython) and JIT ([Numba](https://github.com/numba/numba)) acceleration - Where native Python is "too slow" we switch it out for these alternatives, dynamically choosing at runtime which one is fastest.
 * GPU accelerated - PMMA can use GPU acceleration for 2D and 3D rendering.
@@ -34,17 +32,19 @@ Bear with me, there are a fair few!
 * Advanced Tkinter - PMMA includes some advanced Tkinter functions, like getting window size, and default operating system fonts.
 * Simple shared memory - PMMA allows you to have a shared memory space for variables, as a replacement for global variables, which can be accessed easily through threads.
 * Dynamic color and coordinates - PMMA can easily convert between different color and coordinate formats.
-* Pipelines - PMMA uses these to allow for the bulk execution of functions, typically for rendering purposes.
+* Pipelines - PMMA combines complex 2D and 3D objects together and renders them at the same time for significantly improved performance.
 * Easy display management - PMMA allows you to easily manage your application window, including size, captions, display modes and v-sync.
 * Efficient shape rendering - PMMA includes support for a wide range of shapes, and can render these using GPU acceleration.
 * Advanced memory management - PMMA will automatically manage large objects stored in memory.
-* Image manipulation - PMMA will automatically convert image formats as needed for your application, and cache them for improved performance.
 * Fast noise generation - PMMA can very efficiently create noise patterns in 1D, 2D or 3D.
 * Application customization - PMMA can be told details about your application, and dynamically change its behavior.
-* Efficient text rendering - PMMA can render and format text easily, with its own formatting language and powerful appearance controls.
 * Video playback - PMMA can play back videos from a file, in your application.
+* Simplified Audio playback - PMMA includes support for very efficient audio playback, including steaming music directly from a file instead of reading the whole file at once.
+* Realtime Effects - PMMA can be used to apply effects to audio in realtime.
+* Transitions - PMMA can automatically manage the animation of values and coordinates for you with a variety of different styles. Useful as a way of moving objects about onscreen.
+* Advanced GPU information collection - PMMA can gather extremely detailed information about all installed GPUs.
+* Dynamic GPU allocation - PMMA can automatically distribute some graphics tasks to multiple installed GPUs to prevent excessive use on a single one.
 
-_Note: GPU acceleration is only available when using the rendering pipeline with either the default (Pygame) or Pyglet graphics API._
 _Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible._
 
 ## Optional Dependencies
@@ -67,4 +67,4 @@ _Note: I am working on supporting additional compilers directly, however they sh
 
 ## Final Notes
 
-We are currently working on improving the design of PMMA, bear with us as we continue to make changes over the next few days!
+PMMA is still in active development. PLease bear with us as we continue to make changes, and consult the documentation for advise on what features are 'safe to use'!
