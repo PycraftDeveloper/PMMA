@@ -26,6 +26,7 @@ from pedalboard import PitchShift as _PitchShift
 from pedalboard import Resample as _Resample
 from pedalboard import Reverb as _Reverb
 import numpy as _numpy
+import waiting as _waiting
 
 class Audio:
     def __init__(self):
@@ -66,12 +67,14 @@ class Audio:
     def play_in_foreground(self):
         self.play(blocking=True)
 
+    def _wait_for_chunk_to_play(self):
+        return not (self._start_frame < len(self._input_audio) and not self._stop_signal)
+
     def _start_playback(self):
         # Start the audio stream
         with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._input_audio.shape[1]):
             # Loop while playback is ongoing and not stopped
-            while self._start_frame < len(self._input_audio) and not self._stop_signal:
-                _sound_device.sleep(100)  # Check every 100 ms
+            _waiting.wait(self._wait_for_chunk_to_play)
 
     def _audio_callback(self, outdata, frames, time, status):
         if status:
