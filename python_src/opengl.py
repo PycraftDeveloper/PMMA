@@ -495,7 +495,18 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
         return [filtered_data_types, *filtered_variable_names]
 
-    def create(self, program, vertex_buffer_object, vertex_buffer_shader_attributes, color_buffer_object=None, color_buffer_shader_attributes=[], index_buffer_object=None, index_element_size=4, additional_buffers=[], additional_buffer_attributes=[]):
+    def create(
+            self,
+            program,
+            vertex_buffer_object,
+            vertex_buffer_shader_attributes,
+            color_buffer_object=None,
+            color_buffer_shader_attributes=[],
+            index_buffer_object=None,
+            index_element_size=4,
+            additional_buffers=[],
+            additional_buffer_attributes=[]):
+
         if program is None:
             raise ValueError("Program cannot be None")
         if program.get_created() is False:
@@ -860,6 +871,8 @@ class Shader:
 
 class Texture:
     def __init__(self):
+        _initialize(self)
+
         self._internal_texture = _Texture()
 
     def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None):

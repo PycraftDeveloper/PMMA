@@ -3,7 +3,6 @@ import moderngl
 import numpy as np
 import av
 from pygame.locals import DOUBLEBUF, OPENGL
-from OpenGL.GL import glClear, GL_COLOR_BUFFER_BIT
 
 # Initialize Pygame with an OpenGL context
 pygame.init()
@@ -15,6 +14,11 @@ ctx = moderngl.create_context()
 
 # Load the video file with manually specified hardware decoding
 input_container = av.open(r"H:\Videos\Drivin'.mp4")
+# Loop through the streams to find the video stream
+for stream in input_container.streams:
+    if stream.type == 'video':
+        print(f"Codec Name: {stream.codec.name}")
+        print(f"Codec Long Name: {stream.codec.long_name}")
 
 # Manually specify a hardware decoder if available
 # Example decoders: 'h264_cuvid' for NVIDIA, 'h264_vaapi' for VAAPI, 'h264_qsv' for Intel
@@ -41,7 +45,6 @@ width, height = frame.width, frame.height
 
 # Create OpenGL texture
 texture = ctx.texture((width, height), 3)
-texture.use()
 
 # Setup ModernGL shaders
 prog = ctx.program(
@@ -92,7 +95,7 @@ time_since_last_frame = 0.0
 # Main game loop
 while running:
     # Track the time elapsed in the loop
-    elapsed_time = clock.tick() / 1000.0  # Time since last tick in seconds
+    elapsed_time = clock.tick(500) / 1000.0  # Time since last tick in seconds
     time_since_last_frame += elapsed_time
 
     for event in pygame.event.get():
@@ -137,7 +140,8 @@ while running:
     prog['offset'].value = tuple(offset)
 
     # Render the frame
-    glClear(GL_COLOR_BUFFER_BIT)
+    ctx.clear(0.0, 0.0, 0.0)
+    texture.use()
     vao.render(moderngl.TRIANGLE_STRIP)
 
     # Swap buffers

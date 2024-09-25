@@ -600,9 +600,12 @@ you refresh the display to ensure optimal performance and support!")
                 _Registry.application_average_frame_rate["Mean"] = mean / _Registry.application_average_frame_rate["Samples"]
 
             if refresh_rate > 0:
-                self._clock.tick(refresh_rate)
+                _Registry.ms_since_previous_tick = self._clock.tick(refresh_rate)
         else:
             raise NotImplementedError
+
+    def get_clock(self):
+        return self._clock
 
     def close(self):
         if self._object_updated is False:
