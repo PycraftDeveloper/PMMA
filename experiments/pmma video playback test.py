@@ -3,7 +3,7 @@ import pmma
 pmma.init()
 
 display = pmma.Display()
-display.create(1280, 720, full_screen=False)
+display.create(1280, 720, full_screen=False, resizable=True)
 
 events = pmma.Events()
 
@@ -19,4 +19,3 @@ while True:
 
     pmma.compute()
     display.refresh()
-    print(display.get_refresh_rate())

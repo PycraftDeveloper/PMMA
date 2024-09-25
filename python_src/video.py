@@ -152,14 +152,20 @@ class Video:
 
     def render(self):
         if self._video_loaded:
-            self._surface.get_2D_hardware_accelerated_surface()
-
-            # Track the time elapsed in the loop
             elapsed_time = _Registry.ms_since_previous_tick / 1000
             self._time_since_last_frame += elapsed_time
 
             # Update video frame if enough time has passed
             if self._time_since_last_frame >= self._video_frame_time:
+                self._surface.update_attempted_render_calls(1)
+
+                self._surface.set_refresh_optimization_override(True)
+
+                if self._surface.get_clear_called_but_skipped():
+                    return None
+
+                self._surface.get_2D_hardware_accelerated_surface()
+
                 try:
                     frame = next(self._input_container.decode(video=0))
                 except StopIteration:
@@ -183,5 +189,6 @@ class Video:
             self._shader.set_shader_variable("offset", adjusted_offset)
 
             # Render the frame
-            self._texture.use()
+            self._shader.set_shader_variable("Texture", 0)
+            self._texture.use(location=0)
             self._vao.render(moderngl.TRIANGLE_STRIP)
