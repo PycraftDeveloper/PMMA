@@ -21,15 +21,71 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Audio.set_volume() -> None
+
+ t the volume (0.0 to 1.0)
+    self._volume.set_value(volume, format=format)
+    
+    def set_pan(self, pan, format=_Constants.PERCENTAGE):
+    Set the panning (-1.0 to 1.0, where 0 is center)
+
+.. py:method:: Audio.set_pan() -> None
+
+ t the panning (-1.0 to 1.0, where 0 is center)
+    self._pan.set_value(pan, format=format)
+    
+    def play(self, blocking=True):
+    if self._audio_loaded:
+    self._effects = _Pedalboard(self._effects_list)
+    self._paused = False
+    self._stop_signal = False
+    
+    if blocking:
+    # Start playback in the current thread (blocking)
+    self._start_playback()
+    else:
+    # Start playback in a separate thread (non-blocking)
+    self._playback_thread = _threading.Thread(target=self._start_playback)
+    self._playback_thread.daemon = True
+    self._playback_thread.start()
+    
+    def _wait_for_chunk_to_play(self):
+    return not (self._start_frame < len(self._file) and not self._stop_signal)
+    
+    def _start_playback(self):
+    # Start the audio stream
+    with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._file.channels):
+    # Loop while playback is ongoing and not stopped
+    _waiting.wait(self._wait_for_chunk_to_play)
+    
+    def _audio_callback(self, outdata, frames, time, status):
+    if status:
+    print(status)
+    
+    if self._paused or self._stop_signal:
+    outdata[:] = _numpy.zeros(outdata.shape)
+    return
+    
+    # Read frames from the file
+    chunk = self._file.read(frames, dtype='float32')
+    if len(chunk) < frames:
+    chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
+    
+    # Apply volume and panning
+    chunk = self._apply_volume_and_pan(chunk)
+    
+    # Apply effects
+    processed_audio = self._effects(chunk, self._sample_rate)
+    
+    # Output the processed audio
+    outdata[:len(processed_audio)] = processed_audio
+    
+    self._start_frame += frames
+    
+    def _apply_volume_and_pan(self, chunk):
+    Apply volume and panning to the chunk of audio
+
 .. py:method:: Audio.play() -> None
-
-   Not Yet Written
-
-.. py:method:: Audio.play_in_background() -> None
-
-   Not Yet Written
-
-.. py:method:: Audio.play_in_foreground() -> None
 
    Not Yet Written
 
@@ -103,11 +159,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Chorus.set_center_delay_ms() -> None
+.. py:method:: Chorus.set_center_delay() -> None
 
    Not Yet Written
 
-.. py:method:: Chorus.get_center_delay_ms() -> None
+.. py:method:: Chorus.get_center_delay() -> None
 
    Not Yet Written
 
@@ -181,19 +237,19 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Compressor.set_attack_ms() -> None
+.. py:method:: Compressor.set_attack() -> None
 
    Not Yet Written
 
-.. py:method:: Compressor.get_attack_ms() -> None
+.. py:method:: Compressor.get_attack() -> None
 
    Not Yet Written
 
-.. py:method:: Compressor.set_release_ms() -> None
+.. py:method:: Compressor.set_release() -> None
 
    Not Yet Written
 
-.. py:method:: Compressor.get_release_ms() -> None
+.. py:method:: Compressor.get_release() -> None
 
    Not Yet Written
 
@@ -251,11 +307,11 @@ Create
 Methods
 -------
 
-.. py:method:: Delay.set_delay_seconds() -> None
+.. py:method:: Delay.set_delay() -> None
 
    Not Yet Written
 
-.. py:method:: Delay.get_delay_seconds() -> None
+.. py:method:: Delay.get_delay() -> None
 
    Not Yet Written
 
@@ -457,11 +513,11 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Limiter.set_release_ms() -> None
+.. py:method:: Limiter.set_release() -> None
 
    Not Yet Written
 
-.. py:method:: Limiter.get_release_ms() -> None
+.. py:method:: Limiter.get_release() -> None
 
    Not Yet Written
 
@@ -581,19 +637,19 @@ Methods
 
    Not Yet Written
 
-.. py:method:: NoiseGate.set_attack_ms() -> None
+.. py:method:: NoiseGate.set_attack() -> None
 
    Not Yet Written
 
-.. py:method:: NoiseGate.get_attack_ms() -> None
+.. py:method:: NoiseGate.get_attack() -> None
 
    Not Yet Written
 
-.. py:method:: NoiseGate.set_release_ms() -> None
+.. py:method:: NoiseGate.set_release() -> None
 
    Not Yet Written
 
-.. py:method:: NoiseGate.get_release_ms() -> None
+.. py:method:: NoiseGate.get_release() -> None
 
    Not Yet Written
 
