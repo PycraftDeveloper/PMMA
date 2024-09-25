@@ -42,6 +42,7 @@ from pmma.python_src.controller import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
 from pmma.python_src.quickstart import *
+from pmma.python_src.projection import *
 from pmma.python_src.optimizer import *
 from pmma.python_src.backpack import *
 from pmma.python_src.passport import *

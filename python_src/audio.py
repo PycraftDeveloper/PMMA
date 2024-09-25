@@ -1,4 +1,5 @@
 import threading as _threading
+import gc as _gc
 
 import sounddevice as _sound_device
 import soundfile as _sound_file
@@ -31,8 +32,12 @@ import waiting as _waiting
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+
 class Audio:
     def __init__(self):
+        _initialize(self)
+
         self._file = None
         self._sample_rate = None
         self._audio_loaded = False
@@ -45,6 +50,20 @@ class Audio:
         self._volume.set_value(1.0)
         self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
         self._pan.set_value(0.0)
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            if self._playback_thread is not None:
+                self._stop_signal = True
+                self._playback_thread.join()
+
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def load_from_file(self, file_path):
         self._file = _sound_file.SoundFile(file_path)
@@ -137,6 +156,8 @@ class Audio:
 
 class BitCrush(_Bitcrush):
     def __init__(self, bit_depth=8):
+        _initialize(self)
+
         super().__init__(bit_depth=bit_depth)
 
     def set_bit_depth(self, bit_depth):
@@ -144,6 +165,16 @@ class BitCrush(_Bitcrush):
 
     def get_bit_depth(self):
         return self.bit_depth
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
 class Chorus(_Chorus):
     def __init__(
@@ -157,6 +188,8 @@ class Chorus(_Chorus):
             depth_format=None,
             feedback_format=None,
             mix_format=None):
+
+        _initialize(self)
 
         if depth_format is None:
             depth_format = format
@@ -212,8 +245,20 @@ class Chorus(_Chorus):
     def get_mix(self, format=_Constants.PERCENTAGE):
         return self._proportion_adjusted_mix.get_value(format=format)
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Clipping(_Clipping):
     def __init__(self, threshold=-6):
+        _initialize(self)
+
         super().__init__(threshold_db=threshold)
 
     def set_threshold(self, threshold):
@@ -222,6 +267,16 @@ class Clipping(_Clipping):
     def get_threshold(self):
         return self.threshold_db
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Compressor(_Compressor):
     def __init__(
             self,
@@ -229,6 +284,8 @@ class Compressor(_Compressor):
             ratio=4,
             attack=0.001,
             release=0.1):
+
+        _initialize(self)
 
         super().__init__(
             threshold_db=threshold,
@@ -260,6 +317,16 @@ class Compressor(_Compressor):
     def get_release(self):
         return self.release_ms / 1000
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Convolution(_Convolution):
     def __init__(
             self,
@@ -268,6 +335,8 @@ class Convolution(_Convolution):
             sample_rate=None,
             format=_Constants.PERCENTAGE,
             mix_format=None):
+
+        _initialize(self)
 
         if mix_format is None:
             mix_format = format
@@ -299,6 +368,16 @@ class Convolution(_Convolution):
     def get_sample_rate(self):
         return self.sample_rate
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Delay(_Delay):
     def __init__(
             self,
@@ -308,6 +387,8 @@ class Delay(_Delay):
             format=_Constants.PERCENTAGE,
             feedback_format=None,
             mix_format=None):
+
+        _initialize(self)
 
         if feedback_format is None:
             feedback_format = format
@@ -344,8 +425,20 @@ class Delay(_Delay):
     def get_mix(self):
         return self._proportion_adjusted_mix.get_value(format=_Constants.DECIMAL)
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Distortion(_Distortion):
     def __init__(self, drive=10):
+        _initialize(self)
+
         super().__init__(drive_db=drive)
 
     def set_drive(self, drive):
@@ -354,12 +447,36 @@ class Distortion(_Distortion):
     def get_drive(self):
         return self.drive_db
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class GSMFullRateCompressor(_GSMFullRateCompressor):
     def __init__(self):
+        _initialize(self)
+
         super().__init__()
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
 class Gain(_Gain):
     def __init__(self, gain=1):
+        _initialize(self)
+
         super().__init__(gain_db=gain)
 
     def set_gain(self, gain):
@@ -368,8 +485,20 @@ class Gain(_Gain):
     def get_gain(self):
         return self.gain_db
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class HighShelfFilter(_HighShelfFilter):
     def __init__(self, cutoff=440, gain=0, q=0.7071067690849304):
+        _initialize(self)
+
         super().__init__(cutoff_hz=cutoff, gain_db=gain, q=q)
 
     def set_cutoff(self, cutoff):
@@ -390,8 +519,20 @@ class HighShelfFilter(_HighShelfFilter):
     def get_q(self):
         return self.q
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class HighPassFilter(_HighpassFilter):
     def __init__(self, cutoff=50):
+        _initialize(self)
+
         super().__init__(cutoff_hz=cutoff)
 
     def set_cutoff(self, cutoff):
@@ -400,8 +541,20 @@ class HighPassFilter(_HighpassFilter):
     def get_cutoff(self):
         return self.cutoff_hz
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class LadderFilter(_LadderFilter):
     def __init__(self, cutoff=200, resonance=0, drive=1):
+        _initialize(self)
+
         super().__init__(cutoff_hz=cutoff, resonance=resonance, drive=drive)
 
     def set_cutoff(self, cutoff):
@@ -422,8 +575,20 @@ class LadderFilter(_LadderFilter):
     def get_drive(self):
         return self.drive
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Limiter(_Limiter):
     def __init__(self, threshold=-10, release=0.1):
+        _initialize(self)
+
         super().__init__(threshold_db=threshold, release_ms=release / 1000)
 
     def set_threshold(self, threshold):
@@ -438,8 +603,20 @@ class Limiter(_Limiter):
     def get_release(self):
         return self.release_ms / 1000
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class LowShelfFilter(_LowShelfFilter):
     def __init__(self, cutoff=440, gain=0, q=0.7071067690849304):
+        _initialize(self)
+
         super().__init__(cutoff_hz=cutoff, gain_db=gain, q=q)
 
     def set_cutoff(self, cutoff):
@@ -460,8 +637,20 @@ class LowShelfFilter(_LowShelfFilter):
     def get_q(self):
         return self.q
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class LowPassFilter(_LowpassFilter):
     def __init__(self, cutoff=50):
+        _initialize(self)
+
         super().__init__(cutoff_hz=cutoff)
 
     def set_cutoff(self, cutoff):
@@ -470,8 +659,20 @@ class LowPassFilter(_LowpassFilter):
     def get_cutoff(self):
         return self.cutoff_hz
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class MP3Compressor(_MP3Compressor):
     def __init__(self, vbr_quality=3):
+        _initialize(self)
+
         super().__init__(vbr_quality=vbr_quality)
 
     def set_vbr_quality(self, vbr_quality):
@@ -480,6 +681,16 @@ class MP3Compressor(_MP3Compressor):
     def get_vbr_quality(self):
         return self.vbr_quality
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class NoiseGate(_NoiseGate):
     def __init__(
             self,
@@ -487,6 +698,8 @@ class NoiseGate(_NoiseGate):
             ratio=10,
             attack=0.001,
             release=0.1):
+
+        _initialize(self)
 
         super().__init__(
             threshold_db=threshold,
@@ -518,8 +731,20 @@ class NoiseGate(_NoiseGate):
     def get_release(self):
         return self.release_ms / 1000
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class PeakFilter(_PeakFilter):
     def __init__(self, frequency=1000, gain=0, q=0.7071067690849304):
+        _initialize(self)
+
         super().__init__(frequency_hz=frequency, gain_db=gain, q=q)
 
     def set_frequency(self, frequency):
@@ -540,6 +765,16 @@ class PeakFilter(_PeakFilter):
     def get_q(self):
         return self.q
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class Phaser(_Phaser):
     def __init__(
             self,
@@ -552,6 +787,8 @@ class Phaser(_Phaser):
             depth_format=None,
             feedback_format=None,
             mix_format=None):
+
+        _initialize(self)
 
         if depth_format is None:
             depth_format = format
@@ -607,8 +844,20 @@ class Phaser(_Phaser):
     def get_mix(self, format=_Constants.PERCENTAGE):
         return self._proportion_adjusted_mix.get_value(format=format)
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class PitchShift(_PitchShift):
     def __init__(self, semitones=0):
+        _initialize(self)
+
         super().__init__(semitones=semitones)
 
     def set_semitones(self, pitch_shift_semitones):
@@ -617,8 +866,20 @@ class PitchShift(_PitchShift):
     def get_semitones(self):
         return self.pitch_shift_semitones
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class ReSample(_Resample):
     def __init__(self, sample_rate=8000):
+        _initialize(self)
+
         super().__init__(sample_rate=sample_rate)
 
     def set_sample_rate(self, sample_rate):
@@ -626,6 +887,16 @@ class ReSample(_Resample):
 
     def get_sample_rate(self):
         return self.sample_rate
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
 class Reverb(_Reverb):
     def __init__(
@@ -642,6 +913,8 @@ class Reverb(_Reverb):
             wet_level_format=None,
             dry_level_format=None,
             width_format=None):
+
+        _initialize(self)
 
         if room_size_format is None:
             room_size_format = format
@@ -713,3 +986,13 @@ class Reverb(_Reverb):
 
     def get_freeze_mode(self):
         return self.freeze_mode
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
