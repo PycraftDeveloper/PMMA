@@ -10,7 +10,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.gpu import GPU as _GPU
 from pmma.python_src.executor import Executor as _Executor
 
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 

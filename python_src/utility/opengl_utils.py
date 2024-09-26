@@ -6,7 +6,7 @@ import moderngl as _moderngl
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class Texture:

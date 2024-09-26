@@ -4,7 +4,7 @@ import gc as _gc
 from watchdog.observers import Observer as _Observer
 from watchdog.events import FileSystemEventHandler as _FileSystemEventHandler
 
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class FileUtilityIntermediary:
     file_matrix = {}

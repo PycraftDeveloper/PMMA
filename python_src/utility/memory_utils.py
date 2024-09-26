@@ -17,7 +17,7 @@ from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPri
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class MemoryManagerIntermediary:

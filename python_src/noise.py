@@ -10,7 +10,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 import pmma.python_src.utility.math_utils as _math_utils
 from pmma.python_src.utility.noise_utils import NoiseIntermediary as _NoiseIntermediary
 from pmma.python_src.utility.noise_utils import prefill_optimizer as _prefill_optimizer
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
 
 class Perlin:

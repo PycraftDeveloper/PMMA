@@ -2,7 +2,7 @@ import gc as _gc
 
 import numpy as _numpy
 
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Stack:
     def __init__(self, max_size=None):

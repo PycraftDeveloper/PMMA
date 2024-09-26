@@ -3,7 +3,7 @@ import time as _time
 
 from pmma.python_src.constants import Constants as _Constants
 
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Backspace_KEY:
     def __del__(self, do_garbage_collection=False):

@@ -9,7 +9,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWatcher
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 def path_builder(*args):
     result = ""

@@ -3,7 +3,7 @@ import gc as _gc
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class Display:

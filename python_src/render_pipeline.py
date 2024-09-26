@@ -22,7 +22,7 @@ from pmma.python_src.draw import Ellipse as _Ellipse
 from pmma.python_src.draw import Pixel as _Pixel
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class RenderPipeline:
     def __init__(self):

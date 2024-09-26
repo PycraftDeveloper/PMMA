@@ -8,7 +8,7 @@ from pmma.python_src.noise import Perlin as _Perlin
 from pmma.python_src.utility.number_converter_utils import ColorIntermediary as _ColorIntermediary
 from pmma.python_src.utility.number_converter_utils import CoordinateIntermediary as _CoordinateIntermediary
 from pmma.python_src.utility.number_converter_utils import PointIntermediary as _PointIntermediary
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class AngleConverter:
     def __init__(self):

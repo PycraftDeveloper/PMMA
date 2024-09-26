@@ -12,7 +12,7 @@ from pmma.python_src.file import File as _File
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import create_cache_id as _create_cache_id
 
 class _Text:

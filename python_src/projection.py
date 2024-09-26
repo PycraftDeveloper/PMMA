@@ -1,7 +1,7 @@
 import numpy as _numpy
 import gc as _gc
 
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class PerspectiveProjection:
     def __init__(self):

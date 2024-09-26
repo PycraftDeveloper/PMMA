@@ -8,7 +8,7 @@ from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.controller import Controllers as _Controllers
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Events:

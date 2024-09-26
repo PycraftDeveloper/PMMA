@@ -32,7 +32,7 @@ import waiting as _waiting
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
 
-from pmma.python_src.utility.general_utils import initialize as _initialize
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Audio:
     def __init__(self):
