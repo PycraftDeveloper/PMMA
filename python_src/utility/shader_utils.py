@@ -3,7 +3,7 @@ import gc as _gc
 
 import waiting as _waiting
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -14,7 +14,7 @@ class ShaderIntermediary:
 
 class LoadedShaderReferenceManager:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.reference_manager_lock = _threading.Lock()
 
@@ -65,10 +65,10 @@ class ShaderManager:
     def __init__(self):
         _initialize(self)
 
-        if not Constants.SHADER_REFERENCE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+        if not _Constants.SHADER_REFERENCE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             raise _ShaderReferenceManagerNotInitializedError()
 
-        self._shader_reference_manager: "LoadedShaderReferenceManager"= _Registry.pmma_module_spine[Constants.SHADER_REFERENCE_MANAGER_OBJECT]
+        self._shader_reference_manager: "LoadedShaderReferenceManager"= _Registry.pmma_module_spine[_Constants.SHADER_REFERENCE_MANAGER_OBJECT]
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -85,24 +85,24 @@ class ShaderManager:
             with self._shader_reference_manager.reference_manager_lock:
                 ShaderIntermediary.loaded_shaders_from_file[file_name] = {"vertex": vertex, "fragment": fragment, "reference_count": 1, "using_gl_point_size_syntax": using_gl_point_size_syntax, "uniform_values": uniform_values, "buffer_names":buffer_names}
 
-    def check_if_shader_exists(self, file_name, shader_type=Constants.BOTH):
+    def check_if_shader_exists(self, file_name, shader_type=_Constants.BOTH):
         if file_name in ShaderIntermediary.loaded_shaders_from_file:
-            if shader_type == Constants.BOTH:
+            if shader_type == _Constants.BOTH:
                 return ShaderIntermediary.loaded_shaders_from_file[file_name]["vertex"] is not None and ShaderIntermediary.loaded_shaders_from_file[file_name]["fragment"] is not None
-            elif shader_type == Constants.VERTEX_ONLY:
+            elif shader_type == _Constants.VERTEX_ONLY:
                 return ShaderIntermediary.loaded_shaders_from_file[file_name]["vertex"] is not None
-            elif shader_type == Constants.FRAGMENT_ONLY:
+            elif shader_type == _Constants.FRAGMENT_ONLY:
                 return ShaderIntermediary.loaded_shaders_from_file[file_name]["fragment"] is not None
         return False
 
-    def get_shader(self, file_name, shader_type=Constants.BOTH):
+    def get_shader(self, file_name, shader_type=_Constants.BOTH):
         if self.check_if_shader_exists(file_name, shader_type):
             ShaderIntermediary.loaded_shaders_from_file[file_name]["reference_count"] += 1
-            if shader_type == Constants.BOTH:
+            if shader_type == _Constants.BOTH:
                 return ShaderIntermediary.loaded_shaders_from_file[file_name]["vertex"], ShaderIntermediary.loaded_shaders_from_file[file_name]["fragment"], ShaderIntermediary.loaded_shaders_from_file[file_name]["using_gl_point_size_syntax"], ShaderIntermediary.loaded_shaders_from_file[file_name]["uniform_values"].copy(), ShaderIntermediary.loaded_shaders_from_file[file_name]["buffer_names"].copy()
-            elif shader_type == Constants.VERTEX_ONLY:
+            elif shader_type == _Constants.VERTEX_ONLY:
                 return ShaderIntermediary.loaded_shaders_from_file[file_name]["vertex"], ShaderIntermediary.loaded_shaders_from_file[file_name]["using_gl_point_size_syntax"], ShaderIntermediary.loaded_shaders_from_file[file_name]["uniform_values"].copy(), ShaderIntermediary.loaded_shaders_from_file[file_name]["buffer_names"].copy()
-            elif shader_type == Constants.FRAGMENT_ONLY:
+            elif shader_type == _Constants.FRAGMENT_ONLY:
                 return ShaderIntermediary.loaded_shaders_from_file[file_name]["fragment"], ShaderIntermediary.loaded_shaders_from_file[file_name]["using_gl_point_size_syntax"], ShaderIntermediary.loaded_shaders_from_file[file_name]["uniform_values"].copy(), ShaderIntermediary.loaded_shaders_from_file[file_name]["buffer_names"].copy()
 
     def remove_shader_from_memory(self, file_name):

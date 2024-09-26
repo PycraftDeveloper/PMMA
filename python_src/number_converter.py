@@ -2,7 +2,7 @@ import gc as _gc
 import random as _random
 import math as _math
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.noise import Perlin as _Perlin
 
 from pmma.python_src.utility.number_converter_utils import ColorIntermediary as _ColorIntermediary
@@ -18,16 +18,16 @@ class AngleConverter:
         self._angle_cache = {}
         self._angle_set = False
 
-    def set_angle(self, angle, format=Constants.DEGREES):
+    def set_angle(self, angle, format=_Constants.DEGREES):
         if not (format in self._angle_cache and self._angle_cache[format] == angle):
             self._angle_cache = {}
             self._angle_cache[format] = angle
 
-            if format == Constants.DEGREES:
+            if format == _Constants.DEGREES:
                 self._angle = angle
-            elif format == Constants.RADIANS:
+            elif format == _Constants.RADIANS:
                 self._angle = (angle / _math.pi) * 180
-            elif format == Constants.GRADIANS:
+            elif format == _Constants.GRADIANS:
                 self._angle = angle * (10/9)
             self._angle_set = True
             return True
@@ -36,15 +36,15 @@ class AngleConverter:
     def get_angle_set(self):
         return self._angle_set
 
-    def get_angle(self, format=Constants.DEGREES):
+    def get_angle(self, format=_Constants.DEGREES):
         if format in self._angle_cache:
             return self._angle_cache[format]
         else:
-            if format == Constants.DEGREES:
+            if format == _Constants.DEGREES:
                 angle =  self._angle
-            elif format == Constants.RADIANS:
+            elif format == _Constants.RADIANS:
                 angle = (self._angle / 180) * _math.pi
-            elif format == Constants.GRADIANS:
+            elif format == _Constants.GRADIANS:
                 angle = self._angle / (10/9)
 
             self._angle_cache[format] = angle
@@ -68,13 +68,13 @@ class ProportionConverter:
         self._value_cache = {}
         self._proportion_set = False
 
-    def set_value(self, value, format=Constants.DECIMAL):
+    def set_value(self, value, format=_Constants.DECIMAL):
         if not (format in self._value_cache and self._value_cache[format] == value):
             self._value_cache = {}
             self._value_cache[format] = value
-            if format == Constants.DECIMAL:
+            if format == _Constants.DECIMAL:
                 self._value = value
-            elif format == Constants.PERCENTAGE:
+            elif format == _Constants.PERCENTAGE:
                 self._value = value / 100
             self._proportion_set = True
             return True
@@ -83,13 +83,13 @@ class ProportionConverter:
     def get_proportion_set(self):
         return self._proportion_set
 
-    def get_value(self, format=Constants.DECIMAL):
+    def get_value(self, format=_Constants.DECIMAL):
         if format in self._value_cache:
             return self._value_cache[format]
         else:
-            if format == Constants.DECIMAL:
+            if format == _Constants.DECIMAL:
                 point = self._value
-            elif format == Constants.PERCENTAGE:
+            elif format == _Constants.PERCENTAGE:
                 point = self._value * 100
 
             self._value_cache[format] = point
@@ -120,10 +120,10 @@ class ColorConverter:
 
         self._color_set = False
 
-    def set_color(self, color, format=Constants.RGB):
-        if format == Constants.RGB:
+    def set_color(self, color, format=_Constants.RGB):
+        if format == _Constants.RGB:
             color = [int(color[0]), int(color[1]), int(color[2])]
-        elif format == Constants.RGBA:
+        elif format == _Constants.RGBA:
             color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
         ### extend this, ignore HEX and SMALL values!!!
 
@@ -159,17 +159,17 @@ class ColorConverter:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def generate_random_color(self, format=Constants.RGBA):
+    def generate_random_color(self, format=_Constants.RGBA):
         color = [_random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255)]
         self.set_color(
             color,
-            Constants.RGBA)
+            _Constants.RGBA)
         return self.get_color(format)
 
     def generate_color(
             self,
             value,
-            format=Constants.RGBA,
+            format=_Constants.RGBA,
             color_range=[0, 255],
             red_color_range=[0, 255],
             green_color_range=[0, 255],
@@ -202,7 +202,7 @@ class ColorConverter:
 
         self.set_color(
             color,
-            Constants.RGBA)
+            _Constants.RGBA)
         return self.get_color(format)
 
 class PointConverter:
@@ -214,8 +214,8 @@ class PointConverter:
 
         self._point_set = False
 
-    def set_point(self, point, format=Constants.CONVENTIONAL_COORDINATES):
-        if format == Constants.CONVENTIONAL_COORDINATES:
+    def set_point(self, point, format=_Constants.CONVENTIONAL_COORDINATES):
+        if format == _Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
 
         if not (format in self._point_cache and self._point_cache[format] == point):
@@ -229,7 +229,7 @@ class PointConverter:
     def get_point_set(self):
         return self._point_set
 
-    def get_point(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if format in self._point_cache:
             return self._point_cache[format]
         else:
@@ -256,8 +256,8 @@ class CoordinateConverter:
 
         self._coordinate_set = False
 
-    def set_coordinates(self, coordinate, format=Constants.CONVENTIONAL_COORDINATES):
-        if format == Constants.CONVENTIONAL_COORDINATES:
+    def set_coordinates(self, coordinate, format=_Constants.CONVENTIONAL_COORDINATES):
+        if format == _Constants.CONVENTIONAL_COORDINATES:
             coordinate = [int(coordinate[0]), int(coordinate[1])]
 
         if not (format in self._coordinate_cache and self._coordinate_cache[format] == coordinate):
@@ -271,7 +271,7 @@ class CoordinateConverter:
     def get_coordinate_set(self):
         return self._coordinate_set
 
-    def get_coordinates(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_coordinates(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if format in self._coordinate_cache:
             return self._coordinate_cache[format]
         else:

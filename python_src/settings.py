@@ -1,4 +1,4 @@
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.settings_utils import set_development_mode as _set_development_mode
 from pmma.python_src.utility.settings_utils import get_development_mode as _get_development_mode
@@ -69,10 +69,10 @@ def get_display_mode():
 def set_display_mode(mode):
     _set_display_mode(mode, internal=False)
 
-def set_shape_quality(value, format=Constants.PERCENTAGE):
+def set_shape_quality(value, format=_Constants.PERCENTAGE):
     _set_shape_quality(value, format=format)
 
-def get_shape_quality(format=Constants.PERCENTAGE):
+def get_shape_quality(format=_Constants.PERCENTAGE):
     return _get_shape_quality(format=format)
 
 def set_in_game_loop(value):

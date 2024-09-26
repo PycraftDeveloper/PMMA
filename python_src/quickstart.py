@@ -1,6 +1,6 @@
 import gc as _gc
 
-from pmma.python_src.general import *
+from pmma.python_src.general import compute as _compute
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.display import Display as _Display
 from pmma.python_src.events import Events as _Events
@@ -67,6 +67,6 @@ class QuickStart:
             self._display.clear(clear_color)
 
     def end(self, refresh_rate=None):
-        compute()
+        _compute()
         self._display.refresh(refresh_rate=refresh_rate)
         return _Registry.running is False or _Backpack.running is False

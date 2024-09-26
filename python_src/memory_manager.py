@@ -1,6 +1,6 @@
 import gc as _gc
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -19,7 +19,7 @@ class MemoryManager:
     def __init__(self):
         _initialize(self)
 
-        self._memory_manager = _Registry.pmma_module_spine[Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT]
+        self._memory_manager = _Registry.pmma_module_spine[_Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT]
 
     def add(
             self,

@@ -4,15 +4,15 @@ import threading as _threading
 import wmi as _wmi
 import pyadl as _pyadl
 
-from pmma.python_src.general import *
-from pmma.python_src.constants import Constants
+from pmma.python_src.general import get_operating_system as _get_operating_system
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.executor import Executor as _Executor
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 
-if get_operating_system() == Constants.WINDOWS:
+if _get_operating_system() == _Constants.WINDOWS:
     import pythoncom as _pythoncom
 
 class GPUs:
@@ -30,13 +30,13 @@ class GPUs:
         self._shut_down = True
 
     def identify_gpus(self):
-        _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].identify_gpus()
+        _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT].identify_gpus()
 
     def get_gpu(self, gpu_index):
-        return _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].get_gpu(gpu_index)
+        return _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT].get_gpu(gpu_index)
 
     def all_gpus_are_unique(self):
-        return _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT].all_gpus_are_unique()
+        return _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT].all_gpus_are_unique()
 
 class GPU:
     def __init__(self, module_identification_indices):
@@ -45,208 +45,208 @@ class GPU:
         self._module_identification_indices = module_identification_indices
         self._executor = _Executor()
 
-        self._accelerator_capabilities = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['AcceleratorCapabilities'], Constants.PYADL: []}}
-        self._accounting_mode_enabled = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['accounting.mode'], Constants.WMI: [], Constants.PYADL: []}}
-        self._accounting_mode_buffer_size = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['accounting.buffer_size'], Constants.WMI: [], Constants.PYADL: []}}
-        self._adapter_compatibility = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['AdapterCompatibility'], Constants.PYADL: []}}
-        self._adapter_DAC_type = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['AdapterDACType'], Constants.PYADL: []}}
-        self._adapter_id = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['adapterID']}}
-        self._adapter_index = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['adapterIndex']}}
-        self._addressing_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['addressing_mode'], Constants.WMI: [], Constants.PYADL: []}}
-        self._availability = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['Availability'], Constants.PYADL: []}}
-        self._capability_descriptions = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CapabilityDescriptions'], Constants.PYADL: []}}
-        self._caption = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['Caption'], Constants.PYADL: []}}
-        self._chip_to_chip_interconnect_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['c2c.mode'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_as_bitmap = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.active', 'clocks_throttle_reasons.active'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_application_setting = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.applications_clocks_setting', 'clocks_throttle_reasons.applications_clocks_setting'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_is_hardware_limited = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.hw_slowdown', 'clocks_throttle_reasons.hw_slowdown'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_gpu_idle_limited = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.gpu_idle', 'clocks_throttle_reasons.gpu_idle'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_software_power_limited = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.sw_power_cap', 'clocks_throttle_reasons.sw_power_cap'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_software_thermal_limited = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.sw_thermal_slowdown', 'clocks_throttle_reasons.sw_thermal_slowdown'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_power_break_slowdown_limited = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.hw_power_brake_slowdown', 'clocks_throttle_reasons.hw_power_brake_slowdown'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_supported = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.supported', 'clocks_throttle_reasons.supported'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_sync_boost = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.sync_boost', 'clocks_throttle_reasons.sync_boost'], Constants.WMI: [], Constants.PYADL: []}}
-        self._clock_event_reasons_thermal_limited = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks_event_reasons.hw_thermal_slowdown', 'clocks_throttle_reasons.hw_thermal_slowdown'], Constants.WMI: [], Constants.PYADL: []}}
-        self._color_table_entries = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ColorTableEntries'], Constants.PYADL: []}}
-        self._compute_cap = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['compute_cap'], Constants.WMI: [], Constants.PYADL: []}}
-        self._compute_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['compute_mode'], Constants.WMI: [], Constants.PYADL: []}}
-        self._config_manager_error_code = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ConfigManagerErrorCode'], Constants.PYADL: []}}
-        self._config_manager_user_config = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ConfigManagerUserConfig'], Constants.PYADL: []}}
-        self._core_voltage = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['getCurrentCoreVoltage']}}
-        self._core_voltage_range = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['coreVoltageRange']}}
-        self._creation_class_name = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CreationClassName'], Constants.PYADL: []}}
-        self._current_bits_per_pixel = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentBitsPerPixel'], Constants.PYADL: []}}
-        self._current_horizontal_resolution = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentHorizontalResolution'], Constants.PYADL: []}}
-        self._current_number_of_colors = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentNumberOfColors'], Constants.PYADL: []}}
-        self._current_number_of_columns = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentNumberOfColumns'], Constants.PYADL: []}}
-        self._current_number_of_rows = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentNumberOfRows'], Constants.PYADL: []}}
-        self._current_refresh_rate = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentRefreshRate'], Constants.PYADL: []}}
-        self._current_scan_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentScanMode'], Constants.PYADL: []}}
-        self._current_vertical_resolution = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['CurrentVerticalResolution'], Constants.PYADL: []}}
-        self._description = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['Description'], Constants.PYADL: []}}
-        self._device_id = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['DeviceID'], Constants.PYADL: []}}
-        self._device_specific_pens = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['DeviceSpecificPens'], Constants.PYADL: []}}
-        self._display_active = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['display_active'], Constants.WMI: [], Constants.PYADL: []}}
-        self._display_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['display_mode'], Constants.WMI: [], Constants.PYADL: []}}
-        self._dither_type = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['DitherType'], Constants.PYADL: []}}
-        self._driver_date = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['DriverDate'], Constants.PYADL: []}}
-        self._driver_model_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['driver_model.current'], Constants.WMI: [], Constants.PYADL: []}}
-        self._driver_model_pending = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['driver_model.pending'], Constants.WMI: [], Constants.PYADL: []}}
-        self._driver_version = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['driver_version'], Constants.WMI: ['DriverVersion'], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_cbu = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.cbu'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_primary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.l1_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_register_file = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.register_file'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_secondary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.l2_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_shared_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.dram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_sram = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.sram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_texture_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.texture_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_total = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.total'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_all_time_in_video_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.aggregate.device_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_cbu = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.cbu'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_primary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.l1_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_register_file = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.register_file'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_secondary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.l2_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_shared_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.dram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_sram = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.sram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_texture_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.texture_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_total = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.total'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_corrected_since_reboot_in_video_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.corrected.volatile.device_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_cbu = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.cbu'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_primary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.l1_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_register_file = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.register_file'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_secondary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.l2_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_shared_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.dram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_sram = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.sram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_texture_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.texture_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_total = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.total'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_all_time_in_video_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.aggregate.device_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_cbu = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.cbu'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_primary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.l1_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_register_file = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.register_file'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_secondary_cache = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.l2_cache'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_shared_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.dram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_sram = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.sram'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_texture_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.texture_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_total = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.total'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_errors_uncorrected_since_reboot_in_video_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.errors.uncorrected.volatile.device_memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_mode_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.mode.current'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ecc_mode_pending = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['ecc.mode.pending'], Constants.WMI: [], Constants.PYADL: []}}
-        self._encoder_average_FPS = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['encoder.stats.averageFps'], Constants.WMI: [], Constants.PYADL: []}}
-        self._encoder_average_latency = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['encoder.stats.averageLatency'], Constants.WMI: [], Constants.PYADL: []}}
-        self._encoder_session_count = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['encoder.stats.sessionCount'], Constants.WMI: [], Constants.PYADL: []}}
-        self._engine_clock_range = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['engineClockRange']}}
-        self._error_cleared = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ErrorCleared'], Constants.PYADL: []}}
-        self._error_description = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ErrorDescription'], Constants.PYADL: []}}
-        self._fabric_state = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['fabric.state'], Constants.WMI: [], Constants.PYADL: []}}
-        self._fabric_status = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['fabric.status'], Constants.WMI: [], Constants.PYADL: []}}
-        self._fan_speed_percentage = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['fan.speed'], Constants.WMI: [], Constants.PYADL: ['getCurrentFanSpeed:ADL_DEVICE_FAN_SPEED_TYPE_PERCENTAGE']}}
-        self._fan_speed_percentage_range = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['getFanSpeedRange:ADL_DEVICE_FAN_SPEED_TYPE_PERCENTAGE']}}
-        self._fan_speed_RPM = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['getCurrentFanSpeed:ADL_DEVICE_FAN_SPEED_TYPE_RPM']}}
-        self._fan_speed_RPM_range = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['getFanSpeedRange:ADL_DEVICE_FAN_SPEED_TYPE_RPM']}}
-        self._fractional_multi_vGPU = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vgpu_device_capability.fractional_multiVgpu'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_application_default_shader_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.default_applications.graphics', 'clocks.default_applications.gr'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_application_default_memory_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.default_applications.memory', 'clocks.default_applications.mem'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_application_memory_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.applications.memory', 'clocks.applications.mem'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_application_shader_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.applications.graphics', 'clocks.applications.gr'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_maximum_memory_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.max.memory', 'clocks.max.mem'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_maximum_shader_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.max.graphics', 'clocks.max.gr'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_maximum_streaming_multiprocessor_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.max.sm', 'clocks.max.sm'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_memory_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.current.memory', 'clocks.mem'], Constants.WMI: [], Constants.PYADL: ['getCurrentMemoryClock']}}
-        self._frequency_shader_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.current.graphics', 'clocks.gr'], Constants.WMI: [], Constants.PYADL: ['getCurrentEngineClock']}}
-        self._frequency_streaming_multiprocessor_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.current.sm', 'clocks.sm'], Constants.WMI: [], Constants.PYADL: []}}
-        self._frequency_video_clock = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['clocks.current.video', 'clocks.video'], Constants.WMI: [], Constants.PYADL: []}}
-        self._heterogenous_multi_vGPU = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vgpu_driver_capability.heterogenous_multivGPU'], Constants.WMI: [], Constants.PYADL: []}}
-        self._heterogenous_time_slice_profile = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vgpu_device_capability.heterogeneous_timeSlice_profile'], Constants.WMI: [], Constants.PYADL: []}}
-        self._heterogenous_time_slice_sizes = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vgpu_device_capability.heterogeneous_timeSlice_sizes'], Constants.WMI: [], Constants.PYADL: []}}
-        self._ICM_indent = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ICMIntent'], Constants.PYADL: []}}
-        self._ICM_method = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ICMMethod'], Constants.PYADL: []}}
-        self._inf_filename = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['InfFilename'], Constants.PYADL: []}}
-        self._inf_section = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['InfSection'], Constants.PYADL: []}}
-        self._info_ROM_ecc = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['inforom.ecc'], Constants.WMI: [], Constants.PYADL: []}}
-        self._info_ROM_oem = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['inforom.oem'], Constants.WMI: [], Constants.PYADL: []}}
-        self._info_ROM_power = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['inforom.pwr', 'inforom.power'], Constants.WMI: [], Constants.PYADL: []}}
-        self._info_ROM_version = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['inforom.img', 'inforom.image'], Constants.WMI: [], Constants.PYADL: []}}
-        self._install_date = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['InstallDate'], Constants.PYADL: []}}
-        self._installed_display_drivers = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['InstalledDisplayDrivers'], Constants.PYADL: []}}
-        self._last_error_code = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['LastErrorCode'], Constants.PYADL: []}}
-        self._max_memory_supported = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['MaxMemorySupported'], Constants.PYADL: []}}
-        self._max_number_controlled = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['MaxNumberControlled'], Constants.PYADL: []}}
-        self._max_refresh_rate = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['MaxRefreshRate'], Constants.PYADL: []}}
-        self._memory_clock_range = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: [], Constants.PYADL: ['getMemoryClockRange']}}
-        self._memory_free = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['memory.free'], Constants.WMI: [], Constants.PYADL: []}}
-        self._memory_reserved = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['memory.reserved'], Constants.WMI: [], Constants.PYADL: []}}
-        self._memory_total = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['memory.total'], Constants.WMI: [], Constants.PYADL: []}}
-        self._memory_used = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['memory.used'], Constants.WMI: [], Constants.PYADL: []}}
-        self._min_refresh_rate = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['MinRefreshRate'], Constants.PYADL: []}}
-        self._monochrome = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['Monochrome'], Constants.PYADL: []}}
-        self._multi_instance_GPU_mode_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['mig.mode.current'], Constants.WMI: [], Constants.PYADL: []}}
-        self._multi_instance_GPU_mode_pending = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['mig.mode.pending'], Constants.WMI: [], Constants.PYADL: []}}
-        self._name = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['name', 'gpu_name'], Constants.WMI: ['Name'], Constants.PYADL: ['adapterName']}}
-        self._number_of_color_planes = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['NumberOfColorPlanes'], Constants.PYADL: []}}
-        self._number_of_video_pages = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['NumberOfVideoPages'], Constants.PYADL: []}}
-        self._operating_mode_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['gom.current', 'gpu_operation_mode.current'], Constants.WMI: [], Constants.PYADL: []}}
-        self._operating_mode_pending = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['gom.pending', 'gpu_operation_mode.pending'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_bus = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pci.bus'], Constants.WMI: [], Constants.PYADL: ['busNumber']}}
-        self._pci_bus_id = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pci.bus_id', 'gpu_bus_id'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_device = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pci.device'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_device_id = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pci.device_id'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_domain = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pci.domain'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_link_generation_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pcie.link.gen.gpucurrent'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_link_generation_device_host_maximum = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pcie.link.gen.max'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_link_generation_gpu_maximum = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pcie.link.gen.gpumax'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_link_generation_maximum = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pcie.link.gen.hostmax'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_link_width_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pcie.link.width.current'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_link_width_maximum = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pcie.link.width.max'], Constants.WMI: [], Constants.PYADL: []}}
-        self._pci_sub_device_id = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pci.sub_device_id'], Constants.WMI: [], Constants.PYADL: []}}
-        self._persistence_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['persistence_mode'], Constants.WMI: [], Constants.PYADL: []}}
-        self._PNP_device_id = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['PNPDeviceID'], Constants.PYADL: []}}
-        self._power_draw = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.draw'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_average = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.draw.average'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_default_limit = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.default_limit'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_enforced_limit = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['enforced.power.limit'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_instant = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.draw.instant'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_limit = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.limit'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_maximum = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.max_limit'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_draw_minimum = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.min_limit'], Constants.WMI: [], Constants.PYADL: []}}
-        self._power_management_capabilities = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['PowerManagementCapabilities'], Constants.PYADL: []}}
-        self._power_management_supported = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['power.management'], Constants.WMI: ['PowerManagementSupported'], Constants.PYADL: []}}
-        self._protected_memory_free = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['protected_memory.free'], Constants.WMI: [], Constants.PYADL: []}}
-        self._protected_memory_total = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['protected_memory.total'], Constants.WMI: [], Constants.PYADL: []}}
-        self._protected_memory_used = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['protected_memory.used'], Constants.WMI: [], Constants.PYADL: []}}
-        self._protocol_supported = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ProtocolSupported'], Constants.PYADL: []}}
-        self._performance_state = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['pstate'], Constants.WMI: [], Constants.PYADL: []}}
-        self._retired_pages_double_bit_ecc_errors_count = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['retired_pages.double_bit.count', 'retired_pages.dbe'], Constants.WMI: [], Constants.PYADL: []}}
-        self._retired_pages_single_bit_ecc_errors_count = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['retired_pages.single_bit_ecc.count', 'retired_pages.sbe'], Constants.WMI: [], Constants.PYADL: []}}
-        self._retired_pages_pending = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['retired_pages.pending'], Constants.WMI: [], Constants.PYADL: []}}
-        self._reserved_system_palette_entries = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['ReservedSystemPaletteEntries'], Constants.PYADL: []}}
-        self._reset_required = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['reset_status.reset_required'], Constants.WMI: [], Constants.PYADL: []}}
-        self._reset_and_drain_recommended = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['reset_status.drain_and_reset_recommended'], Constants.WMI: [], Constants.PYADL: []}}
-        self._serial = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['serial', 'gpu_serial'], Constants.WMI: [], Constants.PYADL: []}}
-        self._specification_version = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['SpecificationVersion'], Constants.PYADL: []}}
-        self._status = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['Status'], Constants.PYADL: []}}
-        self._status_info = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['StatusInfo'], Constants.PYADL: []}}
-        self._system_creation_class_name = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['SystemCreationClassName'], Constants.PYADL: []}}
-        self._system_name = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['SystemName'], Constants.PYADL: []}}
-        self._system_palette_entries = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['SystemPaletteEntries'], Constants.PYADL: []}}
-        self._GPU_system_processor_mode_current = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['gsp.mode.current'], Constants.WMI: [], Constants.PYADL: []}}
-        self._GPU_system_processor_mode_default = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['gsp.mode.default'], Constants.WMI: [], Constants.PYADL: []}}
-        self._temperature_core = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['temperature.gpu'], Constants.WMI: [], Constants.PYADL: ['getCurrentTemperature']}}
-        self._temperature_core_limit = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['temperature.gpu.tlimit'], Constants.WMI: [], Constants.PYADL: []}}
-        self._temperature_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['temperature.memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._time_of_last_reset = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['TimeOfLastReset'], Constants.PYADL: []}}
-        self._utilization_decoder = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['utilization.decoder'], Constants.WMI: [], Constants.PYADL: []}}
-        self._utilization_encoder = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['utilization.encoder'], Constants.WMI: [], Constants.PYADL: []}}
-        self._utilization_gpu = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['utilization.gpu'], Constants.WMI: [], Constants.PYADL: ['getCurrentUsage']}}
-        self._utilization_jpeg = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['utilization.jpeg'], Constants.WMI: [], Constants.PYADL: []}}
-        self._utilization_memory = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['utilization.memory'], Constants.WMI: [], Constants.PYADL: []}}
-        self._utilization_optical_flow = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['utilization.ofa'], Constants.WMI: [], Constants.PYADL: []}}
-        self._uuid = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['uuid', 'gpu_uuid'], Constants.WMI: [], Constants.PYADL: ['uuid']}}
-        self._vbios_version = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: ['vbios_version'], Constants.WMI: [], Constants.PYADL: []}}
-        self._video_architecture = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['VideoArchitecture'], Constants.PYADL: []}}
-        self._video_memory_type = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['VideoMemoryType'], Constants.PYADL: []}}
-        self._video_mode = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['VideoMode'], Constants.PYADL: []}}
-        self._video_mode_description = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['VideoModeDescription'], Constants.PYADL: []}}
-        self._video_processor = {Constants.VALUE: None, Constants.UPDATING: True, Constants.MANUALLY_SET: False, Constants.DATA_COLLECTION_METHODS: {Constants.SMI: [], Constants.WMI: ['VideoProcessor'], Constants.PYADL: []}}
+        self._accelerator_capabilities = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['AcceleratorCapabilities'], _Constants.PYADL: []}}
+        self._accounting_mode_enabled = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['accounting.mode'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._accounting_mode_buffer_size = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['accounting.buffer_size'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._adapter_compatibility = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['AdapterCompatibility'], _Constants.PYADL: []}}
+        self._adapter_DAC_type = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['AdapterDACType'], _Constants.PYADL: []}}
+        self._adapter_id = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['adapterID']}}
+        self._adapter_index = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['adapterIndex']}}
+        self._addressing_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['addressing_mode'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._availability = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['Availability'], _Constants.PYADL: []}}
+        self._capability_descriptions = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CapabilityDescriptions'], _Constants.PYADL: []}}
+        self._caption = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['Caption'], _Constants.PYADL: []}}
+        self._chip_to_chip_interconnect_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['c2c.mode'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_as_bitmap = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.active', 'clocks_throttle_reasons.active'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_application_setting = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.applications_clocks_setting', 'clocks_throttle_reasons.applications_clocks_setting'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_is_hardware_limited = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.hw_slowdown', 'clocks_throttle_reasons.hw_slowdown'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_gpu_idle_limited = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.gpu_idle', 'clocks_throttle_reasons.gpu_idle'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_software_power_limited = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.sw_power_cap', 'clocks_throttle_reasons.sw_power_cap'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_software_thermal_limited = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.sw_thermal_slowdown', 'clocks_throttle_reasons.sw_thermal_slowdown'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_power_break_slowdown_limited = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.hw_power_brake_slowdown', 'clocks_throttle_reasons.hw_power_brake_slowdown'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_supported = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.supported', 'clocks_throttle_reasons.supported'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_sync_boost = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.sync_boost', 'clocks_throttle_reasons.sync_boost'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._clock_event_reasons_thermal_limited = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks_event_reasons.hw_thermal_slowdown', 'clocks_throttle_reasons.hw_thermal_slowdown'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._color_table_entries = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ColorTableEntries'], _Constants.PYADL: []}}
+        self._compute_cap = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['compute_cap'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._compute_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['compute_mode'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._config_manager_error_code = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ConfigManagerErrorCode'], _Constants.PYADL: []}}
+        self._config_manager_user_config = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ConfigManagerUserConfig'], _Constants.PYADL: []}}
+        self._core_voltage = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['getCurrentCoreVoltage']}}
+        self._core_voltage_range = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['coreVoltageRange']}}
+        self._creation_class_name = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CreationClassName'], _Constants.PYADL: []}}
+        self._current_bits_per_pixel = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentBitsPerPixel'], _Constants.PYADL: []}}
+        self._current_horizontal_resolution = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentHorizontalResolution'], _Constants.PYADL: []}}
+        self._current_number_of_colors = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentNumberOfColors'], _Constants.PYADL: []}}
+        self._current_number_of_columns = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentNumberOfColumns'], _Constants.PYADL: []}}
+        self._current_number_of_rows = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentNumberOfRows'], _Constants.PYADL: []}}
+        self._current_refresh_rate = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentRefreshRate'], _Constants.PYADL: []}}
+        self._current_scan_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentScanMode'], _Constants.PYADL: []}}
+        self._current_vertical_resolution = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['CurrentVerticalResolution'], _Constants.PYADL: []}}
+        self._description = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['Description'], _Constants.PYADL: []}}
+        self._device_id = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['DeviceID'], _Constants.PYADL: []}}
+        self._device_specific_pens = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['DeviceSpecificPens'], _Constants.PYADL: []}}
+        self._display_active = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['display_active'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._display_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['display_mode'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._dither_type = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['DitherType'], _Constants.PYADL: []}}
+        self._driver_date = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['DriverDate'], _Constants.PYADL: []}}
+        self._driver_model_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['driver_model.current'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._driver_model_pending = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['driver_model.pending'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._driver_version = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['driver_version'], _Constants.WMI: ['DriverVersion'], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_cbu = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.cbu'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_primary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.l1_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_register_file = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.register_file'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_secondary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.l2_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_shared_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.dram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_sram = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.sram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_texture_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.texture_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_total = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.total'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_all_time_in_video_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.aggregate.device_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_cbu = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.cbu'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_primary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.l1_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_register_file = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.register_file'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_secondary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.l2_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_shared_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.dram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_sram = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.sram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_texture_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.texture_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_total = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.total'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_corrected_since_reboot_in_video_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.corrected.volatile.device_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_cbu = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.cbu'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_primary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.l1_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_register_file = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.register_file'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_secondary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.l2_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_shared_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.dram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_sram = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.sram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_texture_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.texture_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_total = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.total'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_all_time_in_video_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.aggregate.device_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_cbu = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.cbu'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_primary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.l1_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_register_file = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.register_file'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_secondary_cache = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.l2_cache'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_shared_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.dram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_sram = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.sram'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_texture_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.texture_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_total = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.total'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_errors_uncorrected_since_reboot_in_video_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.errors.uncorrected.volatile.device_memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_mode_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.mode.current'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ecc_mode_pending = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['ecc.mode.pending'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._encoder_average_FPS = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['encoder.stats.averageFps'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._encoder_average_latency = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['encoder.stats.averageLatency'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._encoder_session_count = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['encoder.stats.sessionCount'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._engine_clock_range = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['engineClockRange']}}
+        self._error_cleared = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ErrorCleared'], _Constants.PYADL: []}}
+        self._error_description = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ErrorDescription'], _Constants.PYADL: []}}
+        self._fabric_state = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['fabric.state'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._fabric_status = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['fabric.status'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._fan_speed_percentage = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['fan.speed'], _Constants.WMI: [], _Constants.PYADL: ['getCurrentFanSpeed:ADL_DEVICE_FAN_SPEED_TYPE_PERCENTAGE']}}
+        self._fan_speed_percentage_range = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['getFanSpeedRange:ADL_DEVICE_FAN_SPEED_TYPE_PERCENTAGE']}}
+        self._fan_speed_RPM = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['getCurrentFanSpeed:ADL_DEVICE_FAN_SPEED_TYPE_RPM']}}
+        self._fan_speed_RPM_range = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['getFanSpeedRange:ADL_DEVICE_FAN_SPEED_TYPE_RPM']}}
+        self._fractional_multi_vGPU = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['vgpu_device_capability.fractional_multiVgpu'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_application_default_shader_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.default_applications.graphics', 'clocks.default_applications.gr'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_application_default_memory_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.default_applications.memory', 'clocks.default_applications.mem'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_application_memory_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.applications.memory', 'clocks.applications.mem'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_application_shader_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.applications.graphics', 'clocks.applications.gr'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_maximum_memory_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.max.memory', 'clocks.max.mem'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_maximum_shader_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.max.graphics', 'clocks.max.gr'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_maximum_streaming_multiprocessor_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.max.sm', 'clocks.max.sm'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_memory_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.current.memory', 'clocks.mem'], _Constants.WMI: [], _Constants.PYADL: ['getCurrentMemoryClock']}}
+        self._frequency_shader_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.current.graphics', 'clocks.gr'], _Constants.WMI: [], _Constants.PYADL: ['getCurrentEngineClock']}}
+        self._frequency_streaming_multiprocessor_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.current.sm', 'clocks.sm'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._frequency_video_clock = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['clocks.current.video', 'clocks.video'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._heterogenous_multi_vGPU = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['vgpu_driver_capability.heterogenous_multivGPU'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._heterogenous_time_slice_profile = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['vgpu_device_capability.heterogeneous_timeSlice_profile'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._heterogenous_time_slice_sizes = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['vgpu_device_capability.heterogeneous_timeSlice_sizes'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._ICM_indent = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ICMIntent'], _Constants.PYADL: []}}
+        self._ICM_method = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ICMMethod'], _Constants.PYADL: []}}
+        self._inf_filename = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['InfFilename'], _Constants.PYADL: []}}
+        self._inf_section = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['InfSection'], _Constants.PYADL: []}}
+        self._info_ROM_ecc = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['inforom.ecc'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._info_ROM_oem = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['inforom.oem'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._info_ROM_power = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['inforom.pwr', 'inforom.power'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._info_ROM_version = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['inforom.img', 'inforom.image'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._install_date = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['InstallDate'], _Constants.PYADL: []}}
+        self._installed_display_drivers = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['InstalledDisplayDrivers'], _Constants.PYADL: []}}
+        self._last_error_code = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['LastErrorCode'], _Constants.PYADL: []}}
+        self._max_memory_supported = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['MaxMemorySupported'], _Constants.PYADL: []}}
+        self._max_number_controlled = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['MaxNumberControlled'], _Constants.PYADL: []}}
+        self._max_refresh_rate = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['MaxRefreshRate'], _Constants.PYADL: []}}
+        self._memory_clock_range = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: [], _Constants.PYADL: ['getMemoryClockRange']}}
+        self._memory_free = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['memory.free'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._memory_reserved = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['memory.reserved'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._memory_total = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['memory.total'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._memory_used = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['memory.used'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._min_refresh_rate = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['MinRefreshRate'], _Constants.PYADL: []}}
+        self._monochrome = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['Monochrome'], _Constants.PYADL: []}}
+        self._multi_instance_GPU_mode_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['mig.mode.current'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._multi_instance_GPU_mode_pending = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['mig.mode.pending'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._name = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['name', 'gpu_name'], _Constants.WMI: ['Name'], _Constants.PYADL: ['adapterName']}}
+        self._number_of_color_planes = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['NumberOfColorPlanes'], _Constants.PYADL: []}}
+        self._number_of_video_pages = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['NumberOfVideoPages'], _Constants.PYADL: []}}
+        self._operating_mode_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['gom.current', 'gpu_operation_mode.current'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._operating_mode_pending = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['gom.pending', 'gpu_operation_mode.pending'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_bus = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pci.bus'], _Constants.WMI: [], _Constants.PYADL: ['busNumber']}}
+        self._pci_bus_id = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pci.bus_id', 'gpu_bus_id'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_device = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pci.device'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_device_id = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pci.device_id'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_domain = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pci.domain'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_link_generation_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pcie.link.gen.gpucurrent'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_link_generation_device_host_maximum = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pcie.link.gen.max'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_link_generation_gpu_maximum = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pcie.link.gen.gpumax'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_link_generation_maximum = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pcie.link.gen.hostmax'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_link_width_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pcie.link.width.current'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_link_width_maximum = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pcie.link.width.max'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._pci_sub_device_id = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pci.sub_device_id'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._persistence_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['persistence_mode'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._PNP_device_id = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['PNPDeviceID'], _Constants.PYADL: []}}
+        self._power_draw = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.draw'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_average = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.draw.average'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_default_limit = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.default_limit'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_enforced_limit = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['enforced.power.limit'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_instant = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.draw.instant'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_limit = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.limit'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_maximum = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.max_limit'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_draw_minimum = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.min_limit'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._power_management_capabilities = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['PowerManagementCapabilities'], _Constants.PYADL: []}}
+        self._power_management_supported = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['power.management'], _Constants.WMI: ['PowerManagementSupported'], _Constants.PYADL: []}}
+        self._protected_memory_free = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['protected_memory.free'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._protected_memory_total = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['protected_memory.total'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._protected_memory_used = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['protected_memory.used'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._protocol_supported = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ProtocolSupported'], _Constants.PYADL: []}}
+        self._performance_state = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['pstate'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._retired_pages_double_bit_ecc_errors_count = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['retired_pages.double_bit.count', 'retired_pages.dbe'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._retired_pages_single_bit_ecc_errors_count = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['retired_pages.single_bit_ecc.count', 'retired_pages.sbe'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._retired_pages_pending = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['retired_pages.pending'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._reserved_system_palette_entries = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['ReservedSystemPaletteEntries'], _Constants.PYADL: []}}
+        self._reset_required = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['reset_status.reset_required'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._reset_and_drain_recommended = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['reset_status.drain_and_reset_recommended'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._serial = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['serial', 'gpu_serial'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._specification_version = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['SpecificationVersion'], _Constants.PYADL: []}}
+        self._status = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['Status'], _Constants.PYADL: []}}
+        self._status_info = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['StatusInfo'], _Constants.PYADL: []}}
+        self._system_creation_class_name = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['SystemCreationClassName'], _Constants.PYADL: []}}
+        self._system_name = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['SystemName'], _Constants.PYADL: []}}
+        self._system_palette_entries = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['SystemPaletteEntries'], _Constants.PYADL: []}}
+        self._GPU_system_processor_mode_current = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['gsp.mode.current'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._GPU_system_processor_mode_default = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['gsp.mode.default'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._temperature_core = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['temperature.gpu'], _Constants.WMI: [], _Constants.PYADL: ['getCurrentTemperature']}}
+        self._temperature_core_limit = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['temperature.gpu.tlimit'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._temperature_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['temperature.memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._time_of_last_reset = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['TimeOfLastReset'], _Constants.PYADL: []}}
+        self._utilization_decoder = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['utilization.decoder'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._utilization_encoder = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['utilization.encoder'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._utilization_gpu = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['utilization.gpu'], _Constants.WMI: [], _Constants.PYADL: ['getCurrentUsage']}}
+        self._utilization_jpeg = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['utilization.jpeg'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._utilization_memory = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['utilization.memory'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._utilization_optical_flow = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['utilization.ofa'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._uuid = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['uuid', 'gpu_uuid'], _Constants.WMI: [], _Constants.PYADL: ['uuid']}}
+        self._vbios_version = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: ['vbios_version'], _Constants.WMI: [], _Constants.PYADL: []}}
+        self._video_architecture = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['VideoArchitecture'], _Constants.PYADL: []}}
+        self._video_memory_type = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['VideoMemoryType'], _Constants.PYADL: []}}
+        self._video_mode = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['VideoMode'], _Constants.PYADL: []}}
+        self._video_mode_description = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['VideoModeDescription'], _Constants.PYADL: []}}
+        self._video_processor = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_Constants.SMI: [], _Constants.WMI: ['VideoProcessor'], _Constants.PYADL: []}}
 
         self._gpu_data_points = [
             "_accelerator_capabilities",
@@ -453,10 +453,10 @@ class GPU:
             "_video_processor"
         ]
 
-        self._priorities = [Constants.SMI, Constants.PYADL, Constants.WMI]
+        self._priorities = [_Constants.SMI, _Constants.PYADL, _Constants.WMI]
 
     def update(self, everything=False, data_points=None, wait_for_completion=False):
-        if get_operating_system() == Constants.WINDOWS:
+        if _get_operating_system() == _Constants.WINDOWS:
             _pythoncom.CoInitialize()
         if wait_for_completion:
             self._update(everything=everything, data_points=data_points)
@@ -476,18 +476,18 @@ class GPU:
         wmi_data = []
         wmi_data_points = []
         for data_point in data_points:
-            if self.__dict__[data_point][Constants.MANUALLY_SET] is False or everything:
-                data_collection_strategies = self.__dict__[data_point][Constants.DATA_COLLECTION_METHODS] # keys changed
-                for query_command in data_collection_strategies[Constants.SMI]:
-                    if self._module_identification_indices[Constants.SMI] is not None:
+            if self.__dict__[data_point][_Constants.MANUALLY_SET] is False or everything:
+                data_collection_strategies = self.__dict__[data_point][_Constants.DATA_COLLECTION_METHODS] # keys changed
+                for query_command in data_collection_strategies[_Constants.SMI]:
+                    if self._module_identification_indices[_Constants.SMI] is not None:
                         smi_data += f"{query_command},"
                         smi_data_points.append(data_point)
-                for query_command in data_collection_strategies[Constants.PYADL]:
-                    if self._module_identification_indices[Constants.PYADL] is not None:
+                for query_command in data_collection_strategies[_Constants.PYADL]:
+                    if self._module_identification_indices[_Constants.PYADL] is not None:
                         adl_data.append(query_command)
                         adl_data_points.append(data_point)
-                for query_command in data_collection_strategies[Constants.WMI]:
-                    if self._module_identification_indices[Constants.WMI] is not None:
+                for query_command in data_collection_strategies[_Constants.WMI]:
+                    if self._module_identification_indices[_Constants.WMI] is not None:
                         wmi_data.append(query_command)
                         wmi_data_points.append(data_point)
 
@@ -496,12 +496,12 @@ class GPU:
         set_attributes = []
 
         for priority in self._priorities:
-            if priority == Constants.SMI and smi_data != "":
+            if priority == _Constants.SMI and smi_data != "":
                 self._executor.run([
                     _find_executable_nvidia_smi(),
                     f"--query-gpu={smi_data}",
                     "--format=csv,noheader,nounits",
-                    f"-i={self._module_identification_indices[Constants.SMI]}"])
+                    f"-i={self._module_identification_indices[_Constants.SMI]}"])
 
                 result = self._executor.get_result()
                 split_result = result.split(", ")
@@ -514,12 +514,12 @@ class GPU:
                     elif "Active" in data or "Enabled" in data:
                         data = True
                     if data_point not in set_attributes:
-                        self.__dict__[data_point][Constants.VALUE] = data
+                        self.__dict__[data_point][_Constants.VALUE] = data
                         if data is not None:
                             set_attributes.append(data_point)
 
-            elif priority == Constants.PYADL and adl_data != []:
-                gpu_data = _pyadl.ADLManager.getInstance().getDevices()[self._module_identification_indices[Constants.PYADL]]
+            elif priority == _Constants.PYADL and adl_data != []:
+                gpu_data = _pyadl.ADLManager.getInstance().getDevices()[self._module_identification_indices[_Constants.PYADL]]
                 result = []
                 for data_point in adl_data:
                     if ":" in data_point:
@@ -557,13 +557,13 @@ class GPU:
                         pass
 
                     if data_point not in set_attributes:
-                        self.__dict__[data_point][Constants.VALUE] = data
+                        self.__dict__[data_point][_Constants.VALUE] = data
                         if data is not None:
                             set_attributes.append(data_point)
 
-            elif priority == Constants.WMI and wmi_data != [] and get_operating_system() == Constants.WINDOWS:
+            elif priority == _Constants.WMI and wmi_data != [] and _get_operating_system() == _Constants.WINDOWS:
                 computer = _wmi.WMI()
-                gpu_data = computer.Win32_VideoController()[self._module_identification_indices[Constants.WMI]]
+                gpu_data = computer.Win32_VideoController()[self._module_identification_indices[_Constants.WMI]]
                 result = []
                 for data_point in wmi_data:
                     result.append(getattr(gpu_data, data_point))
@@ -576,12 +576,12 @@ class GPU:
                         pass
 
                     if data_point not in set_attributes:
-                        self.__dict__[data_point][Constants.VALUE] = data
+                        self.__dict__[data_point][_Constants.VALUE] = data
                         if data is not None:
                             set_attributes.append(data_point)
 
         for data_point in data_points:
-            self.__dict__[data_point][Constants.UPDATING] = False
+            self.__dict__[data_point][_Constants.UPDATING] = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -594,2829 +594,2829 @@ class GPU:
         self._shut_down = True
 
     def get_accelerator_capabilities(self, update=False, wait_for_completion=False):
-        value = self._accelerator_capabilities[Constants.VALUE]
-        if update and self._accelerator_capabilities[Constants.UPDATING] is False:
+        value = self._accelerator_capabilities[_Constants.VALUE]
+        if update and self._accelerator_capabilities[_Constants.UPDATING] is False:
             self.update(data_points=["accelerator_capabilities"], wait_for_completion=wait_for_completion)
         return value
 
     def get_accounting_mode_enabled(self, update=False, wait_for_completion=False):
-        value = self._accounting_mode_enabled[Constants.VALUE]
-        if update and self._accounting_mode_enabled[Constants.UPDATING] is False:
+        value = self._accounting_mode_enabled[_Constants.VALUE]
+        if update and self._accounting_mode_enabled[_Constants.UPDATING] is False:
             self.update(data_points=["accounting_mode_enabled"], wait_for_completion=wait_for_completion)
         return value
 
     def get_accounting_mode_buffer_size(self, update=False, wait_for_completion=False):
-        value = self._accounting_mode_buffer_size[Constants.VALUE]
-        if update and self._accounting_mode_buffer_size[Constants.UPDATING] is False:
+        value = self._accounting_mode_buffer_size[_Constants.VALUE]
+        if update and self._accounting_mode_buffer_size[_Constants.UPDATING] is False:
             self.update(data_points=["accounting_mode_buffer_size"], wait_for_completion=wait_for_completion)
         return value
 
     def get_adapter_compatibility(self, update=False, wait_for_completion=False):
-        value = self._adapter_compatibility[Constants.VALUE]
-        if update and self._adapter_compatibility[Constants.UPDATING] is False:
+        value = self._adapter_compatibility[_Constants.VALUE]
+        if update and self._adapter_compatibility[_Constants.UPDATING] is False:
             self.update(data_points=["adapter_compatibility"], wait_for_completion=wait_for_completion)
         return value
 
     def get_adapter_DAC_type(self, update=False, wait_for_completion=False):
-        value = self._adapter_DAC_type[Constants.VALUE]
-        if update and self._adapter_DAC_type[Constants.UPDATING] is False:
+        value = self._adapter_DAC_type[_Constants.VALUE]
+        if update and self._adapter_DAC_type[_Constants.UPDATING] is False:
             self.update(data_points=["adapter_DAC_type"], wait_for_completion=wait_for_completion)
         return value
 
     def get_adapter_id(self, update=False, wait_for_completion=False):
-        value = self._adapter_id[Constants.VALUE]
-        if update and self._adapter_id[Constants.UPDATING] is False:
+        value = self._adapter_id[_Constants.VALUE]
+        if update and self._adapter_id[_Constants.UPDATING] is False:
             self.update(data_points=["adapter_id"], wait_for_completion=wait_for_completion)
         return value
 
     def get_adapter_index(self, update=False, wait_for_completion=False):
-        value = self._adapter_index[Constants.VALUE]
-        if update and self._adapter_index[Constants.UPDATING] is False:
+        value = self._adapter_index[_Constants.VALUE]
+        if update and self._adapter_index[_Constants.UPDATING] is False:
             self.update(data_points=["adapter_index"], wait_for_completion=wait_for_completion)
         return value
 
     def get_addressing_mode(self, update=False, wait_for_completion=False):
-        value = self._addressing_mode[Constants.VALUE]
-        if update and self._addressing_mode[Constants.UPDATING] is False:
+        value = self._addressing_mode[_Constants.VALUE]
+        if update and self._addressing_mode[_Constants.UPDATING] is False:
             self.update(data_points=["addressing_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_availability(self, update=False, wait_for_completion=False):
-        value = self._availability[Constants.VALUE]
-        if update and self._availability[Constants.UPDATING] is False:
+        value = self._availability[_Constants.VALUE]
+        if update and self._availability[_Constants.UPDATING] is False:
             self.update(data_points=["availability"], wait_for_completion=wait_for_completion)
         return value
 
     def get_capability_descriptions(self, update=False, wait_for_completion=False):
-        value = self._capability_descriptions[Constants.VALUE]
-        if update and self._capability_descriptions[Constants.UPDATING] is False:
+        value = self._capability_descriptions[_Constants.VALUE]
+        if update and self._capability_descriptions[_Constants.UPDATING] is False:
             self.update(data_points=["capability_descriptions"], wait_for_completion=wait_for_completion)
         return value
 
     def get_caption(self, update=False, wait_for_completion=False):
-        value = self._caption[Constants.VALUE]
-        if update and self._caption[Constants.UPDATING] is False:
+        value = self._caption[_Constants.VALUE]
+        if update and self._caption[_Constants.UPDATING] is False:
             self.update(data_points=["caption"], wait_for_completion=wait_for_completion)
         return value
 
     def get_chip_to_chip_interconnect_mode(self, update=False, wait_for_completion=False):
-        value = self._chip_to_chip_interconnect_mode[Constants.VALUE]
-        if update and self._chip_to_chip_interconnect_mode[Constants.UPDATING] is False:
+        value = self._chip_to_chip_interconnect_mode[_Constants.VALUE]
+        if update and self._chip_to_chip_interconnect_mode[_Constants.UPDATING] is False:
             self.update(data_points=["chip_to_chip_interconnect_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_as_bitmap(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_as_bitmap[Constants.VALUE]
-        if update and self._clock_event_reasons_as_bitmap[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_as_bitmap[_Constants.VALUE]
+        if update and self._clock_event_reasons_as_bitmap[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_as_bitmap"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_application_setting(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_application_setting[Constants.VALUE]
-        if update and self._clock_event_reasons_application_setting[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_application_setting[_Constants.VALUE]
+        if update and self._clock_event_reasons_application_setting[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_application_setting"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_is_hardware_limited(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_is_hardware_limited[Constants.VALUE]
-        if update and self._clock_event_reasons_is_hardware_limited[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_is_hardware_limited[_Constants.VALUE]
+        if update and self._clock_event_reasons_is_hardware_limited[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_is_hardware_limited"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_gpu_idle_limited(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_gpu_idle_limited[Constants.VALUE]
-        if update and self._clock_event_reasons_gpu_idle_limited[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_gpu_idle_limited[_Constants.VALUE]
+        if update and self._clock_event_reasons_gpu_idle_limited[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_gpu_idle_limited"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_software_power_limited(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_software_power_limited[Constants.VALUE]
-        if update and self._clock_event_reasons_software_power_limited[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_software_power_limited[_Constants.VALUE]
+        if update and self._clock_event_reasons_software_power_limited[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_software_power_limited"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_software_thermal_limited(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_software_thermal_limited[Constants.VALUE]
-        if update and self._clock_event_reasons_software_thermal_limited[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_software_thermal_limited[_Constants.VALUE]
+        if update and self._clock_event_reasons_software_thermal_limited[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_software_thermal_limited"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_power_break_slowdown_limited(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_power_break_slowdown_limited[Constants.VALUE]
-        if update and self._clock_event_reasons_power_break_slowdown_limited[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_power_break_slowdown_limited[_Constants.VALUE]
+        if update and self._clock_event_reasons_power_break_slowdown_limited[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_power_break_slowdown_limited"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_supported(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_supported[Constants.VALUE]
-        if update and self._clock_event_reasons_supported[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_supported[_Constants.VALUE]
+        if update and self._clock_event_reasons_supported[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_supported"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_sync_boost(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_sync_boost[Constants.VALUE]
-        if update and self._clock_event_reasons_sync_boost[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_sync_boost[_Constants.VALUE]
+        if update and self._clock_event_reasons_sync_boost[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_sync_boost"], wait_for_completion=wait_for_completion)
         return value
 
     def get_clock_event_reasons_thermal_limited(self, update=False, wait_for_completion=False):
-        value = self._clock_event_reasons_thermal_limited[Constants.VALUE]
-        if update and self._clock_event_reasons_thermal_limited[Constants.UPDATING] is False:
+        value = self._clock_event_reasons_thermal_limited[_Constants.VALUE]
+        if update and self._clock_event_reasons_thermal_limited[_Constants.UPDATING] is False:
             self.update(data_points=["clock_event_reasons_thermal_limited"], wait_for_completion=wait_for_completion)
         return value
 
     def get_color_table_entries(self, update=False, wait_for_completion=False):
-        value = self._color_table_entries[Constants.VALUE]
-        if update and self._color_table_entries[Constants.UPDATING] is False:
+        value = self._color_table_entries[_Constants.VALUE]
+        if update and self._color_table_entries[_Constants.UPDATING] is False:
             self.update(data_points=["color_table_entries"], wait_for_completion=wait_for_completion)
         return value
 
     def get_compute_cap(self, update=False, wait_for_completion=False):
-        value = self._compute_cap[Constants.VALUE]
-        if update and self._compute_cap[Constants.UPDATING] is False:
+        value = self._compute_cap[_Constants.VALUE]
+        if update and self._compute_cap[_Constants.UPDATING] is False:
             self.update(data_points=["compute_cap"], wait_for_completion=wait_for_completion)
         return value
 
     def get_compute_mode(self, update=False, wait_for_completion=False):
-        value = self._compute_mode[Constants.VALUE]
-        if update and self._compute_mode[Constants.UPDATING] is False:
+        value = self._compute_mode[_Constants.VALUE]
+        if update and self._compute_mode[_Constants.UPDATING] is False:
             self.update(data_points=["compute_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_config_manager_error_code(self, update=False, wait_for_completion=False):
-        value = self._config_manager_error_code[Constants.VALUE]
-        if update and self._config_manager_error_code[Constants.UPDATING] is False:
+        value = self._config_manager_error_code[_Constants.VALUE]
+        if update and self._config_manager_error_code[_Constants.UPDATING] is False:
             self.update(data_points=["config_manager_error_code"], wait_for_completion=wait_for_completion)
         return value
 
     def get_config_manager_user_config(self, update=False, wait_for_completion=False):
-        value = self._config_manager_user_config[Constants.VALUE]
-        if update and self._config_manager_user_config[Constants.UPDATING] is False:
+        value = self._config_manager_user_config[_Constants.VALUE]
+        if update and self._config_manager_user_config[_Constants.UPDATING] is False:
             self.update(data_points=["config_manager_user_config"], wait_for_completion=wait_for_completion)
         return value
 
     def get_core_voltage(self, update=False, wait_for_completion=False):
-        value = self._core_voltage[Constants.VALUE]
-        if update and self._core_voltage[Constants.UPDATING] is False:
+        value = self._core_voltage[_Constants.VALUE]
+        if update and self._core_voltage[_Constants.UPDATING] is False:
             self.update(data_points=["core_voltage"], wait_for_completion=wait_for_completion)
         return value
 
     def get_core_voltage_range(self, update=False, wait_for_completion=False):
-        value = self._core_voltage_range[Constants.VALUE]
-        if update and self._core_voltage_range[Constants.UPDATING] is False:
+        value = self._core_voltage_range[_Constants.VALUE]
+        if update and self._core_voltage_range[_Constants.UPDATING] is False:
             self.update(data_points=["core_voltage_range"], wait_for_completion=wait_for_completion)
         return value
 
     def get_creation_class_name(self, update=False, wait_for_completion=False):
-        value = self._creation_class_name[Constants.VALUE]
-        if update and self._creation_class_name[Constants.UPDATING] is False:
+        value = self._creation_class_name[_Constants.VALUE]
+        if update and self._creation_class_name[_Constants.UPDATING] is False:
             self.update(data_points=["creation_class_name"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_bits_per_pixel(self, update=False, wait_for_completion=False):
-        value = self._current_bits_per_pixel[Constants.VALUE]
-        if update and self._current_bits_per_pixel[Constants.UPDATING] is False:
+        value = self._current_bits_per_pixel[_Constants.VALUE]
+        if update and self._current_bits_per_pixel[_Constants.UPDATING] is False:
             self.update(data_points=["current_bits_per_pixel"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_horizontal_resolution(self, update=False, wait_for_completion=False):
-        value = self._current_horizontal_resolution[Constants.VALUE]
-        if update and self._current_horizontal_resolution[Constants.UPDATING] is False:
+        value = self._current_horizontal_resolution[_Constants.VALUE]
+        if update and self._current_horizontal_resolution[_Constants.UPDATING] is False:
             self.update(data_points=["current_horizontal_resolution"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_number_of_colors(self, update=False, wait_for_completion=False):
-        value = self._current_number_of_colors[Constants.VALUE]
-        if update and self._current_number_of_colors[Constants.UPDATING] is False:
+        value = self._current_number_of_colors[_Constants.VALUE]
+        if update and self._current_number_of_colors[_Constants.UPDATING] is False:
             self.update(data_points=["current_number_of_colors"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_number_of_columns(self, update=False, wait_for_completion=False):
-        value = self._current_number_of_columns[Constants.VALUE]
-        if update and self._current_number_of_columns[Constants.UPDATING] is False:
+        value = self._current_number_of_columns[_Constants.VALUE]
+        if update and self._current_number_of_columns[_Constants.UPDATING] is False:
             self.update(data_points=["current_number_of_columns"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_number_of_rows(self, update=False, wait_for_completion=False):
-        value = self._current_number_of_rows[Constants.VALUE]
-        if update and self._current_number_of_rows[Constants.UPDATING] is False:
+        value = self._current_number_of_rows[_Constants.VALUE]
+        if update and self._current_number_of_rows[_Constants.UPDATING] is False:
             self.update(data_points=["current_number_of_rows"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_refresh_rate(self, update=False, wait_for_completion=False):
-        value = self._current_refresh_rate[Constants.VALUE]
-        if update and self._current_refresh_rate[Constants.UPDATING] is False:
+        value = self._current_refresh_rate[_Constants.VALUE]
+        if update and self._current_refresh_rate[_Constants.UPDATING] is False:
             self.update(data_points=["current_refresh_rate"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_scan_mode(self, update=False, wait_for_completion=False):
-        value = self._current_scan_mode[Constants.VALUE]
-        if update and self._current_scan_mode[Constants.UPDATING] is False:
+        value = self._current_scan_mode[_Constants.VALUE]
+        if update and self._current_scan_mode[_Constants.UPDATING] is False:
             self.update(data_points=["current_scan_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_current_vertical_resolution(self, update=False, wait_for_completion=False):
-        value = self._current_vertical_resolution[Constants.VALUE]
-        if update and self._current_vertical_resolution[Constants.UPDATING] is False:
+        value = self._current_vertical_resolution[_Constants.VALUE]
+        if update and self._current_vertical_resolution[_Constants.UPDATING] is False:
             self.update(data_points=["current_vertical_resolution"], wait_for_completion=wait_for_completion)
         return value
 
     def get_description(self, update=False, wait_for_completion=False):
-        value = self._description[Constants.VALUE]
-        if update and self._description[Constants.UPDATING] is False:
+        value = self._description[_Constants.VALUE]
+        if update and self._description[_Constants.UPDATING] is False:
             self.update(data_points=["description"], wait_for_completion=wait_for_completion)
         return value
 
     def get_device_id(self, update=False, wait_for_completion=False):
-        value = self._device_id[Constants.VALUE]
-        if update and self._device_id[Constants.UPDATING] is False:
+        value = self._device_id[_Constants.VALUE]
+        if update and self._device_id[_Constants.UPDATING] is False:
             self.update(data_points=["device_id"], wait_for_completion=wait_for_completion)
         return value
 
     def get_device_specific_pens(self, update=False, wait_for_completion=False):
-        value = self._device_specific_pens[Constants.VALUE]
-        if update and self._device_specific_pens[Constants.UPDATING] is False:
+        value = self._device_specific_pens[_Constants.VALUE]
+        if update and self._device_specific_pens[_Constants.UPDATING] is False:
             self.update(data_points=["device_specific_pens"], wait_for_completion=wait_for_completion)
         return value
 
     def get_display_active(self, update=False, wait_for_completion=False):
-        value = self._display_active[Constants.VALUE]
-        if update and self._display_active[Constants.UPDATING] is False:
+        value = self._display_active[_Constants.VALUE]
+        if update and self._display_active[_Constants.UPDATING] is False:
             self.update(data_points=["display_active"], wait_for_completion=wait_for_completion)
         return value
 
     def get_display_mode(self, update=False, wait_for_completion=False):
-        value = self._display_mode[Constants.VALUE]
-        if update and self._display_mode[Constants.UPDATING] is False:
+        value = self._display_mode[_Constants.VALUE]
+        if update and self._display_mode[_Constants.UPDATING] is False:
             self.update(data_points=["display_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_dither_type(self, update=False, wait_for_completion=False):
-        value = self._dither_type[Constants.VALUE]
-        if update and self._dither_type[Constants.UPDATING] is False:
+        value = self._dither_type[_Constants.VALUE]
+        if update and self._dither_type[_Constants.UPDATING] is False:
             self.update(data_points=["dither_type"], wait_for_completion=wait_for_completion)
         return value
 
     def get_driver_date(self, update=False, wait_for_completion=False):
-        value = self._driver_date[Constants.VALUE]
-        if update and self._driver_date[Constants.UPDATING] is False:
+        value = self._driver_date[_Constants.VALUE]
+        if update and self._driver_date[_Constants.UPDATING] is False:
             self.update(data_points=["driver_date"], wait_for_completion=wait_for_completion)
         return value
 
     def get_driver_model_current(self, update=False, wait_for_completion=False):
-        value = self._driver_model_current[Constants.VALUE]
-        if update and self._driver_model_current[Constants.UPDATING] is False:
+        value = self._driver_model_current[_Constants.VALUE]
+        if update and self._driver_model_current[_Constants.UPDATING] is False:
             self.update(data_points=["driver_model_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_driver_model_pending(self, update=False, wait_for_completion=False):
-        value = self._driver_model_pending[Constants.VALUE]
-        if update and self._driver_model_pending[Constants.UPDATING] is False:
+        value = self._driver_model_pending[_Constants.VALUE]
+        if update and self._driver_model_pending[_Constants.UPDATING] is False:
             self.update(data_points=["driver_model_pending"], wait_for_completion=wait_for_completion)
         return value
 
     def get_driver_version(self, update=False, wait_for_completion=False):
-        value = self._driver_version[Constants.VALUE]
-        if update and self._driver_version[Constants.UPDATING] is False:
+        value = self._driver_version[_Constants.VALUE]
+        if update and self._driver_version[_Constants.UPDATING] is False:
             self.update(data_points=["driver_version"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_cbu(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_cbu[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_cbu[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_cbu[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_cbu[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_cbu"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_primary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_primary_cache[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_primary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_primary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_primary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_primary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_register_file(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_register_file[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_register_file[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_register_file[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_register_file[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_register_file"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_secondary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_secondary_cache[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_secondary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_secondary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_secondary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_secondary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_shared_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_shared_memory[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_shared_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_shared_memory[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_shared_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_shared_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_sram(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_sram[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_sram[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_sram[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_sram[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_sram"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_texture_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_texture_memory[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_texture_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_texture_memory[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_texture_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_texture_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_total(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_total[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_total[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_total[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_total[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_total"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_all_time_in_video_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_all_time_in_video_memory[Constants.VALUE]
-        if update and self._ecc_errors_corrected_all_time_in_video_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_all_time_in_video_memory[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_all_time_in_video_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_all_time_in_video_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_cbu(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_cbu[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_cbu[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_cbu[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_cbu[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_cbu"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_primary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_primary_cache[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_primary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_primary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_primary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_primary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_register_file(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_register_file[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_register_file[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_register_file[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_register_file[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_register_file"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_secondary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_secondary_cache[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_secondary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_secondary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_secondary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_secondary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_shared_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_shared_memory[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_shared_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_shared_memory[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_shared_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_shared_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_sram(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_sram[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_sram[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_sram[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_sram[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_sram"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_texture_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_texture_memory[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_texture_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_texture_memory[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_texture_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_texture_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_total(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_total[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_total[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_total[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_total[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_total"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_corrected_since_reboot_in_video_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_corrected_since_reboot_in_video_memory[Constants.VALUE]
-        if update and self._ecc_errors_corrected_since_reboot_in_video_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_corrected_since_reboot_in_video_memory[_Constants.VALUE]
+        if update and self._ecc_errors_corrected_since_reboot_in_video_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_corrected_since_reboot_in_video_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_cbu(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_cbu[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_cbu[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_cbu[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_cbu[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_cbu"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_primary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_primary_cache[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_primary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_primary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_primary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_primary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_register_file(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_register_file[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_register_file[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_register_file[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_register_file[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_register_file"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_secondary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_secondary_cache[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_secondary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_secondary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_secondary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_secondary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_shared_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_shared_memory[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_shared_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_shared_memory[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_shared_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_shared_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_sram(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_sram[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_sram[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_sram[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_sram[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_sram"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_texture_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_texture_memory[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_texture_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_texture_memory[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_texture_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_texture_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_total(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_total[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_total[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_total[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_total[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_total"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_all_time_in_video_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_all_time_in_video_memory[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_all_time_in_video_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_all_time_in_video_memory[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_all_time_in_video_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_all_time_in_video_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_cbu(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_cbu[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_cbu[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_cbu[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_cbu[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_cbu"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_primary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_primary_cache[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_primary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_primary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_primary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_primary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_register_file(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_register_file[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_register_file[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_register_file[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_register_file[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_register_file"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_secondary_cache"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_shared_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_shared_memory[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_shared_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_shared_memory[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_shared_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_shared_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_sram(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_sram[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_sram[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_sram[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_sram[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_sram"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_texture_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_texture_memory[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_texture_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_texture_memory[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_texture_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_texture_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_total(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_total[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_total[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_total[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_total[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_total"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_errors_uncorrected_since_reboot_in_video_memory(self, update=False, wait_for_completion=False):
-        value = self._ecc_errors_uncorrected_since_reboot_in_video_memory[Constants.VALUE]
-        if update and self._ecc_errors_uncorrected_since_reboot_in_video_memory[Constants.UPDATING] is False:
+        value = self._ecc_errors_uncorrected_since_reboot_in_video_memory[_Constants.VALUE]
+        if update and self._ecc_errors_uncorrected_since_reboot_in_video_memory[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_video_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_mode_current(self, update=False, wait_for_completion=False):
-        value = self._ecc_mode_current[Constants.VALUE]
-        if update and self._ecc_mode_current[Constants.UPDATING] is False:
+        value = self._ecc_mode_current[_Constants.VALUE]
+        if update and self._ecc_mode_current[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_mode_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ecc_mode_pending(self, update=False, wait_for_completion=False):
-        value = self._ecc_mode_pending[Constants.VALUE]
-        if update and self._ecc_mode_pending[Constants.UPDATING] is False:
+        value = self._ecc_mode_pending[_Constants.VALUE]
+        if update and self._ecc_mode_pending[_Constants.UPDATING] is False:
             self.update(data_points=["ecc_mode_pending"], wait_for_completion=wait_for_completion)
         return value
 
     def get_encoder_average_FPS(self, update=False, wait_for_completion=False):
-        value = self._encoder_average_FPS[Constants.VALUE]
-        if update and self._encoder_average_FPS[Constants.UPDATING] is False:
+        value = self._encoder_average_FPS[_Constants.VALUE]
+        if update and self._encoder_average_FPS[_Constants.UPDATING] is False:
             self.update(data_points=["encoder_average_FPS"], wait_for_completion=wait_for_completion)
         return value
 
     def get_encoder_average_latency(self, update=False, wait_for_completion=False):
-        value = self._encoder_average_latency[Constants.VALUE]
-        if update and self._encoder_average_latency[Constants.UPDATING] is False:
+        value = self._encoder_average_latency[_Constants.VALUE]
+        if update and self._encoder_average_latency[_Constants.UPDATING] is False:
             self.update(data_points=["encoder_average_latency"], wait_for_completion=wait_for_completion)
         return value
 
     def get_encoder_session_count(self, update=False, wait_for_completion=False):
-        value = self._encoder_session_count[Constants.VALUE]
-        if update and self._encoder_session_count[Constants.UPDATING] is False:
+        value = self._encoder_session_count[_Constants.VALUE]
+        if update and self._encoder_session_count[_Constants.UPDATING] is False:
             self.update(data_points=["encoder_session_count"], wait_for_completion=wait_for_completion)
         return value
 
     def get_engine_clock_range(self, update=False, wait_for_completion=False):
-        value = self._engine_clock_range[Constants.VALUE]
-        if update and self._engine_clock_range[Constants.UPDATING] is False:
+        value = self._engine_clock_range[_Constants.VALUE]
+        if update and self._engine_clock_range[_Constants.UPDATING] is False:
             self.update(data_points=["engine_clock_range"], wait_for_completion=wait_for_completion)
         return value
 
     def get_error_cleared(self, update=False, wait_for_completion=False):
-        value = self._error_cleared[Constants.VALUE]
-        if update and self._error_cleared[Constants.UPDATING] is False:
+        value = self._error_cleared[_Constants.VALUE]
+        if update and self._error_cleared[_Constants.UPDATING] is False:
             self.update(data_points=["error_cleared"], wait_for_completion=wait_for_completion)
         return value
 
     def get_error_description(self, update=False, wait_for_completion=False):
-        value = self._error_description[Constants.VALUE]
-        if update and self._error_description[Constants.UPDATING] is False:
+        value = self._error_description[_Constants.VALUE]
+        if update and self._error_description[_Constants.UPDATING] is False:
             self.update(data_points=["error_description"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fabric_state(self, update=False, wait_for_completion=False):
-        value = self._fabric_state[Constants.VALUE]
-        if update and self._fabric_state[Constants.UPDATING] is False:
+        value = self._fabric_state[_Constants.VALUE]
+        if update and self._fabric_state[_Constants.UPDATING] is False:
             self.update(data_points=["fabric_state"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fabric_status(self, update=False, wait_for_completion=False):
-        value = self._fabric_status[Constants.VALUE]
-        if update and self._fabric_status[Constants.UPDATING] is False:
+        value = self._fabric_status[_Constants.VALUE]
+        if update and self._fabric_status[_Constants.UPDATING] is False:
             self.update(data_points=["fabric_status"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fan_speed_percentage(self, update=False, wait_for_completion=False):
-        value = self._fan_speed_percentage[Constants.VALUE]
-        if update and self._fan_speed_percentage[Constants.UPDATING] is False:
+        value = self._fan_speed_percentage[_Constants.VALUE]
+        if update and self._fan_speed_percentage[_Constants.UPDATING] is False:
             self.update(data_points=["fan_speed_percentage"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fan_speed_percentage_range(self, update=False, wait_for_completion=False):
-        value = self._fan_speed_percentage_range[Constants.VALUE]
-        if update and self._fan_speed_percentage_range[Constants.UPDATING] is False:
+        value = self._fan_speed_percentage_range[_Constants.VALUE]
+        if update and self._fan_speed_percentage_range[_Constants.UPDATING] is False:
             self.update(data_points=["fan_speed_percentage_range"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fan_speed_RPM(self, update=False, wait_for_completion=False):
-        value = self._fan_speed_RPM[Constants.VALUE]
-        if update and self._fan_speed_RPM[Constants.UPDATING] is False:
+        value = self._fan_speed_RPM[_Constants.VALUE]
+        if update and self._fan_speed_RPM[_Constants.UPDATING] is False:
             self.update(data_points=["fan_speed_RPM"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fan_speed_RPM_range(self, update=False, wait_for_completion=False):
-        value = self._fan_speed_RPM_range[Constants.VALUE]
-        if update and self._fan_speed_RPM_range[Constants.UPDATING] is False:
+        value = self._fan_speed_RPM_range[_Constants.VALUE]
+        if update and self._fan_speed_RPM_range[_Constants.UPDATING] is False:
             self.update(data_points=["fan_speed_RPM_range"], wait_for_completion=wait_for_completion)
         return value
 
     def get_fractional_multi_vGPU(self, update=False, wait_for_completion=False):
-        value = self._fractional_multi_vGPU[Constants.VALUE]
-        if update and self._fractional_multi_vGPU[Constants.UPDATING] is False:
+        value = self._fractional_multi_vGPU[_Constants.VALUE]
+        if update and self._fractional_multi_vGPU[_Constants.UPDATING] is False:
             self.update(data_points=["fractional_multi_vGPU"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_application_default_shader_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_application_default_shader_clock[Constants.VALUE]
-        if update and self._frequency_application_default_shader_clock[Constants.UPDATING] is False:
+        value = self._frequency_application_default_shader_clock[_Constants.VALUE]
+        if update and self._frequency_application_default_shader_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_application_default_shader_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_application_default_memory_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_application_default_memory_clock[Constants.VALUE]
-        if update and self._frequency_application_default_memory_clock[Constants.UPDATING] is False:
+        value = self._frequency_application_default_memory_clock[_Constants.VALUE]
+        if update and self._frequency_application_default_memory_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_application_default_memory_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_application_memory_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_application_memory_clock[Constants.VALUE]
-        if update and self._frequency_application_memory_clock[Constants.UPDATING] is False:
+        value = self._frequency_application_memory_clock[_Constants.VALUE]
+        if update and self._frequency_application_memory_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_application_memory_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_application_shader_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_application_shader_clock[Constants.VALUE]
-        if update and self._frequency_application_shader_clock[Constants.UPDATING] is False:
+        value = self._frequency_application_shader_clock[_Constants.VALUE]
+        if update and self._frequency_application_shader_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_application_shader_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_maximum_memory_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_maximum_memory_clock[Constants.VALUE]
-        if update and self._frequency_maximum_memory_clock[Constants.UPDATING] is False:
+        value = self._frequency_maximum_memory_clock[_Constants.VALUE]
+        if update and self._frequency_maximum_memory_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_maximum_memory_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_maximum_shader_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_maximum_shader_clock[Constants.VALUE]
-        if update and self._frequency_maximum_shader_clock[Constants.UPDATING] is False:
+        value = self._frequency_maximum_shader_clock[_Constants.VALUE]
+        if update and self._frequency_maximum_shader_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_maximum_shader_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_maximum_streaming_multiprocessor_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_maximum_streaming_multiprocessor_clock[Constants.VALUE]
-        if update and self._frequency_maximum_streaming_multiprocessor_clock[Constants.UPDATING] is False:
+        value = self._frequency_maximum_streaming_multiprocessor_clock[_Constants.VALUE]
+        if update and self._frequency_maximum_streaming_multiprocessor_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_maximum_streaming_multiprocessor_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_memory_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_memory_clock[Constants.VALUE]
-        if update and self._frequency_memory_clock[Constants.UPDATING] is False:
+        value = self._frequency_memory_clock[_Constants.VALUE]
+        if update and self._frequency_memory_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_memory_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_shader_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_shader_clock[Constants.VALUE]
-        if update and self._frequency_shader_clock[Constants.UPDATING] is False:
+        value = self._frequency_shader_clock[_Constants.VALUE]
+        if update and self._frequency_shader_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_shader_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_streaming_multiprocessor_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_streaming_multiprocessor_clock[Constants.VALUE]
-        if update and self._frequency_streaming_multiprocessor_clock[Constants.UPDATING] is False:
+        value = self._frequency_streaming_multiprocessor_clock[_Constants.VALUE]
+        if update and self._frequency_streaming_multiprocessor_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_streaming_multiprocessor_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_frequency_video_clock(self, update=False, wait_for_completion=False):
-        value = self._frequency_video_clock[Constants.VALUE]
-        if update and self._frequency_video_clock[Constants.UPDATING] is False:
+        value = self._frequency_video_clock[_Constants.VALUE]
+        if update and self._frequency_video_clock[_Constants.UPDATING] is False:
             self.update(data_points=["frequency_video_clock"], wait_for_completion=wait_for_completion)
         return value
 
     def get_heterogenous_multi_vGPU(self, update=False, wait_for_completion=False):
-        value = self._heterogenous_multi_vGPU[Constants.VALUE]
-        if update and self._heterogenous_multi_vGPU[Constants.UPDATING] is False:
+        value = self._heterogenous_multi_vGPU[_Constants.VALUE]
+        if update and self._heterogenous_multi_vGPU[_Constants.UPDATING] is False:
             self.update(data_points=["heterogenous_multi_vGPU"], wait_for_completion=wait_for_completion)
         return value
 
     def get_heterogenous_time_slice_profile(self, update=False, wait_for_completion=False):
-        value = self._heterogenous_time_slice_profile[Constants.VALUE]
-        if update and self._heterogenous_time_slice_profile[Constants.UPDATING] is False:
+        value = self._heterogenous_time_slice_profile[_Constants.VALUE]
+        if update and self._heterogenous_time_slice_profile[_Constants.UPDATING] is False:
             self.update(data_points=["heterogenous_time_slice_profile"], wait_for_completion=wait_for_completion)
         return value
 
     def get_heterogenous_time_slice_sizes(self, update=False, wait_for_completion=False):
-        value = self._heterogenous_time_slice_sizes[Constants.VALUE]
-        if update and self._heterogenous_time_slice_sizes[Constants.UPDATING] is False:
+        value = self._heterogenous_time_slice_sizes[_Constants.VALUE]
+        if update and self._heterogenous_time_slice_sizes[_Constants.UPDATING] is False:
             self.update(data_points=["heterogenous_time_slice_sizes"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ICM_indent(self, update=False, wait_for_completion=False):
-        value = self._ICM_indent[Constants.VALUE]
-        if update and self._ICM_indent[Constants.UPDATING] is False:
+        value = self._ICM_indent[_Constants.VALUE]
+        if update and self._ICM_indent[_Constants.UPDATING] is False:
             self.update(data_points=["ICM_indent"], wait_for_completion=wait_for_completion)
         return value
 
     def get_ICM_method(self, update=False, wait_for_completion=False):
-        value = self._ICM_method[Constants.VALUE]
-        if update and self._ICM_method[Constants.UPDATING] is False:
+        value = self._ICM_method[_Constants.VALUE]
+        if update and self._ICM_method[_Constants.UPDATING] is False:
             self.update(data_points=["ICM_method"], wait_for_completion=wait_for_completion)
         return value
 
     def get_inf_filename(self, update=False, wait_for_completion=False):
-        value = self._inf_filename[Constants.VALUE]
-        if update and self._inf_filename[Constants.UPDATING] is False:
+        value = self._inf_filename[_Constants.VALUE]
+        if update and self._inf_filename[_Constants.UPDATING] is False:
             self.update(data_points=["inf_filename"], wait_for_completion=wait_for_completion)
         return value
 
     def get_inf_section(self, update=False, wait_for_completion=False):
-        value = self._inf_section[Constants.VALUE]
-        if update and self._inf_section[Constants.UPDATING] is False:
+        value = self._inf_section[_Constants.VALUE]
+        if update and self._inf_section[_Constants.UPDATING] is False:
             self.update(data_points=["inf_section"], wait_for_completion=wait_for_completion)
         return value
 
     def get_info_ROM_ecc(self, update=False, wait_for_completion=False):
-        value = self._info_ROM_ecc[Constants.VALUE]
-        if update and self._info_ROM_ecc[Constants.UPDATING] is False:
+        value = self._info_ROM_ecc[_Constants.VALUE]
+        if update and self._info_ROM_ecc[_Constants.UPDATING] is False:
             self.update(data_points=["info_ROM_ecc"], wait_for_completion=wait_for_completion)
         return value
 
     def get_info_ROM_oem(self, update=False, wait_for_completion=False):
-        value = self._info_ROM_oem[Constants.VALUE]
-        if update and self._info_ROM_oem[Constants.UPDATING] is False:
+        value = self._info_ROM_oem[_Constants.VALUE]
+        if update and self._info_ROM_oem[_Constants.UPDATING] is False:
             self.update(data_points=["info_ROM_oem"], wait_for_completion=wait_for_completion)
         return value
 
     def get_info_ROM_power(self, update=False, wait_for_completion=False):
-        value = self._info_ROM_power[Constants.VALUE]
-        if update and self._info_ROM_power[Constants.UPDATING] is False:
+        value = self._info_ROM_power[_Constants.VALUE]
+        if update and self._info_ROM_power[_Constants.UPDATING] is False:
             self.update(data_points=["info_ROM_power"], wait_for_completion=wait_for_completion)
         return value
 
     def get_info_ROM_version(self, update=False, wait_for_completion=False):
-        value = self._info_ROM_version[Constants.VALUE]
-        if update and self._info_ROM_version[Constants.UPDATING] is False:
+        value = self._info_ROM_version[_Constants.VALUE]
+        if update and self._info_ROM_version[_Constants.UPDATING] is False:
             self.update(data_points=["info_ROM_version"], wait_for_completion=wait_for_completion)
         return value
 
     def get_install_date(self, update=False, wait_for_completion=False):
-        value = self._install_date[Constants.VALUE]
-        if update and self._install_date[Constants.UPDATING] is False:
+        value = self._install_date[_Constants.VALUE]
+        if update and self._install_date[_Constants.UPDATING] is False:
             self.update(data_points=["install_date"], wait_for_completion=wait_for_completion)
         return value
 
     def get_installed_display_drivers(self, update=False, wait_for_completion=False):
-        value = self._installed_display_drivers[Constants.VALUE]
-        if update and self._installed_display_drivers[Constants.UPDATING] is False:
+        value = self._installed_display_drivers[_Constants.VALUE]
+        if update and self._installed_display_drivers[_Constants.UPDATING] is False:
             self.update(data_points=["installed_display_drivers"], wait_for_completion=wait_for_completion)
         return value
 
     def get_last_error_code(self, update=False, wait_for_completion=False):
-        value = self._last_error_code[Constants.VALUE]
-        if update and self._last_error_code[Constants.UPDATING] is False:
+        value = self._last_error_code[_Constants.VALUE]
+        if update and self._last_error_code[_Constants.UPDATING] is False:
             self.update(data_points=["last_error_code"], wait_for_completion=wait_for_completion)
         return value
 
     def get_max_memory_supported(self, update=False, wait_for_completion=False):
-        value = self._max_memory_supported[Constants.VALUE]
-        if update and self._max_memory_supported[Constants.UPDATING] is False:
+        value = self._max_memory_supported[_Constants.VALUE]
+        if update and self._max_memory_supported[_Constants.UPDATING] is False:
             self.update(data_points=["max_memory_supported"], wait_for_completion=wait_for_completion)
         return value
 
     def get_max_number_controlled(self, update=False, wait_for_completion=False):
-        value = self._max_number_controlled[Constants.VALUE]
-        if update and self._max_number_controlled[Constants.UPDATING] is False:
+        value = self._max_number_controlled[_Constants.VALUE]
+        if update and self._max_number_controlled[_Constants.UPDATING] is False:
             self.update(data_points=["max_number_controlled"], wait_for_completion=wait_for_completion)
         return value
 
     def get_max_refresh_rate(self, update=False, wait_for_completion=False):
-        value = self._max_refresh_rate[Constants.VALUE]
-        if update and self._max_refresh_rate[Constants.UPDATING] is False:
+        value = self._max_refresh_rate[_Constants.VALUE]
+        if update and self._max_refresh_rate[_Constants.UPDATING] is False:
             self.update(data_points=["max_refresh_rate"], wait_for_completion=wait_for_completion)
         return value
 
     def get_memory_clock_range(self, update=False, wait_for_completion=False):
-        value = self._memory_clock_range[Constants.VALUE]
-        if update and self._memory_clock_range[Constants.UPDATING] is False:
+        value = self._memory_clock_range[_Constants.VALUE]
+        if update and self._memory_clock_range[_Constants.UPDATING] is False:
             self.update(data_points=["memory_clock_range"], wait_for_completion=wait_for_completion)
         return value
 
     def get_memory_free(self, update=False, wait_for_completion=False):
-        value = self._memory_free[Constants.VALUE]
-        if update and self._memory_free[Constants.UPDATING] is False:
+        value = self._memory_free[_Constants.VALUE]
+        if update and self._memory_free[_Constants.UPDATING] is False:
             self.update(data_points=["memory_free"], wait_for_completion=wait_for_completion)
         return value
 
     def get_memory_reserved(self, update=False, wait_for_completion=False):
-        value = self._memory_reserved[Constants.VALUE]
-        if update and self._memory_reserved[Constants.UPDATING] is False:
+        value = self._memory_reserved[_Constants.VALUE]
+        if update and self._memory_reserved[_Constants.UPDATING] is False:
             self.update(data_points=["memory_reserved"], wait_for_completion=wait_for_completion)
         return value
 
     def get_memory_total(self, update=False, wait_for_completion=False):
-        value = self._memory_total[Constants.VALUE]
-        if update and self._memory_total[Constants.UPDATING] is False:
+        value = self._memory_total[_Constants.VALUE]
+        if update and self._memory_total[_Constants.UPDATING] is False:
             self.update(data_points=["memory_total"], wait_for_completion=wait_for_completion)
         return value
 
     def get_memory_used(self, update=False, wait_for_completion=False):
-        value = self._memory_used[Constants.VALUE]
-        if update and self._memory_used[Constants.UPDATING] is False:
+        value = self._memory_used[_Constants.VALUE]
+        if update and self._memory_used[_Constants.UPDATING] is False:
             self.update(data_points=["memory_used"], wait_for_completion=wait_for_completion)
         return value
 
     def get_min_refresh_rate(self, update=False, wait_for_completion=False):
-        value = self._min_refresh_rate[Constants.VALUE]
-        if update and self._min_refresh_rate[Constants.UPDATING] is False:
+        value = self._min_refresh_rate[_Constants.VALUE]
+        if update and self._min_refresh_rate[_Constants.UPDATING] is False:
             self.update(data_points=["min_refresh_rate"], wait_for_completion=wait_for_completion)
         return value
 
     def get_monochrome(self, update=False, wait_for_completion=False):
-        value = self._monochrome[Constants.VALUE]
-        if update and self._monochrome[Constants.UPDATING] is False:
+        value = self._monochrome[_Constants.VALUE]
+        if update and self._monochrome[_Constants.UPDATING] is False:
             self.update(data_points=["monochrome"], wait_for_completion=wait_for_completion)
         return value
 
     def get_multi_instance_GPU_mode_current(self, update=False, wait_for_completion=False):
-        value = self._multi_instance_GPU_mode_current[Constants.VALUE]
-        if update and self._multi_instance_GPU_mode_current[Constants.UPDATING] is False:
+        value = self._multi_instance_GPU_mode_current[_Constants.VALUE]
+        if update and self._multi_instance_GPU_mode_current[_Constants.UPDATING] is False:
             self.update(data_points=["multi_instance_GPU_mode_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_multi_instance_GPU_mode_pending(self, update=False, wait_for_completion=False):
-        value = self._multi_instance_GPU_mode_pending[Constants.VALUE]
-        if update and self._multi_instance_GPU_mode_pending[Constants.UPDATING] is False:
+        value = self._multi_instance_GPU_mode_pending[_Constants.VALUE]
+        if update and self._multi_instance_GPU_mode_pending[_Constants.UPDATING] is False:
             self.update(data_points=["multi_instance_GPU_mode_pending"], wait_for_completion=wait_for_completion)
         return value
 
     def get_name(self, update=False, wait_for_completion=False):
-        value = self._name[Constants.VALUE]
-        if update and self._name[Constants.UPDATING] is False:
+        value = self._name[_Constants.VALUE]
+        if update and self._name[_Constants.UPDATING] is False:
             self.update(data_points=["name"], wait_for_completion=wait_for_completion)
         return value
 
     def get_number_of_color_planes(self, update=False, wait_for_completion=False):
-        value = self._number_of_color_planes[Constants.VALUE]
-        if update and self._number_of_color_planes[Constants.UPDATING] is False:
+        value = self._number_of_color_planes[_Constants.VALUE]
+        if update and self._number_of_color_planes[_Constants.UPDATING] is False:
             self.update(data_points=["number_of_color_planes"], wait_for_completion=wait_for_completion)
         return value
 
     def get_number_of_video_pages(self, update=False, wait_for_completion=False):
-        value = self._number_of_video_pages[Constants.VALUE]
-        if update and self._number_of_video_pages[Constants.UPDATING] is False:
+        value = self._number_of_video_pages[_Constants.VALUE]
+        if update and self._number_of_video_pages[_Constants.UPDATING] is False:
             self.update(data_points=["number_of_video_pages"], wait_for_completion=wait_for_completion)
         return value
 
     def get_operating_mode_current(self, update=False, wait_for_completion=False):
-        value = self._operating_mode_current[Constants.VALUE]
-        if update and self._operating_mode_current[Constants.UPDATING] is False:
+        value = self._operating_mode_current[_Constants.VALUE]
+        if update and self._operating_mode_current[_Constants.UPDATING] is False:
             self.update(data_points=["operating_mode_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_operating_mode_pending(self, update=False, wait_for_completion=False):
-        value = self._operating_mode_pending[Constants.VALUE]
-        if update and self._operating_mode_pending[Constants.UPDATING] is False:
+        value = self._operating_mode_pending[_Constants.VALUE]
+        if update and self._operating_mode_pending[_Constants.UPDATING] is False:
             self.update(data_points=["operating_mode_pending"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_bus(self, update=False, wait_for_completion=False):
-        value = self._pci_bus[Constants.VALUE]
-        if update and self._pci_bus[Constants.UPDATING] is False:
+        value = self._pci_bus[_Constants.VALUE]
+        if update and self._pci_bus[_Constants.UPDATING] is False:
             self.update(data_points=["pci_bus"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_bus_id(self, update=False, wait_for_completion=False):
-        value = self._pci_bus_id[Constants.VALUE]
-        if update and self._pci_bus_id[Constants.UPDATING] is False:
+        value = self._pci_bus_id[_Constants.VALUE]
+        if update and self._pci_bus_id[_Constants.UPDATING] is False:
             self.update(data_points=["pci_bus_id"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_device(self, update=False, wait_for_completion=False):
-        value = self._pci_device[Constants.VALUE]
-        if update and self._pci_device[Constants.UPDATING] is False:
+        value = self._pci_device[_Constants.VALUE]
+        if update and self._pci_device[_Constants.UPDATING] is False:
             self.update(data_points=["pci_device"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_device_id(self, update=False, wait_for_completion=False):
-        value = self._pci_device_id[Constants.VALUE]
-        if update and self._pci_device_id[Constants.UPDATING] is False:
+        value = self._pci_device_id[_Constants.VALUE]
+        if update and self._pci_device_id[_Constants.UPDATING] is False:
             self.update(data_points=["pci_device_id"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_domain(self, update=False, wait_for_completion=False):
-        value = self._pci_domain[Constants.VALUE]
-        if update and self._pci_domain[Constants.UPDATING] is False:
+        value = self._pci_domain[_Constants.VALUE]
+        if update and self._pci_domain[_Constants.UPDATING] is False:
             self.update(data_points=["pci_domain"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_link_generation_current(self, update=False, wait_for_completion=False):
-        value = self._pci_link_generation_current[Constants.VALUE]
-        if update and self._pci_link_generation_current[Constants.UPDATING] is False:
+        value = self._pci_link_generation_current[_Constants.VALUE]
+        if update and self._pci_link_generation_current[_Constants.UPDATING] is False:
             self.update(data_points=["pci_link_generation_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_link_generation_device_host_maximum(self, update=False, wait_for_completion=False):
-        value = self._pci_link_generation_device_host_maximum[Constants.VALUE]
-        if update and self._pci_link_generation_device_host_maximum[Constants.UPDATING] is False:
+        value = self._pci_link_generation_device_host_maximum[_Constants.VALUE]
+        if update and self._pci_link_generation_device_host_maximum[_Constants.UPDATING] is False:
             self.update(data_points=["pci_link_generation_device_host_maximum"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_link_generation_gpu_maximum(self, update=False, wait_for_completion=False):
-        value = self._pci_link_generation_gpu_maximum[Constants.VALUE]
-        if update and self._pci_link_generation_gpu_maximum[Constants.UPDATING] is False:
+        value = self._pci_link_generation_gpu_maximum[_Constants.VALUE]
+        if update and self._pci_link_generation_gpu_maximum[_Constants.UPDATING] is False:
             self.update(data_points=["pci_link_generation_gpu_maximum"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_link_generation_maximum(self, update=False, wait_for_completion=False):
-        value = self._pci_link_generation_maximum[Constants.VALUE]
-        if update and self._pci_link_generation_maximum[Constants.UPDATING] is False:
+        value = self._pci_link_generation_maximum[_Constants.VALUE]
+        if update and self._pci_link_generation_maximum[_Constants.UPDATING] is False:
             self.update(data_points=["pci_link_generation_maximum"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_link_width_current(self, update=False, wait_for_completion=False):
-        value = self._pci_link_width_current[Constants.VALUE]
-        if update and self._pci_link_width_current[Constants.UPDATING] is False:
+        value = self._pci_link_width_current[_Constants.VALUE]
+        if update and self._pci_link_width_current[_Constants.UPDATING] is False:
             self.update(data_points=["pci_link_width_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_link_width_maximum(self, update=False, wait_for_completion=False):
-        value = self._pci_link_width_maximum[Constants.VALUE]
-        if update and self._pci_link_width_maximum[Constants.UPDATING] is False:
+        value = self._pci_link_width_maximum[_Constants.VALUE]
+        if update and self._pci_link_width_maximum[_Constants.UPDATING] is False:
             self.update(data_points=["pci_link_width_maximum"], wait_for_completion=wait_for_completion)
         return value
 
     def get_pci_sub_device_id(self, update=False, wait_for_completion=False):
-        value = self._pci_sub_device_id[Constants.VALUE]
-        if update and self._pci_sub_device_id[Constants.UPDATING] is False:
+        value = self._pci_sub_device_id[_Constants.VALUE]
+        if update and self._pci_sub_device_id[_Constants.UPDATING] is False:
             self.update(data_points=["pci_sub_device_id"], wait_for_completion=wait_for_completion)
         return value
 
     def get_persistence_mode(self, update=False, wait_for_completion=False):
-        value = self._persistence_mode[Constants.VALUE]
-        if update and self._persistence_mode[Constants.UPDATING] is False:
+        value = self._persistence_mode[_Constants.VALUE]
+        if update and self._persistence_mode[_Constants.UPDATING] is False:
             self.update(data_points=["persistence_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_PNP_device_id(self, update=False, wait_for_completion=False):
-        value = self._PNP_device_id[Constants.VALUE]
-        if update and self._PNP_device_id[Constants.UPDATING] is False:
+        value = self._PNP_device_id[_Constants.VALUE]
+        if update and self._PNP_device_id[_Constants.UPDATING] is False:
             self.update(data_points=["PNP_device_id"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw(self, update=False, wait_for_completion=False):
-        value = self._power_draw[Constants.VALUE]
-        if update and self._power_draw[Constants.UPDATING] is False:
+        value = self._power_draw[_Constants.VALUE]
+        if update and self._power_draw[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_average(self, update=False, wait_for_completion=False):
-        value = self._power_draw_average[Constants.VALUE]
-        if update and self._power_draw_average[Constants.UPDATING] is False:
+        value = self._power_draw_average[_Constants.VALUE]
+        if update and self._power_draw_average[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_average"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_default_limit(self, update=False, wait_for_completion=False):
-        value = self._power_draw_default_limit[Constants.VALUE]
-        if update and self._power_draw_default_limit[Constants.UPDATING] is False:
+        value = self._power_draw_default_limit[_Constants.VALUE]
+        if update and self._power_draw_default_limit[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_default_limit"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_enforced_limit(self, update=False, wait_for_completion=False):
-        value = self._power_draw_enforced_limit[Constants.VALUE]
-        if update and self._power_draw_enforced_limit[Constants.UPDATING] is False:
+        value = self._power_draw_enforced_limit[_Constants.VALUE]
+        if update and self._power_draw_enforced_limit[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_enforced_limit"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_instant(self, update=False, wait_for_completion=False):
-        value = self._power_draw_instant[Constants.VALUE]
-        if update and self._power_draw_instant[Constants.UPDATING] is False:
+        value = self._power_draw_instant[_Constants.VALUE]
+        if update and self._power_draw_instant[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_instant"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_limit(self, update=False, wait_for_completion=False):
-        value = self._power_draw_limit[Constants.VALUE]
-        if update and self._power_draw_limit[Constants.UPDATING] is False:
+        value = self._power_draw_limit[_Constants.VALUE]
+        if update and self._power_draw_limit[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_limit"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_maximum(self, update=False, wait_for_completion=False):
-        value = self._power_draw_maximum[Constants.VALUE]
-        if update and self._power_draw_maximum[Constants.UPDATING] is False:
+        value = self._power_draw_maximum[_Constants.VALUE]
+        if update and self._power_draw_maximum[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_maximum"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_draw_minimum(self, update=False, wait_for_completion=False):
-        value = self._power_draw_minimum[Constants.VALUE]
-        if update and self._power_draw_minimum[Constants.UPDATING] is False:
+        value = self._power_draw_minimum[_Constants.VALUE]
+        if update and self._power_draw_minimum[_Constants.UPDATING] is False:
             self.update(data_points=["power_draw_minimum"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_management_capabilities(self, update=False, wait_for_completion=False):
-        value = self._power_management_capabilities[Constants.VALUE]
-        if update and self._power_management_capabilities[Constants.UPDATING] is False:
+        value = self._power_management_capabilities[_Constants.VALUE]
+        if update and self._power_management_capabilities[_Constants.UPDATING] is False:
             self.update(data_points=["power_management_capabilities"], wait_for_completion=wait_for_completion)
         return value
 
     def get_power_management_supported(self, update=False, wait_for_completion=False):
-        value = self._power_management_supported[Constants.VALUE]
-        if update and self._power_management_supported[Constants.UPDATING] is False:
+        value = self._power_management_supported[_Constants.VALUE]
+        if update and self._power_management_supported[_Constants.UPDATING] is False:
             self.update(data_points=["power_management_supported"], wait_for_completion=wait_for_completion)
         return value
 
     def get_protected_memory_free(self, update=False, wait_for_completion=False):
-        value = self._protected_memory_free[Constants.VALUE]
-        if update and self._protected_memory_free[Constants.UPDATING] is False:
+        value = self._protected_memory_free[_Constants.VALUE]
+        if update and self._protected_memory_free[_Constants.UPDATING] is False:
             self.update(data_points=["protected_memory_free"], wait_for_completion=wait_for_completion)
         return value
 
     def get_protected_memory_total(self, update=False, wait_for_completion=False):
-        value = self._protected_memory_total[Constants.VALUE]
-        if update and self._protected_memory_total[Constants.UPDATING] is False:
+        value = self._protected_memory_total[_Constants.VALUE]
+        if update and self._protected_memory_total[_Constants.UPDATING] is False:
             self.update(data_points=["protected_memory_total"], wait_for_completion=wait_for_completion)
         return value
 
     def get_protected_memory_used(self, update=False, wait_for_completion=False):
-        value = self._protected_memory_used[Constants.VALUE]
-        if update and self._protected_memory_used[Constants.UPDATING] is False:
+        value = self._protected_memory_used[_Constants.VALUE]
+        if update and self._protected_memory_used[_Constants.UPDATING] is False:
             self.update(data_points=["protected_memory_used"], wait_for_completion=wait_for_completion)
         return value
 
     def get_protocol_supported(self, update=False, wait_for_completion=False):
-        value = self._protocol_supported[Constants.VALUE]
-        if update and self._protocol_supported[Constants.UPDATING] is False:
+        value = self._protocol_supported[_Constants.VALUE]
+        if update and self._protocol_supported[_Constants.UPDATING] is False:
             self.update(data_points=["protocol_supported"], wait_for_completion=wait_for_completion)
         return value
 
     def get_performance_state(self, update=False, wait_for_completion=False):
-        value = self._performance_state[Constants.VALUE]
-        if update and self._performance_state[Constants.UPDATING] is False:
+        value = self._performance_state[_Constants.VALUE]
+        if update and self._performance_state[_Constants.UPDATING] is False:
             self.update(data_points=["performance_state"], wait_for_completion=wait_for_completion)
         return value
 
     def get_retired_pages_double_bit_ecc_errors_count(self, update=False, wait_for_completion=False):
-        value = self._retired_pages_double_bit_ecc_errors_count[Constants.VALUE]
-        if update and self._retired_pages_double_bit_ecc_errors_count[Constants.UPDATING] is False:
+        value = self._retired_pages_double_bit_ecc_errors_count[_Constants.VALUE]
+        if update and self._retired_pages_double_bit_ecc_errors_count[_Constants.UPDATING] is False:
             self.update(data_points=["retired_pages_double_bit_ecc_errors_count"], wait_for_completion=wait_for_completion)
         return value
 
     def get_retired_pages_single_bit_ecc_errors_count(self, update=False, wait_for_completion=False):
-        value = self._retired_pages_single_bit_ecc_errors_count[Constants.VALUE]
-        if update and self._retired_pages_single_bit_ecc_errors_count[Constants.UPDATING] is False:
+        value = self._retired_pages_single_bit_ecc_errors_count[_Constants.VALUE]
+        if update and self._retired_pages_single_bit_ecc_errors_count[_Constants.UPDATING] is False:
             self.update(data_points=["retired_pages_single_bit_ecc_errors_count"], wait_for_completion=wait_for_completion)
         return value
 
     def get_retired_pages_pending(self, update=False, wait_for_completion=False):
-        value = self._retired_pages_pending[Constants.VALUE]
-        if update and self._retired_pages_pending[Constants.UPDATING] is False:
+        value = self._retired_pages_pending[_Constants.VALUE]
+        if update and self._retired_pages_pending[_Constants.UPDATING] is False:
             self.update(data_points=["retired_pages_pending"], wait_for_completion=wait_for_completion)
         return value
 
     def get_reserved_system_palette_entries(self, update=False, wait_for_completion=False):
-        value = self._reserved_system_palette_entries[Constants.VALUE]
-        if update and self._reserved_system_palette_entries[Constants.UPDATING] is False:
+        value = self._reserved_system_palette_entries[_Constants.VALUE]
+        if update and self._reserved_system_palette_entries[_Constants.UPDATING] is False:
             self.update(data_points=["reserved_system_palette_entries"], wait_for_completion=wait_for_completion)
         return value
 
     def get_reset_required(self, update=False, wait_for_completion=False):
-        value = self._reset_required[Constants.VALUE]
-        if update and self._reset_required[Constants.UPDATING] is False:
+        value = self._reset_required[_Constants.VALUE]
+        if update and self._reset_required[_Constants.UPDATING] is False:
             self.update(data_points=["reset_required"], wait_for_completion=wait_for_completion)
         return value
 
     def get_reset_and_drain_recommended(self, update=False, wait_for_completion=False):
-        value = self._reset_and_drain_recommended[Constants.VALUE]
-        if update and self._reset_and_drain_recommended[Constants.UPDATING] is False:
+        value = self._reset_and_drain_recommended[_Constants.VALUE]
+        if update and self._reset_and_drain_recommended[_Constants.UPDATING] is False:
             self.update(data_points=["reset_and_drain_recommended"], wait_for_completion=wait_for_completion)
         return value
 
     def get_serial(self, update=False, wait_for_completion=False):
-        value = self._serial[Constants.VALUE]
-        if update and self._serial[Constants.UPDATING] is False:
+        value = self._serial[_Constants.VALUE]
+        if update and self._serial[_Constants.UPDATING] is False:
             self.update(data_points=["serial"], wait_for_completion=wait_for_completion)
         return value
 
     def get_specification_version(self, update=False, wait_for_completion=False):
-        value = self._specification_version[Constants.VALUE]
-        if update and self._specification_version[Constants.UPDATING] is False:
+        value = self._specification_version[_Constants.VALUE]
+        if update and self._specification_version[_Constants.UPDATING] is False:
             self.update(data_points=["specification_version"], wait_for_completion=wait_for_completion)
         return value
 
     def get_status(self, update=False, wait_for_completion=False):
-        value = self._status[Constants.VALUE]
-        if update and self._status[Constants.UPDATING] is False:
+        value = self._status[_Constants.VALUE]
+        if update and self._status[_Constants.UPDATING] is False:
             self.update(data_points=["status"], wait_for_completion=wait_for_completion)
         return value
 
     def get_status_info(self, update=False, wait_for_completion=False):
-        value = self._status_info[Constants.VALUE]
-        if update and self._status_info[Constants.UPDATING] is False:
+        value = self._status_info[_Constants.VALUE]
+        if update and self._status_info[_Constants.UPDATING] is False:
             self.update(data_points=["status_info"], wait_for_completion=wait_for_completion)
         return value
 
     def get_system_creation_class_name(self, update=False, wait_for_completion=False):
-        value = self._system_creation_class_name[Constants.VALUE]
-        if update and self._system_creation_class_name[Constants.UPDATING] is False:
+        value = self._system_creation_class_name[_Constants.VALUE]
+        if update and self._system_creation_class_name[_Constants.UPDATING] is False:
             self.update(data_points=["system_creation_class_name"], wait_for_completion=wait_for_completion)
         return value
 
     def get_system_name(self, update=False, wait_for_completion=False):
-        value = self._system_name[Constants.VALUE]
-        if update and self._system_name[Constants.UPDATING] is False:
+        value = self._system_name[_Constants.VALUE]
+        if update and self._system_name[_Constants.UPDATING] is False:
             self.update(data_points=["system_name"], wait_for_completion=wait_for_completion)
         return value
 
     def get_system_palette_entries(self, update=False, wait_for_completion=False):
-        value = self._system_palette_entries[Constants.VALUE]
-        if update and self._system_palette_entries[Constants.UPDATING] is False:
+        value = self._system_palette_entries[_Constants.VALUE]
+        if update and self._system_palette_entries[_Constants.UPDATING] is False:
             self.update(data_points=["system_palette_entries"], wait_for_completion=wait_for_completion)
         return value
 
     def get_GPU_system_processor_mode_current(self, update=False, wait_for_completion=False):
-        value = self._GPU_system_processor_mode_current[Constants.VALUE]
-        if update and self._GPU_system_processor_mode_current[Constants.UPDATING] is False:
+        value = self._GPU_system_processor_mode_current[_Constants.VALUE]
+        if update and self._GPU_system_processor_mode_current[_Constants.UPDATING] is False:
             self.update(data_points=["GPU_system_processor_mode_current"], wait_for_completion=wait_for_completion)
         return value
 
     def get_GPU_system_processor_mode_default(self, update=False, wait_for_completion=False):
-        value = self._GPU_system_processor_mode_default[Constants.VALUE]
-        if update and self._GPU_system_processor_mode_default[Constants.UPDATING] is False:
+        value = self._GPU_system_processor_mode_default[_Constants.VALUE]
+        if update and self._GPU_system_processor_mode_default[_Constants.UPDATING] is False:
             self.update(data_points=["GPU_system_processor_mode_default"], wait_for_completion=wait_for_completion)
         return value
 
     def get_temperature_core(self, update=False, wait_for_completion=False):
-        value = self._temperature_core[Constants.VALUE]
-        if update and self._temperature_core[Constants.UPDATING] is False:
+        value = self._temperature_core[_Constants.VALUE]
+        if update and self._temperature_core[_Constants.UPDATING] is False:
             self.update(data_points=["temperature_core"], wait_for_completion=wait_for_completion)
         return value
 
     def get_temperature_core_limit(self, update=False, wait_for_completion=False):
-        value = self._temperature_core_limit[Constants.VALUE]
-        if update and self._temperature_core_limit[Constants.UPDATING] is False:
+        value = self._temperature_core_limit[_Constants.VALUE]
+        if update and self._temperature_core_limit[_Constants.UPDATING] is False:
             self.update(data_points=["temperature_core_limit"], wait_for_completion=wait_for_completion)
         return value
 
     def get_temperature_memory(self, update=False, wait_for_completion=False):
-        value = self._temperature_memory[Constants.VALUE]
-        if update and self._temperature_memory[Constants.UPDATING] is False:
+        value = self._temperature_memory[_Constants.VALUE]
+        if update and self._temperature_memory[_Constants.UPDATING] is False:
             self.update(data_points=["temperature_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_time_of_last_reset(self, update=False, wait_for_completion=False):
-        value = self._time_of_last_reset[Constants.VALUE]
-        if update and self._time_of_last_reset[Constants.UPDATING] is False:
+        value = self._time_of_last_reset[_Constants.VALUE]
+        if update and self._time_of_last_reset[_Constants.UPDATING] is False:
             self.update(data_points=["time_of_last_reset"], wait_for_completion=wait_for_completion)
         return value
 
     def get_utilization_decoder(self, update=False, wait_for_completion=False):
-        value = self._utilization_decoder[Constants.VALUE]
-        if update and self._utilization_decoder[Constants.UPDATING] is False:
+        value = self._utilization_decoder[_Constants.VALUE]
+        if update and self._utilization_decoder[_Constants.UPDATING] is False:
             self.update(data_points=["utilization_decoder"], wait_for_completion=wait_for_completion)
         return value
 
     def get_utilization_encoder(self, update=False, wait_for_completion=False):
-        value = self._utilization_encoder[Constants.VALUE]
-        if update and self._utilization_encoder[Constants.UPDATING] is False:
+        value = self._utilization_encoder[_Constants.VALUE]
+        if update and self._utilization_encoder[_Constants.UPDATING] is False:
             self.update(data_points=["utilization_encoder"], wait_for_completion=wait_for_completion)
         return value
 
     def get_utilization_gpu(self, update=False, wait_for_completion=False):
-        value = self._utilization_gpu[Constants.VALUE]
-        if update and self._utilization_gpu[Constants.UPDATING] is False:
+        value = self._utilization_gpu[_Constants.VALUE]
+        if update and self._utilization_gpu[_Constants.UPDATING] is False:
             self.update(data_points=["utilization_gpu"], wait_for_completion=wait_for_completion)
         return value
 
     def get_utilization_jpeg(self, update=False, wait_for_completion=False):
-        value = self._utilization_jpeg[Constants.VALUE]
-        if update and self._utilization_jpeg[Constants.UPDATING] is False:
+        value = self._utilization_jpeg[_Constants.VALUE]
+        if update and self._utilization_jpeg[_Constants.UPDATING] is False:
             self.update(data_points=["utilization_jpeg"], wait_for_completion=wait_for_completion)
         return value
 
     def get_utilization_memory(self, update=False, wait_for_completion=False):
-        value = self._utilization_memory[Constants.VALUE]
-        if update and self._utilization_memory[Constants.UPDATING] is False:
+        value = self._utilization_memory[_Constants.VALUE]
+        if update and self._utilization_memory[_Constants.UPDATING] is False:
             self.update(data_points=["utilization_memory"], wait_for_completion=wait_for_completion)
         return value
 
     def get_utilization_optical_flow(self, update=False, wait_for_completion=False):
-        value = self._utilization_optical_flow[Constants.VALUE]
-        if update and self._utilization_optical_flow[Constants.UPDATING] is False:
+        value = self._utilization_optical_flow[_Constants.VALUE]
+        if update and self._utilization_optical_flow[_Constants.UPDATING] is False:
             self.update(data_points=["utilization_optical_flow"], wait_for_completion=wait_for_completion)
         return value
 
     def get_uuid(self, update=False, wait_for_completion=False):
-        value = self._uuid[Constants.VALUE]
-        if update and self._uuid[Constants.UPDATING] is False:
+        value = self._uuid[_Constants.VALUE]
+        if update and self._uuid[_Constants.UPDATING] is False:
             self.update(data_points=["uuid"], wait_for_completion=wait_for_completion)
         return value
 
     def get_vbios_version(self, update=False, wait_for_completion=False):
-        value = self._vbios_version[Constants.VALUE]
-        if update and self._vbios_version[Constants.UPDATING] is False:
+        value = self._vbios_version[_Constants.VALUE]
+        if update and self._vbios_version[_Constants.UPDATING] is False:
             self.update(data_points=["vbios_version"], wait_for_completion=wait_for_completion)
         return value
 
     def get_video_architecture(self, update=False, wait_for_completion=False):
-        value = self._video_architecture[Constants.VALUE]
-        if update and self._video_architecture[Constants.UPDATING] is False:
+        value = self._video_architecture[_Constants.VALUE]
+        if update and self._video_architecture[_Constants.UPDATING] is False:
             self.update(data_points=["video_architecture"], wait_for_completion=wait_for_completion)
         return value
 
     def get_video_memory_type(self, update=False, wait_for_completion=False):
-        value = self._video_memory_type[Constants.VALUE]
-        if update and self._video_memory_type[Constants.UPDATING] is False:
+        value = self._video_memory_type[_Constants.VALUE]
+        if update and self._video_memory_type[_Constants.UPDATING] is False:
             self.update(data_points=["video_memory_type"], wait_for_completion=wait_for_completion)
         return value
 
     def get_video_mode(self, update=False, wait_for_completion=False):
-        value = self._video_mode[Constants.VALUE]
-        if update and self._video_mode[Constants.UPDATING] is False:
+        value = self._video_mode[_Constants.VALUE]
+        if update and self._video_mode[_Constants.UPDATING] is False:
             self.update(data_points=["video_mode"], wait_for_completion=wait_for_completion)
         return value
 
     def get_video_mode_description(self, update=False, wait_for_completion=False):
-        value = self._video_mode_description[Constants.VALUE]
-        if update and self._video_mode_description[Constants.UPDATING] is False:
+        value = self._video_mode_description[_Constants.VALUE]
+        if update and self._video_mode_description[_Constants.UPDATING] is False:
             self.update(data_points=["video_mode_description"], wait_for_completion=wait_for_completion)
         return value
 
     def get_video_processor(self, update=False, wait_for_completion=False):
-        value = self._video_processor[Constants.VALUE]
-        if update and self._video_processor[Constants.UPDATING] is False:
+        value = self._video_processor[_Constants.VALUE]
+        if update and self._video_processor[_Constants.UPDATING] is False:
             self.update(data_points=["video_processor"], wait_for_completion=wait_for_completion)
         return value
 
     def set_accelerator_capabilities(self, value=None):
-        self._accelerator_capabilities[Constants.MANUALLY_SET] = value != None
+        self._accelerator_capabilities[_Constants.MANUALLY_SET] = value != None
         self._accelerator_capabilities = value
 
     def set_accounting_mode_enabled(self, value=None):
-        self._accounting_mode_enabled[Constants.MANUALLY_SET] = value != None
+        self._accounting_mode_enabled[_Constants.MANUALLY_SET] = value != None
         self._accounting_mode_enabled = value
 
     def set_accounting_mode_buffer_size(self, value=None):
-        self._accounting_mode_buffer_size[Constants.MANUALLY_SET] = value != None
+        self._accounting_mode_buffer_size[_Constants.MANUALLY_SET] = value != None
         self._accounting_mode_buffer_size = value
 
     def set_adapter_compatibility(self, value=None):
-        self._adapter_compatibility[Constants.MANUALLY_SET] = value != None
+        self._adapter_compatibility[_Constants.MANUALLY_SET] = value != None
         self._adapter_compatibility = value
 
     def set_adapter_DAC_type(self, value=None):
-        self._adapter_DAC_type[Constants.MANUALLY_SET] = value != None
+        self._adapter_DAC_type[_Constants.MANUALLY_SET] = value != None
         self._adapter_DAC_type = value
 
     def set_adapter_id(self, value=None):
-        self._adapter_id[Constants.MANUALLY_SET] = value != None
+        self._adapter_id[_Constants.MANUALLY_SET] = value != None
         self._adapter_id = value
 
     def set_adapter_index(self, value=None):
-        self._adapter_index[Constants.MANUALLY_SET] = value != None
+        self._adapter_index[_Constants.MANUALLY_SET] = value != None
         self._adapter_index = value
 
     def set_addressing_mode(self, value=None):
-        self._addressing_mode[Constants.MANUALLY_SET] = value != None
+        self._addressing_mode[_Constants.MANUALLY_SET] = value != None
         self._addressing_mode = value
 
     def set_availability(self, value=None):
-        self._availability[Constants.MANUALLY_SET] = value != None
+        self._availability[_Constants.MANUALLY_SET] = value != None
         self._availability = value
 
     def set_capability_descriptions(self, value=None):
-        self._capability_descriptions[Constants.MANUALLY_SET] = value != None
+        self._capability_descriptions[_Constants.MANUALLY_SET] = value != None
         self._capability_descriptions = value
 
     def set_caption(self, value=None):
-        self._caption[Constants.MANUALLY_SET] = value != None
+        self._caption[_Constants.MANUALLY_SET] = value != None
         self._caption = value
 
     def set_chip_to_chip_interconnect_mode(self, value=None):
-        self._chip_to_chip_interconnect_mode[Constants.MANUALLY_SET] = value != None
+        self._chip_to_chip_interconnect_mode[_Constants.MANUALLY_SET] = value != None
         self._chip_to_chip_interconnect_mode = value
 
     def set_clock_event_reasons_as_bitmap(self, value=None):
-        self._clock_event_reasons_as_bitmap[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_as_bitmap[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_as_bitmap = value
 
     def set_clock_event_reasons_application_setting(self, value=None):
-        self._clock_event_reasons_application_setting[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_application_setting[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_application_setting = value
 
     def set_clock_event_reasons_is_hardware_limited(self, value=None):
-        self._clock_event_reasons_is_hardware_limited[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_is_hardware_limited[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_is_hardware_limited = value
 
     def set_clock_event_reasons_gpu_idle_limited(self, value=None):
-        self._clock_event_reasons_gpu_idle_limited[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_gpu_idle_limited[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_gpu_idle_limited = value
 
     def set_clock_event_reasons_software_power_limited(self, value=None):
-        self._clock_event_reasons_software_power_limited[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_software_power_limited[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_software_power_limited = value
 
     def set_clock_event_reasons_software_thermal_limited(self, value=None):
-        self._clock_event_reasons_software_thermal_limited[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_software_thermal_limited[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_software_thermal_limited = value
 
     def set_clock_event_reasons_power_break_slowdown_limited(self, value=None):
-        self._clock_event_reasons_power_break_slowdown_limited[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_power_break_slowdown_limited[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_power_break_slowdown_limited = value
 
     def set_clock_event_reasons_supported(self, value=None):
-        self._clock_event_reasons_supported[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_supported[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_supported = value
 
     def set_clock_event_reasons_sync_boost(self, value=None):
-        self._clock_event_reasons_sync_boost[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_sync_boost[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_sync_boost = value
 
     def set_clock_event_reasons_thermal_limited(self, value=None):
-        self._clock_event_reasons_thermal_limited[Constants.MANUALLY_SET] = value != None
+        self._clock_event_reasons_thermal_limited[_Constants.MANUALLY_SET] = value != None
         self._clock_event_reasons_thermal_limited = value
 
     def set_color_table_entries(self, value=None):
-        self._color_table_entries[Constants.MANUALLY_SET] = value != None
+        self._color_table_entries[_Constants.MANUALLY_SET] = value != None
         self._color_table_entries = value
 
     def set_compute_cap(self, value=None):
-        self._compute_cap[Constants.MANUALLY_SET] = value != None
+        self._compute_cap[_Constants.MANUALLY_SET] = value != None
         self._compute_cap = value
 
     def set_compute_mode(self, value=None):
-        self._compute_mode[Constants.MANUALLY_SET] = value != None
+        self._compute_mode[_Constants.MANUALLY_SET] = value != None
         self._compute_mode = value
 
     def set_config_manager_error_code(self, value=None):
-        self._config_manager_error_code[Constants.MANUALLY_SET] = value != None
+        self._config_manager_error_code[_Constants.MANUALLY_SET] = value != None
         self._config_manager_error_code = value
 
     def set_config_manager_user_config(self, value=None):
-        self._config_manager_user_config[Constants.MANUALLY_SET] = value != None
+        self._config_manager_user_config[_Constants.MANUALLY_SET] = value != None
         self._config_manager_user_config = value
 
     def set_core_voltage(self, value=None):
-        self._core_voltage[Constants.MANUALLY_SET] = value != None
+        self._core_voltage[_Constants.MANUALLY_SET] = value != None
         self._core_voltage = value
 
     def set_core_voltage_range(self, value=None):
-        self._core_voltage_range[Constants.MANUALLY_SET] = value != None
+        self._core_voltage_range[_Constants.MANUALLY_SET] = value != None
         self._core_voltage_range = value
 
     def set_creation_class_name(self, value=None):
-        self._creation_class_name[Constants.MANUALLY_SET] = value != None
+        self._creation_class_name[_Constants.MANUALLY_SET] = value != None
         self._creation_class_name = value
 
     def set_current_bits_per_pixel(self, value=None):
-        self._current_bits_per_pixel[Constants.MANUALLY_SET] = value != None
+        self._current_bits_per_pixel[_Constants.MANUALLY_SET] = value != None
         self._current_bits_per_pixel = value
 
     def set_current_horizontal_resolution(self, value=None):
-        self._current_horizontal_resolution[Constants.MANUALLY_SET] = value != None
+        self._current_horizontal_resolution[_Constants.MANUALLY_SET] = value != None
         self._current_horizontal_resolution = value
 
     def set_current_number_of_colors(self, value=None):
-        self._current_number_of_colors[Constants.MANUALLY_SET] = value != None
+        self._current_number_of_colors[_Constants.MANUALLY_SET] = value != None
         self._current_number_of_colors = value
 
     def set_current_number_of_columns(self, value=None):
-        self._current_number_of_columns[Constants.MANUALLY_SET] = value != None
+        self._current_number_of_columns[_Constants.MANUALLY_SET] = value != None
         self._current_number_of_columns = value
 
     def set_current_number_of_rows(self, value=None):
-        self._current_number_of_rows[Constants.MANUALLY_SET] = value != None
+        self._current_number_of_rows[_Constants.MANUALLY_SET] = value != None
         self._current_number_of_rows = value
 
     def set_current_refresh_rate(self, value=None):
-        self._current_refresh_rate[Constants.MANUALLY_SET] = value != None
+        self._current_refresh_rate[_Constants.MANUALLY_SET] = value != None
         self._current_refresh_rate = value
 
     def set_current_scan_mode(self, value=None):
-        self._current_scan_mode[Constants.MANUALLY_SET] = value != None
+        self._current_scan_mode[_Constants.MANUALLY_SET] = value != None
         self._current_scan_mode = value
 
     def set_current_vertical_resolution(self, value=None):
-        self._current_vertical_resolution[Constants.MANUALLY_SET] = value != None
+        self._current_vertical_resolution[_Constants.MANUALLY_SET] = value != None
         self._current_vertical_resolution = value
 
     def set_description(self, value=None):
-        self._description[Constants.MANUALLY_SET] = value != None
+        self._description[_Constants.MANUALLY_SET] = value != None
         self._description = value
 
     def set_device_id(self, value=None):
-        self._device_id[Constants.MANUALLY_SET] = value != None
+        self._device_id[_Constants.MANUALLY_SET] = value != None
         self._device_id = value
 
     def set_device_specific_pens(self, value=None):
-        self._device_specific_pens[Constants.MANUALLY_SET] = value != None
+        self._device_specific_pens[_Constants.MANUALLY_SET] = value != None
         self._device_specific_pens = value
 
     def set_display_active(self, value=None):
-        self._display_active[Constants.MANUALLY_SET] = value != None
+        self._display_active[_Constants.MANUALLY_SET] = value != None
         self._display_active = value
 
     def set_display_mode(self, value=None):
-        self._display_mode[Constants.MANUALLY_SET] = value != None
+        self._display_mode[_Constants.MANUALLY_SET] = value != None
         self._display_mode = value
 
     def set_dither_type(self, value=None):
-        self._dither_type[Constants.MANUALLY_SET] = value != None
+        self._dither_type[_Constants.MANUALLY_SET] = value != None
         self._dither_type = value
 
     def set_driver_date(self, value=None):
-        self._driver_date[Constants.MANUALLY_SET] = value != None
+        self._driver_date[_Constants.MANUALLY_SET] = value != None
         self._driver_date = value
 
     def set_driver_model_current(self, value=None):
-        self._driver_model_current[Constants.MANUALLY_SET] = value != None
+        self._driver_model_current[_Constants.MANUALLY_SET] = value != None
         self._driver_model_current = value
 
     def set_driver_model_pending(self, value=None):
-        self._driver_model_pending[Constants.MANUALLY_SET] = value != None
+        self._driver_model_pending[_Constants.MANUALLY_SET] = value != None
         self._driver_model_pending = value
 
     def set_driver_version(self, value=None):
-        self._driver_version[Constants.MANUALLY_SET] = value != None
+        self._driver_version[_Constants.MANUALLY_SET] = value != None
         self._driver_version = value
 
     def set_ecc_errors_corrected_all_time_in_cbu(self, value=None):
-        self._ecc_errors_corrected_all_time_in_cbu[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_cbu[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_cbu = value
 
     def set_ecc_errors_corrected_all_time_in_primary_cache(self, value=None):
-        self._ecc_errors_corrected_all_time_in_primary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_primary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_primary_cache = value
 
     def set_ecc_errors_corrected_all_time_in_register_file(self, value=None):
-        self._ecc_errors_corrected_all_time_in_register_file[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_register_file[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_register_file = value
 
     def set_ecc_errors_corrected_all_time_in_secondary_cache(self, value=None):
-        self._ecc_errors_corrected_all_time_in_secondary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_secondary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_secondary_cache = value
 
     def set_ecc_errors_corrected_all_time_in_shared_memory(self, value=None):
-        self._ecc_errors_corrected_all_time_in_shared_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_shared_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_shared_memory = value
 
     def set_ecc_errors_corrected_all_time_in_sram(self, value=None):
-        self._ecc_errors_corrected_all_time_in_sram[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_sram[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_sram = value
 
     def set_ecc_errors_corrected_all_time_in_texture_memory(self, value=None):
-        self._ecc_errors_corrected_all_time_in_texture_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_texture_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_texture_memory = value
 
     def set_ecc_errors_corrected_all_time_in_total(self, value=None):
-        self._ecc_errors_corrected_all_time_in_total[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_total[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_total = value
 
     def set_ecc_errors_corrected_all_time_in_video_memory(self, value=None):
-        self._ecc_errors_corrected_all_time_in_video_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_all_time_in_video_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_all_time_in_video_memory = value
 
     def set_ecc_errors_corrected_since_reboot_in_cbu(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_cbu[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_cbu[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_cbu = value
 
     def set_ecc_errors_corrected_since_reboot_in_primary_cache(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_primary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_primary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_primary_cache = value
 
     def set_ecc_errors_corrected_since_reboot_in_register_file(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_register_file[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_register_file[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_register_file = value
 
     def set_ecc_errors_corrected_since_reboot_in_secondary_cache(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_secondary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_secondary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_secondary_cache = value
 
     def set_ecc_errors_corrected_since_reboot_in_shared_memory(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_shared_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_shared_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_shared_memory = value
 
     def set_ecc_errors_corrected_since_reboot_in_sram(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_sram[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_sram[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_sram = value
 
     def set_ecc_errors_corrected_since_reboot_in_texture_memory(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_texture_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_texture_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_texture_memory = value
 
     def set_ecc_errors_corrected_since_reboot_in_total(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_total[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_total[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_total = value
 
     def set_ecc_errors_corrected_since_reboot_in_video_memory(self, value=None):
-        self._ecc_errors_corrected_since_reboot_in_video_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_corrected_since_reboot_in_video_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_corrected_since_reboot_in_video_memory = value
 
     def set_ecc_errors_uncorrected_all_time_in_cbu(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_cbu[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_cbu[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_cbu = value
 
     def set_ecc_errors_uncorrected_all_time_in_primary_cache(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_primary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_primary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_primary_cache = value
 
     def set_ecc_errors_uncorrected_all_time_in_register_file(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_register_file[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_register_file[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_register_file = value
 
     def set_ecc_errors_uncorrected_all_time_in_secondary_cache(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_secondary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_secondary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_secondary_cache = value
 
     def set_ecc_errors_uncorrected_all_time_in_shared_memory(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_shared_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_shared_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_shared_memory = value
 
     def set_ecc_errors_uncorrected_all_time_in_sram(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_sram[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_sram[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_sram = value
 
     def set_ecc_errors_uncorrected_all_time_in_texture_memory(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_texture_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_texture_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_texture_memory = value
 
     def set_ecc_errors_uncorrected_all_time_in_total(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_total[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_total[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_total = value
 
     def set_ecc_errors_uncorrected_all_time_in_video_memory(self, value=None):
-        self._ecc_errors_uncorrected_all_time_in_video_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_all_time_in_video_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_all_time_in_video_memory = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_cbu(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_cbu[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_cbu[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_cbu = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_primary_cache(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_primary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_primary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_primary_cache = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_register_file(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_register_file[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_register_file[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_register_file = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_secondary_cache = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_shared_memory(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_shared_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_shared_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_shared_memory = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_sram(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_sram[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_sram[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_sram = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_texture_memory(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_texture_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_texture_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_texture_memory = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_total(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_total[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_total[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_total = value
 
     def set_ecc_errors_uncorrected_since_reboot_in_video_memory(self, value=None):
-        self._ecc_errors_uncorrected_since_reboot_in_video_memory[Constants.MANUALLY_SET] = value != None
+        self._ecc_errors_uncorrected_since_reboot_in_video_memory[_Constants.MANUALLY_SET] = value != None
         self._ecc_errors_uncorrected_since_reboot_in_video_memory = value
 
     def set_ecc_mode_current(self, value=None):
-        self._ecc_mode_current[Constants.MANUALLY_SET] = value != None
+        self._ecc_mode_current[_Constants.MANUALLY_SET] = value != None
         self._ecc_mode_current = value
 
     def set_ecc_mode_pending(self, value=None):
-        self._ecc_mode_pending[Constants.MANUALLY_SET] = value != None
+        self._ecc_mode_pending[_Constants.MANUALLY_SET] = value != None
         self._ecc_mode_pending = value
 
     def set_encoder_average_FPS(self, value=None):
-        self._encoder_average_FPS[Constants.MANUALLY_SET] = value != None
+        self._encoder_average_FPS[_Constants.MANUALLY_SET] = value != None
         self._encoder_average_FPS = value
 
     def set_encoder_average_latency(self, value=None):
-        self._encoder_average_latency[Constants.MANUALLY_SET] = value != None
+        self._encoder_average_latency[_Constants.MANUALLY_SET] = value != None
         self._encoder_average_latency = value
 
     def set_encoder_session_count(self, value=None):
-        self._encoder_session_count[Constants.MANUALLY_SET] = value != None
+        self._encoder_session_count[_Constants.MANUALLY_SET] = value != None
         self._encoder_session_count = value
 
     def set_engine_clock_range(self, value=None):
-        self._engine_clock_range[Constants.MANUALLY_SET] = value != None
+        self._engine_clock_range[_Constants.MANUALLY_SET] = value != None
         self._engine_clock_range = value
 
     def set_error_cleared(self, value=None):
-        self._error_cleared[Constants.MANUALLY_SET] = value != None
+        self._error_cleared[_Constants.MANUALLY_SET] = value != None
         self._error_cleared = value
 
     def set_error_description(self, value=None):
-        self._error_description[Constants.MANUALLY_SET] = value != None
+        self._error_description[_Constants.MANUALLY_SET] = value != None
         self._error_description = value
 
     def set_fabric_state(self, value=None):
-        self._fabric_state[Constants.MANUALLY_SET] = value != None
+        self._fabric_state[_Constants.MANUALLY_SET] = value != None
         self._fabric_state = value
 
     def set_fabric_status(self, value=None):
-        self._fabric_status[Constants.MANUALLY_SET] = value != None
+        self._fabric_status[_Constants.MANUALLY_SET] = value != None
         self._fabric_status = value
 
     def set_fan_speed_percentage(self, value=None):
-        self._fan_speed_percentage[Constants.MANUALLY_SET] = value != None
+        self._fan_speed_percentage[_Constants.MANUALLY_SET] = value != None
         self._fan_speed_percentage = value
 
     def set_fan_speed_percentage_range(self, value=None):
-        self._fan_speed_percentage_range[Constants.MANUALLY_SET] = value != None
+        self._fan_speed_percentage_range[_Constants.MANUALLY_SET] = value != None
         self._fan_speed_percentage_range = value
 
     def set_fan_speed_RPM(self, value=None):
-        self._fan_speed_RPM[Constants.MANUALLY_SET] = value != None
+        self._fan_speed_RPM[_Constants.MANUALLY_SET] = value != None
         self._fan_speed_RPM = value
 
     def set_fan_speed_RPM_range(self, value=None):
-        self._fan_speed_RPM_range[Constants.MANUALLY_SET] = value != None
+        self._fan_speed_RPM_range[_Constants.MANUALLY_SET] = value != None
         self._fan_speed_RPM_range = value
 
     def set_fractional_multi_vGPU(self, value=None):
-        self._fractional_multi_vGPU[Constants.MANUALLY_SET] = value != None
+        self._fractional_multi_vGPU[_Constants.MANUALLY_SET] = value != None
         self._fractional_multi_vGPU = value
 
     def set_frequency_application_default_shader_clock(self, value=None):
-        self._frequency_application_default_shader_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_application_default_shader_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_application_default_shader_clock = value
 
     def set_frequency_application_default_memory_clock(self, value=None):
-        self._frequency_application_default_memory_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_application_default_memory_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_application_default_memory_clock = value
 
     def set_frequency_application_memory_clock(self, value=None):
-        self._frequency_application_memory_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_application_memory_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_application_memory_clock = value
 
     def set_frequency_application_shader_clock(self, value=None):
-        self._frequency_application_shader_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_application_shader_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_application_shader_clock = value
 
     def set_frequency_maximum_memory_clock(self, value=None):
-        self._frequency_maximum_memory_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_maximum_memory_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_maximum_memory_clock = value
 
     def set_frequency_maximum_shader_clock(self, value=None):
-        self._frequency_maximum_shader_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_maximum_shader_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_maximum_shader_clock = value
 
     def set_frequency_maximum_streaming_multiprocessor_clock(self, value=None):
-        self._frequency_maximum_streaming_multiprocessor_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_maximum_streaming_multiprocessor_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_maximum_streaming_multiprocessor_clock = value
 
     def set_frequency_memory_clock(self, value=None):
-        self._frequency_memory_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_memory_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_memory_clock = value
 
     def set_frequency_shader_clock(self, value=None):
-        self._frequency_shader_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_shader_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_shader_clock = value
 
     def set_frequency_streaming_multiprocessor_clock(self, value=None):
-        self._frequency_streaming_multiprocessor_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_streaming_multiprocessor_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_streaming_multiprocessor_clock = value
 
     def set_frequency_video_clock(self, value=None):
-        self._frequency_video_clock[Constants.MANUALLY_SET] = value != None
+        self._frequency_video_clock[_Constants.MANUALLY_SET] = value != None
         self._frequency_video_clock = value
 
     def set_heterogenous_multi_vGPU(self, value=None):
-        self._heterogenous_multi_vGPU[Constants.MANUALLY_SET] = value != None
+        self._heterogenous_multi_vGPU[_Constants.MANUALLY_SET] = value != None
         self._heterogenous_multi_vGPU = value
 
     def set_heterogenous_time_slice_profile(self, value=None):
-        self._heterogenous_time_slice_profile[Constants.MANUALLY_SET] = value != None
+        self._heterogenous_time_slice_profile[_Constants.MANUALLY_SET] = value != None
         self._heterogenous_time_slice_profile = value
 
     def set_heterogenous_time_slice_sizes(self, value=None):
-        self._heterogenous_time_slice_sizes[Constants.MANUALLY_SET] = value != None
+        self._heterogenous_time_slice_sizes[_Constants.MANUALLY_SET] = value != None
         self._heterogenous_time_slice_sizes = value
 
     def set_ICM_indent(self, value=None):
-        self._ICM_indent[Constants.MANUALLY_SET] = value != None
+        self._ICM_indent[_Constants.MANUALLY_SET] = value != None
         self._ICM_indent = value
 
     def set_ICM_method(self, value=None):
-        self._ICM_method[Constants.MANUALLY_SET] = value != None
+        self._ICM_method[_Constants.MANUALLY_SET] = value != None
         self._ICM_method = value
 
     def set_inf_filename(self, value=None):
-        self._inf_filename[Constants.MANUALLY_SET] = value != None
+        self._inf_filename[_Constants.MANUALLY_SET] = value != None
         self._inf_filename = value
 
     def set_inf_section(self, value=None):
-        self._inf_section[Constants.MANUALLY_SET] = value != None
+        self._inf_section[_Constants.MANUALLY_SET] = value != None
         self._inf_section = value
 
     def set_info_ROM_ecc(self, value=None):
-        self._info_ROM_ecc[Constants.MANUALLY_SET] = value != None
+        self._info_ROM_ecc[_Constants.MANUALLY_SET] = value != None
         self._info_ROM_ecc = value
 
     def set_info_ROM_oem(self, value=None):
-        self._info_ROM_oem[Constants.MANUALLY_SET] = value != None
+        self._info_ROM_oem[_Constants.MANUALLY_SET] = value != None
         self._info_ROM_oem = value
 
     def set_info_ROM_power(self, value=None):
-        self._info_ROM_power[Constants.MANUALLY_SET] = value != None
+        self._info_ROM_power[_Constants.MANUALLY_SET] = value != None
         self._info_ROM_power = value
 
     def set_info_ROM_version(self, value=None):
-        self._info_ROM_version[Constants.MANUALLY_SET] = value != None
+        self._info_ROM_version[_Constants.MANUALLY_SET] = value != None
         self._info_ROM_version = value
 
     def set_install_date(self, value=None):
-        self._install_date[Constants.MANUALLY_SET] = value != None
+        self._install_date[_Constants.MANUALLY_SET] = value != None
         self._install_date = value
 
     def set_installed_display_drivers(self, value=None):
-        self._installed_display_drivers[Constants.MANUALLY_SET] = value != None
+        self._installed_display_drivers[_Constants.MANUALLY_SET] = value != None
         self._installed_display_drivers = value
 
     def set_last_error_code(self, value=None):
-        self._last_error_code[Constants.MANUALLY_SET] = value != None
+        self._last_error_code[_Constants.MANUALLY_SET] = value != None
         self._last_error_code = value
 
     def set_max_memory_supported(self, value=None):
-        self._max_memory_supported[Constants.MANUALLY_SET] = value != None
+        self._max_memory_supported[_Constants.MANUALLY_SET] = value != None
         self._max_memory_supported = value
 
     def set_max_number_controlled(self, value=None):
-        self._max_number_controlled[Constants.MANUALLY_SET] = value != None
+        self._max_number_controlled[_Constants.MANUALLY_SET] = value != None
         self._max_number_controlled = value
 
     def set_max_refresh_rate(self, value=None):
-        self._max_refresh_rate[Constants.MANUALLY_SET] = value != None
+        self._max_refresh_rate[_Constants.MANUALLY_SET] = value != None
         self._max_refresh_rate = value
 
     def set_memory_clock_range(self, value=None):
-        self._memory_clock_range[Constants.MANUALLY_SET] = value != None
+        self._memory_clock_range[_Constants.MANUALLY_SET] = value != None
         self._memory_clock_range = value
 
     def set_memory_free(self, value=None):
-        self._memory_free[Constants.MANUALLY_SET] = value != None
+        self._memory_free[_Constants.MANUALLY_SET] = value != None
         self._memory_free = value
 
     def set_memory_reserved(self, value=None):
-        self._memory_reserved[Constants.MANUALLY_SET] = value != None
+        self._memory_reserved[_Constants.MANUALLY_SET] = value != None
         self._memory_reserved = value
 
     def set_memory_total(self, value=None):
-        self._memory_total[Constants.MANUALLY_SET] = value != None
+        self._memory_total[_Constants.MANUALLY_SET] = value != None
         self._memory_total = value
 
     def set_memory_used(self, value=None):
-        self._memory_used[Constants.MANUALLY_SET] = value != None
+        self._memory_used[_Constants.MANUALLY_SET] = value != None
         self._memory_used = value
 
     def set_min_refresh_rate(self, value=None):
-        self._min_refresh_rate[Constants.MANUALLY_SET] = value != None
+        self._min_refresh_rate[_Constants.MANUALLY_SET] = value != None
         self._min_refresh_rate = value
 
     def set_monochrome(self, value=None):
-        self._monochrome[Constants.MANUALLY_SET] = value != None
+        self._monochrome[_Constants.MANUALLY_SET] = value != None
         self._monochrome = value
 
     def set_multi_instance_GPU_mode_current(self, value=None):
-        self._multi_instance_GPU_mode_current[Constants.MANUALLY_SET] = value != None
+        self._multi_instance_GPU_mode_current[_Constants.MANUALLY_SET] = value != None
         self._multi_instance_GPU_mode_current = value
 
     def set_multi_instance_GPU_mode_pending(self, value=None):
-        self._multi_instance_GPU_mode_pending[Constants.MANUALLY_SET] = value != None
+        self._multi_instance_GPU_mode_pending[_Constants.MANUALLY_SET] = value != None
         self._multi_instance_GPU_mode_pending = value
 
     def set_name(self, value=None):
-        self._name[Constants.MANUALLY_SET] = value != None
+        self._name[_Constants.MANUALLY_SET] = value != None
         self._name = value
 
     def set_number_of_color_planes(self, value=None):
-        self._number_of_color_planes[Constants.MANUALLY_SET] = value != None
+        self._number_of_color_planes[_Constants.MANUALLY_SET] = value != None
         self._number_of_color_planes = value
 
     def set_number_of_video_pages(self, value=None):
-        self._number_of_video_pages[Constants.MANUALLY_SET] = value != None
+        self._number_of_video_pages[_Constants.MANUALLY_SET] = value != None
         self._number_of_video_pages = value
 
     def set_operating_mode_current(self, value=None):
-        self._operating_mode_current[Constants.MANUALLY_SET] = value != None
+        self._operating_mode_current[_Constants.MANUALLY_SET] = value != None
         self._operating_mode_current = value
 
     def set_operating_mode_pending(self, value=None):
-        self._operating_mode_pending[Constants.MANUALLY_SET] = value != None
+        self._operating_mode_pending[_Constants.MANUALLY_SET] = value != None
         self._operating_mode_pending = value
 
     def set_pci_bus(self, value=None):
-        self._pci_bus[Constants.MANUALLY_SET] = value != None
+        self._pci_bus[_Constants.MANUALLY_SET] = value != None
         self._pci_bus = value
 
     def set_pci_bus_id(self, value=None):
-        self._pci_bus_id[Constants.MANUALLY_SET] = value != None
+        self._pci_bus_id[_Constants.MANUALLY_SET] = value != None
         self._pci_bus_id = value
 
     def set_pci_device(self, value=None):
-        self._pci_device[Constants.MANUALLY_SET] = value != None
+        self._pci_device[_Constants.MANUALLY_SET] = value != None
         self._pci_device = value
 
     def set_pci_device_id(self, value=None):
-        self._pci_device_id[Constants.MANUALLY_SET] = value != None
+        self._pci_device_id[_Constants.MANUALLY_SET] = value != None
         self._pci_device_id = value
 
     def set_pci_domain(self, value=None):
-        self._pci_domain[Constants.MANUALLY_SET] = value != None
+        self._pci_domain[_Constants.MANUALLY_SET] = value != None
         self._pci_domain = value
 
     def set_pci_link_generation_current(self, value=None):
-        self._pci_link_generation_current[Constants.MANUALLY_SET] = value != None
+        self._pci_link_generation_current[_Constants.MANUALLY_SET] = value != None
         self._pci_link_generation_current = value
 
     def set_pci_link_generation_device_host_maximum(self, value=None):
-        self._pci_link_generation_device_host_maximum[Constants.MANUALLY_SET] = value != None
+        self._pci_link_generation_device_host_maximum[_Constants.MANUALLY_SET] = value != None
         self._pci_link_generation_device_host_maximum = value
 
     def set_pci_link_generation_gpu_maximum(self, value=None):
-        self._pci_link_generation_gpu_maximum[Constants.MANUALLY_SET] = value != None
+        self._pci_link_generation_gpu_maximum[_Constants.MANUALLY_SET] = value != None
         self._pci_link_generation_gpu_maximum = value
 
     def set_pci_link_generation_maximum(self, value=None):
-        self._pci_link_generation_maximum[Constants.MANUALLY_SET] = value != None
+        self._pci_link_generation_maximum[_Constants.MANUALLY_SET] = value != None
         self._pci_link_generation_maximum = value
 
     def set_pci_link_width_current(self, value=None):
-        self._pci_link_width_current[Constants.MANUALLY_SET] = value != None
+        self._pci_link_width_current[_Constants.MANUALLY_SET] = value != None
         self._pci_link_width_current = value
 
     def set_pci_link_width_maximum(self, value=None):
-        self._pci_link_width_maximum[Constants.MANUALLY_SET] = value != None
+        self._pci_link_width_maximum[_Constants.MANUALLY_SET] = value != None
         self._pci_link_width_maximum = value
 
     def set_pci_sub_device_id(self, value=None):
-        self._pci_sub_device_id[Constants.MANUALLY_SET] = value != None
+        self._pci_sub_device_id[_Constants.MANUALLY_SET] = value != None
         self._pci_sub_device_id = value
 
     def set_persistence_mode(self, value=None):
-        self._persistence_mode[Constants.MANUALLY_SET] = value != None
+        self._persistence_mode[_Constants.MANUALLY_SET] = value != None
         self._persistence_mode = value
 
     def set_PNP_device_id(self, value=None):
-        self._PNP_device_id[Constants.MANUALLY_SET] = value != None
+        self._PNP_device_id[_Constants.MANUALLY_SET] = value != None
         self._PNP_device_id = value
 
     def set_power_draw(self, value=None):
-        self._power_draw[Constants.MANUALLY_SET] = value != None
+        self._power_draw[_Constants.MANUALLY_SET] = value != None
         self._power_draw = value
 
     def set_power_draw_average(self, value=None):
-        self._power_draw_average[Constants.MANUALLY_SET] = value != None
+        self._power_draw_average[_Constants.MANUALLY_SET] = value != None
         self._power_draw_average = value
 
     def set_power_draw_default_limit(self, value=None):
-        self._power_draw_default_limit[Constants.MANUALLY_SET] = value != None
+        self._power_draw_default_limit[_Constants.MANUALLY_SET] = value != None
         self._power_draw_default_limit = value
 
     def set_power_draw_enforced_limit(self, value=None):
-        self._power_draw_enforced_limit[Constants.MANUALLY_SET] = value != None
+        self._power_draw_enforced_limit[_Constants.MANUALLY_SET] = value != None
         self._power_draw_enforced_limit = value
 
     def set_power_draw_instant(self, value=None):
-        self._power_draw_instant[Constants.MANUALLY_SET] = value != None
+        self._power_draw_instant[_Constants.MANUALLY_SET] = value != None
         self._power_draw_instant = value
 
     def set_power_draw_limit(self, value=None):
-        self._power_draw_limit[Constants.MANUALLY_SET] = value != None
+        self._power_draw_limit[_Constants.MANUALLY_SET] = value != None
         self._power_draw_limit = value
 
     def set_power_draw_maximum(self, value=None):
-        self._power_draw_maximum[Constants.MANUALLY_SET] = value != None
+        self._power_draw_maximum[_Constants.MANUALLY_SET] = value != None
         self._power_draw_maximum = value
 
     def set_power_draw_minimum(self, value=None):
-        self._power_draw_minimum[Constants.MANUALLY_SET] = value != None
+        self._power_draw_minimum[_Constants.MANUALLY_SET] = value != None
         self._power_draw_minimum = value
 
     def set_power_management_capabilities(self, value=None):
-        self._power_management_capabilities[Constants.MANUALLY_SET] = value != None
+        self._power_management_capabilities[_Constants.MANUALLY_SET] = value != None
         self._power_management_capabilities = value
 
     def set_power_management_supported(self, value=None):
-        self._power_management_supported[Constants.MANUALLY_SET] = value != None
+        self._power_management_supported[_Constants.MANUALLY_SET] = value != None
         self._power_management_supported = value
 
     def set_protected_memory_free(self, value=None):
-        self._protected_memory_free[Constants.MANUALLY_SET] = value != None
+        self._protected_memory_free[_Constants.MANUALLY_SET] = value != None
         self._protected_memory_free = value
 
     def set_protected_memory_total(self, value=None):
-        self._protected_memory_total[Constants.MANUALLY_SET] = value != None
+        self._protected_memory_total[_Constants.MANUALLY_SET] = value != None
         self._protected_memory_total = value
 
     def set_protected_memory_used(self, value=None):
-        self._protected_memory_used[Constants.MANUALLY_SET] = value != None
+        self._protected_memory_used[_Constants.MANUALLY_SET] = value != None
         self._protected_memory_used = value
 
     def set_protocol_supported(self, value=None):
-        self._protocol_supported[Constants.MANUALLY_SET] = value != None
+        self._protocol_supported[_Constants.MANUALLY_SET] = value != None
         self._protocol_supported = value
 
     def set_performance_state(self, value=None):
-        self._performance_state[Constants.MANUALLY_SET] = value != None
+        self._performance_state[_Constants.MANUALLY_SET] = value != None
         self._performance_state = value
 
     def set_retired_pages_double_bit_ecc_errors_count(self, value=None):
-        self._retired_pages_double_bit_ecc_errors_count[Constants.MANUALLY_SET] = value != None
+        self._retired_pages_double_bit_ecc_errors_count[_Constants.MANUALLY_SET] = value != None
         self._retired_pages_double_bit_ecc_errors_count = value
 
     def set_retired_pages_single_bit_ecc_errors_count(self, value=None):
-        self._retired_pages_single_bit_ecc_errors_count[Constants.MANUALLY_SET] = value != None
+        self._retired_pages_single_bit_ecc_errors_count[_Constants.MANUALLY_SET] = value != None
         self._retired_pages_single_bit_ecc_errors_count = value
 
     def set_retired_pages_pending(self, value=None):
-        self._retired_pages_pending[Constants.MANUALLY_SET] = value != None
+        self._retired_pages_pending[_Constants.MANUALLY_SET] = value != None
         self._retired_pages_pending = value
 
     def set_reserved_system_palette_entries(self, value=None):
-        self._reserved_system_palette_entries[Constants.MANUALLY_SET] = value != None
+        self._reserved_system_palette_entries[_Constants.MANUALLY_SET] = value != None
         self._reserved_system_palette_entries = value
 
     def set_reset_required(self, value=None):
-        self._reset_required[Constants.MANUALLY_SET] = value != None
+        self._reset_required[_Constants.MANUALLY_SET] = value != None
         self._reset_required = value
 
     def set_reset_and_drain_recommended(self, value=None):
-        self._reset_and_drain_recommended[Constants.MANUALLY_SET] = value != None
+        self._reset_and_drain_recommended[_Constants.MANUALLY_SET] = value != None
         self._reset_and_drain_recommended = value
 
     def set_serial(self, value=None):
-        self._serial[Constants.MANUALLY_SET] = value != None
+        self._serial[_Constants.MANUALLY_SET] = value != None
         self._serial = value
 
     def set_specification_version(self, value=None):
-        self._specification_version[Constants.MANUALLY_SET] = value != None
+        self._specification_version[_Constants.MANUALLY_SET] = value != None
         self._specification_version = value
 
     def set_status(self, value=None):
-        self._status[Constants.MANUALLY_SET] = value != None
+        self._status[_Constants.MANUALLY_SET] = value != None
         self._status = value
 
     def set_status_info(self, value=None):
-        self._status_info[Constants.MANUALLY_SET] = value != None
+        self._status_info[_Constants.MANUALLY_SET] = value != None
         self._status_info = value
 
     def set_system_creation_class_name(self, value=None):
-        self._system_creation_class_name[Constants.MANUALLY_SET] = value != None
+        self._system_creation_class_name[_Constants.MANUALLY_SET] = value != None
         self._system_creation_class_name = value
 
     def set_system_name(self, value=None):
-        self._system_name[Constants.MANUALLY_SET] = value != None
+        self._system_name[_Constants.MANUALLY_SET] = value != None
         self._system_name = value
 
     def set_system_palette_entries(self, value=None):
-        self._system_palette_entries[Constants.MANUALLY_SET] = value != None
+        self._system_palette_entries[_Constants.MANUALLY_SET] = value != None
         self._system_palette_entries = value
 
     def set_GPU_system_processor_mode_current(self, value=None):
-        self._GPU_system_processor_mode_current[Constants.MANUALLY_SET] = value != None
+        self._GPU_system_processor_mode_current[_Constants.MANUALLY_SET] = value != None
         self._GPU_system_processor_mode_current = value
 
     def set_GPU_system_processor_mode_default(self, value=None):
-        self._GPU_system_processor_mode_default[Constants.MANUALLY_SET] = value != None
+        self._GPU_system_processor_mode_default[_Constants.MANUALLY_SET] = value != None
         self._GPU_system_processor_mode_default = value
 
     def set_temperature_core(self, value=None):
-        self._temperature_core[Constants.MANUALLY_SET] = value != None
+        self._temperature_core[_Constants.MANUALLY_SET] = value != None
         self._temperature_core = value
 
     def set_temperature_core_limit(self, value=None):
-        self._temperature_core_limit[Constants.MANUALLY_SET] = value != None
+        self._temperature_core_limit[_Constants.MANUALLY_SET] = value != None
         self._temperature_core_limit = value
 
     def set_temperature_memory(self, value=None):
-        self._temperature_memory[Constants.MANUALLY_SET] = value != None
+        self._temperature_memory[_Constants.MANUALLY_SET] = value != None
         self._temperature_memory = value
 
     def set_time_of_last_reset(self, value=None):
-        self._time_of_last_reset[Constants.MANUALLY_SET] = value != None
+        self._time_of_last_reset[_Constants.MANUALLY_SET] = value != None
         self._time_of_last_reset = value
 
     def set_utilization_decoder(self, value=None):
-        self._utilization_decoder[Constants.MANUALLY_SET] = value != None
+        self._utilization_decoder[_Constants.MANUALLY_SET] = value != None
         self._utilization_decoder = value
 
     def set_utilization_encoder(self, value=None):
-        self._utilization_encoder[Constants.MANUALLY_SET] = value != None
+        self._utilization_encoder[_Constants.MANUALLY_SET] = value != None
         self._utilization_encoder = value
 
     def set_utilization_gpu(self, value=None):
-        self._utilization_gpu[Constants.MANUALLY_SET] = value != None
+        self._utilization_gpu[_Constants.MANUALLY_SET] = value != None
         self._utilization_gpu = value
 
     def set_utilization_jpeg(self, value=None):
-        self._utilization_jpeg[Constants.MANUALLY_SET] = value != None
+        self._utilization_jpeg[_Constants.MANUALLY_SET] = value != None
         self._utilization_jpeg = value
 
     def set_utilization_memory(self, value=None):
-        self._utilization_memory[Constants.MANUALLY_SET] = value != None
+        self._utilization_memory[_Constants.MANUALLY_SET] = value != None
         self._utilization_memory = value
 
     def set_utilization_optical_flow(self, value=None):
-        self._utilization_optical_flow[Constants.MANUALLY_SET] = value != None
+        self._utilization_optical_flow[_Constants.MANUALLY_SET] = value != None
         self._utilization_optical_flow = value
 
     def set_uuid(self, value=None):
-        self._uuid[Constants.MANUALLY_SET] = value != None
+        self._uuid[_Constants.MANUALLY_SET] = value != None
         self._uuid = value
 
     def set_vbios_version(self, value=None):
-        self._vbios_version[Constants.MANUALLY_SET] = value != None
+        self._vbios_version[_Constants.MANUALLY_SET] = value != None
         self._vbios_version = value
 
     def set_video_architecture(self, value=None):
-        self._video_architecture[Constants.MANUALLY_SET] = value != None
+        self._video_architecture[_Constants.MANUALLY_SET] = value != None
         self._video_architecture = value
 
     def set_video_memory_type(self, value=None):
-        self._video_memory_type[Constants.MANUALLY_SET] = value != None
+        self._video_memory_type[_Constants.MANUALLY_SET] = value != None
         self._video_memory_type = value
 
     def set_video_mode(self, value=None):
-        self._video_mode[Constants.MANUALLY_SET] = value != None
+        self._video_mode[_Constants.MANUALLY_SET] = value != None
         self._video_mode = value
 
     def set_video_mode_description(self, value=None):
-        self._video_mode_description[Constants.MANUALLY_SET] = value != None
+        self._video_mode_description[_Constants.MANUALLY_SET] = value != None
         self._video_mode_description = value
 
     def set_video_processor(self, value=None):
-        self._video_processor[Constants.MANUALLY_SET] = value != None
+        self._video_processor[_Constants.MANUALLY_SET] = value != None
         self._video_processor = value
 
     def update_accelerator_capabilities(self, wait_for_completion=True):
-        self._accelerator_capabilities[Constants.UPDATING] = True
+        self._accelerator_capabilities[_Constants.UPDATING] = True
         self.update(data_points=["accelerator_capabilities"], wait_for_completion=wait_for_completion)
 
     def update_accounting_mode_enabled(self, wait_for_completion=True):
-        self._accounting_mode_enabled[Constants.UPDATING] = True
+        self._accounting_mode_enabled[_Constants.UPDATING] = True
         self.update(data_points=["accounting_mode_enabled"], wait_for_completion=wait_for_completion)
 
     def update_accounting_mode_buffer_size(self, wait_for_completion=True):
-        self._accounting_mode_buffer_size[Constants.UPDATING] = True
+        self._accounting_mode_buffer_size[_Constants.UPDATING] = True
         self.update(data_points=["accounting_mode_buffer_size"], wait_for_completion=wait_for_completion)
 
     def update_adapter_compatibility(self, wait_for_completion=True):
-        self._adapter_compatibility[Constants.UPDATING] = True
+        self._adapter_compatibility[_Constants.UPDATING] = True
         self.update(data_points=["adapter_compatibility"], wait_for_completion=wait_for_completion)
 
     def update_adapter_DAC_type(self, wait_for_completion=True):
-        self._adapter_DAC_type[Constants.UPDATING] = True
+        self._adapter_DAC_type[_Constants.UPDATING] = True
         self.update(data_points=["adapter_DAC_type"], wait_for_completion=wait_for_completion)
 
     def update_adapter_id(self, wait_for_completion=True):
-        self._adapter_id[Constants.UPDATING] = True
+        self._adapter_id[_Constants.UPDATING] = True
         self.update(data_points=["adapter_id"], wait_for_completion=wait_for_completion)
 
     def update_adapter_index(self, wait_for_completion=True):
-        self._adapter_index[Constants.UPDATING] = True
+        self._adapter_index[_Constants.UPDATING] = True
         self.update(data_points=["adapter_index"], wait_for_completion=wait_for_completion)
 
     def update_addressing_mode(self, wait_for_completion=True):
-        self._addressing_mode[Constants.UPDATING] = True
+        self._addressing_mode[_Constants.UPDATING] = True
         self.update(data_points=["addressing_mode"], wait_for_completion=wait_for_completion)
 
     def update_availability(self, wait_for_completion=True):
-        self._availability[Constants.UPDATING] = True
+        self._availability[_Constants.UPDATING] = True
         self.update(data_points=["availability"], wait_for_completion=wait_for_completion)
 
     def update_capability_descriptions(self, wait_for_completion=True):
-        self._capability_descriptions[Constants.UPDATING] = True
+        self._capability_descriptions[_Constants.UPDATING] = True
         self.update(data_points=["capability_descriptions"], wait_for_completion=wait_for_completion)
 
     def update_caption(self, wait_for_completion=True):
-        self._caption[Constants.UPDATING] = True
+        self._caption[_Constants.UPDATING] = True
         self.update(data_points=["caption"], wait_for_completion=wait_for_completion)
 
     def update_chip_to_chip_interconnect_mode(self, wait_for_completion=True):
-        self._chip_to_chip_interconnect_mode[Constants.UPDATING] = True
+        self._chip_to_chip_interconnect_mode[_Constants.UPDATING] = True
         self.update(data_points=["chip_to_chip_interconnect_mode"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_as_bitmap(self, wait_for_completion=True):
-        self._clock_event_reasons_as_bitmap[Constants.UPDATING] = True
+        self._clock_event_reasons_as_bitmap[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_as_bitmap"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_application_setting(self, wait_for_completion=True):
-        self._clock_event_reasons_application_setting[Constants.UPDATING] = True
+        self._clock_event_reasons_application_setting[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_application_setting"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_is_hardware_limited(self, wait_for_completion=True):
-        self._clock_event_reasons_is_hardware_limited[Constants.UPDATING] = True
+        self._clock_event_reasons_is_hardware_limited[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_is_hardware_limited"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_gpu_idle_limited(self, wait_for_completion=True):
-        self._clock_event_reasons_gpu_idle_limited[Constants.UPDATING] = True
+        self._clock_event_reasons_gpu_idle_limited[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_gpu_idle_limited"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_software_power_limited(self, wait_for_completion=True):
-        self._clock_event_reasons_software_power_limited[Constants.UPDATING] = True
+        self._clock_event_reasons_software_power_limited[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_software_power_limited"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_software_thermal_limited(self, wait_for_completion=True):
-        self._clock_event_reasons_software_thermal_limited[Constants.UPDATING] = True
+        self._clock_event_reasons_software_thermal_limited[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_software_thermal_limited"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_power_break_slowdown_limited(self, wait_for_completion=True):
-        self._clock_event_reasons_power_break_slowdown_limited[Constants.UPDATING] = True
+        self._clock_event_reasons_power_break_slowdown_limited[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_power_break_slowdown_limited"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_supported(self, wait_for_completion=True):
-        self._clock_event_reasons_supported[Constants.UPDATING] = True
+        self._clock_event_reasons_supported[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_supported"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_sync_boost(self, wait_for_completion=True):
-        self._clock_event_reasons_sync_boost[Constants.UPDATING] = True
+        self._clock_event_reasons_sync_boost[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_sync_boost"], wait_for_completion=wait_for_completion)
 
     def update_clock_event_reasons_thermal_limited(self, wait_for_completion=True):
-        self._clock_event_reasons_thermal_limited[Constants.UPDATING] = True
+        self._clock_event_reasons_thermal_limited[_Constants.UPDATING] = True
         self.update(data_points=["clock_event_reasons_thermal_limited"], wait_for_completion=wait_for_completion)
 
     def update_color_table_entries(self, wait_for_completion=True):
-        self._color_table_entries[Constants.UPDATING] = True
+        self._color_table_entries[_Constants.UPDATING] = True
         self.update(data_points=["color_table_entries"], wait_for_completion=wait_for_completion)
 
     def update_compute_cap(self, wait_for_completion=True):
-        self._compute_cap[Constants.UPDATING] = True
+        self._compute_cap[_Constants.UPDATING] = True
         self.update(data_points=["compute_cap"], wait_for_completion=wait_for_completion)
 
     def update_compute_mode(self, wait_for_completion=True):
-        self._compute_mode[Constants.UPDATING] = True
+        self._compute_mode[_Constants.UPDATING] = True
         self.update(data_points=["compute_mode"], wait_for_completion=wait_for_completion)
 
     def update_config_manager_error_code(self, wait_for_completion=True):
-        self._config_manager_error_code[Constants.UPDATING] = True
+        self._config_manager_error_code[_Constants.UPDATING] = True
         self.update(data_points=["config_manager_error_code"], wait_for_completion=wait_for_completion)
 
     def update_config_manager_user_config(self, wait_for_completion=True):
-        self._config_manager_user_config[Constants.UPDATING] = True
+        self._config_manager_user_config[_Constants.UPDATING] = True
         self.update(data_points=["config_manager_user_config"], wait_for_completion=wait_for_completion)
 
     def update_core_voltage(self, wait_for_completion=True):
-        self._core_voltage[Constants.UPDATING] = True
+        self._core_voltage[_Constants.UPDATING] = True
         self.update(data_points=["core_voltage"], wait_for_completion=wait_for_completion)
 
     def update_core_voltage_range(self, wait_for_completion=True):
-        self._core_voltage_range[Constants.UPDATING] = True
+        self._core_voltage_range[_Constants.UPDATING] = True
         self.update(data_points=["core_voltage_range"], wait_for_completion=wait_for_completion)
 
     def update_creation_class_name(self, wait_for_completion=True):
-        self._creation_class_name[Constants.UPDATING] = True
+        self._creation_class_name[_Constants.UPDATING] = True
         self.update(data_points=["creation_class_name"], wait_for_completion=wait_for_completion)
 
     def update_current_bits_per_pixel(self, wait_for_completion=True):
-        self._current_bits_per_pixel[Constants.UPDATING] = True
+        self._current_bits_per_pixel[_Constants.UPDATING] = True
         self.update(data_points=["current_bits_per_pixel"], wait_for_completion=wait_for_completion)
 
     def update_current_horizontal_resolution(self, wait_for_completion=True):
-        self._current_horizontal_resolution[Constants.UPDATING] = True
+        self._current_horizontal_resolution[_Constants.UPDATING] = True
         self.update(data_points=["current_horizontal_resolution"], wait_for_completion=wait_for_completion)
 
     def update_current_number_of_colors(self, wait_for_completion=True):
-        self._current_number_of_colors[Constants.UPDATING] = True
+        self._current_number_of_colors[_Constants.UPDATING] = True
         self.update(data_points=["current_number_of_colors"], wait_for_completion=wait_for_completion)
 
     def update_current_number_of_columns(self, wait_for_completion=True):
-        self._current_number_of_columns[Constants.UPDATING] = True
+        self._current_number_of_columns[_Constants.UPDATING] = True
         self.update(data_points=["current_number_of_columns"], wait_for_completion=wait_for_completion)
 
     def update_current_number_of_rows(self, wait_for_completion=True):
-        self._current_number_of_rows[Constants.UPDATING] = True
+        self._current_number_of_rows[_Constants.UPDATING] = True
         self.update(data_points=["current_number_of_rows"], wait_for_completion=wait_for_completion)
 
     def update_current_refresh_rate(self, wait_for_completion=True):
-        self._current_refresh_rate[Constants.UPDATING] = True
+        self._current_refresh_rate[_Constants.UPDATING] = True
         self.update(data_points=["current_refresh_rate"], wait_for_completion=wait_for_completion)
 
     def update_current_scan_mode(self, wait_for_completion=True):
-        self._current_scan_mode[Constants.UPDATING] = True
+        self._current_scan_mode[_Constants.UPDATING] = True
         self.update(data_points=["current_scan_mode"], wait_for_completion=wait_for_completion)
 
     def update_current_vertical_resolution(self, wait_for_completion=True):
-        self._current_vertical_resolution[Constants.UPDATING] = True
+        self._current_vertical_resolution[_Constants.UPDATING] = True
         self.update(data_points=["current_vertical_resolution"], wait_for_completion=wait_for_completion)
 
     def update_description(self, wait_for_completion=True):
-        self._description[Constants.UPDATING] = True
+        self._description[_Constants.UPDATING] = True
         self.update(data_points=["description"], wait_for_completion=wait_for_completion)
 
     def update_device_id(self, wait_for_completion=True):
-        self._device_id[Constants.UPDATING] = True
+        self._device_id[_Constants.UPDATING] = True
         self.update(data_points=["device_id"], wait_for_completion=wait_for_completion)
 
     def update_device_specific_pens(self, wait_for_completion=True):
-        self._device_specific_pens[Constants.UPDATING] = True
+        self._device_specific_pens[_Constants.UPDATING] = True
         self.update(data_points=["device_specific_pens"], wait_for_completion=wait_for_completion)
 
     def update_display_active(self, wait_for_completion=True):
-        self._display_active[Constants.UPDATING] = True
+        self._display_active[_Constants.UPDATING] = True
         self.update(data_points=["display_active"], wait_for_completion=wait_for_completion)
 
     def update_display_mode(self, wait_for_completion=True):
-        self._display_mode[Constants.UPDATING] = True
+        self._display_mode[_Constants.UPDATING] = True
         self.update(data_points=["display_mode"], wait_for_completion=wait_for_completion)
 
     def update_dither_type(self, wait_for_completion=True):
-        self._dither_type[Constants.UPDATING] = True
+        self._dither_type[_Constants.UPDATING] = True
         self.update(data_points=["dither_type"], wait_for_completion=wait_for_completion)
 
     def update_driver_date(self, wait_for_completion=True):
-        self._driver_date[Constants.UPDATING] = True
+        self._driver_date[_Constants.UPDATING] = True
         self.update(data_points=["driver_date"], wait_for_completion=wait_for_completion)
 
     def update_driver_model_current(self, wait_for_completion=True):
-        self._driver_model_current[Constants.UPDATING] = True
+        self._driver_model_current[_Constants.UPDATING] = True
         self.update(data_points=["driver_model_current"], wait_for_completion=wait_for_completion)
 
     def update_driver_model_pending(self, wait_for_completion=True):
-        self._driver_model_pending[Constants.UPDATING] = True
+        self._driver_model_pending[_Constants.UPDATING] = True
         self.update(data_points=["driver_model_pending"], wait_for_completion=wait_for_completion)
 
     def update_driver_version(self, wait_for_completion=True):
-        self._driver_version[Constants.UPDATING] = True
+        self._driver_version[_Constants.UPDATING] = True
         self.update(data_points=["driver_version"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_cbu(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_cbu[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_cbu[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_cbu"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_primary_cache(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_primary_cache[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_primary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_primary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_register_file(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_register_file[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_register_file[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_register_file"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_secondary_cache(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_secondary_cache[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_secondary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_secondary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_shared_memory(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_shared_memory[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_shared_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_shared_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_sram(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_sram[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_sram[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_sram"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_texture_memory(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_texture_memory[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_texture_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_texture_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_total(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_total[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_total[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_total"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_all_time_in_video_memory(self, wait_for_completion=True):
-        self._ecc_errors_corrected_all_time_in_video_memory[Constants.UPDATING] = True
+        self._ecc_errors_corrected_all_time_in_video_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_all_time_in_video_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_cbu(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_cbu[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_cbu[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_cbu"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_primary_cache(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_primary_cache[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_primary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_primary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_register_file(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_register_file[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_register_file[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_register_file"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_secondary_cache(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_secondary_cache[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_secondary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_secondary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_shared_memory(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_shared_memory[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_shared_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_shared_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_sram(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_sram[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_sram[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_sram"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_texture_memory(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_texture_memory[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_texture_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_texture_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_total(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_total[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_total[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_total"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_corrected_since_reboot_in_video_memory(self, wait_for_completion=True):
-        self._ecc_errors_corrected_since_reboot_in_video_memory[Constants.UPDATING] = True
+        self._ecc_errors_corrected_since_reboot_in_video_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_corrected_since_reboot_in_video_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_cbu(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_cbu[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_cbu[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_cbu"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_primary_cache(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_primary_cache[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_primary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_primary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_register_file(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_register_file[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_register_file[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_register_file"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_secondary_cache(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_secondary_cache[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_secondary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_secondary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_shared_memory(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_shared_memory[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_shared_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_shared_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_sram(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_sram[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_sram[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_sram"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_texture_memory(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_texture_memory[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_texture_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_texture_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_total(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_total[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_total[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_total"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_all_time_in_video_memory(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_all_time_in_video_memory[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_all_time_in_video_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_all_time_in_video_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_cbu(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_cbu[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_cbu[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_cbu"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_primary_cache(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_primary_cache[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_primary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_primary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_register_file(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_register_file[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_register_file[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_register_file"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_secondary_cache(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_secondary_cache[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_secondary_cache"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_shared_memory(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_shared_memory[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_shared_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_shared_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_sram(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_sram[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_sram[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_sram"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_texture_memory(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_texture_memory[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_texture_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_texture_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_total(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_total[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_total[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_total"], wait_for_completion=wait_for_completion)
 
     def update_ecc_errors_uncorrected_since_reboot_in_video_memory(self, wait_for_completion=True):
-        self._ecc_errors_uncorrected_since_reboot_in_video_memory[Constants.UPDATING] = True
+        self._ecc_errors_uncorrected_since_reboot_in_video_memory[_Constants.UPDATING] = True
         self.update(data_points=["ecc_errors_uncorrected_since_reboot_in_video_memory"], wait_for_completion=wait_for_completion)
 
     def update_ecc_mode_current(self, wait_for_completion=True):
-        self._ecc_mode_current[Constants.UPDATING] = True
+        self._ecc_mode_current[_Constants.UPDATING] = True
         self.update(data_points=["ecc_mode_current"], wait_for_completion=wait_for_completion)
 
     def update_ecc_mode_pending(self, wait_for_completion=True):
-        self._ecc_mode_pending[Constants.UPDATING] = True
+        self._ecc_mode_pending[_Constants.UPDATING] = True
         self.update(data_points=["ecc_mode_pending"], wait_for_completion=wait_for_completion)
 
     def update_encoder_average_FPS(self, wait_for_completion=True):
-        self._encoder_average_FPS[Constants.UPDATING] = True
+        self._encoder_average_FPS[_Constants.UPDATING] = True
         self.update(data_points=["encoder_average_FPS"], wait_for_completion=wait_for_completion)
 
     def update_encoder_average_latency(self, wait_for_completion=True):
-        self._encoder_average_latency[Constants.UPDATING] = True
+        self._encoder_average_latency[_Constants.UPDATING] = True
         self.update(data_points=["encoder_average_latency"], wait_for_completion=wait_for_completion)
 
     def update_encoder_session_count(self, wait_for_completion=True):
-        self._encoder_session_count[Constants.UPDATING] = True
+        self._encoder_session_count[_Constants.UPDATING] = True
         self.update(data_points=["encoder_session_count"], wait_for_completion=wait_for_completion)
 
     def update_engine_clock_range(self, wait_for_completion=True):
-        self._engine_clock_range[Constants.UPDATING] = True
+        self._engine_clock_range[_Constants.UPDATING] = True
         self.update(data_points=["engine_clock_range"], wait_for_completion=wait_for_completion)
 
     def update_error_cleared(self, wait_for_completion=True):
-        self._error_cleared[Constants.UPDATING] = True
+        self._error_cleared[_Constants.UPDATING] = True
         self.update(data_points=["error_cleared"], wait_for_completion=wait_for_completion)
 
     def update_error_description(self, wait_for_completion=True):
-        self._error_description[Constants.UPDATING] = True
+        self._error_description[_Constants.UPDATING] = True
         self.update(data_points=["error_description"], wait_for_completion=wait_for_completion)
 
     def update_fabric_state(self, wait_for_completion=True):
-        self._fabric_state[Constants.UPDATING] = True
+        self._fabric_state[_Constants.UPDATING] = True
         self.update(data_points=["fabric_state"], wait_for_completion=wait_for_completion)
 
     def update_fabric_status(self, wait_for_completion=True):
-        self._fabric_status[Constants.UPDATING] = True
+        self._fabric_status[_Constants.UPDATING] = True
         self.update(data_points=["fabric_status"], wait_for_completion=wait_for_completion)
 
     def update_fan_speed_percentage(self, wait_for_completion=True):
-        self._fan_speed_percentage[Constants.UPDATING] = True
+        self._fan_speed_percentage[_Constants.UPDATING] = True
         self.update(data_points=["fan_speed_percentage"], wait_for_completion=wait_for_completion)
 
     def update_fan_speed_percentage_range(self, wait_for_completion=True):
-        self._fan_speed_percentage_range[Constants.UPDATING] = True
+        self._fan_speed_percentage_range[_Constants.UPDATING] = True
         self.update(data_points=["fan_speed_percentage_range"], wait_for_completion=wait_for_completion)
 
     def update_fan_speed_RPM(self, wait_for_completion=True):
-        self._fan_speed_RPM[Constants.UPDATING] = True
+        self._fan_speed_RPM[_Constants.UPDATING] = True
         self.update(data_points=["fan_speed_RPM"], wait_for_completion=wait_for_completion)
 
     def update_fan_speed_RPM_range(self, wait_for_completion=True):
-        self._fan_speed_RPM_range[Constants.UPDATING] = True
+        self._fan_speed_RPM_range[_Constants.UPDATING] = True
         self.update(data_points=["fan_speed_RPM_range"], wait_for_completion=wait_for_completion)
 
     def update_fractional_multi_vGPU(self, wait_for_completion=True):
-        self._fractional_multi_vGPU[Constants.UPDATING] = True
+        self._fractional_multi_vGPU[_Constants.UPDATING] = True
         self.update(data_points=["fractional_multi_vGPU"], wait_for_completion=wait_for_completion)
 
     def update_frequency_application_default_shader_clock(self, wait_for_completion=True):
-        self._frequency_application_default_shader_clock[Constants.UPDATING] = True
+        self._frequency_application_default_shader_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_application_default_shader_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_application_default_memory_clock(self, wait_for_completion=True):
-        self._frequency_application_default_memory_clock[Constants.UPDATING] = True
+        self._frequency_application_default_memory_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_application_default_memory_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_application_memory_clock(self, wait_for_completion=True):
-        self._frequency_application_memory_clock[Constants.UPDATING] = True
+        self._frequency_application_memory_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_application_memory_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_application_shader_clock(self, wait_for_completion=True):
-        self._frequency_application_shader_clock[Constants.UPDATING] = True
+        self._frequency_application_shader_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_application_shader_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_maximum_memory_clock(self, wait_for_completion=True):
-        self._frequency_maximum_memory_clock[Constants.UPDATING] = True
+        self._frequency_maximum_memory_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_maximum_memory_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_maximum_shader_clock(self, wait_for_completion=True):
-        self._frequency_maximum_shader_clock[Constants.UPDATING] = True
+        self._frequency_maximum_shader_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_maximum_shader_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_maximum_streaming_multiprocessor_clock(self, wait_for_completion=True):
-        self._frequency_maximum_streaming_multiprocessor_clock[Constants.UPDATING] = True
+        self._frequency_maximum_streaming_multiprocessor_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_maximum_streaming_multiprocessor_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_memory_clock(self, wait_for_completion=True):
-        self._frequency_memory_clock[Constants.UPDATING] = True
+        self._frequency_memory_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_memory_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_shader_clock(self, wait_for_completion=True):
-        self._frequency_shader_clock[Constants.UPDATING] = True
+        self._frequency_shader_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_shader_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_streaming_multiprocessor_clock(self, wait_for_completion=True):
-        self._frequency_streaming_multiprocessor_clock[Constants.UPDATING] = True
+        self._frequency_streaming_multiprocessor_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_streaming_multiprocessor_clock"], wait_for_completion=wait_for_completion)
 
     def update_frequency_video_clock(self, wait_for_completion=True):
-        self._frequency_video_clock[Constants.UPDATING] = True
+        self._frequency_video_clock[_Constants.UPDATING] = True
         self.update(data_points=["frequency_video_clock"], wait_for_completion=wait_for_completion)
 
     def update_heterogenous_multi_vGPU(self, wait_for_completion=True):
-        self._heterogenous_multi_vGPU[Constants.UPDATING] = True
+        self._heterogenous_multi_vGPU[_Constants.UPDATING] = True
         self.update(data_points=["heterogenous_multi_vGPU"], wait_for_completion=wait_for_completion)
 
     def update_heterogenous_time_slice_profile(self, wait_for_completion=True):
-        self._heterogenous_time_slice_profile[Constants.UPDATING] = True
+        self._heterogenous_time_slice_profile[_Constants.UPDATING] = True
         self.update(data_points=["heterogenous_time_slice_profile"], wait_for_completion=wait_for_completion)
 
     def update_heterogenous_time_slice_sizes(self, wait_for_completion=True):
-        self._heterogenous_time_slice_sizes[Constants.UPDATING] = True
+        self._heterogenous_time_slice_sizes[_Constants.UPDATING] = True
         self.update(data_points=["heterogenous_time_slice_sizes"], wait_for_completion=wait_for_completion)
 
     def update_ICM_indent(self, wait_for_completion=True):
-        self._ICM_indent[Constants.UPDATING] = True
+        self._ICM_indent[_Constants.UPDATING] = True
         self.update(data_points=["ICM_indent"], wait_for_completion=wait_for_completion)
 
     def update_ICM_method(self, wait_for_completion=True):
-        self._ICM_method[Constants.UPDATING] = True
+        self._ICM_method[_Constants.UPDATING] = True
         self.update(data_points=["ICM_method"], wait_for_completion=wait_for_completion)
 
     def update_inf_filename(self, wait_for_completion=True):
-        self._inf_filename[Constants.UPDATING] = True
+        self._inf_filename[_Constants.UPDATING] = True
         self.update(data_points=["inf_filename"], wait_for_completion=wait_for_completion)
 
     def update_inf_section(self, wait_for_completion=True):
-        self._inf_section[Constants.UPDATING] = True
+        self._inf_section[_Constants.UPDATING] = True
         self.update(data_points=["inf_section"], wait_for_completion=wait_for_completion)
 
     def update_info_ROM_ecc(self, wait_for_completion=True):
-        self._info_ROM_ecc[Constants.UPDATING] = True
+        self._info_ROM_ecc[_Constants.UPDATING] = True
         self.update(data_points=["info_ROM_ecc"], wait_for_completion=wait_for_completion)
 
     def update_info_ROM_oem(self, wait_for_completion=True):
-        self._info_ROM_oem[Constants.UPDATING] = True
+        self._info_ROM_oem[_Constants.UPDATING] = True
         self.update(data_points=["info_ROM_oem"], wait_for_completion=wait_for_completion)
 
     def update_info_ROM_power(self, wait_for_completion=True):
-        self._info_ROM_power[Constants.UPDATING] = True
+        self._info_ROM_power[_Constants.UPDATING] = True
         self.update(data_points=["info_ROM_power"], wait_for_completion=wait_for_completion)
 
     def update_info_ROM_version(self, wait_for_completion=True):
-        self._info_ROM_version[Constants.UPDATING] = True
+        self._info_ROM_version[_Constants.UPDATING] = True
         self.update(data_points=["info_ROM_version"], wait_for_completion=wait_for_completion)
 
     def update_install_date(self, wait_for_completion=True):
-        self._install_date[Constants.UPDATING] = True
+        self._install_date[_Constants.UPDATING] = True
         self.update(data_points=["install_date"], wait_for_completion=wait_for_completion)
 
     def update_installed_display_drivers(self, wait_for_completion=True):
-        self._installed_display_drivers[Constants.UPDATING] = True
+        self._installed_display_drivers[_Constants.UPDATING] = True
         self.update(data_points=["installed_display_drivers"], wait_for_completion=wait_for_completion)
 
     def update_last_error_code(self, wait_for_completion=True):
-        self._last_error_code[Constants.UPDATING] = True
+        self._last_error_code[_Constants.UPDATING] = True
         self.update(data_points=["last_error_code"], wait_for_completion=wait_for_completion)
 
     def update_max_memory_supported(self, wait_for_completion=True):
-        self._max_memory_supported[Constants.UPDATING] = True
+        self._max_memory_supported[_Constants.UPDATING] = True
         self.update(data_points=["max_memory_supported"], wait_for_completion=wait_for_completion)
 
     def update_max_number_controlled(self, wait_for_completion=True):
-        self._max_number_controlled[Constants.UPDATING] = True
+        self._max_number_controlled[_Constants.UPDATING] = True
         self.update(data_points=["max_number_controlled"], wait_for_completion=wait_for_completion)
 
     def update_max_refresh_rate(self, wait_for_completion=True):
-        self._max_refresh_rate[Constants.UPDATING] = True
+        self._max_refresh_rate[_Constants.UPDATING] = True
         self.update(data_points=["max_refresh_rate"], wait_for_completion=wait_for_completion)
 
     def update_memory_clock_range(self, wait_for_completion=True):
-        self._memory_clock_range[Constants.UPDATING] = True
+        self._memory_clock_range[_Constants.UPDATING] = True
         self.update(data_points=["memory_clock_range"], wait_for_completion=wait_for_completion)
 
     def update_memory_free(self, wait_for_completion=True):
-        self._memory_free[Constants.UPDATING] = True
+        self._memory_free[_Constants.UPDATING] = True
         self.update(data_points=["memory_free"], wait_for_completion=wait_for_completion)
 
     def update_memory_reserved(self, wait_for_completion=True):
-        self._memory_reserved[Constants.UPDATING] = True
+        self._memory_reserved[_Constants.UPDATING] = True
         self.update(data_points=["memory_reserved"], wait_for_completion=wait_for_completion)
 
     def update_memory_total(self, wait_for_completion=True):
-        self._memory_total[Constants.UPDATING] = True
+        self._memory_total[_Constants.UPDATING] = True
         self.update(data_points=["memory_total"], wait_for_completion=wait_for_completion)
 
     def update_memory_used(self, wait_for_completion=True):
-        self._memory_used[Constants.UPDATING] = True
+        self._memory_used[_Constants.UPDATING] = True
         self.update(data_points=["memory_used"], wait_for_completion=wait_for_completion)
 
     def update_min_refresh_rate(self, wait_for_completion=True):
-        self._min_refresh_rate[Constants.UPDATING] = True
+        self._min_refresh_rate[_Constants.UPDATING] = True
         self.update(data_points=["min_refresh_rate"], wait_for_completion=wait_for_completion)
 
     def update_monochrome(self, wait_for_completion=True):
-        self._monochrome[Constants.UPDATING] = True
+        self._monochrome[_Constants.UPDATING] = True
         self.update(data_points=["monochrome"], wait_for_completion=wait_for_completion)
 
     def update_multi_instance_GPU_mode_current(self, wait_for_completion=True):
-        self._multi_instance_GPU_mode_current[Constants.UPDATING] = True
+        self._multi_instance_GPU_mode_current[_Constants.UPDATING] = True
         self.update(data_points=["multi_instance_GPU_mode_current"], wait_for_completion=wait_for_completion)
 
     def update_multi_instance_GPU_mode_pending(self, wait_for_completion=True):
-        self._multi_instance_GPU_mode_pending[Constants.UPDATING] = True
+        self._multi_instance_GPU_mode_pending[_Constants.UPDATING] = True
         self.update(data_points=["multi_instance_GPU_mode_pending"], wait_for_completion=wait_for_completion)
 
     def update_name(self, wait_for_completion=True):
-        self._name[Constants.UPDATING] = True
+        self._name[_Constants.UPDATING] = True
         self.update(data_points=["name"], wait_for_completion=wait_for_completion)
 
     def update_number_of_color_planes(self, wait_for_completion=True):
-        self._number_of_color_planes[Constants.UPDATING] = True
+        self._number_of_color_planes[_Constants.UPDATING] = True
         self.update(data_points=["number_of_color_planes"], wait_for_completion=wait_for_completion)
 
     def update_number_of_video_pages(self, wait_for_completion=True):
-        self._number_of_video_pages[Constants.UPDATING] = True
+        self._number_of_video_pages[_Constants.UPDATING] = True
         self.update(data_points=["number_of_video_pages"], wait_for_completion=wait_for_completion)
 
     def update_operating_mode_current(self, wait_for_completion=True):
-        self._operating_mode_current[Constants.UPDATING] = True
+        self._operating_mode_current[_Constants.UPDATING] = True
         self.update(data_points=["operating_mode_current"], wait_for_completion=wait_for_completion)
 
     def update_operating_mode_pending(self, wait_for_completion=True):
-        self._operating_mode_pending[Constants.UPDATING] = True
+        self._operating_mode_pending[_Constants.UPDATING] = True
         self.update(data_points=["operating_mode_pending"], wait_for_completion=wait_for_completion)
 
     def update_pci_bus(self, wait_for_completion=True):
-        self._pci_bus[Constants.UPDATING] = True
+        self._pci_bus[_Constants.UPDATING] = True
         self.update(data_points=["pci_bus"], wait_for_completion=wait_for_completion)
 
     def update_pci_bus_id(self, wait_for_completion=True):
-        self._pci_bus_id[Constants.UPDATING] = True
+        self._pci_bus_id[_Constants.UPDATING] = True
         self.update(data_points=["pci_bus_id"], wait_for_completion=wait_for_completion)
 
     def update_pci_device(self, wait_for_completion=True):
-        self._pci_device[Constants.UPDATING] = True
+        self._pci_device[_Constants.UPDATING] = True
         self.update(data_points=["pci_device"], wait_for_completion=wait_for_completion)
 
     def update_pci_device_id(self, wait_for_completion=True):
-        self._pci_device_id[Constants.UPDATING] = True
+        self._pci_device_id[_Constants.UPDATING] = True
         self.update(data_points=["pci_device_id"], wait_for_completion=wait_for_completion)
 
     def update_pci_domain(self, wait_for_completion=True):
-        self._pci_domain[Constants.UPDATING] = True
+        self._pci_domain[_Constants.UPDATING] = True
         self.update(data_points=["pci_domain"], wait_for_completion=wait_for_completion)
 
     def update_pci_link_generation_current(self, wait_for_completion=True):
-        self._pci_link_generation_current[Constants.UPDATING] = True
+        self._pci_link_generation_current[_Constants.UPDATING] = True
         self.update(data_points=["pci_link_generation_current"], wait_for_completion=wait_for_completion)
 
     def update_pci_link_generation_device_host_maximum(self, wait_for_completion=True):
-        self._pci_link_generation_device_host_maximum[Constants.UPDATING] = True
+        self._pci_link_generation_device_host_maximum[_Constants.UPDATING] = True
         self.update(data_points=["pci_link_generation_device_host_maximum"], wait_for_completion=wait_for_completion)
 
     def update_pci_link_generation_gpu_maximum(self, wait_for_completion=True):
-        self._pci_link_generation_gpu_maximum[Constants.UPDATING] = True
+        self._pci_link_generation_gpu_maximum[_Constants.UPDATING] = True
         self.update(data_points=["pci_link_generation_gpu_maximum"], wait_for_completion=wait_for_completion)
 
     def update_pci_link_generation_maximum(self, wait_for_completion=True):
-        self._pci_link_generation_maximum[Constants.UPDATING] = True
+        self._pci_link_generation_maximum[_Constants.UPDATING] = True
         self.update(data_points=["pci_link_generation_maximum"], wait_for_completion=wait_for_completion)
 
     def update_pci_link_width_current(self, wait_for_completion=True):
-        self._pci_link_width_current[Constants.UPDATING] = True
+        self._pci_link_width_current[_Constants.UPDATING] = True
         self.update(data_points=["pci_link_width_current"], wait_for_completion=wait_for_completion)
 
     def update_pci_link_width_maximum(self, wait_for_completion=True):
-        self._pci_link_width_maximum[Constants.UPDATING] = True
+        self._pci_link_width_maximum[_Constants.UPDATING] = True
         self.update(data_points=["pci_link_width_maximum"], wait_for_completion=wait_for_completion)
 
     def update_pci_sub_device_id(self, wait_for_completion=True):
-        self._pci_sub_device_id[Constants.UPDATING] = True
+        self._pci_sub_device_id[_Constants.UPDATING] = True
         self.update(data_points=["pci_sub_device_id"], wait_for_completion=wait_for_completion)
 
     def update_persistence_mode(self, wait_for_completion=True):
-        self._persistence_mode[Constants.UPDATING] = True
+        self._persistence_mode[_Constants.UPDATING] = True
         self.update(data_points=["persistence_mode"], wait_for_completion=wait_for_completion)
 
     def update_PNP_device_id(self, wait_for_completion=True):
-        self._PNP_device_id[Constants.UPDATING] = True
+        self._PNP_device_id[_Constants.UPDATING] = True
         self.update(data_points=["PNP_device_id"], wait_for_completion=wait_for_completion)
 
     def update_power_draw(self, wait_for_completion=True):
-        self._power_draw[Constants.UPDATING] = True
+        self._power_draw[_Constants.UPDATING] = True
         self.update(data_points=["power_draw"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_average(self, wait_for_completion=True):
-        self._power_draw_average[Constants.UPDATING] = True
+        self._power_draw_average[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_average"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_default_limit(self, wait_for_completion=True):
-        self._power_draw_default_limit[Constants.UPDATING] = True
+        self._power_draw_default_limit[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_default_limit"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_enforced_limit(self, wait_for_completion=True):
-        self._power_draw_enforced_limit[Constants.UPDATING] = True
+        self._power_draw_enforced_limit[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_enforced_limit"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_instant(self, wait_for_completion=True):
-        self._power_draw_instant[Constants.UPDATING] = True
+        self._power_draw_instant[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_instant"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_limit(self, wait_for_completion=True):
-        self._power_draw_limit[Constants.UPDATING] = True
+        self._power_draw_limit[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_limit"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_maximum(self, wait_for_completion=True):
-        self._power_draw_maximum[Constants.UPDATING] = True
+        self._power_draw_maximum[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_maximum"], wait_for_completion=wait_for_completion)
 
     def update_power_draw_minimum(self, wait_for_completion=True):
-        self._power_draw_minimum[Constants.UPDATING] = True
+        self._power_draw_minimum[_Constants.UPDATING] = True
         self.update(data_points=["power_draw_minimum"], wait_for_completion=wait_for_completion)
 
     def update_power_management_capabilities(self, wait_for_completion=True):
-        self._power_management_capabilities[Constants.UPDATING] = True
+        self._power_management_capabilities[_Constants.UPDATING] = True
         self.update(data_points=["power_management_capabilities"], wait_for_completion=wait_for_completion)
 
     def update_power_management_supported(self, wait_for_completion=True):
-        self._power_management_supported[Constants.UPDATING] = True
+        self._power_management_supported[_Constants.UPDATING] = True
         self.update(data_points=["power_management_supported"], wait_for_completion=wait_for_completion)
 
     def update_protected_memory_free(self, wait_for_completion=True):
-        self._protected_memory_free[Constants.UPDATING] = True
+        self._protected_memory_free[_Constants.UPDATING] = True
         self.update(data_points=["protected_memory_free"], wait_for_completion=wait_for_completion)
 
     def update_protected_memory_total(self, wait_for_completion=True):
-        self._protected_memory_total[Constants.UPDATING] = True
+        self._protected_memory_total[_Constants.UPDATING] = True
         self.update(data_points=["protected_memory_total"], wait_for_completion=wait_for_completion)
 
     def update_protected_memory_used(self, wait_for_completion=True):
-        self._protected_memory_used[Constants.UPDATING] = True
+        self._protected_memory_used[_Constants.UPDATING] = True
         self.update(data_points=["protected_memory_used"], wait_for_completion=wait_for_completion)
 
     def update_protocol_supported(self, wait_for_completion=True):
-        self._protocol_supported[Constants.UPDATING] = True
+        self._protocol_supported[_Constants.UPDATING] = True
         self.update(data_points=["protocol_supported"], wait_for_completion=wait_for_completion)
 
     def update_performance_state(self, wait_for_completion=True):
-        self._performance_state[Constants.UPDATING] = True
+        self._performance_state[_Constants.UPDATING] = True
         self.update(data_points=["performance_state"], wait_for_completion=wait_for_completion)
 
     def update_retired_pages_double_bit_ecc_errors_count(self, wait_for_completion=True):
-        self._retired_pages_double_bit_ecc_errors_count[Constants.UPDATING] = True
+        self._retired_pages_double_bit_ecc_errors_count[_Constants.UPDATING] = True
         self.update(data_points=["retired_pages_double_bit_ecc_errors_count"], wait_for_completion=wait_for_completion)
 
     def update_retired_pages_single_bit_ecc_errors_count(self, wait_for_completion=True):
-        self._retired_pages_single_bit_ecc_errors_count[Constants.UPDATING] = True
+        self._retired_pages_single_bit_ecc_errors_count[_Constants.UPDATING] = True
         self.update(data_points=["retired_pages_single_bit_ecc_errors_count"], wait_for_completion=wait_for_completion)
 
     def update_retired_pages_pending(self, wait_for_completion=True):
-        self._retired_pages_pending[Constants.UPDATING] = True
+        self._retired_pages_pending[_Constants.UPDATING] = True
         self.update(data_points=["retired_pages_pending"], wait_for_completion=wait_for_completion)
 
     def update_reserved_system_palette_entries(self, wait_for_completion=True):
-        self._reserved_system_palette_entries[Constants.UPDATING] = True
+        self._reserved_system_palette_entries[_Constants.UPDATING] = True
         self.update(data_points=["reserved_system_palette_entries"], wait_for_completion=wait_for_completion)
 
     def update_reset_required(self, wait_for_completion=True):
-        self._reset_required[Constants.UPDATING] = True
+        self._reset_required[_Constants.UPDATING] = True
         self.update(data_points=["reset_required"], wait_for_completion=wait_for_completion)
 
     def update_reset_and_drain_recommended(self, wait_for_completion=True):
-        self._reset_and_drain_recommended[Constants.UPDATING] = True
+        self._reset_and_drain_recommended[_Constants.UPDATING] = True
         self.update(data_points=["reset_and_drain_recommended"], wait_for_completion=wait_for_completion)
 
     def update_serial(self, wait_for_completion=True):
-        self._serial[Constants.UPDATING] = True
+        self._serial[_Constants.UPDATING] = True
         self.update(data_points=["serial"], wait_for_completion=wait_for_completion)
 
     def update_specification_version(self, wait_for_completion=True):
-        self._specification_version[Constants.UPDATING] = True
+        self._specification_version[_Constants.UPDATING] = True
         self.update(data_points=["specification_version"], wait_for_completion=wait_for_completion)
 
     def update_status(self, wait_for_completion=True):
-        self._status[Constants.UPDATING] = True
+        self._status[_Constants.UPDATING] = True
         self.update(data_points=["status"], wait_for_completion=wait_for_completion)
 
     def update_status_info(self, wait_for_completion=True):
-        self._status_info[Constants.UPDATING] = True
+        self._status_info[_Constants.UPDATING] = True
         self.update(data_points=["status_info"], wait_for_completion=wait_for_completion)
 
     def update_system_creation_class_name(self, wait_for_completion=True):
-        self._system_creation_class_name[Constants.UPDATING] = True
+        self._system_creation_class_name[_Constants.UPDATING] = True
         self.update(data_points=["system_creation_class_name"], wait_for_completion=wait_for_completion)
 
     def update_system_name(self, wait_for_completion=True):
-        self._system_name[Constants.UPDATING] = True
+        self._system_name[_Constants.UPDATING] = True
         self.update(data_points=["system_name"], wait_for_completion=wait_for_completion)
 
     def update_system_palette_entries(self, wait_for_completion=True):
-        self._system_palette_entries[Constants.UPDATING] = True
+        self._system_palette_entries[_Constants.UPDATING] = True
         self.update(data_points=["system_palette_entries"], wait_for_completion=wait_for_completion)
 
     def update_GPU_system_processor_mode_current(self, wait_for_completion=True):
-        self._GPU_system_processor_mode_current[Constants.UPDATING] = True
+        self._GPU_system_processor_mode_current[_Constants.UPDATING] = True
         self.update(data_points=["GPU_system_processor_mode_current"], wait_for_completion=wait_for_completion)
 
     def update_GPU_system_processor_mode_default(self, wait_for_completion=True):
-        self._GPU_system_processor_mode_default[Constants.UPDATING] = True
+        self._GPU_system_processor_mode_default[_Constants.UPDATING] = True
         self.update(data_points=["GPU_system_processor_mode_default"], wait_for_completion=wait_for_completion)
 
     def update_temperature_core(self, wait_for_completion=True):
-        self._temperature_core[Constants.UPDATING] = True
+        self._temperature_core[_Constants.UPDATING] = True
         self.update(data_points=["temperature_core"], wait_for_completion=wait_for_completion)
 
     def update_temperature_core_limit(self, wait_for_completion=True):
-        self._temperature_core_limit[Constants.UPDATING] = True
+        self._temperature_core_limit[_Constants.UPDATING] = True
         self.update(data_points=["temperature_core_limit"], wait_for_completion=wait_for_completion)
 
     def update_temperature_memory(self, wait_for_completion=True):
-        self._temperature_memory[Constants.UPDATING] = True
+        self._temperature_memory[_Constants.UPDATING] = True
         self.update(data_points=["temperature_memory"], wait_for_completion=wait_for_completion)
 
     def update_time_of_last_reset(self, wait_for_completion=True):
-        self._time_of_last_reset[Constants.UPDATING] = True
+        self._time_of_last_reset[_Constants.UPDATING] = True
         self.update(data_points=["time_of_last_reset"], wait_for_completion=wait_for_completion)
 
     def update_utilization_decoder(self, wait_for_completion=True):
-        self._utilization_decoder[Constants.UPDATING] = True
+        self._utilization_decoder[_Constants.UPDATING] = True
         self.update(data_points=["utilization_decoder"], wait_for_completion=wait_for_completion)
 
     def update_utilization_encoder(self, wait_for_completion=True):
-        self._utilization_encoder[Constants.UPDATING] = True
+        self._utilization_encoder[_Constants.UPDATING] = True
         self.update(data_points=["utilization_encoder"], wait_for_completion=wait_for_completion)
 
     def update_utilization_gpu(self, wait_for_completion=True):
-        self._utilization_gpu[Constants.UPDATING] = True
+        self._utilization_gpu[_Constants.UPDATING] = True
         self.update(data_points=["utilization_gpu"], wait_for_completion=wait_for_completion)
 
     def update_utilization_jpeg(self, wait_for_completion=True):
-        self._utilization_jpeg[Constants.UPDATING] = True
+        self._utilization_jpeg[_Constants.UPDATING] = True
         self.update(data_points=["utilization_jpeg"], wait_for_completion=wait_for_completion)
 
     def update_utilization_memory(self, wait_for_completion=True):
-        self._utilization_memory[Constants.UPDATING] = True
+        self._utilization_memory[_Constants.UPDATING] = True
         self.update(data_points=["utilization_memory"], wait_for_completion=wait_for_completion)
 
     def update_utilization_optical_flow(self, wait_for_completion=True):
-        self._utilization_optical_flow[Constants.UPDATING] = True
+        self._utilization_optical_flow[_Constants.UPDATING] = True
         self.update(data_points=["utilization_optical_flow"], wait_for_completion=wait_for_completion)
 
     def update_uuid(self, wait_for_completion=True):
-        self._uuid[Constants.UPDATING] = True
+        self._uuid[_Constants.UPDATING] = True
         self.update(data_points=["uuid"], wait_for_completion=wait_for_completion)
 
     def update_vbios_version(self, wait_for_completion=True):
-        self._vbios_version[Constants.UPDATING] = True
+        self._vbios_version[_Constants.UPDATING] = True
         self.update(data_points=["vbios_version"], wait_for_completion=wait_for_completion)
 
     def update_video_architecture(self, wait_for_completion=True):
-        self._video_architecture[Constants.UPDATING] = True
+        self._video_architecture[_Constants.UPDATING] = True
         self.update(data_points=["video_architecture"], wait_for_completion=wait_for_completion)
 
     def update_video_memory_type(self, wait_for_completion=True):
-        self._video_memory_type[Constants.UPDATING] = True
+        self._video_memory_type[_Constants.UPDATING] = True
         self.update(data_points=["video_memory_type"], wait_for_completion=wait_for_completion)
 
     def update_video_mode(self, wait_for_completion=True):
-        self._video_mode[Constants.UPDATING] = True
+        self._video_mode[_Constants.UPDATING] = True
         self.update(data_points=["video_mode"], wait_for_completion=wait_for_completion)
 
     def update_video_mode_description(self, wait_for_completion=True):
-        self._video_mode_description[Constants.UPDATING] = True
+        self._video_mode_description[_Constants.UPDATING] = True
         self.update(data_points=["video_mode_description"], wait_for_completion=wait_for_completion)
 
     def update_video_processor(self, wait_for_completion=True):
-        self._video_processor[Constants.UPDATING] = True
+        self._video_processor[_Constants.UPDATING] = True
         self.update(data_points=["video_processor"], wait_for_completion=wait_for_completion)

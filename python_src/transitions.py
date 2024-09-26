@@ -3,7 +3,7 @@ import time as _time
 
 import numpy as _numpy
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -32,10 +32,10 @@ class Transition:
 
         self._logger = _InternalLogger()
 
-        self._transition_manager: "_TransitionManager" = _Registry.pmma_module_spine[Constants.TRANSITION_MANAGER_OBJECT]
+        self._transition_manager: "_TransitionManager" = _Registry.pmma_module_spine[_Constants.TRANSITION_MANAGER_OBJECT]
         self._transition_manager.add(self._transition_id, self)
 
-    def create(self, transition_type, start, end, duration, transition_mode=Constants.LINEAR_TRANSITION, object=None, object_attribute_name=None, max_speed=None, acceleration_time=None, deceleration_time=None):
+    def create(self, transition_type, start, end, duration, transition_mode=_Constants.LINEAR_TRANSITION, object=None, object_attribute_name=None, max_speed=None, acceleration_time=None, deceleration_time=None):
         if type(start) == _numpy.ndarray:
             start = start.tolist()
 

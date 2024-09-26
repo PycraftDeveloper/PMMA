@@ -1,16 +1,16 @@
 import gc as _gc
 import time as _time
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class GPUDistributionManager:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.GPU_DISTRIBUTION_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        self._gpus = _Registry.pmma_module_spine[Constants.GPUS_INTERMEDIARY_OBJECT]
+        self._gpus = _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT]
 
         self._render_gpu = None
         self._video_gpu = []

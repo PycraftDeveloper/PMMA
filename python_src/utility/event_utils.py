@@ -1,7 +1,7 @@
 import gc as _gc
 import time as _time
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
@@ -17,7 +17,7 @@ class Backspace_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -70,7 +70,7 @@ class Tab_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.TAB_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.TAB_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -123,7 +123,7 @@ class Clear_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.CLEAR_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.CLEAR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -176,7 +176,7 @@ class Return_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RETURN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RETURN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -229,7 +229,7 @@ class Pause_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PAUSE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PAUSE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -282,7 +282,7 @@ class Escape_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.ESCAPE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.ESCAPE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -335,7 +335,7 @@ class Space_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -388,7 +388,7 @@ class ExclamationMark_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.EXCLAMATIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.EXCLAMATIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -441,7 +441,7 @@ class DoubleQuote_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DOUBLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DOUBLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -494,7 +494,7 @@ class Hashtag_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.HASHTAG_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.HASHTAG_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -547,7 +547,7 @@ class Dollar_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DOLLAR_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DOLLAR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -600,7 +600,7 @@ class Ampersand_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.AMPERSAND_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.AMPERSAND_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -653,7 +653,7 @@ class SingleQuote_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SINGLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SINGLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -706,7 +706,7 @@ class LeftParenthesis_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -759,7 +759,7 @@ class RightParenthesis_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -812,7 +812,7 @@ class Asterisk_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.ASTERISK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.ASTERISK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -865,7 +865,7 @@ class Plus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -918,7 +918,7 @@ class Comma_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.COMMA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.COMMA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -971,7 +971,7 @@ class Minus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1024,7 +1024,7 @@ class Period_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1077,7 +1077,7 @@ class ForwardSlash_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FORWARDSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FORWARDSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1130,7 +1130,7 @@ class Primary0_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY0_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY0_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1183,7 +1183,7 @@ class Primary1_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY1_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1236,7 +1236,7 @@ class Primary2_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY2_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1289,7 +1289,7 @@ class Primary3_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY3_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1342,7 +1342,7 @@ class Primary4_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY4_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1395,7 +1395,7 @@ class Primary5_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY5_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1448,7 +1448,7 @@ class Primary6_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY6_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1501,7 +1501,7 @@ class Primary7_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY7_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1554,7 +1554,7 @@ class Primary8_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY8_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1607,7 +1607,7 @@ class Primary9_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARY9_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARY9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1660,7 +1660,7 @@ class Colon_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.COLON_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.COLON_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1713,7 +1713,7 @@ class SemiColon_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SEMICOLON_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SEMICOLON_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1766,7 +1766,7 @@ class LessThan_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LESSTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LESSTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1819,7 +1819,7 @@ class Equals_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.EQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.EQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1872,7 +1872,7 @@ class GreaterThan_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.GREATERTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.GREATERTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1925,7 +1925,7 @@ class QuestionMark_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.QUESTIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.QUESTIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1978,7 +1978,7 @@ class At_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.AT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.AT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2031,7 +2031,7 @@ class LeftBracket_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2084,7 +2084,7 @@ class BackSlash_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.BACKSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.BACKSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2137,7 +2137,7 @@ class RightBracket_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2190,7 +2190,7 @@ class Caret_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.CARET_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.CARET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2243,7 +2243,7 @@ class Underscore_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.UNDERSCORE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.UNDERSCORE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2296,7 +2296,7 @@ class Grave_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.GRAVE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.GRAVE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2349,7 +2349,7 @@ class PrimaryA_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2402,7 +2402,7 @@ class PrimaryB_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYB_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYB_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2455,7 +2455,7 @@ class PrimaryC_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYC_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYC_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2508,7 +2508,7 @@ class PrimaryD_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYD_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2561,7 +2561,7 @@ class PrimaryE_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2614,7 +2614,7 @@ class PrimaryF_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYF_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYF_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2667,7 +2667,7 @@ class PrimaryG_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYG_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYG_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2720,7 +2720,7 @@ class PrimaryH_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYH_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2773,7 +2773,7 @@ class PrimaryI_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYI_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYI_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2826,7 +2826,7 @@ class PrimaryJ_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYJ_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYJ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2879,7 +2879,7 @@ class PrimaryK_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2932,7 +2932,7 @@ class PrimaryL_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2985,7 +2985,7 @@ class PrimaryM_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYM_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYM_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3038,7 +3038,7 @@ class PrimaryN_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3091,7 +3091,7 @@ class PrimaryO_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYO_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYO_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3144,7 +3144,7 @@ class PrimaryP_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3197,7 +3197,7 @@ class PrimaryQ_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYQ_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYQ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3250,7 +3250,7 @@ class PrimaryR_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYR_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3303,7 +3303,7 @@ class PrimaryS_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3356,7 +3356,7 @@ class PrimaryT_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3409,7 +3409,7 @@ class PrimaryU_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYU_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYU_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3462,7 +3462,7 @@ class PrimaryV_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYV_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYV_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3515,7 +3515,7 @@ class PrimaryW_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYW_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYW_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3568,7 +3568,7 @@ class PrimaryX_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYX_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYX_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3621,7 +3621,7 @@ class PrimaryY_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYY_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYY_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3674,7 +3674,7 @@ class PrimaryZ_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRIMARYZ_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRIMARYZ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3727,7 +3727,7 @@ class Delete_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DELETE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DELETE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3780,7 +3780,7 @@ class Numpad0_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD0_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD0_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3833,7 +3833,7 @@ class Numpad1_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD1_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3886,7 +3886,7 @@ class Numpad2_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD2_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3939,7 +3939,7 @@ class Numpad3_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD3_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3992,7 +3992,7 @@ class Numpad4_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD4_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4045,7 +4045,7 @@ class Numpad5_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD5_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4098,7 +4098,7 @@ class Numpad6_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD6_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4151,7 +4151,7 @@ class Numpad7_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD7_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4204,7 +4204,7 @@ class Numpad8_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD8_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4257,7 +4257,7 @@ class Numpad9_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPAD9_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPAD9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4310,7 +4310,7 @@ class NumpadPeriod_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADPERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADPERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4363,7 +4363,7 @@ class NumpadDivide_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADDIVIDE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADDIVIDE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4416,7 +4416,7 @@ class NumpadMultiply_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADMULTIPLY_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADMULTIPLY_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4469,7 +4469,7 @@ class NumpadMinus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADMINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADMINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4522,7 +4522,7 @@ class NumpadPlus_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADPLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADPLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4575,7 +4575,7 @@ class NumpadEnter_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADENTER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADENTER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4628,7 +4628,7 @@ class NumpadEquals_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMPADEQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMPADEQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4681,7 +4681,7 @@ class Up_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.UP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.UP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4734,7 +4734,7 @@ class Down_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4787,7 +4787,7 @@ class Right_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4840,7 +4840,7 @@ class Left_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4893,7 +4893,7 @@ class Insert_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.INSERT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.INSERT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4946,7 +4946,7 @@ class Home_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.HOME_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.HOME_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4999,7 +4999,7 @@ class End_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.END_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.END_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5052,7 +5052,7 @@ class PageUp_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PAGEUP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PAGEUP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5105,7 +5105,7 @@ class PageDown_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PAGEDOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PAGEDOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5158,7 +5158,7 @@ class Function1_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION1_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5211,7 +5211,7 @@ class Function2_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION2_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5264,7 +5264,7 @@ class Function3_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION3_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5317,7 +5317,7 @@ class Function4_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION4_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5370,7 +5370,7 @@ class Function5_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION5_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5423,7 +5423,7 @@ class Function6_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION6_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5476,7 +5476,7 @@ class Function7_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION7_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5529,7 +5529,7 @@ class Function8_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION8_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5582,7 +5582,7 @@ class Function9_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION9_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5635,7 +5635,7 @@ class Function10_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION10_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION10_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5688,7 +5688,7 @@ class Function11_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION11_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION11_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5741,7 +5741,7 @@ class Function12_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION12_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION12_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5794,7 +5794,7 @@ class Function13_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION13_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION13_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5847,7 +5847,7 @@ class Function14_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION14_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION14_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5900,7 +5900,7 @@ class Function15_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FUNCTION15_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FUNCTION15_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5953,7 +5953,7 @@ class NumLock_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.NUMLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.NUMLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6006,7 +6006,7 @@ class CapsLock_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.CAPSLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.CAPSLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6059,7 +6059,7 @@ class ScrollLock_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SCROLLLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SCROLLLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6112,7 +6112,7 @@ class RightShift_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6165,7 +6165,7 @@ class LeftShift_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6218,7 +6218,7 @@ class Shift_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6271,7 +6271,7 @@ class RightControl_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6324,7 +6324,7 @@ class LeftControl_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6377,7 +6377,7 @@ class Control_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.CONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.CONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6430,7 +6430,7 @@ class RightAlt_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6483,7 +6483,7 @@ class LeftAlt_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6536,7 +6536,7 @@ class Alt_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.ALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.ALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6589,7 +6589,7 @@ class RightMeta_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6642,7 +6642,7 @@ class LeftMeta_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6695,7 +6695,7 @@ class Meta_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.META_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.META_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6748,7 +6748,7 @@ class LeftSuper_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6801,7 +6801,7 @@ class RightSuper_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6854,7 +6854,7 @@ class Super_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6907,7 +6907,7 @@ class Mode_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MODE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MODE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6960,7 +6960,7 @@ class Help_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.HELP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.HELP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7013,7 +7013,7 @@ class Print_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.PRINT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.PRINT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7066,7 +7066,7 @@ class SystemRequest_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SYSTEMREQUEST_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SYSTEMREQUEST_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7119,7 +7119,7 @@ class Break_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.BREAK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.BREAK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7172,7 +7172,7 @@ class Menu_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MENU_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MENU_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7225,7 +7225,7 @@ class Power_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.POWER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.POWER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7278,7 +7278,7 @@ class Euro_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.EURO_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.EURO_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7331,7 +7331,7 @@ class AndroidBack_KEY:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.ANDROIDBACK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.ANDROIDBACK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8370,7 +8370,7 @@ class LeftButton_MOUSE:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LEFTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LEFTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8423,7 +8423,7 @@ class MiddleButton_MOUSE:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MIDDLEBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MIDDLEBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8476,7 +8476,7 @@ class RightButton_MOUSE:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RIGHTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RIGHTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8529,7 +8529,7 @@ class Mouse_SCROLL:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
 
         self._x_value = 0
         self._x_displacement = 0
@@ -8572,7 +8572,7 @@ class Mouse_POSITION:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MOUSE_POSITION_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MOUSE_POSITION_OBJECT, add_to_pmma_module_spine=True)
 
         self._x_axis = 0
         self._y_axis = 0
@@ -8618,7 +8618,7 @@ class AppTerminating_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.APPTERMINATING_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.APPTERMINATING_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8640,7 +8640,7 @@ class AppLowMemory_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.APPLOWMEMORY_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.APPLOWMEMORY_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8662,7 +8662,7 @@ class AppWillEnterBackground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8684,7 +8684,7 @@ class AppDidEnterBackground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8706,7 +8706,7 @@ class AppWillEnterForeground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8728,7 +8728,7 @@ class AppDidEnterForeground_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8750,7 +8750,7 @@ class AudioDeviceAdded_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.AUDIODEVICEADDED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.AUDIODEVICEADDED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8772,7 +8772,7 @@ class AudioDeviceRemoved_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.AUDIODEVICEREMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8794,7 +8794,7 @@ class ClipBoardUpdate_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.CLIPBOARDUPDATE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.CLIPBOARDUPDATE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8816,7 +8816,7 @@ class DropFile_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._file = None
 
@@ -8838,7 +8838,7 @@ class DropText_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._text = None
 
@@ -8860,7 +8860,7 @@ class DropBegin_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DROPBEGIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DROPBEGIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8882,7 +8882,7 @@ class DropComplete_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DROPCOMPLETE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DROPCOMPLETE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8904,7 +8904,7 @@ class FingerMotion_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FINGERMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FINGERMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8926,7 +8926,7 @@ class FingerDown_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FINGERDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FINGERDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8948,7 +8948,7 @@ class FingerUp_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.FINGERUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FINGERUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8970,7 +8970,7 @@ class KeyMapChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.KEYMAPCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.KEYMAPCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -8992,7 +8992,7 @@ class LocaleChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LOCALECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.LOCALECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9014,7 +9014,7 @@ class MultiGesture_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._gesture_center_x = None
         self._gesture_center_y = None
@@ -9064,7 +9064,7 @@ class Quit_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.QUIT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.QUIT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9086,7 +9086,7 @@ class RenderTargetsReset_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RENDERTARGETSRESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RENDERTARGETSRESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9108,7 +9108,7 @@ class RenderDeviceReset_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.RENDERDEVICERESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.RENDERDEVICERESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9130,7 +9130,7 @@ class SysWMEvent_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9152,7 +9152,7 @@ class WindowShown_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWSHOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWSHOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9174,7 +9174,7 @@ class WindowHidden_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWHIDDEN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWHIDDEN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9196,7 +9196,7 @@ class WindowExposed_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWEXPOSED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWEXPOSED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9218,7 +9218,7 @@ class WindowMoved_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9240,7 +9240,7 @@ class WindowResized_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWRESIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWRESIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9262,7 +9262,7 @@ class WindowMinimized_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWMINIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWMINIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9284,7 +9284,7 @@ class WindowMaximized_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWMAXIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWMAXIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9306,7 +9306,7 @@ class WindowRestored_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWRESTORED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWRESTORED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9328,7 +9328,7 @@ class WindowEnter_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWENTER_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWENTER_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9350,7 +9350,7 @@ class WindowLeave_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWLEAVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWLEAVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9372,7 +9372,7 @@ class WindowFocusGained_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWFOCUSGAINED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9394,7 +9394,7 @@ class WindowFocusLost_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWFOCUSLOST_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWFOCUSLOST_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9416,7 +9416,7 @@ class WindowClose_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWCLOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWCLOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9438,7 +9438,7 @@ class WindowTakeFocus_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWTAKEFOCUS_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9460,7 +9460,7 @@ class WindowHitTest_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWHITTEST_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWHITTEST_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9482,7 +9482,7 @@ class WindowICCPROFChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9504,7 +9504,7 @@ class WindowDisplayChanged_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9526,7 +9526,7 @@ class JoyDeviceAdded_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.JOYDEVICEADDED_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.JOYDEVICEADDED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -9548,7 +9548,7 @@ class JoyDeviceRemoved_EVENT:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.JOYDEVICEREMOVED_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.JOYDEVICEREMOVED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 

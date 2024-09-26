@@ -1,7 +1,7 @@
 import math as _math
 import gc as _gc
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
@@ -19,31 +19,31 @@ class TimeFormatter:
 
     def set_from_year(self, year):
         # Convert to total seconds
-        total_seconds = year * Constants.DAYS_PER_YEAR * Constants.SECONDS_PER_DAY
+        total_seconds = year * _Constants.DAYS_PER_YEAR * _Constants.SECONDS_PER_DAY
 
         # Years
         years = _math.floor(year)
-        remainder_seconds = total_seconds - (years * Constants.DAYS_PER_YEAR * Constants.SECONDS_PER_DAY)
+        remainder_seconds = total_seconds - (years * _Constants.DAYS_PER_YEAR * _Constants.SECONDS_PER_DAY)
 
         # Months
-        month = remainder_seconds / (Constants.DAYS_PER_MONTH * Constants.SECONDS_PER_DAY)
+        month = remainder_seconds / (_Constants.DAYS_PER_MONTH * _Constants.SECONDS_PER_DAY)
         months = _math.floor(month)
-        remainder_seconds -= months * Constants.DAYS_PER_MONTH * Constants.SECONDS_PER_DAY
+        remainder_seconds -= months * _Constants.DAYS_PER_MONTH * _Constants.SECONDS_PER_DAY
 
         # Days
-        day = remainder_seconds / Constants.SECONDS_PER_DAY
+        day = remainder_seconds / _Constants.SECONDS_PER_DAY
         days = _math.floor(day)
-        remainder_seconds -= days * Constants.SECONDS_PER_DAY
+        remainder_seconds -= days * _Constants.SECONDS_PER_DAY
 
         # Hours
-        hour = remainder_seconds / Constants.SECONDS_PER_HOUR
+        hour = remainder_seconds / _Constants.SECONDS_PER_HOUR
         hours = _math.floor(hour)
-        remainder_seconds -= hours * Constants.SECONDS_PER_HOUR
+        remainder_seconds -= hours * _Constants.SECONDS_PER_HOUR
 
         # Minutes
-        minute = remainder_seconds / Constants.SECONDS_PER_MINUTE
+        minute = remainder_seconds / _Constants.SECONDS_PER_MINUTE
         minutes = _math.floor(minute)
-        remainder_seconds -= minutes * Constants.SECONDS_PER_MINUTE
+        remainder_seconds -= minutes * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
         seconds = _math.floor(remainder_seconds)
@@ -67,19 +67,19 @@ class TimeFormatter:
 
         # Months
         months = _math.floor(months_remainder)
-        day = (months_remainder - months) * Constants.DAYS_PER_MONTH
+        day = (months_remainder - months) * _Constants.DAYS_PER_MONTH
         days = _math.floor(day)
 
         # Remainder in seconds
-        remainder_seconds = (day - days) * Constants.SECONDS_PER_DAY
+        remainder_seconds = (day - days) * _Constants.SECONDS_PER_DAY
 
         # Hours
-        hours = _math.floor(remainder_seconds / Constants.SECONDS_PER_HOUR)
-        remainder_seconds -= hours * Constants.SECONDS_PER_HOUR
+        hours = _math.floor(remainder_seconds / _Constants.SECONDS_PER_HOUR)
+        remainder_seconds -= hours * _Constants.SECONDS_PER_HOUR
 
         # Minutes
-        minutes = _math.floor(remainder_seconds / Constants.SECONDS_PER_MINUTE)
-        remainder_seconds -= minutes * Constants.SECONDS_PER_MINUTE
+        minutes = _math.floor(remainder_seconds / _Constants.SECONDS_PER_MINUTE)
+        remainder_seconds -= minutes * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
         seconds = _math.floor(remainder_seconds)
@@ -98,26 +98,26 @@ class TimeFormatter:
 
     def set_from_day(self, day):
         # Years
-        years = _math.floor(day / Constants.DAYS_PER_YEAR)
-        days_remainder = day - years * Constants.DAYS_PER_YEAR
+        years = _math.floor(day / _Constants.DAYS_PER_YEAR)
+        days_remainder = day - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / Constants.DAYS_PER_MONTH)
-        days_remainder -= months * Constants.DAYS_PER_MONTH
+        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
         days = _math.floor(days_remainder)
 
         # Remainder in seconds
-        remainder_seconds = (days_remainder - days) * Constants.SECONDS_PER_DAY
+        remainder_seconds = (days_remainder - days) * _Constants.SECONDS_PER_DAY
 
         # Hours
-        hours = _math.floor(remainder_seconds / Constants.SECONDS_PER_HOUR)
-        remainder_seconds -= hours * Constants.SECONDS_PER_HOUR
+        hours = _math.floor(remainder_seconds / _Constants.SECONDS_PER_HOUR)
+        remainder_seconds -= hours * _Constants.SECONDS_PER_HOUR
 
         # Minutes
-        minutes = _math.floor(remainder_seconds / Constants.SECONDS_PER_MINUTE)
-        remainder_seconds -= minutes * Constants.SECONDS_PER_MINUTE
+        minutes = _math.floor(remainder_seconds / _Constants.SECONDS_PER_MINUTE)
+        remainder_seconds -= minutes * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
         seconds = _math.floor(remainder_seconds)
@@ -136,25 +136,25 @@ class TimeFormatter:
 
     def set_from_hour(self, hour):
         # Years
-        days_float = hour / Constants.HOURS_PER_DAY
-        years = _math.floor(days_float / Constants.DAYS_PER_YEAR)
-        days_remainder = days_float - years * Constants.DAYS_PER_YEAR
+        days_float = hour / _Constants.HOURS_PER_DAY
+        years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
+        days_remainder = days_float - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / Constants.DAYS_PER_MONTH)
-        days_remainder -= months * Constants.DAYS_PER_MONTH
+        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
         days = _math.floor(days_remainder)
-        hours_remainder = (days_remainder - days) * Constants.HOURS_PER_DAY
+        hours_remainder = (days_remainder - days) * _Constants.HOURS_PER_DAY
 
         # Hours
         hours = _math.floor(hours_remainder)
-        minute = (hours_remainder - hours) * Constants.SECONDS_PER_HOUR / Constants.SECONDS_PER_MINUTE
+        minute = (hours_remainder - hours) * _Constants.SECONDS_PER_HOUR / _Constants.SECONDS_PER_MINUTE
 
         # Minutes
         minutes = _math.floor(minute)
-        remainder_seconds = (minute - minutes) * Constants.SECONDS_PER_MINUTE
+        remainder_seconds = (minute - minutes) * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
         seconds = _math.floor(remainder_seconds)
@@ -173,26 +173,26 @@ class TimeFormatter:
 
     def set_from_minute(self, minute):
         # Years
-        hours_float = minute / Constants.MINUTES_PER_HOUR
-        days_float = hours_float / Constants.HOURS_PER_DAY
-        years = _math.floor(days_float / Constants.DAYS_PER_YEAR)
-        days_remainder = days_float - years * Constants.DAYS_PER_YEAR
+        hours_float = minute / _Constants.MINUTES_PER_HOUR
+        days_float = hours_float / _Constants.HOURS_PER_DAY
+        years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
+        days_remainder = days_float - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / Constants.DAYS_PER_MONTH)
-        days_remainder -= months * Constants.DAYS_PER_MONTH
+        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
         days = _math.floor(days_remainder)
-        hours_float = (days_remainder - days) * Constants.HOURS_PER_DAY
+        hours_float = (days_remainder - days) * _Constants.HOURS_PER_DAY
 
         # Hours
         hours = _math.floor(hours_float)
-        minutes_remainder = (hours_float - hours) * Constants.MINUTES_PER_HOUR
+        minutes_remainder = (hours_float - hours) * _Constants.MINUTES_PER_HOUR
 
         # Minutes
         minutes = _math.floor(minutes_remainder)
-        remainder_seconds = (minutes_remainder - minutes) * Constants.SECONDS_PER_MINUTE
+        remainder_seconds = (minutes_remainder - minutes) * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
         seconds = _math.floor(remainder_seconds)
@@ -211,25 +211,25 @@ class TimeFormatter:
 
     def set_from_second(self, second):
         # Years
-        days_float = second / Constants.SECONDS_PER_DAY
-        years = _math.floor(days_float / Constants.DAYS_PER_YEAR)
-        days_remainder = days_float - years * Constants.DAYS_PER_YEAR
+        days_float = second / _Constants.SECONDS_PER_DAY
+        years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
+        days_remainder = days_float - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / Constants.DAYS_PER_MONTH)
-        days_remainder -= months * Constants.DAYS_PER_MONTH
+        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
         days = _math.floor(days_remainder)
-        hours_float = (days_remainder - days) * Constants.HOURS_PER_DAY
+        hours_float = (days_remainder - days) * _Constants.HOURS_PER_DAY
 
         # Hours
         hours = _math.floor(hours_float)
-        minutes_float = (hours_float - hours) * Constants.MINUTES_PER_HOUR
+        minutes_float = (hours_float - hours) * _Constants.MINUTES_PER_HOUR
 
         # Minutes
         minutes = _math.floor(minutes_float)
-        remainder_seconds = (minutes_float - minutes) * Constants.SECONDS_PER_MINUTE
+        remainder_seconds = (minutes_float - minutes) * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
         seconds = _math.floor(remainder_seconds)
@@ -248,7 +248,7 @@ class TimeFormatter:
 
     def set_from_microsecond(self, microsecond):
         # Convert microseconds to seconds
-        seconds_float = microsecond / Constants.MICROSECONDS_PER_SECOND
+        seconds_float = microsecond / _Constants.MICROSECONDS_PER_SECOND
 
         # Use the seconds conversion function
         return self.set_from_second(seconds_float)

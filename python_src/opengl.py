@@ -4,12 +4,15 @@ import os as _os
 import moderngl as _moderngl
 import numpy as _numpy
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.error_utils import *
+from pmma.python_src.utility.error_utils import OpenGLNotYetInitializedError as _OpenGLNotYetInitializedError
+from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeFormatError as _UnexpectedBufferAttributeFormatError
+from pmma.python_src.utility.error_utils import UnknownDataTypeError as _UnknownDataTypeError
+from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeError as _UnexpectedBufferAttributeError
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
@@ -37,7 +40,7 @@ class OpenGL:
 most likely due to not having created a Display through PMMA. You must do this \
 first if you want to be able to use these OpenGL functions.")
 
-            raise OpenGLNotYetInitializedError()
+            raise _OpenGLNotYetInitializedError()
 
     def get_context(self):
         self._check_if_opengl_backend_initialized()
@@ -450,7 +453,7 @@ class VertexArrayObject:
             self._logger.log_development("Your buffer shader attributes must always be \
 an array of 2 or more components, specifying the data type and shader value that each element in the \
 vertex buffer object the GLSL shader will use. For example: [data_type, variable_name] or ['3f', 'in_position']")
-            raise UnexpectedBufferAttributeFormatError()
+            raise _UnexpectedBufferAttributeFormatError()
 
         filtered_data_types = ""
         filtered_variable_names = []
@@ -459,33 +462,33 @@ vertex buffer object the GLSL shader will use. For example: [data_type, variable
         if " " in attributes[0]: # ModernGL style [all data types, variable name 1, variable name 2 ...]
             split_data_type_attributes = attributes[0].split(" ") # gets data types
             for data_type in split_data_type_attributes:
-                if data_type.lower() in Constants.DATA_INTERPRETATIONS:
+                if data_type.lower() in _Constants.DATA_INTERPRETATIONS:
                     filtered_data_types += data_type.lower() + " "
                 else:
                     self._logger.log_development(f"Unexpected data type found in buffer attribute analysis. \
-It must be one of the following formats: {','.join(Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
-                    raise UnknownDataTypeError
+It must be one of the following formats: {','.join(_Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
+                    raise _UnknownDataTypeError
             filtered_data_types = filtered_data_types.strip()
         else: # PMMA style [data type 1, variable name 1, data type 2, variable name 2 ...]
-            if attributes[0].lower() in Constants.DATA_INTERPRETATIONS:
+            if attributes[0].lower() in _Constants.DATA_INTERPRETATIONS:
                 variable_position = 0
             else:
                 variable_position = 1
             for attribute_index in range(len(attributes)):
                 if attribute_index % 2 == variable_position:
-                    if attributes[attribute_index].lower() in Constants.DATA_INTERPRETATIONS:
+                    if attributes[attribute_index].lower() in _Constants.DATA_INTERPRETATIONS:
                         filtered_data_types += attributes[attribute_index].lower() + " "
                     else:
                         self._logger.log_development(f"Unexpected data type found in buffer attribute analysis. \
-It must be one of the following formats: {','.join(Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
-                        raise UnknownDataTypeError()
+It must be one of the following formats: {','.join(_Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
+                        raise _UnknownDataTypeError()
                 else:
                     if attributes[attribute_index] in program_buffer_inputs:
                         filtered_variable_names.append(attributes[attribute_index]) # check this against shader inputs l8r
                     else:
                         self._logger.log_development("You attempted to assign a buffer object to a variable in \
 your shader that doesn't exist. The available shader buffer inputs that you can write to are: {}", variables=[program_buffer_inputs])
-                        raise UnexpectedBufferAttributeError()
+                        raise _UnexpectedBufferAttributeError()
 
             filtered_data_types = filtered_data_types.strip()
 
@@ -763,10 +766,10 @@ class Shader:
             loaded_from_file = False
             for name in vertex_aliases:
                 path = _path_builder(directory, f"{name}.glsl")
-                shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=Constants.VERTEX_ONLY)
+                shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.VERTEX_ONLY)
                 if shader_exists or _os.path.exists(path):
                     if shader_exists:
-                        vertex_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=Constants.VERTEX_ONLY)
+                        vertex_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=_Constants.VERTEX_ONLY)
                         self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
                         self._buffer_input_variable_names.extend(buffer_names)
                         for key in uniform_values:
@@ -780,10 +783,10 @@ class Shader:
 
             for name in fragment_aliases:
                 path = _path_builder(directory, f"{name}.glsl")
-                shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=Constants.FRAGMENT_ONLY)
+                shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.FRAGMENT_ONLY)
                 if shader_exists or _os.path.exists(path):
                     if shader_exists:
-                        fragment_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=Constants.FRAGMENT_ONLY)
+                        fragment_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=_Constants.FRAGMENT_ONLY)
                         self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
                         self._buffer_input_variable_names.extend(buffer_names)
                         for key in uniform_values:
@@ -875,7 +878,7 @@ class Texture:
 
         self._internal_texture = _Texture()
 
-    def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None):
+    def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None):
         self._internal_texture.create(size, data=data, components=components, scaling=scaling, x_scaling=x_scaling, y_scaling=y_scaling, samples=samples, internal=False)
 
     def write(self, data):
@@ -973,7 +976,7 @@ class FrameBufferObject:
         if color is None:
             color = (0.0, 0.0, 0.0, 0.0)
         elif type(color) == _ColorConverter:
-            color = color.get_color(Constants.SMALL_RGBA)
+            color = color.get_color(_Constants.SMALL_RGBA)
         elif len(color) == 3:
             color = (*color, 0.0)
         if self._fbo is not None:

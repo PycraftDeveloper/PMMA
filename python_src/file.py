@@ -4,7 +4,7 @@ import gc as _gc
 
 import send2trash as _send2trash
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
@@ -15,7 +15,7 @@ def path_builder(*args):
     result = ""
     for arg in args:
         result += arg
-        result += Constants.PATH_SEPARATOR
+        result += _Constants.PATH_SEPARATOR
     result = result[:-1]
     return result
 
@@ -45,7 +45,7 @@ class File:
         return _os.path.dirname(self._file_path)
 
     def get_file_name_and_type(self):
-        return self._file_path.split(Constants.PATH_SEPARATOR)[-1]
+        return self._file_path.split(_Constants.PATH_SEPARATOR)[-1]
 
     def get_file_name(self):
         return self.get_file_name_and_type().split(".")[0]
@@ -65,7 +65,7 @@ class File:
 
     def rename(self, new_name):
         file_type = self.get_file_type()
-        new_file_path = _os.path.dirname(self._file_path) + Constants.PATH_SEPARATOR + new_name + "." + file_type
+        new_file_path = _os.path.dirname(self._file_path) + _Constants.PATH_SEPARATOR + new_name + "." + file_type
         _os.rename(self._file_path, new_file_path)
         self._file_path = new_file_path
 
@@ -79,7 +79,7 @@ class File:
 
 class FileCore:
     def __init__(self, project_directory=None, passive_refresh=True):
-        _initialize(self, unique_instance=Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
 
         self._locations = []
         self._file_matrix = {}

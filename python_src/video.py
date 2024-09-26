@@ -1,8 +1,8 @@
 import gc as _gc
 
-import moderngl
+import moderngl as _moderngl
 import numpy as _numpy
-import av
+import av as _av
 
 from pmma.python_src.opengl import Texture as _Texture
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
@@ -108,7 +108,7 @@ class Video:
 
     def load_from_file(self, file_path):
         self._file = file_path
-        self._input_container = av.open(file_path)
+        self._input_container = _av.open(file_path)
 
         self._input_stream = next(s for s in self._input_container.streams if s.type == 'video')
 
@@ -122,7 +122,7 @@ class Video:
         if self._video_decoder_manually_set is False:
             self.autodetect_and_set_decoder()
 
-        frame_rate = self._input_stream.average_rate
+        frame_rate = self._input_stream._average_rate
         self._video_frame_time = 1.0 / float(frame_rate)  # Duration for each frame in seconds
 
         if self._texture is not None:
@@ -203,4 +203,4 @@ class Video:
             # Render the frame
             self._shader.set_shader_variable("Texture", 0)
             self._texture.use(location=0)
-            self._vao.render(moderngl.TRIANGLE_STRIP)
+            self._vao.render(_moderngl.TRIANGLE_STRIP)

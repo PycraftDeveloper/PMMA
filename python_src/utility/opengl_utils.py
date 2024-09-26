@@ -3,7 +3,7 @@ import gc as _gc
 from PIL import Image as _Image
 import moderngl as _moderngl
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -28,7 +28,7 @@ class Texture:
 
         self._logger = _InternalLogger()
 
-    def create(self, size, data=None, components=Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
+    def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
         if self._texture is not None:
             self._texture.release()
 

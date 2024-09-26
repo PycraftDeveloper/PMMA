@@ -1,7 +1,7 @@
 import importlib as _importlib
 import gc as _gc
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -32,7 +32,7 @@ class ColorIntermediary:
     def detect_color_type(self, color):
         return self._internal_number_converter.detect_color_type(color)
 
-    def set_color(self, color, in_type=Constants.RGB): # converts to RGBA
+    def set_color(self, color, in_type=_Constants.RGB): # converts to RGBA
         self._internal_number_converter.set_color(color, in_type=in_type)
 
     def get_color_format(self):
@@ -64,10 +64,10 @@ class PointIntermediary:
 
         self._internal_number_converter = self._number_converter_module.Point()
 
-    def set_point(self, value, in_type=Constants.CONVENTIONAL_COORDINATES):
+    def set_point(self, value, in_type=_Constants.CONVENTIONAL_COORDINATES):
         self._internal_number_converter.set_point(value, in_type=in_type)
 
-    def get_point(self, out_type=Constants.CONVENTIONAL_COORDINATES):
+    def get_point(self, out_type=_Constants.CONVENTIONAL_COORDINATES):
         return self._internal_number_converter.get_point(out_type)
 
 class CoordinateIntermediary:
@@ -93,8 +93,8 @@ class CoordinateIntermediary:
 
         self._internal_number_converter = self._number_converter_module.Coordinate()
 
-    def set_coordinate(self, coordinate, in_type=Constants.CONVENTIONAL_COORDINATES):
+    def set_coordinate(self, coordinate, in_type=_Constants.CONVENTIONAL_COORDINATES):
         self._internal_number_converter.set_coordinate(coordinate, in_type=in_type)
 
-    def get_coordinate(self, out_type=Constants.CONVENTIONAL_COORDINATES):
+    def get_coordinate(self, out_type=_Constants.CONVENTIONAL_COORDINATES):
         return self._internal_number_converter.get_coordinate(out_type)

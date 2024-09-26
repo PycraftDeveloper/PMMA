@@ -6,7 +6,7 @@ import math as _math
 import waiting as _waiting
 import numpy as _numpy
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.advmath import Math as _Math
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -16,7 +16,7 @@ class TransitionManager:
     def __init__(self):
         _initialize(
             self,
-            unique_instance=Constants.TRANSITION_MANAGER_OBJECT,
+            unique_instance=_Constants.TRANSITION_MANAGER_OBJECT,
             add_to_pmma_module_spine=True)
 
         self._transitions = {}
@@ -128,19 +128,19 @@ class TransitionManager:
                 if transition.get_animation_running():
                     transition_mode = transition.get_mode()
                     transition_type = transition.get_type()
-                    if transition_mode == Constants.LINEAR_TRANSITION:
-                        if transition_type == Constants.COORDINATE_TRANSITION:
+                    if transition_mode == _Constants.LINEAR_TRANSITION:
+                        if transition_type == _Constants.COORDINATE_TRANSITION:
                             self._linear_coordinate_transition(
                                 transition)
-                        elif transition_type == Constants.VALUE_TRANSITION:
+                        elif transition_type == _Constants.VALUE_TRANSITION:
                             self._linear_value_transition(
                                 transition)
 
-                    elif transition_mode == Constants.SMOOTH_TRANSITION:
-                        if transition_type == Constants.COORDINATE_TRANSITION:
+                    elif transition_mode == _Constants.SMOOTH_TRANSITION:
+                        if transition_type == _Constants.COORDINATE_TRANSITION:
                             self._smooth_coordinate_transition(
                                 transition)
-                        elif transition_type == Constants.VALUE_TRANSITION:
+                        elif transition_type == _Constants.VALUE_TRANSITION:
                             self._smooth_value_transition(
                                 transition)
 

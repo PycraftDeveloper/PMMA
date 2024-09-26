@@ -1,12 +1,12 @@
 import json as _json
 import gc as _gc
 import threading as _threading
-from typing import List
+from typing import List as _List
 
 import wmi as _wmi
 import pyadl as _pyadl
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.gpu import GPU as _GPU
 from pmma.python_src.executor import Executor as _Executor
 
@@ -31,7 +31,7 @@ class GPUsIntermediary:
         self._shut_down = True
 
     def __init__(self):
-        _initialize(self, unique_instance=Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 
@@ -45,7 +45,7 @@ class GPUsIntermediary:
             adl_uuid = adl_uuid.decode("utf-8")
             adl_uuid = self.uuid_cleaner(adl_uuid)
             json_identifier = _json.dumps({"bus": adl_bus, "uuid": adl_uuid})
-            self._unique_gpus[json_identifier] = {Constants.SMI: None, Constants.WMI: None, Constants.PYADL: adl_index}
+            self._unique_gpus[json_identifier] = {_Constants.SMI: None, _Constants.WMI: None, _Constants.PYADL: adl_index}
             adl_index += 1
 
         nvidia_smi = _find_executable_nvidia_smi()
@@ -63,7 +63,7 @@ class GPUsIntermediary:
                 for key in self._unique_gpus:
                     unloaded_key = _json.loads(key)
                     if unloaded_key["bus"] == smi_bus:
-                        self._unique_gpus[key][Constants.SMI] = smi_index
+                        self._unique_gpus[key][_Constants.SMI] = smi_index
 
         computer = _wmi.WMI()
         wmi_index = 0
@@ -73,17 +73,17 @@ class GPUsIntermediary:
             for key in self._unique_gpus:
                 unloaded_key = _json.loads(key)
                 if unloaded_key["uuid"] == wmi_uuid:
-                    self._unique_gpus[key][Constants.WMI] = wmi_index
+                    self._unique_gpus[key][_Constants.WMI] = wmi_index
 
             wmi_index += 1
 
 
-        gpu_instances: List[_GPU] = []
-        self._gpu_instances: List[_GPU] = []
+        gpu_instances: _List[_GPU] = []
+        self._gpu_instances: _List[_GPU] = []
         for key in self._unique_gpus:
             gpu_instances.append(_GPU(self._unique_gpus[key]))
 
-        threads: List[_threading.Thread] = []
+        threads: _List[_threading.Thread] = []
         for gpu in gpu_instances:
             thread = _threading.Thread(target=gpu.update, kwargs={"everything": True, "wait_for_completion": True})
             thread.name = "GPUs:Get_Data_Thread"

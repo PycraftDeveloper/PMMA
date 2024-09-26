@@ -1,6 +1,6 @@
 import gc as _gc
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -10,9 +10,9 @@ class Display:
     def __init__(self):
         _initialize(self)
 
-        self._display_intermediary: "_DisplayIntermediary" = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        self._display_intermediary: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
-    def clear(self, color=None, format=Constants.RGB):
+    def clear(self, color=None, format=_Constants.RGB):
         self._display_intermediary.clear(color=color, format=format)
 
     def set_window_in_focus(self, value):

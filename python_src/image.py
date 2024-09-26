@@ -4,7 +4,7 @@ import gc as _gc
 from PIL import Image as _ImageModule
 import pygame as _pygame
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -16,8 +16,8 @@ class Image:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            if _Registry.display_mode == _Constants.PYGAME:
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._memory_manager_instance = _MemoryManager()
@@ -77,7 +77,7 @@ class Image:
             pil_image = self._memory_manager_instance.get(
                 self._pil_image_address)
 
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             graphics_backend_image = _pygame.image.fromstring(
                 pil_image.tobytes(),
                 pil_image.size,
@@ -100,7 +100,7 @@ class Image:
 
     def blit(self, position, surface=None):
         if surface is None:
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         if self._memory_manager_instance.get(self._graphics_backend_image_address) is None:
             object = self.image_to_display_renderable_object()

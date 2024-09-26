@@ -6,7 +6,8 @@ import pyaudio as _pyaudio
 import numpy as _numpy
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.error_utils import *
+from pmma.python_src.utility.error_utils import NoInputDevicesFoundError as _NoInputDevicesFoundError
+from pmma.python_src.utility.error_utils import UnableToReadAudioSampleError as _UnableToReadAudioSampleError
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
@@ -103,7 +104,7 @@ also make sure that the device is behaving as expected. Should this fail and \
 the operating system has detected your device, consider running the \
 'print_input_devices()' command and manually selecting the device you want to use.")
 
-            raise NoInputDevicesFoundError("No audio input devices were found!")
+            raise _NoInputDevicesFoundError("No audio input devices were found!")
 
         stream = self._pyaudio_instance.open(
             format=_pyaudio.paInt16,
@@ -128,7 +129,7 @@ the exact cause of this error is unknown, it's likely that the cause for this er
 was that the audio input device was disconnected without first having had the sampling \
 process stopped. Please use the existing 'stop()' method in order to avoid this error being \
 raised when the audio device is removed.")
-                raise UnableToReadAudioSampleError("Unable to read audio sample!") from error
+                raise _UnableToReadAudioSampleError("Unable to read audio sample!") from error
 
             data = _numpy.frombuffer(
                 stream_data,

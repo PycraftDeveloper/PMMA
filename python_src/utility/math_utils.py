@@ -1,8 +1,8 @@
-import math
+import math as _math
 
-import numba
-import pyrr
-import numpy
+import numba as _numba
+import pyrr as _pyrr
+import numpy as _numpy
 
 def raw_smooth_step(t):
     # Cubic smoothstep function for acceleration/deceleration
@@ -42,12 +42,12 @@ def raw_gl_look_at(pos, target, up):
     x, y, z = raw_compute_position(
         pos, target, up)
 
-    translate = pyrr.Matrix44.identity(dtype="f4")
+    translate = _pyrr.Matrix44.identity(dtype="f4")
     translate[3][0] = -pos.x
     translate[3][1] = -pos.y
     translate[3][2] = -pos.z
 
-    rotate = pyrr.Matrix44.identity(dtype="f4")
+    rotate = _pyrr.Matrix44.identity(dtype="f4")
     rotate[0][0] = x[0]  # -- X
     rotate[1][0] = x[1]
     rotate[2][0] = x[2]
@@ -58,33 +58,33 @@ def raw_gl_look_at(pos, target, up):
     rotate[1][2] = z[1]
     rotate[2][2] = z[2]
 
-    return rotate * translate[:, numpy.newaxis]
+    return rotate * translate[:, _numpy.newaxis]
 
-@numba.njit(fastmath=True, cache=True)
+@_numba.njit(fastmath=True, cache=True)
 def raw_pythag(points):
     sum = 0
     for point in points:
         sum += point ** 2
     return sum ** 0.5
 
-@numba.njit(fastmath=True, cache=True)
+@_numba.njit(fastmath=True, cache=True)
 def raw_compute_position(pos, target, up):
     def normalize(v):
-        norm = numpy.linalg.norm(v)
+        norm = _numpy.linalg.norm(v)
         if norm == 0:
             return v
         return v / norm
 
     z = normalize(pos - target)
-    x = normalize(numpy.cross(normalize(up), z))
-    y = numpy.cross(z, x)
+    x = normalize(_numpy.cross(normalize(up), z))
+    y = _numpy.cross(z, x)
     return x, y, z
 
-@numba.njit(fastmath=True, cache=True)
+@_numba.njit(fastmath=True, cache=True)
 def raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane):
-    num = 1.0 / math.tan(fov / 2.0)
+    num = 1.0 / _math.tan(fov / 2.0)
     num9 = num / aspect_ratio
-    return numpy.array([
+    return _numpy.array([
         [num9, 0.0, 0.0, 0.0],
         [0.0, num, 0.0, 0.0],
         [0.0, 0.0, far_plane / (near_plane - far_plane), -1.0],
@@ -92,25 +92,25 @@ def raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane):
             (near_plane - far_plane), 0.0]
     ], dtype="f4")
 
-@numba.njit(fastmath=True, cache=True)
+@_numba.njit(fastmath=True, cache=True)
 def raw_look_at(camera_position, camera_target, up_vector):
     vector = camera_target - camera_position
 
-    x = numpy.linalg.norm(vector)
+    x = _numpy.linalg.norm(vector)
     vector = vector / x
 
-    vector2 = numpy.cross(up_vector, vector)
-    vector2 /= numpy.linalg.norm(vector2)
+    vector2 = _numpy.cross(up_vector, vector)
+    vector2 /= _numpy.linalg.norm(vector2)
 
-    vector3 = numpy.cross(vector, vector2)
-    return numpy.array([
+    vector3 = _numpy.cross(vector, vector2)
+    return _numpy.array([
         [vector2[0], vector3[0], vector[0], 0.0],
         [vector2[1], vector3[1], vector[1], 0.0],
         [vector2[2], vector3[2], vector[2], 0.0],
-        [-numpy.dot(vector2, camera_position), -numpy.dot(
-            vector3, camera_position), numpy.dot(vector, camera_position), 1.0]
+        [-_numpy.dot(vector2, camera_position), -_numpy.dot(
+            vector3, camera_position), _numpy.dot(vector, camera_position), 1.0]
     ], dtype="f4")
 
-@numba.njit(fastmath=True, cache=True)
+@_numba.njit(fastmath=True, cache=True)
 def raw_multiply(light_proj, sun_light_look_at):
     return light_proj * sun_light_look_at

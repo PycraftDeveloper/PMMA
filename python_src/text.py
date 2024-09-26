@@ -6,7 +6,7 @@ import gc as _gc
 import pygame as _pygame
 import pyglet as _pyglet
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.file import File as _File
 from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
@@ -21,8 +21,8 @@ class _Text:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            if _Registry.display_mode == _Constants.PYGAME:
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._canvas = canvas
@@ -53,7 +53,7 @@ class _Text:
         if italic is None:
             italic = system_font_dictionary["slant"] == "italic"
 
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             return _pygame.font.SysFont(name, size), [name, size]
         else:
             raise NotImplementedError
@@ -61,7 +61,7 @@ class _Text:
     def _render_text_with_transparent_background(self, in_text, bg_color):
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             alpha_surface = _pygame.Surface(
                 (width, height),
                 _pygame.SRCALPHA)
@@ -99,8 +99,8 @@ class _Text:
         canvas_identifiable_data = "param_based_canvas"
 
         if self._canvas is None and canvas is None:
-            canvas = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-            canvas_identifiable_data = Constants.DISPLAY_OBJECT
+            canvas = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+            canvas_identifiable_data = _Constants.DISPLAY_OBJECT
         if canvas is None:
             canvas = self._canvas
             canvas_identifiable_data = "class_based_canvas"
@@ -111,7 +111,7 @@ class _Text:
             font_identifiable_data = [font, size]
             file_object = _File(font)
             font_argument_is_path = file_object.exists()
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 if font_argument_is_path:
                     font = _pygame.font.Font(font, size)
                 else:
@@ -124,18 +124,18 @@ class _Text:
 
         x, y = position
 
-        if position[0] == Constants.CENTER:
+        if position[0] == _Constants.CENTER:
             x = canvas.get_width() / 2
-        elif position[0] == Constants.RIGHT:
+        elif position[0] == _Constants.RIGHT:
             x = canvas.get_width()
-        elif position[0] == Constants.LEFT:
+        elif position[0] == _Constants.LEFT:
             x = 0
 
-        if position[1] == Constants.CENTER:
+        if position[1] == _Constants.CENTER:
             y = canvas.get_height() / 2
-        elif position[1] == Constants.BOTTOM:
+        elif position[1] == _Constants.BOTTOM:
             y = canvas.get_height()
-        elif position[1] == Constants.TOP:
+        elif position[1] == _Constants.TOP:
             y = 0
 
         defaults = {
@@ -166,7 +166,7 @@ class _Text:
         if result is None:
             start = _time.perf_counter()
             x, y = 0, 0
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 surface = _pygame.Surface(
                     canvas.get_size(),
                     _pygame.SRCALPHA)
@@ -204,12 +204,12 @@ class _Text:
                         if foreground_color_pattern_match:
                             raw_foreground_color = foreground_color_pattern_match.group(1)
                             foreground_color = _ColorConverter(raw_foreground_color).convert_format(
-                                Constants.RGBA)
+                                _Constants.RGBA)
 
                         elif background_color_pattern_match:
                             raw_background_color = background_color_pattern_match.group(1)
                             background_color = _ColorConverter(raw_background_color).convert_format(
-                                Constants.RGBA)
+                                _Constants.RGBA)
 
                         elif size_pattern_match:
                             raw_size = size_pattern_match.group(1)
@@ -238,13 +238,13 @@ class _Text:
                             italic = defaults["italic"]
                             underline = defaults["underline"]
                             size = defaults["size"]
-                        elif syntax in Constants.TEXT_BASED_COLORS.keys():
-                            foreground_color = Constants.TEXT_BASED_COLORS[syntax]
+                        elif syntax in _Constants.TEXT_BASED_COLORS.keys():
+                            foreground_color = _Constants.TEXT_BASED_COLORS[syntax]
 
-                        elif (syntax.upper() in Constants.TEXT_BASED_COLORS.keys() and
+                        elif (syntax.upper() in _Constants.TEXT_BASED_COLORS.keys() and
                                 syntax != syntax.upper()):
 
-                            background_color = Constants.TEXT_BASED_COLORS[syntax.upper()]
+                            background_color = _Constants.TEXT_BASED_COLORS[syntax.upper()]
 
                 else:
                     rendered_word = font.render(

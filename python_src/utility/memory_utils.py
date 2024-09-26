@@ -12,7 +12,7 @@ import dill as _dill
 import waiting as _waiting
 
 from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPriorityList
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -24,14 +24,14 @@ class MemoryManagerIntermediary:
     def __init__(
             self,
             object_lifetime=2.5,
-            target_size=Constants.AUTOMATIC):
+            target_size=_Constants.AUTOMATIC):
 
-        _initialize(self, unique_instance=Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 
         self.limited_max_size = False
-        if target_size == Constants.AUTOMATIC:
+        if target_size == _Constants.AUTOMATIC:
             target_size = (1/8) * _psutil.virtual_memory().available
             if target_size > 1000000000:
                 self.target_size = 1000000000 # 1 GB
@@ -142,21 +142,21 @@ leaving the target size variable can be dangerous.")
 
                 obj_size = _sys.getsizeof(obj)
                 if ((_PassportIntermediary.project_size is None or
-                            _PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and
+                            _PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.75:
                         self._logger.log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
-                elif (_PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
+                elif (_PassportIntermediary.project_size == _Constants.MEDIUM_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.5:
                         self._logger.log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
-                elif (_PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
+                elif (_PassportIntermediary.project_size == _Constants.SMALL_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.25:
@@ -212,21 +212,21 @@ more than 25% of the assigned memory")
 
                     obj_size = _sys.getsizeof(obj)
                     if ((_PassportIntermediary.project_size is None or
-                                _PassportIntermediary.project_size == Constants.LARGE_APPLICATION) and
+                                _PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.75:
                             self._logger.log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
-                    elif (_PassportIntermediary.project_size == Constants.MEDIUM_APPLICATION and
+                    elif (_PassportIntermediary.project_size == _Constants.MEDIUM_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.5:
                             self._logger.log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
-                    elif (_PassportIntermediary.project_size == Constants.SMALL_APPLICATION and
+                    elif (_PassportIntermediary.project_size == _Constants.SMALL_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.25:

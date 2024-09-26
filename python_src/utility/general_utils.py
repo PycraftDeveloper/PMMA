@@ -17,14 +17,14 @@ import pyglet as _pyglet
 import getostheme as _getostheme
 import num2words as _num2words
 
-from pmma.python_src.constants import Constants
-from pmma.python_src.backpack import Backpack
+from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
 from pmma.python_src.utility.settings_utils import set_allow_anti_aliasing as _set_allow_anti_aliasing
 from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _set_anti_aliasing_level
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.error_utils import *
+from pmma.python_src.utility.error_utils import TooManyInstancesError as _TooManyInstancesError
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 def get_execution_time(function, *args, **kwargs):
@@ -43,7 +43,7 @@ def get_execution_inverse_time(function, *args, **kwargs):
 
 def targeted_profile_start():
     if _Registry.profiler is None:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
 
@@ -51,14 +51,14 @@ however you haven't enabled profiling in 'pmma.init()'. Therefore this has no ef
     if _Registry.targeted_profile_application:
         _Registry.profiler.enable()
     else:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you already specified that you want to profile everything, so this has no effect. \
 This behavior can be configured in 'pmma.init()'.")
 
 def targeted_profile_end():
     if _Registry.profiler is None:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
 
@@ -66,32 +66,32 @@ however you haven't enabled profiling in 'pmma.init()'. Therefore this has no ef
     if _Registry.targeted_profile_application:
         _Registry.profiler.disable()
     else:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you already specified that you want to profile everything, so this has no effect. \
 This behavior can be configured in 'pmma.init()'.")
 
 def check_if_object_is_class_or_function(param):
     if _inspect.isclass(param):
-        return Constants.CLASS
+        return _Constants.CLASS
     elif isinstance(param, object) and not _inspect.isfunction(param):
-        return Constants.CLASS_INSTANCE
+        return _Constants.CLASS_INSTANCE
     elif _inspect.isfunction(param):
-        return Constants.FUNCTION
+        return _Constants.FUNCTION
     else:
-        return Constants.UNKNOWN
+        return _Constants.UNKNOWN
 
 def get_theme():
     if _getostheme.isDarkMode():
-        return Constants.DARK
+        return _Constants.DARK
     else:
-        return Constants.LIGHT
+        return _Constants.LIGHT
 
 def convert_number_to_text(value):
     try:
         return _num2words.num2words(value, lang=_Registry.language)
     except OverflowError:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Woah! {} is a very large number - too big \
 unfortunately to convert to words. Instead the value will be returned as a string.", variables=[value])
         return str(value)
@@ -100,7 +100,7 @@ def quit(show_statistics=None, terminate_application=True):
     if _Registry.profiler is not None:
         _Registry.profiler.disable()
         if _Registry.profile_result_path is None:
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "We are using the default locations for storing profile information as you never \
 specified where you would like them to be placed. This can be done through: \
 `pmma.set_profile_result_path(path)`. Instead we are going to be storing your profiled results here: {}",
@@ -127,29 +127,29 @@ specified where you would like them to be placed. This can be done through: \
         if _Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(_time.perf_counter() - _Registry.application_start_time)
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
             if _Registry.application_finished_loading_time is not None:
                 time_formatter_instance.set_from_second(_Registry.application_finished_loading_time - _Registry.application_start_time)
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                     "PMMA statistics: {} loaded in: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
 frame rate of {} Hz.", variables=[app_name, _Registry.application_average_frame_rate['Mean']])
 
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
             "PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, _Registry.number_of_instantiated_objects])
 
         if _Registry.perlin_noise_prefill_single_samples != 0 or _Registry.perlin_noise_prefill_array_samples != 0:
-            logged_noise_statistics = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            logged_noise_statistics = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} used Noise component. In the prefilling process, {} single \
 samples where used, and {}/10 array samples where used.",
                 variables=[app_name, _Registry.perlin_noise_prefill_single_samples,
                 _Registry.perlin_noise_prefill_array_samples])
 
             if logged_noise_statistics:
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                     "The Noise component of PMMA uses a prefilling process to try \
 and identify the minimum and maximum values for each noise method. This is required as depending \
 on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
@@ -161,23 +161,23 @@ operations, meaning that fewer need to be called for every single call. Addition
 nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
 generating 3D arrays.")
 
-    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].clear_internal_logs()
-    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].clear_external_logs()
+    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].clear_internal_logs()
+    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].clear_external_logs()
 
-    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
         "PMMA is now exiting. Thanks for using PMMA!")
 
-    if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+    if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
             "Quitting PMMA object with ID: {}",
-            variables=[Constants.DISPLAY_OBJECT],
+            variables=[_Constants.DISPLAY_OBJECT],
             repeat_for_effect=True)
 
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].quit(do_garbage_collection=False)
-        del _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].quit(do_garbage_collection=False)
+        del _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
-    logger = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
-    del _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+    logger = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
+    del _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     keys = list(_Registry.pmma_module_spine.keys())
 
@@ -191,7 +191,7 @@ generating 3D arrays.")
 
     del _Registry.pmma_module_spine
 
-    if _Registry.display_mode == Constants.PYGAME:
+    if _Registry.display_mode == _Constants.PYGAME:
         _pygame.quit()
 
     _gc.collect()
@@ -206,8 +206,8 @@ generating 3D arrays.")
         _sys.exit(0)
 
 def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
-    if _Registry.pmma_module_spine[Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].on_window_size_changed()
+    if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
+        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
 
     if _time.perf_counter() - _Registry.power_status_checked_time > 10:
         _Registry.power_saving_mode = is_battery_saver_enabled()
@@ -249,15 +249,15 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
         _PassportIntermediary.passport_changed = False
         register_application()
 
-    if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys() and not Constants.EVENTS_OBJECT in _Registry.pmma_module_spine.keys():
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have created a display through PMMA, but haven't \
+    if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys() and not _Constants.EVENTS_OBJECT in _Registry.pmma_module_spine.keys():
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have created a display through PMMA, but haven't \
 created an events object. Handling events for your PMMA display is important as \
 it tells the operating system that the application is still running and allows the \
 user to interact with your application. Failure to do this can lead to an unresponsive \
 window which can cause unexpected behavior.")
 
     if number_of_render_updates > 600 and _Registry.application_average_frame_rate['Samples'] > 3:
-        _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
+        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
 the time spent handling draw calls. Consider switching to the more optimized Render \
 Pipeline through PMMA to avoid any potential slowdowns.")
 
@@ -266,7 +266,7 @@ Pipeline through PMMA to avoid any potential slowdowns.")
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(total_time_spent_drawing)
 
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
 number of draw calls being made. The program spent {} on \
 {} total render calls, limiting your maximum refresh rate to: \
 {} Hz. Switching to the more optimized Render Pipeline will \
@@ -274,17 +274,17 @@ likely improve application performance. Note that this message will only appear 
 may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_render_updates, 1/(total_time_spent_drawing)])
 
     if _Registry.display_initialized:
-        if _Registry.pmma_module_spine[Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
-            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(False)
-        elif _Registry.pmma_module_spine[Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
-            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        if _Registry.pmma_module_spine[Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
-            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(True)
-        elif _Registry.pmma_module_spine[Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
-            _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].set_window_in_focus(False)
+        if _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(False)
+        elif _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(True)
+        if _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(True)
+        elif _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def register_application():
-    if get_operating_system() == Constants.WINDOWS:
+    if get_operating_system() == _Constants.WINDOWS:
         VERSION = _PassportIntermediary.version
         AUTHOR = _PassportIntermediary.author
         APPLICATION_NAME = _PassportIntermediary.name
@@ -294,15 +294,15 @@ def register_application():
 
 def get_operating_system():
     if _platform.system() == "Windows":
-        return Constants.WINDOWS
+        return _Constants.WINDOWS
     elif _platform.system() == "Linux":
         if "ANDROID_STORAGE" in _os.environ:
-            return Constants.ANDROID
-        return Constants.LINUX
+            return _Constants.ANDROID
+        return _Constants.LINUX
     elif _platform.system() == "Darwin":
-        return Constants.MACOS
+        return _Constants.MACOS
     elif _platform.system() == "Java":
-        return Constants.JAVA
+        return _Constants.JAVA
 
 def is_battery_saver_enabled(
         fallback_battery_power_saving_threshold_percentage=30,
@@ -317,14 +317,14 @@ def is_battery_saver_enabled(
         if care_if_running_on_battery is False:
             using_battery = True
 
-        if get_operating_system() == Constants.WINDOWS:
+        if get_operating_system() == _Constants.WINDOWS:
             result = _subprocess.check_output(['powercfg', '/getactivescheme'], text=True)
             result = result.lower()
 
             if ("saver" in result or "efficiency" in result) and using_battery:
                 return True
 
-        elif get_operating_system() == Constants.MACOS:
+        elif get_operating_system() == _Constants.MACOS:
             output = _subprocess.check_output(['pmset', '-g', 'batt'], text=True)
             # Check if battery saver is mentioned in the output
             return using_battery and "Low Power Mode: 1" in output
@@ -346,7 +346,7 @@ def up(path: str) -> str:
     return path[::-1].split(_os.sep, 1)[-1][::-1]
 
 def find_executable_nvidia_smi():
-    if get_operating_system() == Constants.WINDOWS:
+    if get_operating_system() == _Constants.WINDOWS:
         # If the platform is Windows and nvidia-smi
         # could not be found from the environment path,
         # try to find it from system drive with default installation path
@@ -361,7 +361,7 @@ def find_executable_nvidia_smi():
     return nvidia_smi
 
 def update_language():
-    if get_operating_system() == Constants.WINDOWS:
+    if get_operating_system() == _Constants.WINDOWS:
         try:
             windll = _ctypes.windll.kernel32
             detected_language = _locale.windows_locale[
@@ -397,7 +397,7 @@ def update_language():
         detected_language = "en_US"
 
     _Registry.language = detected_language
-    Backpack.language = detected_language
+    _Backpack.language = detected_language
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, logging_instantiation=False):
     instance._shut_down = False
@@ -406,7 +406,7 @@ def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, l
     if _Registry.pmma_initialized is False:
         if not logging_instantiation:
             _importlib.import_module("pmma.__init__").init()
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "You haven't yet initialized PMMA. This can be done by calling \
 'pmma.init()' any time before using any of PMMA functions. As you haven't called \
 `pmma.init()` yet, we have initialized PMMA for you, and made assumptions about \
@@ -414,23 +414,23 @@ how you intend to use it. Whilst this shouldn't be a problem for most people, \
 doing this can heavily customize PMMA's behavior.")
 
     if unique_instance is not None:
-        if unique_instance in Constants.OBJECT_IDENTIFIERS:
+        if unique_instance in _Constants.OBJECT_IDENTIFIERS:
             if unique_instance in _Registry.pmma_module_spine.keys():
                 if not logging_instantiation:
-                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning(
+                    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_warning(
                         "{} object already exists.",
                         variables=[unique_instance.capitalize()])
 
                 if not logging_instantiation:
-                    _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                         "Some PMMA objects can only be initialized once. \
 This is to avoid creating unexpected behavior.")
 
-                raise TooManyInstancesError(f"{unique_instance.capitalize()} object already exists.")
+                raise _TooManyInstancesError(f"{unique_instance.capitalize()} object already exists.")
         else:
             if not logging_instantiation:
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("{} name was not recognized to \
-PMMA. To register it, make sure it exists in the 'Constants' object, and in its attribute \
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("{} name was not recognized to \
+PMMA. To register it, make sure it exists in the '_Constants' object, and in its attribute \
 'OBJECT_IDENTIFIERS' list.", variables=[unique_instance.capitalize()])
 
     if add_to_pmma_module_spine:
@@ -457,7 +457,7 @@ def swizzle(in_format, data, out_format, handle_alpha=False):
         for character in out_format:
             if not character in in_format:
                 if handle_alpha and character.lower() == "a":
-                    out_data.append(Constants.ALPHA)
+                    out_data.append(_Constants.ALPHA)
                 else:
                     out_data.append(0)
             else:

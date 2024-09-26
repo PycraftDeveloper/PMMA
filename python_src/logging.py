@@ -1,6 +1,6 @@
 import gc as _gc
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import LoggerIntermediary, _LoggingNotInitializedError
@@ -20,10 +20,10 @@ class Logger:
     def __init__(self):
         _initialize(self)
 
-        if not Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+        if not _Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_pmma_log_lifetime(self, value):
         _Registry.internal_log_duration = value
@@ -121,13 +121,13 @@ excessive storage usage.")
         self._logger_intermediary.set_external_log_error_messages_to_file(log_error_messages_to_file)
 
     def log_development(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, False, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.DEVELOPMENT, False, variables=variables)
 
     def log_information(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, False, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.INFORMATION, False, variables=variables)
 
     def log_warning(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, False, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.WARNING, False, variables=variables)
 
     def log_error(self, message,  variables=[], do_traceback=True, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, False, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.ERROR, False, variables=variables)

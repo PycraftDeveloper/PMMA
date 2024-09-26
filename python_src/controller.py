@@ -2,11 +2,9 @@ import gc as _gc
 
 import pygame as _pygame
 
-from pmma.python_src.general import *
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.error_utils import *
 import pmma.python_src.utility.event_utils as _event_utils
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
@@ -26,16 +24,16 @@ class Controllers:
         self._shut_down = True
 
     def identify_controllers(self):
-        _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
+        _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
 
     def get_controller(self, controller_index) -> 'Controller':
-        return _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
+        return _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
 
     def update_controllers(self):
-        _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
+        _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
 
     def list_controllers(self):
-        return _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
+        return _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
 
 class Controller:
     def __del__(self, do_garbage_collection=False):

@@ -2,7 +2,7 @@ import subprocess as _subprocess
 import threading as _threading
 import gc as _gc
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
@@ -46,7 +46,7 @@ class Executor:
         try:
             if command_type == list or command_type == tuple:
                 if hide_window:
-                    result = _subprocess.run(command, capture_output=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                    result = _subprocess.run(command, capture_output=True, text=True, creationflags=_Constants.CREATE_NO_WINDOW)
                 else:
                     result = _subprocess.run(command, capture_output=True, text=True)
             else:
@@ -57,7 +57,7 @@ command. It is strongly recommended that you change your approach to use a list 
 its arguments, leading to unsecure commands being run on the host system!")
 
                 if hide_window:
-                    result = _subprocess.run(command, shell=True, capture_output=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                    result = _subprocess.run(command, shell=True, capture_output=True, text=True, creationflags=_Constants.CREATE_NO_WINDOW)
                 else:
                     result = _subprocess.run(command, shell=True, capture_output=True, text=True)
 
@@ -122,7 +122,7 @@ class AdvancedExecutor:
         command_type = type(command)
         if command_type == list or command_type == tuple:
             if hide_window:
-                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, text=True, creationflags=_Constants.CREATE_NO_WINDOW)
             else:
                 process = _subprocess.Popen(command, stdout=_subprocess.PIPE, text=True)
         else:
@@ -133,7 +133,7 @@ command. It is strongly recommended that you change your approach to use a list 
 its arguments, leading to unsecure commands being run on the host system!")
 
             if hide_window:
-                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, shell=True, text=True, creationflags=Constants.CREATE_NO_WINDOW)
+                process = _subprocess.Popen(command, stdout=_subprocess.PIPE, shell=True, text=True, creationflags=_Constants.CREATE_NO_WINDOW)
             else:
                 process = _subprocess.Popen(command, stdout=_subprocess.PIPE, shell=True, text=True)
 

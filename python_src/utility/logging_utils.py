@@ -7,7 +7,7 @@ import shutil as _shutil
 
 import waiting as _waiting
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -17,7 +17,7 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 
 class LoggerIntermediary:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True, logging_instantiation=True)
+        _initialize(self, unique_instance=_Constants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True, logging_instantiation=True)
 
         self._logged_messages = []
 
@@ -296,29 +296,29 @@ class LoggerIntermediary:
         if message == "":
             return False
         if internal:
-            if log_level == Constants.DEVELOPMENT:
+            if log_level == _Constants.DEVELOPMENT:
                 log_to_file = self._internal_log_development_messages_to_file
                 log_to_terminal = self._internal_log_development_messages_to_terminal
-            elif log_level == Constants.INFORMATION:
+            elif log_level == _Constants.INFORMATION:
                 log_to_file = self._internal_log_information_messages_to_file
                 log_to_terminal = self._internal_log_information_messages_to_terminal
-            elif log_level == Constants.WARNING:
+            elif log_level == _Constants.WARNING:
                 log_to_file = self._internal_log_warning_messages_to_file
                 log_to_terminal = self._internal_log_warning_messages_to_terminal
-            elif log_level == Constants.ERROR:
+            elif log_level == _Constants.ERROR:
                 log_to_file = self._internal_log_error_messages_to_file
                 log_to_terminal = self._internal_log_error_messages_to_terminal
         else:
-            if log_level == Constants.DEVELOPMENT:
+            if log_level == _Constants.DEVELOPMENT:
                 log_to_file = self._external_log_development_messages_to_file
                 log_to_terminal = self._external_log_development_messages_to_terminal
-            elif log_level == Constants.INFORMATION:
+            elif log_level == _Constants.INFORMATION:
                 log_to_file = self._external_log_information_messages_to_file
                 log_to_terminal = self._external_log_information_messages_to_terminal
-            elif log_level == Constants.WARNING:
+            elif log_level == _Constants.WARNING:
                 log_to_file = self._external_log_warning_messages_to_file
                 log_to_terminal = self._external_log_warning_messages_to_terminal
-            elif log_level == Constants.ERROR:
+            elif log_level == _Constants.ERROR:
                 log_to_file = self._external_log_error_messages_to_file
                 log_to_terminal = self._external_log_error_messages_to_terminal
 
@@ -335,13 +335,13 @@ class LoggerIntermediary:
             now = _datetime.datetime.now()
             date_time_stamp = now.strftime("[%d/%m/%Y @ %H:%M:%S.%f] ")
             message += date_time_stamp
-            if log_level == Constants.DEVELOPMENT:
+            if log_level == _Constants.DEVELOPMENT:
                 message += "- DEVELOPMENT - "
-            elif log_level == Constants.INFORMATION:
+            elif log_level == _Constants.INFORMATION:
                 message += "- INFORMATION - "
-            elif log_level == Constants.WARNING:
+            elif log_level == _Constants.WARNING:
                 message += "- WARNING - "
-            elif log_level == Constants.ERROR:
+            elif log_level == _Constants.ERROR:
                 message += "- ERROR - "
             message += inserted_variables_to_message
 
@@ -386,16 +386,16 @@ class LoggerIntermediary:
         return False
 
     def log_development(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
-        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True, variables=variables)
+        return self.logger_core(message, do_traceback, repeat_for_effect, _Constants.DEVELOPMENT, True, variables=variables)
 
     def log_information(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
-        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True, variables=variables)
+        return self.logger_core(message, do_traceback, repeat_for_effect, _Constants.INFORMATION, True, variables=variables)
 
     def log_warning(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
-        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True, variables=variables)
+        return self.logger_core(message, do_traceback, repeat_for_effect, _Constants.WARNING, True, variables=variables)
 
     def log_error(self, message,  variables=[], do_traceback=True, repeat_for_effect=False):
-        return self.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True, variables=variables)
+        return self.logger_core(message, do_traceback, repeat_for_effect, _Constants.ERROR, True, variables=variables)
 
 class InternalLogger:
     def __del__(self, do_garbage_collection=False):
@@ -411,10 +411,10 @@ class InternalLogger:
     def __init__(self):
         _initialize(self)
 
-        if not Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+        if not _Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
         self._logger_intermediary.set_internal_log_development_messages_to_terminal()(value)
@@ -492,13 +492,13 @@ class InternalLogger:
         self._logger_intermediary.set_internal_log_error_messages_to_file(log_error_messages_to_file)
 
     def log_development(self, message, variables=[], do_traceback=False, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.DEVELOPMENT, True, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.DEVELOPMENT, True, variables=variables)
 
     def log_information(self, message, variables=[], do_traceback=False, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.INFORMATION, True, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.INFORMATION, True, variables=variables)
 
     def log_warning(self, message, variables=[], do_traceback=False, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.WARNING, True, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.WARNING, True, variables=variables)
 
     def log_error(self, message, variables=[], do_traceback=True, repeat_for_effect=False):
-        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True, variables=variables)
+        return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.ERROR, True, variables=variables)

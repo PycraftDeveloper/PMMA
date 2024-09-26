@@ -1,16 +1,16 @@
-import numpy
+import numpy as _numpy
 
 def prefill_optimizer(x):
-    x_array = numpy.linspace(0, x, x)
+    x_array = _numpy.linspace(0, x, x)
     x_out_array = x_array
-    y_array = numpy.linspace(0, x, x)
-    z_array = numpy.linspace(0, x, x)
+    y_array = _numpy.linspace(0, x, x)
+    z_array = _numpy.linspace(0, x, x)
 
-    _x, _y = numpy.meshgrid(x_array, y_array)
-    y_out_array = numpy.stack((_x, _y), axis=-1)
+    _x, _y = _numpy.meshgrid(x_array, y_array)
+    y_out_array = _numpy.stack((_x, _y), axis=-1)
 
-    _x, _y, _z = numpy.meshgrid(x_array, y_array, z_array)
-    z_out_array = numpy.stack((_x, _y, _z), axis=-1)
+    _x, _y, _z = _numpy.meshgrid(x_array, y_array, z_array)
+    z_out_array = _numpy.stack((_x, _y, _z), axis=-1)
 
     return x_out_array, y_out_array, z_out_array
 

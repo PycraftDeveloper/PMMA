@@ -1,15 +1,15 @@
-import os
+import os as _os
 import gc as _gc
 
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer as _Observer
+from watchdog.events import FileSystemEventHandler as _FileSystemEventHandler
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class FileUtilityIntermediary:
     file_matrix = {}
 
-class EventHandler(FileSystemEventHandler):
+class EventHandler(_FileSystemEventHandler):
     def __init__(self, file_class):
         _initialize(self)
 
@@ -28,7 +28,7 @@ class EventHandler(FileSystemEventHandler):
     def on_created(self, event):
         if event.is_directory is False:
             file_path = event.src_path
-            file = file_path.split(os.sep)[-1]
+            file = file_path.split(_os.sep)[-1]
             if file not in FileUtilityIntermediary.file_matrix:
                 FileUtilityIntermediary.file_matrix[file] = self.file_class(file_path)
             else: # duplicate name resolver
@@ -37,8 +37,8 @@ class EventHandler(FileSystemEventHandler):
 
                 new_file = file_path
 
-                original_file_split = original_file.split(os.sep)
-                new_file_split = new_file.split(os.sep)
+                original_file_split = original_file.split(_os.sep)
+                new_file_split = new_file.split(_os.sep)
 
                 original_identifier = original_file_split[-1]
                 new_identifier = new_file_split[-1]
@@ -47,8 +47,8 @@ class EventHandler(FileSystemEventHandler):
                 del new_file_split[-1]
 
                 while original_identifier == new_identifier:
-                    original_identifier = original_file_split[-1] + os.sep + original_identifier
-                    new_identifier = new_file_split[-1] + os.sep + new_identifier
+                    original_identifier = original_file_split[-1] + _os.sep + original_identifier
+                    new_identifier = new_file_split[-1] + _os.sep + new_identifier
 
                     del original_file_split[-1]
                     del new_file_split[-1]
@@ -67,7 +67,7 @@ class DirectoryWatcher:
     def __init__(self, locations, file_class):
         _initialize(self)
 
-        self.observer = Observer()
+        self.observer = _Observer()
         self.watching = {}
         for location in locations:
             event_handler = EventHandler(file_class)

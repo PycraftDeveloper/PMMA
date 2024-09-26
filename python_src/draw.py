@@ -10,7 +10,7 @@ import numpy as _numpy
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import CoordinateConverter as _CoordinateConverter
 from pmma.python_src.number_converter import PointConverter as _PointConverter
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
@@ -30,13 +30,13 @@ class Line:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
@@ -44,8 +44,8 @@ class Line:
         self._start = _CoordinateConverter()
         self._end = _CoordinateConverter()
         self._width = 1
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -71,47 +71,47 @@ class Line:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_rotation(self, rotation, format=Constants.RADIANS):
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
-    def get_rotation(self, format=Constants.RADIANS):
+    def get_rotation(self, format=_Constants.RADIANS):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
-    def set_start(self, start, start_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_start(self, start, start_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(start) != _CoordinateConverter:
             self._start.set_coordinates(start, format=start_format)
         else:
             self._start = start
 
-    def get_start(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_start(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._start is not None:
             return self._start.get_coordinates(format=format)
 
-    def set_end(self, end, end_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_end(self, end, end_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(end) != _CoordinateConverter:
             self._end.set_coordinates(end, format=end_format)
         else:
             self._end = end
 
-    def get_end(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_end(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._end is not None:
             return self._end.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
 
@@ -126,8 +126,8 @@ class Line:
         return self._width
 
     def set_surface(self, surface=None):
-        if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -162,8 +162,8 @@ class Line:
         Rotates the line around its center by the given angle in radians.
         """
         # Get start and end points
-        start_coords = self.get_start(format=Constants.OPENGL_COORDINATES)
-        end_coords = self.get_end(format=Constants.OPENGL_COORDINATES)
+        start_coords = self.get_start(format=_Constants.OPENGL_COORDINATES)
+        end_coords = self.get_end(format=_Constants.OPENGL_COORDINATES)
 
         # Calculate the center of the line
         center_x = (start_coords[0] + end_coords[0]) / 2
@@ -179,7 +179,7 @@ class Line:
     def _update_buffers(self):
         if self._vertices_changed:
             _Registry.number_of_render_updates += 1
-            rotated_line_points = self._rotate_line(self._rotation.get_angle(format=Constants.RADIANS))
+            rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
 
             if self._width > 1:
                 start_coords = rotated_line_points[:2]  # Start point (x1, y1)
@@ -223,12 +223,12 @@ class Line:
             else:
                 self._vbo.update(vertices)
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
         if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
+            color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
@@ -266,20 +266,20 @@ class RadialPolygon:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._color = _ColorConverter()
         self._point_count = None
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._radius = _PointConverter()
@@ -302,7 +302,7 @@ class RadialPolygon:
 
         if self._point_count is None:
             try:
-                point_count = 1 + int((Constants.TAU/_math.asin(1/self._radius.get_point(format=Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
+                point_count = 1 + int((_Constants.TAU/_math.asin(1/self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
             except ValueError:
                 point_count = 3
             if point_count < 3:
@@ -313,10 +313,10 @@ class RadialPolygon:
         angle_step = 2 * _math.pi / point_count
         vertices = []
 
-        rotation = self._rotation.get_angle(Constants.RADIANS)  # Get the current rotation angle
+        rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
         center = [0, 0]
-        radius = self._radius.get_point(Constants.OPENGL_COORDINATES)
+        radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
 
         for i in range(point_count):
             angle = i * angle_step + rotation
@@ -344,7 +344,7 @@ class RadialPolygon:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_rotation(self, rotation, format=Constants.RADIANS):
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
         self._created_shape = False
         if type(rotation) != _AngleConverter:
@@ -352,34 +352,34 @@ class RadialPolygon:
         else:
             self._rotation = rotation
 
-    def get_rotation(self, format=Constants.RADIANS):
+    def get_rotation(self, format=_Constants.RADIANS):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
-    def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         self._created_shape = False
         if type(value) != _PointConverter():
             self._radius.set_point(value, format=format)
 
-    def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
-        if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -393,14 +393,14 @@ class RadialPolygon:
     def get_point_count(self):
         return self._point_count
 
-    def set_center(self, centre, format=Constants.CONVENTIONAL_COORDINATES):
+    def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
             self._center.set_coordinates(centre, format=format)
         else:
             self._center = centre
 
-    def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._center is not None:
             return self._center.get_coordinates(format=format)
 
@@ -430,16 +430,16 @@ class RadialPolygon:
             self._created_shape = True
 
         if self._vertices_changed:
-            offset = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
+            offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
             self._vertices_changed = False
 
         if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
+            color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -465,19 +465,19 @@ class Rectangle:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._color = _ColorConverter()
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._position = _CoordinateConverter()
@@ -514,45 +514,45 @@ class Rectangle:
     def get_width(self):
         return self._width
 
-    def set_rotation(self, rotation, format=Constants.RADIANS):
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
-    def get_rotation(self, format=Constants.RADIANS):
+    def get_rotation(self, format=_Constants.RADIANS):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
-    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
 
-    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
-    def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(size) != _CoordinateConverter():
             self._size.set_coordinates(size, format=size_format)
 
-    def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
             return self._size.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
 
@@ -575,10 +575,10 @@ class Rectangle:
             _Registry.number_of_render_updates += 1
 
             # Unpack size and position
-            size = self._size.get_coordinates(Constants.OPENGL_COORDINATES)
+            size = self._size.get_coordinates(_Constants.OPENGL_COORDINATES)
             half_width = size[0] / 2
             half_height = size[1] / 2
-            cx, cy = self._position.get_coordinates(Constants.OPENGL_COORDINATES)
+            cx, cy = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
 
             # Define the unrotated rectangle vertices relative to the center
             vertices = _numpy.array([
@@ -589,14 +589,14 @@ class Rectangle:
             ], dtype='f4')
 
             # Apply rotation around the center
-            rotation = self._rotation.get_angle(format=Constants.RADIANS)
+            rotation = self._rotation.get_angle(format=_Constants.RADIANS)
             cos_theta = _numpy.cos(rotation)
             sin_theta = _numpy.sin(rotation)
 
             # Rotate each vertex around the center
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], cx, cy, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -606,7 +606,7 @@ class Rectangle:
                 self._vbo.update(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
+            color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
@@ -649,19 +649,19 @@ class Arc:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._color = _ColorConverter()
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._radius = _PointConverter()
@@ -702,69 +702,69 @@ class Arc:
     def get_width(self):
         return self._width
 
-    def set_rotation(self, rotation, format=Constants.RADIANS):
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
-    def get_rotation(self, format=Constants.RADIANS):
+    def get_rotation(self, format=_Constants.RADIANS):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
-    def set_start_angle(self, start_angle, angle_format=Constants.RADIANS):
+    def set_start_angle(self, start_angle, angle_format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(start_angle) != _AngleConverter:
             self._start_angle.set_angle(start_angle, format=angle_format)
 
-    def get_start_angle(self, format=Constants.RADIANS):
+    def get_start_angle(self, format=_Constants.RADIANS):
         if self._start_angle is not None:
             return self._start_angle.get_angle(format=format)
 
-    def set_stop_angle(self, stop_angle, angle_format=Constants.RADIANS):
+    def set_stop_angle(self, stop_angle, angle_format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(stop_angle) != _AngleConverter:
             self._stop_angle.set_angle(stop_angle, format=angle_format)
 
-    def get_stop_angle(self, format=Constants.RADIANS):
+    def get_stop_angle(self, format=_Constants.RADIANS):
         if self._stop_angle is not None:
             return self._stop_angle.get_angle(format=format)
 
-    def set_center(self, centre, format=Constants.CONVENTIONAL_COORDINATES):
+    def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
             self._center.set_coordinates(centre, format=format)
         else:
             self._center = centre
 
-    def get_center(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._center is not None:
             return self._center.get_coordinates(format=format)
 
-    def set_radius(self, value, format=Constants.CONVENTIONAL_COORDINATES):
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(value) != _PointConverter():
             self._radius.set_point(value, format=format)
 
-    def get_radius(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
-        if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -789,15 +789,15 @@ class Arc:
 
             _Registry.number_of_render_updates += 1
 
-            center_x, center_y = self._center.get_coordinates(format=Constants.OPENGL_COORDINATES)
-            start_angle = self._start_angle.get_angle(format=Constants.RADIANS)
-            stop_angle = self._stop_angle.get_angle(format=Constants.RADIANS)
-            radius = self._radius.get_point(format=Constants.OPENGL_COORDINATES)
+            center_x, center_y = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+            start_angle = self._start_angle.get_angle(format=_Constants.RADIANS)
+            stop_angle = self._stop_angle.get_angle(format=_Constants.RADIANS)
+            radius = self._radius.get_point(format=_Constants.OPENGL_COORDINATES)
 
             # Number of points to generate for the arc
             try:
-                proportion_of_circle = abs(stop_angle - start_angle) / Constants.TAU
-                point_count = 1 + int(((Constants.TAU/_math.asin(1/self._radius.get_point(format=Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
+                proportion_of_circle = abs(stop_angle - start_angle) / _Constants.TAU
+                point_count = 1 + int(((_Constants.TAU/_math.asin(1/self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
             except ValueError:
                 point_count = 3
             if point_count < 3:
@@ -808,13 +808,13 @@ class Arc:
             vertices = _numpy.array([[center_x + radius * _numpy.cos(angle), center_y + radius * _numpy.sin(angle)] for angle in angles], dtype='f4')
 
             # Apply rotation to each vertex if applicable
-            rotation = self._rotation.get_angle(format=Constants.RADIANS)
+            rotation = self._rotation.get_angle(format=_Constants.RADIANS)
             cos_theta = _numpy.cos(rotation)
             sin_theta = _numpy.sin(rotation)
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -824,7 +824,7 @@ class Arc:
                 self._vbo.update(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
+            color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
@@ -863,19 +863,19 @@ class Ellipse:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._color = _ColorConverter()
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._position = _CoordinateConverter()
@@ -914,51 +914,51 @@ class Ellipse:
     def get_width(self):
         return self._width
 
-    def set_rotation(self, rotation, format=Constants.RADIANS):
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
-    def get_rotation(self, format=Constants.RADIANS):
+    def get_rotation(self, format=_Constants.RADIANS):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
-    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
 
-    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
-    def set_size(self, size, size_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         if type(size) != _CoordinateConverter():
             self._size.set_coordinates(size, format=size_format)
 
-    def get_size(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._size is not None:
             return self._size.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
-        if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -983,15 +983,15 @@ class Ellipse:
 
             _Registry.number_of_render_updates += 1
 
-            center_x, center_y = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)
-            size_x, size_y = self._size.get_coordinates(format=Constants.OPENGL_COORDINATES)
+            center_x, center_y = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+            size_x, size_y = self._size.get_coordinates(format=_Constants.OPENGL_COORDINATES)
 
-            radius = self._math.pythag(self._size.get_coordinates(format=Constants.CONVENTIONAL_COORDINATES))
+            radius = self._math.pythag(self._size.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES))
 
             # Number of points to generate for the ellipse
             num_points = _Registry.shape_quality
             try:
-                num_points = 1 + int((Constants.TAU/_math.asin(1/radius))*_Registry.shape_quality)
+                num_points = 1 + int((_Constants.TAU/_math.asin(1/radius))*_Registry.shape_quality)
             except ValueError:
                 num_points = 3
             if num_points < 3:
@@ -1008,7 +1008,7 @@ class Ellipse:
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1018,7 +1018,7 @@ class Ellipse:
                 self._vbo.update(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
+            color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
@@ -1061,19 +1061,19 @@ class Polygon:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._color = _ColorConverter()
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._points = []
@@ -1104,14 +1104,14 @@ class Polygon:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_rotation(self, rotation, format=Constants.RADIANS):
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
 
-    def get_rotation(self, format=Constants.RADIANS):
+    def get_rotation(self, format=_Constants.RADIANS):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
@@ -1127,7 +1127,7 @@ class Polygon:
     def get_closed(self):
         return self._closed
 
-    def set_points(self, points, format=Constants.CONVENTIONAL_COORDINATES):
+    def set_points(self, points, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
         self._points = []
         for point in points:
@@ -1138,26 +1138,26 @@ class Polygon:
             else:
                 self._points.append(point)
 
-    def get_points(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_points(self, format=_Constants.CONVENTIONAL_COORDINATES):
         points = []
         for point in self._points:
             points.append(point.get_coordinates(format=format))
         return points
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
         if type(color) != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
 
-    def get_color(self, format=Constants.RGBA):
+    def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
-        if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -1190,7 +1190,7 @@ class Polygon:
 
             _Registry.number_of_render_updates += 1
 
-            points = _numpy.array([p.get_coordinates(format=Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
+            points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
 
             # Calculate center (average of points)
             center_x, center_y = _numpy.mean(points, axis=0)
@@ -1206,7 +1206,7 @@ class Polygon:
             if self._closed and len(rotated_vertices) > 1:
                 rotated_vertices = _numpy.append(rotated_vertices, [rotated_vertices[0]], axis=0)
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1216,7 +1216,7 @@ class Polygon:
                 self._vbo.update(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=Constants.SMALL_RGBA)
+            color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
@@ -1262,19 +1262,19 @@ class Pixel:
     def __init__(self):
         _initialize(self)
 
-        self._attributes.append(Constants.RENDER_PIPELINE_ABLE)
+        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._logger.log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._color = _ColorConverter()
-        if Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         else:
             self._surface = None
         self._position = _CoordinateConverter()
@@ -1306,29 +1306,29 @@ class Pixel:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_position(self, position, position_format=Constants.CONVENTIONAL_COORDINATES):
+    def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
         if type(position) != _CoordinateConverter:
             self._vertices_changed = self._position.set_coordinates(position, format=position_format)
         else:
             self._vertices_changed = self._position.set_coordinates(position.get_coordinates(format=position_format))
 
-    def get_position(self, format=Constants.CONVENTIONAL_COORDINATES):
+    def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
-    def set_color(self, color, format=Constants.RGB):
+    def set_color(self, color, format=_Constants.RGB):
         if type(color) != _ColorConverter:
             self._color_changed = self._color.set_color(color, format=format)
         else:
             self._color_changed = self._color.set_color(color.get_color(format=format))
 
-    def get_color(self, format=Constants.RGB):
+    def get_color(self, format=_Constants.RGB):
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_surface(self, surface=None):
-        if surface is None and Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -1346,7 +1346,7 @@ technique to 'prepare' a shape for rendering later on. This behavior can be cont
 setting the 'dynamic_rendering' key word argument to False. This message will only appear \
 once to improve performance, but will continue to have an effect.")
                 return None
-            conventional_position = self.get_position(format=Constants.CONVENTIONAL_COORDINATES)
+            conventional_position = self.get_position(format=_Constants.CONVENTIONAL_COORDINATES)
             if conventional_position[0] < 0 or conventional_position[1] < 0:
                 self._logger.log_development("Your position for this shape is off the \
 screen, therefore as a performance improving feature we wont bother rendering it \
@@ -1377,12 +1377,12 @@ once to improve performance, but will continue to have an effect.")
             self._created_shape = True
 
         if self._vertices_changed:
-            offset = self._position.get_coordinates(format=Constants.OPENGL_COORDINATES)
+            offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
             self._vertices_changed = False
 
         if self._color_changed:
-            color = self._color.get_color(format=Constants.SMALL_RGBA)
+            color = self._color.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 

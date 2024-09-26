@@ -1,4 +1,4 @@
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import up as _up
@@ -31,7 +31,7 @@ def targeted_profile_end():
 def profile_this(func):
     def wrapper(*args, **kwargs):
         if _Registry.profiler is None:
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "Just a quick heads up, you are attempting to profile this specific method \
 however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
             return func(*args, **kwargs)
@@ -45,7 +45,7 @@ however you haven't enabled profiling in 'pmma.init()'. Therefore this has no ef
             _Registry.profiler.disable()       # Stop profiling
             return result
         else:
-            _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "Just a quick heads up, you are attempting to profile this specific method \
 however you already specified that you want to profile everything, so this has no effect. \
 This behavior can be configured in 'pmma.init()'.")
