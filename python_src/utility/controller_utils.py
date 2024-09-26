@@ -2,7 +2,7 @@ import gc as _gc
 
 import pygame as _pygame
 
-from pmma.python_src.constants import Constants
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.controller import Controller as _Controller
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -13,14 +13,14 @@ class ControllersIntermediary:
     def __init__(self):
         _initialize(
             self,
-            unique_instance=Constants.CONTROLLER_INTERMEDIARY_OBJECT,
+            unique_instance=_Constants.CONTROLLER_INTERMEDIARY_OBJECT,
             add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 
         if _Registry.display_mode_set is False:
             _Registry.display_mode_set = True
-            _Registry.display_mode = Constants.PYGAME
+            _Registry.display_mode = _Constants.PYGAME
             self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
@@ -28,8 +28,8 @@ mode is Pygame.")
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == Constants.PYGAME:
-                _Registry.pmma_module_spine[Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            if _Registry.display_mode == _Constants.PYGAME:
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
                 _pygame.init()
 
         self._controllers = []

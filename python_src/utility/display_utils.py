@@ -9,8 +9,8 @@ import pyglet as _pyglet
 from moderngl_window import geometry as _geometry
 import moderngl_window as _moderngl_window
 
-from pmma.python_src.general import *
-from pmma.python_src.constants import Constants
+from pmma.python_src.general import get_operating_system as _get_operating_system
+from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.utility.opengl_utils import Texture as _Texture
@@ -25,7 +25,7 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 
 class DisplayIntermediary:
     def __init__(self):
-        _initialize(self, unique_instance=Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 
@@ -44,7 +44,7 @@ class DisplayIntermediary:
 
         self.resized_event = _WindowResized_EVENT()
 
-        self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
+        self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
         self._display_attribute_resizable = False
         self._display_attribute_full_screen = True
@@ -80,7 +80,7 @@ class DisplayIntermediary:
 
             if _Registry.display_mode_set is False:
                 _Registry.display_mode_set = True
-                _Registry.display_mode = Constants.PYGAME
+                _Registry.display_mode = _Constants.PYGAME
                 self._logger.log_development("You haven't yet set a display mode, \
 therefore it has been decided for you! To manually pick a display mode, call \
 'pmma.set_display_mode()' with your preferred display mode. The default display \
@@ -88,11 +88,11 @@ mode is Pygame.")
 
             if _Registry.displayed_pygame_start_message is False:
                 _Registry.displayed_pygame_start_message = True
-                if _Registry.display_mode == Constants.PYGAME:
+                if _Registry.display_mode == _Constants.PYGAME:
                     self._logger.log_information(_Registry.pygame_launch_message)
                     _pygame.init()
 
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 self._clock = _pygame.time.Clock()
 
     def get_clear_called_but_skipped(self):
@@ -145,20 +145,20 @@ mode is Pygame.")
             self.update_class()
         self._refresh_optimization_override = value
 
-    def clear(self, color=None, format=Constants.RGB):
+    def clear(self, color=None, format=_Constants.RGB):
         if self._object_updated is False:
             self.update_class()
         if color is None or color == [] or color == ():
-            self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
+            self._color_converter.set_color((0, 0, 0), format=_Constants.RGB)
 
         elif type(color) == _ColorConverter:
-            raw_color = color.get_color(Constants.RGBA)
-            self._color_converter.set_color(raw_color, format=Constants.RGBA)
+            raw_color = color.get_color(_Constants.RGBA)
+            self._color_converter.set_color(raw_color, format=_Constants.RGBA)
         else:
             self._color_converter.set_color(color, format=format)
 
         if self._previous_frame_color is not None:
-            if self._color_converter.get_color(format=Constants.RGBA) == self._previous_frame_color.get_color(format=Constants.RGBA):
+            if self._color_converter.get_color(format=_Constants.RGBA) == self._previous_frame_color.get_color(format=_Constants.RGBA):
                 if self._refresh_optimization_override is False:
                     if self._render_calls == self._attempted_render_calls:
                         self._render_calls = self._attempted_render_calls
@@ -167,7 +167,7 @@ mode is Pygame.")
                         return
 
         self._previous_frame_color = _ColorConverter()
-        self._previous_frame_color.set_color(self._color_converter.get_color(format=Constants.RGBA), format=Constants.RGBA)
+        self._previous_frame_color.set_color(self._color_converter.get_color(format=_Constants.RGBA), format=_Constants.RGBA)
 
         self._clear_called_but_skipped = False
         self._refresh_optimization_override = False
@@ -176,20 +176,20 @@ mode is Pygame.")
 
         if self._display_attribute_transparent_display:
             # Set transparency color key
-            hex_color = self._color_converter.get_color(format=Constants.HEX)
+            hex_color = self._color_converter.get_color(format=_Constants.HEX)
             color_key = self.hex_color_to_windows_raw_color(hex_color)
 
             _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
-        self._color_key = _numpy.array([*self._color_converter.get_color(format=Constants.SMALL_RGB)], dtype=_numpy.float32)
+        self._color_key = _numpy.array([*self._color_converter.get_color(format=_Constants.SMALL_RGB)], dtype=_numpy.float32)
 
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             #self._two_dimension_frame_buffer.use()
             self._two_dimension_frame_buffer.clear(self._color_converter)
             #self._three_dimension_frame_buffer.use()
             self._three_dimension_frame_buffer.clear(self._color_converter)
             _Registry.context.screen.use()
-            _Registry.context.clear(*self._color_converter.get_color(format=Constants.SMALL_RGB))
+            _Registry.context.clear(*self._color_converter.get_color(format=_Constants.SMALL_RGB))
         else:
             raise NotImplementedError
 
@@ -205,7 +205,7 @@ mode is Pygame.")
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
-            if _Registry.display_mode == Constants.PYGAME:
+            if _Registry.display_mode == _Constants.PYGAME:
                 _pygame.display.quit()
             del self
             if do_garbage_collection:
@@ -223,18 +223,18 @@ mode is Pygame.")
         else:
             samples = _Registry.anti_aliasing_level
 
-        self._two_dimension_texture.create(size, components=Constants.RGB, samples=samples)
+        self._two_dimension_texture.create(size, components=_Constants.RGB, samples=samples)
         self._two_dimension_frame_buffer.create(color_attachments=[self._two_dimension_texture])
-        self._three_dimension_texture.create(size, components=Constants.RGB, samples=samples)
+        self._three_dimension_texture.create(size, components=_Constants.RGB, samples=samples)
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             if set_to_be_used:
-                if self._currently_active_frame_buffer != Constants.TWO_DIMENSION_FRAME_BUFFER:
-                    self._currently_active_frame_buffer = Constants.TWO_DIMENSION_FRAME_BUFFER
+                if self._currently_active_frame_buffer != _Constants.TWO_DIMENSION_FRAME_BUFFER:
+                    self._currently_active_frame_buffer = _Constants.TWO_DIMENSION_FRAME_BUFFER
                     self._two_dimension_frame_buffer.use()
             return self._two_dimension_frame_buffer
         else:
@@ -243,10 +243,10 @@ mode is Pygame.")
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             if set_to_be_used:
-                if self._currently_active_frame_buffer != Constants.THREE_DIMENSION_FRAME_BUFFER:
-                    self._currently_active_frame_buffer = Constants.THREE_DIMENSION_FRAME_BUFFER
+                if self._currently_active_frame_buffer != _Constants.THREE_DIMENSION_FRAME_BUFFER:
+                    self._currently_active_frame_buffer = _Constants.THREE_DIMENSION_FRAME_BUFFER
                     self._three_dimension_frame_buffer.use()
             return self._three_dimension_frame_buffer
         else:
@@ -297,7 +297,7 @@ reduce graphical tearing and other rendering anomalies.")
         self._display_attribute_centered = centered
 
         if self._display_attribute_transparent_display:
-            if get_operating_system() == Constants.WINDOWS:
+            if _get_operating_system() == _Constants.WINDOWS:
                 self._logger.log_development("You are using PMMA's transparent display technology. \
 This means that the window you create is going to be completely transparent - including \
 its borders and captions. It might seem like the display 'pops-in' before disappearing, \
@@ -328,7 +328,7 @@ actively working to address this operating system limitation.")
 
         self._display_attribute_size = (width, height)
 
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             flags = self._generate_pygame_flags()
 
             self.set_caption()
@@ -346,7 +346,7 @@ actively working to address this operating system limitation.")
             _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
 
             if self._display_attribute_transparent_display:
-                if get_operating_system() == Constants.WINDOWS:
+                if _get_operating_system() == _Constants.WINDOWS:
                     self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
 
                     # Make the window transparent and allow click-through
@@ -380,14 +380,14 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._display_quad = _geometry.quad_fs()
 
-        _Registry.pmma_module_spine[Constants.GPU_DISTRIBUTION_MANAGER_OBJECT].update_gpu_roles(initialization_override=True)
+        _Registry.pmma_module_spine[_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT].update_gpu_roles(initialization_override=True)
 
     def set_caption(self, caption=None):
         if self._object_updated is False:
             self.update_class()
         if caption is None:
             caption = self._display_attribute_caption
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             _pygame.display.set_caption(str(caption))
 
     def set_icon(self, icon=None):
@@ -395,7 +395,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             self.update_class()
         if icon is None:
             icon = self._display_attribute_icon
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             icon_img = _pygame.image.load(icon)
             _pygame.display.set_icon(icon_img)
             del icon_img
@@ -413,7 +413,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._current_display_size = size
 
         self._refresh_optimization_override = True
-        self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
+        self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
     def hex_color_to_windows_raw_color(self, value):
         if self._object_updated is False:
@@ -428,7 +428,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             if self._display_attribute_full_screen:
                 size = (0, 0)
                 self._display_attribute_size = self.get_size()
@@ -455,7 +455,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 vsync=self._display_attribute_vsync)
 
             if self._display_attribute_transparent_display:
-                if get_operating_system() == Constants.WINDOWS:
+                if _get_operating_system() == _Constants.WINDOWS:
                     self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
 
                     # Make the window transparent and allow click-through
@@ -463,8 +463,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                     _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
 
                     # Set transparency color key
-                    self._color_converter.set_color((0, 0, 0), format=Constants.RGB)
-                    hex_color = self._color_converter.get_color(format=Constants.HEX)
+                    self._color_converter.set_color((0, 0, 0), format=_Constants.RGB)
+                    hex_color = self._color_converter.get_color(format=_Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
@@ -480,7 +480,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def get_size(self):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             return self._current_display_size
         else:
             raise NotImplementedError
@@ -493,7 +493,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def get_height(self):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             return self._current_display_size[1]
         else:
             raise NotImplementedError
@@ -501,7 +501,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def get_width(self):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             return self._current_display_size[0]
         else:
             raise NotImplementedError
@@ -509,7 +509,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
     def get_aspect_ratio(self):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             return self._current_display_size[0] / self._current_display_size[1]
         else:
             raise NotImplementedError
@@ -558,10 +558,10 @@ you refresh the display to ensure optimal performance and support!")
             refresh_rate = 5
 
         _Registry.refresh_rate = refresh_rate
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             if self._clear_called_but_skipped is False:
                 _Registry.context.screen.use()
-                self._currently_active_frame_buffer = Constants.DISPLAY_FRAME_BUFFER
+                self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
                 if self._two_dimension_texture.get_samples() == 0:
                     self._texture_aggregation_program.set_shader_variable("texture2d", 0)
@@ -610,7 +610,7 @@ you refresh the display to ensure optimal performance and support!")
     def close(self):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             _pygame.quit()
         else:
             raise NotImplementedError
@@ -618,7 +618,7 @@ you refresh the display to ensure optimal performance and support!")
     def get_fps(self):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             return self._clock.get_fps()
         else:
             raise NotImplementedError
@@ -631,7 +631,7 @@ you refresh the display to ensure optimal performance and support!")
     def get_center(self, as_integer=True):
         if self._object_updated is False:
             self.update_class()
-        if _Registry.display_mode == Constants.PYGAME:
+        if _Registry.display_mode == _Constants.PYGAME:
             if as_integer:
                 return self._display.get_width() // 2, self._display.get_height() // 2
             return self._display.get_width() / 2, self._display.get_height() / 2
