@@ -37,7 +37,7 @@ This is to avoid creating unexpected behavior.")
             if not logging_instantiation:
                 _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("{} name was not recognized to \
 PMMA. To register it, make sure it exists in the '_Constants' object, and in its attribute \
-'OBJECT_IDENTIFIERS' list.", variables=[unique_instance.capitalize()])
+'OBJECT_IDENTIFIERS' list.", variables=[" ".join(word.capitalize() for word in unique_instance.split())])
 
     if add_to_pmma_module_spine:
         _Registry.pmma_module_spine[unique_instance] = instance
