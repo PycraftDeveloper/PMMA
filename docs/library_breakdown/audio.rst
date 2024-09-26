@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: Audio.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Audio.load_from_file() -> None
 
    Not Yet Written
@@ -128,6 +132,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: BitCrush.quit() -> None
+
+   Not Yet Written
+
 Chorus (``pmma.Chorus``)
 ========================
 
@@ -183,6 +191,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Chorus.quit() -> None
+
+   Not Yet Written
+
 Clipping (``pmma.Clipping``)
 ============================
 
@@ -203,6 +215,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Clipping.get_threshold() -> None
+
+   Not Yet Written
+
+.. py:method:: Clipping.quit() -> None
 
    Not Yet Written
 
@@ -253,6 +269,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Compressor.quit() -> None
+
+   Not Yet Written
+
 Convolution (``pmma.Convolution``)
 ==================================
 
@@ -289,6 +309,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Convolution.get_sample_rate() -> None
+
+   Not Yet Written
+
+.. py:method:: Convolution.quit() -> None
 
    Not Yet Written
 
@@ -331,6 +355,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Delay.quit() -> None
+
+   Not Yet Written
+
 Distortion (``pmma.Distortion``)
 ================================
 
@@ -354,6 +382,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Distortion.quit() -> None
+
+   Not Yet Written
+
 G S M Full Rate Compressor (``pmma.GSMFullRateCompressor``)
 ===========================================================
 
@@ -363,6 +395,13 @@ Create
 ------
 
 .. py:method:: pmma.GSMFullRateCompressor() -> pmma.GSMFullRateCompressor
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: GSMFullRateCompressor.quit() -> None
 
    Not Yet Written
 
@@ -386,6 +425,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Gain.get_gain() -> None
+
+   Not Yet Written
+
+.. py:method:: Gain.quit() -> None
 
    Not Yet Written
 
@@ -428,6 +471,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: HighShelfFilter.quit() -> None
+
+   Not Yet Written
+
 High Pass Filter (``pmma.HighPassFilter``)
 ==========================================
 
@@ -448,6 +495,10 @@ Methods
    Not Yet Written
 
 .. py:method:: HighPassFilter.get_cutoff() -> None
+
+   Not Yet Written
+
+.. py:method:: HighPassFilter.quit() -> None
 
    Not Yet Written
 
@@ -490,6 +541,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: LadderFilter.quit() -> None
+
+   Not Yet Written
+
 Limiter (``pmma.Limiter``)
 ==========================
 
@@ -518,6 +573,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Limiter.get_release() -> None
+
+   Not Yet Written
+
+.. py:method:: Limiter.quit() -> None
 
    Not Yet Written
 
@@ -560,6 +619,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: LowShelfFilter.quit() -> None
+
+   Not Yet Written
+
 Low Pass Filter (``pmma.LowPassFilter``)
 ========================================
 
@@ -583,6 +646,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: LowPassFilter.quit() -> None
+
+   Not Yet Written
+
 M P 3 Compressor (``pmma.MP3Compressor``)
 =========================================
 
@@ -603,6 +670,10 @@ Methods
    Not Yet Written
 
 .. py:method:: MP3Compressor.get_vbr_quality() -> None
+
+   Not Yet Written
+
+.. py:method:: MP3Compressor.quit() -> None
 
    Not Yet Written
 
@@ -653,6 +724,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: NoiseGate.quit() -> None
+
+   Not Yet Written
+
 Peak Filter (``pmma.PeakFilter``)
 =================================
 
@@ -689,6 +764,10 @@ Methods
    Not Yet Written
 
 .. py:method:: PeakFilter.get_q() -> None
+
+   Not Yet Written
+
+.. py:method:: PeakFilter.quit() -> None
 
    Not Yet Written
 
@@ -747,6 +826,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Phaser.quit() -> None
+
+   Not Yet Written
+
 Pitch Shift (``pmma.PitchShift``)
 =================================
 
@@ -770,6 +853,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: PitchShift.quit() -> None
+
+   Not Yet Written
+
 Re Sample (``pmma.ReSample``)
 =============================
 
@@ -790,6 +877,10 @@ Methods
    Not Yet Written
 
 .. py:method:: ReSample.get_sample_rate() -> None
+
+   Not Yet Written
+
+.. py:method:: ReSample.quit() -> None
 
    Not Yet Written
 
@@ -853,6 +944,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Reverb.get_freeze_mode() -> None
+
+   Not Yet Written
+
+.. py:method:: Reverb.quit() -> None
 
    Not Yet Written
 

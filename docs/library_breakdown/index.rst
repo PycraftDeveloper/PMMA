@@ -9,6 +9,7 @@ The full breakdown of what everything does!
     formatters.rst
     error.rst
     sampler.rst
+    projection.rst
     settings.rst
     file.rst
     data_structures.rst
