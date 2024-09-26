@@ -7374,6 +7374,8 @@ class AndroidBack_KEY:
 
 class Y_BUTTON: # 3
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7415,6 +7417,8 @@ class Y_BUTTON: # 3
 
 class B_BUTTON: # 2
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7456,6 +7460,8 @@ class B_BUTTON: # 2
 
 class A_BUTTON: # 1
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7497,6 +7503,8 @@ class A_BUTTON: # 1
 
 class X_BUTTON: # 0
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7538,6 +7546,8 @@ class X_BUTTON: # 0
 
 class Home_BUTTON: # 12
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7579,6 +7589,8 @@ class Home_BUTTON: # 12
 
 class RightJoystick_BUTTON: # 11
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7620,6 +7632,8 @@ class RightJoystick_BUTTON: # 11
 
 class LeftJoystick_BUTTON: # 10
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7661,6 +7675,8 @@ class LeftJoystick_BUTTON: # 10
 
 class Options_BUTTON: # 9
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7702,6 +7718,8 @@ class Options_BUTTON: # 9
 
 class Track_BALL:
     def __init__(self):
+        _initialize(self)
+
         self.id = None
         self.x_motion = 0
         self.y_motion = 0
@@ -7726,6 +7744,8 @@ class Track_BALL:
 
 class Share_BUTTON: # 8
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7767,6 +7787,8 @@ class Share_BUTTON: # 8
 
 class Right_TRIGGER:
     def __init__(self):
+        _initialize(self)
+
         self.value = 0
 
     def get_value(self):
@@ -7777,6 +7799,8 @@ class Right_TRIGGER:
 
 class Left_TRIGGER:
     def __init__(self):
+        _initialize(self)
+
         self.value = 0
 
     def get_value(self):
@@ -7787,6 +7811,8 @@ class Left_TRIGGER:
 
 class Right_BUMPER: # 5
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7828,6 +7854,8 @@ class Right_BUMPER: # 5
 
 class Left_BUMPER: # 4
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7869,6 +7897,8 @@ class Left_BUMPER: # 4
 
 class Center_BUTTON: # 15
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7910,6 +7940,8 @@ class Center_BUTTON: # 15
 
 class LeftJoystick_AXIS:
     def __init__(self):
+        _initialize(self)
+
         self._x_axis = 0
         self._y_axis = 0
 
@@ -7927,6 +7959,8 @@ class LeftJoystick_AXIS:
 
 class RightJoystick_AXIS:
     def __init__(self):
+        _initialize(self)
+
         self._x_axis = 0
         self._y_axis = 0
 
@@ -7944,6 +7978,8 @@ class RightJoystick_AXIS:
 
 class UpHat_BUTTON:
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -7985,6 +8021,8 @@ class UpHat_BUTTON:
 
 class DownHat_BUTTON:
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -8026,6 +8064,8 @@ class DownHat_BUTTON:
 
 class LeftHat_BUTTON:
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0
@@ -8067,6 +8107,8 @@ class LeftHat_BUTTON:
 
 class RightHat_BUTTON:
     def __init__(self):
+        _initialize(self)
+
         self._currently_pressed = False
         self._double_tap_timing = 0.25
         self._last_tap_time = 0

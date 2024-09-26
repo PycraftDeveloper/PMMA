@@ -5,7 +5,6 @@ import threading
 
 from pmma.python_src.constants import Constants
 
-
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 def setup():

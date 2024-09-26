@@ -3,9 +3,12 @@ import importlib as _importlib
 from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class ColorIntermediary:
     def __init__(self):
+        _initialize(self)
+
         if _Registry.cython_acceleration_available:
             self._number_converter_module = _importlib.import_module(
                 "pmma.bin.number_converter")
@@ -29,6 +32,8 @@ class ColorIntermediary:
 
 class PointIntermediary:
     def __init__(self):
+        _initialize(self)
+
         if _Registry.cython_acceleration_available:
             self._number_converter_module = _importlib.import_module(
                 "pmma.bin.number_converter")
@@ -46,6 +51,8 @@ class PointIntermediary:
 
 class CoordinateIntermediary:
     def __init__(self):
+        _initialize(self)
+
         if _Registry.cython_acceleration_available:
             self._number_converter_module = _importlib.import_module(
                 "pmma.bin.number_converter")

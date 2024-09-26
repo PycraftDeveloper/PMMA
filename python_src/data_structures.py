@@ -1,7 +1,11 @@
 import numpy as _numpy
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+
 class Stack:
     def __init__(self, max_size=None):
+        _initialize(self)
+
         self._frames = []
         self._max_size = max_size
         self._has_changed = False
@@ -42,6 +46,8 @@ class Stack:
 
 class Queue:
     def __init__(self, max_size=None):
+        _initialize(self)
+
         self._frames = []
         self._max_size = max_size
         self.has_changed = False
@@ -82,6 +88,8 @@ class Queue:
 
 class CircularQueue:
     def __init__(self, size):
+        _initialize(self)
+
         self._max_size = size
         self._frames = [0] * size
         self._front = -1
@@ -148,6 +156,8 @@ class PriorityQueue:
     higher value, higher priority
     """
     def __init__(self):
+        _initialize(self)
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self._heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self._has_changed = False
@@ -250,6 +260,8 @@ class InvertedPriorityQueue:
     lower value, higher priority.
     """
     def __init__(self):
+        _initialize(self)
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self._heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self._has_changed = False
@@ -352,6 +364,8 @@ class PriorityList:
     higher value, higher priority
     """
     def __init__(self):
+        _initialize(self)
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self._heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self._has_changed = False
@@ -479,6 +493,8 @@ class InvertedPriorityList:
     lower value, higher priority
     """
     def __init__(self):
+        _initialize(self)
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
         self._heap = _numpy.array([], dtype=[('priority', _numpy.float64), ('value', object)])
         self._has_changed = False

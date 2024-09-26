@@ -39,6 +39,8 @@ class Controllers:
 
 class Controller:
     def __init__(self, joy_num):
+        _initialize(self)
+
         self._joy_num = joy_num
         self._joy = _pygame.joystick.Joystick(joy_num)
         self._joy.init()

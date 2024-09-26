@@ -2,8 +2,12 @@ import math as _math
 
 from pmma.python_src.constants import Constants
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+
 class TimeFormatter:
     def __init__(self):
+        _initialize(self)
+
         self._years = 0
         self._months = 0
         self._days = 0

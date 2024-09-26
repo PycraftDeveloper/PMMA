@@ -16,7 +16,6 @@ from pmma.python_src.utility.general_utils import targeted_profile_start as _tar
 from pmma.python_src.utility.general_utils import get_execution_time as _get_execution_time
 from pmma.python_src.utility.general_utils import get_execution_inverse_time as _get_execution_inverse_time
 
-
 def get_execution_time():
     return _get_execution_time()
 

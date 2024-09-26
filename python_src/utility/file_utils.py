@@ -3,11 +3,15 @@ import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+from pmma.python_src.utility.general_utils import initialize as _initialize
+
 class FileUtilityIntermediary:
     file_matrix = {}
 
 class EventHandler(FileSystemEventHandler):
     def __init__(self, file_class):
+        _initialize(self)
+
         self.file_class = file_class
 
     def on_created(self, event):
@@ -50,6 +54,8 @@ class EventHandler(FileSystemEventHandler):
 
 class DirectoryWatcher:
     def __init__(self, locations, file_class):
+        _initialize(self)
+
         self.observer = Observer()
         self.watching = {}
         for location in locations:
