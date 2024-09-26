@@ -3,6 +3,7 @@ import gc as _gc
 import moderngl as _moderngl
 import numpy as _numpy
 import av as _av
+import moviepy.editor as _editor
 
 from pmma.python_src.opengl import Texture as _Texture
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
@@ -113,16 +114,11 @@ class Video:
         self._file = file_path
         self._input_container = _av.open(file_path)
 
+        video_file = _editor.VideoFileClip(file_path)
+        raw_audio_data = video_file.audio
+        self._audio_player.load_from_moviepy(raw_audio_data)
+
         self._input_stream = next(s for s in self._input_container.streams if s.type == 'video')
-        audio_stream = self._input_container.streams.audio[0]
-        self._audio_player.load_from_stream(audio_stream.rate, audio_stream.channels)
-
-        for frame in self._input_container.decode(audio=0):
-            # Convert audio frame to a NumPy array
-            audio_frame = frame.to_ndarray()
-            self._audio_player.add_audio_frame(audio_frame)
-
-        self._input_container.seek(0)
 
         frame = next(self._input_container.decode(video=0))
 

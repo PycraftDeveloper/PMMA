@@ -2,6 +2,7 @@
 cython
 getostheme
 moderngl
+moviepy
 num2words
 numba
 pedalboard

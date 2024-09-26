@@ -29,6 +29,7 @@ from pedalboard import Resample as _Resample
 from pedalboard import Reverb as _Reverb
 import numpy as _numpy
 import waiting as _waiting
+import av as _av
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
@@ -53,7 +54,11 @@ class Audio:
         self._pan.set_value(0.0)
         self._channels = 2
         self._streaming_mode = False
-        self._audio_queue = _queue.Queue()
+        self._audio_queue = _queue.Queue(maxsize=20)
+        self._stream_buffer = None
+        self._audio_data = None
+        self._from_moviepy = False
+        self._moviepy_audio_itr = None
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -75,17 +80,20 @@ class Audio:
         self._channels = self._file.channels
         self._audio_loaded = True
 
-    def load_from_video(self, sample_rate, channels=2):
-        """Configure audio for streamed playback."""
-        self._sample_rate = sample_rate
-        self._channels = channels  # Set the number of channels based on stream info
+    def load_from_moviepy(self, audio):
+        self._audio_data = audio
+        self._sample_rate = audio.fps
+        self._channels = audio.nchannels
         self._audio_loaded = True
-        self._streaming_mode = True
+        self._from_moviepy = True
+        self._moviepy_audio_itr = self._audio_generator(chunk_size=1136)
 
-    def add_audio_frame(self, frame):
-        """Add a new audio frame to the playback buffer."""
-        if not self._stop_signal:
-            self._audio_queue.put(frame)
+        # Pre-fill the queue with initial chunks
+        for _ in range(self._audio_queue.maxsize):
+            try:
+                self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+            except StopIteration:
+                break
 
     def add_effect(self, effect):
         self._effects_list.append(effect)
@@ -122,6 +130,10 @@ class Audio:
             # Loop while playback is ongoing and not stopped
             _waiting.wait(self._wait_for_chunk_to_play)
 
+    def _audio_generator(self, chunk_size=1024):
+        for chunk in self._audio_data.iter_chunks(fps=self._sample_rate, chunksize=chunk_size):
+            yield chunk
+
     def _audio_callback(self, outdata, frames, time, status):
         if status:
             print(status)
@@ -130,13 +142,9 @@ class Audio:
             outdata[:] = _numpy.zeros(outdata.shape)
             return
 
-        # Read frames from the file
-        if self._streaming_mode:
-            # Get the next chunk from the queue
-            try:
-                chunk = self._audio_queue.get_nowait()
-            except _queue.Empty:
-                chunk = _numpy.zeros(outdata.shape, dtype='float32')
+        if self._from_moviepy:
+            chunk = self._audio_queue.get_nowait()
+            self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
         else:
             chunk = self._file.read(frames, dtype='float32')
 
