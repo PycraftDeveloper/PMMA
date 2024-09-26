@@ -8,9 +8,12 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Transition:
     def __init__(self):
+        _initialize(self)
+
         self._animation_start = None
         self._animation_end = None
         self._animation_type = None
