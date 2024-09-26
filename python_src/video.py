@@ -122,7 +122,7 @@ class Video:
         if self._video_decoder_manually_set is False:
             self.autodetect_and_set_decoder()
 
-        frame_rate = self._input_stream._average_rate
+        frame_rate = self._input_stream.average_rate
         self._video_frame_time = 1.0 / float(frame_rate)  # Duration for each frame in seconds
 
         if self._texture is not None:
