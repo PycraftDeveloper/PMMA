@@ -1,3 +1,5 @@
+import gc as _gc
+
 import numpy as _numpy
 
 from pmma.python_src.utility.general_utils import initialize as _initialize
@@ -9,6 +11,16 @@ class Stack:
         self._frames = []
         self._max_size = max_size
         self._has_changed = False
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def push(self, item):
         if not self.is_full():
@@ -45,6 +57,16 @@ class Stack:
         return value
 
 class Queue:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self, max_size=None):
         _initialize(self)
 
@@ -87,6 +109,16 @@ class Queue:
         return value
 
 class CircularQueue:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self, size):
         _initialize(self)
 
@@ -155,6 +187,16 @@ class PriorityQueue:
     """
     higher value, higher priority
     """
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -259,6 +301,16 @@ class InvertedPriorityQueue:
     """
     lower value, higher priority.
     """
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -363,6 +415,16 @@ class PriorityList:
     """
     higher value, higher priority
     """
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -492,6 +554,16 @@ class InvertedPriorityList:
     """
     lower value, higher priority
     """
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 

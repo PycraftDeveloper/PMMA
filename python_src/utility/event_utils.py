@@ -7373,6 +7373,16 @@ class AndroidBack_KEY:
         self._double_tap_timing = value
 
 class Y_BUTTON: # 3
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7416,6 +7426,16 @@ class Y_BUTTON: # 3
         self._double_tap_timing = value
 
 class B_BUTTON: # 2
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7459,6 +7479,16 @@ class B_BUTTON: # 2
         self._double_tap_timing = value
 
 class A_BUTTON: # 1
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7502,6 +7532,16 @@ class A_BUTTON: # 1
         self._double_tap_timing = value
 
 class X_BUTTON: # 0
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7545,6 +7585,16 @@ class X_BUTTON: # 0
         self._double_tap_timing = value
 
 class Home_BUTTON: # 12
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7588,6 +7638,16 @@ class Home_BUTTON: # 12
         self._double_tap_timing = value
 
 class RightJoystick_BUTTON: # 11
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7631,6 +7691,16 @@ class RightJoystick_BUTTON: # 11
         self._double_tap_timing = value
 
 class LeftJoystick_BUTTON: # 10
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7674,6 +7744,16 @@ class LeftJoystick_BUTTON: # 10
         self._double_tap_timing = value
 
 class Options_BUTTON: # 9
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7717,6 +7797,16 @@ class Options_BUTTON: # 9
         self._double_tap_timing = value
 
 class Track_BALL:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7743,6 +7833,16 @@ class Track_BALL:
         self.y_motion = value
 
 class Share_BUTTON: # 8
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7786,6 +7886,16 @@ class Share_BUTTON: # 8
         self._double_tap_timing = value
 
 class Right_TRIGGER:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7798,6 +7908,16 @@ class Right_TRIGGER:
         self.value = value
 
 class Left_TRIGGER:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7810,6 +7930,16 @@ class Left_TRIGGER:
         self.value = value
 
 class Right_BUMPER: # 5
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7853,6 +7983,16 @@ class Right_BUMPER: # 5
         self._double_tap_timing = value
 
 class Left_BUMPER: # 4
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7896,6 +8036,16 @@ class Left_BUMPER: # 4
         self._double_tap_timing = value
 
 class Center_BUTTON: # 15
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7939,6 +8089,16 @@ class Center_BUTTON: # 15
         self._double_tap_timing = value
 
 class LeftJoystick_AXIS:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7958,6 +8118,16 @@ class LeftJoystick_AXIS:
         self._y_axis = value
 
 class RightJoystick_AXIS:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -7977,6 +8147,16 @@ class RightJoystick_AXIS:
         self._y_axis = value
 
 class UpHat_BUTTON:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -8020,6 +8200,16 @@ class UpHat_BUTTON:
         self._double_tap_timing = value
 
 class DownHat_BUTTON:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -8063,6 +8253,16 @@ class DownHat_BUTTON:
         self._double_tap_timing = value
 
 class LeftHat_BUTTON:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 
@@ -8106,6 +8306,16 @@ class LeftHat_BUTTON:
         self._double_tap_timing = value
 
 class RightHat_BUTTON:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 

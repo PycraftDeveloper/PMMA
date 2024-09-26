@@ -398,6 +398,16 @@ class LoggerIntermediary:
         return self.logger_core(message, do_traceback, repeat_for_effect, Constants.ERROR, True, variables=variables)
 
 class InternalLogger:
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
     def __init__(self):
         _initialize(self)
 

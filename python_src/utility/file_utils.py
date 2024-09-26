@@ -1,4 +1,5 @@
 import os
+import gc as _gc
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -13,6 +14,16 @@ class EventHandler(FileSystemEventHandler):
         _initialize(self)
 
         self.file_class = file_class
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def on_created(self, event):
         if event.is_directory is False:
@@ -62,6 +73,16 @@ class DirectoryWatcher:
             event_handler = EventHandler(file_class)
             watcher = self.observer.schedule(event_handler, location, recursive=True)
             self.watching[location] = watcher
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def sync_file_matrix(self, file_matrix):
         new_file_matrix = file_matrix | FileUtilityIntermediary.file_matrix
