@@ -156,8 +156,8 @@ class Audio:
         else:
             chunk = self._file.read(frames, dtype='float32')
 
-        if len(chunk) < frames:
-            chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
+        chunk = _numpy.concatenate((chunk, chunk))
+        chunk = chunk[:frames]
 
         # Apply volume and panning
         chunk = self._apply_volume_and_pan(chunk)
