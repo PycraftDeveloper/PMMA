@@ -3,7 +3,8 @@ import gc as _gc
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.logging_utils import LoggerIntermediary, _LoggingNotInitializedError
+from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
+from pmma.python_src.utility.error_utils import LoggingNotInitializedError as _LoggingNotInitializedError
 from pmma.python_src.utility.general_utils import initialize as _initialize
 
 class Logger:
@@ -23,7 +24,7 @@ class Logger:
         if not _Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             raise _LoggingNotInitializedError()
 
-        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
+        self._logger_intermediary: "_LoggerIntermediary" = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_pmma_log_lifetime(self, value):
         _Registry.internal_log_duration = value
