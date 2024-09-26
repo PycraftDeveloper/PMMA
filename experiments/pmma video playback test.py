@@ -8,7 +8,7 @@ display.create(1280, 720, full_screen=False, resizable=True)
 events = pmma.Events()
 
 video = pmma.Video()
-video.load_from_file(r"H:\Downloads\Blackmill__Krisu_-_Ascension_ft_Elvya.mp4")
+video.load_from_file(r"H:\Videos\2024-09-26 13-14-30.mp4")
 
 while True:
     display.clear()

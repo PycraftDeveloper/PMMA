@@ -29,7 +29,6 @@ from pedalboard import Resample as _Resample
 from pedalboard import Reverb as _Reverb
 import numpy as _numpy
 import waiting as _waiting
-import av as _av
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
@@ -53,9 +52,7 @@ class Audio:
         self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
         self._pan.set_value(0.0)
         self._channels = 2
-        self._streaming_mode = False
         self._audio_queue = _queue.Queue(maxsize=20)
-        self._stream_buffer = None
         self._audio_data = None
         self._from_moviepy = False
         self._moviepy_audio_itr = None
@@ -86,7 +83,7 @@ class Audio:
         self._channels = audio.nchannels
         self._audio_loaded = True
         self._from_moviepy = True
-        self._moviepy_audio_itr = self._audio_generator(chunk_size=1136)
+        self._moviepy_audio_itr = self._audio_generator(2048)
 
         # Pre-fill the queue with initial chunks
         for _ in range(self._audio_queue.maxsize):
@@ -126,13 +123,14 @@ class Audio:
 
     def _start_playback(self):
         # Start the audio stream
-        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels):
+        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels, blocksize=2048):
             # Loop while playback is ongoing and not stopped
             _waiting.wait(self._wait_for_chunk_to_play)
 
-    def _audio_generator(self, chunk_size=1024):
-        for chunk in self._audio_data.iter_chunks(fps=self._sample_rate, chunksize=chunk_size):
-            yield chunk
+    def _audio_generator(self, chunk_size):
+        while self._stop_signal is False:
+            for chunk in self._audio_data.iter_chunks(fps=self._sample_rate, chunksize=chunk_size):
+                yield chunk
 
     def _audio_callback(self, outdata, frames, time, status):
         if status:
@@ -143,8 +141,18 @@ class Audio:
             return
 
         if self._from_moviepy:
-            chunk = self._audio_queue.get_nowait()
-            self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+            try:
+                chunk = self._audio_queue.get_nowait()
+                next_chunk = next(self._moviepy_audio_itr)
+
+                self._audio_queue.put_nowait(next_chunk)
+            except _queue.Empty:
+                outdata.fill(0)
+            except StopIteration:
+                # Refill the queue when the audio ends
+                self._moviepy_audio_itr = self._audio_generator(2048)
+                self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+
         else:
             chunk = self._file.read(frames, dtype='float32')
 

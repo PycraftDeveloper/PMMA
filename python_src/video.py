@@ -194,6 +194,10 @@ class Video:
                     # Loop the video for demonstration purposes
                     self._input_container.seek(0)
                     frame = next(self._input_container.decode(video=0))
+                except _av.error.EOFError:
+                    # Loop the video for demonstration purposes
+                    self._input_container.seek(0)
+                    frame = next(self._input_container.decode(video=0))
 
                 # Convert frame to RGB for OpenGL
                 img = frame.to_ndarray(format='rgb24')
