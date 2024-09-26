@@ -13,6 +13,7 @@ from pmma.python_src.gpu_distribution import GPUDistribution as _GPUDistribution
 from pmma.python_src.number_converter import CoordinateConverter as _CoordinateConverter
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
+from pmma.python_src.audio import Audio as _Audio
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -54,6 +55,8 @@ class Video:
         self._shader = _Shader()
         self._shader.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "video_playback"))
         self._shader.create()
+
+        self._audio_player = _Audio()
 
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
@@ -111,6 +114,15 @@ class Video:
         self._input_container = _av.open(file_path)
 
         self._input_stream = next(s for s in self._input_container.streams if s.type == 'video')
+        audio_stream = self._input_container.streams.audio[0]
+        self._audio_player.load_from_stream(audio_stream.rate, audio_stream.channels)
+
+        for frame in self._input_container.decode(audio=0):
+            # Convert audio frame to a NumPy array
+            audio_frame = frame.to_ndarray()
+            self._audio_player.add_audio_frame(audio_frame)
+
+        self._input_container.seek(0)
 
         frame = next(self._input_container.decode(video=0))
 
@@ -164,6 +176,8 @@ class Video:
 
     def render(self):
         if self._video_loaded:
+            if self._audio_player.get_playing() is False:
+                self._audio_player.play(blocking=False)
             elapsed_time = _Registry.ms_since_previous_tick / 1000
             self._time_since_last_frame += elapsed_time
 

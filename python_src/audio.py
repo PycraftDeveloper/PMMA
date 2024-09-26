@@ -1,5 +1,6 @@
 import threading as _threading
 import gc as _gc
+import queue as _queue
 
 import sounddevice as _sound_device
 import soundfile as _sound_file
@@ -50,6 +51,9 @@ class Audio:
         self._volume.set_value(1.0)
         self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
         self._pan.set_value(0.0)
+        self._channels = 2
+        self._streaming_mode = False
+        self._audio_queue = _queue.Queue()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -68,7 +72,20 @@ class Audio:
     def load_from_file(self, file_path):
         self._file = _sound_file.SoundFile(file_path)
         self._sample_rate = self._file.samplerate
+        self._channels = self._file.channels
         self._audio_loaded = True
+
+    def load_from_video(self, sample_rate, channels=2):
+        """Configure audio for streamed playback."""
+        self._sample_rate = sample_rate
+        self._channels = channels  # Set the number of channels based on stream info
+        self._audio_loaded = True
+        self._streaming_mode = True
+
+    def add_audio_frame(self, frame):
+        """Add a new audio frame to the playback buffer."""
+        if not self._stop_signal:
+            self._audio_queue.put(frame)
 
     def add_effect(self, effect):
         self._effects_list.append(effect)
@@ -97,11 +114,11 @@ class Audio:
                 self._playback_thread.start()
 
     def _wait_for_chunk_to_play(self):
-        return not (self._start_frame < len(self._file) and not self._stop_signal)
+        return self._stop_signal
 
     def _start_playback(self):
         # Start the audio stream
-        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._file.channels):
+        with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels):
             # Loop while playback is ongoing and not stopped
             _waiting.wait(self._wait_for_chunk_to_play)
 
@@ -114,7 +131,15 @@ class Audio:
             return
 
         # Read frames from the file
-        chunk = self._file.read(frames, dtype='float32')
+        if self._streaming_mode:
+            # Get the next chunk from the queue
+            try:
+                chunk = self._audio_queue.get_nowait()
+            except _queue.Empty:
+                chunk = _numpy.zeros(outdata.shape, dtype='float32')
+        else:
+            chunk = self._file.read(frames, dtype='float32')
+
         if len(chunk) < frames:
             chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
 
@@ -125,7 +150,7 @@ class Audio:
         processed_audio = self._effects(chunk, self._sample_rate)
 
         # Output the processed audio
-        outdata[:len(processed_audio)] = processed_audio
+        outdata[:] = processed_audio
 
         self._start_frame += frames
 
@@ -133,7 +158,7 @@ class Audio:
         """Apply volume and panning to the chunk of audio"""
         chunk = chunk * self._volume.get_value()
 
-        if self._file.channels == 2:  # Stereo audio
+        if self._channels == 2:  # Stereo audio
             left = 1 - max(self._pan.get_value(), 0)  # Reduce left channel when panning right
             right = 1 - max(-self._pan.get_value(), 0)  # Reduce right channel when panning left
             chunk[:, 0] *= left
@@ -151,7 +176,7 @@ class Audio:
         self._stop_signal = True
         self._start_frame = 0  # Reset playback position
 
-    def is_playing(self):
+    def get_playing(self):
         return self._playback_thread is not None and self._playback_thread.is_alive()
 
 class BitCrush(_Bitcrush):
