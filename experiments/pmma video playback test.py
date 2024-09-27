@@ -8,7 +8,7 @@ display.create(1280, 720, full_screen=False, resizable=True)
 events = pmma.Events()
 
 video = pmma.Video()
-video.load_from_file(r"H:\Videos\2024-09-26 13-14-30.mp4")
+video.load_from_file(r"H:\Videos\Geoffrey.mp4") # fix audio sync issues
 
 while True:
     display.clear()
@@ -18,4 +18,4 @@ while True:
     video.render()
 
     pmma.compute()
-    display.refresh(refresh_rate=60)
+    display.refresh()
