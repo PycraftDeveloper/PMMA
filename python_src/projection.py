@@ -74,13 +74,13 @@ class PerspectiveProjection:
         self._shut_down = True
 
 class OrthographicProjection:
-    def __init__(self, left_aspect_ratio, right_aspect_ratio, bottom_aspect_ratio, top_aspect_ratio, near, far):
+    def __init__(self, min_x_size, max_x_size, max_y_size, min_y_size, near, far):
         _initialize(self)
 
-        self._left_aspect_ratio = left_aspect_ratio
-        self._right_aspect_ratio = right_aspect_ratio
-        self._bottom_aspect_ratio = bottom_aspect_ratio
-        self._top_aspect_ratio = top_aspect_ratio
+        self._min_x_size = min_x_size
+        self._max_x_size = max_x_size
+        self._max_y_size = max_y_size
+        self._min_y_size = min_y_size
         self._near = near
         self._far = far
 
@@ -97,33 +97,33 @@ class OrthographicProjection:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def set_left_aspect_ratio(self, left_aspect_ratio):
+    def set_minimum_x_size(self, min_x_size):
         self._projection_changed = True
-        self._left_aspect_ratio = left_aspect_ratio
+        self._min_x_size = min_x_size
 
-    def get_left_aspect_ratio(self):
-        return self._left_aspect_ratio
+    def get_minimum_x_size(self):
+        return self._min_x_size
 
-    def set_right_aspect_ratio(self, right_aspect_ratio):
+    def set_maximum_x_size(self, max_x_size):
         self._projection_changed = True
-        self._right_aspect_ratio = right_aspect_ratio
+        self._max_x_size = max_x_size
 
-    def get_right_aspect_ratio(self):
-        return self._right_aspect_ratio
+    def get_maximum_x_size(self):
+        return self._max_x_size
 
-    def set_bottom_aspect_ratio(self, bottom_aspect_ratio):
+    def set_maximum_y_size(self, max_y_size):
         self._projection_changed = True
-        self._bottom_aspect_ratio = bottom_aspect_ratio
+        self._max_y_size = max_y_size
 
-    def get_bottom_aspect_ratio(self):
-        return self._bottom_aspect_ratio
+    def get_maximum_y_size(self):
+        return self._max_y_size
 
-    def set_top_aspect_ratio(self, top_aspect_ratio):
+    def set_minimum_y_size(self, min_y_size):
         self._projection_changed = True
-        self._top_aspect_ratio = top_aspect_ratio
+        self._min_y_size = min_y_size
 
-    def get_top_aspect_ratio(self):
-        return self._top_aspect_ratio
+    def get_minimum_y_size(self):
+        return self._min_y_size
 
     def set_near(self, near):
         self._projection_changed = True
@@ -143,8 +143,8 @@ class OrthographicProjection:
         if self._projection is None or self._projection_changed is True:
             self._projection_changed = False
             self._projection = _numpy.array([
-                [2 / (self._right_aspect_ratio - self._left_aspect_ratio), 0, 0, -(self._right_aspect_ratio + self._left_aspect_ratio) / (self._right_aspect_ratio - self._left_aspect_ratio)],
-                [0, 2 / (self._top_aspect_ratio - self._bottom_aspect_ratio), 0, -(self._top_aspect_ratio + self._bottom_aspect_ratio) / (self._top_aspect_ratio - self._bottom_aspect_ratio)],
+                [2 / (self._max_x_size - self._min_x_size), 0, 0, -(self._max_x_size + self._min_x_size) / (self._max_x_size - self._min_x_size)],
+                [0, 2 / (self._min_y_size - self._max_y_size), 0, -(self._min_y_size + self._max_y_size) / (self._min_y_size - self._max_y_size)],
                 [0, 0, -2 / (self._far - self._near), -(self._far + self._near) / (self._far - self._near)],
                 [0, 0, 0, 1]
             ], dtype='float32')
