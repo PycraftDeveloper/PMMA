@@ -3,7 +3,7 @@ import pmma
 pmma.init()
 
 display = pmma.Display()
-display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
+display.create(1280, 720, full_screen=False, resizable=True)
 
 events = pmma.Events()
 
@@ -18,4 +18,4 @@ while True:
     video.render()
 
     pmma.compute()
-    display.refresh(refresh_rate=2000)
+    display.refresh(refresh_rate=60)
