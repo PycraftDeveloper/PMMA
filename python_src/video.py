@@ -67,6 +67,14 @@ class Video:
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._time_since_last_frame = 0.0
         self._video_size = None
+        self._is_playing = True
+        self._audio_sync = False
+
+    def resume(self):
+        self._is_playing = True
+
+    def pause(self):
+        self._is_playing = False
 
     def set_surface(self, surface=None):
         if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -174,11 +182,18 @@ class Video:
         if self._video_loaded:
             if self._audio_player.get_playing() is False:
                 self._audio_player.play(blocking=False)
+
+            if self._is_playing is False and self._audio_player.get_playing():
+                self._audio_player.pause()
+
+            if self._is_playing and self._audio_player.get_playing() is False:
+                self._audio_player.resume()
+
             elapsed_time = _Registry.ms_since_previous_tick / 1000
             self._time_since_last_frame += elapsed_time
 
             # Update video frame if enough time has passed
-            if self._time_since_last_frame >= self._video_frame_time:
+            if self._is_playing and self._time_since_last_frame >= self._video_frame_time:
                 self._surface.update_attempted_render_calls(1)
 
                 self._surface.set_refresh_optimization_override(True)
