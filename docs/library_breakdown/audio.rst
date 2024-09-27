@@ -21,6 +21,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Audio.load_from_moviepy() -> None
+
+   Not Yet Written
+
 .. py:method:: Audio.add_effect() -> None
 
    Not Yet Written
@@ -54,13 +58,18 @@ Methods
     self._playback_thread.start()
     
     def _wait_for_chunk_to_play(self):
-    return not (self._start_frame < len(self._file) and not self._stop_signal)
+    return self._stop_signal
     
     def _start_playback(self):
     # Start the audio stream
-    with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._file.channels):
+    with _sound_device.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels, blocksize=2048):
     # Loop while playback is ongoing and not stopped
     _waiting.wait(self._wait_for_chunk_to_play)
+    
+    def _audio_generator(self, chunk_size):
+    while self._stop_signal is False:
+    for chunk in self._audio_data.iter_chunks(fps=self._sample_rate, chunksize=chunk_size):
+    yield chunk
     
     def _audio_callback(self, outdata, frames, time, status):
     if status:
@@ -70,10 +79,24 @@ Methods
     outdata[:] = _numpy.zeros(outdata.shape)
     return
     
-    # Read frames from the file
+    if self._from_moviepy:
+    try:
+    chunk = self._audio_queue.get_nowait()
+    next_chunk = next(self._moviepy_audio_itr)
+    
+    self._audio_queue.put_nowait(next_chunk)
+    except _queue.Empty:
+    outdata.fill(0)
+    except StopIteration:
+    # Refill the queue when the audio ends
+    self._moviepy_audio_itr = self._audio_generator(2048)
+    self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+    
+    else:
     chunk = self._file.read(frames, dtype='float32')
-    if len(chunk) < frames:
-    chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
+    
+    chunk = _numpy.concatenate((chunk, chunk))
+    chunk = chunk[:frames]
     
     # Apply volume and panning
     chunk = self._apply_volume_and_pan(chunk)
@@ -82,7 +105,7 @@ Methods
     processed_audio = self._effects(chunk, self._sample_rate)
     
     # Output the processed audio
-    outdata[:len(processed_audio)] = processed_audio
+    outdata[:] = processed_audio
     
     self._start_frame += frames
     
@@ -105,7 +128,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Audio.is_playing() -> None
+.. py:method:: Audio.get_playing() -> None
 
    Not Yet Written
 

@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: Logger.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Logger.set_pmma_log_lifetime() -> None
 
    Not Yet Written

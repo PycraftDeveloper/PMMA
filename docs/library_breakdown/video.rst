@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: Video.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Video.set_surface() -> None
 
    Not Yet Written

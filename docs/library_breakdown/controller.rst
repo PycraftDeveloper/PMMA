@@ -48,6 +48,10 @@ Create
 Methods
 -------
 
+.. py:method:: Controller.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Controller.get_track_ball_from_id() -> None
 
    Not Yet Written

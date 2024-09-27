@@ -25,3 +25,7 @@ Methods
 
    Not Yet Written
 
+.. py:method:: GPUDistribution.quit() -> None
+
+   Not Yet Written
+

@@ -77,3 +77,7 @@ Methods
 
    Not Yet Written
 
+.. py:method:: TimeFormatter.quit() -> None
+
+   Not Yet Written
+

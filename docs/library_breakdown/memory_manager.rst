@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: MemoryManager.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: MemoryManager.add() -> None
 
    Not Yet Written

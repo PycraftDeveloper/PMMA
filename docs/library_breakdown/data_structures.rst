@@ -13,6 +13,10 @@ Create
 Methods
 -------
 
+.. py:method:: Stack.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: Stack.push() -> None
 
    Not Yet Written
@@ -59,6 +63,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Queue.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: Queue.enqueue() -> None
 
@@ -107,6 +115,10 @@ Create
 Methods
 -------
 
+.. py:method:: CircularQueue.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: CircularQueue.clear() -> None
 
    Not Yet Written
@@ -153,6 +165,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PriorityQueue.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PriorityQueue.enqueue() -> None
 
@@ -208,6 +224,10 @@ Create
 Methods
 -------
 
+.. py:method:: InvertedPriorityQueue.quit() -> None
+
+   Not Yet Written
+
 .. py:method:: InvertedPriorityQueue.enqueue() -> None
 
     Insert a new value with the given priority into the priority queue.
@@ -261,6 +281,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: PriorityList.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: PriorityList.add() -> None
 
@@ -325,6 +349,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: InvertedPriorityList.quit() -> None
+
+   Not Yet Written
 
 .. py:method:: InvertedPriorityList.add() -> None
 
