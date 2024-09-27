@@ -960,8 +960,8 @@ class Reverb(_Reverb):
             damping_format=None,
             wet_level_format=None,
             dry_level_format=None,
-            width_format=None,
-            sample_rate=44100):  # Add sample_rate as a parameter
+            width_format=None):
+
         _initialize(self)
 
         if room_size_format is None:
@@ -985,7 +985,6 @@ class Reverb(_Reverb):
         self._proportion_adjusted_dry_level.set_value(dry_level, format=dry_level_format)
         self._proportion_adjusted_width = _ProportionConverter()
         self._proportion_adjusted_width.set_value(width, format=width_format)
-        self._sample_rate = sample_rate
 
         super().__init__(
             room_size=self._proportion_adjusted_room_size.get_value(_Constants.DECIMAL),
@@ -995,34 +994,9 @@ class Reverb(_Reverb):
             width=self._proportion_adjusted_width.get_value(_Constants.DECIMAL),
             freeze_mode=freeze_mode)
 
-        # Initialize buffer for stateful processing
-        self.delay_samples = int(self._sample_rate * room_size / 1000)  # Example: delay time based on room size
-        self.previous_samples = _numpy.zeros(self.delay_samples)  # Buffer for previous samples
-
-    def process(self, audio_chunk):
-        # Prepare output buffer
-        output = _numpy.zeros(len(audio_chunk))
-
-        for i in range(len(audio_chunk)):
-            # Input signal
-            current_sample = audio_chunk[i]
-            # Get the delayed signal from the buffer
-            delayed_sample = self.previous_samples[i % self.delay_samples]
-
-            # Mix the current sample with the delayed sample
-            output[i] = current_sample * self.get_dry_level() + delayed_sample * self.get_wet_level()
-
-            # Update the buffer
-            self.previous_samples[i % self.delay_samples] = current_sample + delayed_sample * self.get_wet_level()
-
-        return output
-
     def set_room_size(self, room_size, format=_Constants.PERCENTAGE):
         self._proportion_adjusted_room_size.set_value(room_size, format=format)
         self.room_size = self._proportion_adjusted_room_size.get_value(_Constants.DECIMAL)
-
-        # Update delay_samples based on new room size
-        self.delay_samples = int(self._sample_rate * room_size / 1000)
 
     def get_room_size(self):
         return self._proportion_adjusted_room_size.get_value(_Constants.PERCENTAGE)
