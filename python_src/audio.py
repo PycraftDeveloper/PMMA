@@ -47,16 +47,19 @@ class Audio:
         self._paused = False
         self._stop_signal = False
         self._playback_thread = None
-        self._volume = _ProportionConverter()  # Default volume is 100%
-        self._volume.set_value(1.0)
-        self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
-        self._pan.set_value(0.0)
         self._channels = 2
         self._queue_max_size = 60
         self._audio_queue = _queue.Queue(maxsize=self._queue_max_size)
         self._audio_data = None
         self._from_moviepy = False
         self._moviepy_audio_itr = None
+
+        self._volume = _ProportionConverter()  # Default volume is 100%
+        self._volume.set_value(1.0)
+        self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
+        self._pan.set_value(0.0)
+
+        self._playing = False
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -110,6 +113,8 @@ class Audio:
             self._effects = _Pedalboard(self._effects_list)
             self._paused = False
             self._stop_signal = False
+
+            self._playing = True
 
             if blocking:
                 # Start playback in the current thread (blocking)
@@ -191,8 +196,11 @@ class Audio:
         self._stop_signal = True
         self._start_frame = 0  # Reset playback position
 
+    def get_paused(self):
+        return self._paused
+
     def get_playing(self):
-        return self._playback_thread is not None and self._playback_thread.is_alive()
+        return self._playing
 
 class BitCrush(_Bitcrush):
     def __init__(self, bit_depth=8):

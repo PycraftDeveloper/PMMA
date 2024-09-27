@@ -183,10 +183,10 @@ class Video:
             if self._audio_player.get_playing() is False:
                 self._audio_player.play(blocking=False)
 
-            if self._is_playing is False and self._audio_player.get_playing():
+            if self._is_playing is False and self._audio_player.get_paused() is False:
                 self._audio_player.pause()
 
-            if self._is_playing and self._audio_player.get_playing() is False:
+            if self._is_playing and self._audio_player.get_paused():
                 self._audio_player.resume()
 
             elapsed_time = _Registry.ms_since_previous_tick / 1000
