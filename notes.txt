@@ -58,4 +58,4 @@ Update render pipeline
 
 IMPROVEMENTS
 ============
-Fix audio crackling issues by loading new frames in background!
+Fix issue where audio starts after video during playback. Once started they remain at this spacing, so a way to be able to delay either one for suitable syncing would be good.
