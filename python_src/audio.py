@@ -52,12 +52,11 @@ class Audio:
         self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
         self._pan.set_value(0.0)
         self._channels = 2
-        self._queue_max_size = 600
+        self._queue_max_size = 60
         self._audio_queue = _queue.Queue(maxsize=self._queue_max_size)
         self._audio_data = None
         self._from_moviepy = False
         self._moviepy_audio_itr = None
-        self._queue_maintainer_thread = None
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -65,9 +64,6 @@ class Audio:
 
             if self._playback_thread is not None:
                 self._playback_thread.join()
-
-            if self._queue_maintainer_thread is not None:
-                self._queue_maintainer_thread.join()
 
             del self
             if do_garbage_collection:
@@ -115,11 +111,6 @@ class Audio:
             self._paused = False
             self._stop_signal = False
 
-            if self._from_moviepy:
-                self._queue_maintainer_thread = _threading.Thread(target=self._maintain_audio_queue)
-                self._queue_maintainer_thread.daemon = True
-                self._queue_maintainer_thread.start()
-
             if blocking:
                 # Start playback in the current thread (blocking)
                 self._start_playback()
@@ -128,18 +119,6 @@ class Audio:
                 self._playback_thread = _threading.Thread(target=self._start_playback)
                 self._playback_thread.daemon = True
                 self._playback_thread.start()
-
-    def _wait_until_queue_running_low(self):
-        return self._audio_queue.qsize() < self._queue_max_size
-
-    def _maintain_audio_queue(self):
-        while self._stop_signal is False:
-            if self._wait_until_queue_running_low():
-                try:
-                    self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
-                except StopIteration:
-                    self._moviepy_audio_itr = self._audio_generator(2048)
-                    self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
 
     def _wait_for_chunk_to_play(self):
         return self._stop_signal
@@ -166,6 +145,10 @@ class Audio:
         if self._from_moviepy:
             try:
                 chunk = self._audio_queue.get_nowait()
+                self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+            except StopIteration:
+                self._moviepy_audio_itr = self._audio_generator(2048)
+                self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
             except _queue.Empty:
                 outdata.fill(0)
 
