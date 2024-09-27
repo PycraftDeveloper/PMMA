@@ -10,8 +10,12 @@ events = pmma.Events()
 video = pmma.Video()
 video.load_from_file(r"H:\Videos\2024-09-26 13-14-30.mp4") # fix audio sync issues
 
-n = 200
-c = 0
+audio = video.get_audio_channel()
+
+fx = pmma.Reverb()
+fx.set_damping(0)
+fx.set_room_size(1)
+audio.add_effect(fx)
 while True:
     display.clear()
 
@@ -21,9 +25,3 @@ while True:
 
     pmma.compute()
     display.refresh()
-
-    if c > n:
-        video.pause()
-        if c > n*2:
-            video.resume()
-    c += 1

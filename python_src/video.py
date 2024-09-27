@@ -178,6 +178,9 @@ class Video:
     def get_video_size(self):
         return self._video_size
 
+    def get_audio_channel(self):
+        return self._audio_player
+
     def render(self):
         if self._video_loaded:
             if self._audio_player.get_playing() is False:
