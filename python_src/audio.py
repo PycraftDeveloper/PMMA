@@ -52,7 +52,8 @@ class Audio:
         self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
         self._pan.set_value(0.0)
         self._channels = 2
-        self._audio_queue = _queue.Queue(maxsize=20)
+        self._queue_max_size = 600
+        self._audio_queue = _queue.Queue(maxsize=self._queue_max_size)
         self._audio_data = None
         self._from_moviepy = False
         self._moviepy_audio_itr = None
@@ -91,7 +92,7 @@ class Audio:
         self._moviepy_audio_itr = self._audio_generator(2048)
 
         # Pre-fill the queue with initial chunks
-        for _ in range(self._audio_queue.maxsize):
+        for _ in range(self._queue_max_size):
             try:
                 self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
             except StopIteration:
@@ -129,7 +130,7 @@ class Audio:
                 self._playback_thread.start()
 
     def _wait_until_queue_running_low(self):
-        return self._audio_queue.qsize() < 20
+        return self._audio_queue.qsize() < self._queue_max_size
 
     def _maintain_audio_queue(self):
         while self._stop_signal is False:
@@ -171,7 +172,7 @@ class Audio:
         else:
             chunk = self._file.read(frames, dtype='float32')
 
-        chunk = _numpy.concatenate((chunk, chunk))
+        chunk = _numpy.concatenate((chunk, chunk[::-1]))
         chunk = chunk[:frames]
 
         # Apply volume and panning
