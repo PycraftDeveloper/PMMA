@@ -48,6 +48,8 @@ Methods
     self._paused = False
     self._stop_signal = False
     
+    self._playing = True
+    
     if blocking:
     # Start playback in the current thread (blocking)
     self._start_playback()
@@ -82,20 +84,17 @@ Methods
     if self._from_moviepy:
     try:
     chunk = self._audio_queue.get_nowait()
-    next_chunk = next(self._moviepy_audio_itr)
-    
-    self._audio_queue.put_nowait(next_chunk)
-    except _queue.Empty:
-    outdata.fill(0)
+    self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
     except StopIteration:
-    # Refill the queue when the audio ends
     self._moviepy_audio_itr = self._audio_generator(2048)
     self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+    except _queue.Empty:
+    outdata.fill(0)
     
     else:
     chunk = self._file.read(frames, dtype='float32')
     
-    chunk = _numpy.concatenate((chunk, chunk))
+    chunk = _numpy.concatenate((chunk, chunk[::-1]))
     chunk = chunk[:frames]
     
     # Apply volume and panning
@@ -125,6 +124,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Audio.stop() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.get_paused() -> None
 
    Not Yet Written
 

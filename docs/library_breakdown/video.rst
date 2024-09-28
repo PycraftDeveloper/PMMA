@@ -17,6 +17,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Video.resume() -> None
+
+   Not Yet Written
+
+.. py:method:: Video.pause() -> None
+
+   Not Yet Written
+
 .. py:method:: Video.set_surface() -> None
 
    Not Yet Written
@@ -54,6 +62,10 @@ Methods
    Not Yet Written
 
 .. py:method:: Video.get_video_size() -> None
+
+   Not Yet Written
+
+.. py:method:: Video.get_audio_channel() -> None
 
    Not Yet Written
 
