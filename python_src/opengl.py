@@ -707,7 +707,7 @@ class Shader:
                 if _numpy.array_equal(value, self._uniform_values[name]["value"]) is False:
                     self._uniform_values[name] = {"value": value, "updated": True}
                 return
-            elif type(value) in [_OrthographicProjection, _PerspectiveProjection()]:
+            elif type(value) in [_OrthographicProjection, _PerspectiveProjection]:
                 self._uniform_values[name] = {"value": value.get_projection_matrix(), "updated": True}
                 return
 

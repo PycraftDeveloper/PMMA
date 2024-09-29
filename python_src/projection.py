@@ -24,7 +24,8 @@ class PerspectiveProjection:
         _initialize(self)
 
         if type(fov) is not _AngleConverter:
-            fov = _AngleConverter(fov, fov_format)
+            fov = _AngleConverter()
+            fov.set_angle(fov, format=fov_format)
 
         self._fov = fov
         self._aspect_ratio = aspect_ratio
