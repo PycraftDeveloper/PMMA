@@ -20,10 +20,10 @@ display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 events = pmma.Events()
 
 line = pmma.Line()
-line.set_start((300, 300))
-line.set_end((500, 300))
+line.set_start((-640, -640), start_format=pmma.Constants.CONVENTIONAL_COORDINATES)
+line.set_end((1280, 100), end_format=pmma.Constants.CONVENTIONAL_COORDINATES)
 line.set_color([255, 0, 0])
-line.set_width(3)
+line.set_width(1)
 
 pixel = pmma.Pixel()
 pixel.set_position((100, 100))

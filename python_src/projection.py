@@ -91,10 +91,10 @@ class OrthographicProjection:
     def __init__(self, min_x_size, max_x_size, max_y_size, min_y_size, near, far):
         _initialize(self)
 
-        self._min_x_size = min_x_size
-        self._max_x_size = max_x_size
-        self._max_y_size = max_y_size
-        self._min_y_size = min_y_size
+        self._min_x_size = min_x_size # left
+        self._max_x_size = max_x_size # right
+        self._max_y_size = max_y_size # bottom
+        self._min_y_size = min_y_size # top
         self._near = near
         self._far = far
 
@@ -161,6 +161,6 @@ class OrthographicProjection:
                 [0, 2 / (self._min_y_size - self._max_y_size), 0, -(self._min_y_size + self._max_y_size) / (self._min_y_size - self._max_y_size)],
                 [0, 0, -2 / (self._far - self._near), -(self._far + self._near) / (self._far - self._near)],
                 [0, 0, 0, 1]
-            ], dtype='float32')
+            ], dtype="float32")
 
         return self._projection
