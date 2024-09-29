@@ -1,3 +1,5 @@
+import gc as _gc
+
 from pmma.python_src.projection import OrthographicProjection as _OrthographicProjection
 from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
 from pmma.python_src.constants import Constants as _Constants
@@ -16,3 +18,13 @@ class ProjectionIntermediary:
 
     def get_perspective_projection(self):
         return self.perspective_projection
+
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True

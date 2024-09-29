@@ -19,6 +19,16 @@ class PredefinedProjections:
     def get_perspective_projection(self):
         return self._projections_intermediary.get_perspective_projection()
 
+    def __del__(self, do_garbage_collection=False):
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc.collect()
+
+    def quit(self, do_garbage_collection=True):
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
 class PerspectiveProjection:
     def __init__(self, fov, aspect_ratio, near, far, fov_format=_Constants.DEGREES):
         _initialize(self)
