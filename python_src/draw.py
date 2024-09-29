@@ -58,6 +58,16 @@ class Line:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
 
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             self._program.quit()
@@ -223,7 +233,7 @@ class Line:
             else:
                 self._vbo.update(vertices)
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -295,6 +305,16 @@ class RadialPolygon:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._created_shape = False
+
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
 
     def _create_shape(self):
         if self._radius.get_point_set() is False:
@@ -439,7 +459,7 @@ class RadialPolygon:
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
 
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+        self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -492,6 +512,16 @@ class Rectangle:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._width = None
+
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -596,7 +626,7 @@ class Rectangle:
             # Rotate each vertex around the center
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], cx, cy, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -678,6 +708,16 @@ class Arc:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._width = None
+
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -814,7 +854,7 @@ class Arc:
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -892,6 +932,16 @@ class Ellipse:
         self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
+
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -1008,7 +1058,7 @@ class Ellipse:
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1090,6 +1140,16 @@ class Polygon:
         self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
+
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -1206,7 +1266,7 @@ class Polygon:
             if self._closed and len(rotated_vertices) > 1:
                 rotated_vertices = _numpy.append(rotated_vertices, [rotated_vertices[0]], axis=0)
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1286,6 +1346,16 @@ class Pixel:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._created_shape = False
+
+        self._projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+
+    def get_projection(self):
+        return self._projection
+
+    def set_projection(self, projection=None):
+        if projection is None:
+            projection = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].get_orthographic_projection()
+        self._projection = projection
 
     def _create_shape(self):
         if self._vbo.get_created():
@@ -1379,6 +1449,7 @@ once to improve performance, but will continue to have an effect.")
         if self._vertices_changed:
             offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
+            self._program.set_shader_variable('projection', self._projection.get_projection_matrix())
             self._vertices_changed = False
 
         if self._color_changed:
