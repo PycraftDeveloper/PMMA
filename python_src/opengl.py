@@ -680,7 +680,7 @@ class Shader:
 
         # Parse file data for uniform declarations
         for line in file_data:
-            if "uniform " in line:
+            if "uniform" in line:
                 uniform_name = line.split(" ")[-1].strip().replace(";", "")
                 uniform_names.append(uniform_name)
             elif "in " in line:
@@ -707,7 +707,7 @@ class Shader:
                 if _numpy.array_equal(value, self._uniform_values[name]["value"]) is False:
                     self._uniform_values[name] = {"value": value, "updated": True}
                 return
-            elif type(value) in [_OrthographicProjection, _PerspectiveProjection]:
+            elif type(value) in [_OrthographicProjection, _PerspectiveProjection()]:
                 self._uniform_values[name] = {"value": value.get_projection_matrix(), "updated": True}
                 return
 
@@ -843,13 +843,10 @@ class Shader:
                 if data["updated"]:
                     if isinstance(data["value"], (float, int, tuple, list)):
                         self._program[key].value = data["value"]
-
                     elif isinstance(data["value"], (bytes, bytearray, _numpy.ndarray)):
                         self._program[key].write(data["value"])
-
                     else:
                         raise TypeError("Invalid data type for uniform variable")
-
                     self._uniform_values[key]["updated"] = False
         return self._program
 
