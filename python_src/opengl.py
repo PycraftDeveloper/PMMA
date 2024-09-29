@@ -7,6 +7,8 @@ import numpy as _numpy
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
+from pmma.python_src.projection import OrthographicProjection as _OrthographicProjection
+from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import OpenGLNotYetInitializedError as _OpenGLNotYetInitializedError
@@ -704,6 +706,9 @@ class Shader:
             if type(value) == _numpy.ndarray and type(self._uniform_values[name]["value"]) == _numpy.ndarray:
                 if _numpy.array_equal(value, self._uniform_values[name]["value"]) is False:
                     self._uniform_values[name] = {"value": value, "updated": True}
+                return
+            elif type(value) in [_OrthographicProjection, _PerspectiveProjection()]:
+                self._uniform_values[name] = {"value": value.get_projection_matrix(), "updated": True}
                 return
 
             if self._uniform_values[name]["value"] != value:

@@ -5,6 +5,19 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+
+class PredefinedProjections:
+    def __init__(self):
+        _initialize(self)
+
+        self._projections_intermediary = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT]
+
+    def get_orthographic_projection(self):
+        return self._projections_intermediary.get_orthographic_projection()
+
+    def get_perspective_projection(self):
+        return self._projections_intermediary.get_perspective_projection()
 
 class PerspectiveProjection:
     def __init__(self, fov, aspect_ratio, near, far, fov_format=_Constants.DEGREES):

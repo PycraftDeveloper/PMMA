@@ -18,6 +18,8 @@ from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.opengl import FrameBufferObject as _FrameBufferObject
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 from pmma.python_src.file import path_builder as _path_builder
+from pmma.python_src.projection import OrthographicProjection as _OrthographicProjection
+from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -73,6 +75,8 @@ class DisplayIntermediary:
         self._two_dimension_frame_buffer = _FrameBufferObject()
         self._three_dimension_texture = _Texture()
         self._three_dimension_frame_buffer = _FrameBufferObject()
+
+        self._orthographic_projection = None
 
     def update_class(self):
         if self._object_updated is False:
@@ -400,17 +404,25 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             _pygame.display.set_icon(icon_img)
             del icon_img
 
+    def get_display_projection(self):
+        if self._object_updated is False:
+            self.update_class()
+        return self._orthographic_projection
+
     def on_window_size_changed(self):
         if self._object_updated is False:
             self.update_class()
 
         size = _pygame.display.get_window_size()
 
+        self._current_display_size = size
+
+        _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].orthographic_projection = _OrthographicProjection(0, size[0], size[1], 0, 1, -1)
+        _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].perspective_projection = _PerspectiveProjection(60, self.get_aspect_ratio(), 0.1, 1000) # determine these later
+
         self._setup_layers(size)
 
         _Registry.context.viewport = (0, 0, *size)
-
-        self._current_display_size = size
 
         self._refresh_optimization_override = True
         self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER

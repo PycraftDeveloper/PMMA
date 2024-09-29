@@ -144,6 +144,7 @@ class Constants:
     TRANSITION_MANAGER_OBJECT = "transition manager"
     GPU_DISTRIBUTION_MANAGER_OBJECT = "gpu distribution manager"
     GPU_DISTRIBUTION_OBJECT = "gpu distribution"
+    PROJECTION_INTERMEDIARY_OBJECT = "projection intermediary"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
@@ -391,6 +392,7 @@ class Constants:
         TRANSITION_OBJECT,
         GPU_DISTRIBUTION_MANAGER_OBJECT,
         GPU_DISTRIBUTION_OBJECT,
+        PROJECTION_INTERMEDIARY_OBJECT,
 
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,

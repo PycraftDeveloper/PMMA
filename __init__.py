@@ -77,6 +77,7 @@ from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
 from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
+from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
 
 def init(
             optimize_python_extensions=True,
@@ -127,8 +128,6 @@ def init(
 
     logger = _InternalLogger()
 
-    _TransitionManager()
-
     logger.log_information("Thank you for using PMMA! Please note that PMMA \
 is still in an early stage of its development, bear with us as we \
 continue to work on improving it!")
@@ -143,10 +142,11 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
 
     register_application()
 
+    _TransitionManager()
     _GPUsIntermediary()
     _GPUDistributionManager()
     _ControllersIntermediary()
-
+    _ProjectionIntermediary()
     _LoadedShaderReferenceManager()
 
     _event_utils.Backspace_KEY()
