@@ -181,8 +181,6 @@ class Line:
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
 
-            rotated_line_points = [0, 0, 1, 1]
-
             if self._width > 1:
                 start_coords = rotated_line_points[:2]  # Start point (x1, y1)
                 end_coords = rotated_line_points[2:]    # End point (x2, y2)

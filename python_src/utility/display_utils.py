@@ -417,7 +417,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._current_display_size = size
 
-        _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].orthographic_projection = _OrthographicProjection(0, size[0], size[1], 0, -1, 1)
+        _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].orthographic_projection = _OrthographicProjection(0, size[0], size[1], 0, 1, -1)
         _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].perspective_projection = _PerspectiveProjection(60, self.get_aspect_ratio(), 0.1, 1000) # determine these later
 
         self._setup_layers(size)
