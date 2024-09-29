@@ -17,6 +17,7 @@ from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.advmath import Math as _Math
+from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -57,6 +58,8 @@ class Line:
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
+
+        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -237,6 +240,9 @@ class Line:
 
         self._surface.update_attempted_render_calls(1)
 
+        if self._resized_event.get_value():
+            self._vertices_changed = True
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -245,6 +251,7 @@ class Line:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
+
         self._update_buffers()
 
         if self._vao.get_created() is False:
