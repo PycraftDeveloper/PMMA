@@ -181,6 +181,8 @@ class Line:
 
     def _update_buffers(self):
         if self._vertices_changed:
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
 
@@ -225,8 +227,6 @@ class Line:
                 self._vbo.create(vertices)
             else:
                 self._vbo.update(vertices)
-
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -442,6 +442,7 @@ class RadialPolygon:
             self._created_shape = True
 
         if self._vertices_changed:
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
             self._vertices_changed = False
@@ -450,8 +451,6 @@ class RadialPolygon:
             color = self.get_color(format=_Constants.SMALL_RGBA)
             self._program.set_shader_variable('color', color)
             self._color_changed = False  # Reset the flag
-
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -586,6 +585,8 @@ class Rectangle:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these
 
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
             _Registry.number_of_render_updates += 1
 
             # Unpack size and position
@@ -609,8 +610,6 @@ class Rectangle:
 
             # Rotate each vertex around the center
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], cx, cy, cos_theta, sin_theta) for v in vertices], dtype='f4')
-
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -806,6 +805,8 @@ class Arc:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
             _Registry.number_of_render_updates += 1
 
             center_x, center_y = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
@@ -832,8 +833,6 @@ class Arc:
             sin_theta = _numpy.sin(rotation)
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
-
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1005,6 +1004,8 @@ class Ellipse:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these parameters
 
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
             _Registry.number_of_render_updates += 1
 
             center_x, center_y = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
@@ -1031,8 +1032,6 @@ class Ellipse:
             sin_theta = _numpy.sin(rotation)
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
-
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1217,6 +1216,8 @@ class Polygon:
             if not self._points:
                 return None  # No points to form the polygon
 
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
             _Registry.number_of_render_updates += 1
 
             points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
@@ -1234,8 +1235,6 @@ class Polygon:
             # If closed, append the first vertex to close the loop
             if self._closed and len(rotated_vertices) > 1:
                 rotated_vertices = _numpy.append(rotated_vertices, [rotated_vertices[0]], axis=0)
-
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             self._vertices_changed = False  # Reset the flag
 
