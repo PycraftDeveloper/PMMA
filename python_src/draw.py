@@ -303,6 +303,8 @@ class RadialPolygon:
         self._rotation.set_angle(0)
         self._created_shape = False
 
+        self._resized_event = _WindowResized_EVENT()
+
     def _create_shape(self):
         if self._radius.get_point_set() is False:
             raise _ShapeRadiusNotSpecifiedError()
@@ -424,6 +426,9 @@ class RadialPolygon:
 
         self._surface.update_attempted_render_calls(1)
 
+        if self._resized_event.get_value():
+            self._vertices_changed = True
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -499,6 +504,8 @@ class Rectangle:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._width = None
+
+        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -622,6 +629,9 @@ class Rectangle:
 
         self._surface.update_attempted_render_calls(1)
 
+        if self._resized_event.get_value():
+            self._vertices_changed = True
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -685,6 +695,8 @@ class Arc:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._width = None
+
+        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -840,6 +852,9 @@ class Arc:
 
         self._surface.update_attempted_render_calls(1)
 
+        if self._resized_event.get_value():
+            self._vertices_changed = True
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -899,6 +914,8 @@ class Ellipse:
         self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
+
+        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -1034,6 +1051,9 @@ class Ellipse:
 
         self._surface.update_attempted_render_calls(1)
 
+        if self._resized_event.get_value():
+            self._vertices_changed = True
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -1097,6 +1117,8 @@ class Polygon:
         self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
+
+        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -1232,6 +1254,9 @@ class Polygon:
 
         self._surface.update_attempted_render_calls(1)
 
+        if self._resized_event.get_value():
+            self._vertices_changed = True
+
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
 
@@ -1293,6 +1318,8 @@ class Pixel:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._created_shape = False
+
+        self._resized_event = _WindowResized_EVENT()
 
     def _create_shape(self):
         if self._vbo.get_created():
@@ -1370,6 +1397,9 @@ once to improve performance, but will continue to have an effect.")
                 return None
 
         self._surface.update_attempted_render_calls(1)
+
+        if self._resized_event.get_value():
+            self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
             self._surface.set_refresh_optimization_override(True)
