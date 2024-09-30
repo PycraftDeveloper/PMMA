@@ -20,6 +20,7 @@ from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.projection import OrthographicProjection as _OrthographicProjection
 from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
+from pmma.python_src.advtkinter import Tkinter as _Tkinter
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -77,6 +78,8 @@ class DisplayIntermediary:
         self._three_dimension_frame_buffer = _FrameBufferObject()
 
         self._orthographic_projection = None
+
+        self._tkinter_backend = _Tkinter()
 
     def update_class(self):
         if self._object_updated is False:
@@ -256,7 +259,7 @@ mode is Pygame.")
         else:
             raise NotImplementedError
 
-    def _generate_pygame_flags(self):
+    def _generate_pygame_flags(self, care_about_full_screen=True):
         if self._object_updated is False:
             self.update_class()
         flags = _pygame.OPENGL | _pygame.DOUBLEBUF
@@ -265,7 +268,7 @@ mode is Pygame.")
             flags |= _pygame.NOFRAME
         if self._display_attribute_resizable:
             flags |= _pygame.RESIZABLE
-        if self._display_attribute_full_screen:
+        if self._display_attribute_full_screen and care_about_full_screen:
             flags |= _pygame.FULLSCREEN
 
         return flags
@@ -438,62 +441,19 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if self._object_updated is False:
             self.update_class()
 
+        flags = self._generate_pygame_flags(care_about_full_screen=False)
+
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
         if _Registry.display_mode == _Constants.PYGAME:
+            display_size = self._tkinter_backend.get_display_size()
             if self._display_attribute_full_screen:
-                size = (0, 0)
-                self._display_attribute_size = self.get_size()
+                _pygame.display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
+                self._display = _pygame.display.set_mode(display_size, flags|_pygame.FULLSCREEN, vsync=self._display_attribute_vsync)
             else:
+                _pygame.display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
                 size = self._display_attribute_size or (800, 600)
-
-            flags = self._generate_pygame_flags()
-
-            for opengl_object in list(_Registry.opengl_objects.keys()):
-                _Registry.opengl_objects[opengl_object].prepare_for_recreation()
-
-            # Release the context and OpenGL resources
-            _Registry.context.release()
-            self._display_quad.release() if self._display_quad else None
-            _pygame.display.quit()
-
-            # Reinitialize the Pygame display
-            _pygame.display.init()
-            self.set_caption()
-            self.set_icon()
-            self._display = _pygame.display.set_mode(size, flags, vsync=self._display_attribute_vsync)
-
-            if self._display_attribute_transparent_display:
-                if _get_operating_system() == _Constants.WINDOWS:
-                    self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
-                    _ctypes.windll.user32.SetWindowLongW(
-                        self._display_attribute_hwnd, -20,
-                        _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000
-                    )
-                    self._color_converter.set_color((0, 0, 0), format=_Constants.RGB)
-                    hex_color = self._color_converter.get_color(format=_Constants.HEX)
-                    color_key = self.hex_color_to_windows_raw_color(hex_color)
-                    _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
-
-        # Create a new ModernGL context
-        _Registry.context = _moderngl.create_context()
-
-        # Ensure OpenGL context is active before recreating resources
-        _Registry.context.screen.use()
-        _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
-        _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
-
-        # Recreate OpenGL objects (shaders, buffers, VAOs, etc.)
-        for opengl_object in list(_Registry.opengl_objects.keys()):
-            _Registry.opengl_objects[opengl_object].recreate()
-
-        # Recreate the display quad using the new context
-        self._display_quad = _geometry.quad_fs()
-
-        self.set_refresh_optimization_override(True)
-        self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
-
-        _Registry.context.finish()
+                self._display = _pygame.display.set_mode(size, flags, vsync=self._display_attribute_vsync)
 
     def get_size(self):
         if self._object_updated is False:
