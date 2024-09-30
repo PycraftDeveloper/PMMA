@@ -445,49 +445,55 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 size = (0, 0)
                 self._display_attribute_size = self.get_size()
             else:
-                size = self._display_attribute_size
-                if size == (0, 0):
-                    size = (800, 600)
+                size = self._display_attribute_size or (800, 600)
 
             flags = self._generate_pygame_flags()
 
-            _pygame.display.quit() # issues here with moderngl likely - but without more major windowing issues.
+            for opengl_object in list(_Registry.opengl_objects.keys()):
+                _Registry.opengl_objects[opengl_object].prepare_for_recreation()
 
+            # Release the context and OpenGL resources
             _Registry.context.release()
+            self._display_quad.release() if self._display_quad else None
+            _pygame.display.quit()
 
+            # Reinitialize the Pygame display
             _pygame.display.init()
-
             self.set_caption()
-
             self.set_icon()
-
-            self._display = _pygame.display.set_mode(
-                size,
-                flags,
-                vsync=self._display_attribute_vsync)
+            self._display = _pygame.display.set_mode(size, flags, vsync=self._display_attribute_vsync)
 
             if self._display_attribute_transparent_display:
                 if _get_operating_system() == _Constants.WINDOWS:
                     self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
-
-                    # Make the window transparent and allow click-through
-                    # Set the window to be layered
-                    _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
-
-                    # Set transparency color key
+                    _ctypes.windll.user32.SetWindowLongW(
+                        self._display_attribute_hwnd, -20,
+                        _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000
+                    )
                     self._color_converter.set_color((0, 0, 0), format=_Constants.RGB)
                     hex_color = self._color_converter.get_color(format=_Constants.HEX)
                     color_key = self.hex_color_to_windows_raw_color(hex_color)
                     _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
+        # Create a new ModernGL context
         _Registry.context = _moderngl.create_context()
+
+        # Ensure OpenGL context is active before recreating resources
+        _Registry.context.screen.use()
         _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
         _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
 
+        # Recreate OpenGL objects (shaders, buffers, VAOs, etc.)
         for opengl_object in list(_Registry.opengl_objects.keys()):
             _Registry.opengl_objects[opengl_object].recreate()
 
+        # Recreate the display quad using the new context
         self._display_quad = _geometry.quad_fs()
+
+        self.set_refresh_optimization_override(True)
+        self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
+
+        _Registry.context.finish()
 
     def get_size(self):
         if self._object_updated is False:

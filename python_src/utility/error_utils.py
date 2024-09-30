@@ -49,3 +49,7 @@ class ShaderReferenceManagerNotInitializedError(Exception):
 class ShapeRadiusNotSpecifiedError(Exception):
     """Shape radius was not specified!"""
     pass
+
+class OpenGLObjectNotPreparedForRecreation(Exception):
+    """OpenGL object was not prepared for recreation!"""
+    pass

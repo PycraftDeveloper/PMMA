@@ -80,7 +80,7 @@ while pmma.Backpack.running:
     #print(1/(end-start))
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
-    #line.set_rotation((time.perf_counter()-s)*5)
+    line.set_rotation((time.perf_counter()-s)*5)
     #line.set_end((500, 60*(time.perf_counter()-start)))
     #rectangle.set_rotation((time.perf_counter()-s)*10)
 

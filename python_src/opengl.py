@@ -15,6 +15,7 @@ from pmma.python_src.utility.error_utils import OpenGLNotYetInitializedError as 
 from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeFormatError as _UnexpectedBufferAttributeFormatError
 from pmma.python_src.utility.error_utils import UnknownDataTypeError as _UnknownDataTypeError
 from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeError as _UnexpectedBufferAttributeError
+from pmma.python_src.utility.error_utils import OpenGLObjectNotPreparedForRecreation as _OpenGLObjectNotPreparedForRecreation
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
@@ -66,6 +67,9 @@ class VertexBufferObject:
 
         self._logger = _InternalLogger()
 
+        self._prep_reserve = None
+        self._prep_dynamic = None
+
     def create(self, data, dynamic=False, reserve=0):
         if type(data) == list or type(data) == tuple:
             data = _numpy.array(data, dtype=_numpy.float32)
@@ -81,10 +85,21 @@ be the first issue you address - it might not fix the problem, but there is a go
         self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
+    def prepare_for_recreation(self):
+        self._prep_reserve = self._size()
+        self._prep_dynamic = self.get_dynamic()
+
     def recreate(self):
         if self._vbo is not None:
-            dynamic = self.get_dynamic()
-            reserve = self._size()
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                reserve = self._prep_reserve
+
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                dynamic = self._prep_dynamic
 
             self._vbo.release()
 
@@ -168,15 +183,29 @@ class GenericBufferObject:
 
         self._logger = _InternalLogger()
 
+        self._prep_reserve = None
+        self._prep_dynamic = None
+
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
         self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
+    def prepare_for_recreation(self):
+        self._prep_reserve = self._size()
+        self._prep_dynamic = self.get_dynamic()
+
     def recreate(self):
         if self._gbo is not None:
-            dynamic = self.get_dynamic()
-            reserve = self._size()
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                reserve = self._prep_reserve
+
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                dynamic = self._prep_dynamic
 
             self._gbo.release()
 
@@ -260,15 +289,29 @@ class ColorBufferObject:
 
         self._logger = _InternalLogger()
 
+        self._prep_reserve = None
+        self._prep_dynamic = None
+
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
         self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
+    def prepare_for_recreation(self):
+        self._prep_reserve = self._size()
+        self._prep_dynamic = self.get_dynamic()
+
     def recreate(self):
         if self._cbo is not None:
-            dynamic = self.get_dynamic()
-            reserve = self._size()
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                reserve = self._prep_reserve
+
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                dynamic = self._prep_dynamic
 
             self._cbo.release()
 
@@ -352,15 +395,29 @@ class IndexBufferObject:
 
         self._logger = _InternalLogger()
 
+        self._prep_reserve = None
+        self._prep_dynamic = None
+
     def create(self, data, dynamic=False, reserve=0):
         self._data = data
         self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
+    def prepare_for_recreation(self):
+        self._prep_reserve = self._size()
+        self._prep_dynamic = self.get_dynamic()
+
     def recreate(self):
         if self._ibo is not None:
-            dynamic = self.get_dynamic()
-            reserve = self._size()
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                reserve = self._prep_reserve
+
+            if self._prep_reserve is None:
+                raise _OpenGLObjectNotPreparedForRecreation()
+            else:
+                dynamic = self._prep_dynamic
 
             self._ibo.release()
 
@@ -449,6 +506,9 @@ class VertexArrayObject:
         self._additional_buffer_attributes = None
 
         self._logger = _InternalLogger()
+
+    def prepare_for_recreation(self):
+        pass # WIP
 
     def _analyse_and_filter_buffer_attributes(self, attributes):
         if not (type(attributes) is list or type(attributes) is tuple):
@@ -670,6 +730,9 @@ class Shader:
         self._using_gl_point_size_syntax = False
         self._shader_manager = _ShaderManager()
         self._shader_loaded_from_directory = None
+
+    def prepare_for_recreation(self):
+        pass # WIP
 
     def get_buffer_input_variable_names(self):
         return self._buffer_input_variable_names
@@ -950,6 +1013,9 @@ class FrameBufferObject:
         self._created = False
         self._color_attachments = None
         self._depth_attachment = None
+
+    def prepare_for_recreation(self):
+        pass # WIP
 
     def create(self, color_attachments=None, depth_attachment=None):
         self._color_attachments = color_attachments

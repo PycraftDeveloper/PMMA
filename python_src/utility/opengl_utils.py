@@ -28,6 +28,9 @@ class Texture:
 
         self._logger = _InternalLogger()
 
+    def prepare_for_recreation(self):
+        pass # WIP
+
     def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
         if self._texture is not None:
             self._texture.release()
