@@ -1,3 +1,30 @@
+Predefined Projections (``pmma.PredefinedProjections``)
+=======================================================
+
+Not Yet Written
+
+Create
+------
+
+.. py:method:: pmma.PredefinedProjections() -> pmma.PredefinedProjections
+
+   Not Yet Written
+
+Methods
+-------
+
+.. py:method:: PredefinedProjections.get_orthographic_projection() -> None
+
+   Not Yet Written
+
+.. py:method:: PredefinedProjections.get_perspective_projection() -> None
+
+   Not Yet Written
+
+.. py:method:: PredefinedProjections.quit() -> None
+
+   Not Yet Written
+
 Perspective Projection (``pmma.PerspectiveProjection``)
 =======================================================
 
