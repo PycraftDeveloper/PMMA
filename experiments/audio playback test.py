@@ -6,12 +6,9 @@ import time
 pmma.init()
 
 audio = pmma.Audio()
-audio.load_from_file(r"H:\Downloads\videoplayback (1).wav")
+audio.load_from_file(r"H:\Downloads\1kHz Sine Wave Test Tone Signal.mp3")
 
-effect = pmma.Compressor()
+effect = pmma.Reverb(chunk_size=2048)
 audio.add_effect(effect)
-effect.set_ratio(40)
 
-audio.play(blocking=False)
-
-time.sleep(50)
+audio.play(blocking=True)

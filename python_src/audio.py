@@ -82,6 +82,12 @@ class Audio:
         self._channels = self._file.channels
         self._audio_loaded = True
 
+    def get_sample_rate(self):
+        return self._sample_rate
+
+    def get_number_of_channels(self):
+        return self._channels
+
     def load_from_moviepy(self, audio):
         self._audio_data = audio
         self._sample_rate = audio.fps
