@@ -1,4 +1,5 @@
 import gc as _gc
+import time as _time
 
 import moderngl as _moderngl
 import numpy as _numpy
@@ -181,10 +182,22 @@ class Video:
     def get_audio_channel(self):
         return self._audio_player
 
+    def _loop_video(self):
+        # Loop the video for demonstration purposes
+        if self._audio_player.get_playing():
+            self._audio_player.stop()
+            self._audio_player.play(blocking=False)
+            _time.sleep(0.48)
+
+        self._input_container.seek(0)
+        frame = next(self._input_container.decode(video=0))
+        return frame
+
     def render(self):
         if self._video_loaded:
             if self._audio_player.get_playing() is False:
                 self._audio_player.play(blocking=False)
+                _time.sleep(0.48) # 0.5 close / dont really know what this magic number represents yet
 
             if self._is_playing is False and self._audio_player.get_paused() is False:
                 self._audio_player.pause()
@@ -209,13 +222,9 @@ class Video:
                 try:
                     frame = next(self._input_container.decode(video=0))
                 except StopIteration:
-                    # Loop the video for demonstration purposes
-                    self._input_container.seek(0)
-                    frame = next(self._input_container.decode(video=0))
+                    frame = self._loop_video()
                 except _av.error.EOFError:
-                    # Loop the video for demonstration purposes
-                    self._input_container.seek(0)
-                    frame = next(self._input_container.decode(video=0))
+                    frame = self._loop_video()
 
                 # Convert frame to RGB for OpenGL
                 img = frame.to_ndarray(format='rgb24')

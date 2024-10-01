@@ -58,8 +58,5 @@ Update render pipeline
 
 IMPROVEMENTS
 ============
-Fix issue where audio starts after video during playback. Once started they remain at this spacing, so a way to be able to delay either one for suitable syncing would be good.
-Fix reverb issues by adding audio context eg:
-
-<past n chunks><current chunk><next n chunks AS ZEROS>
-Then simply add modified zeroes to next chunk :)
+Magic number in video playback: ~198: `                _time.sleep(0.48)` not sure yet what this means
+Do video decoding in thread so unaffected by frame rate.

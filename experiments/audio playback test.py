@@ -6,7 +6,7 @@ import time
 pmma.init()
 
 audio = pmma.Audio()
-audio.load_from_file(r"H:\Downloads\1kHz Sine Wave Test Tone Signal.mp3")
+audio.load_from_file(r"H:\Music\the cleaner synthwave.wav")
 
 effect = pmma.Reverb()
 audio.add_effect(effect)

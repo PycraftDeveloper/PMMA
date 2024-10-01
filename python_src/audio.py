@@ -1,6 +1,7 @@
 import threading as _threading
 import gc as _gc
 import queue as _queue
+import time as _time
 
 import sounddevice as _sound_device
 import soundfile as _sound_file
@@ -169,11 +170,14 @@ class Audio:
         chunk = _numpy.concatenate((chunk, chunk[::-1]))
         chunk = chunk[:frames]
 
+        if len(chunk) < frames:
+            chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
+
         # Apply volume and panning
         chunk = self._apply_volume_and_pan(chunk)
 
         # Apply effects
-        processed_audio = self._effects(chunk, self._sample_rate)
+        processed_audio = self._effects(chunk, self._sample_rate, reset=False)
 
         # Output the processed audio
         outdata[:] = processed_audio
@@ -201,6 +205,8 @@ class Audio:
     def stop(self):
         self._stop_signal = True
         self._start_frame = 0  # Reset playback position
+        if self._playback_thread is not None: # wait until playback actually stops
+            self._playback_thread.join()
 
     def get_paused(self):
         return self._paused
