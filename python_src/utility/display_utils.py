@@ -455,6 +455,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
                 size = self._display_attribute_size or (800, 600)
                 self._display = _pygame.display.set_mode(size, flags, vsync=self._display_attribute_vsync)
 
+        self.on_window_size_changed()
+
     def get_size(self):
         if self._object_updated is False:
             self.update_class()
