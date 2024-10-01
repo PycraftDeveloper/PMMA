@@ -44,6 +44,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: VertexBufferObject.prepare_for_recreation() -> None
+
+   Not Yet Written
+
 .. py:method:: VertexBufferObject.recreate() -> None
 
    Not Yet Written
@@ -104,6 +108,10 @@ Methods
 -------
 
 .. py:method:: GenericBufferObject.create() -> None
+
+   Not Yet Written
+
+.. py:method:: GenericBufferObject.prepare_for_recreation() -> None
 
    Not Yet Written
 
@@ -170,6 +178,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: ColorBufferObject.prepare_for_recreation() -> None
+
+   Not Yet Written
+
 .. py:method:: ColorBufferObject.recreate() -> None
 
    Not Yet Written
@@ -233,6 +245,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: IndexBufferObject.prepare_for_recreation() -> None
+
+   Not Yet Written
+
 .. py:method:: IndexBufferObject.recreate() -> None
 
    Not Yet Written
@@ -291,6 +307,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: VertexArrayObject.prepare_for_recreation() -> None
+
+   Not Yet Written
 
 .. py:method:: VertexArrayObject.create() -> None
 
@@ -362,6 +382,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: Shader.prepare_for_recreation() -> None
+
+   Not Yet Written
 
 .. py:method:: Shader.get_buffer_input_variable_names() -> None
 
@@ -536,6 +560,10 @@ Create
 
 Methods
 -------
+
+.. py:method:: FrameBufferObject.prepare_for_recreation() -> None
+
+   Not Yet Written
 
 .. py:method:: FrameBufferObject.create() -> None
 
