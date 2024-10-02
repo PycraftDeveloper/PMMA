@@ -59,4 +59,3 @@ Update render pipeline
 IMPROVEMENTS
 ============
 Magic number in video playback: ~198: `                _time.sleep(0.48)` not sure yet what this means
-Do video decoding in thread so unaffected by frame rate.

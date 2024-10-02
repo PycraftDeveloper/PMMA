@@ -87,6 +87,7 @@ class Video:
         self._play_video = True
         self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
         self._video_player_thread.daemon = True
+        self._video_player_thread.name = "Video:Playing_Video_Thread"
         self._video_player_thread.start()
 
     def stop(self):
@@ -209,8 +210,7 @@ class Video:
         # Loop the video for demonstration purposes
         if self._audio_player.get_playing():
             self._audio_player.stop()
-            self._audio_player.play(blocking=False)
-            _time.sleep(0.48)
+            self._audio_player.play(blocking=False, delay=0.58) # close / dont really know what this magic number represents yet
 
         self._input_container.seek(0)
         frame = next(self._input_container.decode(video=0))
@@ -229,15 +229,16 @@ class Video:
                 if self._is_playing and self._audio_player.get_paused():
                     self._audio_player.resume()
 
-                try:
-                    frame = next(self._input_container.decode(video=0))
-                except StopIteration:
-                    frame = self._loop_video()
-                except _av.error.EOFError:
-                    frame = self._loop_video()
+                if self._is_playing:
+                    try:
+                        frame = next(self._input_container.decode(video=0))
+                    except StopIteration:
+                        frame = self._loop_video()
+                    except _av.error.EOFError:
+                        frame = self._loop_video()
 
-                # Convert frame to RGB for OpenGL
-                self._video_frame = frame.to_ndarray(format='rgb24')
+                    # Convert frame to RGB for OpenGL
+                    self._video_frame = frame.to_ndarray(format='rgb24')
 
             self._video_clock.tick(1/(self._video_frame_time))
 
