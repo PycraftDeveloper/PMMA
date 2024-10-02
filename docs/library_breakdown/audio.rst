@@ -21,6 +21,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Audio.get_sample_rate() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.get_number_of_channels() -> None
+
+   Not Yet Written
+
 .. py:method:: Audio.load_from_moviepy() -> None
 
    Not Yet Written
@@ -97,11 +105,14 @@ Methods
     chunk = _numpy.concatenate((chunk, chunk[::-1]))
     chunk = chunk[:frames]
     
+    if len(chunk) < frames:
+    chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
+    
     # Apply volume and panning
     chunk = self._apply_volume_and_pan(chunk)
     
     # Apply effects
-    processed_audio = self._effects(chunk, self._sample_rate)
+    processed_audio = self._effects(chunk, self._sample_rate, reset=False)
     
     # Output the processed audio
     outdata[:] = processed_audio
