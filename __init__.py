@@ -341,3 +341,5 @@ first otherwise attempting to install the 'PyAudio' module may fail.")
 
     if wait_for_initialization:
         cython_thread.join()
+
+# Jessy

@@ -9,8 +9,7 @@ events = pmma.Events()
 
 video = pmma.Video()
 video.load_from_file(r"H:\Videos\Timeline 1.mp4") # fix audio sync issues
-
-audio = video.get_audio_channel()
+video.play()
 
 while True:
     display.clear()

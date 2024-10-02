@@ -1,10 +1,12 @@
 import gc as _gc
 import time as _time
+import threading as _threading
 
 import moderngl as _moderngl
 import numpy as _numpy
 import av as _av
 import moviepy.editor as _editor
+import pygame as _pygame
 
 from pmma.python_src.opengl import Texture as _Texture
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
@@ -23,6 +25,10 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 class Video:
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
+            self._play_video = False
+            if self._video_player_thread is not None:
+                self._video_player_thread.join()
+
             del self
             if do_garbage_collection:
                 _gc.collect()
@@ -70,6 +76,23 @@ class Video:
         self._video_size = None
         self._is_playing = True
         self._audio_sync = False
+
+        self._video_clock = _pygame.time.Clock()
+
+        self._video_frame = None
+        self._video_player_thread = None
+        self._play_video = False
+
+    def play(self):
+        self._play_video = True
+        self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
+        self._video_player_thread.daemon = True
+        self._video_player_thread.start()
+
+    def stop(self):
+        self._play_video = False
+        if self._video_player_thread is not None:
+            self._video_player_thread.join()
 
     def resume(self):
         self._is_playing = True
@@ -193,31 +216,18 @@ class Video:
         frame = next(self._input_container.decode(video=0))
         return frame
 
-    def render(self):
-        if self._video_loaded:
-            if self._audio_player.get_playing() is False:
-                self._audio_player.play(blocking=False)
-                _time.sleep(0.48) # 0.5 close / dont really know what this magic number represents yet
+    def _video_frame_extractor(self):
+        while self._play_video:
+            if self._video_loaded:
+                if self._audio_player.get_playing() is False:
+                    self._audio_player.play(blocking=False)
+                    _time.sleep(0.48) # 0.5 close / dont really know what this magic number represents yet
 
-            if self._is_playing is False and self._audio_player.get_paused() is False:
-                self._audio_player.pause()
+                if self._is_playing is False and self._audio_player.get_paused() is False:
+                    self._audio_player.pause()
 
-            if self._is_playing and self._audio_player.get_paused():
-                self._audio_player.resume()
-
-            elapsed_time = _Registry.ms_since_previous_tick / 1000
-            self._time_since_last_frame += elapsed_time
-
-            # Update video frame if enough time has passed
-            if self._is_playing and self._time_since_last_frame >= self._video_frame_time:
-                self._surface.update_attempted_render_calls(1)
-
-                self._surface.set_refresh_optimization_override(True)
-
-                if self._surface.get_clear_called_but_skipped():
-                    return None
-
-                self._surface.get_2D_hardware_accelerated_surface()
+                if self._is_playing and self._audio_player.get_paused():
+                    self._audio_player.resume()
 
                 try:
                     frame = next(self._input_container.decode(video=0))
@@ -227,10 +237,21 @@ class Video:
                     frame = self._loop_video()
 
                 # Convert frame to RGB for OpenGL
-                img = frame.to_ndarray(format='rgb24')
-                self._texture.write(img)
+                self._video_frame = frame.to_ndarray(format='rgb24')
 
-                self._time_since_last_frame -= self._video_frame_time  # Reset the time counter
+            self._video_clock.tick(1/(self._video_frame_time))
+
+    def render(self):
+        if self._video_loaded and self._video_frame is not None:
+            self._surface.update_attempted_render_calls(1)
+
+            self._surface.set_refresh_optimization_override(True)
+
+            if self._surface.get_clear_called_but_skipped():
+                return None
+
+            self._surface.get_2D_hardware_accelerated_surface()
+            self._texture.write(self._video_frame)
 
             user_desired_size = self._size.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
             scale = [user_desired_size[0] / self._video_size[0], user_desired_size[1] / self._video_size[1]]
