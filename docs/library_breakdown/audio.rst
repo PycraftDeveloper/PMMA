@@ -50,11 +50,19 @@ Methods
  t the panning (-1.0 to 1.0, where 0 is center)
     self._pan.set_value(pan, format=format)
     
-    def play(self, blocking=True):
+    def play(self, blocking=True, delay=0):
     if self._audio_loaded:
+    if self._playing:
+    self._logger.log_development("You have attempted to play audio \
+    that's already playing. We will therefore ignore your request to prevent unexpected audio behavior.")
+    
+    return False
+    if delay != 0:
+    _time.sleep(delay)
     self._effects = _Pedalboard(self._effects_list)
     self._paused = False
     self._stop_signal = False
+    self._first_run = True
     
     self._playing = True
     
@@ -65,7 +73,9 @@ Methods
     # Start playback in a separate thread (non-blocking)
     self._playback_thread = _threading.Thread(target=self._start_playback)
     self._playback_thread.daemon = True
+    self._playback_thread.name = "Audio:Playing_Audio_Thread"
     self._playback_thread.start()
+    return True
     
     def _wait_for_chunk_to_play(self):
     return self._stop_signal
@@ -77,9 +87,24 @@ Methods
     _waiting.wait(self._wait_for_chunk_to_play)
     
     def _audio_generator(self, chunk_size):
+    buffer = _numpy.empty((0, self._channels), dtype='float32')  # Buffer to store leftover samples
+    
     while self._stop_signal is False:
     for chunk in self._audio_data.iter_chunks(fps=self._sample_rate, chunksize=chunk_size):
-    yield chunk
+    # Add the new chunk to the buffer
+    buffer = _numpy.vstack([buffer, chunk])
+    
+    # Keep yielding exact-sized chunks from the buffer
+    while len(buffer) >= chunk_size:
+    # Yield a chunk of the requested size
+    yield buffer[:chunk_size]
+    # Remove the yielded chunk from the buffer
+    buffer = buffer[chunk_size:]
+    
+    # If stop signal is raised or no more chunks, yield remaining data in buffer
+    if len(buffer) > 0:
+    yield buffer
+    break
     
     def _audio_callback(self, outdata, frames, time, status):
     if status:
@@ -102,22 +127,19 @@ Methods
     else:
     chunk = self._file.read(frames, dtype='float32')
     
-    chunk = _numpy.concatenate((chunk, chunk[::-1]))
-    chunk = chunk[:frames]
-    
     if len(chunk) < frames:
-    chunk = _numpy.pad(chunk, ((0, frames - len(chunk)), (0, 0)), mode='constant')
+    padding_shape = (frames - len(chunk), chunk.shape[1])
+    chunk = _numpy.pad(chunk, ((0, padding_shape[0]), (0, 0)), mode='constant')
     
     # Apply volume and panning
     chunk = self._apply_volume_and_pan(chunk)
     
     # Apply effects
-    processed_audio = self._effects(chunk, self._sample_rate, reset=False)
+    processed_audio = self._effects(chunk, self._sample_rate, reset=self._first_run)
     
     # Output the processed audio
     outdata[:] = processed_audio
-    
-    self._start_frame += frames
+    self._first_run = False
     
     def _apply_volume_and_pan(self, chunk):
     Apply volume and panning to the chunk of audio

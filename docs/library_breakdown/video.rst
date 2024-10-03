@@ -17,6 +17,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Video.play() -> None
+
+   Not Yet Written
+
+.. py:method:: Video.stop() -> None
+
+   Not Yet Written
+
 .. py:method:: Video.resume() -> None
 
    Not Yet Written
