@@ -9,6 +9,7 @@ from pmma.python_src.utility.number_converter_utils import ColorIntermediary as 
 from pmma.python_src.utility.number_converter_utils import CoordinateIntermediary as _CoordinateIntermediary
 from pmma.python_src.utility.number_converter_utils import PointIntermediary as _PointIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class AngleConverter:
     def __init__(self):
@@ -159,11 +160,30 @@ class ColorConverter:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def generate_random_color(self, format=_Constants.RGBA):
-        color = [_random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255), _random.randint(0, 255)]
+    def generate_random_color(
+            self,
+            format=_Constants.RGBA,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+
+        if red_color_range is None:
+            red_color_range = color_range
+        if green_color_range is None:
+            green_color_range = color_range
+        if blue_color_range is None:
+            blue_color_range = color_range
+        if alpha_color_range is None:
+            alpha_color_range = color_range
+
+        color = [_random.randint(*red_color_range), _random.randint(*green_color_range), _random.randint(*blue_color_range), _random.randint(*alpha_color_range)]
+
         self.set_color(
             color,
             _Constants.RGBA)
+
         return self.get_color(format)
 
     def generate_color_from_perlin_noise(
@@ -171,20 +191,19 @@ class ColorConverter:
             value,
             format=_Constants.RGBA,
             color_range=[0, 255],
-            red_color_range=[0, 255],
-            green_color_range=[0, 255],
-            blue_color_range=[0, 255],
-            alpha_color_range=[0, 255]):
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
 
-        if color_range != [0, 255]:
-            if red_color_range == [0, 255]:
-                red_color_range = color_range
-            elif green_color_range == [0, 255]:
-                green_color_range = color_range
-            elif blue_color_range == [0, 255]:
-                blue_color_range = color_range
-            elif alpha_color_range == [0, 255]:
-                alpha_color_range = color_range
+        if red_color_range is None:
+            red_color_range = color_range
+        if green_color_range is None:
+            green_color_range = color_range
+        if blue_color_range is None:
+            blue_color_range = color_range
+        if alpha_color_range is None:
+            alpha_color_range = color_range
 
         color = [
             self._red_noise.generate_1D_perlin_noise(
@@ -203,6 +222,7 @@ class ColorConverter:
         self.set_color(
             color,
             _Constants.RGBA)
+
         return self.get_color(format)
 
 class PointConverter:
@@ -248,11 +268,14 @@ class PointConverter:
         self._shut_down = True
 
 class CoordinateConverter:
-    def __init__(self):
+    def __init__(self, seed=None):
         _initialize(self)
 
         self._coordinate_intermediary = _CoordinateIntermediary()
         self._coordinate_cache = {}
+
+        self._x_noise = _Perlin(seed=seed)
+        self._y_noise = _Perlin(seed=seed)
 
         self._coordinate_set = False
 
@@ -278,6 +301,67 @@ class CoordinateConverter:
             coordinate = self._coordinate_intermediary.get_coordinate(out_type=format)
             self._coordinate_cache[format] = coordinate
             return coordinate
+
+    def generate_random_coordinate(
+            self,
+            format=_Constants.CONVENTIONAL_COORDINATES,
+            coordinate_range=None,
+            x_coordinate_range=None,
+            y_coordinate_range=None):
+
+        if coordinate_range is None:
+            if _Registry.display_initialized:
+                display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+                coordinate_range = [0, min(display.get_size())]
+            else:
+                coordinate_range = [0, 100]
+
+        if x_coordinate_range is None:
+            x_coordinate_range = coordinate_range
+        if y_coordinate_range is None:
+            y_coordinate_range = coordinate_range
+
+        coordinate = [_random.randint(*x_coordinate_range), _random.randint(*y_coordinate_range)]
+
+        self.set_coordinates(
+            coordinate,
+            _Constants.CONVENTIONAL_COORDINATES)
+
+        return self.get_coordinates(format)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value,
+            format=_Constants.CONVENTIONAL_COORDINATES,
+            coordinate_range=None,
+            x_coordinate_range=None,
+            y_coordinate_range=None):
+
+        if coordinate_range is None:
+            if _Registry.display_initialized:
+                display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+                coordinate_range = [0, min(display.get_size())]
+            else:
+                coordinate_range = [0, 100]
+
+        if x_coordinate_range is None:
+            x_coordinate_range = coordinate_range
+        if y_coordinate_range is None:
+            y_coordinate_range = coordinate_range
+
+        color = [
+            self._x_noise.generate_1D_perlin_noise(
+                value,
+                new_range=x_coordinate_range),
+            self._y_noise.generate_1D_perlin_noise(
+                value,
+                new_range=y_coordinate_range)]
+
+        self.set_coordinates(
+            color,
+            _Constants.CONVENTIONAL_COORDINATES)
+
+        return self.get_coordinates(format)
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:

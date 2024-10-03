@@ -39,6 +39,9 @@ Rendering shapes need to be updated when window resized. Note though that this b
 
 TO DO LIST
 ==========
+Color has generate random/procedural color - so why not for coordinates too?
+
+
 Work on MIDI events when able to do so. Update: Not possible with Pygame, will need to do more RnD first.
 
 Create aggregated events like Pointer (similar to controller already added).
