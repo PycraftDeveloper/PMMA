@@ -166,7 +166,7 @@ class ColorConverter:
             _Constants.RGBA)
         return self.get_color(format)
 
-    def generate_color(
+    def generate_color_from_perlin_noise(
             self,
             value,
             format=_Constants.RGBA,
