@@ -322,16 +322,10 @@ actively working to address this operating system limitation.")
         if icon is not None:
             self._display_attribute_icon = icon
 
-        if self._display_attribute_full_screen:
-            if width is None:
-                width = 0
-            if height is None:
-                height = 0
-        else:
-            if width is None:
-                width = 800
-            if height is None:
-                height = 600
+        if width is None:
+            width = 800
+        if height is None:
+            height = 600
 
         self._display_attribute_size = (width, height)
 
@@ -345,8 +339,13 @@ actively working to address this operating system limitation.")
             if self._display_attribute_centered:
                 _os.environ["SDL_VIDEO_CENTERED"] = "1"
 
+            if self._display_attribute_full_screen:
+                size = (0, 0)
+            else:
+                size = self._display_attribute_size
+
             self._display = _pygame.display.set_mode(
-                self._display_attribute_size,
+                size,
                 flags,
                 vsync=self._display_attribute_vsync)
 
@@ -448,8 +447,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if _Registry.display_mode == _Constants.PYGAME:
             display_size = self._tkinter_backend.get_display_size()
             if self._display_attribute_full_screen:
-                _pygame.display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
-                self._display = _pygame.display.set_mode(display_size, flags|_pygame.FULLSCREEN, vsync=self._display_attribute_vsync)
+                _pygame.display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
+                self._display = _pygame.display.set_mode((0, 0), flags|_pygame.FULLSCREEN, vsync=self._display_attribute_vsync)
             else:
                 _pygame.display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
                 size = self._display_attribute_size or (800, 600)
