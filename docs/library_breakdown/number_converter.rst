@@ -99,7 +99,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: ColorConverter.generate_color() -> None
+.. py:method:: ColorConverter.generate_color_from_perlin_noise() -> None
 
    Not Yet Written
 
@@ -158,6 +158,14 @@ Methods
    Not Yet Written
 
 .. py:method:: CoordinateConverter.get_coordinates() -> None
+
+   Not Yet Written
+
+.. py:method:: CoordinateConverter.generate_random_coordinate() -> None
+
+   Not Yet Written
+
+.. py:method:: CoordinateConverter.generate_color_from_perlin_noise() -> None
 
    Not Yet Written
 
