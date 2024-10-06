@@ -71,7 +71,10 @@ its arguments, leading to unsecure commands being run on the host system!")
         return self._exit_code
 
     def get_result(self):
-        return self._result.strip()
+        if type(self._result) == str:
+            return self._result.strip()
+        else:
+            return self._result
 
 class AdvancedExecutor:
     def __init__(self):

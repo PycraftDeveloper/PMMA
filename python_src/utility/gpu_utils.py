@@ -67,14 +67,17 @@ class GPUsIntermediary:
                 "--query-gpu=index,pci.bus,gpu_name",
                 "--format=csv,noheader"])
 
-            for line in self._executor.get_result().splitlines():
-                index, hex_bus, name = line.split(",")
-                smi_index = int(index.strip())
-                smi_bus = int(hex_bus.strip(), base=16)
-                for key in self._unique_gpus:
-                    unloaded_key = _json.loads(key)
-                    if unloaded_key["bus"] == smi_bus:
-                        self._unique_gpus[key][_Constants.SMI] = smi_index
+            executor_result = self._executor.get_result()
+
+            if executor_result is not None:
+                for line in executor_result.splitlines():
+                    index, hex_bus, name = line.split(",")
+                    smi_index = int(index.strip())
+                    smi_bus = int(hex_bus.strip(), base=16)
+                    for key in self._unique_gpus:
+                        unloaded_key = _json.loads(key)
+                        if unloaded_key["bus"] == smi_bus:
+                            self._unique_gpus[key][_Constants.SMI] = smi_index
 
         if _get_operating_system() == _Constants.WINDOWS:
             computer = _wmi.WMI()
