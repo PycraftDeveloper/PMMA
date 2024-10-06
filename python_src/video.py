@@ -18,9 +18,11 @@ from pmma.python_src.number_converter import CoordinateConverter as _CoordinateC
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.audio import Audio as _Audio
+from pmma.python_src.general import get_operating_system as _get_operating_system
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Video:
     def __del__(self, do_garbage_collection=False):
@@ -39,6 +41,14 @@ class Video:
 
     def __init__(self):
         _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if _get_operating_system() == _Constants.LINUX:
+            self._logger.log_development("You might have just seen something in terminal about ALSA. \
+        If you didn't, you can disregard this message. Otherwise; we currently dont have any \
+        control over this, but its most likely worrying about there not being any valid audio output \
+        devices. We are working on a better way to handle this situation.")
 
         self._video_loaded = False
         self._position = _CoordinateConverter()

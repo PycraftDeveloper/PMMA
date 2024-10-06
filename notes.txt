@@ -39,6 +39,7 @@ Rendering shapes need to be updated when window resized. Note though that this b
 
 TO DO LIST
 ==========
+Work on handling ALSA audio error messages in video.py.
 Work on MIDI events when able to do so. Update: Not possible with Pygame, will need to do more RnD first.
 
 Create aggregated events like Pointer (similar to controller already added).

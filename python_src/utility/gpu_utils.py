@@ -3,9 +3,16 @@ import gc as _gc
 import threading as _threading
 from typing import List as _List
 
-import wmi as _wmi
-import pyadl as _pyadl
+try:
+    import pyadl as _pyadl
+    pyadl_available = True
+except Exception as error:
+    if type(error) != ModuleNotFoundError:
+        pyadl_available = False
+    else:
+        raise error
 
+from pmma.python_src.general import get_operating_system as _get_operating_system
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.gpu import GPU as _GPU
 from pmma.python_src.executor import Executor as _Executor
@@ -13,6 +20,9 @@ from pmma.python_src.executor import Executor as _Executor
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+
+if _get_operating_system() == _Constants.WINDOWS:
+    import wmi as _wmi
 
 class GPUsIntermediary:
     def uuid_cleaner(self, uuid):
@@ -37,16 +47,17 @@ class GPUsIntermediary:
 
         self._unique_gpus = {} # {"bus": n, "uuid": n}: {SMI: n, ADL: n, WMI, n}
 
-        raw_GPUs = _pyadl.ADLManager.getInstance().getDevices()
-        adl_index = 0
-        for raw_gpu in raw_GPUs:
-            adl_bus = raw_gpu.__dict__["busNumber"]
-            adl_uuid: bytes = raw_gpu.__dict__["uuid"]
-            adl_uuid = adl_uuid.decode("utf-8")
-            adl_uuid = self.uuid_cleaner(adl_uuid)
-            json_identifier = _json.dumps({"bus": adl_bus, "uuid": adl_uuid})
-            self._unique_gpus[json_identifier] = {_Constants.SMI: None, _Constants.WMI: None, _Constants.PYADL: adl_index}
-            adl_index += 1
+        if pyadl_available:
+            raw_GPUs = _pyadl.ADLManager.getInstance().getDevices()
+            adl_index = 0
+            for raw_gpu in raw_GPUs:
+                adl_bus = raw_gpu.__dict__["busNumber"]
+                adl_uuid: bytes = raw_gpu.__dict__["uuid"]
+                adl_uuid = adl_uuid.decode("utf-8")
+                adl_uuid = self.uuid_cleaner(adl_uuid)
+                json_identifier = _json.dumps({"bus": adl_bus, "uuid": adl_uuid})
+                self._unique_gpus[json_identifier] = {_Constants.SMI: None, _Constants.WMI: None, _Constants.PYADL: adl_index}
+                adl_index += 1
 
         nvidia_smi = _find_executable_nvidia_smi()
         if nvidia_smi is not None:
@@ -65,18 +76,18 @@ class GPUsIntermediary:
                     if unloaded_key["bus"] == smi_bus:
                         self._unique_gpus[key][_Constants.SMI] = smi_index
 
-        computer = _wmi.WMI()
-        wmi_index = 0
-        for gpu in computer.Win32_VideoController():
-            wmi_uuid = getattr(gpu, "PNPDeviceID")
-            wmi_uuid = self.uuid_cleaner(wmi_uuid)
-            for key in self._unique_gpus:
-                unloaded_key = _json.loads(key)
-                if unloaded_key["uuid"] == wmi_uuid:
-                    self._unique_gpus[key][_Constants.WMI] = wmi_index
+        if _get_operating_system() == _Constants.WINDOWS:
+            computer = _wmi.WMI()
+            wmi_index = 0
+            for gpu in computer.Win32_VideoController():
+                wmi_uuid = getattr(gpu, "PNPDeviceID")
+                wmi_uuid = self.uuid_cleaner(wmi_uuid)
+                for key in self._unique_gpus:
+                    unloaded_key = _json.loads(key)
+                    if unloaded_key["uuid"] == wmi_uuid:
+                        self._unique_gpus[key][_Constants.WMI] = wmi_index
 
-            wmi_index += 1
-
+                wmi_index += 1
 
         gpu_instances: _List[_GPU] = []
         self._gpu_instances: _List[_GPU] = []

@@ -1,8 +1,14 @@
 import gc as _gc
 import threading as _threading
 
-import wmi as _wmi
-import pyadl as _pyadl
+try:
+    import pyadl as _pyadl
+    pyadl_available = True
+except Exception as error:
+    if type(error) != ModuleNotFoundError:
+        pyadl_available = False
+    else:
+        raise error
 
 from pmma.python_src.general import get_operating_system as _get_operating_system
 from pmma.python_src.constants import Constants as _Constants
@@ -11,8 +17,10 @@ from pmma.python_src.executor import Executor as _Executor
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 if _get_operating_system() == _Constants.WINDOWS:
+    import wmi as _wmi
     import pythoncom as _pythoncom
 
 class GPUs:
@@ -455,6 +463,16 @@ class GPU:
 
         self._priorities = [_Constants.SMI, _Constants.PYADL, _Constants.WMI]
 
+        self._logger = _InternalLogger()
+
+        if pyadl_available is False:
+            self._logger.log_development("PMMA is unable to interface with AMD/ATI GPUs. \
+This is most likely because no AMD/API GPUs where found on your system, \
+although this can also imply that there are driver issues somewhere. If this is unexpected \
+- which is to say; you have an AMD/ATI GPU - double check your driver install \
+and that other software is able to interact with the GPU. On any virtual machines \
+make sure that you are able to pass through the GPU device.")
+
     def update(self, everything=False, data_points=None, wait_for_completion=False):
         if _get_operating_system() == _Constants.WINDOWS:
             _pythoncom.CoInitialize()
@@ -518,7 +536,7 @@ class GPU:
                         if data is not None:
                             set_attributes.append(data_point)
 
-            elif priority == _Constants.PYADL and adl_data != []:
+            elif priority == _Constants.PYADL and adl_data != [] and pyadl_available:
                 gpu_data = _pyadl.ADLManager.getInstance().getDevices()[self._module_identification_indices[_Constants.PYADL]]
                 result = []
                 for data_point in adl_data:
