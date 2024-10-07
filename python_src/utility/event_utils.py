@@ -1,5 +1,5 @@
-import gc as _gc
-import time as _time
+from gc import collect as _gc__collect
+from time import perf_counter as _time__perf_counter
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -10,7 +10,7 @@ class Backspace_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -46,7 +46,7 @@ class Backspace_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -63,7 +63,7 @@ class Tab_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -99,7 +99,7 @@ class Tab_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -116,7 +116,7 @@ class Clear_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -152,7 +152,7 @@ class Clear_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -169,7 +169,7 @@ class Return_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -205,7 +205,7 @@ class Return_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -222,7 +222,7 @@ class Pause_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -258,7 +258,7 @@ class Pause_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -275,7 +275,7 @@ class Escape_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -311,7 +311,7 @@ class Escape_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -328,7 +328,7 @@ class Space_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -364,7 +364,7 @@ class Space_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -381,7 +381,7 @@ class ExclamationMark_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -417,7 +417,7 @@ class ExclamationMark_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -434,7 +434,7 @@ class DoubleQuote_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -470,7 +470,7 @@ class DoubleQuote_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -487,7 +487,7 @@ class Hashtag_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -523,7 +523,7 @@ class Hashtag_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -540,7 +540,7 @@ class Dollar_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -576,7 +576,7 @@ class Dollar_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -593,7 +593,7 @@ class Ampersand_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -629,7 +629,7 @@ class Ampersand_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -646,7 +646,7 @@ class SingleQuote_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -682,7 +682,7 @@ class SingleQuote_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -699,7 +699,7 @@ class LeftParenthesis_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -735,7 +735,7 @@ class LeftParenthesis_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -752,7 +752,7 @@ class RightParenthesis_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -788,7 +788,7 @@ class RightParenthesis_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -805,7 +805,7 @@ class Asterisk_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -841,7 +841,7 @@ class Asterisk_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -858,7 +858,7 @@ class Plus_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -894,7 +894,7 @@ class Plus_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -911,7 +911,7 @@ class Comma_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -947,7 +947,7 @@ class Comma_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -964,7 +964,7 @@ class Minus_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1000,7 +1000,7 @@ class Minus_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1017,7 +1017,7 @@ class Period_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1053,7 +1053,7 @@ class Period_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1070,7 +1070,7 @@ class ForwardSlash_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1106,7 +1106,7 @@ class ForwardSlash_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1123,7 +1123,7 @@ class Primary0_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1159,7 +1159,7 @@ class Primary0_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1176,7 +1176,7 @@ class Primary1_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1212,7 +1212,7 @@ class Primary1_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1229,7 +1229,7 @@ class Primary2_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1265,7 +1265,7 @@ class Primary2_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1282,7 +1282,7 @@ class Primary3_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1318,7 +1318,7 @@ class Primary3_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1335,7 +1335,7 @@ class Primary4_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1371,7 +1371,7 @@ class Primary4_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1388,7 +1388,7 @@ class Primary5_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1424,7 +1424,7 @@ class Primary5_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1441,7 +1441,7 @@ class Primary6_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1477,7 +1477,7 @@ class Primary6_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1494,7 +1494,7 @@ class Primary7_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1530,7 +1530,7 @@ class Primary7_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1547,7 +1547,7 @@ class Primary8_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1583,7 +1583,7 @@ class Primary8_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1600,7 +1600,7 @@ class Primary9_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1636,7 +1636,7 @@ class Primary9_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1653,7 +1653,7 @@ class Colon_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1689,7 +1689,7 @@ class Colon_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1706,7 +1706,7 @@ class SemiColon_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1742,7 +1742,7 @@ class SemiColon_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1759,7 +1759,7 @@ class LessThan_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1795,7 +1795,7 @@ class LessThan_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1812,7 +1812,7 @@ class Equals_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1848,7 +1848,7 @@ class Equals_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1865,7 +1865,7 @@ class GreaterThan_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1901,7 +1901,7 @@ class GreaterThan_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1918,7 +1918,7 @@ class QuestionMark_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1954,7 +1954,7 @@ class QuestionMark_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1971,7 +1971,7 @@ class At_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2007,7 +2007,7 @@ class At_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2024,7 +2024,7 @@ class LeftBracket_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2060,7 +2060,7 @@ class LeftBracket_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2077,7 +2077,7 @@ class BackSlash_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2113,7 +2113,7 @@ class BackSlash_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2130,7 +2130,7 @@ class RightBracket_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2166,7 +2166,7 @@ class RightBracket_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2183,7 +2183,7 @@ class Caret_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2219,7 +2219,7 @@ class Caret_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2236,7 +2236,7 @@ class Underscore_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2272,7 +2272,7 @@ class Underscore_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2289,7 +2289,7 @@ class Grave_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2325,7 +2325,7 @@ class Grave_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2342,7 +2342,7 @@ class PrimaryA_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2378,7 +2378,7 @@ class PrimaryA_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2395,7 +2395,7 @@ class PrimaryB_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2431,7 +2431,7 @@ class PrimaryB_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2448,7 +2448,7 @@ class PrimaryC_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2484,7 +2484,7 @@ class PrimaryC_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2501,7 +2501,7 @@ class PrimaryD_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2537,7 +2537,7 @@ class PrimaryD_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2554,7 +2554,7 @@ class PrimaryE_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2590,7 +2590,7 @@ class PrimaryE_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2607,7 +2607,7 @@ class PrimaryF_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2643,7 +2643,7 @@ class PrimaryF_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2660,7 +2660,7 @@ class PrimaryG_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2696,7 +2696,7 @@ class PrimaryG_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2713,7 +2713,7 @@ class PrimaryH_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2749,7 +2749,7 @@ class PrimaryH_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2766,7 +2766,7 @@ class PrimaryI_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2802,7 +2802,7 @@ class PrimaryI_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2819,7 +2819,7 @@ class PrimaryJ_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2855,7 +2855,7 @@ class PrimaryJ_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2872,7 +2872,7 @@ class PrimaryK_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2908,7 +2908,7 @@ class PrimaryK_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2925,7 +2925,7 @@ class PrimaryL_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -2961,7 +2961,7 @@ class PrimaryL_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2978,7 +2978,7 @@ class PrimaryM_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3014,7 +3014,7 @@ class PrimaryM_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3031,7 +3031,7 @@ class PrimaryN_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3067,7 +3067,7 @@ class PrimaryN_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3084,7 +3084,7 @@ class PrimaryO_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3120,7 +3120,7 @@ class PrimaryO_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3137,7 +3137,7 @@ class PrimaryP_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3173,7 +3173,7 @@ class PrimaryP_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3190,7 +3190,7 @@ class PrimaryQ_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3226,7 +3226,7 @@ class PrimaryQ_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3243,7 +3243,7 @@ class PrimaryR_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3279,7 +3279,7 @@ class PrimaryR_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3296,7 +3296,7 @@ class PrimaryS_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3332,7 +3332,7 @@ class PrimaryS_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3349,7 +3349,7 @@ class PrimaryT_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3385,7 +3385,7 @@ class PrimaryT_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3402,7 +3402,7 @@ class PrimaryU_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3438,7 +3438,7 @@ class PrimaryU_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3455,7 +3455,7 @@ class PrimaryV_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3491,7 +3491,7 @@ class PrimaryV_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3508,7 +3508,7 @@ class PrimaryW_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3544,7 +3544,7 @@ class PrimaryW_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3561,7 +3561,7 @@ class PrimaryX_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3597,7 +3597,7 @@ class PrimaryX_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3614,7 +3614,7 @@ class PrimaryY_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3650,7 +3650,7 @@ class PrimaryY_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3667,7 +3667,7 @@ class PrimaryZ_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3703,7 +3703,7 @@ class PrimaryZ_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3720,7 +3720,7 @@ class Delete_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3756,7 +3756,7 @@ class Delete_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3773,7 +3773,7 @@ class Numpad0_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3809,7 +3809,7 @@ class Numpad0_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3826,7 +3826,7 @@ class Numpad1_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3862,7 +3862,7 @@ class Numpad1_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3879,7 +3879,7 @@ class Numpad2_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3915,7 +3915,7 @@ class Numpad2_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3932,7 +3932,7 @@ class Numpad3_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -3968,7 +3968,7 @@ class Numpad3_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3985,7 +3985,7 @@ class Numpad4_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4021,7 +4021,7 @@ class Numpad4_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4038,7 +4038,7 @@ class Numpad5_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4074,7 +4074,7 @@ class Numpad5_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4091,7 +4091,7 @@ class Numpad6_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4127,7 +4127,7 @@ class Numpad6_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4144,7 +4144,7 @@ class Numpad7_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4180,7 +4180,7 @@ class Numpad7_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4197,7 +4197,7 @@ class Numpad8_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4233,7 +4233,7 @@ class Numpad8_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4250,7 +4250,7 @@ class Numpad9_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4286,7 +4286,7 @@ class Numpad9_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4303,7 +4303,7 @@ class NumpadPeriod_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4339,7 +4339,7 @@ class NumpadPeriod_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4356,7 +4356,7 @@ class NumpadDivide_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4392,7 +4392,7 @@ class NumpadDivide_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4409,7 +4409,7 @@ class NumpadMultiply_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4445,7 +4445,7 @@ class NumpadMultiply_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4462,7 +4462,7 @@ class NumpadMinus_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4498,7 +4498,7 @@ class NumpadMinus_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4515,7 +4515,7 @@ class NumpadPlus_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4551,7 +4551,7 @@ class NumpadPlus_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4568,7 +4568,7 @@ class NumpadEnter_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4604,7 +4604,7 @@ class NumpadEnter_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4621,7 +4621,7 @@ class NumpadEquals_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4657,7 +4657,7 @@ class NumpadEquals_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4674,7 +4674,7 @@ class Up_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4710,7 +4710,7 @@ class Up_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4727,7 +4727,7 @@ class Down_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4763,7 +4763,7 @@ class Down_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4780,7 +4780,7 @@ class Right_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4816,7 +4816,7 @@ class Right_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4833,7 +4833,7 @@ class Left_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4869,7 +4869,7 @@ class Left_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4886,7 +4886,7 @@ class Insert_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4922,7 +4922,7 @@ class Insert_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4939,7 +4939,7 @@ class Home_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -4975,7 +4975,7 @@ class Home_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4992,7 +4992,7 @@ class End_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5028,7 +5028,7 @@ class End_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5045,7 +5045,7 @@ class PageUp_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5081,7 +5081,7 @@ class PageUp_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5098,7 +5098,7 @@ class PageDown_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5134,7 +5134,7 @@ class PageDown_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5151,7 +5151,7 @@ class Function1_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5187,7 +5187,7 @@ class Function1_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5204,7 +5204,7 @@ class Function2_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5240,7 +5240,7 @@ class Function2_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5257,7 +5257,7 @@ class Function3_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5293,7 +5293,7 @@ class Function3_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5310,7 +5310,7 @@ class Function4_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5346,7 +5346,7 @@ class Function4_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5363,7 +5363,7 @@ class Function5_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5399,7 +5399,7 @@ class Function5_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5416,7 +5416,7 @@ class Function6_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5452,7 +5452,7 @@ class Function6_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5469,7 +5469,7 @@ class Function7_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5505,7 +5505,7 @@ class Function7_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5522,7 +5522,7 @@ class Function8_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5558,7 +5558,7 @@ class Function8_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5575,7 +5575,7 @@ class Function9_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5611,7 +5611,7 @@ class Function9_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5628,7 +5628,7 @@ class Function10_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5664,7 +5664,7 @@ class Function10_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5681,7 +5681,7 @@ class Function11_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5717,7 +5717,7 @@ class Function11_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5734,7 +5734,7 @@ class Function12_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5770,7 +5770,7 @@ class Function12_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5787,7 +5787,7 @@ class Function13_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5823,7 +5823,7 @@ class Function13_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5840,7 +5840,7 @@ class Function14_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5876,7 +5876,7 @@ class Function14_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5893,7 +5893,7 @@ class Function15_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5929,7 +5929,7 @@ class Function15_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5946,7 +5946,7 @@ class NumLock_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -5982,7 +5982,7 @@ class NumLock_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5999,7 +5999,7 @@ class CapsLock_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6035,7 +6035,7 @@ class CapsLock_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6052,7 +6052,7 @@ class ScrollLock_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6088,7 +6088,7 @@ class ScrollLock_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6105,7 +6105,7 @@ class RightShift_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6141,7 +6141,7 @@ class RightShift_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6158,7 +6158,7 @@ class LeftShift_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6194,7 +6194,7 @@ class LeftShift_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6211,7 +6211,7 @@ class Shift_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6247,7 +6247,7 @@ class Shift_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6264,7 +6264,7 @@ class RightControl_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6300,7 +6300,7 @@ class RightControl_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6317,7 +6317,7 @@ class LeftControl_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6353,7 +6353,7 @@ class LeftControl_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6370,7 +6370,7 @@ class Control_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6406,7 +6406,7 @@ class Control_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6423,7 +6423,7 @@ class RightAlt_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6459,7 +6459,7 @@ class RightAlt_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6476,7 +6476,7 @@ class LeftAlt_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6512,7 +6512,7 @@ class LeftAlt_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6529,7 +6529,7 @@ class Alt_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6565,7 +6565,7 @@ class Alt_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6582,7 +6582,7 @@ class RightMeta_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6618,7 +6618,7 @@ class RightMeta_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6635,7 +6635,7 @@ class LeftMeta_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6671,7 +6671,7 @@ class LeftMeta_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6688,7 +6688,7 @@ class Meta_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6724,7 +6724,7 @@ class Meta_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6741,7 +6741,7 @@ class LeftSuper_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6777,7 +6777,7 @@ class LeftSuper_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6794,7 +6794,7 @@ class RightSuper_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6830,7 +6830,7 @@ class RightSuper_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6847,7 +6847,7 @@ class Super_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6883,7 +6883,7 @@ class Super_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6900,7 +6900,7 @@ class Mode_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6936,7 +6936,7 @@ class Mode_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6953,7 +6953,7 @@ class Help_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -6989,7 +6989,7 @@ class Help_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7006,7 +7006,7 @@ class Print_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7042,7 +7042,7 @@ class Print_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7059,7 +7059,7 @@ class SystemRequest_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7095,7 +7095,7 @@ class SystemRequest_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7112,7 +7112,7 @@ class Break_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7148,7 +7148,7 @@ class Break_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7165,7 +7165,7 @@ class Menu_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7201,7 +7201,7 @@ class Menu_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7218,7 +7218,7 @@ class Power_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7254,7 +7254,7 @@ class Power_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7271,7 +7271,7 @@ class Euro_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7307,7 +7307,7 @@ class Euro_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7324,7 +7324,7 @@ class AndroidBack_KEY:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7360,7 +7360,7 @@ class AndroidBack_KEY:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7377,7 +7377,7 @@ class Y_BUTTON: # 3
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7413,7 +7413,7 @@ class Y_BUTTON: # 3
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7430,7 +7430,7 @@ class B_BUTTON: # 2
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7466,7 +7466,7 @@ class B_BUTTON: # 2
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7483,7 +7483,7 @@ class A_BUTTON: # 1
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7519,7 +7519,7 @@ class A_BUTTON: # 1
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7536,7 +7536,7 @@ class X_BUTTON: # 0
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7572,7 +7572,7 @@ class X_BUTTON: # 0
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7589,7 +7589,7 @@ class Home_BUTTON: # 12
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7625,7 +7625,7 @@ class Home_BUTTON: # 12
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7642,7 +7642,7 @@ class RightJoystick_BUTTON: # 11
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7678,7 +7678,7 @@ class RightJoystick_BUTTON: # 11
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7695,7 +7695,7 @@ class LeftJoystick_BUTTON: # 10
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7731,7 +7731,7 @@ class LeftJoystick_BUTTON: # 10
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7748,7 +7748,7 @@ class Options_BUTTON: # 9
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7784,7 +7784,7 @@ class Options_BUTTON: # 9
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7801,7 +7801,7 @@ class Track_BALL:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7837,7 +7837,7 @@ class Share_BUTTON: # 8
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7873,7 +7873,7 @@ class Share_BUTTON: # 8
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7890,7 +7890,7 @@ class Right_TRIGGER:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7912,7 +7912,7 @@ class Left_TRIGGER:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7934,7 +7934,7 @@ class Right_BUMPER: # 5
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -7970,7 +7970,7 @@ class Right_BUMPER: # 5
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7987,7 +7987,7 @@ class Left_BUMPER: # 4
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8023,7 +8023,7 @@ class Left_BUMPER: # 4
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8040,7 +8040,7 @@ class Center_BUTTON: # 15
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8076,7 +8076,7 @@ class Center_BUTTON: # 15
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8093,7 +8093,7 @@ class LeftJoystick_AXIS:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8122,7 +8122,7 @@ class RightJoystick_AXIS:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8151,7 +8151,7 @@ class UpHat_BUTTON:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8187,7 +8187,7 @@ class UpHat_BUTTON:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8204,7 +8204,7 @@ class DownHat_BUTTON:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8240,7 +8240,7 @@ class DownHat_BUTTON:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8257,7 +8257,7 @@ class LeftHat_BUTTON:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8293,7 +8293,7 @@ class LeftHat_BUTTON:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8310,7 +8310,7 @@ class RightHat_BUTTON:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8346,7 +8346,7 @@ class RightHat_BUTTON:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8363,7 +8363,7 @@ class LeftButton_MOUSE:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8399,7 +8399,7 @@ class LeftButton_MOUSE:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8416,7 +8416,7 @@ class MiddleButton_MOUSE:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8452,7 +8452,7 @@ class MiddleButton_MOUSE:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8469,7 +8469,7 @@ class RightButton_MOUSE:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8505,7 +8505,7 @@ class RightButton_MOUSE:
 
     def set_pressed(self, value):
         if value:
-            self.set_last_tap_time(_time.perf_counter())
+            self.set_last_tap_time(_time__perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8522,7 +8522,7 @@ class Mouse_SCROLL:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8565,7 +8565,7 @@ class Mouse_POSITION:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8611,7 +8611,7 @@ class AppTerminating_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8633,7 +8633,7 @@ class AppLowMemory_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8655,7 +8655,7 @@ class AppWillEnterBackground_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8677,7 +8677,7 @@ class AppDidEnterBackground_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8699,7 +8699,7 @@ class AppWillEnterForeground_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8721,7 +8721,7 @@ class AppDidEnterForeground_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8743,7 +8743,7 @@ class AudioDeviceAdded_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8765,7 +8765,7 @@ class AudioDeviceRemoved_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8787,7 +8787,7 @@ class ClipBoardUpdate_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8809,7 +8809,7 @@ class DropFile_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8831,7 +8831,7 @@ class DropText_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8853,7 +8853,7 @@ class DropBegin_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8875,7 +8875,7 @@ class DropComplete_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8897,7 +8897,7 @@ class FingerMotion_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8919,7 +8919,7 @@ class FingerDown_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8941,7 +8941,7 @@ class FingerUp_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8963,7 +8963,7 @@ class KeyMapChanged_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -8985,7 +8985,7 @@ class LocaleChanged_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9007,7 +9007,7 @@ class MultiGesture_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9057,7 +9057,7 @@ class Quit_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9079,7 +9079,7 @@ class RenderTargetsReset_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9101,7 +9101,7 @@ class RenderDeviceReset_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9123,7 +9123,7 @@ class SysWMEvent_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9145,7 +9145,7 @@ class WindowShown_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9167,7 +9167,7 @@ class WindowHidden_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9189,7 +9189,7 @@ class WindowExposed_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9211,7 +9211,7 @@ class WindowMoved_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9233,7 +9233,7 @@ class WindowResized_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9255,7 +9255,7 @@ class WindowMinimized_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9277,7 +9277,7 @@ class WindowMaximized_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9299,7 +9299,7 @@ class WindowRestored_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9321,7 +9321,7 @@ class WindowEnter_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9343,7 +9343,7 @@ class WindowLeave_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9365,7 +9365,7 @@ class WindowFocusGained_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9387,7 +9387,7 @@ class WindowFocusLost_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9409,7 +9409,7 @@ class WindowClose_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9431,7 +9431,7 @@ class WindowTakeFocus_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9453,7 +9453,7 @@ class WindowHitTest_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9475,7 +9475,7 @@ class WindowICCPROFChanged_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9497,7 +9497,7 @@ class WindowDisplayChanged_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9519,7 +9519,7 @@ class JoyDeviceAdded_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -9541,7 +9541,7 @@ class JoyDeviceRemoved_EVENT:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

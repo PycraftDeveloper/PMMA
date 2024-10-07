@@ -1,6 +1,7 @@
-import gc as _gc
+from gc import collect as _gc__collect
 
-import pygame as _pygame
+from pygame import joystick as _pygame__joystick
+from pygame import init as _pygame__init
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.controller import Controller as _Controller
@@ -30,17 +31,17 @@ mode is Pygame.")
             _Registry.displayed_pygame_start_message = True
             if _Registry.display_mode == _Constants.PYGAME:
                 _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+                _pygame__init()
 
         self._controllers = []
-        for joy_num in range(_pygame.joystick.get_count()):
+        for joy_num in range(_pygame__joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -55,7 +56,7 @@ mode is Pygame.")
 
     def update_controllers(self):
         self._controllers = []
-        for joy_num in range(_pygame.joystick.get_count()):
+        for joy_num in range(_pygame__joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
     def list_controllers(self):

@@ -1,4 +1,4 @@
-import gc as _gc
+from gc import collect as _gc__collect
 import threading as _threading
 
 try:
@@ -31,7 +31,7 @@ class GPUs:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -605,7 +605,7 @@ make sure that you are able to pass through the GPU device.")
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

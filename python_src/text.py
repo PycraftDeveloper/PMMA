@@ -1,7 +1,7 @@
 from tkinter import font as _font
 import re as _re
 import time as _time
-import gc as _gc
+from gc import collect as _gc__collect
 
 import pygame as _pygame
 import pyglet as _pyglet
@@ -33,7 +33,7 @@ class _Text:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def _quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

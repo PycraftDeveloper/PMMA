@@ -1,10 +1,11 @@
-import json as _json
-import gc as _gc
-import threading as _threading
+from json import dumps as _json__dumps
+from json import loads as _json__loads
+from gc import collect as _gc__collect
+from threading import Thread as _threading__Thread
 from typing import List as _List
 
 try:
-    import pyadl as _pyadl
+    from pyadl import ADLManager as _pyadl__ADLManager
     pyadl_available = True
 except Exception as error:
     if type(error) != ModuleNotFoundError:
@@ -22,7 +23,7 @@ from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as 
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 if _get_operating_system() == _Constants.WINDOWS:
-    import wmi as _wmi
+    from wmi import WMI as _wmi__WMI
 
 class GPUsIntermediary:
     def uuid_cleaner(self, uuid):
@@ -34,7 +35,7 @@ class GPUsIntermediary:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -48,14 +49,14 @@ class GPUsIntermediary:
         self._unique_gpus = {} # {"bus": n, "uuid": n}: {SMI: n, ADL: n, WMI, n}
 
         if pyadl_available:
-            raw_GPUs = _pyadl.ADLManager.getInstance().getDevices()
+            raw_GPUs = _pyadl__ADLManager.getInstance().getDevices()
             adl_index = 0
             for raw_gpu in raw_GPUs:
                 adl_bus = raw_gpu.__dict__["busNumber"]
                 adl_uuid: bytes = raw_gpu.__dict__["uuid"]
                 adl_uuid = adl_uuid.decode("utf-8")
                 adl_uuid = self.uuid_cleaner(adl_uuid)
-                json_identifier = _json.dumps({"bus": adl_bus, "uuid": adl_uuid})
+                json_identifier = _json__dumps({"bus": adl_bus, "uuid": adl_uuid})
                 self._unique_gpus[json_identifier] = {_Constants.SMI: None, _Constants.WMI: None, _Constants.PYADL: adl_index}
                 adl_index += 1
 
@@ -75,18 +76,18 @@ class GPUsIntermediary:
                     smi_index = int(index.strip())
                     smi_bus = int(hex_bus.strip(), base=16)
                     for key in self._unique_gpus:
-                        unloaded_key = _json.loads(key)
+                        unloaded_key = _json__loads(key)
                         if unloaded_key["bus"] == smi_bus:
                             self._unique_gpus[key][_Constants.SMI] = smi_index
 
         if _get_operating_system() == _Constants.WINDOWS:
-            computer = _wmi.WMI()
+            computer = _wmi__WMI()
             wmi_index = 0
             for gpu in computer.Win32_VideoController():
                 wmi_uuid = getattr(gpu, "PNPDeviceID")
                 wmi_uuid = self.uuid_cleaner(wmi_uuid)
                 for key in self._unique_gpus:
-                    unloaded_key = _json.loads(key)
+                    unloaded_key = _json__loads(key)
                     if unloaded_key["uuid"] == wmi_uuid:
                         self._unique_gpus[key][_Constants.WMI] = wmi_index
 
@@ -97,9 +98,9 @@ class GPUsIntermediary:
         for key in self._unique_gpus:
             gpu_instances.append(_GPU(self._unique_gpus[key]))
 
-        threads: _List[_threading.Thread] = []
+        threads: _List[_threading__Thread] = []
         for gpu in gpu_instances:
-            thread = _threading.Thread(target=gpu.update, kwargs={"everything": True, "wait_for_completion": True})
+            thread = _threading__Thread(target=gpu.update, kwargs={"everything": True, "wait_for_completion": True})
             thread.name = "GPUs:Get_Data_Thread"
             threads.append(thread)
             thread.start()

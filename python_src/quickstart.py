@@ -1,4 +1,4 @@
-import gc as _gc
+from gc import collect as _gc__collect
 
 from pmma.python_src.general import compute as _compute
 from pmma.python_src.backpack import Backpack as _Backpack
@@ -44,7 +44,7 @@ class QuickStart:
             self._events.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

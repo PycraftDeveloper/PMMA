@@ -4,7 +4,7 @@ import sys as _sys
 import tempfile as _tempfile
 import os as _os
 import shutil as _shutil
-import gc as _gc
+from gc import collect as _gc__collect
 import traceback as _traceback
 
 import psutil as _psutil
@@ -108,7 +108,7 @@ leaving the target size variable can be dangerous.")
             self.objects = {}
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -324,7 +324,7 @@ more than 25% of the assigned memory")
                     del self.linker[obj_id]
                     self.objects[obj_id] = None
                     del self.objects[obj_id]
-                    _gc.collect()
+                    _gc__collect()
                     return True
                 elif obj_id in self.temporary_files:
                     self._logger.log_development("Removing temporary memory object w/ ID: \
@@ -332,7 +332,7 @@ more than 25% of the assigned memory")
 
                     _os.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
-                    _gc.collect()
+                    _gc__collect()
                     return True
                 return False
         else:
@@ -395,7 +395,7 @@ as PMMA attempts to correct this.")
                                     del self.linker[self.objects[obj_time][1]]
                                     self.objects[obj_time] = None
                                     del self.objects[obj_time]
-                                    _gc.collect()
+                                    _gc__collect()
                             except FileNotFoundError as error:
                                 raise error
 

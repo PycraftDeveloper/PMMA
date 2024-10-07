@@ -1,5 +1,5 @@
-import moderngl as _moderngl
-import pprofile as _pprofile
+from moderngl import Context as _moderngl__Context
+from pprofile import Profile as _pprofile__Profile
 
 class Registry:
     compile_math_functions = True #
@@ -19,7 +19,7 @@ class Registry:
     development_mode = True #
     refresh_rate = 60
     display_initialized = False
-    context: "_moderngl.Context" = None
+    context: "_moderngl__Context" = None
     power_saving_mode = False #
     number_of_render_updates = 0
     total_time_spent_drawing = 0
@@ -41,7 +41,7 @@ class Registry:
     compute_component_called = False
     displayed_pygame_start_message = False
     shape_quality = 0.75
-    profiler: "_pprofile.Profile" = None
+    profiler: "_pprofile__Profile" = None
     general_profile_application = None
     targeted_profile_application = None
     profile_result_path = None

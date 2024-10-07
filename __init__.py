@@ -1,21 +1,21 @@
 import sys as _sys
-import os as _os
-import tkinter as _tkinter
-import io as _io
-import contextlib as _contextlib
-import time as _time
+from os import sep as _os__sep
+from tkinter import Tk as _tkinter__Tk
+from io import StringIO as _io__StringIO
+from contextlib import redirect_stdout as _contextlib__redirect_stdout
+from time import perf_counter as _time__perf_counter
 
-import numba as _numba
-import pprofile as _pprofile
+from numba import config as _numba__config
+from pprofile import Profile as _pprofile__Profile
 
 def _up(path: str) -> str:
-    return path[::-1].split(_os.sep, 1)[-1][::-1]
+    return path[::-1].split(_os__sep, 1)[-1][::-1]
 
 _base_path = _up(__file__)
 
-_temporary_files_path = _base_path + _os.sep + "temporary"
+_temporary_files_path = _base_path + _os__sep + "temporary"
 _sys.pycache_prefix = _temporary_files_path
-_numba.config.CACHE_DIR = _temporary_files_path
+_numba__config.CACHE_DIR = _temporary_files_path
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import *
@@ -23,10 +23,11 @@ from pmma.python_src.constants import *
 _Registry.temporary_files_path = _temporary_files_path
 _Registry.base_path = _base_path
 
-_buffer = _io.StringIO()
+_buffer = _io__StringIO()
 
-with _contextlib.redirect_stdout(_buffer):
+with _contextlib__redirect_stdout(_buffer):
     import pygame as _pygame
+    del _pygame
 
 _Registry.pygame_launch_message = _buffer.getvalue().strip()
 
@@ -92,11 +93,11 @@ def init(
     _Registry.targeted_profile_application = targeted_profile_application and not general_profile_application
 
     if general_profile_application or targeted_profile_application:
-        _Registry.profiler = _pprofile.Profile()
+        _Registry.profiler = _pprofile__Profile()
         if general_profile_application:
             _Registry.profiler.enable()
 
-    startup_time = _time.perf_counter()
+    startup_time = _time__perf_counter()
 
     _Registry.pmma_initialized = True
 
@@ -109,7 +110,7 @@ def init(
     if compile_c_extensions: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
         cython_thread = _cython_utils.compile()
 
-    root = _tkinter.Tk()
+    root = _tkinter__Tk()
     root.withdraw()
 
     _Registry.application_start_time = startup_time
@@ -118,7 +119,7 @@ def init(
     _Registry.python_acceleration_enabled = optimize_python_extensions
     _Registry.cython_acceleration_enabled = compile_c_extensions
     _Registry.power_saving_mode = is_battery_saver_enabled()
-    _Registry.power_status_checked_time = _time.perf_counter()
+    _Registry.power_status_checked_time = _time__perf_counter()
 
     _general_utils.update_language()
 

@@ -1,6 +1,6 @@
 import math as _math
 import time as _time
-import gc as _gc
+from gc import collect as _gc__collect
 
 import pygame as _pygame
 import pyglet as _pyglet
@@ -68,7 +68,7 @@ class Line:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -347,7 +347,7 @@ class RadialPolygon:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -513,7 +513,7 @@ class Rectangle:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -704,7 +704,7 @@ class Arc:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -923,7 +923,7 @@ class Ellipse:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1126,7 +1126,7 @@ class Polygon:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1333,7 +1333,7 @@ class Pixel:
             self._vao.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

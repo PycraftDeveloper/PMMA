@@ -1,5 +1,6 @@
-import math as _math
-import os as _os
+from math import pi as _math__pi
+from os import sep as _os__sep
+from os import cpu_count as _os__cpu_count
 
 class Constants:
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
@@ -108,7 +109,7 @@ class Constants:
     TOP = "top"
     BOTTOM = "bottom"
 
-    CORE_COUNT = _os.cpu_count()
+    CORE_COUNT = _os__cpu_count()
     THREAD_COUNT = CORE_COUNT * 2
 
     DISPLAY_OBJECT = "display"
@@ -677,7 +678,7 @@ class Constants:
         PYTHON3_12
     ]
 
-    PATH_SEPARATOR = _os.sep
+    PATH_SEPARATOR = _os__sep
 
     PYGAME = "pygame"
     PYGLET = "pyglet"
@@ -686,7 +687,7 @@ class Constants:
         PYGLET]
 
     DEFAULT = "default"
-    TAU = _math.pi * 2
+    TAU = _math__pi * 2
 
     XYZ = "xyz"
     XZY = "xzy"

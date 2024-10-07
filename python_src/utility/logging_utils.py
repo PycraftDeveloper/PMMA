@@ -1,11 +1,14 @@
-import datetime as _datetime
-import traceback as _traceback
-import gc as _gc
-import threading as _threading
-import os as _os
-import shutil as _shutil
+from datetime import datetime as _datetime__datetime
+from traceback import format_stack as _traceback__format_stack
+from traceback import print_exc as _traceback__print_exec
+from gc import collect as _gc__collect
+from threading import Lock as _threading__Lock
+from threading import Thread as _threading__Thread
+from os import mkdir as _os__mkdir
+from os import listdir as _os__listdir
+from shutil import rmtree as _shutil__rmtree
 
-import waiting as _waiting
+from waiting import wait as _waiting__wait
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
@@ -43,10 +46,10 @@ class LoggerIntermediary:
         self._external_log_warning_messages_to_file = True
         self._external_log_error_messages_to_file = True
 
-        self._logging_thread_lock = _threading.Lock()
+        self._logging_thread_lock = _threading__Lock()
         self._logging_thread_active = True
 
-        self._log_to_file_thread = _threading.Thread(target=self._file_logger_thread)
+        self._log_to_file_thread = _threading__Thread(target=self._file_logger_thread)
         self._log_to_file_thread.daemon = True
         self._log_to_file_thread.name = "LoggingIntermediary:Log_To_Files_Thread"
 
@@ -54,22 +57,22 @@ class LoggerIntermediary:
 
         self._log_directory = _path_builder(_Registry.base_path, "logs")
         try:
-            _os.mkdir(self._log_directory)
+            _os__mkdir(self._log_directory)
         except:
             pass
 
-        now = _datetime.datetime.now()
+        now = _datetime__datetime.now()
         log_file_identifier = now.strftime("log %d-%m-%Y @ %H-%M-%S")
 
         self._log_folders_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier)
         try:
-            _os.mkdir(self._log_folders_directory)
+            _os__mkdir(self._log_folders_directory)
         except:
             pass
 
         self._internal_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, "pmma")
         try:
-            _os.mkdir(self._internal_log_directory)
+            _os__mkdir(self._internal_log_directory)
         except:
             pass
 
@@ -79,7 +82,7 @@ class LoggerIntermediary:
             name = "application"
         self._external_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, name)
         try:
-            _os.mkdir(self._external_log_directory)
+            _os__mkdir(self._external_log_directory)
         except:
             pass
 
@@ -189,7 +192,7 @@ class LoggerIntermediary:
             self._log_to_file_thread.join()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -217,8 +220,8 @@ class LoggerIntermediary:
         return False
 
     def clear_internal_logs(self):
-        old_logs = _os.listdir(self._log_directory)
-        now = _datetime.datetime.now()
+        old_logs = _os__listdir(self._log_directory)
+        now = _datetime__datetime.now()
         for log_folder in old_logs:
             original_log_folder = log_folder
             log_folder = log_folder.split("log ")[-1]
@@ -227,7 +230,7 @@ class LoggerIntermediary:
             time = split_date[1].split("-")
             day, month, year = date[0], date[1], date[2]
             hour, minute, second = time[0], time[1], time[2]
-            past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
+            past = _datetime__datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
             time_difference = abs(past-now).days
             if time_difference > _Registry.internal_log_duration:
                 self.log_information(
@@ -235,15 +238,15 @@ class LoggerIntermediary:
                     variables=[original_log_folder, time_difference],
                     repeat_for_effect=True)
 
-                _shutil.rmtree(
+                _shutil__rmtree(
                 _path_builder(self._log_directory, original_log_folder),
                 ignore_errors=True)
 
     def clear_external_logs(self):
         project_log_directory = self._determine_project_log_folder()
         if project_log_directory is not None:
-            old_logs = _os.listdir(project_log_directory)
-            now = _datetime.datetime.now()
+            old_logs = _os__listdir(project_log_directory)
+            now = _datetime__datetime.now()
             for log_folder in old_logs:
                 original_log_folder = log_folder
                 log_folder = log_folder.split("log ")[-1]
@@ -252,7 +255,7 @@ class LoggerIntermediary:
                 time = split_date[1].split("-")
                 day, month, year = date[0], date[1], date[2]
                 hour, minute, second = time[0], time[1], time[2]
-                past = _datetime.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
+                past = _datetime__datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
                 time_difference = abs(past-now).days
                 if time_difference > _Registry.external_log_duration:
                     self.log_information(
@@ -260,7 +263,7 @@ class LoggerIntermediary:
                     variables=[original_log_folder, time_difference],
                     repeat_for_effect=True)
 
-                    _shutil.rmtree(
+                    _shutil__rmtree(
                     _path_builder(self._log_directory, original_log_folder),
                     ignore_errors=True)
 
@@ -269,7 +272,7 @@ class LoggerIntermediary:
         self.clear_external_logs()
 
         while self._logging_thread_active:
-            _waiting.wait(self._file_logger_thread_wait_for_load)
+            _waiting__wait(self._file_logger_thread_wait_for_load)
             if not len(self._file_log_buffer) > 0:
                 continue
 
@@ -332,7 +335,7 @@ class LoggerIntermediary:
             inserted_variables_to_message = message.format(*variables)
 
             message = ""
-            now = _datetime.datetime.now()
+            now = _datetime__datetime.now()
             date_time_stamp = now.strftime("[%d/%m/%Y @ %H:%M:%S.%f] ")
             message += date_time_stamp
             if log_level == _Constants.DEVELOPMENT:
@@ -347,9 +350,9 @@ class LoggerIntermediary:
 
             if do_traceback:
                 try:
-                    trace = _traceback.print_exc()
+                    trace = _traceback__print_exec()
                     if trace == None:
-                        trace = "".join(_traceback.format_stack())
+                        trace = "".join(_traceback__format_stack())
                 except:
                     trace = ""
             else:
@@ -402,7 +405,7 @@ class InternalLogger:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

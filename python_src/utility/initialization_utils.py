@@ -1,5 +1,4 @@
-import importlib as _importlib
-
+from importlib import import_module as _importlib__import_module
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -11,7 +10,7 @@ def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, l
 
     if _Registry.pmma_initialized is False:
         if not logging_instantiation:
-            _importlib.import_module("pmma.__init__").init()
+            _importlib__import_module("pmma.__init__").init()
             _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "You haven't yet initialized PMMA. This can be done by calling \
 'pmma.init()' any time before using any of PMMA functions. As you haven't called \

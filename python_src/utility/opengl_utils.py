@@ -1,4 +1,4 @@
-import gc as _gc
+from gc import collect as _gc__collect
 
 from PIL import Image as _Image
 import moderngl as _moderngl
@@ -142,7 +142,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

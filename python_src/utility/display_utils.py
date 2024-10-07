@@ -1,13 +1,24 @@
-import gc as _gc
-import ctypes as _ctypes
+from gc import collect as _gc__collect
+from ctypes import windll as _ctypes__windll
 import os as _os
 
-import numpy as _numpy
-import moderngl as _moderngl
-import pygame as _pygame
-import pyglet as _pyglet
+from numpy import float32 as _numpy__float32
+from numpy import array as _numpy__array
+from moderngl import BLEND as _moderngl__BLEND
+from moderngl import create_context as _moderngl__create_context
+from pygame import init as _pygame__init
+from pygame import quit as _pygame__quit
+from pygame import time as _pygame__time
+from pygame import display as _pygame__display
+from pygame import OPENGL as _pygame__OPENGL
+from pygame import RESIZABLE as _pygame__RESIZABLE
+from pygame import FULLSCREEN as _pygame__FULLSCREEN
+from pygame import NOFRAME as _pygame__NOFRAME
+from pygame import DOUBLEBUF as _pygame__DOUBLEBUF
+from pygame import image as _pygame__image
 from moderngl_window import geometry as _geometry
-import moderngl_window as _moderngl_window
+from moderngl_window import get_local_window_cls as _moderngl_window__get_local_window_cls
+from moderngl_window import activate_context as _moderngl_window__activate_context
 
 from pmma.python_src.general import get_operating_system as _get_operating_system
 from pmma.python_src.constants import Constants as _Constants
@@ -43,7 +54,7 @@ class DisplayIntermediary:
         self._opengl = _OpenGL()
 
         self._fill_color = None
-        self._color_key = _numpy.array([0, 0, 0], dtype=_numpy.float32)
+        self._color_key = _numpy__array([0, 0, 0], dtype=_numpy__float32)
 
         self.resized_event = _WindowResized_EVENT()
 
@@ -97,10 +108,10 @@ mode is Pygame.")
                 _Registry.displayed_pygame_start_message = True
                 if _Registry.display_mode == _Constants.PYGAME:
                     self._logger.log_information(_Registry.pygame_launch_message)
-                    _pygame.init()
+                    _pygame__init()
 
             if _Registry.display_mode == _Constants.PYGAME:
-                self._clock = _pygame.time.Clock()
+                self._clock = _pygame__time.Clock()
 
     def get_clear_called_but_skipped(self):
         if self._object_updated is False:
@@ -186,9 +197,9 @@ mode is Pygame.")
             hex_color = self._color_converter.get_color(format=_Constants.HEX)
             color_key = self.hex_color_to_windows_raw_color(hex_color)
 
-            _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+            _ctypes__windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
-        self._color_key = _numpy.array([*self._color_converter.get_color(format=_Constants.SMALL_RGB)], dtype=_numpy.float32)
+        self._color_key = _numpy__array([*self._color_converter.get_color(format=_Constants.SMALL_RGB)], dtype=_numpy__float32)
 
         if _Registry.display_mode == _Constants.PYGAME:
             #self._two_dimension_frame_buffer.use()
@@ -213,10 +224,10 @@ mode is Pygame.")
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             if _Registry.display_mode == _Constants.PYGAME:
-                _pygame.display.quit()
+                _pygame__display.quit()
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -262,14 +273,14 @@ mode is Pygame.")
     def _generate_pygame_flags(self, care_about_full_screen=True):
         if self._object_updated is False:
             self.update_class()
-        flags = _pygame.OPENGL | _pygame.DOUBLEBUF
+        flags = _pygame__OPENGL | _pygame__DOUBLEBUF
 
         if self._display_attribute_no_frame:
-            flags |= _pygame.NOFRAME
+            flags |= _pygame__NOFRAME
         if self._display_attribute_resizable:
-            flags |= _pygame.RESIZABLE
+            flags |= _pygame__RESIZABLE
         if self._display_attribute_full_screen and care_about_full_screen:
-            flags |= _pygame.FULLSCREEN
+            flags |= _pygame__FULLSCREEN
 
         return flags
 
@@ -344,32 +355,32 @@ actively working to address this operating system limitation.")
             else:
                 size = self._display_attribute_size
 
-            self._display = _pygame.display.set_mode(
+            self._display = _pygame__display.set_mode(
                 size,
                 flags,
                 vsync=self._display_attribute_vsync)
 
-            _Registry.window_context = _moderngl_window.get_local_window_cls("pygame2")
+            _Registry.window_context = _moderngl_window__get_local_window_cls("pygame2")
 
             if self._display_attribute_transparent_display:
                 if _get_operating_system() == _Constants.WINDOWS:
-                    self._display_attribute_hwnd = _pygame.display.get_wm_info()["window"]
+                    self._display_attribute_hwnd = _pygame__display.get_wm_info()["window"]
 
                     # Make the window transparent and allow click-through
                     # Set the window to be layered
-                    _ctypes.windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes.windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
+                    _ctypes__windll.user32.SetWindowLongW(self._display_attribute_hwnd, -20, _ctypes__windll.user32.GetWindowLongW(self._display_attribute_hwnd, -20) | 0x80000)
 
                     # Set transparency color key
                     color_key = self.hex_color_to_windows_raw_color("#000000")
-                    _ctypes.windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
+                    _ctypes__windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
         else:
             raise NotImplementedError
 
         _Registry.display_initialized = True
 
         try:
-            _Registry.context = _moderngl.create_context()
-            _moderngl_window.activate_context(_Registry.window_context, _Registry.context)
+            _Registry.context = _moderngl__create_context()
+            _moderngl_window__activate_context(_Registry.window_context, _Registry.context)
         except Exception as error:
             self._logger.log_error("Failed to create OpenGL context.")
             self._logger.log_development("Failed to create OpenGL context. Make sure that \
@@ -394,7 +405,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if caption is None:
             caption = self._display_attribute_caption
         if _Registry.display_mode == _Constants.PYGAME:
-            _pygame.display.set_caption(str(caption))
+            _pygame__display.set_caption(str(caption))
 
     def set_icon(self, icon=None):
         if self._object_updated is False:
@@ -402,8 +413,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if icon is None:
             icon = self._display_attribute_icon
         if _Registry.display_mode == _Constants.PYGAME:
-            icon_img = _pygame.image.load(icon)
-            _pygame.display.set_icon(icon_img)
+            icon_img = _pygame__image.load(icon)
+            _pygame__display.set_icon(icon_img)
             del icon_img
 
     def get_display_projection(self):
@@ -415,7 +426,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if self._object_updated is False:
             self.update_class()
 
-        size = _pygame.display.get_window_size()
+        size = _pygame__display.get_window_size()
 
         self._current_display_size = size
 
@@ -447,12 +458,12 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         if _Registry.display_mode == _Constants.PYGAME:
             display_size = self._tkinter_backend.get_display_size()
             if self._display_attribute_full_screen:
-                _pygame.display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
-                self._display = _pygame.display.set_mode((0, 0), flags|_pygame.FULLSCREEN, vsync=self._display_attribute_vsync)
+                _pygame__display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
+                self._display = _pygame__display.set_mode((0, 0), flags | _pygame__FULLSCREEN, vsync=self._display_attribute_vsync)
             else:
-                _pygame.display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
+                _pygame__display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
                 size = self._display_attribute_size or (800, 600)
-                self._display = _pygame.display.set_mode(size, flags, vsync=self._display_attribute_vsync)
+                self._display = _pygame__display.set_mode(size, flags, vsync=self._display_attribute_vsync)
 
         self.on_window_size_changed()
 
@@ -562,11 +573,11 @@ you refresh the display to ensure optimal performance and support!")
 
                 self._texture_aggregation_program.set_shader_variable("color_key", self._color_key)
 
-                _Registry.context.enable(_moderngl.BLEND)
+                _Registry.context.enable(_moderngl__BLEND)
                 self._display_quad.render(self._texture_aggregation_program.use_program())
-                _Registry.context.disable(_moderngl.BLEND)
+                _Registry.context.disable(_moderngl__BLEND)
 
-                _pygame.display.flip()
+                _pygame__display.flip()
 
             frame_rate = self.get_fps()
             if _Registry.application_average_frame_rate["Samples"] == 0:
@@ -590,7 +601,7 @@ you refresh the display to ensure optimal performance and support!")
         if self._object_updated is False:
             self.update_class()
         if _Registry.display_mode == _Constants.PYGAME:
-            _pygame.quit()
+            _pygame__quit()
         else:
             raise NotImplementedError
 

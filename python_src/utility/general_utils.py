@@ -1,20 +1,23 @@
-import locale as _locale
-import ctypes as _ctypes
-import subprocess as _subprocess
+from locale import windows_locale as _locale__windows_locale
+from ctypes import windll as _ctypes__windll
+from subprocess import check_output as _subprocess__check_output
+from subprocess import run as _subprocess__run
+from subprocess import CalledProcessError as _subprocess__CalledProcessorError
 import os as _os
 from distutils import spawn as _spawn
-import random as _random
-import platform as _platform
-import gc as _gc
-import inspect as _inspect
-import time as _time
-import sys as _sys
+from random import random as _random__random
+from random import randint as _random__randint
+from platform import system as _platform__system
+from gc import collect as _gc__collect
+from inspect import isclass as _inspect__isclass
+from inspect import isfunction as _inspect__isfunction
+from time import perf_counter as _time__perf_counter
+from sys import exit as _sys__exit
 
-import pygame as _pygame
-import psutil as _psutil
-import pyglet as _pyglet
-import getostheme as _getostheme
-import num2words as _num2words
+from pygame import quit as _pygame__quit
+from psutil import sensors_battery as _psutil__sensors_battery
+from getostheme import isDarkMode as _getostheme__isDarkMode
+from num2words import num2words as _num2words__num2words
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.backpack import Backpack as _Backpack
@@ -26,16 +29,16 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 def get_execution_time(function, *args, **kwargs):
-    start_time = _time.time()
+    start_time = _time__perf_counter()
     result = function(*args, **kwargs)
-    end_time = _time.time()
+    end_time = _time__perf_counter()
     execution_time = end_time - start_time
     return result, execution_time
 
 def get_execution_inverse_time(function, *args, **kwargs):
-    start_time = _time.time()
+    start_time = _time__perf_counter()
     result = function(*args, **kwargs)
-    end_time = _time.time()
+    end_time = _time__perf_counter()
     execution_time = end_time - start_time
     return result, 1/execution_time
 
@@ -70,24 +73,24 @@ however you already specified that you want to profile everything, so this has n
 This behavior can be configured in 'pmma.init()'.")
 
 def check_if_object_is_class_or_function(param):
-    if _inspect.isclass(param):
+    if _inspect__isclass(param):
         return _Constants.CLASS
-    elif isinstance(param, object) and not _inspect.isfunction(param):
+    elif isinstance(param, object) and not _inspect__isfunction(param):
         return _Constants.CLASS_INSTANCE
-    elif _inspect.isfunction(param):
+    elif _inspect__isfunction(param):
         return _Constants.FUNCTION
     else:
         return _Constants.UNKNOWN
 
 def get_theme():
-    if _getostheme.isDarkMode():
+    if _getostheme__isDarkMode():
         return _Constants.DARK
     else:
         return _Constants.LIGHT
 
 def convert_number_to_text(value):
     try:
-        return _num2words.num2words(value, lang=_Registry.language)
+        return _num2words__num2words(value, lang=_Registry.language)
     except OverflowError:
         _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Woah! {} is a very large number - too big \
@@ -124,7 +127,7 @@ specified where you would like them to be placed. This can be done through: \
 
         if _Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
-            time_formatter_instance.set_from_second(_time.perf_counter() - _Registry.application_start_time)
+            time_formatter_instance.set_from_second(_time__perf_counter() - _Registry.application_start_time)
             _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
@@ -190,9 +193,9 @@ generating 3D arrays.")
     del _Registry.pmma_module_spine
 
     if _Registry.display_mode == _Constants.PYGAME:
-        _pygame.quit()
+        _pygame__quit()
 
-    _gc.collect()
+    _gc__collect()
 
     logger.log_information(
         "Quitting PMMA object with ID: logging intermediary",
@@ -201,13 +204,13 @@ generating 3D arrays.")
     logger.quit(do_garbage_collection=True)
 
     if terminate_application:
-        _sys.exit(0)
+        _sys__exit(0)
 
 def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
     if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
         _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
 
-    if _time.perf_counter() - _Registry.power_status_checked_time > 10:
+    if _time__perf_counter() - _Registry.power_status_checked_time > 10:
         _Registry.power_saving_mode = is_battery_saver_enabled()
 
     if _Registry.power_saving_mode:
@@ -227,15 +230,15 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
                 _set_anti_aliasing_level(_Registry.manually_set_anti_aliasing_level)
 
     if _Registry.in_game_loop is False: # first run detection
-        _Registry.application_finished_loading_time = _time.perf_counter()
+        _Registry.application_finished_loading_time = _time__perf_counter()
 
     _Registry.in_game_loop = True
 
     _Registry.compute_component_called = True
 
-    new_iteration_id = _random.random()
+    new_iteration_id = _random__random()
     while new_iteration_id == _Registry.iteration_id:
-        new_iteration_id = _random.random()
+        new_iteration_id = _random__random()
     _Registry.iteration_id = new_iteration_id
 
     number_of_render_updates = _Registry.number_of_render_updates
@@ -288,25 +291,25 @@ def register_application():
         APPLICATION_NAME = _PassportIntermediary.name
         SUB_APPLICATION_NAME = _PassportIntermediary.sub_name
         myappid = f"{AUTHOR}.{APPLICATION_NAME}.{SUB_APPLICATION_NAME}.{VERSION}"
-        _ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+        _ctypes__windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 def get_operating_system():
-    if _platform.system() == "Windows":
+    if _platform__system() == "Windows":
         return _Constants.WINDOWS
-    elif _platform.system() == "Linux":
+    elif _platform__system() == "Linux":
         if "ANDROID_STORAGE" in _os.environ:
             return _Constants.ANDROID
         return _Constants.LINUX
-    elif _platform.system() == "Darwin":
+    elif _platform__system() == "Darwin":
         return _Constants.MACOS
-    elif _platform.system() == "Java":
+    elif _platform__system() == "Java":
         return _Constants.JAVA
 
 def is_battery_saver_enabled(
         fallback_battery_power_saving_threshold_percentage=30,
         care_if_running_on_battery=True):
     try:
-        battery = _psutil.sensors_battery()
+        battery = _psutil__sensors_battery()
         if battery is None:
             return False
 
@@ -316,14 +319,14 @@ def is_battery_saver_enabled(
             using_battery = True
 
         if get_operating_system() == _Constants.WINDOWS:
-            result = _subprocess.check_output(['powercfg', '/getactivescheme'], text=True)
+            result = _subprocess__check_output(['powercfg', '/getactivescheme'], text=True)
             result = result.lower()
 
             if ("saver" in result or "efficiency" in result) and using_battery:
                 return True
 
         elif get_operating_system() == _Constants.MACOS:
-            output = _subprocess.check_output(['pmset', '-g', 'batt'], text=True)
+            output = _subprocess__check_output(['pmset', '-g', 'batt'], text=True)
             # Check if battery saver is mentioned in the output
             return using_battery and "Low Power Mode: 1" in output
         else:
@@ -333,15 +336,15 @@ def is_battery_saver_enabled(
         return battery.percent < fallback_battery_power_saving_threshold_percentage and using_battery
 
 def random_real_number(negatives=True):
-    integer = _random.randint(-100, 100)
-    decimal = _random.random()
+    integer = _random__randint(-100, 100)
+    decimal = _random__random()
     if negatives:
         return integer + decimal
     else:
         return abs(integer + decimal)
 
 def up(path: str) -> str:
-    return path[::-1].split(_os.sep, 1)[-1][::-1]
+    return path[::-1].split(_Constants.PATH_SEPARATOR, 1)[-1][::-1]
 
 def find_executable_nvidia_smi():
     if get_operating_system() == _Constants.WINDOWS:
@@ -361,12 +364,12 @@ def find_executable_nvidia_smi():
 def update_language():
     if get_operating_system() == _Constants.WINDOWS:
         try:
-            windll = _ctypes.windll.kernel32
-            detected_language = _locale.windows_locale[
+            windll = _ctypes__windll.kernel32
+            detected_language = _locale__windows_locale[
                 windll.GetUserDefaultUILanguage()]
         except:
             try:
-                result = _subprocess.run(
+                result = _subprocess__run(
                     ['locale'],
                     capture_output=True,
                     text=True,
@@ -375,11 +378,11 @@ def update_language():
                 for line in result.stdout.split('\n'):
                     if line.startswith('LANG='):
                         detected_language = line.split('=')[1]
-            except _subprocess.CalledProcessError:
+            except _subprocess__CalledProcessorError:
                 detected_language = None
     else:
         try:
-            result = _subprocess.run(
+            result = _subprocess__run(
                 ['locale'],
                 capture_output=True,
                 text=True,
@@ -388,7 +391,7 @@ def update_language():
             for line in result.stdout.split('\n'):
                 if line.startswith('LANG='):
                     detected_language = line.split('=')[1]
-        except _subprocess.CalledProcessError:
+        except _subprocess__CalledProcessorError:
             detected_language = None
 
     if detected_language is None:

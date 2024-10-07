@@ -1,4 +1,4 @@
-import gc as _gc
+from gc import collect as _gc__collect
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 import pmma.python_src.utility.math_utils as _math_utils
@@ -21,7 +21,7 @@ class Math:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

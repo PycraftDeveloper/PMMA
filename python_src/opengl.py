@@ -1,4 +1,4 @@
-import gc as _gc
+from gc import collect as _gc__collect
 import os as _os
 
 import moderngl as _moderngl
@@ -31,7 +31,7 @@ class OpenGL:
         if self._shut_down is False:
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -160,7 +160,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -266,7 +266,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -372,7 +372,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -478,7 +478,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -702,7 +702,7 @@ using the `allow_shaders_to_adjust_point_size` keyword argument.")
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -931,7 +931,7 @@ class Shader:
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -993,7 +993,7 @@ class Texture:
             self._internal_texture.quit(do_garbage_collection=do_garbage_collection)
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)
@@ -1064,7 +1064,7 @@ class FrameBufferObject:
             del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         self.__del__(do_garbage_collection=do_garbage_collection)

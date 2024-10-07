@@ -1,5 +1,5 @@
 import threading as _threading
-import gc as _gc
+from gc import collect as _gc__collect
 import time as _time
 
 import pyaudio as _pyaudio
@@ -49,7 +49,7 @@ class Sampler:
 
             del self
             if do_garbage_collection:
-                _gc.collect()
+                _gc__collect()
 
     def print_input_devices(self):
         info = self._pyaudio_instance.get_host_api_info_by_index(0)
