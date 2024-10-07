@@ -1,10 +1,13 @@
-import threading as _threading
+from threading import Thread as _threading__Thread
 from gc import collect as _gc__collect
-import time as _time
-import math as _math
+from time import perf_counter as _time__perf_counter
+from time import sleep as _time__sleep
+from math import sin as _math__sin
+from math import pi as _math__pi
 
-import waiting as _waiting
-import numpy as _numpy
+from waiting import wait as _waiting__wait
+from numpy import absolute as _numpy__absolute
+from numpy import array as _numpy__array
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.advmath import Math as _Math
@@ -21,7 +24,7 @@ class TransitionManager:
 
         self._transitions = {}
 
-        self._transition_manager = _threading.Thread(target=self._manage_transitions)
+        self._transition_manager = _threading__Thread(target=self._manage_transitions)
         self._transition_manager.daemon = True
         self._transition_manager.name = "TransitionManager:Manage_Transitions_Thread"
 
@@ -55,10 +58,10 @@ class TransitionManager:
         del self._transitions[key]
 
     def _linear_coordinate_transition(self, transition):
-        np_start = _numpy.array(transition.get_start())
-        np_end = _numpy.array(transition.get_end())
-        difference = _numpy.absolute(np_start - np_end)
-        current_run_duration = _time.perf_counter() - transition.get_start_time()
+        np_start = _numpy__array(transition.get_start())
+        np_end = _numpy__array(transition.get_end())
+        difference = _numpy__absolute(np_start - np_end)
+        current_run_duration = _time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
         result = difference * (current_run_duration / transition_duration) + np_start
         if current_run_duration >= transition_duration:
@@ -71,7 +74,7 @@ class TransitionManager:
         start = transition.get_start()
         end = transition.get_end()
         difference = abs(start - end)
-        current_run_duration = _time.perf_counter() - transition.get_start_time()
+        current_run_duration = _time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
         result = difference * (current_run_duration / transition_duration) + start
         if current_run_duration >= transition_duration:
@@ -81,15 +84,15 @@ class TransitionManager:
             transition.set_current_value(result)
 
     def _smooth_coordinate_transition(self, transition):
-        current_run_duration = _time.perf_counter() - transition.get_start_time()
+        current_run_duration = _time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
 
-        np_start = _numpy.array(transition.get_start())
-        np_end = _numpy.array(transition.get_end())
-        difference = _numpy.absolute(np_start - np_end)
+        np_start = _numpy__array(transition.get_start())
+        np_end = _numpy__array(transition.get_end())
+        difference = _numpy__absolute(np_start - np_end)
         normalized_time = current_run_duration / transition_duration
         # Calculate the velocity based on a sine curve between 0 and pi
-        sine_velocity = _math.sin((_math.pi / 2) * normalized_time)
+        sine_velocity = _math__sin((_math__pi / 2) * normalized_time)
         # Position based on velocity integrated over time
         result = np_start + difference * sine_velocity
 
@@ -100,15 +103,15 @@ class TransitionManager:
             transition.set_current_position(result.tolist())
 
     def _smooth_value_transition(self, transition):
-        current_run_duration = _time.perf_counter() - transition.get_start_time()
+        current_run_duration = _time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
 
-        start = _numpy.array(transition.get_start())
-        end = _numpy.array(transition.get_end())
+        start = _numpy__array(transition.get_start())
+        end = _numpy__array(transition.get_end())
         difference = abs(start - end)
         normalized_time = current_run_duration / transition_duration
         # Calculate the velocity based on a sine curve between 0 and pi
-        sine_velocity = _math.sin((_math.pi / 2) * normalized_time)
+        sine_velocity = _math__sin((_math__pi / 2) * normalized_time)
         # Position based on velocity integrated over time
         result = start + difference * sine_velocity
 
@@ -120,7 +123,7 @@ class TransitionManager:
 
     def _manage_transitions(self):
         while self._enable_transition_management:
-            _waiting.wait(self._wait_for_transitions)
+            _waiting__wait(self._wait_for_transitions)
             if len(self._transitions) == 0:
                 continue
             for key in self._transitions:
@@ -144,4 +147,4 @@ class TransitionManager:
                             self._smooth_value_transition(
                                 transition)
 
-            _time.sleep(1 / _Registry.refresh_rate)
+            _time__sleep(1 / _Registry.refresh_rate)

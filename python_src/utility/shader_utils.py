@@ -1,7 +1,8 @@
-import threading as _threading
+from threading import Thread as _threading__Thread
+from threading import Lock as _threading__Lock
 from gc import collect as _gc__collect
 
-import waiting as _waiting
+from waiting import wait as _waiting__wait
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -16,9 +17,9 @@ class LoadedShaderReferenceManager:
     def __init__(self):
         _initialize(self, unique_instance=_Constants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        self.reference_manager_lock = _threading.Lock()
+        self.reference_manager_lock = _threading__Lock()
 
-        self._reference_manager_thread = _threading.Thread(target=self.reference_manager)
+        self._reference_manager_thread = _threading__Thread(target=self.reference_manager)
         self._reference_manager_thread.daemon = True
         self._reference_manager_thread.name = "LoadedShaderReferenceManager:Reference_Checker_Thread"
 
@@ -47,7 +48,7 @@ class LoadedShaderReferenceManager:
 
     def reference_manager(self):
         while self._enable_reference_checking:
-            _waiting.wait(self.wait_for_shader_filling)
+            _waiting__wait(self.wait_for_shader_filling)
             if self._enable_reference_checking is False:
                 break
             if self._shader_intermediary.loaded_shaders_from_file == {}:

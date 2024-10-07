@@ -1,4 +1,4 @@
-import importlib as _importlib
+from importlib import import_module as _importlib__import_module
 from gc import collect as _gc__collect
 
 from pmma.python_src.constants import Constants as _Constants
@@ -21,10 +21,10 @@ class ColorIntermediary:
         _initialize(self)
 
         if _Registry.cython_acceleration_available:
-            self._number_converter_module = _importlib.import_module(
+            self._number_converter_module = _importlib__import_module(
                 "pmma.bin.number_converter")
         else:
-            self._number_converter_module = _importlib.import_module(
+            self._number_converter_module = _importlib__import_module(
                 "pmma.python_src.pyx_alternatives.utility.number_converter")
 
         self._internal_number_converter = self._number_converter_module.Color()
@@ -56,10 +56,10 @@ class PointIntermediary:
         _initialize(self)
 
         if _Registry.cython_acceleration_available:
-            self._number_converter_module = _importlib.import_module(
+            self._number_converter_module = _importlib__import_module(
                 "pmma.bin.number_converter")
         else:
-            self._number_converter_module = _importlib.import_module(
+            self._number_converter_module = _importlib__import_module(
                 "pmma.python_src.pyx_alternatives.utility.number_converter")
 
         self._internal_number_converter = self._number_converter_module.Point()
@@ -85,10 +85,10 @@ class CoordinateIntermediary:
         _initialize(self)
 
         if _Registry.cython_acceleration_available:
-            self._number_converter_module = _importlib.import_module(
+            self._number_converter_module = _importlib__import_module(
                 "pmma.bin.number_converter")
         else:
-            self._number_converter_module = _importlib.import_module(
+            self._number_converter_module = _importlib__import_module(
                 "pmma.python_src.pyx_alternatives.utility.number_converter")
 
         self._internal_number_converter = self._number_converter_module.Coordinate()

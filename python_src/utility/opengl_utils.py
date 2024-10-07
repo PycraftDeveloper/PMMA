@@ -1,7 +1,7 @@
 from gc import collect as _gc__collect
 
-from PIL import Image as _Image
-import moderngl as _moderngl
+from PIL import Image as _PIL__Image
+from moderngl import LINEAR as _moderngl__LINEAR
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -31,7 +31,7 @@ class Texture:
     def prepare_for_recreation(self):
         pass # WIP
 
-    def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
+    def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
         if self._texture is not None:
             self._texture.release()
 
@@ -73,8 +73,8 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
     def write(self, data):
         self._texture.write(data)
 
-    def load_from_file(self, file_path, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
-        image = _Image.open(file_path)
+    def load_from_file(self, file_path, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None):
+        image = _PIL__Image.open(file_path)
         self._size = image.size
         self._components = len(image.mode)
         self._data = image.tobytes()
@@ -90,7 +90,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         self._texture = _Registry.context.texture(self._size, self._components, self._data)
         self._texture.filter = (self._scaling[0], self._scaling[1])
 
-    def set_scaling(self, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+    def set_scaling(self, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None):
         if x_scaling is None:
             x_scaling = scaling
         if y_scaling is None:
@@ -106,7 +106,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
 
     def texture_to_PIL_image(self):
         if self._texture is not None:
-            return _Image.frombytes("RGB", self._size, self._texture.read())
+            return _PIL__Image.frombytes("RGB", self._size, self._texture.read())
 
     def get_texture(self):
         return self._texture
