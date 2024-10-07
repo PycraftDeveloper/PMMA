@@ -1,6 +1,6 @@
 from gc import collect as _gc__collect
-from ctypes import windll as _ctypes__windll
 import os as _os
+from platform import system as _platform__system
 
 from numpy import float32 as _numpy__float32
 from numpy import array as _numpy__array
@@ -36,6 +36,9 @@ from pmma.python_src.advtkinter import Tkinter as _Tkinter
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+
+if _platform__system() == "Windows":
+    from ctypes import windll as _ctypes__windll
 
 class DisplayIntermediary:
     def __init__(self):

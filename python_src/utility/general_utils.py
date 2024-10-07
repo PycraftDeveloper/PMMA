@@ -1,5 +1,4 @@
 from locale import windows_locale as _locale__windows_locale
-from ctypes import windll as _ctypes__windll
 from subprocess import check_output as _subprocess__check_output
 from subprocess import run as _subprocess__run
 from subprocess import CalledProcessError as _subprocess__CalledProcessorError
@@ -27,6 +26,9 @@ from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _s
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+
+if _platform__system() == "Windows":
+    from ctypes import windll as _ctypes__windll
 
 def get_execution_time(function, *args, **kwargs):
     start_time = _time__perf_counter()
