@@ -1,6 +1,6 @@
 import math as _math
 
-import numba as _numba
+from numba import njit as _numba__njit
 import pyrr as _pyrr
 import numpy as _numpy
 
@@ -60,14 +60,14 @@ def raw_gl_look_at(pos, target, up):
 
     return rotate * translate[:, _numpy.newaxis]
 
-@_numba.njit(fastmath=True, cache=True)
+@_numba__njit(fastmath=True, cache=True)
 def raw_pythag(points):
     sum = 0
     for point in points:
         sum += point ** 2
     return sum ** 0.5
 
-@_numba.njit(fastmath=True, cache=True)
+@_numba__njit(fastmath=True, cache=True)
 def raw_compute_position(pos, target, up):
     def normalize(v):
         norm = _numpy.linalg.norm(v)
@@ -80,7 +80,7 @@ def raw_compute_position(pos, target, up):
     y = _numpy.cross(z, x)
     return x, y, z
 
-@_numba.njit(fastmath=True, cache=True)
+@_numba__njit(fastmath=True, cache=True)
 def raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane):
     num = 1.0 / _math.tan(fov / 2.0)
     num9 = num / aspect_ratio
@@ -92,7 +92,7 @@ def raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane):
             (near_plane - far_plane), 0.0]
     ], dtype="f4")
 
-@_numba.njit(fastmath=True, cache=True)
+@_numba__njit(fastmath=True, cache=True)
 def raw_look_at(camera_position, camera_target, up_vector):
     vector = camera_target - camera_position
 
@@ -111,6 +111,6 @@ def raw_look_at(camera_position, camera_target, up_vector):
             vector3, camera_position), _numpy.dot(vector, camera_position), 1.0]
     ], dtype="f4")
 
-@_numba.njit(fastmath=True, cache=True)
+@_numba__njit(fastmath=True, cache=True)
 def raw_multiply(light_proj, sun_light_look_at):
     return light_proj * sun_light_look_at
