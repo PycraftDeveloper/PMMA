@@ -1,4 +1,5 @@
-import colorsys
+from colorsys import hsv_to_rgb as _colorsys__hsv_to_rgb
+from colorsys import rgb_to_hsv as _colorsys__rgb_to_hsv
 
 from pmma.python_src.constants import Constants
 
@@ -29,19 +30,19 @@ cdef class Color:
         elif sorted_in_type == Constants.SORTED_RGB:
             self.color = color_list + [255]
         elif sorted_in_type == Constants.SORTED_HSL:
-            self.color = list(colorsys.hsv_to_rgb(
+            self.color = list(_colorsys__hsv_to_rgb(
                 color_list[0] / 360,
                 color_list[1] / 100,
                 color_list[2] / 100)) + [255]
         elif sorted_in_type == Constants.SORTED_HSLA:
-            self.color = list(colorsys.hsv_to_rgb(
+            self.color = list(_colorsys__hsv_to_rgb(
                 color_list[0] / 360,
                 color_list[1] / 100,
                 color_list[2] / 100)) + [(color_list[3] / 100) * 255]
         elif sorted_in_type == Constants.SORTED_SMALL_HSL:
-            self.color = list(colorsys.hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255]
+            self.color = list(_colorsys__hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255]
         elif sorted_in_type == Constants.SORTED_SMALL_HSLA:
-            self.color = list(colorsys.hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255 * color_list[3]]
+            self.color = list(_colorsys__hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255 * color_list[3]]
         elif sorted_in_type == Constants.SORTED_SMALL_RGB:
             self.color = [color_list[0] * 255, color_list[1] * 255, color_list[2] * 255, 255]
         elif sorted_in_type == Constants.SORTED_SMALL_RGBA:
@@ -58,7 +59,7 @@ cdef class Color:
         cdef float red_percentage = red / 255
         cdef float green_percentage = green / 255
         cdef float blue_percentage = blue / 255
-        cdef tuple color_hsv_percentage = colorsys.rgb_to_hsv(
+        cdef tuple color_hsv_percentage = _colorsys__rgb_to_hsv(
             red_percentage, green_percentage, blue_percentage)
         cdef float color_h = 360 * color_hsv_percentage[0]
 

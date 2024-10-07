@@ -1,4 +1,3 @@
-import numpy as np
 from libc.math cimport floor
 from libc.stdlib cimport rand, srand
 from libc.time cimport time

@@ -170,3 +170,7 @@ logs
 bin
 /*.so
 /*.pyd
+
+# PMMA Cython PYX -> C conversion
+cython_src/*.c
+cython_src/utility/*.c

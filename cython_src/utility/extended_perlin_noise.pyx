@@ -1,5 +1,8 @@
 # Correct import for numpy and accessing its random module
-import numpy as np
+from numpy import random as _numpy__random
+from numpy import empty as _numpy__empty
+from numpy import float64 as _numpy__float64
+from numpy import asarray as _numpy__asarray
 from libc.math cimport floor, pow
 
 cdef double fade(double t):
@@ -26,7 +29,7 @@ cdef class ExtendedPerlinNoise:
 
     def init_permutation(self, int seed):
         cdef int i
-        rng = np.random.RandomState(seed)
+        rng = _numpy__random.RandomState(seed)
         perm = rng.permutation(256)
         for i in range(256):
             self.permutation[i] = self.permutation[i + 256] = perm[i]
@@ -62,7 +65,7 @@ cdef class ExtendedPerlinNoise:
 
     def generate_fbm_1d(self, double[:] input_array):
         cdef int length = input_array.shape[0]
-        cdef double[:] output_array = np.empty(length, dtype=np.float64)
+        cdef double[:] output_array = _numpy__empty(length, dtype=_numpy__float64)
         cdef int i, j
         cdef double amplitude, frequency, total, max_amplitude
         for i in range(length):
@@ -76,12 +79,12 @@ cdef class ExtendedPerlinNoise:
                 amplitude *= self.persistence
                 frequency *= 2
             output_array[i] = total / max_amplitude
-        return np.asarray(output_array)
+        return _numpy__asarray(output_array)
 
     def generate_fbm_2d(self, double[:, :, :] input_array):
         cdef int height = input_array.shape[0]
         cdef int width = input_array.shape[1]
-        cdef double[:, :] output_array = np.empty((height, width), dtype=np.float64)
+        cdef double[:, :] output_array = _numpy__empty((height, width), dtype=_numpy__float64)
         cdef int i, j, k
         cdef double amplitude, frequency, total, max_amplitude, x, y
         for i in range(height):
@@ -98,13 +101,13 @@ cdef class ExtendedPerlinNoise:
                     amplitude *= self.persistence
                     frequency *= 2
                 output_array[i, j] = total / max_amplitude
-        return np.asarray(output_array)
+        return _numpy__asarray(output_array)
 
     def generate_fbm_3d(self, double[:, :, :, :] input_array):
         cdef int depth = input_array.shape[0]
         cdef int height = input_array.shape[1]
         cdef int width = input_array.shape[2]
-        cdef double[:, :, :] output_array = np.empty((depth, height, width), dtype=np.float64)
+        cdef double[:, :, :] output_array = _numpy__empty((depth, height, width), dtype=_numpy__float64)
         cdef int i, j, k, l
         cdef double amplitude, frequency, total, max_amplitude, x, y, z
         for i in range(depth):
@@ -123,4 +126,4 @@ cdef class ExtendedPerlinNoise:
                         amplitude *= self.persistence
                         frequency *= 2
                     output_array[i, j, k] = total / max_amplitude
-        return np.asarray(output_array)
+        return _numpy__asarray(output_array)
