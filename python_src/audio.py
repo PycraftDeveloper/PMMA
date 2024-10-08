@@ -211,10 +211,13 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 if self._looping:
                     self._moviepy_audio_itr = self._audio_generator(2048)
                     self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+            except _queue.Empty:
+                if self._looping:
+                    outdata.fill(0)
                 else:
                     self._stop_signal = True
-            except _queue.Empty:
-                outdata.fill(0)
+                    outdata[:] = _numpy.zeros(outdata.shape)
+                    return
 
         else:
             chunk = self._file.read(frames, dtype='float32')

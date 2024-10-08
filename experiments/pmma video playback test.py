@@ -10,6 +10,7 @@ events = pmma.Events()
 video = pmma.Video()
 video.load_from_file(r"H:\Videos\Land mine.mp4") # fix audio sync issues
 video.play()
+video.set_looping(True)
 
 rev = pmma.Reverb()
 video.get_audio_channel().add_effect(rev)

@@ -93,12 +93,21 @@ class Video:
         self._video_player_thread = None
         self._play_video = False
 
+        self._looping = True
+
     def play(self):
         self._play_video = True
         self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
         self._video_player_thread.daemon = True
         self._video_player_thread.name = "Video:Playing_Video_Thread"
         self._video_player_thread.start()
+
+    def set_looping(self, looping):
+        self._audio_player.set_looping(looping)
+        self._looping = looping
+
+    def get_looping(self):
+        return self._looping
 
     def stop(self):
         self._play_video = False
@@ -218,13 +227,19 @@ class Video:
 
     def _loop_video(self):
         # Loop the video for demonstration purposes
-        if self._audio_player.get_playing():
-            self._audio_player.stop()
-            self._audio_player.play(blocking=False, delay=0.58) # close / dont really know what this magic number represents yet
 
-        self._input_container.seek(0)
-        frame = next(self._input_container.decode(video=0))
-        return frame
+        if self._looping:
+            if self._audio_player.get_playing():
+                self._audio_player.stop()
+                self._audio_player.play(blocking=False, delay=0.58) # close / dont really know what this magic number represents yet
+
+            self._input_container.seek(0)
+            frame = next(self._input_container.decode(video=0))
+
+            return frame
+        else:
+            self._play_video = False
+            return
 
     def _video_frame_extractor(self):
         while self._play_video:
@@ -241,11 +256,14 @@ class Video:
 
                 if self._is_playing:
                     try:
-                        frame = next(self._input_container.decode(video=0))
+                        next_frame = next(self._input_container.decode(video=0))
                     except StopIteration:
-                        frame = self._loop_video()
+                        next_frame = self._loop_video()
                     except _av.error.EOFError:
-                        frame = self._loop_video()
+                        next_frame = self._loop_video()
+
+                    if next_frame is not None:
+                        frame = next_frame
 
                     # Convert frame to RGB for OpenGL
                     self._video_frame = frame.to_ndarray(format='rgb24')
