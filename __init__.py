@@ -136,10 +136,16 @@ continue to work on improving it!")
     if get_operating_system() == Constants.LINUX:
         try:
             import pyaudio as _pyaudio
-        except ModuleNotFoundError:
+        except ModuleNotFoundError as error:
             logger.log_development("Pyaudio hasn't been installed yet. Because your running on a \
 Linux platform make sure to run this command first: 'sudo apt-get install portaudio19-dev' \
 first otherwise attempting to install the 'PyAudio' module may fail.")
+            raise error
+
+        logger.log_development("You might have just seen something in terminal about ALSA. \
+If you didn't, you can disregard this message. Otherwise; we currently dont have any \
+control over this, but its most likely worrying about there not being any valid audio output \
+devices. We are working on a better way to handle this situation.")
 
     register_application()
 

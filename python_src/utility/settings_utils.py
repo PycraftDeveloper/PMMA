@@ -67,23 +67,6 @@ def get_language():
 def set_language(value):
     _Registry.language = value
 
-def get_display_mode():
-    if _Registry.display_mode_set:
-        return _Registry.display_mode
-
-def set_display_mode(mode, internal=True):
-    if _Registry.display_mode_set:
-        if internal is False:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You \
-have attempted to set a display mode after it has already been set. If this is a surprise \
-to you, its probably because you are already using PMMA functions that use a display mode \
-so its been set for you. If you want to use a specific display mode, consider calling this \
-IMMEDIATELY before 'pmma.init()' to avoid this behavior. If this isn't a surprise to you, \
-then know that you can only set the display mode once whilst the application is running.")
-    else:
-        _Registry.display_mode_set = True
-        _Registry.display_mode = mode
-
 def set_shape_quality(value, format=_Constants.PERCENTAGE):
     from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
     proportion = _ProportionConverter()

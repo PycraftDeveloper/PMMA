@@ -3,7 +3,6 @@ import time as _time
 from gc import collect as _gc__collect
 
 import pygame as _pygame
-import pyglet as _pyglet
 import moderngl as _moderngl
 import numpy as _numpy
 
@@ -37,9 +36,8 @@ class Line:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         self._start = _CoordinateConverter()
@@ -279,9 +277,8 @@ class RadialPolygon:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         self._point_count = None
@@ -482,9 +479,8 @@ class Rectangle:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -671,9 +667,8 @@ class Arc:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -890,9 +885,8 @@ class Ellipse:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -1093,9 +1087,8 @@ class Polygon:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -1299,9 +1292,8 @@ class Pixel:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._logger.log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color = _ColorConverter()
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():

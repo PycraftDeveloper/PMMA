@@ -95,26 +95,16 @@ class DisplayIntermediary:
 
         self._tkinter_backend = _Tkinter()
 
+        self._clock = _pygame__time.Clock()
+
     def update_class(self):
         if self._object_updated is False:
             self._object_updated = True
 
-            if _Registry.display_mode_set is False:
-                _Registry.display_mode_set = True
-                _Registry.display_mode = _Constants.PYGAME
-                self._logger.log_development("You haven't yet set a display mode, \
-therefore it has been decided for you! To manually pick a display mode, call \
-'pmma.set_display_mode()' with your preferred display mode. The default display \
-mode is Pygame.")
-
             if _Registry.displayed_pygame_start_message is False:
                 _Registry.displayed_pygame_start_message = True
-                if _Registry.display_mode == _Constants.PYGAME:
-                    self._logger.log_information(_Registry.pygame_launch_message)
-                    _pygame__init()
-
-            if _Registry.display_mode == _Constants.PYGAME:
-                self._clock = _pygame__time.Clock()
+                self._logger.log_information(_Registry.pygame_launch_message)
+                _pygame__init()
 
     def get_clear_called_but_skipped(self):
         if self._object_updated is False:

@@ -3,7 +3,6 @@ from pprofile import Profile as _pprofile__Profile
 
 class Registry:
     compile_math_functions = True #
-    display_mode = None #
     running = True #
     temporary_files_path = None
     base_path = None

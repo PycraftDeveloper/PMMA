@@ -12,8 +12,6 @@ from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _s
 from pmma.python_src.utility.settings_utils import get_anti_aliasing_level as _get_anti_aliasing_level
 from pmma.python_src.utility.settings_utils import get_language as _get_language
 from pmma.python_src.utility.settings_utils import set_language as _set_language
-from pmma.python_src.utility.settings_utils import get_display_mode as _get_display_mode
-from pmma.python_src.utility.settings_utils import set_display_mode as _set_display_mode
 from pmma.python_src.utility.settings_utils import set_shape_quality as _set_shape_quality
 from pmma.python_src.utility.settings_utils import get_shape_quality as _get_shape_quality
 from pmma.python_src.utility.settings_utils import set_in_game_loop as _set_in_game_loop
@@ -62,12 +60,6 @@ def get_language():
 
 def set_language(value):
     _set_language(value)
-
-def get_display_mode():
-    return _get_display_mode()
-
-def set_display_mode(mode):
-    _set_display_mode(mode, internal=False)
 
 def set_shape_quality(value, format=_Constants.PERCENTAGE):
     _set_shape_quality(value, format=format)

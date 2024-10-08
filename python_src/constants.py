@@ -680,12 +680,6 @@ class Constants:
 
     PATH_SEPARATOR = _os__sep
 
-    PYGAME = "pygame"
-    PYGLET = "pyglet"
-    DISPLAY_MODES = [
-        PYGAME,
-        PYGLET]
-
     DEFAULT = "default"
     TAU = _math__pi * 2
 

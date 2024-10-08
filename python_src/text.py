@@ -4,7 +4,6 @@ import time as _time
 from gc import collect as _gc__collect
 
 import pygame as _pygame
-import pyglet as _pyglet
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
@@ -21,9 +20,8 @@ class _Text:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._canvas = canvas
 
@@ -53,20 +51,14 @@ class _Text:
         if italic is None:
             italic = system_font_dictionary["slant"] == "italic"
 
-        if _Registry.display_mode == _Constants.PYGAME:
-            return _pygame.font.SysFont(name, size), [name, size]
-        else:
-            raise NotImplementedError
+        return _pygame.font.SysFont(name, size), [name, size]
 
     def _render_text_with_transparent_background(self, in_text, bg_color):
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
-        if _Registry.display_mode == _Constants.PYGAME:
-            alpha_surface = _pygame.Surface(
-                (width, height),
-                _pygame.SRCALPHA)
-        else:
-            raise NotImplementedError
+        alpha_surface = _pygame.Surface(
+            (width, height),
+            _pygame.SRCALPHA)
 
         # Fill this surface with the background color and set alpha transparency
         alpha_surface.fill(bg_color)
@@ -111,13 +103,10 @@ class _Text:
             font_identifiable_data = [font, size]
             file_object = _File(font)
             font_argument_is_path = file_object.exists()
-            if _Registry.display_mode == _Constants.PYGAME:
-                if font_argument_is_path:
-                    font = _pygame.font.Font(font, size)
-                else:
-                    font = _pygame.font.SysFont(font, size)
+            if font_argument_is_path:
+                font = _pygame.font.Font(font, size)
             else:
-                raise NotImplementedError
+                font = _pygame.font.SysFont(font, size)
 
         if position is None:
             position = (0, 0)
@@ -166,12 +155,9 @@ class _Text:
         if result is None:
             start = _time.perf_counter()
             x, y = 0, 0
-            if _Registry.display_mode == _Constants.PYGAME:
-                surface = _pygame.Surface(
-                    canvas.get_size(),
-                    _pygame.SRCALPHA)
-            else:
-                raise NotImplementedError
+            surface = _pygame.Surface(
+                canvas.get_size(),
+                _pygame.SRCALPHA)
 
             pattern = "(\$\{[a-zA-Z =\()\0-9]+})|"+word_separator
 
