@@ -64,6 +64,10 @@ class Audio:
         self._logger = _InternalLogger()
         self._first_run = True
 
+        self._looping = False
+        self._audio_duration = None
+        self._audio_playing_start_time = None
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             self._stop_signal = True
@@ -83,6 +87,7 @@ class Audio:
         self._file = _sound_file.SoundFile(file_path)
         self._sample_rate = self._file.samplerate
         self._channels = self._file.channels
+        self._audio_duration = self._file.frames / self._sample_rate
         self._audio_loaded = True
 
     def get_sample_rate(self):
@@ -91,6 +96,18 @@ class Audio:
     def get_number_of_channels(self):
         return self._channels
 
+    def set_looping(self, loop):
+        self._looping = loop
+
+    def get_looping(self):
+        return self._looping
+
+    def set_duration(self, duration):
+        self._audio_duration = duration
+
+    def set_silence_at_end_of_track(self, duration):
+        self._audio_duration += duration
+
     def load_from_moviepy(self, audio):
         self._audio_data = audio
         self._sample_rate = audio.fps
@@ -98,6 +115,8 @@ class Audio:
         self._audio_loaded = True
         self._from_moviepy = True
         self._moviepy_audio_itr = self._audio_generator(2048)
+
+        self._looping = True
 
         # Pre-fill the queue with initial chunks
         for _ in range(self._queue_max_size):
@@ -174,6 +193,9 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 break
 
     def _audio_callback(self, outdata, frames, time, status):
+        if self._audio_playing_start_time is None:
+            self._audio_playing_start_time = _time.perf_counter()
+
         if status:
             print(status)
 
@@ -186,13 +208,23 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 chunk = self._audio_queue.get_nowait()
                 self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
             except StopIteration:
-                self._moviepy_audio_itr = self._audio_generator(2048)
-                self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+                if self._looping:
+                    self._moviepy_audio_itr = self._audio_generator(2048)
+                    self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
+                else:
+                    self._stop_signal = True
             except _queue.Empty:
                 outdata.fill(0)
 
         else:
             chunk = self._file.read(frames, dtype='float32')
+
+            if _time.perf_counter() - self._audio_playing_start_time > self._audio_duration:
+                if self._looping:
+                    self._file.seek(0)
+                    self._audio_playing_start_time = None
+                else:
+                    self._stop_signal = True
 
         if len(chunk) < frames:
             padding_shape = (frames - len(chunk), chunk.shape[1])
