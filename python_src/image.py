@@ -16,9 +16,8 @@ class Image:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            if _Registry.display_mode == _Constants.PYGAME:
-                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
-                _pygame.init()
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._memory_manager_instance = _MemoryManager()
 
@@ -77,18 +76,15 @@ class Image:
             pil_image = self._memory_manager_instance.get(
                 self._pil_image_address)
 
-        if _Registry.display_mode == _Constants.PYGAME:
-            graphics_backend_image = _pygame.image.fromstring(
-                pil_image.tobytes(),
-                pil_image.size,
-                pil_image.mode)
-            if auto_optimize:
-                if pil_image.mode == "RGBA":
-                    graphics_backend_image = graphics_backend_image.convert_alpha()
-                else:
-                    graphics_backend_image = graphics_backend_image.convert()
-        else:
-            raise NotImplementedError
+        graphics_backend_image = _pygame.image.fromstring(
+            pil_image.tobytes(),
+            pil_image.size,
+            pil_image.mode)
+        if auto_optimize:
+            if pil_image.mode == "RGBA":
+                graphics_backend_image = graphics_backend_image.convert_alpha()
+            else:
+                graphics_backend_image = graphics_backend_image.convert()
 
         end = _time.perf_counter()
 

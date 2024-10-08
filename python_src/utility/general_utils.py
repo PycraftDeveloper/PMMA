@@ -194,8 +194,7 @@ generating 3D arrays.")
 
     del _Registry.pmma_module_spine
 
-    if _Registry.display_mode == _Constants.PYGAME:
-        _pygame__quit()
+    _pygame__quit()
 
     _gc__collect()
 

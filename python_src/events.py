@@ -299,1090 +299,1089 @@ then enable it to see if it fixes or improves a desired feature.")
         self.mouse_position.set_x_axis_displacement(0)
         self.mouse_position.set_y_axis_displacement(0)
 
-        if _Registry.display_mode == _Constants.PYGAME:
-            raw_events = _pygame.event.get()
-            for event in raw_events:
-                if event.type == _pygame.APP_TERMINATING:
-                    self.appterminating_event.set_value(True)
-
-                elif event.type == _pygame.APP_LOWMEMORY:
-                    self.applowmemory_event.set_value(True)
-
-                elif event.type == _pygame.APP_WILLENTERBACKGROUND:
-                    self.appwillenterbackground_event.set_value(True)
-
-                elif event.type == _pygame.APP_DIDENTERBACKGROUND:
-                    self.appdidenterbackground_event.set_value(True)
-
-                elif event.type == _pygame.APP_WILLENTERFOREGROUND:
-                    self.appwillenterbackground_event.set_value(True)
-
-                elif event.type == _pygame.APP_DIDENTERFOREGROUND:
-                    self.appdidenterforeground_event.set_value(True)
-
-                elif event.type == _pygame.AUDIODEVICEADDED:
-                    self.audiodeviceadded_event.set_value(True)
-
-                elif event.type == _pygame.AUDIODEVICEREMOVED:
-                    self.audiodeviceremoved_event.set_value(True)
-
-                elif event.type == _pygame.CLIPBOARDUPDATE:
-                    self.clipboardupdate_event.set_value(True)
-
-                elif event.type == _pygame.DROPFILE:
-                    self.dropfile_event.set_value(True)
-
-                elif event.type == _pygame.DROPTEXT:
-                    self.droptext_event.set_value(True)
-
-                elif event.type == _pygame.DROPBEGIN:
-                    self.dropbegin_event.set_value(True)
-
-                elif event.type == _pygame.DROPCOMPLETE:
-                    self.dropcomplete_event.set_value(True)
-
-                elif event.type == _pygame.FINGERMOTION:
-                    self.fingermotion_event.set_value(True)
-
-                elif event.type == _pygame.FINGERDOWN:
-                    self.fingerdown_event.set_value(True)
-
-                elif event.type == _pygame.FINGERUP:
-                    self.fingerup_event.set_value(True)
-
-                elif event.type == _pygame.KEYMAPCHANGED:
-                    self.keymapchanged_event.set_value(True)
-
-                elif event.type == _pygame.JOYAXISMOTION:
-                    controller = self.controllers.get_controller(event.joy)
-                    if event.axis == 0:
-                        controller.set_left_joystick_axis_x_axis(event.value)
-
-                    elif event.axis == 1:
-                        controller.set_left_joystick_axis_y_axis(event.value)
-
-                    elif event.axis == 2:
-                        controller.set_right_joystick_axis_x_axis(event.value)
-
-                    elif event.axis == 3:
-                        controller.set_right_joystick_axis_y_axis(event.value)
-
-                    elif event.axis == 4:
-                        controller.set_left_trigger_value(event.value)
-
-                    elif event.axis == 5:
-                        controller.set_right_trigger_value(event.value)
-
-                elif event.type == _pygame.JOYBALLMOTION:
-                    controller = self.controllers.get_controller(event.joy)
-                    trackball = controller.get_track_ball_from_id(event.ball)
-                    x_motion, y_motion = event.rel
-                    trackball.set_x_motion(x_motion)
-                    trackball.set_y_motion(y_motion)
-
-                elif event.type == _pygame.JOYBUTTONDOWN:
-                    controller = self.controllers.get_controller(event.joy)
-                    if event.button == 2:
-                        controller.set_x_button_pressed(True)
-                    elif event.button == 0:
-                        controller.set_a_button_pressed(True)
-                    elif event.button == 1:
-                        controller.set_b_button_pressed(True)
-                    elif event.button == 3:
-                        controller.set_y_button_pressed(True)
-                    elif event.button == 9:
-                        controller.set_left_bumper_pressed(True)
-                    elif event.button == 10:
-                        controller.set_right_bumper_pressed(True)
-                    elif event.button == 4:
-                        controller.set_share_button_pressed(True)
-                    elif event.button == 6:
-                        controller.set_options_button_pressed(True)
-                    elif event.button == 7:
-                        controller.set_left_joystick_button_pressed(True)
-                    elif event.button == 8:
-                        controller.set_right_joystick_button_pressed(True)
-                    elif event.button == 11:
-                        controller.set_up_hat_button_pressed(True)
-                    elif event.button == 12:
-                        controller.set_down_hat_button_pressed(True)
-                    elif event.button == 13:
-                        controller.set_left_hat_button_pressed(True)
-                    elif event.button == 14:
-                        controller.set_right_hat_button_pressed(True)
-                    elif event.button == 15:
-                        controller.set_center_button_pressed(True)
-
-                elif event.type == _pygame.JOYBUTTONUP:
-                    controller = self.controllers.get_controller(event.joy)
-                    if event.button == 2:
-                        controller.set_x_button_pressed(False)
-                    elif event.button == 0:
-                        controller.set_a_button_pressed(False)
-                    elif event.button == 1:
-                        controller.set_b_button_pressed(False)
-                    elif event.button == 3:
-                        controller.set_y_button_pressed(False)
-                    elif event.button == 9:
-                        controller.set_left_bumper_pressed(False)
-                    elif event.button == 10:
-                        controller.set_right_bumper_pressed(False)
-                    elif event.button == 4:
-                        controller.set_share_button_pressed(False)
-                    elif event.button == 6:
-                        controller.set_options_button_pressed(False)
-                    elif event.button == 7:
-                        controller.set_left_joystick_button_pressed(False)
-                    elif event.button == 8:
-                        controller.set_right_joystick_button_pressed(False)
-                    elif event.button == 11:
-                        controller.set_up_hat_button_pressed(False)
-                    elif event.button == 12:
-                        controller.set_down_hat_button_pressed(False)
-                    elif event.button == 13:
-                        controller.set_left_hat_button_pressed(False)
-                    elif event.button == 14:
-                        controller.set_right_hat_button_pressed(False)
-                    elif event.button == 15:
-                        controller.set_center_button_pressed(False)
-
-                elif event.type == _pygame.JOYDEVICEADDED:
-                    self.joydeviceadded_event.set_value(True)
-                    self.controllers.update_controllers()
-
-                elif event.type == _pygame.JOYDEVICEREMOVED:
-                    self.joydeviceremoved_event.set_value(True)
-                    self.controllers.update_controllers()
-
-                elif event.type == _pygame.LOCALECHANGED:
-                    self.localechanged_event.set_value(True)
-
-                elif event.type == _pygame.MOUSEMOTION:
-                    mouse_x_position, mouse_y_position = event.pos
-                    mouse_x_displacement, mouse_y_displacement = event.rel
-                    self.mouse_position.set_x_axis(mouse_x_position)
-                    self.mouse_position.set_y_axis(mouse_y_position)
-                    self.mouse_position.set_x_axis_displacement(mouse_x_displacement)
-                    self.mouse_position.set_y_axis_displacement(mouse_y_displacement)
-
-                elif event.type == _pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        self.leftbutton_mouse.set_pressed(True)
-
-                    elif event.button == 2:
-                        self.middlebutton_mouse.set_pressed(True)
-
-                    elif event.button == 3:
-                        self.rightbutton_mouse.set_pressed(True)
-
-                elif event.type == _pygame.MOUSEBUTTONUP:
-                    if event.button == 1:
-                        self.leftbutton_mouse.set_pressed(False)
-
-                    elif event.button == 2:
-                        self.middlebutton_mouse.set_pressed(False)
-
-                    elif event.button == 3:
-                        self.rightbutton_mouse.set_pressed(False)
-
-                elif event.type == _pygame.MOUSEWHEEL:
-                    x_displacement = event.precise_x
-                    y_displacement = event.precise_y
-                    if event.flipped:
-                        x_displacement *= -1
-                        y_displacement *= -1
-                    self.mouse_scroll.set_x_displacement(x_displacement)
-                    self.mouse_scroll.set_y_displacement(y_displacement)
-                    total_x = self.mouse_scroll.get_x_value()
-                    total_y = self.mouse_scroll.get_y_value()
-                    self.mouse_scroll.set_x_value(total_x + x_displacement)
-                    self.mouse_scroll.set_y_value(total_y + y_displacement)
-
-                elif event.type == _pygame.KEYDOWN:
-                    if event.key == _pygame.K_BACKSPACE:
-                        self.backspace_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_TAB:
-                        self.tab_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_CLEAR:
-                        self.clear_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RETURN:
-                        self.return_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_PAUSE:
-                        self.pause_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_ESCAPE:
-                        self.escape_key.set_pressed(True)
-                        if handle_exit_events:
-                            _Registry.running = False
-                            _Backpack.running = False
-
-                    elif event.key == _pygame.K_SPACE:
-                        self.space_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_EXCLAIM:
-                        self.exclamationmark_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_QUOTEDBL:
-                        self.doublequote_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_HASH:
-                        self.hash_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_DOLLAR:
-                        self.dollar_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_AMPERSAND:
-                        self.ampersand_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_QUOTE:
-                        self.singlequote_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LEFTPAREN:
-                        self.leftparenthesis_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RIGHTPAREN:
-                        self.rightparenthesis_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_ASTERISK:
-                        self.asterisk_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_PLUS:
-                        self.plus_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_COMMA:
-                        self.comma_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_MINUS:
-                        self.minus_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_PERIOD:
-                        self.period_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_SLASH:
-                        self.forwardslash_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_0:
-                        self.primary0_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_1:
-                        self.primary1_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_2:
-                        self.primary2_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_3:
-                        self.primary3_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_4:
-                        self.primary4_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_5:
-                        self.primary5_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_6:
-                        self.primary6_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_7:
-                        self.primary7_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_8:
-                        self.primary8_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_9:
-                        self.primary9_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_COLON:
-                        self.colon_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_SEMICOLON:
-                        self.semicolon_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LESS:
-                        self.lessthan_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_EQUALS:
-                        self.equals_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_GREATER:
-                        self.greaterthan_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_QUESTION:
-                        self.questionmark_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_AT:
-                        self.at_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LEFTBRACKET:
-                        self.leftbracket_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_BACKSLASH:
-                        self.backslash_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RIGHTBRACKET:
-                        self.rightbracket_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_CARET:
-                        self.caret_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_UNDERSCORE:
-                        self.underscore_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_BACKQUOTE:
-                        self.grave_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_a:
-                        self.primarya_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_b:
-                        self.primaryb_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_c:
-                        self.primaryc_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_d:
-                        self.primaryd_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_e:
-                        self.primarye_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_f:
-                        self.primaryf_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_g:
-                        self.primaryg_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_h:
-                        self.primaryh_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_i:
-                        self.primaryi_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_j:
-                        self.primaryj_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_k:
-                        self.primaryk_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_l:
-                        self.primaryl_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_m:
-                        self.primarym_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_n:
-                        self.primaryn_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_o:
-                        self.primaryo_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_p:
-                        self.primaryp_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_q:
-                        self.primaryq_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_r:
-                        self.primaryr_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_s:
-                        self.primarys_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_t:
-                        self.primaryt_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_u:
-                        self.primaryu_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_v:
-                        self.primaryv_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_w:
-                        self.primaryw_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_x:
-                        self.primaryx_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_y:
-                        self.primaryy_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_z:
-                        self.primaryz_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_DELETE:
-                        self.delete_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP0:
-                        self.numpad0_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP1:
-                        self.numpad1_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP2:
-                        self.numpad2_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP3:
-                        self.numpad3_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP4:
-                        self.numpad4_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP5:
-                        self.numpad5_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP6:
-                        self.numpad6_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP7:
-                        self.numpad7_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP8:
-                        self.numpad8_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP9:
-                        self.numpad9_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_PERIOD:
-                        self.numpadperiod_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_DIVIDE:
-                        self.numpaddivide_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_MULTIPLY:
-                        self.numpadmultiply_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_MINUS:
-                        self.numpadminus_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_PLUS:
-                        self.numpadplus_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_ENTER:
-                        self.numpadenter_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_KP_EQUALS:
-                        self.numpadequals_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_UP:
-                        self.up_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_DOWN:
-                        self.down_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RIGHT:
-                        self.right_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LEFT:
-                        self.left_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_INSERT:
-                        self.insert_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_HOME:
-                        self.home_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_END:
-                        self.end_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_PAGEUP:
-                        self.pageup_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_PAGEDOWN:
-                        self.pagedown_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F1:
-                        self.function1_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F2:
-                        self.function2_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F3:
-                        self.function3_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F4:
-                        self.function4_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F5:
-                        self.function5_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F6:
-                        self.function6_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F7:
-                        self.function7_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F8:
-                        self.function8_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F9:
-                        self.function9_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F10:
-                        self.function10_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F11:
-                        self.function11_key.set_pressed(True)
-                        if handle_full_screen_events:
-                            if _Registry.display_initialized:
-                                _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].toggle_full_screen()
-                                self.windowresized_event.set_value(True)
-
-                    elif event.key == _pygame.K_F12:
-                        self.function12_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F13:
-                        self.function13_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F14:
-                        self.function14_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_F15:
-                        self.function15_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_NUMLOCK:
-                        self.numlock_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_CAPSLOCK:
-                        self.capslock_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_SCROLLOCK:
-                        self.scrolllock_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RSHIFT:
-                        self.rightshift_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LSHIFT:
-                        self.leftshift_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RCTRL:
-                        self.rightcontrol_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LCTRL:
-                        self.leftcontrol_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RALT:
-                        self.rightalt_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LALT:
-                        self.leftalt_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RMETA:
-                        self.rightmeta_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LMETA:
-                        self.leftmeta_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_LSUPER:
-                        self.leftsuper_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_RSUPER:
-                        self.rightsuper_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_MODE:
-                        self.mode_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_HELP:
-                        self.help_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_PRINT:
-                        self.print_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_SYSREQ:
-                        self.systemrequest_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_BREAK:
-                        self.break_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_MENU:
-                        self.menu_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_POWER:
-                        self.power_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_EURO:
-                        self.euro_key.set_pressed(True)
-
-                    elif event.key == _pygame.K_AC_BACK:
-                        self.androidback_key.set_pressed(True)
-
-                elif event.type == _pygame.KEYUP:
-                    if event.key == _pygame.K_BACKSPACE:
-                        self.backspace_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_TAB:
-                        self.tab_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_CLEAR:
-                        self.clear_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RETURN:
-                        self.return_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_PAUSE:
-                        self.pause_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_ESCAPE:
-                        self.escape_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_SPACE:
-                        self.space_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_EXCLAIM:
-                        self.exclamationmark_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_QUOTEDBL:
-                        self.doublequote_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_HASH:
-                        self.hash_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_DOLLAR:
-                        self.dollar_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_AMPERSAND:
-                        self.ampersand_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_QUOTE:
-                        self.singlequote_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LEFTPAREN:
-                        self.leftparenthesis_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RIGHTPAREN:
-                        self.rightparenthesis_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_ASTERISK:
-                        self.asterisk_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_PLUS:
-                        self.plus_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_COMMA:
-                        self.comma_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_MINUS:
-                        self.minus_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_PERIOD:
-                        self.period_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_SLASH:
-                        self.forwardslash_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_0:
-                        self.primary0_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_1:
-                        self.primary1_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_2:
-                        self.primary2_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_3:
-                        self.primary3_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_4:
-                        self.primary4_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_5:
-                        self.primary5_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_6:
-                        self.primary6_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_7:
-                        self.primary7_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_8:
-                        self.primary8_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_9:
-                        self.primary9_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_COLON:
-                        self.colon_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_SEMICOLON:
-                        self.semicolon_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LESS:
-                        self.lessthan_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_EQUALS:
-                        self.equals_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_GREATER:
-                        self.greaterthan_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_QUESTION:
-                        self.questionmark_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_AT:
-                        self.at_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LEFTBRACKET:
-                        self.leftbracket_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_BACKSLASH:
-                        self.backslash_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RIGHTBRACKET:
-                        self.rightbracket_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_CARET:
-                        self.caret_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_UNDERSCORE:
-                        self.underscore_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_BACKQUOTE:
-                        self.grave_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_a:
-                        self.primarya_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_b:
-                        self.primaryb_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_c:
-                        self.primaryc_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_d:
-                        self.primaryd_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_e:
-                        self.primarye_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_f:
-                        self.primaryf_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_g:
-                        self.primaryg_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_h:
-                        self.primaryh_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_i:
-                        self.primaryi_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_j:
-                        self.primaryj_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_k:
-                        self.primaryk_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_l:
-                        self.primaryl_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_m:
-                        self.primarym_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_n:
-                        self.primaryn_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_o:
-                        self.primaryo_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_p:
-                        self.primaryp_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_q:
-                        self.primaryq_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_r:
-                        self.primaryr_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_s:
-                        self.primarys_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_t:
-                        self.primaryt_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_u:
-                        self.primaryu_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_v:
-                        self.primaryv_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_w:
-                        self.primaryw_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_x:
-                        self.primaryx_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_y:
-                        self.primaryy_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_z:
-                        self.primaryz_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_DELETE:
-                        self.delete_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP0:
-                        self.numpad0_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP1:
-                        self.numpad1_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP2:
-                        self.numpad2_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP3:
-                        self.numpad3_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP4:
-                        self.numpad4_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP5:
-                        self.numpad5_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP6:
-                        self.numpad6_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP7:
-                        self.numpad7_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP8:
-                        self.numpad8_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP9:
-                        self.numpad9_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_PERIOD:
-                        self.numpadperiod_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_DIVIDE:
-                        self.numpaddivide_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_MULTIPLY:
-                        self.numpadmultiply_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_MINUS:
-                        self.numpadminus_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_PLUS:
-                        self.numpadplus_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_ENTER:
-                        self.numpadenter_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_KP_EQUALS:
-                        self.numpadequals_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_UP:
-                        self.up_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_DOWN:
-                        self.down_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RIGHT:
-                        self.right_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LEFT:
-                        self.left_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_INSERT:
-                        self.insert_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_HOME:
-                        self.home_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_END:
-                        self.end_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_PAGEUP:
-                        self.pageup_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_PAGEDOWN:
-                        self.pagedown_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F1:
-                        self.function1_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F2:
-                        self.function2_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F3:
-                        self.function3_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F4:
-                        self.function4_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F5:
-                        self.function5_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F6:
-                        self.function6_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F7:
-                        self.function7_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F8:
-                        self.function8_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F9:
-                        self.function9_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F10:
-                        self.function10_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F11:
-                        self.function11_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F12:
-                        self.function12_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F13:
-                        self.function13_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F14:
-                        self.function14_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_F15:
-                        self.function15_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_NUMLOCK:
-                        self.numlock_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_CAPSLOCK:
-                        self.capslock_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_SCROLLOCK:
-                        self.scrolllock_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RSHIFT:
-                        self.rightshift_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LSHIFT:
-                        self.leftshift_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RCTRL:
-                        self.rightcontrol_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LCTRL:
-                        self.leftcontrol_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RALT:
-                        self.rightalt_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LALT:
-                        self.leftalt_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RMETA:
-                        self.rightmeta_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LMETA:
-                        self.leftmeta_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_LSUPER:
-                        self.leftsuper_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_RSUPER:
-                        self.rightsuper_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_MODE:
-                        self.mode_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_HELP:
-                        self.help_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_PRINT:
-                        self.print_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_SYSREQ:
-                        self.systemrequest_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_BREAK:
-                        self.break_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_MENU:
-                        self.menu_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_POWER:
-                        self.power_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_EURO:
-                        self.euro_key.set_pressed(False)
-
-                    elif event.key == _pygame.K_AC_BACK:
-                        self.androidback_key.set_pressed(False)
-
-                elif event.type == _pygame.MULTIGESTURE:
-                    self.multigesture_event.set_gesture_center_x(event.x)
-                    self.multigesture_event.set_gesture_center_y(event.y)
-                    self.multigesture_event.set_number_of_fingers(event.num_fingers)
-                    self.multigesture_event.set_rotated_value(event.rotated)
-                    self.multigesture_event.set_pinched_value(event.pinched)
-
-                elif event.type == _pygame.QUIT:
-                    self.quit_event.set_value(True)
+        raw_events = _pygame.event.get()
+        for event in raw_events:
+            if event.type == _pygame.APP_TERMINATING:
+                self.appterminating_event.set_value(True)
+
+            elif event.type == _pygame.APP_LOWMEMORY:
+                self.applowmemory_event.set_value(True)
+
+            elif event.type == _pygame.APP_WILLENTERBACKGROUND:
+                self.appwillenterbackground_event.set_value(True)
+
+            elif event.type == _pygame.APP_DIDENTERBACKGROUND:
+                self.appdidenterbackground_event.set_value(True)
+
+            elif event.type == _pygame.APP_WILLENTERFOREGROUND:
+                self.appwillenterbackground_event.set_value(True)
+
+            elif event.type == _pygame.APP_DIDENTERFOREGROUND:
+                self.appdidenterforeground_event.set_value(True)
+
+            elif event.type == _pygame.AUDIODEVICEADDED:
+                self.audiodeviceadded_event.set_value(True)
+
+            elif event.type == _pygame.AUDIODEVICEREMOVED:
+                self.audiodeviceremoved_event.set_value(True)
+
+            elif event.type == _pygame.CLIPBOARDUPDATE:
+                self.clipboardupdate_event.set_value(True)
+
+            elif event.type == _pygame.DROPFILE:
+                self.dropfile_event.set_value(True)
+
+            elif event.type == _pygame.DROPTEXT:
+                self.droptext_event.set_value(True)
+
+            elif event.type == _pygame.DROPBEGIN:
+                self.dropbegin_event.set_value(True)
+
+            elif event.type == _pygame.DROPCOMPLETE:
+                self.dropcomplete_event.set_value(True)
+
+            elif event.type == _pygame.FINGERMOTION:
+                self.fingermotion_event.set_value(True)
+
+            elif event.type == _pygame.FINGERDOWN:
+                self.fingerdown_event.set_value(True)
+
+            elif event.type == _pygame.FINGERUP:
+                self.fingerup_event.set_value(True)
+
+            elif event.type == _pygame.KEYMAPCHANGED:
+                self.keymapchanged_event.set_value(True)
+
+            elif event.type == _pygame.JOYAXISMOTION:
+                controller = self.controllers.get_controller(event.joy)
+                if event.axis == 0:
+                    controller.set_left_joystick_axis_x_axis(event.value)
+
+                elif event.axis == 1:
+                    controller.set_left_joystick_axis_y_axis(event.value)
+
+                elif event.axis == 2:
+                    controller.set_right_joystick_axis_x_axis(event.value)
+
+                elif event.axis == 3:
+                    controller.set_right_joystick_axis_y_axis(event.value)
+
+                elif event.axis == 4:
+                    controller.set_left_trigger_value(event.value)
+
+                elif event.axis == 5:
+                    controller.set_right_trigger_value(event.value)
+
+            elif event.type == _pygame.JOYBALLMOTION:
+                controller = self.controllers.get_controller(event.joy)
+                trackball = controller.get_track_ball_from_id(event.ball)
+                x_motion, y_motion = event.rel
+                trackball.set_x_motion(x_motion)
+                trackball.set_y_motion(y_motion)
+
+            elif event.type == _pygame.JOYBUTTONDOWN:
+                controller = self.controllers.get_controller(event.joy)
+                if event.button == 2:
+                    controller.set_x_button_pressed(True)
+                elif event.button == 0:
+                    controller.set_a_button_pressed(True)
+                elif event.button == 1:
+                    controller.set_b_button_pressed(True)
+                elif event.button == 3:
+                    controller.set_y_button_pressed(True)
+                elif event.button == 9:
+                    controller.set_left_bumper_pressed(True)
+                elif event.button == 10:
+                    controller.set_right_bumper_pressed(True)
+                elif event.button == 4:
+                    controller.set_share_button_pressed(True)
+                elif event.button == 6:
+                    controller.set_options_button_pressed(True)
+                elif event.button == 7:
+                    controller.set_left_joystick_button_pressed(True)
+                elif event.button == 8:
+                    controller.set_right_joystick_button_pressed(True)
+                elif event.button == 11:
+                    controller.set_up_hat_button_pressed(True)
+                elif event.button == 12:
+                    controller.set_down_hat_button_pressed(True)
+                elif event.button == 13:
+                    controller.set_left_hat_button_pressed(True)
+                elif event.button == 14:
+                    controller.set_right_hat_button_pressed(True)
+                elif event.button == 15:
+                    controller.set_center_button_pressed(True)
+
+            elif event.type == _pygame.JOYBUTTONUP:
+                controller = self.controllers.get_controller(event.joy)
+                if event.button == 2:
+                    controller.set_x_button_pressed(False)
+                elif event.button == 0:
+                    controller.set_a_button_pressed(False)
+                elif event.button == 1:
+                    controller.set_b_button_pressed(False)
+                elif event.button == 3:
+                    controller.set_y_button_pressed(False)
+                elif event.button == 9:
+                    controller.set_left_bumper_pressed(False)
+                elif event.button == 10:
+                    controller.set_right_bumper_pressed(False)
+                elif event.button == 4:
+                    controller.set_share_button_pressed(False)
+                elif event.button == 6:
+                    controller.set_options_button_pressed(False)
+                elif event.button == 7:
+                    controller.set_left_joystick_button_pressed(False)
+                elif event.button == 8:
+                    controller.set_right_joystick_button_pressed(False)
+                elif event.button == 11:
+                    controller.set_up_hat_button_pressed(False)
+                elif event.button == 12:
+                    controller.set_down_hat_button_pressed(False)
+                elif event.button == 13:
+                    controller.set_left_hat_button_pressed(False)
+                elif event.button == 14:
+                    controller.set_right_hat_button_pressed(False)
+                elif event.button == 15:
+                    controller.set_center_button_pressed(False)
+
+            elif event.type == _pygame.JOYDEVICEADDED:
+                self.joydeviceadded_event.set_value(True)
+                self.controllers.update_controllers()
+
+            elif event.type == _pygame.JOYDEVICEREMOVED:
+                self.joydeviceremoved_event.set_value(True)
+                self.controllers.update_controllers()
+
+            elif event.type == _pygame.LOCALECHANGED:
+                self.localechanged_event.set_value(True)
+
+            elif event.type == _pygame.MOUSEMOTION:
+                mouse_x_position, mouse_y_position = event.pos
+                mouse_x_displacement, mouse_y_displacement = event.rel
+                self.mouse_position.set_x_axis(mouse_x_position)
+                self.mouse_position.set_y_axis(mouse_y_position)
+                self.mouse_position.set_x_axis_displacement(mouse_x_displacement)
+                self.mouse_position.set_y_axis_displacement(mouse_y_displacement)
+
+            elif event.type == _pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.leftbutton_mouse.set_pressed(True)
+
+                elif event.button == 2:
+                    self.middlebutton_mouse.set_pressed(True)
+
+                elif event.button == 3:
+                    self.rightbutton_mouse.set_pressed(True)
+
+            elif event.type == _pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    self.leftbutton_mouse.set_pressed(False)
+
+                elif event.button == 2:
+                    self.middlebutton_mouse.set_pressed(False)
+
+                elif event.button == 3:
+                    self.rightbutton_mouse.set_pressed(False)
+
+            elif event.type == _pygame.MOUSEWHEEL:
+                x_displacement = event.precise_x
+                y_displacement = event.precise_y
+                if event.flipped:
+                    x_displacement *= -1
+                    y_displacement *= -1
+                self.mouse_scroll.set_x_displacement(x_displacement)
+                self.mouse_scroll.set_y_displacement(y_displacement)
+                total_x = self.mouse_scroll.get_x_value()
+                total_y = self.mouse_scroll.get_y_value()
+                self.mouse_scroll.set_x_value(total_x + x_displacement)
+                self.mouse_scroll.set_y_value(total_y + y_displacement)
+
+            elif event.type == _pygame.KEYDOWN:
+                if event.key == _pygame.K_BACKSPACE:
+                    self.backspace_key.set_pressed(True)
+
+                elif event.key == _pygame.K_TAB:
+                    self.tab_key.set_pressed(True)
+
+                elif event.key == _pygame.K_CLEAR:
+                    self.clear_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RETURN:
+                    self.return_key.set_pressed(True)
+
+                elif event.key == _pygame.K_PAUSE:
+                    self.pause_key.set_pressed(True)
+
+                elif event.key == _pygame.K_ESCAPE:
+                    self.escape_key.set_pressed(True)
                     if handle_exit_events:
                         _Registry.running = False
                         _Backpack.running = False
 
-                elif event.type == _pygame.RENDER_TARGETS_RESET:
-                    self.rendertargetsreset_event.set_value(True)
+                elif event.key == _pygame.K_SPACE:
+                    self.space_key.set_pressed(True)
 
-                elif event.type == _pygame.RENDER_DEVICE_RESET:
-                    self.renderdevicereset_event.set_value(True)
+                elif event.key == _pygame.K_EXCLAIM:
+                    self.exclamationmark_key.set_pressed(True)
 
-                elif event.type == _pygame.SYSWMEVENT:
-                    self.syswmevent_event.set_value(True)
+                elif event.key == _pygame.K_QUOTEDBL:
+                    self.doublequote_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWSHOWN:
-                    self.windowshown_event.set_value(True)
+                elif event.key == _pygame.K_HASH:
+                    self.hash_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWHIDDEN:
-                    self.windowhidden_event.set_value(True)
+                elif event.key == _pygame.K_DOLLAR:
+                    self.dollar_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWEXPOSED:
-                    self.windowexposed_event.set_value(True)
+                elif event.key == _pygame.K_AMPERSAND:
+                    self.ampersand_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWMOVED:
-                    self.windowmoved_event.set_value(True)
+                elif event.key == _pygame.K_QUOTE:
+                    self.singlequote_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWRESIZED or event.type == _pygame.WINDOWSIZECHANGED:
-                    self.windowresized_event.set_value(True)
+                elif event.key == _pygame.K_LEFTPAREN:
+                    self.leftparenthesis_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWMINIMIZED:
-                    self.windowminimized_event.set_value(True)
+                elif event.key == _pygame.K_RIGHTPAREN:
+                    self.rightparenthesis_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWMAXIMIZED:
-                    self.windowmaximized_event.set_value(True)
+                elif event.key == _pygame.K_ASTERISK:
+                    self.asterisk_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWRESTORED:
-                    self.windowrestored_event.set_value(True)
+                elif event.key == _pygame.K_PLUS:
+                    self.plus_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWENTER:
-                    self.windowenter_event.set_value(True)
+                elif event.key == _pygame.K_COMMA:
+                    self.comma_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWLEAVE:
-                    self.windowleave_event.set_value(True)
+                elif event.key == _pygame.K_MINUS:
+                    self.minus_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWFOCUSGAINED:
-                    self.windowfocusgained_event.set_value(True)
+                elif event.key == _pygame.K_PERIOD:
+                    self.period_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWFOCUSLOST:
-                    self.windowfocuslost_event.set_value(True)
+                elif event.key == _pygame.K_SLASH:
+                    self.forwardslash_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWCLOSE:
-                    self.windowclose_event.set_value(True)
+                elif event.key == _pygame.K_0:
+                    self.primary0_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWTAKEFOCUS:
-                    self.windowtakefocus_event.set_value(True)
+                elif event.key == _pygame.K_1:
+                    self.primary1_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWHITTEST:
-                    self.windowhittest_event.set_value(True)
+                elif event.key == _pygame.K_2:
+                    self.primary2_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWICCPROFCHANGED:
-                    self.windowiccprofchanged_event.set_value(True)
+                elif event.key == _pygame.K_3:
+                    self.primary3_key.set_pressed(True)
 
-                elif event.type == _pygame.WINDOWDISPLAYCHANGED:
-                    self.windowdisplaychanged_event.set_value(True)
+                elif event.key == _pygame.K_4:
+                    self.primary4_key.set_pressed(True)
+
+                elif event.key == _pygame.K_5:
+                    self.primary5_key.set_pressed(True)
+
+                elif event.key == _pygame.K_6:
+                    self.primary6_key.set_pressed(True)
+
+                elif event.key == _pygame.K_7:
+                    self.primary7_key.set_pressed(True)
+
+                elif event.key == _pygame.K_8:
+                    self.primary8_key.set_pressed(True)
+
+                elif event.key == _pygame.K_9:
+                    self.primary9_key.set_pressed(True)
+
+                elif event.key == _pygame.K_COLON:
+                    self.colon_key.set_pressed(True)
+
+                elif event.key == _pygame.K_SEMICOLON:
+                    self.semicolon_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LESS:
+                    self.lessthan_key.set_pressed(True)
+
+                elif event.key == _pygame.K_EQUALS:
+                    self.equals_key.set_pressed(True)
+
+                elif event.key == _pygame.K_GREATER:
+                    self.greaterthan_key.set_pressed(True)
+
+                elif event.key == _pygame.K_QUESTION:
+                    self.questionmark_key.set_pressed(True)
+
+                elif event.key == _pygame.K_AT:
+                    self.at_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LEFTBRACKET:
+                    self.leftbracket_key.set_pressed(True)
+
+                elif event.key == _pygame.K_BACKSLASH:
+                    self.backslash_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RIGHTBRACKET:
+                    self.rightbracket_key.set_pressed(True)
+
+                elif event.key == _pygame.K_CARET:
+                    self.caret_key.set_pressed(True)
+
+                elif event.key == _pygame.K_UNDERSCORE:
+                    self.underscore_key.set_pressed(True)
+
+                elif event.key == _pygame.K_BACKQUOTE:
+                    self.grave_key.set_pressed(True)
+
+                elif event.key == _pygame.K_a:
+                    self.primarya_key.set_pressed(True)
+
+                elif event.key == _pygame.K_b:
+                    self.primaryb_key.set_pressed(True)
+
+                elif event.key == _pygame.K_c:
+                    self.primaryc_key.set_pressed(True)
+
+                elif event.key == _pygame.K_d:
+                    self.primaryd_key.set_pressed(True)
+
+                elif event.key == _pygame.K_e:
+                    self.primarye_key.set_pressed(True)
+
+                elif event.key == _pygame.K_f:
+                    self.primaryf_key.set_pressed(True)
+
+                elif event.key == _pygame.K_g:
+                    self.primaryg_key.set_pressed(True)
+
+                elif event.key == _pygame.K_h:
+                    self.primaryh_key.set_pressed(True)
+
+                elif event.key == _pygame.K_i:
+                    self.primaryi_key.set_pressed(True)
+
+                elif event.key == _pygame.K_j:
+                    self.primaryj_key.set_pressed(True)
+
+                elif event.key == _pygame.K_k:
+                    self.primaryk_key.set_pressed(True)
+
+                elif event.key == _pygame.K_l:
+                    self.primaryl_key.set_pressed(True)
+
+                elif event.key == _pygame.K_m:
+                    self.primarym_key.set_pressed(True)
+
+                elif event.key == _pygame.K_n:
+                    self.primaryn_key.set_pressed(True)
+
+                elif event.key == _pygame.K_o:
+                    self.primaryo_key.set_pressed(True)
+
+                elif event.key == _pygame.K_p:
+                    self.primaryp_key.set_pressed(True)
+
+                elif event.key == _pygame.K_q:
+                    self.primaryq_key.set_pressed(True)
+
+                elif event.key == _pygame.K_r:
+                    self.primaryr_key.set_pressed(True)
+
+                elif event.key == _pygame.K_s:
+                    self.primarys_key.set_pressed(True)
+
+                elif event.key == _pygame.K_t:
+                    self.primaryt_key.set_pressed(True)
+
+                elif event.key == _pygame.K_u:
+                    self.primaryu_key.set_pressed(True)
+
+                elif event.key == _pygame.K_v:
+                    self.primaryv_key.set_pressed(True)
+
+                elif event.key == _pygame.K_w:
+                    self.primaryw_key.set_pressed(True)
+
+                elif event.key == _pygame.K_x:
+                    self.primaryx_key.set_pressed(True)
+
+                elif event.key == _pygame.K_y:
+                    self.primaryy_key.set_pressed(True)
+
+                elif event.key == _pygame.K_z:
+                    self.primaryz_key.set_pressed(True)
+
+                elif event.key == _pygame.K_DELETE:
+                    self.delete_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP0:
+                    self.numpad0_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP1:
+                    self.numpad1_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP2:
+                    self.numpad2_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP3:
+                    self.numpad3_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP4:
+                    self.numpad4_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP5:
+                    self.numpad5_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP6:
+                    self.numpad6_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP7:
+                    self.numpad7_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP8:
+                    self.numpad8_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP9:
+                    self.numpad9_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_PERIOD:
+                    self.numpadperiod_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_DIVIDE:
+                    self.numpaddivide_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_MULTIPLY:
+                    self.numpadmultiply_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_MINUS:
+                    self.numpadminus_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_PLUS:
+                    self.numpadplus_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_ENTER:
+                    self.numpadenter_key.set_pressed(True)
+
+                elif event.key == _pygame.K_KP_EQUALS:
+                    self.numpadequals_key.set_pressed(True)
+
+                elif event.key == _pygame.K_UP:
+                    self.up_key.set_pressed(True)
+
+                elif event.key == _pygame.K_DOWN:
+                    self.down_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RIGHT:
+                    self.right_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LEFT:
+                    self.left_key.set_pressed(True)
+
+                elif event.key == _pygame.K_INSERT:
+                    self.insert_key.set_pressed(True)
+
+                elif event.key == _pygame.K_HOME:
+                    self.home_key.set_pressed(True)
+
+                elif event.key == _pygame.K_END:
+                    self.end_key.set_pressed(True)
+
+                elif event.key == _pygame.K_PAGEUP:
+                    self.pageup_key.set_pressed(True)
+
+                elif event.key == _pygame.K_PAGEDOWN:
+                    self.pagedown_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F1:
+                    self.function1_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F2:
+                    self.function2_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F3:
+                    self.function3_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F4:
+                    self.function4_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F5:
+                    self.function5_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F6:
+                    self.function6_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F7:
+                    self.function7_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F8:
+                    self.function8_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F9:
+                    self.function9_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F10:
+                    self.function10_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F11:
+                    self.function11_key.set_pressed(True)
+                    if handle_full_screen_events:
+                        if _Registry.display_initialized:
+                            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].toggle_full_screen()
+                            self.windowresized_event.set_value(True)
+
+                elif event.key == _pygame.K_F12:
+                    self.function12_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F13:
+                    self.function13_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F14:
+                    self.function14_key.set_pressed(True)
+
+                elif event.key == _pygame.K_F15:
+                    self.function15_key.set_pressed(True)
+
+                elif event.key == _pygame.K_NUMLOCK:
+                    self.numlock_key.set_pressed(True)
+
+                elif event.key == _pygame.K_CAPSLOCK:
+                    self.capslock_key.set_pressed(True)
+
+                elif event.key == _pygame.K_SCROLLOCK:
+                    self.scrolllock_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RSHIFT:
+                    self.rightshift_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LSHIFT:
+                    self.leftshift_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RCTRL:
+                    self.rightcontrol_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LCTRL:
+                    self.leftcontrol_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RALT:
+                    self.rightalt_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LALT:
+                    self.leftalt_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RMETA:
+                    self.rightmeta_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LMETA:
+                    self.leftmeta_key.set_pressed(True)
+
+                elif event.key == _pygame.K_LSUPER:
+                    self.leftsuper_key.set_pressed(True)
+
+                elif event.key == _pygame.K_RSUPER:
+                    self.rightsuper_key.set_pressed(True)
+
+                elif event.key == _pygame.K_MODE:
+                    self.mode_key.set_pressed(True)
+
+                elif event.key == _pygame.K_HELP:
+                    self.help_key.set_pressed(True)
+
+                elif event.key == _pygame.K_PRINT:
+                    self.print_key.set_pressed(True)
+
+                elif event.key == _pygame.K_SYSREQ:
+                    self.systemrequest_key.set_pressed(True)
+
+                elif event.key == _pygame.K_BREAK:
+                    self.break_key.set_pressed(True)
+
+                elif event.key == _pygame.K_MENU:
+                    self.menu_key.set_pressed(True)
+
+                elif event.key == _pygame.K_POWER:
+                    self.power_key.set_pressed(True)
+
+                elif event.key == _pygame.K_EURO:
+                    self.euro_key.set_pressed(True)
+
+                elif event.key == _pygame.K_AC_BACK:
+                    self.androidback_key.set_pressed(True)
+
+            elif event.type == _pygame.KEYUP:
+                if event.key == _pygame.K_BACKSPACE:
+                    self.backspace_key.set_pressed(False)
+
+                elif event.key == _pygame.K_TAB:
+                    self.tab_key.set_pressed(False)
+
+                elif event.key == _pygame.K_CLEAR:
+                    self.clear_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RETURN:
+                    self.return_key.set_pressed(False)
+
+                elif event.key == _pygame.K_PAUSE:
+                    self.pause_key.set_pressed(False)
+
+                elif event.key == _pygame.K_ESCAPE:
+                    self.escape_key.set_pressed(False)
+
+                elif event.key == _pygame.K_SPACE:
+                    self.space_key.set_pressed(False)
+
+                elif event.key == _pygame.K_EXCLAIM:
+                    self.exclamationmark_key.set_pressed(False)
+
+                elif event.key == _pygame.K_QUOTEDBL:
+                    self.doublequote_key.set_pressed(False)
+
+                elif event.key == _pygame.K_HASH:
+                    self.hash_key.set_pressed(False)
+
+                elif event.key == _pygame.K_DOLLAR:
+                    self.dollar_key.set_pressed(False)
+
+                elif event.key == _pygame.K_AMPERSAND:
+                    self.ampersand_key.set_pressed(False)
+
+                elif event.key == _pygame.K_QUOTE:
+                    self.singlequote_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LEFTPAREN:
+                    self.leftparenthesis_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RIGHTPAREN:
+                    self.rightparenthesis_key.set_pressed(False)
+
+                elif event.key == _pygame.K_ASTERISK:
+                    self.asterisk_key.set_pressed(False)
+
+                elif event.key == _pygame.K_PLUS:
+                    self.plus_key.set_pressed(False)
+
+                elif event.key == _pygame.K_COMMA:
+                    self.comma_key.set_pressed(False)
+
+                elif event.key == _pygame.K_MINUS:
+                    self.minus_key.set_pressed(False)
+
+                elif event.key == _pygame.K_PERIOD:
+                    self.period_key.set_pressed(False)
+
+                elif event.key == _pygame.K_SLASH:
+                    self.forwardslash_key.set_pressed(False)
+
+                elif event.key == _pygame.K_0:
+                    self.primary0_key.set_pressed(False)
+
+                elif event.key == _pygame.K_1:
+                    self.primary1_key.set_pressed(False)
+
+                elif event.key == _pygame.K_2:
+                    self.primary2_key.set_pressed(False)
+
+                elif event.key == _pygame.K_3:
+                    self.primary3_key.set_pressed(False)
+
+                elif event.key == _pygame.K_4:
+                    self.primary4_key.set_pressed(False)
+
+                elif event.key == _pygame.K_5:
+                    self.primary5_key.set_pressed(False)
+
+                elif event.key == _pygame.K_6:
+                    self.primary6_key.set_pressed(False)
+
+                elif event.key == _pygame.K_7:
+                    self.primary7_key.set_pressed(False)
+
+                elif event.key == _pygame.K_8:
+                    self.primary8_key.set_pressed(False)
+
+                elif event.key == _pygame.K_9:
+                    self.primary9_key.set_pressed(False)
+
+                elif event.key == _pygame.K_COLON:
+                    self.colon_key.set_pressed(False)
+
+                elif event.key == _pygame.K_SEMICOLON:
+                    self.semicolon_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LESS:
+                    self.lessthan_key.set_pressed(False)
+
+                elif event.key == _pygame.K_EQUALS:
+                    self.equals_key.set_pressed(False)
+
+                elif event.key == _pygame.K_GREATER:
+                    self.greaterthan_key.set_pressed(False)
+
+                elif event.key == _pygame.K_QUESTION:
+                    self.questionmark_key.set_pressed(False)
+
+                elif event.key == _pygame.K_AT:
+                    self.at_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LEFTBRACKET:
+                    self.leftbracket_key.set_pressed(False)
+
+                elif event.key == _pygame.K_BACKSLASH:
+                    self.backslash_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RIGHTBRACKET:
+                    self.rightbracket_key.set_pressed(False)
+
+                elif event.key == _pygame.K_CARET:
+                    self.caret_key.set_pressed(False)
+
+                elif event.key == _pygame.K_UNDERSCORE:
+                    self.underscore_key.set_pressed(False)
+
+                elif event.key == _pygame.K_BACKQUOTE:
+                    self.grave_key.set_pressed(False)
+
+                elif event.key == _pygame.K_a:
+                    self.primarya_key.set_pressed(False)
+
+                elif event.key == _pygame.K_b:
+                    self.primaryb_key.set_pressed(False)
+
+                elif event.key == _pygame.K_c:
+                    self.primaryc_key.set_pressed(False)
+
+                elif event.key == _pygame.K_d:
+                    self.primaryd_key.set_pressed(False)
+
+                elif event.key == _pygame.K_e:
+                    self.primarye_key.set_pressed(False)
+
+                elif event.key == _pygame.K_f:
+                    self.primaryf_key.set_pressed(False)
+
+                elif event.key == _pygame.K_g:
+                    self.primaryg_key.set_pressed(False)
+
+                elif event.key == _pygame.K_h:
+                    self.primaryh_key.set_pressed(False)
+
+                elif event.key == _pygame.K_i:
+                    self.primaryi_key.set_pressed(False)
+
+                elif event.key == _pygame.K_j:
+                    self.primaryj_key.set_pressed(False)
+
+                elif event.key == _pygame.K_k:
+                    self.primaryk_key.set_pressed(False)
+
+                elif event.key == _pygame.K_l:
+                    self.primaryl_key.set_pressed(False)
+
+                elif event.key == _pygame.K_m:
+                    self.primarym_key.set_pressed(False)
+
+                elif event.key == _pygame.K_n:
+                    self.primaryn_key.set_pressed(False)
+
+                elif event.key == _pygame.K_o:
+                    self.primaryo_key.set_pressed(False)
+
+                elif event.key == _pygame.K_p:
+                    self.primaryp_key.set_pressed(False)
+
+                elif event.key == _pygame.K_q:
+                    self.primaryq_key.set_pressed(False)
+
+                elif event.key == _pygame.K_r:
+                    self.primaryr_key.set_pressed(False)
+
+                elif event.key == _pygame.K_s:
+                    self.primarys_key.set_pressed(False)
+
+                elif event.key == _pygame.K_t:
+                    self.primaryt_key.set_pressed(False)
+
+                elif event.key == _pygame.K_u:
+                    self.primaryu_key.set_pressed(False)
+
+                elif event.key == _pygame.K_v:
+                    self.primaryv_key.set_pressed(False)
+
+                elif event.key == _pygame.K_w:
+                    self.primaryw_key.set_pressed(False)
+
+                elif event.key == _pygame.K_x:
+                    self.primaryx_key.set_pressed(False)
+
+                elif event.key == _pygame.K_y:
+                    self.primaryy_key.set_pressed(False)
+
+                elif event.key == _pygame.K_z:
+                    self.primaryz_key.set_pressed(False)
+
+                elif event.key == _pygame.K_DELETE:
+                    self.delete_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP0:
+                    self.numpad0_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP1:
+                    self.numpad1_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP2:
+                    self.numpad2_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP3:
+                    self.numpad3_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP4:
+                    self.numpad4_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP5:
+                    self.numpad5_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP6:
+                    self.numpad6_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP7:
+                    self.numpad7_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP8:
+                    self.numpad8_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP9:
+                    self.numpad9_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_PERIOD:
+                    self.numpadperiod_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_DIVIDE:
+                    self.numpaddivide_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_MULTIPLY:
+                    self.numpadmultiply_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_MINUS:
+                    self.numpadminus_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_PLUS:
+                    self.numpadplus_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_ENTER:
+                    self.numpadenter_key.set_pressed(False)
+
+                elif event.key == _pygame.K_KP_EQUALS:
+                    self.numpadequals_key.set_pressed(False)
+
+                elif event.key == _pygame.K_UP:
+                    self.up_key.set_pressed(False)
+
+                elif event.key == _pygame.K_DOWN:
+                    self.down_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RIGHT:
+                    self.right_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LEFT:
+                    self.left_key.set_pressed(False)
+
+                elif event.key == _pygame.K_INSERT:
+                    self.insert_key.set_pressed(False)
+
+                elif event.key == _pygame.K_HOME:
+                    self.home_key.set_pressed(False)
+
+                elif event.key == _pygame.K_END:
+                    self.end_key.set_pressed(False)
+
+                elif event.key == _pygame.K_PAGEUP:
+                    self.pageup_key.set_pressed(False)
+
+                elif event.key == _pygame.K_PAGEDOWN:
+                    self.pagedown_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F1:
+                    self.function1_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F2:
+                    self.function2_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F3:
+                    self.function3_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F4:
+                    self.function4_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F5:
+                    self.function5_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F6:
+                    self.function6_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F7:
+                    self.function7_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F8:
+                    self.function8_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F9:
+                    self.function9_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F10:
+                    self.function10_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F11:
+                    self.function11_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F12:
+                    self.function12_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F13:
+                    self.function13_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F14:
+                    self.function14_key.set_pressed(False)
+
+                elif event.key == _pygame.K_F15:
+                    self.function15_key.set_pressed(False)
+
+                elif event.key == _pygame.K_NUMLOCK:
+                    self.numlock_key.set_pressed(False)
+
+                elif event.key == _pygame.K_CAPSLOCK:
+                    self.capslock_key.set_pressed(False)
+
+                elif event.key == _pygame.K_SCROLLOCK:
+                    self.scrolllock_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RSHIFT:
+                    self.rightshift_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LSHIFT:
+                    self.leftshift_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RCTRL:
+                    self.rightcontrol_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LCTRL:
+                    self.leftcontrol_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RALT:
+                    self.rightalt_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LALT:
+                    self.leftalt_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RMETA:
+                    self.rightmeta_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LMETA:
+                    self.leftmeta_key.set_pressed(False)
+
+                elif event.key == _pygame.K_LSUPER:
+                    self.leftsuper_key.set_pressed(False)
+
+                elif event.key == _pygame.K_RSUPER:
+                    self.rightsuper_key.set_pressed(False)
+
+                elif event.key == _pygame.K_MODE:
+                    self.mode_key.set_pressed(False)
+
+                elif event.key == _pygame.K_HELP:
+                    self.help_key.set_pressed(False)
+
+                elif event.key == _pygame.K_PRINT:
+                    self.print_key.set_pressed(False)
+
+                elif event.key == _pygame.K_SYSREQ:
+                    self.systemrequest_key.set_pressed(False)
+
+                elif event.key == _pygame.K_BREAK:
+                    self.break_key.set_pressed(False)
+
+                elif event.key == _pygame.K_MENU:
+                    self.menu_key.set_pressed(False)
+
+                elif event.key == _pygame.K_POWER:
+                    self.power_key.set_pressed(False)
+
+                elif event.key == _pygame.K_EURO:
+                    self.euro_key.set_pressed(False)
+
+                elif event.key == _pygame.K_AC_BACK:
+                    self.androidback_key.set_pressed(False)
+
+            elif event.type == _pygame.MULTIGESTURE:
+                self.multigesture_event.set_gesture_center_x(event.x)
+                self.multigesture_event.set_gesture_center_y(event.y)
+                self.multigesture_event.set_number_of_fingers(event.num_fingers)
+                self.multigesture_event.set_rotated_value(event.rotated)
+                self.multigesture_event.set_pinched_value(event.pinched)
+
+            elif event.type == _pygame.QUIT:
+                self.quit_event.set_value(True)
+                if handle_exit_events:
+                    _Registry.running = False
+                    _Backpack.running = False
+
+            elif event.type == _pygame.RENDER_TARGETS_RESET:
+                self.rendertargetsreset_event.set_value(True)
+
+            elif event.type == _pygame.RENDER_DEVICE_RESET:
+                self.renderdevicereset_event.set_value(True)
+
+            elif event.type == _pygame.SYSWMEVENT:
+                self.syswmevent_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWSHOWN:
+                self.windowshown_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWHIDDEN:
+                self.windowhidden_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWEXPOSED:
+                self.windowexposed_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWMOVED:
+                self.windowmoved_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWRESIZED or event.type == _pygame.WINDOWSIZECHANGED:
+                self.windowresized_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWMINIMIZED:
+                self.windowminimized_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWMAXIMIZED:
+                self.windowmaximized_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWRESTORED:
+                self.windowrestored_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWENTER:
+                self.windowenter_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWLEAVE:
+                self.windowleave_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWFOCUSGAINED:
+                self.windowfocusgained_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWFOCUSLOST:
+                self.windowfocuslost_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWCLOSE:
+                self.windowclose_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWTAKEFOCUS:
+                self.windowtakefocus_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWHITTEST:
+                self.windowhittest_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWICCPROFCHANGED:
+                self.windowiccprofchanged_event.set_value(True)
+
+            elif event.type == _pygame.WINDOWDISPLAYCHANGED:
+                self.windowdisplaychanged_event.set_value(True)
 
 class Backspace_KEY:
     def __del__(self, do_garbage_collection=False):
