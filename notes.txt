@@ -50,6 +50,30 @@ Work on render pipeline.
 
 **ALSO, ADJUST SHAPE INDEXES**
 
+Preparing for next release:
+	Few issues in some realtime effects - test these and try and fix.
+	Passport changes to startup.
+	Improve Shape Rendering.
+	Hide render pipeline.
+	Deprecate old mathematical functions that have not been replaced.
+
+Next release:
+	Add collisions to shapes.
+	Add paths as extension from collisions.
+	Add camera as extension from perspective.
+	Add back in Images.
+	Add back in render pipeline.
+	Add in collision detections for all shapes.
+	Add in 3D shapes (sphere, rectangle, n-prism, n-equivalent of 2D shapes)
+	
+Following releases:
+	Fix perlin noise for arrays.
+	Introduce loading of custom 3D AND 2D objects from file or array.
+	Introduce skybox.
+	Introduce collisions for 3D objects and scenes.
+	Particles systems and instances.
+	Custom Python based shader language. PySL.
+
 TEMPORARY TO DO LIST
 ====================
 Create shapes like circle from RadialPolygon
