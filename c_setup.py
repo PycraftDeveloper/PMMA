@@ -19,25 +19,25 @@ if compiler == "msvc":
         Extension(
             "perlin_noise",
             [cython_src_path+"perlin_noise.pyx"],
-            extra_compile_args=["-O3", "/O2"],
+            extra_compile_args=["/O2"],
         ),
         Extension(
             "extended_perlin_noise",
             [cython_src_path+"extended_perlin_noise.pyx"],
             include_dirs=[numpy.get_include()],
-            extra_compile_args=["-O3", "/O2"],
+            extra_compile_args=["/O2"],
         ),
         Extension(
             "number_converter",
             [cython_src_path+"number_converter.pyx"],
             include_dirs=[numpy.get_include()],
-            extra_compile_args=["-O3", "/O2"],
+            extra_compile_args=["/O2"],
         ),
         Extension(
             "math_utils",
             [cython_src_path+"math_utils.pyx"],
             include_dirs=[numpy.get_include()],
-            extra_compile_args=["-O3", "/O2"],
+            extra_compile_args=["/O2"],
         )
     ]
 elif compiler == "gcc" or compiler == "unix":
