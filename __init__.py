@@ -5,7 +5,6 @@ from io import StringIO as _io__StringIO
 from contextlib import redirect_stdout as _contextlib__redirect_stdout
 from time import perf_counter as _time__perf_counter
 
-from numba import config as _numba__config
 from pprofile import Profile as _pprofile__Profile
 
 def _up(path: str) -> str:
@@ -15,7 +14,6 @@ _base_path = _up(__file__)
 
 _temporary_files_path = _base_path + _os__sep + "temporary"
 _sys.pycache_prefix = _temporary_files_path
-_numba__config.CACHE_DIR = _temporary_files_path
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.constants import *
