@@ -21,6 +21,14 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Video.set_looping() -> None
+
+   Not Yet Written
+
+.. py:method:: Video.get_looping() -> None
+
+   Not Yet Written
+
 .. py:method:: Video.stop() -> None
 
    Not Yet Written

@@ -29,6 +29,22 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Audio.set_looping() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.get_looping() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.set_duration() -> None
+
+   Not Yet Written
+
+.. py:method:: Audio.set_silence_at_end_of_track() -> None
+
+   Not Yet Written
+
 .. py:method:: Audio.load_from_moviepy() -> None
 
    Not Yet Written
@@ -107,6 +123,9 @@ Methods
     break
     
     def _audio_callback(self, outdata, frames, time, status):
+    if self._audio_playing_start_time is None:
+    self._audio_playing_start_time = _time.perf_counter()
+    
     if status:
     print(status)
     
@@ -119,13 +138,26 @@ Methods
     chunk = self._audio_queue.get_nowait()
     self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
     except StopIteration:
+    if self._looping:
     self._moviepy_audio_itr = self._audio_generator(2048)
     self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
     except _queue.Empty:
+    if self._looping:
     outdata.fill(0)
+    else:
+    self._stop_signal = True
+    outdata[:] = _numpy.zeros(outdata.shape)
+    return
     
     else:
     chunk = self._file.read(frames, dtype='float32')
+    
+    if _time.perf_counter() - self._audio_playing_start_time > self._audio_duration:
+    if self._looping:
+    self._file.seek(0)
+    self._audio_playing_start_time = None
+    else:
+    self._stop_signal = True
     
     if len(chunk) < frames:
     padding_shape = (frames - len(chunk), chunk.shape[1])
