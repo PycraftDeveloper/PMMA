@@ -2,6 +2,7 @@ from subprocess import call as _subprocess__call
 from sys import executable as _sys__executable
 from os import mkdir as _os__mkdir
 from threading import Thread as _threading__Thread
+from os import devnull as _os__devnull
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
@@ -23,7 +24,11 @@ def compile_libraries():
         _Registry.cython_acceleration_available = True
     except ImportError:
         try:
-            _subprocess__call([_sys__executable, f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"])
+            if _Registry.development_mode:
+                _subprocess__call([_sys__executable, f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"], stdout=devnull, stderr=devnull)
+            else:
+                with open(_os__devnull, 'w') as devnull:
+                    _subprocess__call([_sys__executable, f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"], stdout=devnull, stderr=devnull)
         except:
             pass
         _Registry.cython_acceleration_available = check_for_compiled_libraries()

@@ -54,17 +54,17 @@ cdef class Color:
         elif in_type == Constants.TEXT:
             self.color = Constants.TEXT_BASED_COLORS[color.upper()] + [255]
 
-    cdef tuple __convert_rgb_to_hsv(self, float red, float green, float blue,
-                                    float per_maximum=100, bint do_round=True):
-        cdef float red_percentage = red / 255
-        cdef float green_percentage = green / 255
-        cdef float blue_percentage = blue / 255
+    cdef tuple __convert_rgb_to_hsv(self, double red, double green, double blue,
+                                    double per_maximum=100, bint do_round=True):
+        cdef double red_percentage = red / 255
+        cdef double green_percentage = green / 255
+        cdef double blue_percentage = blue / 255
         cdef tuple color_hsv_percentage = _colorsys__rgb_to_hsv(
             red_percentage, green_percentage, blue_percentage)
-        cdef float color_h = 360 * color_hsv_percentage[0]
+        cdef double color_h = 360 * color_hsv_percentage[0]
 
-        cdef float color_s
-        cdef float color_v
+        cdef double color_s
+        cdef double color_v
         if do_round:
             color_s = round(per_maximum * color_hsv_percentage[1])
             color_v = round(per_maximum * color_hsv_percentage[2])
