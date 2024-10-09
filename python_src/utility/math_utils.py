@@ -1,5 +1,3 @@
-from math import tan as _math__tan
-
 from numba import njit as _numba__njit
 from pyrr import Matrix44 as _pyrr__Matrix44
 from numpy import newaxis as _numpy__newaxis
@@ -7,6 +5,7 @@ from numpy import linalg as _numpy__linalg
 from numpy import cross as _numpy__cross
 from numpy import array as _numpy__array
 from numpy import dot as _numpy__dot
+from numpy import finfo as _numpy__finfo
 
 def raw_smooth_step(t):
     # Cubic smoothstep function for acceleration/deceleration
@@ -24,7 +23,7 @@ def raw_ranger(value, old, new):
         old_range = (old[1] - old[0])
         new_range = (new[1] - new[0])
         if old_range == 0:
-            old_range = 0.000000000000000000000000000000000000001
+            old_range = _numpy__finfo(float).tiny
         new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
 
@@ -38,7 +37,7 @@ def raw_nparray_ranger(value, old, new):
         old_range = (old[1] - old[0])
         new_range = (new[1] - new[0])
         if old_range == 0:
-            old_range = 0.000000000000000000000000000000000000001
+            old_range = _numpy__finfo(float).tiny
         new_value = (((value - old[0]) * new_range) / old_range) + new[0]
         return new_value
 
@@ -83,18 +82,6 @@ def raw_compute_position(pos, target, up):
     x = normalize(_numpy__cross(normalize(up), z))
     y = _numpy__cross(z, x)
     return x, y, z
-
-@_numba__njit(fastmath=True, cache=True)
-def raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane):
-    num = 1.0 / _math__tan(fov / 2.0)
-    num9 = num / aspect_ratio
-    return _numpy__array([
-        [num9, 0.0, 0.0, 0.0],
-        [0.0, num, 0.0, 0.0],
-        [0.0, 0.0, far_plane / (near_plane - far_plane), -1.0],
-        [0.0, 0.0, (near_plane * far_plane) /
-            (near_plane - far_plane), 0.0]
-    ], dtype="f4")
 
 @_numba__njit(fastmath=True, cache=True)
 def raw_look_at(camera_position, camera_target, up_vector):
