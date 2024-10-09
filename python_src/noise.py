@@ -210,13 +210,20 @@ class Perlin:
         if noise.min() < _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["min"]:
             _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["min"] = noise.min()
 
-        return self._math.nparray_ranger(
-            noise, # flatten 'n' squish
-            _numpy__array([
-                    _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["min"],
-                    _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["max"]],
-                dtype=_numpy__float64),
-            _numpy__array(new_range, dtype=_numpy__float64))
+        function_range_as_numpy_array = _numpy__array([
+                _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["min"],
+                _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["max"]],
+            dtype=_numpy__float64)
+        desired_range_as_numpy_array = _numpy__array(new_range, dtype=_numpy__float64)
+
+        flattened_array = noise.flatten()
+
+        range_adjusted_array = self._math.nparray_ranger(
+            flattened_array, # flatten 'n' squish
+            function_range_as_numpy_array,
+            desired_range_as_numpy_array)
+
+        return range_adjusted_array.reshape(noise.shape)
 
     def generate_3D_perlin_noise_from_array(self, array, new_range=[-1, 1]):
         noise = self._extended_noise.generate_fbm_3d(array)
@@ -226,13 +233,20 @@ class Perlin:
         if noise.min() < _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["min"]:
             _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["min"] = noise.min()
 
-        return self._math.nparray_ranger(
-            noise, # flatten 'n' squish
-            _numpy__array([
-                    _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["min"],
-                    _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["max"]],
-                dtype=_numpy__float64),
-            _numpy__array(new_range, dtype=_numpy__float64))
+        function_range_as_numpy_array = _numpy__array([
+                _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["min"],
+                _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["max"]],
+            dtype=_numpy__float64)
+        desired_range_as_numpy_array = _numpy__array(new_range, dtype=_numpy__float64)
+
+        flattened_array = noise.flatten()
+
+        range_adjusted_array = self._math.nparray_ranger(
+            flattened_array, # flatten 'n' squish
+            function_range_as_numpy_array,
+            desired_range_as_numpy_array)
+
+        return range_adjusted_array.reshape(noise.shape)
 
     def generate_1D_perlin_noise_from_range(self, one_range, new_range=[-1, 1]):
         if len(one_range) == 1:
@@ -282,13 +296,20 @@ class Perlin:
         if noise.min() < _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["min"]:
             _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["min"] = noise.min()
 
-        return self._math.nparray_ranger(
-            noise, # flatten 'n' squish
-            _numpy__array([
-                    _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["min"],
-                    _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["max"]],
-                dtype=_numpy__float64),
-            _numpy__array(new_range, dtype=_numpy__float64))
+        function_range_as_numpy_array = _numpy__array([
+                _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["min"],
+                _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_range"]["max"]],
+            dtype=_numpy__float64)
+        desired_range_as_numpy_array = _numpy__array(new_range, dtype=_numpy__float64)
+
+        flattened_array = noise.flatten()
+
+        range_adjusted_array = self._math.nparray_ranger(
+            flattened_array, # flatten 'n' squish
+            function_range_as_numpy_array,
+            desired_range_as_numpy_array)
+
+        return range_adjusted_array.reshape(noise.shape)
 
     def generate_3D_perlin_noise_from_range(
             self,
@@ -328,13 +349,20 @@ class Perlin:
         if noise.min() < _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["min"]:
             _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["min"] = noise.min()
 
-        return self._math.nparray_ranger(
-            noise, # flatten 'n' squish
-            _numpy__array([
-                    _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["min"],
-                    _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["max"]],
-                dtype=_numpy__float64),
-            _numpy__array(new_range, dtype=_numpy__float64))
+        function_range_as_numpy_array = _numpy__array([
+                _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["min"],
+                _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_range"]["max"]],
+            dtype=_numpy__float64)
+        desired_range_as_numpy_array = _numpy__array(new_range, dtype=_numpy__float64)
+
+        flattened_array = noise.flatten()
+
+        range_adjusted_array = self._math.nparray_ranger(
+            flattened_array, # flatten 'n' squish
+            function_range_as_numpy_array,
+            desired_range_as_numpy_array)
+
+        return range_adjusted_array.reshape(noise.shape)
 
     def set_seed(self, seed):
         self.__init__(seed)
