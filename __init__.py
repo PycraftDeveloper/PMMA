@@ -83,7 +83,6 @@ from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _
 def init(
             optimize_python_extensions=True,
             compile_c_extensions=True,
-            wait_for_initialization=True,
             memory_management_max_object_lifetime=2.5,
             memory_management_max_size=Constants.AUTOMATIC,
             general_profile_application=False,
@@ -102,10 +101,6 @@ def init(
     _Registry.pmma_initialized = True
 
     _LoggerIntermediary()
-
-    if optimize_python_extensions: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
-        benchmark = Benchmark() # cache this unique to device
-        benchmark.test_all()
 
     if compile_c_extensions: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
         cython_thread = _cython_utils.compile()
@@ -346,7 +341,10 @@ devices. We are working on a better way to handle this situation.")
 
     _DisplayIntermediary()
 
-    if wait_for_initialization:
-        cython_thread.join()
+    cython_thread.join()
+
+    if optimize_python_extensions: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
+        benchmark = Benchmark() # cache this unique to device
+        benchmark.test_all()
 
 # Jessy
