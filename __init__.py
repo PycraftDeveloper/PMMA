@@ -341,7 +341,7 @@ devices. We are working on a better way to handle this situation.")
 
     cython_thread.join()
 
-    if optimize_python_extensions: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
+    if optimize_python_extensions and _Registry.cython_acceleration_available: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
         benchmark = Benchmark() # cache this unique to device
         benchmark.test_all()
 

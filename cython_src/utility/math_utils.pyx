@@ -5,14 +5,13 @@ cimport numpy as cnp
 from libc.math cimport sqrt
 
 # Define the types for numpy arrays
-ctypedef cnp.float32_t REAL
 
 # Cubic smoothstep function for acceleration/deceleration
-cpdef REAL raw_smooth_step(REAL t):
+cpdef double raw_smooth_step(double t):
     return t * t * (3 - 2 * t)
 
 # Clamping and mapping function
-cpdef REAL raw_ranger(REAL value, cnp.ndarray[REAL, ndim=1] old, cnp.ndarray[REAL, ndim=1] new):
+cpdef double raw_ranger(double value, cnp.ndarray[double, ndim=1] old, cnp.ndarray[double, ndim=1] new):
     if value > old[1]:
         value = old[1]
     elif value < old[0]:
@@ -31,7 +30,7 @@ cpdef REAL raw_ranger(REAL value, cnp.ndarray[REAL, ndim=1] old, cnp.ndarray[REA
     return new_value
 
 # Clamping and mapping function for numpy arrays
-cpdef raw_nparray_ranger(cnp.ndarray[REAL, ndim=1] value, cnp.ndarray[REAL, ndim=1] old, cnp.ndarray[REAL, ndim=1] new):
+cpdef cnp.ndarray[double, ndim=1] raw_nparray_ranger(cnp.ndarray[double, ndim=1] value, cnp.ndarray[double, ndim=1] old, cnp.ndarray[double, ndim=1] new):
     value[value > old[1]] = old[1]
     value[value < old[0]] = old[0]
 
@@ -48,18 +47,18 @@ cpdef raw_nparray_ranger(cnp.ndarray[REAL, ndim=1] value, cnp.ndarray[REAL, ndim
     return new_value
 
 # Compute the camera's orientation matrix
-cpdef cnp.ndarray[REAL, ndim=2] raw_gl_look_at(cnp.ndarray[REAL, ndim=1] pos,
-                                                 cnp.ndarray[REAL, ndim=1] target,
-                                                 cnp.ndarray[REAL, ndim=1] up):
-    cdef cnp.ndarray[REAL, ndim=1] x, y, z
+cpdef cnp.ndarray[double, ndim=2] raw_gl_look_at(cnp.ndarray[double, ndim=1] pos,
+                                                 cnp.ndarray[double, ndim=1] target,
+                                                 cnp.ndarray[double, ndim=1] up):
+    cdef cnp.ndarray[double, ndim=1] x, y, z
     x, y, z = raw_compute_position(pos, target, up)
 
-    translate = np.identity(4, dtype=np.float32)
+    translate = np.identity(4, dtype=np.double32)
     translate[3][0] = -pos[0]
     translate[3][1] = -pos[1]
     translate[3][2] = -pos[2]
 
-    rotate = np.identity(4, dtype=np.float32)
+    rotate = np.identity(4, dtype=np.double32)
     rotate[0][0] = x[0]  # -- X
     rotate[1][0] = x[1]
     rotate[2][0] = x[2]
@@ -73,50 +72,50 @@ cpdef cnp.ndarray[REAL, ndim=2] raw_gl_look_at(cnp.ndarray[REAL, ndim=1] pos,
     return rotate @ translate[:, np.newaxis]
 
 # Compute the norm and direction
-cpdef REAL raw_pythag(cnp.ndarray[REAL, ndim=1] points):
-    cdef REAL sum = 0
+cpdef double raw_pythag(cnp.ndarray[double, ndim=1] points):
+    cdef double sum = 0
     for point in points:
         sum += point ** 2
     return sqrt(sum)
 
 # Function to normalize a vector
-cdef cnp.ndarray[REAL, ndim=1] normalize(cnp.ndarray[REAL, ndim=1] v):
-    cdef REAL norm = sqrt(np.dot(v, v))  # Compute the norm manually
+cdef cnp.ndarray[double, ndim=1] normalize(cnp.ndarray[double, ndim=1] v):
+    cdef double norm = sqrt(np.dot(v, v))  # Compute the norm manually
     if norm == 0:
         return v
     return v / norm
 
 # Function to compute the camera's basis vectors
-cpdef tuple raw_compute_position(cnp.ndarray[REAL, ndim=1] pos,
-                                  cnp.ndarray[REAL, ndim=1] target,
-                                  cnp.ndarray[REAL, ndim=1] up):
-    cdef cnp.ndarray[REAL, ndim=1] z = normalize(target - pos)
-    cdef cnp.ndarray[REAL, ndim=1] x = normalize(np.cross(up, z))
-    cdef cnp.ndarray[REAL, ndim=1] y = np.cross(z, x)
+cpdef tuple raw_compute_position(cnp.ndarray[double, ndim=1] pos,
+                                  cnp.ndarray[double, ndim=1] target,
+                                  cnp.ndarray[double, ndim=1] up):
+    cdef cnp.ndarray[double, ndim=1] z = normalize(target - pos)
+    cdef cnp.ndarray[double, ndim=1] x = normalize(np.cross(up, z))
+    cdef cnp.ndarray[double, ndim=1] y = np.cross(z, x)
     return (x, y, z)
 
 # Look at function
-cpdef cnp.ndarray[REAL, ndim=2] raw_look_at(cnp.ndarray[REAL, ndim=1] camera_position,
-                                             cnp.ndarray[REAL, ndim=1] camera_target,
-                                             cnp.ndarray[REAL, ndim=1] up_vector):
-    cdef cnp.ndarray[REAL, ndim=1] vector = camera_target - camera_position
+cpdef cnp.ndarray[double, ndim=2] raw_look_at(cnp.ndarray[double, ndim=1] camera_position,
+                                             cnp.ndarray[double, ndim=1] camera_target,
+                                             cnp.ndarray[double, ndim=1] up_vector):
+    cdef cnp.ndarray[double, ndim=1] vector = camera_target - camera_position
 
-    cdef REAL x = np.linalg.norm(vector)
+    cdef double x = np.linalg.norm(vector)
     vector = vector / x
 
-    cdef cnp.ndarray[REAL, ndim=1] vector2 = np.cross(up_vector, vector)
+    cdef cnp.ndarray[double, ndim=1] vector2 = np.cross(up_vector, vector)
     vector2 /= np.linalg.norm(vector2)
 
-    cdef cnp.ndarray[REAL, ndim=1] vector3 = np.cross(vector, vector2)
+    cdef cnp.ndarray[double, ndim=1] vector3 = np.cross(vector, vector2)
 
     return np.array([
         [vector2[0], vector3[0], vector[0], 0.0],
         [vector2[1], vector3[1], vector[1], 0.0],
         [vector2[2], vector3[2], vector[2], 0.0],
         [-np.dot(vector2, camera_position), -np.dot(vector3, camera_position), np.dot(vector, camera_position), 1.0]
-    ], dtype=np.float32)
+    ], dtype=np.double32)
 
 # Matrix multiplication function
-cpdef cnp.ndarray[REAL, ndim=2] raw_multiply(cnp.ndarray[REAL, ndim=2] light_proj,
-                                               cnp.ndarray[REAL, ndim=2] sun_light_look_at):
+cpdef cnp.ndarray[double, ndim=2] raw_multiply(cnp.ndarray[double, ndim=2] light_proj,
+                                               cnp.ndarray[double, ndim=2] sun_light_look_at):
     return light_proj @ sun_light_look_at

@@ -16,7 +16,8 @@ def raw_ranger(value, old, new):
     elif value < old[0]:
         value = old[0]
 
-    if old == new:
+    comparing_two_arrays = (old == new)
+    if comparing_two_arrays.all():
         return value
     else:
         old_range = (old[1] - old[0])
@@ -30,7 +31,8 @@ def raw_nparray_ranger(value, old, new):
     value[value > old[1]] = old[1]
     value[value < old[0]] = old[0]
 
-    if old == new:
+    comparing_two_arrays = (old == new)
+    if comparing_two_arrays.all():
         return value
     else:
         old_range = (old[1] - old[0])

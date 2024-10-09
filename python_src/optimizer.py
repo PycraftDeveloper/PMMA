@@ -3,7 +3,7 @@ from gc import collect as _gc__collect
 import importlib as _importlib
 
 from numpy import array as _numpy__array
-from numpy import float32 as _numpy__float32
+from numpy import float64 as _numpy__float64
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -40,7 +40,7 @@ class Benchmark:
         self.test_pythag()
 
     def test_pythag(self):
-        self._compiled_math_module.raw_pythag(_numpy__array([0, 0, 0], dtype=_numpy__float32))
+        self._compiled_math_module.raw_pythag(_numpy__array([0, 0, 0], dtype=_numpy__float64))
 
         total_compiled_time = 0
         total_raw_time = 0
@@ -50,7 +50,7 @@ class Benchmark:
                     float(iteration),
                     iteration/2,
                     iteration/4],
-                dtype=_numpy__float32))
+                dtype=_numpy__float64))
 
             end = _time.perf_counter()
             total_compiled_time += end - start
@@ -61,7 +61,7 @@ class Benchmark:
                     float(iteration),
                     iteration/2,
                     iteration/4],
-                dtype=_numpy__float32))
+                dtype=_numpy__float64))
 
             end = _time.perf_counter()
             total_raw_time += end - start
