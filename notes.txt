@@ -55,7 +55,6 @@ Preparing for next release:
 	Passport changes to startup.
 	Improve Shape Rendering.
 	Hide render pipeline.
-	Deprecate old mathematical functions that have not been replaced.
 
 Next release:
 	Add collisions to shapes.

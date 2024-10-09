@@ -42,7 +42,6 @@ from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
 from pmma.python_src.quickstart import *
 from pmma.python_src.projection import *
-from pmma.python_src.optimizer import *
 from pmma.python_src.backpack import *
 from pmma.python_src.passport import *
 from pmma.python_src.executor import *
@@ -340,9 +339,5 @@ devices. We are working on a better way to handle this situation.")
     _DisplayIntermediary()
 
     cython_thread.join()
-
-    if optimize_python_extensions and _Registry.cython_acceleration_available: # needs to be paired before "if compile_c_extensions:" and as early as possible for max threading benefit.
-        benchmark = Benchmark() # cache this unique to device
-        benchmark.test_all()
 
 # Jessy
