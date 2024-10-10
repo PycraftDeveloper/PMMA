@@ -25,7 +25,7 @@ def compile_libraries():
     except ImportError:
         try:
             if _Registry.development_mode:
-                _subprocess__call([_sys__executable, f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"], stdout=devnull, stderr=devnull)
+                _subprocess__call([_sys__executable, f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"])
             else:
                 with open(_os__devnull, 'w') as devnull:
                     _subprocess__call([_sys__executable, f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}c_setup.py", "build_ext", "--build-lib", f"{_Registry.base_path}{_Constants.PATH_SEPARATOR}bin", "--build-temp", "temporary"], stdout=devnull, stderr=devnull)

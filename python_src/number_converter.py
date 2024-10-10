@@ -112,10 +112,12 @@ class ColorConverter:
 
         self._color_intermediary = _ColorIntermediary()
 
-        self._red_noise = _Perlin(seed=seed)
-        self._green_noise = _Perlin(seed=seed)
-        self._blue_noise = _Perlin(seed=seed)
-        self._alpha_noise = _Perlin(seed=seed)
+        self._seed = seed
+
+        self._red_noise = None
+        self._green_noise = None
+        self._blue_noise = None
+        self._alpha_noise = None
 
         self._color_cache = {}
 
@@ -196,6 +198,15 @@ class ColorConverter:
             blue_color_range=None,
             alpha_color_range=None):
 
+        if self._red_noise is None:
+            self._red_noise = _Perlin(seed=self._seed)
+        if self._green_noise is None:
+            self._green_noise = _Perlin(seed=self._seed)
+        if self._blue_noise is None:
+            self._blue_noise = _Perlin(seed=self._seed)
+        if self._alpha_noise is None:
+            self._alpha_noise = _Perlin(seed=self._seed)
+
         if red_color_range is None:
             red_color_range = color_range
         if green_color_range is None:
@@ -274,8 +285,10 @@ class CoordinateConverter:
         self._coordinate_intermediary = _CoordinateIntermediary()
         self._coordinate_cache = {}
 
-        self._x_noise = _Perlin(seed=seed)
-        self._y_noise = _Perlin(seed=seed)
+        self._seed = seed
+
+        self._x_noise = None
+        self._y_noise = None
 
         self._coordinate_set = False
 
@@ -336,6 +349,12 @@ class CoordinateConverter:
             coordinate_range=None,
             x_coordinate_range=None,
             y_coordinate_range=None):
+
+        if self._x_noise is None:
+            self._x_noise = _Perlin(seed=self._seed)
+
+        if self._y_noise is None:
+            self._y_noise = _Perlin(seed=self._seed)
 
         if coordinate_range is None:
             if _Registry.display_initialized:

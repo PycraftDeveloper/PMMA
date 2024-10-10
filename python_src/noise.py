@@ -25,6 +25,12 @@ class Perlin:
             persistence=0.5,
             do_prefill=None):
 
+        try:
+            raise ModuleNotFoundError
+        except Exception as error:
+            import traceback
+            traceback.print_stack()
+
         _initialize(self)
 
         if _Registry.cython_acceleration_available:
