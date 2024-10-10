@@ -38,10 +38,6 @@ class UnexpectedBufferAttributeError(Exception):
     """Unexpected buffer attribute!"""
     pass
 
-class ShaderReferenceManagerNotInitializedError(Exception):
-    """Shader reference manager was not initialized!"""
-    pass
-
 class ShapeRadiusNotSpecifiedError(Exception):
     """Shape radius was not specified!"""
     pass

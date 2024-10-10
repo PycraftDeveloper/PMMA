@@ -69,12 +69,9 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 
 from pmma.python_src.utility import cython_utils as _cython_utils
 import pmma.python_src.utility.event_utils as _event_utils
-from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
 import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
-from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
 from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
 
 def init(
@@ -164,10 +161,20 @@ devices. We are working on a better way to handle this situation.")
         from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
         _GPUsIntermediary()
 
-    _GPUDistributionManager()
-    _ControllersIntermediary()
+    if Constants.GPU_DISTRIBUTION_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
+        _GPUDistributionManager()
+
+    if Constants.CONTROLLER_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
+        _ControllersIntermediary()
+
+
     _ProjectionIntermediary()
-    _LoadedShaderReferenceManager()
+
+    if Constants.SHADER_REFERENCE_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
+        _LoadedShaderReferenceManager()
 
     _event_utils.Backspace_KEY()
     _event_utils.Tab_KEY()

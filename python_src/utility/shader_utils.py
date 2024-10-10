@@ -6,9 +6,9 @@ from waiting import wait as _waiting__wait
 
 from pmma.python_src.constants import Constants as _Constants
 
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.error_utils import ShaderReferenceManagerNotInitializedError as _ShaderReferenceManagerNotInitializedError
 
 class ShaderIntermediary:
     loaded_shaders_from_file = {}
@@ -67,7 +67,8 @@ class ShaderManager:
         _initialize(self)
 
         if not _Constants.SHADER_REFERENCE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            raise _ShaderReferenceManagerNotInitializedError()
+            _PassportIntermediary.components_used.append(_Constants.SHADER_REFERENCE_MANAGER_OBJECT)
+            LoadedShaderReferenceManager()
 
         self._shader_reference_manager: "LoadedShaderReferenceManager"= _Registry.pmma_module_spine[_Constants.SHADER_REFERENCE_MANAGER_OBJECT]
 

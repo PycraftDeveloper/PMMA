@@ -33,6 +33,7 @@ from pmma.python_src.projection import OrthographicProjection as _OrthographicPr
 from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
 from pmma.python_src.advtkinter import Tkinter as _Tkinter
 
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
@@ -96,6 +97,13 @@ class DisplayIntermediary:
         self._tkinter_backend = _Tkinter()
 
         self._clock = _pygame__time.Clock()
+
+        if not _Constants.GPU_DISTRIBUTION_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT)
+            from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
+            _GPUDistributionManager()
+
+        self._gpu_distribution_manager = _Registry.pmma_module_spine[_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT]
 
     def update_class(self):
         if self._object_updated is False:
@@ -377,7 +385,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._display_quad = _geometry.quad_fs()
 
-        _Registry.pmma_module_spine[_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT].update_gpu_roles(initialization_override=True)
+        self._gpu_distribution_manager.update_gpu_roles(initialization_override=True)
 
     def set_caption(self, caption=None):
         if self._object_updated is False:

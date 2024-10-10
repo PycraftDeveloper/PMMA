@@ -8,10 +8,18 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 import pmma.python_src.utility.event_utils as _event_utils
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Controllers:
     def __init__(self):
         _initialize(self)
+
+        if not _Constants.CONTROLLER_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONTROLLER_INTERMEDIARY_OBJECT)
+            from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
+            _ControllersIntermediary()
+
+        self._controller_intermediary = _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT]
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -24,16 +32,16 @@ class Controllers:
         self._shut_down = True
 
     def identify_controllers(self):
-        _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].identify_controllers()
+        self._controller_intermediary.identify_controllers()
 
     def get_controller(self, controller_index) -> 'Controller':
-        return _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
+        return self._controller_intermediary.get_controller(controller_index)
 
     def update_controllers(self):
-        _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].update_controllers()
+        self._controller_intermediary.update_controllers()
 
     def list_controllers(self):
-        return _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT].list_controllers()
+        return self._controller_intermediary.list_controllers()
 
 class Controller:
     def __del__(self, do_garbage_collection=False):
