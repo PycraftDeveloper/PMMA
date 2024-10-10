@@ -17,6 +17,8 @@ class_count = 0
 function_count = 0
 nothing_count = 0
 chars = 0
+spaces = 0
+words = 0
 for file in files:
     try:
         if not ("pmma"+os.sep+"temporary"+os.sep in file or "pmma"+os.sep+"logs"+os.sep in file):
@@ -38,6 +40,8 @@ for file in files:
             variable_count += 1
         if line.strip() == "":
             nothing_count += 1
+        spaces += line.count(" ")
+        words += len(line.split())
 
     #with open(r"H:\Downloads\PMMA aggregate.txt", "a") as file:
         #file.writelines(content)
@@ -49,4 +53,6 @@ print(f"PMMA has: {comparison_count} comparisons! {round((comparison_count/line_
 print(f"PMMA has: {nothing_count} blank lines! {round((nothing_count/line_count)*100, 2)} %")
 print(f"PMMA has: {function_count} functions! {round((function_count/line_count)*100, 2)} %")
 print(f"PMMA has: {class_count} classes! {round((class_count/line_count)*100, 2)} %")
+print(f"PMMA has: {spaces} spaces!")
+print(f"PMMA has: {words} words!")
 print(f"PMMA has an estimated line size of {((chars*8)/1000)/1000} MB!")
