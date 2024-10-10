@@ -22,10 +22,6 @@ class OpenGLNotYetInitializedError(Exception):
     """OpenGL was not yet initialized!"""
     pass
 
-class LoggingNotInitializedError(Exception):
-    """Logging was not yet initialized!"""
-    pass
-
 class DisplayNotYetCreatedError(Exception):
     """Display was not yet created!"""
     pass

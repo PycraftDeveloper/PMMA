@@ -18,6 +18,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 if _get_operating_system() == _Constants.WINDOWS:
     import wmi as _wmi
@@ -26,6 +27,13 @@ if _get_operating_system() == _Constants.WINDOWS:
 class GPUs:
     def __init__(self):
         _initialize(self)
+
+        if not _Constants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.GPUS_INTERMEDIARY_OBJECT)
+            from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
+            _GPUsIntermediary()
+
+        self._gpu_intermediary = _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT]
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -38,13 +46,13 @@ class GPUs:
         self._shut_down = True
 
     def identify_gpus(self):
-        _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT].identify_gpus()
+        self._gpu_intermediary.identify_gpus()
 
     def get_gpu(self, gpu_index):
-        return _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT].get_gpu(gpu_index)
+        return self._gpu_intermediary.get_gpu(gpu_index)
 
     def all_gpus_are_unique(self):
-        return _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT].all_gpus_are_unique()
+        return self._gpu_intermediary.all_gpus_are_unique()
 
 class GPU:
     def __init__(self, module_identification_indices):

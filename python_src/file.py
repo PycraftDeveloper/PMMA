@@ -14,6 +14,9 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 def path_builder(*args):
     result = ""
     for arg in args:
+        if result != "" and _os.path.exists(result) is False:
+            _os.mkdir(result)
+
         result += arg
         result += _Constants.PATH_SEPARATOR
     result = result[:-1]

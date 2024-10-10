@@ -18,3 +18,6 @@ class PassportIntermediary:
     supported_python_versions = None
     project_size = None
     passport_changed = False
+
+    components_used = []
+    passport_file_location = None

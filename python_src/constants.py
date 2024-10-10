@@ -115,7 +115,7 @@ class Constants:
     DISPLAY_OBJECT = "display"
     EVENTS_OBJECT = "events"
     DRAW_OBJECT = "draw"
-    MATH_OBJECT = "math"
+    ADVMATH_OBJECT = "advanced math"
     THREAD_OBJECT = "thread"
     TKINTER_OBJECT = "tkinter"
     BACKPACK_OBJECT = "backpack"
@@ -365,7 +365,7 @@ class Constants:
         DISPLAY_OBJECT,
         EVENTS_OBJECT,
         DRAW_OBJECT,
-        MATH_OBJECT,
+        ADVMATH_OBJECT,
         THREAD_OBJECT,
         TKINTER_OBJECT,
         BACKPACK_OBJECT,

@@ -20,24 +20,28 @@ if compiler == "msvc":
             "perlin_noise",
             [cython_src_path+"perlin_noise.pyx"],
             extra_compile_args=["/O2"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "extended_perlin_noise",
             [cython_src_path+"extended_perlin_noise.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["/O2"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "number_converter",
             [cython_src_path+"number_converter.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["/O2"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "math_utils",
             [cython_src_path+"math_utils.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["/O2"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         )
     ]
 elif compiler == "gcc" or compiler == "unix":
@@ -46,24 +50,28 @@ elif compiler == "gcc" or compiler == "unix":
             "perlin_noise",
             [cython_src_path+"perlin_noise.pyx"],
             extra_compile_args=["-O3"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "extended_perlin_noise",
             [cython_src_path+"extended_perlin_noise.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["-O3"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "number_converter",
             [cython_src_path+"number_converter.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["-O3"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "math_utils",
             [cython_src_path+"math_utils.pyx"],
             include_dirs=[numpy.get_include()],
             extra_compile_args=["-O3"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         )
     ]
 else:
@@ -71,21 +79,25 @@ else:
         Extension(
             "perlin_noise",
             [cython_src_path+"perlin_noise.pyx"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "extended_perlin_noise",
             [cython_src_path+"extended_perlin_noise.pyx"],
             include_dirs=[numpy.get_include()],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "number_converter",
             [cython_src_path+"number_converter.pyx"],
             include_dirs=[numpy.get_include()],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         ),
         Extension(
             "math_utils",
             [cython_src_path+"math_utils.pyx"],
             include_dirs=[numpy.get_include()],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         )
     ]
 

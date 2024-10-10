@@ -4,6 +4,8 @@ from tkinter import Tk as _tkinter__Tk
 from io import StringIO as _io__StringIO
 from contextlib import redirect_stdout as _contextlib__redirect_stdout
 from time import perf_counter as _time__perf_counter
+from json import load as _json__load
+from json import dump as _json__dump
 
 from pprofile import Profile as _pprofile__Profile
 
@@ -63,17 +65,15 @@ from pmma.python_src.file import *
 from pmma.python_src.text import *
 from pmma.python_src.gpu import *
 
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+
 from pmma.python_src.utility import cython_utils as _cython_utils
-from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
 import pmma.python_src.utility.event_utils as _event_utils
-from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
 from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
 import pmma.python_src.utility.general_utils as _general_utils
-from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
-from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
 from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
 from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
 
@@ -84,6 +84,17 @@ def init(
             memory_management_max_size=Constants.AUTOMATIC,
             general_profile_application=False,
             targeted_profile_application=False):
+
+    passport = {"components used": []}
+    if _PassportIntermediary.passport_file_location is not None:
+        try:
+            with open(_PassportIntermediary.passport_file_location, "r") as file:
+                passport = _json__load(file)
+        except:
+            with open(_PassportIntermediary.passport_file_location, "w") as file:
+                _json__dump(passport, file)
+
+    _PassportIntermediary.components_used = passport["components used"]
 
     _Registry.general_profile_application = general_profile_application
     _Registry.targeted_profile_application = targeted_profile_application and not general_profile_application
@@ -97,7 +108,9 @@ def init(
 
     _Registry.pmma_initialized = True
 
-    _LoggerIntermediary()
+    if Constants.LOGGING_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
+        _LoggerIntermediary()
 
     if compile_c_extensions: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
         cython_thread = _cython_utils.compile()
@@ -115,9 +128,11 @@ def init(
 
     _general_utils.update_language()
 
-    _MemoryManagerIntermediary(
-        object_lifetime=memory_management_max_object_lifetime,
-        target_size=memory_management_max_size)
+    if Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
+        _MemoryManagerIntermediary(
+            object_lifetime=memory_management_max_object_lifetime,
+            target_size=memory_management_max_size)
 
     logger = _InternalLogger()
 
@@ -141,8 +156,14 @@ devices. We are working on a better way to handle this situation.")
 
     register_application()
 
-    _TransitionManager()
-    _GPUsIntermediary()
+    if Constants.TRANSITION_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
+        _TransitionManager()
+
+    if Constants.GPUS_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
+        _GPUsIntermediary()
+
     _GPUDistributionManager()
     _ControllersIntermediary()
     _ProjectionIntermediary()

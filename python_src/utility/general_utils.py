@@ -12,6 +12,7 @@ from inspect import isclass as _inspect__isclass
 from inspect import isfunction as _inspect__isfunction
 from time import perf_counter as _time__perf_counter
 from sys import exit as _sys__exit
+from json import dump as _json__dump
 
 from pygame import quit as _pygame__quit
 from psutil import sensors_battery as _psutil__sensors_battery
@@ -119,6 +120,11 @@ specified where you would like them to be placed. This can be done through: \
             with open(path, "w") as file:
                 _Registry.profiler.dump_stats(file)
 
+    if _PassportIntermediary.passport_file_location is not None:
+        passport = {"components used": _PassportIntermediary.components_used}
+        with open(_PassportIntermediary.passport_file_location, "w") as file:
+            _json__dump(passport, file)
+
     if show_statistics is None:
         show_statistics = _Registry.development_mode
 
@@ -133,11 +139,12 @@ specified where you would like them to be placed. This can be done through: \
             _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
-            if _Registry.application_finished_loading_time is not None:
-                time_formatter_instance.set_from_second(_Registry.application_finished_loading_time - _Registry.application_start_time)
-                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
-                    "PMMA statistics: {} loaded in: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
+        if _Registry.application_finished_loading_time is not None:
+            time_formatter_instance.set_from_second(_Registry.application_finished_loading_time - _Registry.application_start_time)
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+                "PMMA statistics: {} loaded in: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
+        if _Registry.display_initialized:
             _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
 frame rate of {} Hz.", variables=[app_name, _Registry.application_average_frame_rate['Mean']])
 

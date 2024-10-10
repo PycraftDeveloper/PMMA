@@ -174,3 +174,6 @@ bin
 # PMMA Cython PYX -> C conversion
 cython_src/*.c
 cython_src/utility/*.c
+
+# PMMA passports directory
+passports

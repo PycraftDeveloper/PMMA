@@ -64,7 +64,7 @@ Next release:
 	Add back in render pipeline.
 	Add in collision detections for all shapes.
 	Add in 3D shapes (sphere, rectangle, n-prism, n-equivalent of 2D shapes)
-	
+
 Following releases:
 	Fix perlin noise for arrays.
 	Introduce loading of custom 3D AND 2D objects from file or array.
@@ -83,3 +83,18 @@ Update render pipeline
 IMPROVEMENTS
 ============
 Magic number in video playback: ~198: `                _time.sleep(0.48)` not sure yet what this means
+
+
+TEMPNOTES
+=========
+
+Possible to disable:
+	Memory Management
+	Log to File
+	Shader Management
+	Transition Management
+	GPUsIntermediary
+	ControllersIntermediary
+	ProjectionIntermediary
+	Events
+	DisplayIntermediary
