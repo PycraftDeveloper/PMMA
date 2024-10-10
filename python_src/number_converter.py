@@ -10,6 +10,7 @@ from pmma.python_src.utility.number_converter_utils import CoordinateIntermediar
 from pmma.python_src.utility.number_converter_utils import PointIntermediary as _PointIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class AngleConverter:
     def __init__(self):
@@ -292,6 +293,13 @@ class CoordinateConverter:
 
         self._coordinate_set = False
 
+        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
+
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+
     def set_coordinates(self, coordinate, format=_Constants.CONVENTIONAL_COORDINATES):
         if format == _Constants.CONVENTIONAL_COORDINATES:
             coordinate = [int(coordinate[0]), int(coordinate[1])]
@@ -324,7 +332,7 @@ class CoordinateConverter:
 
         if coordinate_range is None:
             if _Registry.display_initialized:
-                display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+                display = self._display
                 coordinate_range = [0, min(display.get_size())]
             else:
                 coordinate_range = [0, 100]
@@ -358,7 +366,7 @@ class CoordinateConverter:
 
         if coordinate_range is None:
             if _Registry.display_initialized:
-                display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+                display = self._display
                 coordinate_range = [0, min(display.get_size())]
             else:
                 coordinate_range = [0, 100]

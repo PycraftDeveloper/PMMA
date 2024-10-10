@@ -9,6 +9,7 @@ from pmma.python_src.memory_manager import MemoryManager as _MemoryManager
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Image:
     def __init__(self):
@@ -24,6 +25,13 @@ class Image:
         self._graphics_backend_image_address = None
 
         self._pil_image_address = None
+
+        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
+
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
@@ -96,7 +104,7 @@ class Image:
 
     def blit(self, position, surface=None):
         if surface is None:
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+            surface = self._display
 
         if self._memory_manager_instance.get(self._graphics_backend_image_address) is None:
             object = self.image_to_display_renderable_object()

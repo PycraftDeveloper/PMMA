@@ -6,10 +6,16 @@ from pmma.python_src.number_converter import AngleConverter as _AngleConverter
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class PredefinedProjections:
     def __init__(self):
         _initialize(self)
+
+        if not _Constants.PROJECTION_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PROJECTION_INTERMEDIARY_OBJECT)
+            from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
+            _ProjectionIntermediary()
 
         self._projections_intermediary = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT]
 

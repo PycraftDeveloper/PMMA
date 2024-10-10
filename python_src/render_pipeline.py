@@ -23,8 +23,9 @@ from pmma.python_src.draw import Pixel as _Pixel
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
-class RenderPipeline:
+class _RenderPipeline:
     def __init__(self):
         _initialize(self)
 
@@ -38,6 +39,11 @@ class RenderPipeline:
         self._simple_shape_rendering_program = _Shader()
         self._simple_shape_rendering_program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "simple_shape_renderer"))
         self._simple_shape_rendering_program.create()
+
+        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 

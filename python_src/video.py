@@ -19,6 +19,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.audio import Audio as _Audio
 
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
@@ -65,6 +66,11 @@ class Video:
         self._shader.create()
 
         self._audio_player = _Audio()
+
+        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
 
         if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
             self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]

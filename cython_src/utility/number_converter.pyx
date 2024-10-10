@@ -7,6 +7,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
 from pmma.python_src.utility.general_utils import swizzle as _swizzle
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 cdef class Color:
     cdef object in_type
@@ -110,10 +111,18 @@ cdef class Color:
 cdef class Point:
     cdef double _point
     cdef object _logger
+    cdef object display
 
     def __init__(self):
         self._point = 0.0
         self._logger = _InternalLogger()
+
+        if not Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
+
+        self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     cpdef void set_point(self, double value, object in_type=Constants.CONVENTIONAL_COORDINATES):
         if not _Registry.display_initialized:
@@ -123,13 +132,12 @@ cdef class Point:
             )
             raise _DisplayNotYetCreatedError()
 
-        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         cdef double half_display_height
 
         if in_type == Constants.CONVENTIONAL_COORDINATES:
             self._point = value
         elif in_type == Constants.OPENGL_COORDINATES:
-            half_display_height = display.get_size()[1] / 2.0
+            half_display_height = self.display.get_size()[1] / 2.0
             self._point = value * half_display_height
 
     cpdef double get_point(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
@@ -140,22 +148,29 @@ cdef class Point:
             )
             raise _DisplayNotYetCreatedError()
 
-        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         cdef double display_height
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._point
         elif out_type == Constants.OPENGL_COORDINATES:
-            display_height = display.get_size()[1]
+            display_height = self.display.get_size()[1]
             return self._point / (display_height / 2.0)
 
 cdef class Coordinate:
     cdef list _coordinate
     cdef object _logger
+    cdef object display
 
     def __init__(self):
         self._coordinate = [0.0, 0.0]
         self._logger = _InternalLogger()
+
+        if not Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
+
+        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     cpdef void set_coordinate(self, object coordinate, object in_type=Constants.CONVENTIONAL_COORDINATES):
         if not _Registry.display_initialized:
@@ -165,7 +180,6 @@ cdef class Coordinate:
             )
             raise _DisplayNotYetCreatedError()
 
-        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         cdef list converted_coordinate
 
         if isinstance(coordinate, (list, tuple)):
@@ -186,7 +200,7 @@ cdef class Coordinate:
         if in_type == Constants.CONVENTIONAL_COORDINATES:
             self._coordinate = converted_coordinate
         elif in_type == Constants.OPENGL_COORDINATES:
-            display_size = display.get_size()
+            display_size = self.display.get_size()
             half_display_width = display_size[0] / 2.0
             half_display_height = display_size[1] / 2.0
             x = half_display_width * (converted_coordinate[0] + 1)
@@ -201,13 +215,12 @@ cdef class Coordinate:
             )
             raise _DisplayNotYetCreatedError()
 
-        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
         cdef double display_width, display_height, x, y
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._coordinate
         elif out_type == Constants.OPENGL_COORDINATES:
-            display_size = display.get_size()
+            display_size = self.display.get_size()
             display_width = display_size[0]
             display_height = display_size[1]
             x = (2.0 * self._coordinate[0]) / display_width - 1.0

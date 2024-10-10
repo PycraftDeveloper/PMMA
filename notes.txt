@@ -54,7 +54,6 @@ Preparing for next release:
 	Few issues in some realtime effects - test these and try and fix.
 	Passport changes to startup.
 	Improve Shape Rendering.
-	Hide render pipeline.
 
 Next release:
 	Add collisions to shapes.
@@ -89,12 +88,4 @@ TEMPNOTES
 =========
 
 Possible to disable:
-	Memory Management
-	Log to File
-	Shader Management
-	Transition Management
-	GPUsIntermediary
-	ControllersIntermediary
-	ProjectionIntermediary
 	Events
-	DisplayIntermediary

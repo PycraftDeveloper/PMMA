@@ -105,6 +105,13 @@ class DisplayIntermediary:
 
         self._gpu_distribution_manager = _Registry.pmma_module_spine[_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT]
 
+        if not _Constants.PROJECTION_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PROJECTION_INTERMEDIARY_OBJECT)
+            from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
+            _ProjectionIntermediary()
+
+        self._projection_intermediary = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT]
+
     def update_class(self):
         if self._object_updated is False:
             self._object_updated = True
@@ -416,8 +423,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self._current_display_size = size
 
-        _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].orthographic_projection = _OrthographicProjection(0, size[0], size[1], 0, 1, -1)
-        _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT].perspective_projection = _PerspectiveProjection(60, self.get_aspect_ratio(), 0.1, 1000) # determine these later
+        self._projection_intermediary.orthographic_projection = _OrthographicProjection(0, size[0], size[1], 0, 1, -1)
+        self._projection_intermediary.perspective_projection = _PerspectiveProjection(60, self.get_aspect_ratio(), 0.1, 1000) # determine these later
 
         self._setup_layers(size)
 

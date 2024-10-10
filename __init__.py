@@ -71,8 +71,6 @@ from pmma.python_src.utility import cython_utils as _cython_utils
 import pmma.python_src.utility.event_utils as _event_utils
 import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
-from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
 
 def init(
             optimize_python_extensions=True,
@@ -169,8 +167,9 @@ devices. We are working on a better way to handle this situation.")
         from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
         _ControllersIntermediary()
 
-
-    _ProjectionIntermediary()
+    if Constants.PROJECTION_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
+        _ProjectionIntermediary()
 
     if Constants.SHADER_REFERENCE_MANAGER_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager
@@ -364,7 +363,9 @@ devices. We are working on a better way to handle this situation.")
     _event_utils.JoyDeviceAdded_EVENT()
     _event_utils.JoyDeviceRemoved_EVENT()
 
-    _DisplayIntermediary()
+    if Constants.DISPLAY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+        _DisplayIntermediary()
 
     cython_thread.join()
 

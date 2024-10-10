@@ -5,10 +5,16 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Display:
     def __init__(self):
         _initialize(self)
+
+        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+            from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
+            _DisplayIntermediary()
 
         self._display_intermediary: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
