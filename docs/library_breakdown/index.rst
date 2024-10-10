@@ -6,40 +6,39 @@ The full breakdown of what everything does!
 .. toctree::
     :maxdepth: 1
 
-    formatters.rst
-    error.rst
-    sampler.rst
-    projection.rst
-    settings.rst
-    file.rst
-    data_structures.rst
-    logging.rst
-    general.rst
-    video.rst
-    optimizer.rst
-    memory_manager.rst
     advthreading.rst
-    advmath.rst
-    surface.rst
-    constants.rst
     passport.rst
-    transitions.rst
-    opengl.rst
-    gpu.rst
-    advtkinter.rst
-    draw.rst
-    audio.rst
-    render_pipeline.rst
-    image.rst
-    noise.rst
-    display.rst
-    number_converter.rst
-    text.rst
-    recorder.rst
-    controller.rst
     quickstart.rst
+    controller.rst
+    noise.rst
+    text.rst
     gpu_distribution.rst
+    image.rst
     backpack.rst
+    surface.rst
+    file.rst
+    gpu.rst
+    video.rst
+    number_converter.rst
+    render_pipeline.rst
+    constants.rst
+    formatters.rst
+    recorder.rst
+    logging.rst
+    transitions.rst
+    error.rst
+    data_structures.rst
+    sampler.rst
+    audio.rst
+    memory_manager.rst
+    advmath.rst
+    general.rst
+    display.rst
+    settings.rst
     executor.rst
+    projection.rst
+    draw.rst
+    opengl.rst
+    advtkinter.rst
     miscellaneous.rst
     events.rst
