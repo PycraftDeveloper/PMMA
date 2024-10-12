@@ -362,56 +362,67 @@ then enable it to see if it fixes or improves a desired feature.")
                     controller.set_center_button_pressed(False)
 
             elif event.type == _pygame.JOYDEVICEADDED:
-                _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].set_value(True)
+                if _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
             elif event.type == _pygame.JOYDEVICEREMOVED:
-                _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].set_value(True)
+                if _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
             elif event.type == _pygame.LOCALECHANGED:
-                _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].set_value(True)
+                if _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.MOUSEMOTION:
-                mouse_x_position, mouse_y_position = event.pos
-                mouse_x_displacement, mouse_y_displacement = event.rel
-                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis(mouse_x_position)
-                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis(mouse_y_position)
-                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(mouse_x_displacement)
-                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(mouse_y_displacement)
+                if _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
+                    mouse_x_position, mouse_y_position = event.pos
+                    mouse_x_displacement, mouse_y_displacement = event.rel
+                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis(mouse_x_position)
+                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis(mouse_y_position)
+                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(mouse_x_displacement)
+                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(mouse_y_displacement)
 
             elif event.type == _pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(True)
+                    if _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
                 elif event.button == 2:
-                    _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(True)
+                    if _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(True)
 
                 elif event.button == 3:
-                    _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(True)
+                    if _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
             elif event.type == _pygame.MOUSEBUTTONUP:
                 if event.button == 1:
-                    _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(False)
+                    if _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
                 elif event.button == 2:
-                    _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(False)
+                    if _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(False)
 
                 elif event.button == 3:
-                    _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(False)
+                    if _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
             elif event.type == _pygame.MOUSEWHEEL:
-                x_displacement = event.precise_x
-                y_displacement = event.precise_y
-                if event.flipped:
-                    x_displacement *= -1
-                    y_displacement *= -1
-                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(x_displacement)
-                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(y_displacement)
-                total_x = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_x_value()
-                total_y = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_y_value()
-                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_value(total_x + x_displacement)
-                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_value(total_y + y_displacement)
+                if _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
+                    x_displacement = event.precise_x
+                    y_displacement = event.precise_y
+                    if event.flipped:
+                        x_displacement *= -1
+                        y_displacement *= -1
+                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(x_displacement)
+                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(y_displacement)
+                    total_x = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_x_value()
+                    total_y = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_y_value()
+                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_value(total_x + x_displacement)
+                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_value(total_y + y_displacement)
 
             elif event.type == _pygame.KEYDOWN:
                 if event.key == _pygame.K_BACKSPACE:
