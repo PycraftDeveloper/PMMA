@@ -201,55 +201,72 @@ then enable it to see if it fixes or improves a desired feature.")
         raw_events = _pygame.event.get()
         for event in raw_events:
             if event.type == _pygame.APP_TERMINATING:
-                _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(True)
+                if _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_LOWMEMORY:
-                _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
+                if _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_WILLENTERBACKGROUND:
-                _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
+                if _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_DIDENTERBACKGROUND:
-                _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
+                if _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_WILLENTERFOREGROUND:
-                _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
+                if _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_DIDENTERFOREGROUND:
-                _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
+                if _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.AUDIODEVICEADDED:
-                _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
+                if _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.AUDIODEVICEREMOVED:
-                _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
+                if _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.CLIPBOARDUPDATE:
-                _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
+                if _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPFILE:
-                _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_value(True)
+                if _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPTEXT:
-                _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].set_value(True)
+                if _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPBEGIN:
-                _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].set_value(True)
+                if _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPCOMPLETE:
-                _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(True)
+                if _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.FINGERMOTION:
-                _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].set_value(True)
+                if _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.FINGERDOWN:
-                _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].set_value(True)
+                if _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.FINGERUP:
-                _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].set_value(True)
+                if _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.KEYMAPCHANGED:
-                _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(True)
+                if _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.JOYAXISMOTION:
                 controller = self.controllers.get_controller(event.joy)
