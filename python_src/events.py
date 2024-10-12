@@ -10,6 +10,7 @@ from pmma.python_src.controller import Controllers as _Controllers
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Events:
     def __del__(self, do_garbage_collection=False):
@@ -1397,29 +1398,36 @@ class Backspace_KEY:
     def __init__(self):
         _initialize(self)
 
+        if not _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.TAB_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Backspace_KEY as _Backspace_KEY
+            _Backspace_KEY()
+
+        self._backspace_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT]
+
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_double_tapped(value)
+        self._backspace_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].get_double_tapped()
+        return self._backspace_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].get_last_tap_time()
+        return self._backspace_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_last_tap_time(value)
+        self._backspace_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
         return _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_pressed(value)
+        self._backspace_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].get_double_tap_timing()
+        return self._backspace_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_double_tap_timing(value)
+        self._backspace_key_object_intermediary.set_double_tap_timing(value)
 
 class Tab_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1434,30 +1442,36 @@ class Tab_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.TAB_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Tab_KEY as _Tab_KEY
+            _Tab_KEY()
+
+        self._tab_key_object_intermediary = _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_double_tapped(value)
+        self._tab_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].get_double_tapped()
+        return self._tab_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].get_last_tap_time()
+        return self._tab_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_last_tap_time(value)
+        self._tab_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].get_pressed()
+        return self._tab_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_pressed(value)
+        self._tab_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].get_double_tap_timing()
+        return self._tab_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_double_tap_timing(value)
+        self._tab_key_object_intermediary.set_double_tap_timing(value)
 
 class Clear_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1472,30 +1486,36 @@ class Clear_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CLEAR_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Clear_KEY as _Clear_KEY
+            _Clear_KEY()
+
+        self._clear_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_double_tapped(value)
+        self._clear_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].get_double_tapped()
+        return self._clear_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].get_last_tap_time()
+        return self._clear_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_last_tap_time(value)
+        self._clear_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].get_pressed()
+        return self._clear_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_pressed(value)
+        self._clear_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].get_double_tap_timing()
+        return self._clear_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_double_tap_timing(value)
+        self._clear_key_object_intermediary.set_double_tap_timing(value)
 
 class Return_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1510,30 +1530,36 @@ class Return_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RETURN_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Return_KEY as _Return_KEY
+            _Return_KEY()
+
+        self._return_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_double_tapped(value)
+        self._return_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].get_double_tapped()
+        return self._return_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].get_last_tap_time()
+        return self._return_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_last_tap_time(value)
+        self._return_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].get_pressed()
+        return self._return_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_pressed(value)
+        self._return_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].get_double_tap_timing()
+        return self._return_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_double_tap_timing(value)
+        self._return_key_object_intermediary.set_double_tap_timing(value)
 
 class Pause_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1548,30 +1574,36 @@ class Pause_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PAUSE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Pause_KEY as _Pause_KEY
+            _Pause_KEY()
+
+        self._pause_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_double_tapped(value)
+        self._pause_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].get_double_tapped()
+        return self._pause_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].get_last_tap_time()
+        return self._pause_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_last_tap_time(value)
+        self._pause_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].get_pressed()
+        return self._pause_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_pressed(value)
+        self._pause_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].get_double_tap_timing()
+        return self._pause_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_double_tap_timing(value)
+        self._pause_key_object_intermediary.set_double_tap_timing(value)
 
 class Escape_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1586,30 +1618,36 @@ class Escape_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.ESCAPE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Escape_KEY as _Escape_KEY
+            _Escape_KEY()
+
+        self._escape_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_double_tapped(value)
+        self._escape_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].get_double_tapped()
+        return self._escape_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].get_last_tap_time()
+        return self._escape_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_last_tap_time(value)
+        self._escape_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].get_pressed()
+        return self._escape_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_pressed(value)
+        self._escape_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].get_double_tap_timing()
+        return self._escape_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_double_tap_timing(value)
+        self._escape_key_object_intermediary.set_double_tap_timing(value)
 
 class Space_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1624,30 +1662,36 @@ class Space_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SPACE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Space_KEY as _Space_KEY
+            _Space_KEY()
+
+        self._space_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_double_tapped(value)
+        self._space_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].get_double_tapped()
+        return self._space_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].get_last_tap_time()
+        return self._space_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_last_tap_time(value)
+        self._space_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].get_pressed()
+        return self._space_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_pressed(value)
+        self._space_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].get_double_tap_timing()
+        return self._space_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_double_tap_timing(value)
+        self._space_key_object_intermediary.set_double_tap_timing(value)
 
 class ExclamationMark_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1662,30 +1706,36 @@ class ExclamationMark_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.EXCLAMATIONMARK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import ExclamationMark_KEY as _ExclamationMark_KEY
+            _ExclamationMark_KEY()
+
+        self._exclamationmark_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tapped(value)
+        self._exclamationmark_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].get_double_tapped()
+        return self._exclamationmark_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].get_last_tap_time()
+        return self._exclamationmark_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_last_tap_time(value)
+        self._exclamationmark_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].get_pressed()
+        return self._exclamationmark_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(value)
+        self._exclamationmark_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].get_double_tap_timing()
+        return self._exclamationmark_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_double_tap_timing(value)
+        self._exclamationmark_key_object_intermediary.set_double_tap_timing(value)
 
 class DoubleQuote_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1700,30 +1750,36 @@ class DoubleQuote_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DOUBLEQUOTE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import DoubleQuote_KEY as _DoubleQuote_KEY
+            _DoubleQuote_KEY()
+
+        self._doublequote_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tapped(value)
+        self._doublequote_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].get_double_tapped()
+        return self._doublequote_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].get_last_tap_time()
+        return self._doublequote_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_last_tap_time(value)
+        self._doublequote_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].get_pressed()
+        return self._doublequote_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(value)
+        self._doublequote_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].get_double_tap_timing()
+        return self._doublequote_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
+        self._doublequote_key_object_intermediary.set_double_tap_timing(value)
 
 class Hashtag_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1738,30 +1794,36 @@ class Hashtag_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.HASHTAG_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Hashtag_KEY as _Hashtag_KEY
+            _Hashtag_KEY()
+
+        self._hashtag_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_double_tapped(value)
+        self._hashtag_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].get_double_tapped()
+        return self._hashtag_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].get_last_tap_time()
+        return self._hashtag_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_last_tap_time(value)
+        self._hashtag_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].get_pressed()
+        return self._hashtag_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_pressed(value)
+        self._hashtag_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].get_double_tap_timing()
+        return self._hashtag_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_double_tap_timing(value)
+        self._hashtag_key_object_intermediary.set_double_tap_timing(value)
 
 class Dollar_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1776,30 +1838,36 @@ class Dollar_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DOLLAR_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Dollar_KEY as _Dollar_KEY
+            _Dollar_KEY()
+
+        self._dollar_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_double_tapped(value)
+        self._dollar_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].get_double_tapped()
+        return self._dollar_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].get_last_tap_time()
+        return self._dollar_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_last_tap_time(value)
+        self._dollar_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].get_pressed()
+        return self._dollar_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_pressed(value)
+        self._dollar_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].get_double_tap_timing()
+        return self._dollar_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_double_tap_timing(value)
+        self._dollar_key_object_intermediary.set_double_tap_timing(value)
 
 class Ampersand_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1814,30 +1882,36 @@ class Ampersand_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.AMPERSAND_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Ampersand_KEY as _Ampersand_KEY
+            _Ampersand_KEY()
+
+        self._ampersand_key_object_intermediary = _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_double_tapped(value)
+        self._ampersand_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].get_double_tapped()
+        return self._ampersand_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].get_last_tap_time()
+        return self._ampersand_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_last_tap_time(value)
+        self._ampersand_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].get_pressed()
+        return self._ampersand_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_pressed(value)
+        self._ampersand_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].get_double_tap_timing()
+        return self._ampersand_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_double_tap_timing(value)
+        self._ampersand_key_object_intermediary.set_double_tap_timing(value)
 
 class SingleQuote_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1852,30 +1926,36 @@ class SingleQuote_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SINGLEQUOTE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import SingleQuote_KEY as _SingleQuote_KEY
+            _SingleQuote_KEY()
+
+        self._singlequote_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tapped(value)
+        self._singlequote_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].get_double_tapped()
+        return self._singlequote_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].get_last_tap_time()
+        return self._singlequote_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_last_tap_time(value)
+        self._singlequote_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].get_pressed()
+        return self._singlequote_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_pressed(value)
+        self._singlequote_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].get_double_tap_timing()
+        return self._singlequote_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_double_tap_timing(value)
+        self._singlequote_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftParenthesis_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1890,30 +1970,36 @@ class LeftParenthesis_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTPARENTHESIS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftParenthesis_KEY as _LeftParenthesis_KEY
+            _LeftParenthesis_KEY()
+
+        self._leftparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
+        self._leftparenthesis_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].get_double_tapped()
+        return self._leftparenthesis_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].get_last_tap_time()
+        return self._leftparenthesis_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_last_tap_time(value)
+        self._leftparenthesis_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].get_pressed()
+        return self._leftparenthesis_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(value)
+        self._leftparenthesis_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].get_double_tap_timing()
+        return self._leftparenthesis_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftparenthesis_key_object_intermediary.set_double_tap_timing(value)
 
 class RightParenthesis_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1928,30 +2014,36 @@ class RightParenthesis_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTPARENTHESIS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightParenthesis_KEY as _RightParenthesis_KEY
+            _RightParenthesis_KEY()
+
+        self._rightparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tapped(value)
+        self._rightparenthesis_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_double_tapped()
+        return self._rightparenthesis_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_last_tap_time()
+        return self._rightparenthesis_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_last_tap_time(value)
+        self._rightparenthesis_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_pressed()
+        return self._rightparenthesis_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(value)
+        self._rightparenthesis_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].get_double_tap_timing()
+        return self._rightparenthesis_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightparenthesis_key_object_intermediary.set_double_tap_timing(value)
 
 class Asterisk_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -1966,30 +2058,36 @@ class Asterisk_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.ASTERISK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Asterisk_KEY as _Asterisk_KEY
+            _Asterisk_KEY()
+
+        self._asterisk_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_double_tapped(value)
+        self._asterisk_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].get_double_tapped()
+        return self._asterisk_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].get_last_tap_time()
+        return self._asterisk_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_last_tap_time(value)
+        self._asterisk_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].get_pressed()
+        return self._asterisk_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_pressed(value)
+        self._asterisk_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].get_double_tap_timing()
+        return self._asterisk_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_double_tap_timing(value)
+        self._asterisk_key_object_intermediary.set_double_tap_timing(value)
 
 class Plus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2004,30 +2102,36 @@ class Plus_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PLUS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Plus_KEY as _Plus_KEY
+            _Plus_KEY()
+
+        self._plus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_double_tapped(value)
+        self._plus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].get_double_tapped()
+        return self._plus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].get_last_tap_time()
+        return self._plus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_last_tap_time(value)
+        self._plus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].get_pressed()
+        return self._plus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_pressed(value)
+        self._plus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].get_double_tap_timing()
+        return self._plus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_double_tap_timing(value)
+        self._plus_key_object_intermediary.set_double_tap_timing(value)
 
 class Comma_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2042,30 +2146,36 @@ class Comma_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.COMMA_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Comma_KEY as _Comma_KEY
+            _Comma_KEY()
+
+        self._comma_key_object_intermediary = _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_double_tapped(value)
+        self._comma_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].get_double_tapped()
+        return self._comma_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].get_last_tap_time()
+        return self._comma_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_last_tap_time(value)
+        self._comma_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].get_pressed()
+        return self._comma_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_pressed(value)
+        self._comma_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].get_double_tap_timing()
+        return self._comma_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_double_tap_timing(value)
+        self._comma_key_object_intermediary.set_double_tap_timing(value)
 
 class Minus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2080,30 +2190,36 @@ class Minus_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MINUS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Minus_KEY as _Minus_KEY
+            _Minus_KEY()
+
+        self._minus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_double_tapped(value)
+        self._minus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].get_double_tapped()
+        return self._minus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].get_last_tap_time()
+        return self._minus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_last_tap_time(value)
+        self._minus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].get_pressed()
+        return self._minus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_pressed(value)
+        self._minus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].get_double_tap_timing()
+        return self._minus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_double_tap_timing(value)
+        self._minus_key_object_intermediary.set_double_tap_timing(value)
 
 class Period_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2118,30 +2234,36 @@ class Period_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PERIOD_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Period_KEY as _Period_KEY
+            _Period_KEY()
+
+        self._period_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_double_tapped(value)
+        self._period_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].get_double_tapped()
+        return self._period_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].get_last_tap_time()
+        return self._period_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_last_tap_time(value)
+        self._period_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].get_pressed()
+        return self._period_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_pressed(value)
+        self._period_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].get_double_tap_timing()
+        return self._period_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_double_tap_timing(value)
+        self._period_key_object_intermediary.set_double_tap_timing(value)
 
 class ForwardSlash_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2156,30 +2278,36 @@ class ForwardSlash_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FORWARDSLASH_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import ForwardSlash_KEY as _ForwardSlash_KEY
+            _ForwardSlash_KEY()
+
+        self._forwardslash_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_double_tapped(value)
+        self._forwardslash_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].get_double_tapped()
+        return self._forwardslash_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].get_last_tap_time()
+        return self._forwardslash_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_last_tap_time(value)
+        self._forwardslash_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].get_pressed()
+        return self._forwardslash_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_pressed(value)
+        self._forwardslash_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].get_double_tap_timing()
+        return self._forwardslash_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_double_tap_timing(value)
+        self._forwardslash_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary0_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2194,30 +2322,36 @@ class Primary0_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY0_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary0_KEY as _Primary0_KEY
+            _Primary0_KEY()
+
+        self._primary0_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_double_tapped(value)
+        self._primary0_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].get_double_tapped()
+        return self._primary0_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].get_last_tap_time()
+        return self._primary0_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_last_tap_time(value)
+        self._primary0_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].get_pressed()
+        return self._primary0_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_pressed(value)
+        self._primary0_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].get_double_tap_timing()
+        return self._primary0_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary0_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary1_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2232,30 +2366,36 @@ class Primary1_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY1_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary1_KEY as _Primary1_KEY
+            _Primary1_KEY()
+
+        self._primary1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_double_tapped(value)
+        self._primary1_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].get_double_tapped()
+        return self._primary1_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].get_last_tap_time()
+        return self._primary1_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_last_tap_time(value)
+        self._primary1_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].get_pressed()
+        return self._primary1_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_pressed(value)
+        self._primary1_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].get_double_tap_timing()
+        return self._primary1_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary1_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary2_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2270,30 +2410,36 @@ class Primary2_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY2_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary2_KEY as _Primary2_KEY
+            _Primary2_KEY()
+
+        self._primary2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_double_tapped(value)
+        self._primary2_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].get_double_tapped()
+        return self._primary2_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].get_last_tap_time()
+        return self._primary2_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_last_tap_time(value)
+        self._primary2_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].get_pressed()
+        return self._primary2_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_pressed(value)
+        self._primary2_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].get_double_tap_timing()
+        return self._primary2_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary2_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary3_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2308,30 +2454,36 @@ class Primary3_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY3_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary3_KEY as _Primary3_KEY
+            _Primary3_KEY()
+
+        self._primary3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_double_tapped(value)
+        self._primary3_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].get_double_tapped()
+        return self._primary3_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].get_last_tap_time()
+        return self._primary3_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_last_tap_time(value)
+        self._primary3_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].get_pressed()
+        return self._primary3_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_pressed(value)
+        self._primary3_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].get_double_tap_timing()
+        return self._primary3_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary3_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary4_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2346,30 +2498,36 @@ class Primary4_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY4_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary4_KEY as _Primary4_KEY
+            _Primary4_KEY()
+
+        self._primary4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_double_tapped(value)
+        self._primary4_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].get_double_tapped()
+        return self._primary4_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].get_last_tap_time()
+        return self._primary4_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_last_tap_time(value)
+        self._primary4_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].get_pressed()
+        return self._primary4_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_pressed(value)
+        self._primary4_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].get_double_tap_timing()
+        return self._primary4_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary4_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary5_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2384,30 +2542,36 @@ class Primary5_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY5_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary5_KEY as _Primary5_KEY
+            _Primary5_KEY()
+
+        self._primary5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_double_tapped(value)
+        self._primary5_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].get_double_tapped()
+        return self._primary5_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].get_last_tap_time()
+        return self._primary5_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_last_tap_time(value)
+        self._primary5_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].get_pressed()
+        return self._primary5_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_pressed(value)
+        self._primary5_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].get_double_tap_timing()
+        return self._primary5_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary5_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary6_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2422,30 +2586,36 @@ class Primary6_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY6_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary6_KEY as _Primary6_KEY
+            _Primary6_KEY()
+
+        self._primary6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_double_tapped(value)
+        self._primary6_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].get_double_tapped()
+        return self._primary6_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].get_last_tap_time()
+        return self._primary6_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_last_tap_time(value)
+        self._primary6_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].get_pressed()
+        return self._primary6_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_pressed(value)
+        self._primary6_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].get_double_tap_timing()
+        return self._primary6_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary6_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary7_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2460,30 +2630,36 @@ class Primary7_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY7_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary7_KEY as _Primary7_KEY
+            _Primary7_KEY()
+
+        self._primary7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_double_tapped(value)
+        self._primary7_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].get_double_tapped()
+        return self._primary7_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].get_last_tap_time()
+        return self._primary7_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_last_tap_time(value)
+        self._primary7_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].get_pressed()
+        return self._primary7_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_pressed(value)
+        self._primary7_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].get_double_tap_timing()
+        return self._primary7_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary7_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary8_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2498,30 +2674,36 @@ class Primary8_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY8_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary8_KEY as _Primary8_KEY
+            _Primary8_KEY()
+
+        self._primary8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_double_tapped(value)
+        self._primary8_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].get_double_tapped()
+        return self._primary8_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].get_last_tap_time()
+        return self._primary8_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_last_tap_time(value)
+        self._primary8_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].get_pressed()
+        return self._primary8_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_pressed(value)
+        self._primary8_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].get_double_tap_timing()
+        return self._primary8_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary8_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary9_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2536,30 +2718,36 @@ class Primary9_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARY9_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Primary9_KEY as _Primary9_KEY
+            _Primary9_KEY()
+
+        self._primary9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].set_double_tapped(value)
+        self._primary9_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].get_double_tapped()
+        return self._primary9_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].get_last_tap_time()
+        return self._primary9_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].set_last_tap_time(value)
+        self._primary9_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].get_pressed()
+        return self._primary9_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].set_pressed(value)
+        self._primary9_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].get_double_tap_timing()
+        return self._primary9_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].set_double_tap_timing(value)
+        self._primary9_key_object_intermediary.set_double_tap_timing(value)
 
 class Colon_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2574,30 +2762,36 @@ class Colon_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.COLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.COLON_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Colon_KEY as _Colon_KEY
+            _Colon_KEY()
+
+        self._colon_key_object_intermediary = _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].set_double_tapped(value)
+        self._colon_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].get_double_tapped()
+        return self._colon_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].get_last_tap_time()
+        return self._colon_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].set_last_tap_time(value)
+        self._colon_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].get_pressed()
+        return self._colon_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].set_pressed(value)
+        self._colon_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].get_double_tap_timing()
+        return self._colon_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].set_double_tap_timing(value)
+        self._colon_key_object_intermediary.set_double_tap_timing(value)
 
 class SemiColon_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2612,30 +2806,36 @@ class SemiColon_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SEMICOLON_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import SemiColon_KEY as _SemiColon_KEY
+            _SemiColon_KEY()
+
+        self._semicolon_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].set_double_tapped(value)
+        self._semicolon_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].get_double_tapped()
+        return self._semicolon_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].get_last_tap_time()
+        return self._semicolon_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].set_last_tap_time(value)
+        self._semicolon_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].get_pressed()
+        return self._semicolon_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].set_pressed(value)
+        self._semicolon_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].get_double_tap_timing()
+        return self._semicolon_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].set_double_tap_timing(value)
+        self._semicolon_key_object_intermediary.set_double_tap_timing(value)
 
 class LessThan_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2650,30 +2850,36 @@ class LessThan_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LESSTHAN_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LessThan_KEY as _LessThan_KEY
+            _LessThan_KEY()
+
+        self._lessthan_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].set_double_tapped(value)
+        self._lessthan_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].get_double_tapped()
+        return self._lessthan_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].get_last_tap_time()
+        return self._lessthan_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].set_last_tap_time(value)
+        self._lessthan_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].get_pressed()
+        return self._lessthan_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].set_pressed(value)
+        self._lessthan_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].get_double_tap_timing()
+        return self._lessthan_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].set_double_tap_timing(value)
+        self._lessthan_key_object_intermediary.set_double_tap_timing(value)
 
 class Equals_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2688,30 +2894,36 @@ class Equals_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.EQUALS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Equals_KEY as _Equals_KEY
+            _Equals_KEY()
+
+        self._equals_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].set_double_tapped(value)
+        self._equals_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].get_double_tapped()
+        return self._equals_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].get_last_tap_time()
+        return self._equals_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].set_last_tap_time(value)
+        self._equals_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].get_pressed()
+        return self._equals_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].set_pressed(value)
+        self._equals_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].get_double_tap_timing()
+        return self._equals_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].set_double_tap_timing(value)
+        self._equals_key_object_intermediary.set_double_tap_timing(value)
 
 class GreaterThan_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2726,30 +2938,36 @@ class GreaterThan_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.GREATERTHAN_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import GreaterThan_KEY as _GreaterThan_KEY
+            _GreaterThan_KEY()
+
+        self._greaterthan_key_object_intermediary = _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].set_double_tapped(value)
+        self._greaterthan_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].get_double_tapped()
+        return self._greaterthan_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].get_last_tap_time()
+        return self._greaterthan_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].set_last_tap_time(value)
+        self._greaterthan_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].get_pressed()
+        return self._greaterthan_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].set_pressed(value)
+        self._greaterthan_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].get_double_tap_timing()
+        return self._greaterthan_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].set_double_tap_timing(value)
+        self._greaterthan_key_object_intermediary.set_double_tap_timing(value)
 
 class QuestionMark_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2764,30 +2982,36 @@ class QuestionMark_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.QUESTIONMARK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import QuestionMark_KEY as _QuestionMark_KEY
+            _QuestionMark_KEY()
+
+        self._questionmark_key_object_intermediary = _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].set_double_tapped(value)
+        self._questionmark_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].get_double_tapped()
+        return self._questionmark_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].get_last_tap_time()
+        return self._questionmark_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].set_last_tap_time(value)
+        self._questionmark_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].get_pressed()
+        return self._questionmark_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].set_pressed(value)
+        self._questionmark_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].get_double_tap_timing()
+        return self._questionmark_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].set_double_tap_timing(value)
+        self._questionmark_key_object_intermediary.set_double_tap_timing(value)
 
 class At_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2802,30 +3026,36 @@ class At_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.AT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.AT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import At_KEY as _At_KEY
+            _At_KEY()
+
+        self._at_key_object_intermediary = _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].set_double_tapped(value)
+        self._at_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].get_double_tapped()
+        return self._at_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].get_last_tap_time()
+        return self._at_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].set_last_tap_time(value)
+        self._at_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].get_pressed()
+        return self._at_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].set_pressed(value)
+        self._at_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].get_double_tap_timing()
+        return self._at_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].set_double_tap_timing(value)
+        self._at_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftBracket_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2840,30 +3070,36 @@ class LeftBracket_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTBRACKET_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftBracket_KEY as _LeftBracket_KEY
+            _LeftBracket_KEY()
+
+        self._leftbracket_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].set_double_tapped(value)
+        self._leftbracket_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].get_double_tapped()
+        return self._leftbracket_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].get_last_tap_time()
+        return self._leftbracket_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].set_last_tap_time(value)
+        self._leftbracket_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].get_pressed()
+        return self._leftbracket_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].set_pressed(value)
+        self._leftbracket_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].get_double_tap_timing()
+        return self._leftbracket_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftbracket_key_object_intermediary.set_double_tap_timing(value)
 
 class BackSlash_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2878,30 +3114,36 @@ class BackSlash_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.BACKSLASH_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import BackSlash_KEY as _BackSlash_KEY
+            _BackSlash_KEY()
+
+        self._backslash_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].set_double_tapped(value)
+        self._backslash_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].get_double_tapped()
+        return self._backslash_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].get_last_tap_time()
+        return self._backslash_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].set_last_tap_time(value)
+        self._backslash_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].get_pressed()
+        return self._backslash_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].set_pressed(value)
+        self._backslash_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].get_double_tap_timing()
+        return self._backslash_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].set_double_tap_timing(value)
+        self._backslash_key_object_intermediary.set_double_tap_timing(value)
 
 class RightBracket_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2916,30 +3158,36 @@ class RightBracket_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTBRACKET_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightBracket_KEY as _RightBracket_KEY
+            _RightBracket_KEY()
+
+        self._rightbracket_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tapped(value)
+        self._rightbracket_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].get_double_tapped()
+        return self._rightbracket_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].get_last_tap_time()
+        return self._rightbracket_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].set_last_tap_time(value)
+        self._rightbracket_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].get_pressed()
+        return self._rightbracket_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].set_pressed(value)
+        self._rightbracket_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].get_double_tap_timing()
+        return self._rightbracket_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightbracket_key_object_intermediary.set_double_tap_timing(value)
 
 class Caret_KEY: # ^
     def __del__(self, do_garbage_collection=False):
@@ -2954,30 +3202,36 @@ class Caret_KEY: # ^
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.CARET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CARET_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Caret_KEY as _Caret_KEY
+            _Caret_KEY()
+
+        self._caret_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].set_double_tapped(value)
+        self._caret_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].get_double_tapped()
+        return self._caret_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].get_last_tap_time()
+        return self._caret_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].set_last_tap_time(value)
+        self._caret_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].get_pressed()
+        return self._caret_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].set_pressed(value)
+        self._caret_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].get_double_tap_timing()
+        return self._caret_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].set_double_tap_timing(value)
+        self._caret_key_object_intermediary.set_double_tap_timing(value)
 
 class Underscore_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -2992,30 +3246,36 @@ class Underscore_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.UNDERSCORE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Underscore_KEY as _Underscore_KEY
+            _Underscore_KEY()
+
+        self._underscore_key_object_intermediary = _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].set_double_tapped(value)
+        self._underscore_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].get_double_tapped()
+        return self._underscore_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].get_last_tap_time()
+        return self._underscore_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].set_last_tap_time(value)
+        self._underscore_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].get_pressed()
+        return self._underscore_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].set_pressed(value)
+        self._underscore_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].get_double_tap_timing()
+        return self._underscore_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].set_double_tap_timing(value)
+        self._underscore_key_object_intermediary.set_double_tap_timing(value)
 
 class Grave_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3030,30 +3290,36 @@ class Grave_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.GRAVE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Grave_KEY as _Grave_KEY
+            _Grave_KEY()
+
+        self._grave_key_object_intermediary = _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].set_double_tapped(value)
+        self._grave_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].get_double_tapped()
+        return self._grave_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].get_last_tap_time()
+        return self._grave_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].set_last_tap_time(value)
+        self._grave_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].get_pressed()
+        return self._grave_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].set_pressed(value)
+        self._grave_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].get_double_tap_timing()
+        return self._grave_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].set_double_tap_timing(value)
+        self._grave_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryA_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3068,30 +3334,36 @@ class PrimaryA_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYA_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryA_KEY as _PrimaryA_KEY
+            _PrimaryA_KEY()
+
+        self._primarya_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].set_double_tapped(value)
+        self._primarya_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].get_double_tapped()
+        return self._primarya_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].get_last_tap_time()
+        return self._primarya_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].set_last_tap_time(value)
+        self._primarya_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].get_pressed()
+        return self._primarya_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].set_pressed(value)
+        self._primarya_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].get_double_tap_timing()
+        return self._primarya_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].set_double_tap_timing(value)
+        self._primarya_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryB_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3106,30 +3378,36 @@ class PrimaryB_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYB_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryB_KEY as _PrimaryB_KEY
+            _PrimaryB_KEY()
+
+        self._primaryb_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].set_double_tapped(value)
+        self._primaryb_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].get_double_tapped()
+        return self._primaryb_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].get_last_tap_time()
+        return self._primaryb_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryb_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].get_pressed()
+        return self._primaryb_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].set_pressed(value)
+        self._primaryb_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryb_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryb_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryC_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3144,30 +3422,36 @@ class PrimaryC_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYC_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryC_KEY as _PrimaryC_KEY
+            _PrimaryC_KEY()
+
+        self._primaryc_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].set_double_tapped(value)
+        self._primaryc_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].get_double_tapped()
+        return self._primaryc_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].get_last_tap_time()
+        return self._primaryc_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryc_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].get_pressed()
+        return self._primaryc_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].set_pressed(value)
+        self._primaryc_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryc_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryc_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryD_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3182,30 +3466,36 @@ class PrimaryD_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYD_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryD_KEY as _PrimaryD_KEY
+            _PrimaryD_KEY()
+
+        self._primaryd_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].set_double_tapped(value)
+        self._primaryd_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].get_double_tapped()
+        return self._primaryd_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].get_last_tap_time()
+        return self._primaryd_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryd_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].get_pressed()
+        return self._primaryd_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].set_pressed(value)
+        self._primaryd_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryd_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryd_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryE_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3220,30 +3510,36 @@ class PrimaryE_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryE_KEY as _PrimaryE_KEY
+            _PrimaryE_KEY()
+
+        self._primarye_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].set_double_tapped(value)
+        self._primarye_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].get_double_tapped()
+        return self._primarye_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].get_last_tap_time()
+        return self._primarye_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].set_last_tap_time(value)
+        self._primarye_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].get_pressed()
+        return self._primarye_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].set_pressed(value)
+        self._primarye_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].get_double_tap_timing()
+        return self._primarye_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].set_double_tap_timing(value)
+        self._primarye_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryF_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3258,30 +3554,36 @@ class PrimaryF_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYF_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryF_KEY as _PrimaryF_KEY
+            _PrimaryF_KEY()
+
+        self._primaryf_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].set_double_tapped(value)
+        self._primaryf_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].get_double_tapped()
+        return self._primaryf_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].get_last_tap_time()
+        return self._primaryf_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryf_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].get_pressed()
+        return self._primaryf_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].set_pressed(value)
+        self._primaryf_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryf_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryf_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryG_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3296,30 +3598,36 @@ class PrimaryG_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYG_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryG_KEY as _PrimaryG_KEY
+            _PrimaryG_KEY()
+
+        self._primaryg_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].set_double_tapped(value)
+        self._primaryg_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].get_double_tapped()
+        return self._primaryg_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].get_last_tap_time()
+        return self._primaryg_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryg_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].get_pressed()
+        return self._primaryg_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].set_pressed(value)
+        self._primaryg_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryg_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryg_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryH_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3334,30 +3642,36 @@ class PrimaryH_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYH_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryH_KEY as _PrimaryH_KEY
+            _PrimaryH_KEY()
+
+        self._primaryh_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].set_double_tapped(value)
+        self._primaryh_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].get_double_tapped()
+        return self._primaryh_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].get_last_tap_time()
+        return self._primaryh_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryh_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].get_pressed()
+        return self._primaryh_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].set_pressed(value)
+        self._primaryh_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryh_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryh_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryI_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3372,30 +3686,36 @@ class PrimaryI_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYI_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryI_KEY as _PrimaryI_KEY
+            _PrimaryI_KEY()
+
+        self._primaryi_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].set_double_tapped(value)
+        self._primaryi_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].get_double_tapped()
+        return self._primaryi_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].get_last_tap_time()
+        return self._primaryi_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryi_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].get_pressed()
+        return self._primaryi_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].set_pressed(value)
+        self._primaryi_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryi_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryi_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryJ_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3410,30 +3730,36 @@ class PrimaryJ_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYJ_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryJ_KEY as _PrimaryJ_KEY
+            _PrimaryJ_KEY()
+
+        self._primaryj_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].set_double_tapped(value)
+        self._primaryj_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].get_double_tapped()
+        return self._primaryj_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].get_last_tap_time()
+        return self._primaryj_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryj_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].get_pressed()
+        return self._primaryj_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].set_pressed(value)
+        self._primaryj_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryj_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryj_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryK_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3448,30 +3774,36 @@ class PrimaryK_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryK_KEY as _PrimaryK_KEY
+            _PrimaryK_KEY()
+
+        self._primaryk_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].set_double_tapped(value)
+        self._primaryk_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].get_double_tapped()
+        return self._primaryk_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].get_last_tap_time()
+        return self._primaryk_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryk_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].get_pressed()
+        return self._primaryk_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].set_pressed(value)
+        self._primaryk_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryk_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryk_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryL_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3486,30 +3818,36 @@ class PrimaryL_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYL_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryL_KEY as _PrimaryL_KEY
+            _PrimaryL_KEY()
+
+        self._primaryl_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].set_double_tapped(value)
+        self._primaryl_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].get_double_tapped()
+        return self._primaryl_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].get_last_tap_time()
+        return self._primaryl_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryl_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].get_pressed()
+        return self._primaryl_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].set_pressed(value)
+        self._primaryl_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryl_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryl_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryM_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3524,30 +3862,36 @@ class PrimaryM_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYM_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryM_KEY as _PrimaryM_KEY
+            _PrimaryM_KEY()
+
+        self._primarym_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].set_double_tapped(value)
+        self._primarym_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].get_double_tapped()
+        return self._primarym_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].get_last_tap_time()
+        return self._primarym_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].set_last_tap_time(value)
+        self._primarym_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].get_pressed()
+        return self._primarym_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].set_pressed(value)
+        self._primarym_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].get_double_tap_timing()
+        return self._primarym_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].set_double_tap_timing(value)
+        self._primarym_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryN_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3562,30 +3906,36 @@ class PrimaryN_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYN_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryN_KEY as _PrimaryN_KEY
+            _PrimaryN_KEY()
+
+        self._primaryn_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].set_double_tapped(value)
+        self._primaryn_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].get_double_tapped()
+        return self._primaryn_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].get_last_tap_time()
+        return self._primaryn_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryn_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].get_pressed()
+        return self._primaryn_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].set_pressed(value)
+        self._primaryn_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryn_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryn_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryO_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3600,30 +3950,36 @@ class PrimaryO_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYO_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryO_KEY as _PrimaryO_KEY
+            _PrimaryO_KEY()
+
+        self._primaryo_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].set_double_tapped(value)
+        self._primaryo_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].get_double_tapped()
+        return self._primaryo_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].get_last_tap_time()
+        return self._primaryo_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryo_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].get_pressed()
+        return self._primaryo_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].set_pressed(value)
+        self._primaryo_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryo_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryo_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryP_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3638,30 +3994,36 @@ class PrimaryP_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYP_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryP_KEY as _PrimaryP_KEY
+            _PrimaryP_KEY()
+
+        self._primaryp_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].set_double_tapped(value)
+        self._primaryp_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].get_double_tapped()
+        return self._primaryp_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].get_last_tap_time()
+        return self._primaryp_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryp_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].get_pressed()
+        return self._primaryp_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].set_pressed(value)
+        self._primaryp_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryp_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryp_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryQ_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3676,30 +4038,36 @@ class PrimaryQ_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYQ_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryQ_KEY as _PrimaryQ_KEY
+            _PrimaryQ_KEY()
+
+        self._primaryq_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].set_double_tapped(value)
+        self._primaryq_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].get_double_tapped()
+        return self._primaryq_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].get_last_tap_time()
+        return self._primaryq_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryq_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].get_pressed()
+        return self._primaryq_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].set_pressed(value)
+        self._primaryq_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryq_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryq_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryR_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3714,30 +4082,36 @@ class PrimaryR_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYR_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryR_KEY as _PrimaryR_KEY
+            _PrimaryR_KEY()
+
+        self._primaryr_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].set_double_tapped(value)
+        self._primaryr_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].get_double_tapped()
+        return self._primaryr_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].get_last_tap_time()
+        return self._primaryr_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryr_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].get_pressed()
+        return self._primaryr_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].set_pressed(value)
+        self._primaryr_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryr_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryr_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryS_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3752,30 +4126,36 @@ class PrimaryS_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryS_KEY as _PrimaryS_KEY
+            _PrimaryS_KEY()
+
+        self._primarys_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].set_double_tapped(value)
+        self._primarys_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].get_double_tapped()
+        return self._primarys_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].get_last_tap_time()
+        return self._primarys_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].set_last_tap_time(value)
+        self._primarys_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].get_pressed()
+        return self._primarys_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].set_pressed(value)
+        self._primarys_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].get_double_tap_timing()
+        return self._primarys_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].set_double_tap_timing(value)
+        self._primarys_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryT_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3790,30 +4170,36 @@ class PrimaryT_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryT_KEY as _PrimaryT_KEY
+            _PrimaryT_KEY()
+
+        self._primaryt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].set_double_tapped(value)
+        self._primaryt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].get_double_tapped()
+        return self._primaryt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].get_last_tap_time()
+        return self._primaryt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].get_pressed()
+        return self._primaryt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].set_pressed(value)
+        self._primaryt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryt_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryU_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3828,30 +4214,36 @@ class PrimaryU_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYU_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryU_KEY as _PrimaryU_KEY
+            _PrimaryU_KEY()
+
+        self._primaryu_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].set_double_tapped(value)
+        self._primaryu_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].get_double_tapped()
+        return self._primaryu_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].get_last_tap_time()
+        return self._primaryu_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryu_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].get_pressed()
+        return self._primaryu_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].set_pressed(value)
+        self._primaryu_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryu_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryu_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryV_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3866,30 +4258,36 @@ class PrimaryV_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYV_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryV_KEY as _PrimaryV_KEY
+            _PrimaryV_KEY()
+
+        self._primaryv_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].set_double_tapped(value)
+        self._primaryv_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].get_double_tapped()
+        return self._primaryv_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].get_last_tap_time()
+        return self._primaryv_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryv_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].get_pressed()
+        return self._primaryv_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].set_pressed(value)
+        self._primaryv_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryv_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryv_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryW_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3904,30 +4302,36 @@ class PrimaryW_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYW_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryW_KEY as _PrimaryW_KEY
+            _PrimaryW_KEY()
+
+        self._primaryw_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].set_double_tapped(value)
+        self._primaryw_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].get_double_tapped()
+        return self._primaryw_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].get_last_tap_time()
+        return self._primaryw_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryw_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].get_pressed()
+        return self._primaryw_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].set_pressed(value)
+        self._primaryw_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryw_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryw_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryX_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3942,30 +4346,36 @@ class PrimaryX_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYX_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryX_KEY as _PrimaryX_KEY
+            _PrimaryX_KEY()
+
+        self._primaryx_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].set_double_tapped(value)
+        self._primaryx_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].get_double_tapped()
+        return self._primaryx_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].get_last_tap_time()
+        return self._primaryx_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryx_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].get_pressed()
+        return self._primaryx_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].set_pressed(value)
+        self._primaryx_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryx_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryx_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryY_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -3980,30 +4390,36 @@ class PrimaryY_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYY_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryY_KEY as _PrimaryY_KEY
+            _PrimaryY_KEY()
+
+        self._primaryy_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].set_double_tapped(value)
+        self._primaryy_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].get_double_tapped()
+        return self._primaryy_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].get_last_tap_time()
+        return self._primaryy_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryy_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].get_pressed()
+        return self._primaryy_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].set_pressed(value)
+        self._primaryy_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryy_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryy_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryZ_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4018,30 +4434,36 @@ class PrimaryZ_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRIMARYZ_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PrimaryZ_KEY as _PrimaryZ_KEY
+            _PrimaryZ_KEY()
+
+        self._primaryz_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].set_double_tapped(value)
+        self._primaryz_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].get_double_tapped()
+        return self._primaryz_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].get_last_tap_time()
+        return self._primaryz_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].set_last_tap_time(value)
+        self._primaryz_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].get_pressed()
+        return self._primaryz_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].set_pressed(value)
+        self._primaryz_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].get_double_tap_timing()
+        return self._primaryz_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].set_double_tap_timing(value)
+        self._primaryz_key_object_intermediary.set_double_tap_timing(value)
 
 class Delete_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4056,30 +4478,36 @@ class Delete_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DELETE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Delete_KEY as _Delete_KEY
+            _Delete_KEY()
+
+        self._delete_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].set_double_tapped(value)
+        self._delete_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].get_double_tapped()
+        return self._delete_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].get_last_tap_time()
+        return self._delete_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].set_last_tap_time(value)
+        self._delete_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].get_pressed()
+        return self._delete_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].set_pressed(value)
+        self._delete_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].get_double_tap_timing()
+        return self._delete_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].set_double_tap_timing(value)
+        self._delete_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad0_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4094,30 +4522,36 @@ class Numpad0_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD0_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad0_KEY as _Numpad0_KEY
+            _Numpad0_KEY()
+
+        self._numpad0_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].set_double_tapped(value)
+        self._numpad0_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].get_double_tapped()
+        return self._numpad0_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].get_last_tap_time()
+        return self._numpad0_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad0_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].get_pressed()
+        return self._numpad0_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].set_pressed(value)
+        self._numpad0_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad0_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad0_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad1_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4132,30 +4566,36 @@ class Numpad1_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD1_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad1_KEY as _Numpad1_KEY
+            _Numpad1_KEY()
+
+        self._numpad1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].set_double_tapped(value)
+        self._numpad1_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].get_double_tapped()
+        return self._numpad1_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].get_last_tap_time()
+        return self._numpad1_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad1_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].get_pressed()
+        return self._numpad1_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].set_pressed(value)
+        self._numpad1_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad1_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad1_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad2_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4170,30 +4610,36 @@ class Numpad2_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD2_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad2_KEY as _Numpad2_KEY
+            _Numpad2_KEY()
+
+        self._numpad2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].set_double_tapped(value)
+        self._numpad2_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].get_double_tapped()
+        return self._numpad2_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].get_last_tap_time()
+        return self._numpad2_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad2_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].get_pressed()
+        return self._numpad2_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].set_pressed(value)
+        self._numpad2_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad2_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad2_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad3_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4208,30 +4654,36 @@ class Numpad3_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD3_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad3_KEY as _Numpad3_KEY
+            _Numpad3_KEY()
+
+        self._numpad3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].set_double_tapped(value)
+        self._numpad3_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].get_double_tapped()
+        return self._numpad3_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].get_last_tap_time()
+        return self._numpad3_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad3_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].get_pressed()
+        return self._numpad3_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].set_pressed(value)
+        self._numpad3_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad3_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad3_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad4_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4246,30 +4698,36 @@ class Numpad4_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD4_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad4_KEY as _Numpad4_KEY
+            _Numpad4_KEY()
+
+        self._numpad4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].set_double_tapped(value)
+        self._numpad4_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].get_double_tapped()
+        return self._numpad4_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].get_last_tap_time()
+        return self._numpad4_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad4_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].get_pressed()
+        return self._numpad4_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].set_pressed(value)
+        self._numpad4_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad4_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad4_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad5_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4284,30 +4742,36 @@ class Numpad5_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD5_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad5_KEY as _Numpad5_KEY
+            _Numpad5_KEY()
+
+        self._numpad5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].set_double_tapped(value)
+        self._numpad5_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].get_double_tapped()
+        return self._numpad5_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].get_last_tap_time()
+        return self._numpad5_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad5_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].get_pressed()
+        return self._numpad5_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].set_pressed(value)
+        self._numpad5_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad5_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad5_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad6_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4322,30 +4786,36 @@ class Numpad6_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD6_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad6_KEY as _Numpad6_KEY
+            _Numpad6_KEY()
+
+        self._numpad6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].set_double_tapped(value)
+        self._numpad6_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].get_double_tapped()
+        return self._numpad6_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].get_last_tap_time()
+        return self._numpad6_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad6_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].get_pressed()
+        return self._numpad6_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].set_pressed(value)
+        self._numpad6_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad6_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad6_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad7_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4360,30 +4830,36 @@ class Numpad7_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD7_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad7_KEY as _Numpad7_KEY
+            _Numpad7_KEY()
+
+        self._numpad7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].set_double_tapped(value)
+        self._numpad7_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].get_double_tapped()
+        return self._numpad7_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].get_last_tap_time()
+        return self._numpad7_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad7_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].get_pressed()
+        return self._numpad7_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].set_pressed(value)
+        self._numpad7_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad7_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad7_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad8_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4398,30 +4874,36 @@ class Numpad8_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD8_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad8_KEY as _Numpad8_KEY
+            _Numpad8_KEY()
+
+        self._numpad8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].set_double_tapped(value)
+        self._numpad8_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].get_double_tapped()
+        return self._numpad8_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].get_last_tap_time()
+        return self._numpad8_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad8_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].get_pressed()
+        return self._numpad8_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].set_pressed(value)
+        self._numpad8_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad8_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad8_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad9_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4436,30 +4918,36 @@ class Numpad9_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPAD9_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Numpad9_KEY as _Numpad9_KEY
+            _Numpad9_KEY()
+
+        self._numpad9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].set_double_tapped(value)
+        self._numpad9_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].get_double_tapped()
+        return self._numpad9_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].get_last_tap_time()
+        return self._numpad9_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].set_last_tap_time(value)
+        self._numpad9_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].get_pressed()
+        return self._numpad9_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].set_pressed(value)
+        self._numpad9_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].get_double_tap_timing()
+        return self._numpad9_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpad9_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadPeriod_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4474,30 +4962,36 @@ class NumpadPeriod_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADPERIOD_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadPeriod_KEY as _NumpadPeriod_KEY
+            _NumpadPeriod_KEY()
+
+        self._numpadperiod_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tapped(value)
+        self._numpadperiod_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].get_double_tapped()
+        return self._numpadperiod_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].get_last_tap_time()
+        return self._numpadperiod_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].set_last_tap_time(value)
+        self._numpadperiod_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].get_pressed()
+        return self._numpadperiod_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].set_pressed(value)
+        self._numpadperiod_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].get_double_tap_timing()
+        return self._numpadperiod_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpadperiod_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadDivide_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4512,30 +5006,36 @@ class NumpadDivide_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADDIVIDE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadDivide_KEY as _NumpadDivide_KEY
+            _NumpadDivide_KEY()
+
+        self._numpaddivide_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tapped(value)
+        self._numpaddivide_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].get_double_tapped()
+        return self._numpaddivide_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].get_last_tap_time()
+        return self._numpaddivide_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].set_last_tap_time(value)
+        self._numpaddivide_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].get_pressed()
+        return self._numpaddivide_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(value)
+        self._numpaddivide_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].get_double_tap_timing()
+        return self._numpaddivide_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpaddivide_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadMultiply_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4550,30 +5050,36 @@ class NumpadMultiply_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADMULTIPLY_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadMultiply_KEY as _NumpadMultiply_KEY
+            _NumpadMultiply_KEY()
+
+        self._numpadmultiply_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tapped(value)
+        self._numpadmultiply_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].get_double_tapped()
+        return self._numpadmultiply_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].get_last_tap_time()
+        return self._numpadmultiply_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].set_last_tap_time(value)
+        self._numpadmultiply_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].get_pressed()
+        return self._numpadmultiply_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(value)
+        self._numpadmultiply_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].get_double_tap_timing()
+        return self._numpadmultiply_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpadmultiply_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadMinus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4588,30 +5094,36 @@ class NumpadMinus_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADMINUS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadMinus_KEY as _NumpadMinus_KEY
+            _NumpadMinus_KEY()
+
+        self._numpadminus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].set_double_tapped(value)
+        self._numpadminus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].get_double_tapped()
+        return self._numpadminus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].get_last_tap_time()
+        return self._numpadminus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].set_last_tap_time(value)
+        self._numpadminus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].get_pressed()
+        return self._numpadminus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].set_pressed(value)
+        self._numpadminus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].get_double_tap_timing()
+        return self._numpadminus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpadminus_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadPlus_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4626,30 +5138,36 @@ class NumpadPlus_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADPLUS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadPlus_KEY as _NumpadPlus_KEY
+            _NumpadPlus_KEY()
+
+        self._numpadplus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].set_double_tapped(value)
+        self._numpadplus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].get_double_tapped()
+        return self._numpadplus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].get_last_tap_time()
+        return self._numpadplus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].set_last_tap_time(value)
+        self._numpadplus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].get_pressed()
+        return self._numpadplus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].set_pressed(value)
+        self._numpadplus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].get_double_tap_timing()
+        return self._numpadplus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpadplus_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadEnter_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4664,30 +5182,36 @@ class NumpadEnter_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADENTER_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadEnter_KEY as _NumpadEnter_KEY
+            _NumpadEnter_KEY()
+
+        self._numpadenter_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].set_double_tapped(value)
+        self._numpadenter_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].get_double_tapped()
+        return self._numpadenter_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].get_last_tap_time()
+        return self._numpadenter_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].set_last_tap_time(value)
+        self._numpadenter_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].get_pressed()
+        return self._numpadenter_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].set_pressed(value)
+        self._numpadenter_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].get_double_tap_timing()
+        return self._numpadenter_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpadenter_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadEquals_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4702,30 +5226,36 @@ class NumpadEquals_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMPADEQUALS_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumpadEquals_KEY as _NumpadEquals_KEY
+            _NumpadEquals_KEY()
+
+        self._numpadequals_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tapped(value)
+        self._numpadequals_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].get_double_tapped()
+        return self._numpadequals_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].get_last_tap_time()
+        return self._numpadequals_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].set_last_tap_time(value)
+        self._numpadequals_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].get_pressed()
+        return self._numpadequals_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].set_pressed(value)
+        self._numpadequals_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].get_double_tap_timing()
+        return self._numpadequals_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].set_double_tap_timing(value)
+        self._numpadequals_key_object_intermediary.set_double_tap_timing(value)
 
 class Up_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4740,30 +5270,36 @@ class Up_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.UP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.UP_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Up_KEY as _Up_KEY
+            _Up_KEY()
+
+        self._up_key_object_intermediary = _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].set_double_tapped(value)
+        self._up_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].get_double_tapped()
+        return self._up_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].get_last_tap_time()
+        return self._up_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].set_last_tap_time(value)
+        self._up_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].get_pressed()
+        return self._up_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].set_pressed(value)
+        self._up_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].get_double_tap_timing()
+        return self._up_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].set_double_tap_timing(value)
+        self._up_key_object_intermediary.set_double_tap_timing(value)
 
 class Down_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4778,30 +5314,36 @@ class Down_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DOWN_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Down_KEY as _Down_KEY
+            _Down_KEY()
+
+        self._down_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].set_double_tapped(value)
+        self._down_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].get_double_tapped()
+        return self._down_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].get_last_tap_time()
+        return self._down_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].set_last_tap_time(value)
+        self._down_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].get_pressed()
+        return self._down_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].set_pressed(value)
+        self._down_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].get_double_tap_timing()
+        return self._down_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].set_double_tap_timing(value)
+        self._down_key_object_intermediary.set_double_tap_timing(value)
 
 class Right_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4816,30 +5358,36 @@ class Right_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Right_KEY as _Right_KEY
+            _Right_KEY()
+
+        self._right_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].set_double_tapped(value)
+        self._right_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].get_double_tapped()
+        return self._right_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].get_last_tap_time()
+        return self._right_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].set_last_tap_time(value)
+        self._right_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].get_pressed()
+        return self._right_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].set_pressed(value)
+        self._right_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].get_double_tap_timing()
+        return self._right_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].set_double_tap_timing(value)
+        self._right_key_object_intermediary.set_double_tap_timing(value)
 
 class Left_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4854,30 +5402,36 @@ class Left_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Left_KEY as _Left_KEY
+            _Left_KEY()
+
+        self._left_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].set_double_tapped(value)
+        self._left_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].get_double_tapped()
+        return self._left_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].get_last_tap_time()
+        return self._left_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].set_last_tap_time(value)
+        self._left_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].get_pressed()
+        return self._left_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].set_pressed(value)
+        self._left_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].get_double_tap_timing()
+        return self._left_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].set_double_tap_timing(value)
+        self._left_key_object_intermediary.set_double_tap_timing(value)
 
 class Insert_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4892,30 +5446,36 @@ class Insert_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.INSERT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Insert_KEY as _Insert_KEY
+            _Insert_KEY()
+
+        self._insert_key_object_intermediary = _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].set_double_tapped(value)
+        self._insert_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].get_double_tapped()
+        return self._insert_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].get_last_tap_time()
+        return self._insert_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].set_last_tap_time(value)
+        self._insert_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].get_pressed()
+        return self._insert_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].set_pressed(value)
+        self._insert_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].get_double_tap_timing()
+        return self._insert_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].set_double_tap_timing(value)
+        self._insert_key_object_intermediary.set_double_tap_timing(value)
 
 class Home_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4930,30 +5490,36 @@ class Home_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.HOME_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.HOME_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Home_KEY as _Home_KEY
+            _Home_KEY()
+
+        self._home_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].set_double_tapped(value)
+        self._home_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].get_double_tapped()
+        return self._home_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].get_last_tap_time()
+        return self._home_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].set_last_tap_time(value)
+        self._home_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].get_pressed()
+        return self._home_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].set_pressed(value)
+        self._home_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].get_double_tap_timing()
+        return self._home_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].set_double_tap_timing(value)
+        self._home_key_object_intermediary.set_double_tap_timing(value)
 
 class End_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -4968,30 +5534,36 @@ class End_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.END_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.END_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import End_KEY as _End_KEY
+            _End_KEY()
+
+        self._end_key_object_intermediary = _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].set_double_tapped(value)
+        self._end_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].get_double_tapped()
+        return self._end_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].get_last_tap_time()
+        return self._end_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].set_last_tap_time(value)
+        self._end_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].get_pressed()
+        return self._end_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].set_pressed(value)
+        self._end_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].get_double_tap_timing()
+        return self._end_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].set_double_tap_timing(value)
+        self._end_key_object_intermediary.set_double_tap_timing(value)
 
 class PageUp_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5006,30 +5578,36 @@ class PageUp_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PAGEUP_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PageUp_KEY as _PageUp_KEY
+            _PageUp_KEY()
+
+        self._pageup_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].set_double_tapped(value)
+        self._pageup_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].get_double_tapped()
+        return self._pageup_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].get_last_tap_time()
+        return self._pageup_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].set_last_tap_time(value)
+        self._pageup_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].get_pressed()
+        return self._pageup_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].set_pressed(value)
+        self._pageup_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].get_double_tap_timing()
+        return self._pageup_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].set_double_tap_timing(value)
+        self._pageup_key_object_intermediary.set_double_tap_timing(value)
 
 class PageDown_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5044,30 +5622,36 @@ class PageDown_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PAGEDOWN_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import PageDown_KEY as _PageDown_KEY
+            _PageDown_KEY()
+
+        self._pagedown_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].set_double_tapped(value)
+        self._pagedown_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].get_double_tapped()
+        return self._pagedown_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].get_last_tap_time()
+        return self._pagedown_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].set_last_tap_time(value)
+        self._pagedown_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].get_pressed()
+        return self._pagedown_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].set_pressed(value)
+        self._pagedown_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].get_double_tap_timing()
+        return self._pagedown_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].set_double_tap_timing(value)
+        self._pagedown_key_object_intermediary.set_double_tap_timing(value)
 
 class Function1_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5082,30 +5666,36 @@ class Function1_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION1_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function1_KEY as _Function1_KEY
+            _Function1_KEY()
+
+        self._function1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].set_double_tapped(value)
+        self._function1_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].get_double_tapped()
+        return self._function1_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].get_last_tap_time()
+        return self._function1_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].set_last_tap_time(value)
+        self._function1_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].get_pressed()
+        return self._function1_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].set_pressed(value)
+        self._function1_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].get_double_tap_timing()
+        return self._function1_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].set_double_tap_timing(value)
+        self._function1_key_object_intermediary.set_double_tap_timing(value)
 
 class Function2_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5120,30 +5710,36 @@ class Function2_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION2_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function2_KEY as _Function2_KEY
+            _Function2_KEY()
+
+        self._function2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].set_double_tapped(value)
+        self._function2_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].get_double_tapped()
+        return self._function2_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].get_last_tap_time()
+        return self._function2_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].set_last_tap_time(value)
+        self._function2_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].get_pressed()
+        return self._function2_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].set_pressed(value)
+        self._function2_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].get_double_tap_timing()
+        return self._function2_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].set_double_tap_timing(value)
+        self._function2_key_object_intermediary.set_double_tap_timing(value)
 
 class Function3_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5158,30 +5754,36 @@ class Function3_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION3_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function3_KEY as _Function3_KEY
+            _Function3_KEY()
+
+        self._function3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].set_double_tapped(value)
+        self._function3_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].get_double_tapped()
+        return self._function3_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].get_last_tap_time()
+        return self._function3_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].set_last_tap_time(value)
+        self._function3_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].get_pressed()
+        return self._function3_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].set_pressed(value)
+        self._function3_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].get_double_tap_timing()
+        return self._function3_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].set_double_tap_timing(value)
+        self._function3_key_object_intermediary.set_double_tap_timing(value)
 
 class Function4_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5196,30 +5798,36 @@ class Function4_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION4_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function4_KEY as _Function4_KEY
+            _Function4_KEY()
+
+        self._function4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].set_double_tapped(value)
+        self._function4_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].get_double_tapped()
+        return self._function4_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].get_last_tap_time()
+        return self._function4_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].set_last_tap_time(value)
+        self._function4_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].get_pressed()
+        return self._function4_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].set_pressed(value)
+        self._function4_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].get_double_tap_timing()
+        return self._function4_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].set_double_tap_timing(value)
+        self._function4_key_object_intermediary.set_double_tap_timing(value)
 
 class Function5_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5234,30 +5842,36 @@ class Function5_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION5_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function5_KEY as _Function5_KEY
+            _Function5_KEY()
+
+        self._function5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].set_double_tapped(value)
+        self._function5_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].get_double_tapped()
+        return self._function5_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].get_last_tap_time()
+        return self._function5_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].set_last_tap_time(value)
+        self._function5_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].get_pressed()
+        return self._function5_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].set_pressed(value)
+        self._function5_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].get_double_tap_timing()
+        return self._function5_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].set_double_tap_timing(value)
+        self._function5_key_object_intermediary.set_double_tap_timing(value)
 
 class Function6_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5272,30 +5886,36 @@ class Function6_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION6_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function6_KEY as _Function6_KEY
+            _Function6_KEY()
+
+        self._function6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].set_double_tapped(value)
+        self._function6_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].get_double_tapped()
+        return self._function6_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].get_last_tap_time()
+        return self._function6_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].set_last_tap_time(value)
+        self._function6_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].get_pressed()
+        return self._function6_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].set_pressed(value)
+        self._function6_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].get_double_tap_timing()
+        return self._function6_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].set_double_tap_timing(value)
+        self._function6_key_object_intermediary.set_double_tap_timing(value)
 
 class Function7_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5310,30 +5930,36 @@ class Function7_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION7_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function7_KEY as _Function7_KEY
+            _Function7_KEY()
+
+        self._function7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].set_double_tapped(value)
+        self._function7_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].get_double_tapped()
+        return self._function7_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].get_last_tap_time()
+        return self._function7_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].set_last_tap_time(value)
+        self._function7_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].get_pressed()
+        return self._function7_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].set_pressed(value)
+        self._function7_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].get_double_tap_timing()
+        return self._function7_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].set_double_tap_timing(value)
+        self._function7_key_object_intermediary.set_double_tap_timing(value)
 
 class Function8_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5348,30 +5974,36 @@ class Function8_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION8_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function8_KEY as _Function8_KEY
+            _Function8_KEY()
+
+        self._function8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].set_double_tapped(value)
+        self._function8_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].get_double_tapped()
+        return self._function8_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].get_last_tap_time()
+        return self._function8_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].set_last_tap_time(value)
+        self._function8_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].get_pressed()
+        return self._function8_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].set_pressed(value)
+        self._function8_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].get_double_tap_timing()
+        return self._function8_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].set_double_tap_timing(value)
+        self._function8_key_object_intermediary.set_double_tap_timing(value)
 
 class Function9_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5386,30 +6018,36 @@ class Function9_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION9_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function9_KEY as _Function9_KEY
+            _Function9_KEY()
+
+        self._function9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].set_double_tapped(value)
+        self._function9_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].get_double_tapped()
+        return self._function9_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].get_last_tap_time()
+        return self._function9_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].set_last_tap_time(value)
+        self._function9_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].get_pressed()
+        return self._function9_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].set_pressed(value)
+        self._function9_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].get_double_tap_timing()
+        return self._function9_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].set_double_tap_timing(value)
+        self._function9_key_object_intermediary.set_double_tap_timing(value)
 
 class Function10_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5424,30 +6062,36 @@ class Function10_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION10_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function10_KEY as _Function10_KEY
+            _Function10_KEY()
+
+        self._function10_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].set_double_tapped(value)
+        self._function10_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].get_double_tapped()
+        return self._function10_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].get_last_tap_time()
+        return self._function10_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].set_last_tap_time(value)
+        self._function10_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].get_pressed()
+        return self._function10_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].set_pressed(value)
+        self._function10_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].get_double_tap_timing()
+        return self._function10_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].set_double_tap_timing(value)
+        self._function10_key_object_intermediary.set_double_tap_timing(value)
 
 class Function11_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5462,30 +6106,36 @@ class Function11_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION11_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function11_KEY as _Function11_KEY
+            _Function11_KEY()
+
+        self._function11_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].set_double_tapped(value)
+        self._function11_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].get_double_tapped()
+        return self._function11_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].get_last_tap_time()
+        return self._function11_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].set_last_tap_time(value)
+        self._function11_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].get_pressed()
+        return self._function11_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].set_pressed(value)
+        self._function11_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].get_double_tap_timing()
+        return self._function11_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].set_double_tap_timing(value)
+        self._function11_key_object_intermediary.set_double_tap_timing(value)
 
 class Function12_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5500,30 +6150,36 @@ class Function12_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION12_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function12_KEY as _Function12_KEY
+            _Function12_KEY()
+
+        self._function12_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].set_double_tapped(value)
+        self._function12_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].get_double_tapped()
+        return self._function12_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].get_last_tap_time()
+        return self._function12_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].set_last_tap_time(value)
+        self._function12_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].get_pressed()
+        return self._function12_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].set_pressed(value)
+        self._function12_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].get_double_tap_timing()
+        return self._function12_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].set_double_tap_timing(value)
+        self._function12_key_object_intermediary.set_double_tap_timing(value)
 
 class Function13_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5538,30 +6194,36 @@ class Function13_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION13_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function13_KEY as _Function13_KEY
+            _Function13_KEY()
+
+        self._function13_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].set_double_tapped(value)
+        self._function13_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].get_double_tapped()
+        return self._function13_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].get_last_tap_time()
+        return self._function13_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].set_last_tap_time(value)
+        self._function13_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].get_pressed()
+        return self._function13_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].set_pressed(value)
+        self._function13_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].get_double_tap_timing()
+        return self._function13_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].set_double_tap_timing(value)
+        self._function13_key_object_intermediary.set_double_tap_timing(value)
 
 class Function14_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5576,30 +6238,36 @@ class Function14_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION14_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function14_KEY as _Function14_KEY
+            _Function14_KEY()
+
+        self._function14_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].set_double_tapped(value)
+        self._function14_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].get_double_tapped()
+        return self._function14_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].get_last_tap_time()
+        return self._function14_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].set_last_tap_time(value)
+        self._function14_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].get_pressed()
+        return self._function14_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].set_pressed(value)
+        self._function14_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].get_double_tap_timing()
+        return self._function14_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].set_double_tap_timing(value)
+        self._function14_key_object_intermediary.set_double_tap_timing(value)
 
 class Function15_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5614,30 +6282,36 @@ class Function15_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FUNCTION15_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Function15_KEY as _Function15_KEY
+            _Function15_KEY()
+
+        self._function15_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].set_double_tapped(value)
+        self._function15_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].get_double_tapped()
+        return self._function15_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].get_last_tap_time()
+        return self._function15_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].set_last_tap_time(value)
+        self._function15_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].get_pressed()
+        return self._function15_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].set_pressed(value)
+        self._function15_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].get_double_tap_timing()
+        return self._function15_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].set_double_tap_timing(value)
+        self._function15_key_object_intermediary.set_double_tap_timing(value)
 
 class NumLock_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5652,30 +6326,36 @@ class NumLock_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.NUMLOCK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import NumLock_KEY as _NumLock_KEY
+            _NumLock_KEY()
+
+        self._numlock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].set_double_tapped(value)
+        self._numlock_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].get_double_tapped()
+        return self._numlock_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].get_last_tap_time()
+        return self._numlock_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].set_last_tap_time(value)
+        self._numlock_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].get_pressed()
+        return self._numlock_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].set_pressed(value)
+        self._numlock_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].get_double_tap_timing()
+        return self._numlock_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].set_double_tap_timing(value)
+        self._numlock_key_object_intermediary.set_double_tap_timing(value)
 
 class CapsLock_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5690,30 +6370,36 @@ class CapsLock_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CAPSLOCK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import CapsLock_KEY as _CapsLock_KEY
+            _CapsLock_KEY()
+
+        self._capslock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].set_double_tapped(value)
+        self._capslock_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].get_double_tapped()
+        return self._capslock_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].get_last_tap_time()
+        return self._capslock_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].set_last_tap_time(value)
+        self._capslock_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].get_pressed()
+        return self._capslock_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].set_pressed(value)
+        self._capslock_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].get_double_tap_timing()
+        return self._capslock_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].set_double_tap_timing(value)
+        self._capslock_key_object_intermediary.set_double_tap_timing(value)
 
 class ScrollLock_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5728,30 +6414,36 @@ class ScrollLock_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SCROLLLOCK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import ScrollLock_KEY as _ScrollLock_KEY
+            _ScrollLock_KEY()
+
+        self._scrolllock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].set_double_tapped(value)
+        self._scrolllock_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].get_double_tapped()
+        return self._scrolllock_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].get_last_tap_time()
+        return self._scrolllock_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].set_last_tap_time(value)
+        self._scrolllock_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].get_pressed()
+        return self._scrolllock_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].set_pressed(value)
+        self._scrolllock_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].get_double_tap_timing()
+        return self._scrolllock_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].set_double_tap_timing(value)
+        self._scrolllock_key_object_intermediary.set_double_tap_timing(value)
 
 class RightShift_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5766,30 +6458,36 @@ class RightShift_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTSHIFT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightShift_KEY as _RightShift_KEY
+            _RightShift_KEY()
+
+        self._rightshift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tapped(value)
+        self._rightshift_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].get_double_tapped()
+        return self._rightshift_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].get_last_tap_time()
+        return self._rightshift_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].set_last_tap_time(value)
+        self._rightshift_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].get_pressed()
+        return self._rightshift_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].set_pressed(value)
+        self._rightshift_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].get_double_tap_timing()
+        return self._rightshift_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightshift_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftShift_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5804,30 +6502,36 @@ class LeftShift_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTSHIFT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftShift_KEY as _LeftShift_KEY
+            _LeftShift_KEY()
+
+        self._leftshift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].set_double_tapped(value)
+        self._leftshift_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].get_double_tapped()
+        return self._leftshift_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].get_last_tap_time()
+        return self._leftshift_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].set_last_tap_time(value)
+        self._leftshift_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].get_pressed()
+        return self._leftshift_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].set_pressed(value)
+        self._leftshift_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].get_double_tap_timing()
+        return self._leftshift_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftshift_key_object_intermediary.set_double_tap_timing(value)
 
 class Shift_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5842,30 +6546,36 @@ class Shift_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SHIFT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Shift_KEY as _Shift_KEY
+            _Shift_KEY()
+
+        self._shift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].set_double_tapped(value)
+        self._shift_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].get_double_tapped()
+        return self._shift_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].get_last_tap_time()
+        return self._shift_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].set_last_tap_time(value)
+        self._shift_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].get_pressed()
+        return self._shift_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].set_pressed(value)
+        self._shift_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].get_double_tap_timing()
+        return self._shift_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT].set_double_tap_timing(value)
+        self._shift_key_object_intermediary.set_double_tap_timing(value)
 
 class RightControl_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5880,30 +6590,36 @@ class RightControl_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTCONTROL_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightControl_KEY as _RightControl_KEY
+            _RightControl_KEY()
+
+        self._rightcontrol_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tapped(value)
+        self._rightcontrol_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].get_double_tapped()
+        return self._rightcontrol_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].get_last_tap_time()
+        return self._rightcontrol_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].set_last_tap_time(value)
+        self._rightcontrol_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].get_pressed()
+        return self._rightcontrol_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].set_pressed(value)
+        self._rightcontrol_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].get_double_tap_timing()
+        return self._rightcontrol_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightcontrol_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftControl_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5918,30 +6634,36 @@ class LeftControl_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTCONTROL_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftControl_KEY as _LeftControl_KEY
+            _LeftControl_KEY()
+
+        self._leftcontrol_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].set_double_tapped(value)
+        self._leftcontrol_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].get_double_tapped()
+        return self._leftcontrol_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].get_last_tap_time()
+        return self._leftcontrol_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].set_last_tap_time(value)
+        self._leftcontrol_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].get_pressed()
+        return self._leftcontrol_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].set_pressed(value)
+        self._leftcontrol_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].get_double_tap_timing()
+        return self._leftcontrol_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftcontrol_key_object_intermediary.set_double_tap_timing(value)
 
 class Control_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5956,30 +6678,36 @@ class Control_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.CONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONTROL_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Control_KEY as _Control_KEY
+            _Control_KEY()
+
+        self._control_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].set_double_tapped(value)
+        self._control_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].get_double_tapped()
+        return self._control_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].get_last_tap_time()
+        return self._control_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].set_last_tap_time(value)
+        self._control_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].get_pressed()
+        return self._control_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].set_pressed(value)
+        self._control_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].get_double_tap_timing()
+        return self._control_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT].set_double_tap_timing(value)
+        self._control_key_object_intermediary.set_double_tap_timing(value)
 
 class RightAlt_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -5994,30 +6722,36 @@ class RightAlt_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTALT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightAlt_KEY as _RightAlt_KEY
+            _RightAlt_KEY()
+
+        self._rightalt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].set_double_tapped(value)
+        self._rightalt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].get_double_tapped()
+        return self._rightalt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].get_last_tap_time()
+        return self._rightalt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].set_last_tap_time(value)
+        self._rightalt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].get_pressed()
+        return self._rightalt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].set_pressed(value)
+        self._rightalt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].get_double_tap_timing()
+        return self._rightalt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightalt_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftAlt_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6032,30 +6766,36 @@ class LeftAlt_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTALT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftAlt_KEY as _LeftAlt_KEY
+            _LeftAlt_KEY()
+
+        self._leftalt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].set_double_tapped(value)
+        self._leftalt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].get_double_tapped()
+        return self._leftalt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].get_last_tap_time()
+        return self._leftalt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].set_last_tap_time(value)
+        self._leftalt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].get_pressed()
+        return self._leftalt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].set_pressed(value)
+        self._leftalt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].get_double_tap_timing()
+        return self._leftalt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftalt_key_object_intermediary.set_double_tap_timing(value)
 
 class Alt_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6070,30 +6810,36 @@ class Alt_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.ALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.ALT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Alt_KEY as _Alt_KEY
+            _Alt_KEY()
+
+        self._alt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].set_double_tapped(value)
+        self._alt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].get_double_tapped()
+        return self._alt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].get_last_tap_time()
+        return self._alt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].set_last_tap_time(value)
+        self._alt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].get_pressed()
+        return self._alt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].set_pressed(value)
+        self._alt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].get_double_tap_timing()
+        return self._alt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT].set_double_tap_timing(value)
+        self._alt_key_object_intermediary.set_double_tap_timing(value)
 
 class RightMeta_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6108,30 +6854,36 @@ class RightMeta_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTMETA_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightMeta_KEY as _RightMeta_KEY
+            _RightMeta_KEY()
+
+        self._rightmeta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].set_double_tapped(value)
+        self._rightmeta_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].get_double_tapped()
+        return self._rightmeta_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].get_last_tap_time()
+        return self._rightmeta_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].set_last_tap_time(value)
+        self._rightmeta_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].get_pressed()
+        return self._rightmeta_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].set_pressed(value)
+        self._rightmeta_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].get_double_tap_timing()
+        return self._rightmeta_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightmeta_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftMeta_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6146,30 +6898,36 @@ class LeftMeta_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTMETA_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftMeta_KEY as _LeftMeta_KEY
+            _LeftMeta_KEY()
+
+        self._leftmeta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].set_double_tapped(value)
+        self._leftmeta_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].get_double_tapped()
+        return self._leftmeta_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].get_last_tap_time()
+        return self._leftmeta_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].set_last_tap_time(value)
+        self._leftmeta_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].get_pressed()
+        return self._leftmeta_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].set_pressed(value)
+        self._leftmeta_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].get_double_tap_timing()
+        return self._leftmeta_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftmeta_key_object_intermediary.set_double_tap_timing(value)
 
 class Meta_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6184,30 +6942,36 @@ class Meta_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.META_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.META_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Meta_KEY as _Meta_KEY
+            _Meta_KEY()
+
+        self._meta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].set_double_tapped(value)
+        self._meta_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].get_double_tapped()
+        return self._meta_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].get_last_tap_time()
+        return self._meta_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].set_last_tap_time(value)
+        self._meta_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].get_pressed()
+        return self._meta_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].set_pressed(value)
+        self._meta_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].get_double_tap_timing()
+        return self._meta_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT].set_double_tap_timing(value)
+        self._meta_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftSuper_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6222,30 +6986,36 @@ class LeftSuper_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTSUPER_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftSuper_KEY as _LeftSuper_KEY
+            _LeftSuper_KEY()
+
+        self._leftsuper_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].set_double_tapped(value)
+        self._leftsuper_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].get_double_tapped()
+        return self._leftsuper_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].get_last_tap_time()
+        return self._leftsuper_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].set_last_tap_time(value)
+        self._leftsuper_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].get_pressed()
+        return self._leftsuper_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].set_pressed(value)
+        self._leftsuper_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].get_double_tap_timing()
+        return self._leftsuper_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].set_double_tap_timing(value)
+        self._leftsuper_key_object_intermediary.set_double_tap_timing(value)
 
 class RightSuper_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6260,30 +7030,36 @@ class RightSuper_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTSUPER_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import RightSuper_KEY as _RightSuper_KEY
+            _RightSuper_KEY()
+
+        self._rightsuper_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].set_double_tapped(value)
+        self._rightsuper_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].get_double_tapped()
+        return self._rightsuper_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].get_last_tap_time()
+        return self._rightsuper_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].set_last_tap_time(value)
+        self._rightsuper_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].get_pressed()
+        return self._rightsuper_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].set_pressed(value)
+        self._rightsuper_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].get_double_tap_timing()
+        return self._rightsuper_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].set_double_tap_timing(value)
+        self._rightsuper_key_object_intermediary.set_double_tap_timing(value)
 
 class Super_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6298,30 +7074,36 @@ class Super_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SUPER_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Super_KEY as _Super_KEY
+            _Super_KEY()
+
+        self._super_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].set_double_tapped(value)
+        self._super_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].get_double_tapped()
+        return self._super_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].get_last_tap_time()
+        return self._super_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].set_last_tap_time(value)
+        self._super_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].get_pressed()
+        return self._super_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].set_pressed(value)
+        self._super_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].get_double_tap_timing()
+        return self._super_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT].set_double_tap_timing(value)
+        self._super_key_object_intermediary.set_double_tap_timing(value)
 
 class Mode_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6336,30 +7118,36 @@ class Mode_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MODE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MODE_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Mode_KEY as _Mode_KEY
+            _Mode_KEY()
+
+        self._mode_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].set_double_tapped(value)
+        self._mode_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].get_double_tapped()
+        return self._mode_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].get_last_tap_time()
+        return self._mode_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].set_last_tap_time(value)
+        self._mode_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].get_pressed()
+        return self._mode_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].set_pressed(value)
+        self._mode_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].get_double_tap_timing()
+        return self._mode_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].set_double_tap_timing(value)
+        self._mode_key_object_intermediary.set_double_tap_timing(value)
 
 class Help_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6374,30 +7162,36 @@ class Help_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.HELP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.HELP_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Help_KEY as _Help_KEY
+            _Help_KEY()
+
+        self._help_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].set_double_tapped(value)
+        self._help_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].get_double_tapped()
+        return self._help_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].get_last_tap_time()
+        return self._help_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].set_last_tap_time(value)
+        self._help_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].get_pressed()
+        return self._help_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].set_pressed(value)
+        self._help_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].get_double_tap_timing()
+        return self._help_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].set_double_tap_timing(value)
+        self._help_key_object_intermediary.set_double_tap_timing(value)
 
 class Print_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6412,30 +7206,36 @@ class Print_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.PRINT_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Print_KEY as _Print_KEY
+            _Print_KEY()
+
+        self._print_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].set_double_tapped(value)
+        self._print_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].get_double_tapped()
+        return self._print_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].get_last_tap_time()
+        return self._print_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].set_last_tap_time(value)
+        self._print_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].get_pressed()
+        return self._print_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].set_pressed(value)
+        self._print_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].get_double_tap_timing()
+        return self._print_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].set_double_tap_timing(value)
+        self._print_key_object_intermediary.set_double_tap_timing(value)
 
 class SystemRequest_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6450,30 +7250,36 @@ class SystemRequest_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SYSTEMREQUEST_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import SystemRequest_KEY as _SystemRequest_KEY
+            _SystemRequest_KEY()
+
+        self._systemrequest_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tapped(value)
+        self._systemrequest_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].get_double_tapped()
+        return self._systemrequest_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].get_last_tap_time()
+        return self._systemrequest_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].set_last_tap_time(value)
+        self._systemrequest_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].get_pressed()
+        return self._systemrequest_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(value)
+        self._systemrequest_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].get_double_tap_timing()
+        return self._systemrequest_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].set_double_tap_timing(value)
+        self._systemrequest_key_object_intermediary.set_double_tap_timing(value)
 
 class Break_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6488,30 +7294,36 @@ class Break_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.BREAK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Break_KEY as _Break_KEY
+            _Break_KEY()
+
+        self._break_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].set_double_tapped(value)
+        self._break_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].get_double_tapped()
+        return self._break_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].get_last_tap_time()
+        return self._break_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].set_last_tap_time(value)
+        self._break_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].get_pressed()
+        return self._break_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].set_pressed(value)
+        self._break_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].get_double_tap_timing()
+        return self._break_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].set_double_tap_timing(value)
+        self._break_key_object_intermediary.set_double_tap_timing(value)
 
 class Menu_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6526,30 +7338,36 @@ class Menu_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MENU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MENU_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Menu_KEY as _Menu_KEY
+            _Menu_KEY()
+
+        self._menu_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].set_double_tapped(value)
+        self._menu_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].get_double_tapped()
+        return self._menu_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].get_last_tap_time()
+        return self._menu_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].set_last_tap_time(value)
+        self._menu_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].get_pressed()
+        return self._menu_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].set_pressed(value)
+        self._menu_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].get_double_tap_timing()
+        return self._menu_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].set_double_tap_timing(value)
+        self._menu_key_object_intermediary.set_double_tap_timing(value)
 
 class Power_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6564,30 +7382,36 @@ class Power_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.POWER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.POWER_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Power_KEY as _Power_KEY
+            _Power_KEY()
+
+        self._power_key_object_intermediary = _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].set_double_tapped(value)
+        self._power_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].get_double_tapped()
+        return self._power_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].get_last_tap_time()
+        return self._power_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].set_last_tap_time(value)
+        self._power_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].get_pressed()
+        return self._power_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].set_pressed(value)
+        self._power_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].get_double_tap_timing()
+        return self._power_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].set_double_tap_timing(value)
+        self._power_key_object_intermediary.set_double_tap_timing(value)
 
 class Euro_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6602,30 +7426,36 @@ class Euro_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.EURO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.EURO_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import Euro_KEY as _Euro_KEY
+            _Euro_KEY()
+
+        self._euro_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].set_double_tapped(value)
+        self._euro_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].get_double_tapped()
+        return self._euro_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].get_last_tap_time()
+        return self._euro_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].set_last_tap_time(value)
+        self._euro_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].get_pressed()
+        return self._euro_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].set_pressed(value)
+        self._euro_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].get_double_tap_timing()
+        return self._euro_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].set_double_tap_timing(value)
+        self._euro_key_object_intermediary.set_double_tap_timing(value)
 
 class AndroidBack_KEY:
     def __del__(self, do_garbage_collection=False):
@@ -6640,30 +7470,36 @@ class AndroidBack_KEY:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.ANDROIDBACK_KEY_OBJECT)
+            from pmma.python_src.utility.event_utils import AndroidBack_KEY as _AndroidBack_KEY
+            _AndroidBack_KEY()
+
+        self._androidback_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_double_tapped(value)
+        self._androidback_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].get_double_tapped()
+        return self._androidback_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].get_last_tap_time()
+        return self._androidback_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_last_tap_time(value)
+        self._androidback_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].get_pressed()
+        return self._androidback_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_pressed(value)
+        self._androidback_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].get_double_tap_timing()
+        return self._androidback_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_double_tap_timing(value)
+        self._androidback_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftButton_MOUSE:
     def __del__(self, do_garbage_collection=False):
@@ -6678,30 +7514,36 @@ class LeftButton_MOUSE:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LEFTBUTTON_MOUSE_OBJECT)
+            from pmma.python_src.utility.event_utils import LeftButton_MOUSE as _LeftButton_MOUSE
+            _LeftButton_MOUSE()
+
+        self._leftbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
+        self._leftbutton_mouse_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].get_double_tapped()
+        return self._leftbutton_mouse_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].get_last_tap_time()
+        return self._leftbutton_mouse_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
+        self._leftbutton_mouse_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].get_pressed()
+        return self._leftbutton_mouse_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(value)
+        self._leftbutton_mouse_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].get_double_tap_timing()
+        return self._leftbutton_mouse_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
+        self._leftbutton_mouse_object_intermediary.set_double_tap_timing(value)
 
 class MiddleButton_MOUSE:
     def __del__(self, do_garbage_collection=False):
@@ -6716,30 +7558,36 @@ class MiddleButton_MOUSE:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MIDDLEBUTTON_MOUSE_OBJECT)
+            from pmma.python_src.utility.event_utils import MiddleButton_MOUSE as _MiddleButton_MOUSE
+            _MiddleButton_MOUSE()
+
+        self._middlebutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tapped(value)
+        self._middlebutton_mouse_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_double_tapped()
+        return self._middlebutton_mouse_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_last_tap_time()
+        return self._middlebutton_mouse_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
+        self._middlebutton_mouse_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_pressed()
+        return self._middlebutton_mouse_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(value)
+        self._middlebutton_mouse_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].get_double_tap_timing()
+        return self._middlebutton_mouse_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
+        self._middlebutton_mouse_object_intermediary.set_double_tap_timing(value)
 
 class RightButton_MOUSE:
     def __del__(self, do_garbage_collection=False):
@@ -6754,30 +7602,36 @@ class RightButton_MOUSE:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RIGHTBUTTON_MOUSE_OBJECT)
+            from pmma.python_src.utility.event_utils import RightButton_MOUSE as _RightButton_MOUSE
+            _RightButton_MOUSE()
+
+        self._rightbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tapped(value)
+        self._rightbutton_mouse_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].get_double_tapped()
+        return self._rightbutton_mouse_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].get_last_tap_time()
+        return self._rightbutton_mouse_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_last_tap_time(value)
+        self._rightbutton_mouse_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].get_pressed()
+        return self._rightbutton_mouse_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(value)
+        self._rightbutton_mouse_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
-        return _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].get_double_tap_timing()
+        return self._rightbutton_mouse_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
-        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_double_tap_timing(value)
+        self._rightbutton_mouse_object_intermediary.set_double_tap_timing(value)
 
 class Mouse_SCROLL:
     def __del__(self, do_garbage_collection=False):
@@ -6792,30 +7646,36 @@ class Mouse_SCROLL:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MOUSE_SCROLL_OBJECT)
+            from pmma.python_src.utility.event_utils import Mouse_SCROLL as _Mouse_SCROLL
+            _Mouse_SCROLL()
+
+        self._mouse_scroll_object_intermediary = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT]
 
     def get_x_displacement(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_x_displacement()
+        return self._mouse_scroll_object_intermediary.get_x_displacement()
 
     def set_x_displacement(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(value)
+        self._mouse_scroll_object_intermediary.set_x_displacement(value)
 
     def get_x_value(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_x_value()
+        return self._mouse_scroll_object_intermediary.get_x_value()
 
     def set_x_value(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_value(value)
+        self._mouse_scroll_object_intermediary.set_x_value(value)
 
     def get_y_displacement(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_y_displacement()
+        return self._mouse_scroll_object_intermediary.get_y_displacement()
 
     def set_y_displacement(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(value)
+        self._mouse_scroll_object_intermediary.set_y_displacement(value)
 
     def get_y_value(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_y_value()
+        return self._mouse_scroll_object_intermediary.get_y_value()
 
     def set_y_value(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_value(value)
+        self._mouse_scroll_object_intermediary.set_y_value(value)
 
 class Mouse_POSITION:
     def __del__(self, do_garbage_collection=False):
@@ -6830,33 +7690,39 @@ class Mouse_POSITION:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MOUSE_POSITION_OBJECT)
+            from pmma.python_src.utility.event_utils import Mouse_POSITION as _Mouse_POSITION
+            _Mouse_POSITION()
+
+        self._mouse_position_object_intermediary = _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT]
 
     def get_axis_displacement(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].get_axis_displacement()
+        return self._mouse_position_object_intermediary.get_axis_displacement()
 
     def get_x_axis_displacement(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].get_x_axis_displacement()
+        return self._mouse_position_object_intermediary.get_x_axis_displacement()
 
     def get_y_axis_displacement(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].get_y_axis_displacement()
+        return self._mouse_position_object_intermediary.get_y_axis_displacement()
 
     def get_x_axis(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].get_x_axis()
+        return self._mouse_position_object_intermediary.get_x_axis()
 
     def get_y_axis(self):
-        return _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].get_y_axis()
+        return self._mouse_position_object_intermediary.get_y_axis()
 
     def set_x_axis(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis(value)
+        self._mouse_position_object_intermediary.set_x_axis(value)
 
     def set_y_axis(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis(value)
+        self._mouse_position_object_intermediary.set_y_axis(value)
 
     def set_x_axis_displacement(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(value)
+        self._mouse_position_object_intermediary.set_x_axis_displacement(value)
 
     def set_y_axis_displacement(self, value):
-        _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(value)
+        self._mouse_position_object_intermediary.set_y_axis_displacement(value)
 
 class Active_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6871,12 +7737,18 @@ class Active_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.ACTIVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.ACTIVE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import Active_EVENT as _Active_EVENT
+            _Active_EVENT()
+
+        self._active_event_object_intermediary = _Registry.pmma_module_spine[_Constants.ACTIVE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.ACTIVE_EVENT_OBJECT].set_value(value)
+        self._active_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.ACTIVE_EVENT_OBJECT].get_value()
+        return self._active_event_object_intermediary.get_value()
 
 class AppTerminating_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6891,17 +7763,22 @@ class AppTerminating_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.APPTERMINATING_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AppTerminating_EVENT as _AppTerminating_EVENT
+            _AppTerminating_EVENT()
+
+        self._appterminatingevent_intermediary = _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(value)
+        self._appterminatingevent_intermediary.set_value(value)
 
     def get_value(self):
         if _get_operating_system() != _Constants.ANDROID:
-            self._logger.log_development("This event is exclusive to the Android operating system. \
-Instead please use: 'Quit_EVENT' as this works across all platforms.")
-        return _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].get_value()
+            self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'Quit_EVENT' as this works across all platforms.")
+        return self._appterminatingevent_intermediary.get_value()
 
 class AppLowMemory_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6916,19 +7793,22 @@ class AppLowMemory_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.APPLOWMEMORY_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AppLowMemory_EVENT as _AppLowMemory_EVENT
+            _AppLowMemory_EVENT()
+
+        self._applowmemory_intermediary = _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(value)
+        self._applowmemory_intermediary.set_value(value)
 
     def get_value(self):
         if _get_operating_system() != _Constants.ANDROID:
-            self._logger.log_development("This event is exclusive to the Android operating system. \
-There is no alternative to this on other operating systems due to how memory is allocated. \
-If you are interested in getting information about memory, I'd recommend checking out PSUtil: \
-https://pypi.org/project/psutil/")
-        return _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].get_value()
+            self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems due to how memory is allocated. If you are interested in getting information about memory, I'd recommend checking out PSUtil: https://pypi.org/project/psutil/")
+        return self._applowmemory_intermediary.get_value()
 
 class AppWillEnterBackground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6943,16 +7823,21 @@ class AppWillEnterBackground_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AppWillEnterBackground_EVENT as _AppWillEnterBackground_EVENT
+            _AppWillEnterBackground_EVENT()
+
+        self._appwillenterbackground_intermediary = _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(value)
+        self._appwillenterbackground_intermediary.set_value(value)
 
     def get_value(self):
-        self._logger.log_development("This event is exclusive to the Android operating system. \
-There is no alternative to this on other operating systems.")
-        return _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].get_value()
+        self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems.")
+        return self._appwillenterbackground_intermediary.get_value()
 
 class AppDidEnterBackground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6967,16 +7852,21 @@ class AppDidEnterBackground_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AppDidEnterBackground_EVENT as _AppDidEnterBackground_EVENT
+            _AppDidEnterBackground_EVENT()
+
+        self._appdidenterbackground_intermediary = _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(value)
+        self._appdidenterbackground_intermediary.set_value(value)
 
     def get_value(self):
-        self._logger.log_development("This event is exclusive to the Android operating system. \
-Instead please use: 'WindowFocusLost' as this works across all platforms.")
-        return _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].get_value()
+        self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusLost' as this works across all platforms.")
+        return self._appdidenterbackground_intermediary.get_value()
 
 class AppWillEnterForeground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -6991,16 +7881,21 @@ class AppWillEnterForeground_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AppWillEnterForeground_EVENT as _AppWillEnterForeground_EVENT
+            _AppWillEnterForeground_EVENT()
+
+        self._appwillenterforeground_intermediary = _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(value)
+        self._appwillenterforeground_intermediary.set_value(value)
 
     def get_value(self):
-        self._logger.log_development("This event is exclusive to the Android operating system. \
-There is no alternative to this on other operating systems.")
-        return _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].get_value()
+        self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems.")
+        return self._appwillenterforeground_intermediary.get_value()
 
 class AppDidEnterForeground_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7015,16 +7910,21 @@ class AppDidEnterForeground_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AppDidEnterForeground_EVENT as _AppDidEnterForeground_EVENT
+            _AppDidEnterForeground_EVENT()
+
+        self._appdidenterforeground_intermediary = _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(value)
+        self._appdidenterforeground_intermediary.set_value(value)
 
     def get_value(self):
-        self._logger.log_development("This event is exclusive to the Android operating system. \
-Instead please use: 'WindowFocusGained' as this works across all platforms.")
-        return _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].get_value()
+        self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusGained' as this works across all platforms.")
+        return self._appdidenterforeground_intermediary.get_value()
 
 class AudioDeviceAdded_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7039,12 +7939,18 @@ class AudioDeviceAdded_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.AUDIODEVICEADDED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AudioDeviceAdded_EVENT as _AudioDeviceAdded_EVENT
+            _AudioDeviceAdded_EVENT()
+
+        self._audiodeviceadded_event_object_intermediary = _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(value)
+        self._audiodeviceadded_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].get_value()
+        return self._audiodeviceadded_event_object_intermediary.get_value()
 
 class AudioDeviceRemoved_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7059,12 +7965,18 @@ class AudioDeviceRemoved_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import AudioDeviceRemoved_EVENT as _AudioDeviceRemoved_EVENT
+            _AudioDeviceRemoved_EVENT()
+
+        self._audiodeviceremoved_event_object_intermediary = _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(value)
+        self._audiodeviceremoved_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].get_value()
+        return self._audiodeviceremoved_event_object_intermediary.get_value()
 
 class ClipBoardUpdate_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7079,12 +7991,18 @@ class ClipBoardUpdate_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CLIPBOARDUPDATE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import ClipBoardUpdate_EVENT as _ClipBoardUpdate_EVENT
+            _ClipBoardUpdate_EVENT()
+
+        self._clipboardupdate_event_object_intermediary = _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(value)
+        self._clipboardupdate_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].get_value()
+        return self._clipboardupdate_event_object_intermediary.get_value()
 
 class DropFile_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7099,12 +8017,18 @@ class DropFile_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DROPFILE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import DropFile_EVENT as _DropFile_EVENT
+            _DropFile_EVENT()
+
+        self._dropfile_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT]
 
     def set_file(self, file):
-        _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_file(file)
+        self._dropfile_event_object_intermediary.set_file(file)
 
     def get_file(self):
-        return _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].get_file()
+        return self._dropfile_event_object_intermediary.get_file()
 
 class DropText_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7119,26 +8043,22 @@ class DropText_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DROPTEXT_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import DropText_EVENT as _DropText_EVENT
+            _DropText_EVENT()
+
+        self._deoptext_intermediary = _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
     def set_text(self, text):
-        _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].set_text(text)
+        self._deoptext_intermediary.set_text(text)
 
     def get_text(self):
-        self._logger.log_development("Please note that this event is not yet reliably \
-supported across all operating systems. Windows compatability is generally \
-mixed, MacOS compatability is generally good, Linux compatability varies based \
-on what desktop envioment is being used and Android support being unofficial and \
-limited. Effectively this means that your milage may vary when using this event \
-if it is triggered reliably. Generally speaking however, if your developing your \
-application to run on specific hardware - like a games console - you can try and \
-use this event, if the event works and the software/hardware is the same, it \
-should work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with the user \
-dropping a text file, then open and read that for text inputs instead. In short - \
-this event is not known to work reliably, using other events instead is recommended!")
+        self._logger.log_development("Please note that this event is not yet reliably supported across all operating systems. Windows compatability is generally mixed, MacOS compatability is generally good, Linux compatability varies based on what desktop envioment is being used and Android support being unofficial and limited. Effectively this means that your milage may vary when using this event if it is triggered reliably. Generally speaking however, if your developing your application to run on specific hardware - like a games console - you can try and use this event, if the event works and the software/hardware is the same, it should work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with the user dropping a text file, then open and read that for text inputs instead. In short - this event is not known to work reliably, using other events instead is recommended!")
 
-        return _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].get_text()
+        return self._deoptext_intermediary.get_text()
 
 class DropBegin_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7153,12 +8073,18 @@ class DropBegin_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DROPBEGIN_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import DropBegin_EVENT as _DropBegin_EVENT
+            _DropBegin_EVENT()
+
+        self._dropbegin_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].set_value(value)
+        self._dropbegin_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].get_value()
+        return self._dropbegin_event_object_intermediary.get_value()
 
 class DropComplete_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7173,12 +8099,18 @@ class DropComplete_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.DROPCOMPLETE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import DropComplete_EVENT as _DropComplete_EVENT
+            _DropComplete_EVENT()
+
+        self._dropcomplete_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(value)
+        self._dropcomplete_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].get_value()
+        return self._dropcomplete_event_object_intermediary.get_value()
 
 class FingerMotion_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7193,12 +8125,18 @@ class FingerMotion_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FINGERMOTION_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import FingerMotion_EVENT as _FingerMotion_EVENT
+            _FingerMotion_EVENT()
+
+        self._fingermotion_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].set_value(value)
+        self._fingermotion_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].get_value()
+        return self._fingermotion_event_object_intermediary.get_value()
 
 class FingerDown_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7213,12 +8151,18 @@ class FingerDown_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FINGERDOWN_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import FingerDown_EVENT as _FingerDown_EVENT
+            _FingerDown_EVENT()
+
+        self._fingerdown_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].set_value(value)
+        self._fingerdown_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].get_value()
+        return self._fingerdown_event_object_intermediary.get_value()
 
 class FingerUp_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7233,12 +8177,18 @@ class FingerUp_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.FINGERUP_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import FingerUp_EVENT as _FingerUp_EVENT
+            _FingerUp_EVENT()
+
+        self._fingerup_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].set_value(value)
+        self._fingerup_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].get_value()
+        return self._fingerup_event_object_intermediary.get_value()
 
 class KeyMapChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7253,12 +8203,18 @@ class KeyMapChanged_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.KEYMAPCHANGED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import KeyMapChanged_EVENT as _KeyMapChanged_EVENT
+            _KeyMapChanged_EVENT()
+
+        self._keymapchanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(value)
+        self._keymapchanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].get_value()
+        return self._keymapchanged_event_object_intermediary.get_value()
 
 class LocaleChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7273,12 +8229,18 @@ class LocaleChanged_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.LOCALECHANGED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import LocaleChanged_EVENT as _LocaleChanged_EVENT
+            _LocaleChanged_EVENT()
+
+        self._localechanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].set_value(value)
+        self._localechanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].get_value()
+        return self._localechanged_event_object_intermediary.get_value()
 
 class MultiGesture_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7293,36 +8255,42 @@ class MultiGesture_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.MULTIGESTURE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import MultiGesture_EVENT as _MultiGesture_EVENT
+            _MultiGesture_EVENT()
+
+        self._multigesture_event_object_intermediary = _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT]
 
     def get_gesture_center_x(self):
-        return _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_x()
+        return self._multigesture_event_object_intermediary.get_gesture_center_x()
 
     def get_gesture_center_y(self):
-        return _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].get_gesture_center_y()
+        return self._multigesture_event_object_intermediary.get_gesture_center_y()
 
     def get_pinched_value(self):
-        return _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].get_pinched_value()
+        return self._multigesture_event_object_intermediary.get_pinched_value()
 
     def get_rotated_value(self):
-        return _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].get_rotated_value()
+        return self._multigesture_event_object_intermediary.get_rotated_value()
 
     def get_number_of_fingers(self):
-        return _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].get_number_of_fingers()
+        return self._multigesture_event_object_intermediary.get_number_of_fingers()
 
     def set_gesture_center_x(self, value):
-        _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(value)
+        self._multigesture_event_object_intermediary.set_gesture_center_x(value)
 
     def set_gesture_center_y(self, value):
-        _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(value)
+        self._multigesture_event_object_intermediary.set_gesture_center_y(value)
 
     def set_pinched_value(self, value):
-        _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(value)
+        self._multigesture_event_object_intermediary.set_pinched_value(value)
 
     def set_rotated_value(self, value):
-        _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(value)
+        self._multigesture_event_object_intermediary.set_rotated_value(value)
 
     def set_number_of_fingers(self, value):
-        _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(value)
+        self._multigesture_event_object_intermediary.set_number_of_fingers(value)
 
 class Quit_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7337,12 +8305,18 @@ class Quit_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.QUIT_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import Quit_EVENT as _Quit_EVENT
+            _Quit_EVENT()
+
+        self._quit_event_object_intermediary = _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT].set_value(value)
+        self._quit_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT].get_value()
+        return self._quit_event_object_intermediary.get_value()
 
 class RenderTargetsReset_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7357,12 +8331,18 @@ class RenderTargetsReset_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDERTARGETSRESET_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import RenderTargetsReset_EVENT as _RenderTargetsReset_EVENT
+            _RenderTargetsReset_EVENT()
+
+        self._rendertargetsreset_event_object_intermediary = _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(value)
+        self._rendertargetsreset_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT].get_value()
+        return self._rendertargetsreset_event_object_intermediary.get_value()
 
 class RenderDeviceReset_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7377,12 +8357,18 @@ class RenderDeviceReset_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDERDEVICERESET_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import RenderDeviceReset_EVENT as _RenderDeviceReset_EVENT
+            _RenderDeviceReset_EVENT()
+
+        self._renderdevicereset_event_object_intermediary = _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(value)
+        self._renderdevicereset_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT].get_value()
+        return self._renderdevicereset_event_object_intermediary.get_value()
 
 class SysWMEvent_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7397,12 +8383,18 @@ class SysWMEvent_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SYSWMEVENT_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import SysWMEvent_EVENT as _SysWMEvent_EVENT
+            _SysWMEvent_EVENT()
+
+        self._syswmevent_event_object_intermediary = _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT].set_value(value)
+        self._syswmevent_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT].get_value()
+        return self._syswmevent_event_object_intermediary.get_value()
 
 class VideoResize_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7417,12 +8409,18 @@ class VideoResize_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.VIDEORESIZE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.VIDEORESIZE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import VideoResize_EVENT as _VideoResize_EVENT
+            _VideoResize_EVENT()
+
+        self._videoresize_event_object_intermediary = _Registry.pmma_module_spine[_Constants.VIDEORESIZE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.VIDEORESIZE_EVENT_OBJECT].set_value(value)
+        self._videoresize_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.VIDEORESIZE_EVENT_OBJECT].get_value()
+        return self._videoresize_event_object_intermediary.get_value()
 
 class VideoExpose_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7437,12 +8435,18 @@ class VideoExpose_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.VIDEOEXPOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.VIDEOEXPOSE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import VideoExpose_EVENT as _VideoExpose_EVENT
+            _VideoExpose_EVENT()
+
+        self._videoexpose_event_object_intermediary = _Registry.pmma_module_spine[_Constants.VIDEOEXPOSE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.VIDEOEXPOSE_EVENT_OBJECT].set_value(value)
+        self._videoexpose_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.VIDEOEXPOSE_EVENT_OBJECT].get_value()
+        return self._videoexpose_event_object_intermediary.get_value()
 
 class WindowShown_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7457,12 +8461,18 @@ class WindowShown_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWSHOWN_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowShown_EVENT as _WindowShown_EVENT
+            _WindowShown_EVENT()
+
+        self._windowshown_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(value)
+        self._windowshown_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT].get_value()
+        return self._windowshown_event_object_intermediary.get_value()
 
 class WindowHidden_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7477,12 +8487,18 @@ class WindowHidden_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWHIDDEN_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowHidden_EVENT as _WindowHidden_EVENT
+            _WindowHidden_EVENT()
+
+        self._windowhidden_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(value)
+        self._windowhidden_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT].get_value()
+        return self._windowhidden_event_object_intermediary.get_value()
 
 class WindowExposed_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7497,12 +8513,18 @@ class WindowExposed_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWEXPOSED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowExposed_EVENT as _WindowExposed_EVENT
+            _WindowExposed_EVENT()
+
+        self._windowexposed_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(value)
+        self._windowexposed_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT].get_value()
+        return self._windowexposed_event_object_intermediary.get_value()
 
 class WindowMoved_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7517,12 +8539,18 @@ class WindowMoved_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWMOVED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowMoved_EVENT as _WindowMoved_EVENT
+            _WindowMoved_EVENT()
+
+        self._windowmoved_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT].set_value(value)
+        self._windowmoved_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT].get_value()
+        return self._windowmoved_event_object_intermediary.get_value()
 
 class WindowResized_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7537,12 +8565,18 @@ class WindowResized_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWRESIZED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowResized_EVENT as _WindowResized_EVENT
+            _WindowResized_EVENT()
+
+        self._windowresized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(value)
+        self._windowresized_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value()
+        return self._windowresized_event_object_intermediary.get_value()
 
 class WindowMinimized_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7557,12 +8591,18 @@ class WindowMinimized_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWMINIMIZED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowMinimized_EVENT as _WindowMinimized_EVENT
+            _WindowMinimized_EVENT()
+
+        self._windowminimized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(value)
+        self._windowminimized_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()
+        return self._windowminimized_event_object_intermediary.get_value()
 
 class WindowMaximized_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7577,12 +8617,18 @@ class WindowMaximized_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWMAXIMIZED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowMaximized_EVENT as _WindowMaximized_EVENT
+            _WindowMaximized_EVENT()
+
+        self._windowmaximized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(value)
+        self._windowmaximized_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT].get_value()
+        return self._windowmaximized_event_object_intermediary.get_value()
 
 class WindowRestored_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7597,12 +8643,18 @@ class WindowRestored_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWRESTORED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowRestored_EVENT as _WindowRestored_EVENT
+            _WindowRestored_EVENT()
+
+        self._windowrestored_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(value)
+        self._windowrestored_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].get_value()
+        return self._windowrestored_event_object_intermediary.get_value()
 
 class WindowEnter_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7617,12 +8669,18 @@ class WindowEnter_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWENTER_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowEnter_EVENT as _WindowEnter_EVENT
+            _WindowEnter_EVENT()
+
+        self._windowenter_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT].set_value(value)
+        self._windowenter_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT].get_value()
+        return self._windowenter_event_object_intermediary.get_value()
 
 class WindowLeave_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7637,12 +8695,18 @@ class WindowLeave_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWLEAVE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowLeave_EVENT as _WindowLeave_EVENT
+            _WindowLeave_EVENT()
+
+        self._windowleave_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(value)
+        self._windowleave_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT].get_value()
+        return self._windowleave_event_object_intermediary.get_value()
 
 class WindowFocusGained_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7657,12 +8721,18 @@ class WindowFocusGained_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
+            _WindowFocusGained_EVENT()
+
+        self._windowfocusgained_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(value)
+        self._windowfocusgained_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()
+        return self._windowfocusgained_event_object_intermediary.get_value()
 
 class WindowFocusLost_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7677,12 +8747,18 @@ class WindowFocusLost_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWFOCUSLOST_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
+            _WindowFocusLost_EVENT()
+
+        self._windowfocuslost_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(value)
+        self._windowfocuslost_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()
+        return self._windowfocuslost_event_object_intermediary.get_value()
 
 class WindowClose_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7697,12 +8773,18 @@ class WindowClose_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWCLOSE_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowClose_EVENT as _WindowClose_EVENT
+            _WindowClose_EVENT()
+
+        self._windowclose_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(value)
+        self._windowclose_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT].get_value()
+        return self._windowclose_event_object_intermediary.get_value()
 
 class WindowTakeFocus_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7717,12 +8799,18 @@ class WindowTakeFocus_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowTakeFocus_EVENT as _WindowTakeFocus_EVENT
+            _WindowTakeFocus_EVENT()
+
+        self._windowtakefocus_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(value)
+        self._windowtakefocus_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].get_value()
+        return self._windowtakefocus_event_object_intermediary.get_value()
 
 class WindowHitTest_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7737,12 +8825,18 @@ class WindowHitTest_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWHITTEST_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowHitTest_EVENT as _WindowHitTest_EVENT
+            _WindowHitTest_EVENT()
+
+        self._windowhittest_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(value)
+        self._windowhittest_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT].get_value()
+        return self._windowhittest_event_object_intermediary.get_value()
 
 class WindowICCPROFChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7757,12 +8851,18 @@ class WindowICCPROFChanged_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowICCPROFChanged_EVENT as _WindowICCPROFChanged_EVENT
+            _WindowICCPROFChanged_EVENT()
+
+        self._windowiccprofchanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(value)
+        self._windowiccprofchanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].get_value()
+        return self._windowiccprofchanged_event_object_intermediary.get_value()
 
 class WindowDisplayChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7777,12 +8877,18 @@ class WindowDisplayChanged_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowDisplayChanged_EVENT as _WindowDisplayChanged_EVENT
+            _WindowDisplayChanged_EVENT()
+
+        self._windowdisplaychanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(value)
+        self._windowdisplaychanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].get_value()
+        return self._windowdisplaychanged_event_object_intermediary.get_value()
 
 class JoyDeviceAdded_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7797,12 +8903,18 @@ class JoyDeviceAdded_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.JOYDEVICEADDED_OBJECT)
+            from pmma.python_src.utility.event_utils import JoyDeviceAdded_EVENT as _JoyDeviceAdded_EVENT
+            _JoyDeviceAdded_EVENT()
+
+        self._joydeviceadded_object_intermediary = _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].set_value(value)
+        self._joydeviceadded_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].get_value()
+        return self._joydeviceadded_object_intermediary.get_value()
 
 class JoyDeviceRemoved_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7817,12 +8929,18 @@ class JoyDeviceRemoved_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.JOYDEVICEREMOVED_OBJECT)
+            from pmma.python_src.utility.event_utils import JoyDeviceRemoved_EVENT as _JoyDeviceRemoved_EVENT
+            _JoyDeviceRemoved_EVENT()
+
+        self._joydeviceremoved_object_intermediary = _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].set_value(value)
+        self._joydeviceremoved_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].get_value()
+        return self._joydeviceremoved_object_intermediary.get_value()
 
 class WindowFullScreenStatusChanged_EVENT:
     def __del__(self, do_garbage_collection=False):
@@ -7837,9 +8955,15 @@ class WindowFullScreenStatusChanged_EVENT:
 
     def __init__(self):
         _initialize(self)
+        if not _Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT)
+            from pmma.python_src.utility.event_utils import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
+            _WindowFullScreenStatusChanged_EVENT()
+
+        self._windowfullscreenstatechanged_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT]
 
     def set_value(self, value):
-        _Registry.pmma_module_spine[_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].set_value(value)
+        self._windowfullscreenstatechanged_object_intermediary.set_value(value)
 
     def get_value(self):
-        return _Registry.pmma_module_spine[_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT].get_value()
+        return self._windowfullscreenstatechanged_object_intermediary.get_value()
