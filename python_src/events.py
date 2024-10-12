@@ -37,194 +37,6 @@ class Events:
 
         self.controllers = _Controllers()
 
-        self.backspace_key = Backspace_KEY()
-        self.tab_key = Tab_KEY()
-        self.clear_key = Clear_KEY()
-        self.return_key = Return_KEY()
-        self.pause_key = Pause_KEY()
-        self.escape_key = Escape_KEY()
-        self.space_key = Space_KEY()
-        self.exclamationmark_key = ExclamationMark_KEY()
-        self.doublequote_key = DoubleQuote_KEY()
-        self.hashtag_key = Hashtag_KEY()
-        self.dollar_key = Dollar_KEY()
-        self.ampersand_key = Ampersand_KEY()
-        self.singlequote_key = SingleQuote_KEY()
-        self.leftparenthesis_key = LeftParenthesis_KEY()
-        self.rightparenthesis_key = RightParenthesis_KEY()
-        self.asterisk_key = Asterisk_KEY()
-        self.plus_key = Plus_KEY()
-        self.comma_key = Comma_KEY()
-        self.minus_key = Minus_KEY()
-        self.period_key = Period_KEY()
-        self.forwardslash_key = ForwardSlash_KEY()
-        self.primary0_key = Primary0_KEY()
-        self.primary1_key = Primary1_KEY()
-        self.primary2_key = Primary2_KEY()
-        self.primary3_key = Primary3_KEY()
-        self.primary4_key = Primary4_KEY()
-        self.primary5_key = Primary5_KEY()
-        self.primary6_key = Primary6_KEY()
-        self.primary7_key = Primary7_KEY()
-        self.primary8_key = Primary8_KEY()
-        self.primary9_key = Primary9_KEY()
-        self.colon_key = Colon_KEY()
-        self.semicolon_key = SemiColon_KEY()
-        self.lessthan_key = LessThan_KEY()
-        self.equals_key = Equals_KEY()
-        self.greaterthan_key = GreaterThan_KEY()
-        self.questionmark_key = QuestionMark_KEY()
-        self.at_key = At_KEY()
-        self.leftbracket_key = LeftBracket_KEY()
-        self.backslash_key = BackSlash_KEY()
-        self.rightbracket_key = RightBracket_KEY()
-        self.caret_key = Caret_KEY()
-        self.underscore_key = Underscore_KEY()
-        self.grave_key = Grave_KEY()
-        self.primarya_key = PrimaryA_KEY()
-        self.primaryb_key = PrimaryB_KEY()
-        self.primaryc_key = PrimaryC_KEY()
-        self.primaryd_key = PrimaryD_KEY()
-        self.primarye_key = PrimaryE_KEY()
-        self.primaryf_key = PrimaryF_KEY()
-        self.primaryg_key = PrimaryG_KEY()
-        self.primaryh_key = PrimaryH_KEY()
-        self.primaryi_key = PrimaryI_KEY()
-        self.primaryj_key = PrimaryJ_KEY()
-        self.primaryk_key = PrimaryK_KEY()
-        self.primaryl_key = PrimaryL_KEY()
-        self.primarym_key = PrimaryM_KEY()
-        self.primaryn_key = PrimaryN_KEY()
-        self.primaryo_key = PrimaryO_KEY()
-        self.primaryp_key = PrimaryP_KEY()
-        self.primaryq_key = PrimaryQ_KEY()
-        self.primaryr_key = PrimaryR_KEY()
-        self.primarys_key = PrimaryS_KEY()
-        self.primaryt_key = PrimaryT_KEY()
-        self.primaryu_key = PrimaryU_KEY()
-        self.primaryv_key = PrimaryV_KEY()
-        self.primaryw_key = PrimaryW_KEY()
-        self.primaryx_key = PrimaryX_KEY()
-        self.primaryy_key = PrimaryY_KEY()
-        self.primaryz_key = PrimaryZ_KEY()
-        self.delete_key = Delete_KEY()
-        self.numpad0_key = Numpad0_KEY()
-        self.numpad1_key = Numpad1_KEY()
-        self.numpad2_key = Numpad2_KEY()
-        self.numpad3_key = Numpad3_KEY()
-        self.numpad4_key = Numpad4_KEY()
-        self.numpad5_key = Numpad5_KEY()
-        self.numpad6_key = Numpad6_KEY()
-        self.numpad7_key = Numpad7_KEY()
-        self.numpad8_key = Numpad8_KEY()
-        self.numpad9_key = Numpad9_KEY()
-        self.numpadperiod_key = NumpadPeriod_KEY()
-        self.numpaddivide_key = NumpadDivide_KEY()
-        self.numpadmultiply_key = NumpadMultiply_KEY()
-        self.numpadminus_key = NumpadMinus_KEY()
-        self.numpadplus_key = NumpadPlus_KEY()
-        self.numpadenter_key = NumpadEnter_KEY()
-        self.numpadequals_key = NumpadEquals_KEY()
-        self.up_key = Up_KEY()
-        self.down_key = Down_KEY()
-        self.right_key = Right_KEY()
-        self.left_key = Left_KEY()
-        self.insert_key = Insert_KEY()
-        self.home_key = Home_KEY()
-        self.end_key = End_KEY()
-        self.pageup_key = PageUp_KEY()
-        self.pagedown_key = PageDown_KEY()
-        self.function1_key = Function1_KEY()
-        self.function2_key = Function2_KEY()
-        self.function3_key = Function3_KEY()
-        self.function4_key = Function4_KEY()
-        self.function5_key = Function5_KEY()
-        self.function6_key = Function6_KEY()
-        self.function7_key = Function7_KEY()
-        self.function8_key = Function8_KEY()
-        self.function9_key = Function9_KEY()
-        self.function10_key = Function10_KEY()
-        self.function11_key = Function11_KEY()
-        self.function12_key = Function12_KEY()
-        self.function13_key = Function13_KEY()
-        self.function14_key = Function14_KEY()
-        self.function15_key = Function15_KEY()
-        self.numlock_key = NumLock_KEY()
-        self.capslock_key = CapsLock_KEY()
-        self.scrolllock_key = ScrollLock_KEY()
-        self.rightshift_key = RightShift_KEY()
-        self.leftshift_key = LeftShift_KEY()
-        self.shift_key = Shift_KEY()
-        self.rightcontrol_key = RightControl_KEY()
-        self.leftcontrol_key = LeftControl_KEY()
-        self.control_key = Control_KEY()
-        self.rightalt_key = RightAlt_KEY()
-        self.leftalt_key = LeftAlt_KEY()
-        self.alt_key = Alt_KEY()
-        self.rightmeta_key = RightMeta_KEY()
-        self.leftmeta_key = LeftMeta_KEY()
-        self.meta_key = Meta_KEY()
-        self.leftsuper_key = LeftSuper_KEY()
-        self.rightsuper_key = RightSuper_KEY()
-        self.super_key = Super_KEY()
-        self.mode_key = Mode_KEY()
-        self.help_key = Help_KEY()
-        self.print_key = Print_KEY()
-        self.systemrequest_key = SystemRequest_KEY()
-        self.break_key = Break_KEY()
-        self.menu_key = Menu_KEY()
-        self.power_key = Power_KEY()
-        self.euro_key = Euro_KEY()
-        self.androidback_key = AndroidBack_KEY()
-
-        self.leftbutton_mouse = LeftButton_MOUSE()
-        self.middlebutton_mouse = MiddleButton_MOUSE()
-        self.rightbutton_mouse = RightButton_MOUSE()
-        self.mouse_scroll = Mouse_SCROLL()
-        self.mouse_position = Mouse_POSITION()
-        self.appterminating_event = AppTerminating_EVENT()
-        _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT] = AppLowMemory_EVENT()
-        self.appwillenterbackground_event = AppWillEnterBackground_EVENT()
-        self.appdidenterbackground_event = AppDidEnterBackground_EVENT()
-        _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT] = AppWillEnterForeground_EVENT()
-        self.appdidenterforeground_event = AppDidEnterForeground_EVENT()
-        self.audiodeviceadded_event = AudioDeviceAdded_EVENT()
-        self.audiodeviceremoved_event = AudioDeviceRemoved_EVENT()
-        self.clipboardupdate_event = ClipBoardUpdate_EVENT()
-        self.dropfile_event = DropFile_EVENT()
-        self.droptext_event = DropText_EVENT()
-        self.dropbegin_event = DropBegin_EVENT()
-        self.dropcomplete_event = DropComplete_EVENT()
-        self.fingermotion_event = FingerMotion_EVENT()
-        self.fingerdown_event = FingerDown_EVENT()
-        self.fingerup_event = FingerUp_EVENT()
-        self.keymapchanged_event = KeyMapChanged_EVENT()
-        self.localechanged_event = LocaleChanged_EVENT()
-        self.multigesture_event = MultiGesture_EVENT()
-        self.quit_event = Quit_EVENT()
-        self.rendertargetsreset_event = RenderTargetsReset_EVENT()
-        self.renderdevicereset_event = RenderDeviceReset_EVENT()
-        self.syswmevent_event = SysWMEvent_EVENT()
-        self.windowshown_event = WindowShown_EVENT()
-        self.windowhidden_event = WindowHidden_EVENT()
-        self.windowexposed_event = WindowExposed_EVENT()
-        self.windowmoved_event = WindowMoved_EVENT()
-        self.windowresized_event = WindowResized_EVENT()
-        self.windowminimized_event = WindowMinimized_EVENT()
-        self.windowmaximized_event = WindowMaximized_EVENT()
-        self.windowrestored_event = WindowRestored_EVENT()
-        self.windowenter_event = WindowEnter_EVENT()
-        self.windowleave_event = WindowLeave_EVENT()
-        self.windowfocusgained_event = WindowFocusGained_EVENT()
-        self.windowfocuslost_event = WindowFocusLost_EVENT()
-        self.windowclose_event = WindowClose_EVENT()
-        self.windowtakefocus_event = WindowTakeFocus_EVENT()
-        self.windowhittest_event = WindowHitTest_EVENT()
-        self.windowiccprofchanged_event = WindowICCPROFChanged_EVENT()
-        self.windowdisplaychanged_event = WindowDisplayChanged_EVENT()
-        self.joydeviceadded_event = JoyDeviceAdded_EVENT()
-        self.joydeviceremoved_event = JoyDeviceRemoved_EVENT()
-
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         if self.iteration_id == _Registry.iteration_id and _Registry.compute_component_called:
             self._logger.log_development("You have called the 'handle()' method from events \
@@ -389,55 +201,55 @@ then enable it to see if it fixes or improves a desired feature.")
         raw_events = _pygame.event.get()
         for event in raw_events:
             if event.type == _pygame.APP_TERMINATING:
-                self.appterminating_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_LOWMEMORY:
                 _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_WILLENTERBACKGROUND:
-                self.appwillenterbackground_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_DIDENTERBACKGROUND:
-                self.appdidenterbackground_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_WILLENTERFOREGROUND:
-                self.appwillenterbackground_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.APP_DIDENTERFOREGROUND:
-                self.appdidenterforeground_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.AUDIODEVICEADDED:
-                self.audiodeviceadded_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.AUDIODEVICEREMOVED:
-                self.audiodeviceremoved_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.CLIPBOARDUPDATE:
-                self.clipboardupdate_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPFILE:
-                self.dropfile_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPTEXT:
-                self.droptext_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPBEGIN:
-                self.dropbegin_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.DROPCOMPLETE:
-                self.dropcomplete_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.FINGERMOTION:
-                self.fingermotion_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.FINGERDOWN:
-                self.fingerdown_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.FINGERUP:
-                self.fingerup_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.KEYMAPCHANGED:
-                self.keymapchanged_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.JOYAXISMOTION:
                 controller = self.controllers.get_controller(event.joy)
@@ -533,43 +345,43 @@ then enable it to see if it fixes or improves a desired feature.")
                     controller.set_center_button_pressed(False)
 
             elif event.type == _pygame.JOYDEVICEADDED:
-                self.joydeviceadded_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
             elif event.type == _pygame.JOYDEVICEREMOVED:
-                self.joydeviceremoved_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
             elif event.type == _pygame.LOCALECHANGED:
-                self.localechanged_event.set_value(True)
+                _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.MOUSEMOTION:
                 mouse_x_position, mouse_y_position = event.pos
                 mouse_x_displacement, mouse_y_displacement = event.rel
-                self.mouse_position.set_x_axis(mouse_x_position)
-                self.mouse_position.set_y_axis(mouse_y_position)
-                self.mouse_position.set_x_axis_displacement(mouse_x_displacement)
-                self.mouse_position.set_y_axis_displacement(mouse_y_displacement)
+                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis(mouse_x_position)
+                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis(mouse_y_position)
+                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(mouse_x_displacement)
+                _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(mouse_y_displacement)
 
             elif event.type == _pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    self.leftbutton_mouse.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
                 elif event.button == 2:
-                    self.middlebutton_mouse.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(True)
 
                 elif event.button == 3:
-                    self.rightbutton_mouse.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
             elif event.type == _pygame.MOUSEBUTTONUP:
                 if event.button == 1:
-                    self.leftbutton_mouse.set_pressed(False)
+                    _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
                 elif event.button == 2:
-                    self.middlebutton_mouse.set_pressed(False)
+                    _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(False)
 
                 elif event.button == 3:
-                    self.rightbutton_mouse.set_pressed(False)
+                    _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
             elif event.type == _pygame.MOUSEWHEEL:
                 x_displacement = event.precise_x
@@ -577,106 +389,106 @@ then enable it to see if it fixes or improves a desired feature.")
                 if event.flipped:
                     x_displacement *= -1
                     y_displacement *= -1
-                self.mouse_scroll.set_x_displacement(x_displacement)
-                self.mouse_scroll.set_y_displacement(y_displacement)
-                total_x = self.mouse_scroll.get_x_value()
-                total_y = self.mouse_scroll.get_y_value()
-                self.mouse_scroll.set_x_value(total_x + x_displacement)
-                self.mouse_scroll.set_y_value(total_y + y_displacement)
+                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(x_displacement)
+                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(y_displacement)
+                total_x = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_x_value()
+                total_y = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_y_value()
+                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_value(total_x + x_displacement)
+                _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_value(total_y + y_displacement)
 
             elif event.type == _pygame.KEYDOWN:
                 if event.key == _pygame.K_BACKSPACE:
-                    self.backspace_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_TAB:
-                    self.tab_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_CLEAR:
-                    self.clear_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_RETURN:
-                    self.return_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_PAUSE:
-                    self.pause_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_ESCAPE:
-                    self.escape_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_pressed(True)
                     if handle_exit_events:
                         _Registry.running = False
                         _Backpack.running = False
 
                 elif event.key == _pygame.K_SPACE:
-                    self.space_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_EXCLAIM:
-                    self.exclamationmark_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_QUOTEDBL:
-                    self.doublequote_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_HASH:
-                    self.hash_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_DOLLAR:
-                    self.dollar_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_AMPERSAND:
-                    self.ampersand_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_QUOTE:
-                    self.singlequote_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_LEFTPAREN:
-                    self.leftparenthesis_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_RIGHTPAREN:
-                    self.rightparenthesis_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_ASTERISK:
-                    self.asterisk_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_PLUS:
-                    self.plus_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_COMMA:
-                    self.comma_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_MINUS:
-                    self.minus_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_PERIOD:
-                    self.period_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_SLASH:
-                    self.forwardslash_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_0:
-                    self.primary0_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_1:
-                    self.primary1_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_2:
-                    self.primary2_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_3:
-                    self.primary3_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_4:
-                    self.primary4_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_5:
-                    self.primary5_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_6:
-                    self.primary6_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_7:
-                    self.primary7_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_8:
-                    self.primary8_key.set_pressed(True)
+                    _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame.K_9:
                     self.primary9_key.set_pressed(True)
