@@ -1484,8 +1484,8 @@ class Backspace_KEY:
     def __init__(self):
         _initialize(self)
 
-        if not _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.TAB_KEY_OBJECT)
+        if not _Constants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.BACKSPACE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Backspace_KEY as _Backspace_KEY
             _Backspace_KEY()
 
