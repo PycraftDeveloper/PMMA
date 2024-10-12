@@ -1507,77 +1507,99 @@ then enable it to see if it fixes or improves a desired feature.")
                         _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_pressed(False)
 
             elif event.type == _pygame.MULTIGESTURE:
-                self.multigesture_event.set_gesture_center_x(event.x)
-                self.multigesture_event.set_gesture_center_y(event.y)
-                self.multigesture_event.set_number_of_fingers(event.num_fingers)
-                self.multigesture_event.set_rotated_value(event.rotated)
-                self.multigesture_event.set_pinched_value(event.pinched)
+                if _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(event.x)
+                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(event.y)
+                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(event.num_fingers)
+                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(event.rotated)
+                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(event.pinched)
 
             elif event.type == _pygame.QUIT:
-                self.quit_event.set_value(True)
+                if _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT].set_value(True)
                 if handle_exit_events:
                     _Registry.running = False
                     _Backpack.running = False
 
             elif event.type == _pygame.RENDER_TARGETS_RESET:
-                self.rendertargetsreset_event.set_value(True)
+                if _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.RENDER_DEVICE_RESET:
-                self.renderdevicereset_event.set_value(True)
+                if _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.SYSWMEVENT:
-                self.syswmevent_event.set_value(True)
+                if _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWSHOWN:
-                self.windowshown_event.set_value(True)
+                if _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWHIDDEN:
-                self.windowhidden_event.set_value(True)
+                if _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWEXPOSED:
-                self.windowexposed_event.set_value(True)
+                if _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWMOVED:
-                self.windowmoved_event.set_value(True)
+                if _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWRESIZED or event.type == _pygame.WINDOWSIZECHANGED:
-                self.windowresized_event.set_value(True)
+                if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWMINIMIZED:
-                self.windowminimized_event.set_value(True)
+                if _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWMAXIMIZED:
-                self.windowmaximized_event.set_value(True)
+                if _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWRESTORED:
-                self.windowrestored_event.set_value(True)
+                if _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWENTER:
-                self.windowenter_event.set_value(True)
+                if _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWLEAVE:
-                self.windowleave_event.set_value(True)
+                if _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWFOCUSGAINED:
-                self.windowfocusgained_event.set_value(True)
+                if _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWFOCUSLOST:
-                self.windowfocuslost_event.set_value(True)
+                if _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWCLOSE:
-                self.windowclose_event.set_value(True)
+                if _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWTAKEFOCUS:
-                self.windowtakefocus_event.set_value(True)
+                if _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWHITTEST:
-                self.windowhittest_event.set_value(True)
+                if _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWICCPROFCHANGED:
-                self.windowiccprofchanged_event.set_value(True)
+                if _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame.WINDOWDISPLAYCHANGED:
-                self.windowdisplaychanged_event.set_value(True)
+                if _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(True)
 
 class Backspace_KEY:
     def __del__(self, do_garbage_collection=False):
