@@ -248,57 +248,143 @@ then enable it to see if it fixes or improves a desired feature.")
 
         _Registry.handled_events = True
 
-        self.appterminating_event.set_value(False)
-        self.applowmemory_event.set_value(False)
-        self.appwillenterbackground_event.set_value(False)
-        self.appdidenterbackground_event.set_value(False)
-        self.appwillenterforeground_event.set_value(False)
-        self.appdidenterforeground_event.set_value(False)
-        self.audiodeviceadded_event.set_value(False)
-        self.audiodeviceremoved_event.set_value(False)
-        self.clipboardupdate_event.set_value(False)
-        self.dropfile_event.set_file(False)
-        self.droptext_event.set_text(None)
-        self.dropbegin_event.set_value(False)
-        self.dropcomplete_event.set_value(False)
-        self.fingermotion_event.set_value(False)
-        self.fingerdown_event.set_value(False)
-        self.fingerup_event.set_value(False)
-        self.keymapchanged_event.set_value(False)
-        self.localechanged_event.set_value(False)
-        self.multigesture_event.set_gesture_center_x(None)
-        self.multigesture_event.set_gesture_center_y(None)
-        self.multigesture_event.set_number_of_fingers(None)
-        self.multigesture_event.set_rotated_value(None)
-        self.multigesture_event.set_pinched_value(None)
-        self.quit_event.set_value(False)
-        self.rendertargetsreset_event.set_value(False)
-        self.renderdevicereset_event.set_value(False)
-        self.syswmevent_event.set_value(False)
-        self.windowshown_event.set_value(False)
-        self.windowhidden_event.set_value(False)
-        self.windowexposed_event.set_value(False)
-        self.windowmoved_event.set_value(False)
-        self.windowresized_event.set_value(False)
-        self.windowminimized_event.set_value(False)
-        self.windowmaximized_event.set_value(False)
-        self.windowrestored_event.set_value(False)
-        self.windowenter_event.set_value(False)
-        self.windowleave_event.set_value(False)
-        self.windowfocusgained_event.set_value(False)
-        self.windowfocuslost_event.set_value(False)
-        self.windowclose_event.set_value(False)
-        self.windowtakefocus_event.set_value(False)
-        self.windowhittest_event.set_value(False)
-        self.windowiccprofchanged_event.set_value(False)
-        self.windowdisplaychanged_event.set_value(False)
-        self.joydeviceadded_event.set_value(False)
-        self.joydeviceremoved_event.set_value(False)
+        if _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(False)
 
-        self.mouse_scroll.set_x_displacement(0)
-        self.mouse_scroll.set_y_displacement(0)
-        self.mouse_position.set_x_axis_displacement(0)
-        self.mouse_position.set_y_axis_displacement(0)
+        if _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.applowmemory_event.set_value(False)
+
+        if _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.appwillenterbackground_event.set_value(False)
+
+        if _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.appdidenterbackground_event.set_value(False)
+
+        if _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.appwillenterforeground_event.set_value(False)
+
+        if _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.appdidenterforeground_event.set_value(False)
+
+        if _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.audiodeviceadded_event.set_value(False)
+
+        if _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.audiodeviceremoved_event.set_value(False)
+
+        if _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.clipboardupdate_event.set_value(False)
+
+        if _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.dropfile_event.set_file(False)
+
+        if _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.droptext_event.set_text(None)
+
+        if _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.dropbegin_event.set_value(False)
+
+        if _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.dropcomplete_event.set_value(False)
+
+        if _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.fingermotion_event.set_value(False)
+
+        if _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.fingerdown_event.set_value(False)
+
+        if _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.fingerup_event.set_value(False)
+
+        if _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.keymapchanged_event.set_value(False)
+
+        if _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.localechanged_event.set_value(False)
+
+        if _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.multigesture_event.set_gesture_center_x(None)
+            self.multigesture_event.set_gesture_center_y(None)
+            self.multigesture_event.set_number_of_fingers(None)
+            self.multigesture_event.set_rotated_value(None)
+            self.multigesture_event.set_pinched_value(None)
+
+        if _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.quit_event.set_value(False)
+
+        if _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.rendertargetsreset_event.set_value(False)
+
+        if _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.renderdevicereset_event.set_value(False)
+
+        if _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.syswmevent_event.set_value(False)
+
+        if _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowshown_event.set_value(False)
+
+        if _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowhidden_event.set_value(False)
+
+        if _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowexposed_event.set_value(False)
+
+        if _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowmoved_event.set_value(False)
+
+        if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowresized_event.set_value(False)
+
+        if _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowminimized_event.set_value(False)
+
+        if _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowmaximized_event.set_value(False)
+
+        if _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowrestored_event.set_value(False)
+
+        if _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowenter_event.set_value(False)
+
+        if _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowleave_event.set_value(False)
+
+        if _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowfocusgained_event.set_value(False)
+
+        if _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowfocuslost_event.set_value(False)
+
+        if _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowclose_event.set_value(False)
+
+        if _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowtakefocus_event.set_value(False)
+
+        if _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowhittest_event.set_value(False)
+
+        if _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowiccprofchanged_event.set_value(False)
+
+        if _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            self.windowdisplaychanged_event.set_value(False)
+
+        if _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
+            self.joydeviceadded_event.set_value(False)
+
+        if _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
+            self.joydeviceremoved_event.set_value(False)
+
+        if _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
+            self.mouse_scroll.set_x_displacement(0)
+            self.mouse_scroll.set_y_displacement(0)
+
+        if _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
+            self.mouse_position.set_x_axis_displacement(0)
+            self.mouse_position.set_y_axis_displacement(0)
 
         raw_events = _pygame.event.get()
         for event in raw_events:
