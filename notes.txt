@@ -51,8 +51,7 @@ Work on render pipeline.
 **ALSO, ADJUST SHAPE INDEXES**
 
 Preparing for next release:
-	Few issues in some realtime effects - test these and try and fix.
-	Passport changes to startup.
+	Few issues in some realtime audio effects - test these and try and fix.
 	Improve Shape Rendering.
 
 Next release:
