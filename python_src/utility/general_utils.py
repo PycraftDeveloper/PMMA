@@ -24,10 +24,6 @@ from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
 from pmma.python_src.utility.settings_utils import set_allow_anti_aliasing as _set_allow_anti_aliasing
 from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _set_anti_aliasing_level
-from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
-from pmma.python_src.events import WindowMinimized_EVENT as _WindowMinimized_EVENT
-from pmma.python_src.events import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
-from pmma.python_src.events import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
@@ -219,8 +215,10 @@ generating 3D arrays.")
         _sys__exit(0)
 
 def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
-    if _WindowResized_EVENT().get_value():
-        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
+    if (_Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine and
+            _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine):
+        if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
 
     if _time__perf_counter() - _Registry.power_status_checked_time > 10:
         _Registry.power_saving_mode = is_battery_saver_enabled()
@@ -287,13 +285,13 @@ likely improve application performance. Note that this message will only appear 
 may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_render_updates, 1/(total_time_spent_drawing)])
 
     if _Registry.display_initialized:
-        if _WindowResized_EVENT().get_value():
+        if _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(False)
-        elif _WindowMinimized_EVENT().get_value():
+        elif _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        if _WindowFocusGained_EVENT().get_value():
+        if _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(True)
-        elif _WindowFocusLost_EVENT().get_value():
+        elif _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def register_application():

@@ -28,6 +28,10 @@ from pmma.python_src.utility.opengl_utils import Texture as _Texture
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.opengl import FrameBufferObject as _FrameBufferObject
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
+from pmma.python_src.events import WindowRestored_EVENT as _WindowRestored_EVENT
+from pmma.python_src.events import WindowMinimized_EVENT as _WindowMinimized_EVENT
+from pmma.python_src.events import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
+from pmma.python_src.events import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.projection import OrthographicProjection as _OrthographicProjection
 from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
@@ -61,6 +65,10 @@ class DisplayIntermediary:
         self._color_key = _numpy__array([0, 0, 0], dtype=_numpy__float32)
 
         self.resized_event = _WindowResized_EVENT()
+        _WindowRestored_EVENT() # for passports
+        _WindowMinimized_EVENT() # for passports
+        _WindowFocusGained_EVENT() # for passports
+        _WindowFocusLost_EVENT() # for passports
 
         self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
