@@ -285,13 +285,17 @@ likely improve application performance. Note that this message will only appear 
 may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_render_updates, 1/(total_time_spent_drawing)])
 
     if _Registry.display_initialized:
-        if _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].get_value():
+        if (_Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].get_value()):
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(False)
-        elif _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value():
+        elif (_Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()):
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        if _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value():
+        if (_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()):
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(True)
-        elif _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine and _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value():
+        elif (_Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()):
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def register_application():

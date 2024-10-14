@@ -2,7 +2,7 @@ from gc import collect as _gc__collect
 import importlib as _importlib
 
 from numpy import array as _numpy__array
-
+from numpy import float64 as _numpy__float64
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -66,7 +66,7 @@ class Math:
             distance (float) - The calculated pythagorean distance between the two points.
         """
         if type(points) in [list, tuple]:
-            points = _numpy__array(points)
+            points = _numpy__array(points, dtype=_numpy__float64)
         return self.get_function_pythag()(points)
 
     def get_function_ranger(self):

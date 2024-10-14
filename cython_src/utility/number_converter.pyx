@@ -170,7 +170,7 @@ cdef class Coordinate:
             from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
             _DisplayIntermediary()
 
-        cdef object display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     cpdef void set_coordinate(self, object coordinate, object in_type=Constants.CONVENTIONAL_COORDINATES):
         if not _Registry.display_initialized:
@@ -218,7 +218,7 @@ cdef class Coordinate:
         cdef double display_width, display_height, x, y
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return self._coordinate
+            return [self._coordinate[0], self._coordinate[1]]
         elif out_type == Constants.OPENGL_COORDINATES:
             display_size = self.display.get_size()
             display_width = display_size[0]
