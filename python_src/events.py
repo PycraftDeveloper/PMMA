@@ -1635,7 +1635,7 @@ class Backspace_KEY:
         self._backspace_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
-        return _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].get_pressed()
+        return self._backspace_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
         self._backspace_key_object_intermediary.set_pressed(value)

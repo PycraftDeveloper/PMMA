@@ -72,10 +72,7 @@ class Video:
             from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
             _DisplayIntermediary()
 
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._time_since_last_frame = 0.0
@@ -117,7 +114,7 @@ class Video:
         self._is_playing = False
 
     def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+        if surface is None:
             surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface

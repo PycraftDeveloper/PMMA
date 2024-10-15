@@ -75,7 +75,7 @@ class _RenderPipeline:
 
     def render(self, canvas=None): # not sure on width yet.
         if canvas is None:
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
+            self._display.get_2D_hardware_accelerated_surface()
 
         if self._render_points == []:
             return

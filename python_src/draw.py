@@ -179,7 +179,8 @@ class Line:
 
     def _update_buffers(self):
         if self._vertices_changed:
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
@@ -439,7 +440,8 @@ class RadialPolygon:
             self._created_shape = True
 
         if self._vertices_changed:
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
             self._vertices_changed = False
@@ -581,7 +583,8 @@ class Rectangle:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
@@ -800,7 +803,8 @@ class Arc:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
@@ -998,7 +1002,8 @@ class Ellipse:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these parameters
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
@@ -1209,7 +1214,8 @@ class Polygon:
             if not self._points:
                 return None  # No points to form the polygon
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
