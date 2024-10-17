@@ -4,26 +4,6 @@ PMMA Miscellaneous Methods (``pmma.``)
 
 Here you will find all the subroutines that aren't grouped into a specific object. Don't let the title fool you however, the subroutines found here can be incredibly powerful and helpful.
 
-.. py:method:: pmma.set_render_wire_frame() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.get_render_wire_frame() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.add() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.render() -> None
-
-   Not Yet Written
-
 .. py:method:: pmma.path_builder() -> None
 
    Not Yet Written
@@ -157,6 +137,26 @@ Here you will find all the subroutines that aren't grouped into a specific objec
    Not Yet Written
 
 .. py:method:: pmma.up() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.set_render_wire_frame() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.get_render_wire_frame() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.quit() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.add() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.render() -> None
 
    Not Yet Written
 
