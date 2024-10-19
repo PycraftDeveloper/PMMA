@@ -21,7 +21,7 @@ class ControllersIntermediary:
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            self._logger.log_information(_Registry.pygame_launch_message)
             _pygame__init()
 
         self._controllers = []
