@@ -15,6 +15,14 @@ from pmma.python_src.utility.general_utils import targeted_profile_end as _targe
 from pmma.python_src.utility.general_utils import targeted_profile_start as _targeted_profile_start
 from pmma.python_src.utility.general_utils import get_execution_time as _get_execution_time
 from pmma.python_src.utility.general_utils import get_execution_inverse_time as _get_execution_inverse_time
+from pmma.python_src.utility.general_utils import get_application_run_time as _get_application_run_time
+from pmma.python_src.utility.general_utils import get_application_startup_duration as _get_application_startup_duration
+
+def get_application_startup_duration():
+    return _get_application_startup_duration()
+
+def get_application_run_time():
+    return _get_application_run_time()
 
 def get_execution_time():
     return _get_execution_time()

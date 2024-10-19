@@ -446,3 +446,9 @@ def can_swizzle(in_format, data, out_format):
     elif len(data) != len(in_format):
         return False
     return True
+
+def get_application_run_time():
+    return _time__perf_counter() - _Registry.application_start_time
+
+def get_application_startup_duration():
+    return _Registry.application_finished_loading_time - _Registry.application_start_time
