@@ -36,51 +36,44 @@ Transparent display not working with opengl, potentially signs of a bigger probl
 Rendering Polygon fails.
 Rendering shapes need to be updated when window resized. Note though that this breaks pretty much all positioning and shapes so IDK what to do about that at the moment lol.
 
-TO DO LIST
-==========
-Work on handling ALSA audio error messages in video.py.
-
+UNCONFIRMED RELEASE SCHEDULE
+============================
 Work on MIDI events when able to do so. Update: Not possible with Pygame, will need to do more RnD first.
-
-Create aggregated events like Pointer (similar to controller already added).
-
-Introduce prefix adjustments for SI-units. **
-Add object collision.
-Work on render pipeline.
-
-**ALSO, ADJUST SHAPE INDEXES IN RENDER PIPELINE**
-
-TEMPORARY TO DO LIST
-====================
-Create shapes like circle from RadialPolygon
-Create shapes like lines from Polygon (with closed=False)
-Update shapes when aspect ratio changes
-Update render pipeline
-
-IMPROVEMENTS
-============
+Work on handling ALSA audio error messages in video.py.
 Magic number in video playback: ~198: `                _time.sleep(0.48)` not sure yet what this means
 
 RELEASE SCHEDULE
 ================
+[BUG FIX] - An issue that needs urgent addressing. Should be tackled first.
+[IMPROVEMENT] - A feature that could be made even better.
+[EXTENSION] - A new feature that extends an existing idea.
+[NEW FEATURE] - An entirely new feature/mechanic.
+
 Preparing for next release:
-	Few issues in some realtime audio effects - test these and try and fix.
-	Improve Shape Rendering.
-	shapes should only be drawable to the display - slight tweak
+	[BUG FIX] Few issues in some realtime audio effects - test these and try and fix.
+	[IMPROVEMENT] Improve Shape Rendering.
+	[IMPROVEMENT] shapes should only be drawable to the display - slight tweak
+	[BUG FIX] Update shapes when aspect ratio changes
 
 Next release:
-	Add collisions to shapes.
-	Add paths as extension from collisions.
-	Add camera as extension from perspective.
-	Add back in Images.
-	Add back in render pipeline.
-	Add in collision detections for all shapes.
-	Add in 3D shapes (sphere, rectangle, n-prism, n-equivalent of 2D shapes)
+	[NEW FEATURE] Create shapes like circle from RadialPolygon
+	[NEW FEATURE] Create shapes like lines from Polygon (with closed=False)
+	[NEW FEATURE] Add collisions to shapes.
+	[EXTENSION] Add paths as extension from transitions.
+	[EXTENSION] Add camera as extension from perspective.
+	[IMPROVEMENT] Add back in Images.
+	[BUG FIX] Adjust shape indexes in render pipeline
+	[IMPROVEMENT] Add back in render pipeline.
+	[NEW FEATURE] Add in collision detections for all shapes.
+	[NEW FEATURE] Add in 3D shapes (sphere, rectangle, n-prism, n-equivalent of 2D shapes)
+	[NEW FEATURE] Introduce prefix adjustments for SI-units.
+	[NEW FEATURE] Create aggregated events like Pointer (similar to controller already added).
+	[IMPROVEMENT] Noise generation value defaults to application run time.
 
 Following releases:
-	Fix perlin noise for arrays.
-	Introduce loading of custom 3D AND 2D objects from file or array.
-	Introduce skybox.
-	Introduce collisions for 3D objects and scenes.
-	Particles systems and instances.
-	Custom Python based shader language. PySL.
+	[BUG FIX] Fix perlin noise for arrays.
+	[NEW FEATURE] Introduce loading of custom 3D AND 2D objects from file or array.
+	[NEW FEATURE] Introduce skybox.
+	[NEW FEATURE] Introduce collisions for 3D objects and scenes.
+	[NEW FEATURE] Particles systems and instances.
+	[NEW FEATURE] Custom Python based shader language. PySL.
