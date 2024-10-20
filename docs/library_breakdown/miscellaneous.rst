@@ -80,6 +80,14 @@ Here you will find all the subroutines that aren't grouped into a specific objec
 
    Not Yet Written
 
+.. py:method:: pmma.get_application_startup_duration() -> None
+
+   Not Yet Written
+
+.. py:method:: pmma.get_application_run_time() -> None
+
+   Not Yet Written
+
 .. py:method:: pmma.get_execution_time() -> None
 
    Not Yet Written
