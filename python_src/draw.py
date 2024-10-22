@@ -309,7 +309,7 @@ class RadialPolygon:
 
         if self._point_count is None:
             try:
-                point_count = 1 + int((_Constants.TAU/_math.asin(1/self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))*_Registry.shape_quality)
+                point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
             except ValueError:
                 point_count = 3
             if point_count < 3:
@@ -318,20 +318,44 @@ class RadialPolygon:
             point_count = self._point_count
 
         angle_step = 2 * _math.pi / point_count
-        vertices = []
+        outer_vertices = []
+        inner_vertices = []
 
         rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
         center = [0, 0]
-        radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
+        outer_radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
 
+        # Calculate the inner radius based on the specified width
+        if self._width is not None:
+            pixel_width = self._width / _Registry.context.viewport[2]  # Convert width from pixels to normalized coordinates
+            inner_radius = max(outer_radius - pixel_width, 0)  # Ensure the inner radius is not negative
+        else:
+            inner_radius = 0  # Full polygon with no inner cut-out
+
+        # Create outer and inner vertices
         for i in range(point_count):
             angle = i * angle_step + rotation
-            x = center[0] + radius * _math.cos(angle)
-            y = center[1] + radius * _math.sin(angle)
-            vertices.append([x, y])
+            outer_x = center[0] + outer_radius * _math.cos(angle)
+            outer_y = center[1] + outer_radius * _math.sin(angle)
+            inner_x = center[0] + inner_radius * _math.cos(angle) * 0.98  # Scale inner vertices slightly inward
+            inner_y = center[1] + inner_radius * _math.sin(angle) * 0.98
 
-        vertices = _numpy.array(vertices, dtype='f4')
+            outer_vertices.append([outer_x, outer_y])
+            inner_vertices.append([inner_x, inner_y])
+
+        # Create a list of vertices alternating between outer and inner vertices for triangle strip
+        combined_vertices = []
+        for i in range(point_count):
+            combined_vertices.append(outer_vertices[i])
+            combined_vertices.append(inner_vertices[i])
+
+        # Close the shape by adding the first vertices again
+        combined_vertices.append(outer_vertices[0])
+        combined_vertices.append(inner_vertices[0])
+
+        # Convert to numpy array
+        vertices = _numpy.array(combined_vertices, dtype='f4')
 
         if self._vbo.get_created():
             self._vbo.update(vertices)
@@ -455,15 +479,9 @@ class RadialPolygon:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         # Draw the polygon using triangle fan (good for convex shapes)
-        if self._width != None:
-            mode = _moderngl.LINE_STRIP
-            _Registry.context.line_width = self._width # unreliable
-        else:
-            mode = _moderngl.TRIANGLE_FAN
+        mode = _moderngl.TRIANGLE_STRIP
 
         self._vao.render(mode)
-
-        _Registry.context.line_width = 1 # unreliable
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start

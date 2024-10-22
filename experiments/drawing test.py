@@ -19,6 +19,7 @@ display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 
 events = pmma.Events()
 
+"""
 line = pmma.Line()
 line.set_start((300, 300))
 line.set_end((500, 300))
@@ -28,14 +29,14 @@ line.set_width(1)
 pixel = pmma.Pixel()
 pixel.set_position((100, 100))
 pixel.set_color([255, 255, 255])
-
+"""
 radial_polygon = pmma.RadialPolygon()
-radial_polygon.set_center([500, 500])
-radial_polygon.set_radius(400)
+radial_polygon.set_center([400, 350])
+radial_polygon.set_radius(300)
 radial_polygon.set_color([255, 0, 0])
-radial_polygon.set_point_count()
-radial_polygon.set_width(10)
-
+radial_polygon.set_point_count(3)
+radial_polygon.set_width(5)
+"""
 rectangle = pmma.Rectangle()
 rectangle.set_position((100, 100))
 rectangle.set_size((100, 300))
@@ -61,26 +62,24 @@ polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200)])
 polygon.set_closed(False)
 polygon.set_width(10)
-
+"""
 s = time.perf_counter()
 while pmma.Backpack.running:
+    start = time.perf_counter()
     events.handle()
 
     display.clear([0, 0, 0])
 
-    start = time.perf_counter()
-    #radial_polygon.render()
-    line.render()
-    rectangle.render()
-    pixel.render()
+    radial_polygon.render()
+    #line.render()
+    #rectangle.render()
+    #pixel.render()
     #arc.render()
-    ellipse.render()
-    polygon.render()
-    end = time.perf_counter()
-    #print(1/(end-start))
+    #ellipse.render()
+    #polygon.render()
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
-    line.set_rotation((time.perf_counter()-s)*5)
+    #line.set_rotation((time.perf_counter()-s)*5)
     #line.set_end((500, 60*(time.perf_counter()-start)))
     #rectangle.set_rotation((time.perf_counter()-s)*10)
 
@@ -89,5 +88,7 @@ while pmma.Backpack.running:
 
     pmma.compute()
     display.refresh(refresh_rate=60)
+    end = time.perf_counter()
+    #print(1/(end-start))
 
 pmma.quit()
