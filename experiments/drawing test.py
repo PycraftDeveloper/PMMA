@@ -35,7 +35,7 @@ radial_polygon.set_center([400, 350])
 radial_polygon.set_radius(300)
 radial_polygon.set_color([255, 0, 0])
 radial_polygon.set_point_count(3)
-radial_polygon.set_width(5)
+radial_polygon.set_width(180)
 """
 rectangle = pmma.Rectangle()
 rectangle.set_position((100, 100))

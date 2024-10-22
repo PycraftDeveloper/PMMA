@@ -288,6 +288,7 @@ class RadialPolygon:
         else:
             self._surface = None
         self._radius = _PointConverter()
+        self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
         self._width = None
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -328,8 +329,8 @@ class RadialPolygon:
 
         # Calculate the inner radius based on the specified width
         if self._width is not None:
-            pixel_width = self._width / _Registry.context.viewport[2]  # Convert width from pixels to normalized coordinates
-            inner_radius = max(outer_radius - pixel_width, 0)  # Ensure the inner radius is not negative
+            self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
+            inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES)  # Ensure the inner radius is not negative
         else:
             inner_radius = 0  # Full polygon with no inner cut-out
 
