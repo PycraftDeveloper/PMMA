@@ -19,13 +19,13 @@ display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 
 events = pmma.Events()
 
-"""
-line = pmma.Line()
-line.set_start((300, 300))
-line.set_end((500, 300))
-line.set_color([255, 0, 0])
-line.set_width(1)
 
+line = pmma.Line()
+line.set_start((10, 10))
+line.set_end((200, 200))
+line.set_color([255, 0, 255])
+line.set_width(1)
+"""
 pixel = pmma.Pixel()
 pixel.set_position((100, 100))
 pixel.set_color([255, 255, 255])
@@ -70,8 +70,8 @@ while pmma.Backpack.running:
 
     display.clear([0, 0, 0])
 
-    radial_polygon.render()
-    #line.render()
+    #radial_polygon.render()
+    line.render()
     #rectangle.render()
     #pixel.render()
     #arc.render()
@@ -79,7 +79,7 @@ while pmma.Backpack.running:
     #polygon.render()
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
-    #line.set_rotation((time.perf_counter()-s)*5)
+    line.set_rotation((time.perf_counter()-s)*5)
     #line.set_end((500, 60*(time.perf_counter()-start)))
     #rectangle.set_rotation((time.perf_counter()-s)*10)
 

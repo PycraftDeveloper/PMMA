@@ -137,16 +137,23 @@ class Line:
 
     def _rotate_point_around_center(self, point, center, angle):
         """
-        Rotates a 2D point around a given center by the given angle in radians.
+        Rotates a 2D point around a given center by the given angle in radians, accounting for aspect ratio.
 
         :param point: A list or tuple representing the x and y coordinates (x, y)
         :param center: The center of rotation as (cx, cy)
         :param angle: The angle to rotate by, in radians.
         :return: The rotated point as a [x', y'] list.
         """
+        # Get the aspect ratio (width/height)
+        aspect_ratio = self._surface.get_width() / self._surface.get_height()
+
+        # Scale the point and center coordinates to account for aspect ratio
+        scaled_point = [point[0] * aspect_ratio, point[1]]
+        scaled_center = [center[0] * aspect_ratio, center[1]]
+
         # Translate the point to the origin (relative to the center)
-        translated_x = point[0] - center[0]
-        translated_y = point[1] - center[1]
+        translated_x = scaled_point[0] - scaled_center[0]
+        translated_y = scaled_point[1] - scaled_center[1]
 
         # Apply 2D rotation matrix
         cos_angle = _numpy.cos(angle)
@@ -156,7 +163,8 @@ class Line:
         y_prime = sin_angle * translated_x + cos_angle * translated_y
 
         # Translate the point back to its original position (relative to the center)
-        return [x_prime + center[0], y_prime + center[1]]
+        # Scale back the x-coordinate to remove aspect ratio effect
+        return [x_prime / aspect_ratio + center[0], y_prime + center[1]]
 
     def _rotate_line(self, angle):
         """
@@ -179,9 +187,6 @@ class Line:
 
     def _update_buffers(self):
         if self._vertices_changed:
-            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
 
