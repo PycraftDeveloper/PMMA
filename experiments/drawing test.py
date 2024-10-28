@@ -41,7 +41,7 @@ rectangle = pmma.Rectangle()
 rectangle.set_position((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
-rectangle.set_width(10000)
+rectangle.set_width(5)
 
 """
 arc = pmma.Arc()

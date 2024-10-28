@@ -670,7 +670,7 @@ class Rectangle:
             inner_vertices = inner_vertices[::-1]
             for i in range(len(outer_vertices)):
                 combined_vertices.append(outer_vertices[i])
-                combined_vertices.append(inner_vertices[i])
+                #combined_vertices.append(inner_vertices[i])
 
             # Close the shape by adding the first vertices again
             combined_vertices.append(outer_vertices[0])
@@ -722,6 +722,7 @@ class Rectangle:
 
         # Draw the polygon using triangle fan (good for convex shapes)
         mode = _moderngl.TRIANGLE_STRIP
+        mode = _moderngl.POINTS
 
         self._vao.render(mode)
 
