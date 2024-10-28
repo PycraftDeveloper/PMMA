@@ -670,7 +670,7 @@ class Rectangle:
             inner_vertices = inner_vertices[::-1]
             for i in range(len(outer_vertices)):
                 combined_vertices.append(outer_vertices[i])
-                #combined_vertices.append(inner_vertices[i])
+                combined_vertices.append(inner_vertices[i]) # disable this to see inner points viewed as outer points which is WRONG!!!
 
             # Close the shape by adding the first vertices again
             combined_vertices.append(outer_vertices[0])
