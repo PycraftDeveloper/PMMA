@@ -515,6 +515,7 @@ class Rectangle:
             self._surface = None
         self._position = _CoordinateConverter()
         self._size = _CoordinateConverter()
+        self._inner_radius = _PointConverter()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -614,17 +615,69 @@ class Rectangle:
 
             # Unpack size and position
             size = self._size.get_coordinates(_Constants.OPENGL_COORDINATES)
-            half_width = size[0] / 2
-            half_height = size[1] / 2
-            cx, cy = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
+            half_outer_width = size[0] / 2
+            half_outer_height = size[1] / 2
+            x, y = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
 
-            # Define the unrotated rectangle vertices relative to the center
-            vertices = _numpy.array([
-                [cx - half_width, cy - half_height],  # Bottom-left
-                [cx + half_width, cy - half_height],  # Bottom-right
-                [cx + half_width, cy + half_height],  # Top-right
-                [cx - half_width, cy + half_height],  # Top-left
-            ], dtype='f4')
+            self._inner_radius.set_point(self._width)
+            border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
+
+            half_inner_width = half_outer_width - border_width
+            half_inner_height = half_outer_height - border_width
+
+            outer_vertices = []
+            inner_vertices = []
+
+            # Create outer and inner vertices
+            # Bottom-left
+            outer_x = x - half_outer_width
+            outer_y = y - half_outer_height
+            inner_x = x - half_inner_width
+            inner_y = y - half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+
+            outer_vertices.append([outer_x, outer_y])
+            inner_vertices.append([inner_x, inner_y])
+
+            # Bottom-right
+            outer_x = x + half_outer_width
+            outer_y = y - half_outer_height
+            inner_x = x + half_inner_width
+            inner_y = y - half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+
+            outer_vertices.append([outer_x, outer_y])
+            inner_vertices.append([inner_x, inner_y])
+
+            # Top-right
+            outer_x = x + half_outer_width
+            outer_y = y + half_outer_height
+            inner_x = x + half_inner_width
+            inner_y = y + half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+
+            outer_vertices.append([outer_x, outer_y])
+            inner_vertices.append([inner_x, inner_y])
+
+            # Top-left
+            outer_x = x - half_outer_width
+            outer_y = y + half_outer_height
+            inner_x = x - half_inner_width
+            inner_y = y + half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+
+            outer_vertices.append([outer_x, outer_y])
+            inner_vertices.append([inner_x, inner_y])
+
+            # Create a list of vertices alternating between outer and inner vertices for triangle strip
+            combined_vertices = []
+            inner_vertices = inner_vertices[::-1]
+            for i in range(len(outer_vertices)):
+                combined_vertices.append(outer_vertices[i])
+                combined_vertices.append(inner_vertices[i])
+
+            # Close the shape by adding the first vertices again
+            combined_vertices.append(outer_vertices[0])
+            combined_vertices.append(inner_vertices[0])
+
+            # Convert to numpy array
+            vertices = _numpy.array(combined_vertices, dtype='f4')
 
             # Apply rotation around the center
             rotation = self._rotation.get_angle(format=_Constants.RADIANS)
@@ -632,7 +685,7 @@ class Rectangle:
             sin_theta = _numpy.sin(rotation)
 
             # Rotate each vertex around the center
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], cx, cy, cos_theta, sin_theta) for v in vertices], dtype='f4')
+            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
             self._vertices_changed = False  # Reset the flag
 
@@ -668,15 +721,9 @@ class Rectangle:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         # Draw the polygon using triangle fan (good for convex shapes)
-        if self._width != None:
-            mode = _moderngl.LINE_LOOP
-            _Registry.context.line_width = self._width # unreliable
-        else:
-            mode = _moderngl.TRIANGLE_FAN
+        mode = _moderngl.TRIANGLE_STRIP
 
         self._vao.render(mode)
-
-        _Registry.context.line_width = 1 # unreliable
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start

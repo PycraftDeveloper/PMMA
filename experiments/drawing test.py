@@ -38,10 +38,11 @@ radial_polygon.set_point_count(3)
 radial_polygon.set_width(180)
 
 rectangle = pmma.Rectangle()
-rectangle.set_position((100, 100))
+rectangle.set_position((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
-rectangle.set_width(0.1)
+rectangle.set_width(10000)
+
 """
 arc = pmma.Arc()
 arc.set_center([500, 500])
@@ -70,10 +71,10 @@ while pmma.Backpack.running:
 
     display.clear([0, 0, 0])
 
-    radial_polygon.render()
-    line.render()
+    #radial_polygon.render()
+    #line.render()
     rectangle.render()
-    pixel.render()
+    #pixel.render()
     #arc.render()
     #ellipse.render()
     #polygon.render()
