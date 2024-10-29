@@ -638,7 +638,7 @@ class Rectangle:
             # Bottom-left
             outer_x = x - half_outer_width
             outer_y = y - half_outer_height
-            inner_x = x - half_inner_width# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_x = x - half_inner_width
             inner_y = y - half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
@@ -673,7 +673,6 @@ class Rectangle:
 
             # Create a list of vertices alternating between outer and inner vertices for triangle strip
             combined_vertices = []
-            #inner_vertices = inner_vertices[::-1]
             for i in range(len(outer_vertices)):
                 combined_vertices.append(outer_vertices[i])
                 combined_vertices.append(inner_vertices[i]) # disable this to see inner points viewed as outer points which is WRONG!!!
