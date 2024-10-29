@@ -6,7 +6,7 @@ import pygame
 
 import time
 
-pmma.init()
+pmma.init(compile_c_extensions=False)
 
 pmma.set_allow_anti_aliasing(False)
 pmma.set_anti_aliasing_level(8)
@@ -40,7 +40,7 @@ rectangle = pmma.Rectangle()
 rectangle.set_position((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
-rectangle.set_width(1)
+rectangle.set_width(3)
 
 """
 arc = pmma.Arc()

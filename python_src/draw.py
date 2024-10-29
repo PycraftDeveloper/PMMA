@@ -608,16 +608,14 @@ class Rectangle:
             if self._position is None or self._size is None:
                 return None  # Cannot proceed without these
 
-            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', 1)#_Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
             _Registry.number_of_render_updates += 1
 
             # Unpack size and position
             size = self._size.get_coordinates(_Constants.OPENGL_COORDINATES)
             half_outer_width = size[0] / 2
-            half_outer_height = size[1] / 2
+            half_outer_height = size[1] / 2 / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()  # Scale y for aspect ratio
             x, y = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
+            print(x, y)
 
             self._inner_radius.set_point(self._width)
             border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
@@ -628,6 +626,7 @@ class Rectangle:
                 half_inner_width = 0
 
             half_inner_height = max(half_outer_height - border_width, 0)
+            half_inner_height = (half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             outer_vertices = []
             inner_vertices = []
@@ -637,7 +636,7 @@ class Rectangle:
             outer_x = x - half_outer_width
             outer_y = y - half_outer_height
             inner_x = x - half_inner_width
-            inner_y = y - half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y - half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -646,7 +645,7 @@ class Rectangle:
             outer_x = x + half_outer_width
             outer_y = y - half_outer_height
             inner_x = x + half_inner_width
-            inner_y = y - half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y - half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -655,7 +654,7 @@ class Rectangle:
             outer_x = x + half_outer_width
             outer_y = y + half_outer_height
             inner_x = x + half_inner_width
-            inner_y = y + half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y + half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -664,7 +663,7 @@ class Rectangle:
             outer_x = x - half_outer_width
             outer_y = y + half_outer_height
             inner_x = x - half_inner_width
-            inner_y = y + half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y + half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
