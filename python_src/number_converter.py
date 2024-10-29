@@ -276,7 +276,7 @@ create the window onscreen")
     def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._display.get_size() != self._display_size:
             self._display_size = self._display.get_size()
-            self._coordinate_cache = {}
+            self._point_cache = {}
 
         if format in self._point_cache:
             return self._point_cache[format]

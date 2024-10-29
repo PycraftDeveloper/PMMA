@@ -514,7 +514,8 @@ class Rectangle:
         else:
             self._surface = None
         self._position = _CoordinateConverter()
-        self._size = _CoordinateConverter()
+        self._x_size = _PointConverter()
+        self._y_size = _PointConverter()
         self._inner_radius = _PointConverter()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
@@ -574,12 +575,19 @@ class Rectangle:
 
     def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(size) != _CoordinateConverter():
-            self._size.set_coordinates(size, format=size_format)
+        if type(size[0]) != _PointConverter:
+            self._x_size.set_point(size[0], format=size_format)
+        else:
+            self._x_size = size[0]
+
+        if type(size[1]) != _PointConverter:
+            self._y_size.set_point(size[1], format=size_format)
+        else:
+            self._y_size = size[1]
 
     def get_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
-        if self._size is not None:
-            return self._size.get_coordinates(format=format)
+        if self._x_size.get_point_set() and self._y_size.get_point_set():
+            return [self._x_size.get_point(format=format), self._y_size.get_point(format=format)]
 
     def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
@@ -605,15 +613,16 @@ class Rectangle:
         Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
         """
         if self._vertices_changed:
-            if self._position is None or self._size is None:
-                return None  # Cannot proceed without these
+            if self._position.get_coordinate_set() is False or self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
+                return None
 
             _Registry.number_of_render_updates += 1
 
             # Unpack size and position
-            size = self._size.get_coordinates(_Constants.OPENGL_COORDINATES)
-            half_outer_width = size[0] / 2
-            half_outer_height = size[1] / 2
+            x_size = self._x_size.get_point(_Constants.OPENGL_COORDINATES)
+            y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
+            half_outer_width = x_size / 2
+            half_outer_height = y_size / 2
             x, y = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
 
             self._inner_radius.set_point(self._width)
