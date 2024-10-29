@@ -613,7 +613,7 @@ class Rectangle:
             # Unpack size and position
             size = self._size.get_coordinates(_Constants.OPENGL_COORDINATES)
             half_outer_width = size[0] / 2
-            half_outer_height = size[1] / 2 / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()  # Scale y for aspect ratio
+            half_outer_height = size[1] / 2
             x, y = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
 
             self._inner_radius.set_point(self._width)
@@ -625,7 +625,6 @@ class Rectangle:
                 half_inner_width = 0
 
             half_inner_height = max(half_outer_height - border_width, 0)
-            half_inner_height = (half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             outer_vertices = []
             inner_vertices = []

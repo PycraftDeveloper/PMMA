@@ -460,16 +460,25 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             return
         flags = self._generate_pygame_flags(care_about_full_screen=False)
 
+        if self._display_attribute_full_screen is False:
+            self._display_attribute_size = _pygame__display.get_window_size()
+
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
-        display_size = self._tkinter_backend.get_display_size()
         if self._display_attribute_full_screen:
             _pygame__display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
             self._display = _pygame__display.set_mode((0, 0), flags | _pygame__FULLSCREEN, vsync=self._display_attribute_vsync)
+
         else:
-            _pygame__display.set_mode(display_size, flags, vsync=self._display_attribute_vsync)
-            size = self._display_attribute_size or (800, 600)
-            self._display = _pygame__display.set_mode(size, flags, vsync=self._display_attribute_vsync)
+            _pygame__display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
+
+            if self._display_attribute_size[0] < 800:
+                self._display_attribute_size = (800, self._display_attribute_size[1])
+
+            if self._display_attribute_size[1] < 600:
+                self._display_attribute_size = (self._display_attribute_size[0], 600)
+
+            self._display = _pygame__display.set_mode(self._display_attribute_size, flags, vsync=self._display_attribute_vsync)
 
         self.on_window_size_changed()
 
