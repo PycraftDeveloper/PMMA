@@ -70,6 +70,7 @@ Next release:
 	[NEW FEATURE] Introduce prefix adjustments for SI-units.
 	[NEW FEATURE] Create aggregated events like Pointer (similar to controller already added).
 	[IMPROVEMENT] Noise generation value defaults to application run time.
+	[IMPROVEMENT] Try to detect on-screen displays like RTSS and adjust rendering mode accordingly.
 
 Following releases:
 	[BUG FIX] Fix perlin noise for arrays.

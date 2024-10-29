@@ -759,6 +759,7 @@ class Arc:
         else:
             self._surface = None
         self._radius = _PointConverter()
+        self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
         self._start_angle = _AngleConverter()
         self._stop_angle = _AngleConverter()
@@ -772,6 +773,7 @@ class Arc:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._width = None
+        self._position_changed = True
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -828,7 +830,7 @@ class Arc:
             return self._stop_angle.get_angle(format=format)
 
     def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
-        self._vertices_changed = True
+        self._position_changed = True
         if type(centre) != _CoordinateConverter:
             self._center.set_coordinates(centre, format=format)
         else:
@@ -877,46 +879,69 @@ class Arc:
 
     def _update_buffers(self):
         """
-        Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
+        Calculate the vertices for the arc based on start_angle, stop_angle, center, radius, and width.
         """
         if self._vertices_changed:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
-            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
-            center_x, center_y = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+            center_x, center_y = [0, 0]
             start_angle = self._start_angle.get_angle(format=_Constants.RADIANS)
             stop_angle = self._stop_angle.get_angle(format=_Constants.RADIANS)
-            radius = self._radius.get_point(format=_Constants.OPENGL_COORDINATES)
+            outer_radius = self._radius.get_point(format=_Constants.OPENGL_COORDINATES)
+            self._inner_radius.set_point(self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width)
+            inner_radius = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)  # Ensure inner radius is non-negative
+            inner_radius = max(inner_radius, 0)
 
-            # Number of points to generate for the arc
+            # Determine the number of points to create smooth arcs for both inner and outer radii
             try:
                 proportion_of_circle = abs(stop_angle - start_angle) / _Constants.TAU
-                point_count = 1 + int(((_Constants.TAU/_math.asin(1/self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
+                point_count = 1 + int(
+                    ((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))
+                    * proportion_of_circle) * _Registry.shape_quality
+                )
             except ValueError:
                 point_count = 3
 
             if point_count < 3:
                 point_count = 3
 
-            # Generate points along the arc
+            # Generate angles for arc
             angles = _numpy.linspace(start_angle, stop_angle, point_count)
-            vertices = _numpy.array([[center_x + radius * _numpy.cos(angle), center_y + radius * _numpy.sin(angle)] for angle in angles], dtype='f4')
 
-            # Apply rotation to each vertex if applicable
+            # Generate vertices for the inner and outer arcs
+            inner_vertices = _numpy.array([
+                [center_x + inner_radius * _numpy.cos(angle), center_y + inner_radius * _numpy.sin(angle)]
+                for angle in angles
+            ], dtype='f4')
+
+            outer_vertices = _numpy.array([
+                [center_x + outer_radius * _numpy.cos(angle), center_y + outer_radius * _numpy.sin(angle)]
+                for angle in angles
+            ], dtype='f4')
+
+            # Combine inner and outer vertices in a way suitable for TRIANGLE_STRIP
+            vertices = _numpy.empty((2 * point_count, 2), dtype='f4')
+            vertices[0::2] = outer_vertices
+            vertices[1::2] = inner_vertices
+
+            # Apply rotation if necessary
             rotation = self._rotation.get_angle(format=_Constants.RADIANS)
             cos_theta = _numpy.cos(rotation)
             sin_theta = _numpy.sin(rotation)
-
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+            rotated_vertices = _numpy.array([
+                self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
+                for v in vertices
+            ], dtype='f4')
 
             self._vertices_changed = False  # Reset the flag
 
-            if self._vbo.get_created() is False:
+            # Update VBO
+            if not self._vbo.get_created():
                 self._vbo.create(rotated_vertices)
             else:
                 self._vbo.update(rotated_vertices)
@@ -942,20 +967,24 @@ class Arc:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        self._update_buffers()
+
+        if self._vertices_changed:
+            self._update_buffers()
+            self._vertices_changed = False
+
+        if self._position_changed:
+            self._program.set_shader_variable('offset', self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES))
+            self._position_changed = False
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
-        _Registry.context.line_width = self._width # unreliable
-
-        # Draw the polygon using triangle fan (good for convex shapes)
-        self._vao.render(_moderngl.LINE_STRIP)
-
-        _Registry.context.line_width = 1 # unreliable
+        # Render the arc using GL_TRIANGLE_STRIP
+        self._vao.render(_moderngl.TRIANGLE_STRIP)
+        #self._vao.render(_moderngl.POINTS)
 
         end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
+        _Registry.total_time_spent_drawing += end - start
 
 class Ellipse:
     """

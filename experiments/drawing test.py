@@ -49,7 +49,7 @@ arc.set_color([0, 0, 255])
 arc.set_start_angle(0)
 arc.set_stop_angle(68, angle_format=pmma.Constants.DEGREES)
 arc.set_radius(300)
-arc.set_width(10)
+arc.set_width(900)
 
 """
 ellipse = pmma.Ellipse()
@@ -69,7 +69,7 @@ while pmma.Backpack.running:
     start = time.perf_counter()
     events.handle()
 
-    #display.clear([0, 0, 0])
+    display.clear([0, 0, 0])
 
     #radial_polygon.render()
     #line.render()
