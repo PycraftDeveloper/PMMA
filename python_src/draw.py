@@ -609,7 +609,7 @@ class Rectangle:
                 return None  # Cannot proceed without these
 
             if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+                self._program.set_shader_variable('aspect_ratio', 1)#_Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
@@ -622,8 +622,12 @@ class Rectangle:
             self._inner_radius.set_point(self._width)
             border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
 
-            half_inner_width = half_outer_width - border_width
-            half_inner_height = half_outer_height - border_width
+            half_inner_width = half_outer_width + border_width
+
+            if (half_inner_width > 0):
+                half_inner_width = 0
+
+            half_inner_height = max(half_outer_height - border_width, 0)
 
             outer_vertices = []
             inner_vertices = []
@@ -633,7 +637,7 @@ class Rectangle:
             outer_x = x - half_outer_width
             outer_y = y - half_outer_height
             inner_x = x - half_inner_width
-            inner_y = y - half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y - half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -642,7 +646,7 @@ class Rectangle:
             outer_x = x + half_outer_width
             outer_y = y - half_outer_height
             inner_x = x + half_inner_width
-            inner_y = y - half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y - half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -651,7 +655,7 @@ class Rectangle:
             outer_x = x + half_outer_width
             outer_y = y + half_outer_height
             inner_x = x + half_inner_width
-            inner_y = y + half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y + half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -660,14 +664,14 @@ class Rectangle:
             outer_x = x - half_outer_width
             outer_y = y + half_outer_height
             inner_x = x - half_inner_width
-            inner_y = y + half_inner_height * _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y + half_inner_height / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
 
             # Create a list of vertices alternating between outer and inner vertices for triangle strip
             combined_vertices = []
-            inner_vertices = inner_vertices[::-1]
+            #inner_vertices = inner_vertices[::-1]
             for i in range(len(outer_vertices)):
                 combined_vertices.append(outer_vertices[i])
                 combined_vertices.append(inner_vertices[i]) # disable this to see inner points viewed as outer points which is WRONG!!!
@@ -722,7 +726,7 @@ class Rectangle:
 
         # Draw the polygon using triangle fan (good for convex shapes)
         mode = _moderngl.TRIANGLE_STRIP
-        mode = _moderngl.POINTS
+        #mode = _moderngl.POINTS
 
         self._vao.render(mode)
 

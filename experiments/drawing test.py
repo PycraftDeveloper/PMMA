@@ -19,7 +19,6 @@ display.create(1280, 720, full_screen=False, resizable=True, vsync=False)
 
 events = pmma.Events()
 
-
 line = pmma.Line()
 line.set_start((10, 10))
 line.set_end((200, 200))
@@ -41,7 +40,7 @@ rectangle = pmma.Rectangle()
 rectangle.set_position((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
-rectangle.set_width(5)
+rectangle.set_width(1)
 
 """
 arc = pmma.Arc()
