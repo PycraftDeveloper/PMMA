@@ -11,6 +11,7 @@ from pmma.python_src.utility.number_converter_utils import PointIntermediary as 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
 
 class AngleConverter:
     def __init__(self):
@@ -246,6 +247,17 @@ class PointConverter:
 
         self._point_set = False
 
+        if not _Registry.display_initialized:
+            self._logger = _InternalLogger()
+            self._logger.log_development("You need to initialize a display before using \
+coordinate converter, because we dont know what size to convert the coordinates to/from \
+with no window created. Initialize the Display component and use `display.create()` to \
+create the window onscreen")
+            raise _DisplayNotYetCreatedError()
+
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display_size = self._display.get_size()
+
     def set_point(self, point, format=_Constants.CONVENTIONAL_COORDINATES):
         if format == _Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
@@ -262,6 +274,10 @@ class PointConverter:
         return self._point_set
 
     def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        if self._display.get_size() != self._display_size:
+            self._display_size = self._display.get_size()
+            self._coordinate_cache = {}
+
         if format in self._point_cache:
             return self._point_cache[format]
         else:
@@ -299,6 +315,7 @@ class CoordinateConverter:
 coordinate converter, because we dont know what size to convert the coordinates to/from \
 with no window created. Initialize the Display component and use `display.create()` to \
 create the window onscreen")
+            raise _DisplayNotYetCreatedError()
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._display_size = self._display.get_size()
