@@ -6,7 +6,7 @@ import pygame
 
 import time
 
-pmma.init(compile_c_extensions=False)
+pmma.init()
 
 pmma.set_allow_anti_aliasing(False)
 pmma.set_anti_aliasing_level(8)

@@ -923,6 +923,7 @@ devices. We are working on a better way to handle this situation.")
         from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
         _DisplayIntermediary()
 
-    cython_thread.join()
+    if compile_c_extensions:
+        cython_thread.join()
 
 # Jessy
