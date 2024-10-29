@@ -615,7 +615,6 @@ class Rectangle:
             half_outer_width = size[0] / 2
             half_outer_height = size[1] / 2 / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()  # Scale y for aspect ratio
             x, y = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
-            print(x, y)
 
             self._inner_radius.set_point(self._width)
             border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)

@@ -299,6 +299,7 @@ class CoordinateConverter:
             _DisplayIntermediary()
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display_size = self._display.get_size()
 
     def set_coordinates(self, coordinate, format=_Constants.CONVENTIONAL_COORDINATES):
         if format == _Constants.CONVENTIONAL_COORDINATES:
@@ -316,6 +317,10 @@ class CoordinateConverter:
         return self._coordinate_set
 
     def get_coordinates(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        if self._display.get_size() != self._display_size:
+            self._display_size = self._display.get_size()
+            self._coordinate_cache = {}
+
         if format in self._coordinate_cache:
             return self._coordinate_cache[format]
         else:
