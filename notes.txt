@@ -51,7 +51,7 @@ RELEASE SCHEDULE
 
 Preparing for next release:
 	[BUG FIX] Few issues in some realtime audio effects - test these and try and fix.
-	[IMPROVEMENT] Improve Shape Rendering.
+	[IMPROVEMENT] Improve Shape Rendering. [rectangle nearly fixed, just needs minor tweaks with aspect ratio in width if possible ++ optimization!]
 	[IMPROVEMENT] shapes should only be drawable to the display - slight tweak
 	[BUG FIX] Update shapes when aspect ratio changes. This might already have been fixed.
 	[IMPROVEMENT] Sort out shape rendering mess.
