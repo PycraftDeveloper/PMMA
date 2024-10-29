@@ -6,7 +6,7 @@ import pygame
 
 import time
 
-pmma.init(compile_c_extensions=False)
+pmma.init(compile_c_extensions=True)
 
 pmma.set_allow_anti_aliasing(False)
 pmma.set_anti_aliasing_level(8)
@@ -42,7 +42,7 @@ rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
 rectangle.set_width(10)
 
-"""
+
 arc = pmma.Arc()
 arc.set_center([500, 500])
 arc.set_color([0, 0, 255])
@@ -51,6 +51,7 @@ arc.set_stop_angle(68, angle_format=pmma.Constants.DEGREES)
 arc.set_radius(300)
 arc.set_width(10)
 
+"""
 ellipse = pmma.Ellipse()
 ellipse.set_position([500, 500])
 ellipse.set_color([255, 255, 0])
@@ -68,27 +69,27 @@ while pmma.Backpack.running:
     start = time.perf_counter()
     events.handle()
 
-    display.clear([0, 0, 0])
+    #display.clear([0, 0, 0])
 
     #radial_polygon.render()
     #line.render()
-    rectangle.render()
+    #rectangle.render()
     #pixel.render()
-    #arc.render()
+    arc.render()
     #ellipse.render()
     #polygon.render()
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
     line.set_rotation((time.perf_counter()-s)*5)
     #line.set_end((500, 60*(time.perf_counter()-start)))
-    rectangle.set_rotation((time.perf_counter()-s)*10)
+    #rectangle.set_rotation((time.perf_counter()-s)*10)
 
     #ellipse.set_rotation((time.perf_counter()-s))
     #arc.set_rotation((time.perf_counter()-s)*50)
 
     pmma.compute()
-    display.refresh(refresh_rate=60)
     end = time.perf_counter()
+    display.refresh(refresh_rate=60)
     #print(1/(end-start))
 
 pmma.quit()

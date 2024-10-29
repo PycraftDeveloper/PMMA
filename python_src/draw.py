@@ -305,7 +305,7 @@ class RadialPolygon:
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
-        self._created_shape = False
+        self._position_changed = True
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -368,6 +368,8 @@ class RadialPolygon:
         else:
             self._vbo.create(vertices)
 
+        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             self._program.quit()
@@ -383,7 +385,6 @@ class RadialPolygon:
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         self._vertices_changed = True
-        self._created_shape = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -395,7 +396,6 @@ class RadialPolygon:
 
     def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        self._created_shape = False
         if type(value) != _PointConverter():
             self._radius.set_point(value, format=format)
 
@@ -431,7 +431,6 @@ class RadialPolygon:
         return self._point_count
 
     def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
-        self._vertices_changed = True
         if type(centre) != _CoordinateConverter:
             self._center.set_coordinates(centre, format=format)
         else:
@@ -465,16 +464,14 @@ class RadialPolygon:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        if self._created_shape is False:
-            self._create_shape()
-            self._created_shape = True
-
         if self._vertices_changed:
-            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._create_shape()
+            self._vertices_changed = False
+
+        if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
-            self._vertices_changed = False
+            self._position_changed = False
 
         if self._color_changed:
             color = self.get_color(format=_Constants.SMALL_RGBA)
@@ -527,6 +524,7 @@ class Rectangle:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._width = None
+        self._position_changed = True
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -563,7 +561,7 @@ class Rectangle:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
-        self._vertices_changed = True
+        self._position_changed = True
         if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
@@ -616,6 +614,8 @@ class Rectangle:
             if self._position.get_coordinate_set() is False or self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
                 return None
 
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
             _Registry.number_of_render_updates += 1
 
             # Unpack size and position
@@ -623,7 +623,7 @@ class Rectangle:
             y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
             half_outer_width = x_size / 2
             half_outer_height = y_size / 2
-            x, y = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
+            x, y = (0, 0)
 
             self._inner_radius.set_point(self._width)
             border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
@@ -639,7 +639,7 @@ class Rectangle:
             outer_x = x - half_outer_width
             outer_y = y - half_outer_height
             inner_x = x - half_inner_width
-            inner_y = y - half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y - half_inner_height
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -648,7 +648,7 @@ class Rectangle:
             outer_x = x + half_outer_width
             outer_y = y - half_outer_height
             inner_x = x + half_inner_width
-            inner_y = y - half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y - half_inner_height
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -657,7 +657,7 @@ class Rectangle:
             outer_x = x + half_outer_width
             outer_y = y + half_outer_height
             inner_x = x + half_inner_width
-            inner_y = y + half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y + half_inner_height
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -666,7 +666,7 @@ class Rectangle:
             outer_x = x - half_outer_width
             outer_y = y + half_outer_height
             inner_x = x - half_inner_width
-            inner_y = y + half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+            inner_y = y + half_inner_height
 
             outer_vertices.append([outer_x, outer_y])
             inner_vertices.append([inner_x, inner_y])
@@ -675,7 +675,7 @@ class Rectangle:
             combined_vertices = []
             for i in range(len(outer_vertices)):
                 combined_vertices.append(outer_vertices[i])
-                combined_vertices.append(inner_vertices[i]) # disable this to see inner points viewed as outer points which is WRONG!!!
+                combined_vertices.append(inner_vertices[i])
 
             # Close the shape by adding the first vertices again
             combined_vertices.append(outer_vertices[0])
@@ -720,14 +720,17 @@ class Rectangle:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        self._update_buffers()
+        if self._vertices_changed:
+            self._update_buffers()
+
+        if self._position_changed:
+            self._program.set_shader_variable('offset', self._position.get_coordinates(_Constants.OPENGL_COORDINATES))
+            self._position_changed = False
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
-        # Draw the polygon using triangle fan (good for convex shapes)
         mode = _moderngl.TRIANGLE_STRIP
-        #mode = _moderngl.POINTS
 
         self._vao.render(mode)
 
@@ -896,6 +899,7 @@ class Arc:
                 point_count = 1 + int(((_Constants.TAU/_math.asin(1/self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))*proportion_of_circle)*_Registry.shape_quality)
             except ValueError:
                 point_count = 3
+
             if point_count < 3:
                 point_count = 3
 
