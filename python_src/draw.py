@@ -628,11 +628,7 @@ class Rectangle:
             self._inner_radius.set_point(self._width)
             border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
 
-            half_inner_width = half_outer_width + border_width
-
-            if (half_inner_width > 0):
-                half_inner_width = 0
-
+            half_inner_width = max(half_outer_width - border_width, 0)
             half_inner_height = max(half_outer_height - border_width, 0)
 
             outer_vertices = []
@@ -642,7 +638,7 @@ class Rectangle:
             # Bottom-left
             outer_x = x - half_outer_width
             outer_y = y - half_outer_height
-            inner_x = x - half_inner_width
+            inner_x = x - half_inner_width# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
             inner_y = y - half_inner_height# / _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
             outer_vertices.append([outer_x, outer_y])
