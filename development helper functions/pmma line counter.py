@@ -3,7 +3,7 @@ import os
 def _up(path: str) -> str:
     return path[::-1].split(os.sep, 1)[-1][::-1]
 
-base = _up(_up(__file__))
+base = _up(_up(__file__)) # pandas is 582291 lines long!
 files = []
 for r, d, f in os.walk(base):
     for file in f:
@@ -55,4 +55,5 @@ print(f"PMMA has: {function_count} functions! {round((function_count/line_count)
 print(f"PMMA has: {class_count} classes! {round((class_count/line_count)*100, 2)} %")
 print(f"PMMA has: {spaces} spaces!")
 print(f"PMMA has: {words} words!")
+print(f"PMMA is: {(line_count / 582291) * 100}% the length of Pandas!")
 print(f"PMMA has an estimated line size of {((chars*8)/1000)/1000} MB!")
