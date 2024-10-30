@@ -43,7 +43,7 @@ class Line:
         self._start = _CoordinateConverter()
         self._end = _CoordinateConverter()
         self._width = 1
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -133,7 +133,7 @@ class Line:
         :return: The rotated point as a [x', y'] list.
         """
         # Get the aspect ratio (width/height)
-        aspect_ratio = self._surface.get_width() / self._surface.get_height()
+        aspect_ratio = self._display.get_width() / self._display.get_height()
 
         # Scale the point and center coordinates to account for aspect ratio
         scaled_point = [point[0] * aspect_ratio, point[1]]
@@ -188,12 +188,12 @@ class Line:
                 direction_normalized = direction / direction_length
 
                 # Calculate perpendicular (normal) vector to the line
-                width = self._surface.get_width()
-                height = self._surface.get_height()
+                width = self._display.get_width()
+                height = self._display.get_height()
                 if width < height:
-                    width = ((self._width / self._surface.get_width()) * self._surface.get_aspect_ratio())
+                    width = ((self._width / self._display.get_width()) * self._display.get_aspect_ratio())
                 else:
-                    width = ((self._width / self._surface.get_height()) / self._surface.get_aspect_ratio())
+                    width = ((self._width / self._display.get_height()) / self._display.get_aspect_ratio())
 
                 normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
 
@@ -230,18 +230,18 @@ class Line:
     def render(self):
         start = _time.perf_counter()
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
         self._update_buffers()
@@ -276,7 +276,7 @@ class RadialPolygon:
 
         self._color = _ColorConverter()
         self._point_count = None
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
@@ -427,18 +427,18 @@ class RadialPolygon:
     def render(self):
         start = _time.perf_counter()
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         if self._vertices_changed:
             self._create_shape()
@@ -482,7 +482,7 @@ class Rectangle:
             _pygame.init()
 
         self._color = _ColorConverter()
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
         self._x_size = _PointConverter()
         self._y_size = _PointConverter()
@@ -680,18 +680,18 @@ class Rectangle:
     def render(self):
         start = _time.perf_counter()
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
 
@@ -726,7 +726,7 @@ class Arc:
             _pygame.init()
 
         self._color = _ColorConverter()
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
@@ -914,18 +914,18 @@ class Arc:
     def render(self):
         start = _time.perf_counter()
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
         self._update_buffers()
@@ -960,7 +960,7 @@ class Ellipse:
             _pygame.init()
 
         self._color = _ColorConverter()
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
         self._outer_x_size = _PointConverter()
         self._outer_y_size = _PointConverter()
@@ -1123,18 +1123,18 @@ class Ellipse:
     def render(self):
         start = _time.perf_counter()
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
         self._update_buffers()
@@ -1172,7 +1172,7 @@ class Polygon:
 
         self._color = _ColorConverter()
 
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._points = []
         self._closed = True
         self._curved = False
@@ -1332,18 +1332,18 @@ class Polygon:
     def render(self):
         start = _time.perf_counter()
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
 
@@ -1378,7 +1378,7 @@ class Pixel:
             _pygame.init()
 
         self._color = _ColorConverter()
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
@@ -1449,7 +1449,7 @@ screen, therefore as a performance improving feature we wont bother rendering it
 'dynamic_rendering' key word argument to False. This message will only appear \
 once to improve performance, but will continue to have an effect.")
                 return None
-            if conventional_position[0] > self._surface.get_width() or conventional_position[1] > self._surface.get_height():
+            if conventional_position[0] > self._display.get_width() or conventional_position[1] > self._display.get_height():
                 self._logger.log_development("Your position for this shape is off the \
 screen, therefore as a performance improving feature we wont bother rendering it \
 (because you wont see it). This behavior can be controlled by setting the \
@@ -1457,18 +1457,18 @@ screen, therefore as a performance improving feature we wont bother rendering it
 once to improve performance, but will continue to have an effect.")
                 return None
 
-        self._surface.update_attempted_render_calls(1)
+        self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
             self._vertices_changed = True
 
         if self._color_changed or self._vertices_changed:
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
-        if self._surface.get_clear_called_but_skipped():
+        if self._display.get_clear_called_but_skipped():
             return None
 
-        self._surface.get_2D_hardware_accelerated_surface()
+        self._display.get_2D_hardware_accelerated_surface()
 
         if self._created_shape is False:
             self._create_shape()
