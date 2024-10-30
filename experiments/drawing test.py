@@ -42,7 +42,6 @@ rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
 rectangle.set_width(10)
 
-
 arc = pmma.Arc()
 arc.set_center([500, 500])
 arc.set_color([0, 0, 255])
@@ -51,20 +50,20 @@ arc.set_stop_angle(68, angle_format=pmma.Constants.DEGREES)
 arc.set_radius(300)
 arc.set_width(900)
 
-
 ellipse = pmma.Ellipse()
 ellipse.set_position([500, 500])
 ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
-ellipse.set_width(10)
+ellipse.set_width(1)
 
-"""
+
 polygon = pmma.Polygon()
 polygon.set_color([255, 0, 255])
-polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200)])
+polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (300, 300)])
 polygon.set_closed(False)
 polygon.set_width(10)
-"""
+
+## dont forget about shape filled with 0 width or left as none!!!
 s = time.perf_counter()
 while pmma.Backpack.running:
     start = time.perf_counter()
@@ -72,13 +71,13 @@ while pmma.Backpack.running:
 
     display.clear([0, 0, 0])
 
-    radial_polygon.render()
-    line.render()
-    rectangle.render()
-    pixel.render()
-    arc.render()
-    ellipse.render()
-    #polygon.render()
+    #radial_polygon.render()
+    #line.render()
+    #rectangle.render()
+    #pixel.render()
+    #arc.render()
+    #ellipse.render()
+    polygon.render()
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
     #line.set_rotation((time.perf_counter()-s)*5)

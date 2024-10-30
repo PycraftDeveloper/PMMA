@@ -720,8 +720,7 @@ class Rectangle:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        if self._vertices_changed:
-            self._update_buffers()
+        self._update_buffers()
 
         if self._position_changed:
             self._program.set_shader_variable('offset', self._position.get_coordinates(_Constants.OPENGL_COORDINATES))
@@ -968,9 +967,7 @@ class Arc:
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
-        if self._vertices_changed:
-            self._update_buffers()
-            self._vertices_changed = False
+        self._update_buffers()
 
         if self._position_changed:
             self._program.set_shader_variable('offset', self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES))
@@ -1143,8 +1140,8 @@ class Ellipse:
             self._inner_x_size.set_point(self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
             self._inner_y_size.set_point(self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
 
-            inner_size_x = self._inner_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
-            inner_size_y = self._inner_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
+            inner_size_x = max(self._inner_x_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
+            inner_size_y = max(self._inner_y_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
 
             # Generate points along the ellipse perimeter
             angles = _numpy.linspace(0, 2 * _numpy.pi, num_points)
@@ -1191,9 +1188,7 @@ class Ellipse:
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
-        if self._vertices_changed:
-            self._update_buffers()
-            self._vertices_changed = False
+        self._update_buffers()
 
         if self._position_changed:
             self._program.set_shader_variable('offset', self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES))
@@ -1245,6 +1240,7 @@ class Polygon:
         self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
+        self._converted_inner_points = []
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -1294,6 +1290,7 @@ class Polygon:
                 self._points.append(new_point)
             else:
                 self._points.append(point)
+            self._converted_inner_points.append(_CoordinateConverter())
 
     def get_points(self, format=_Constants.CONVENTIONAL_COORDINATES):
         points = []
@@ -1345,22 +1342,37 @@ class Polygon:
             if not self._points:
                 return None  # No points to form the polygon
 
-            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
-            points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
+            outer_points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
 
+            inner_points = []
+            index = 0
+            for p in self._points:
+                coordinate = p.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                adjusted_x = coordinate[0] - self._width*2
+                adjusted_y = coordinate[1] - self._width
+                adjusted_point = [adjusted_x, adjusted_y]
+                self._converted_inner_points[index].set_coordinates(adjusted_point, format=_Constants.CONVENTIONAL_COORDINATES)
+                inner_points.append(self._converted_inner_points[index].get_coordinates(format=_Constants.OPENGL_COORDINATES))
+                index += 1
+
+            inner_points = _numpy.array(inner_points, dtype='f4')
             # Calculate center (average of points)
-            center_x, center_y = _numpy.mean(points, axis=0)
+            center_x, center_y = _numpy.mean(outer_points, axis=0)
+
+            vertices = _numpy.empty((2 * len(self._points), 2), dtype='f4')
+            vertices[0::2] = outer_points
+            vertices[1::2] = inner_points
 
             # Apply rotation
             rotation = self.get_rotation()
             cos_theta = _numpy.cos(rotation)
             sin_theta = _numpy.sin(rotation)
 
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in points], dtype='f4')
+            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
             # If closed, append the first vertex to close the loop
             if self._closed and len(rotated_vertices) > 1:
@@ -1401,17 +1413,11 @@ class Polygon:
 
         # Draw the polygon using triangle fan (good for convex shapes)
         if self._closed is False and self._width is None:
-            self._width = 1
+            self._width = 1 # idk about this bit yet
 
-        if self._width != None:
-            mode = _moderngl.LINE_LOOP if self._closed else _moderngl.LINE_STRIP
-            _Registry.context.line_width = self._width # unreliable
-        else:
-            mode = _moderngl.TRIANGLE_FAN
+        mode = _moderngl.TRIANGLE_STRIP
 
         self._vao.render(mode)
-
-        _Registry.context.line_width = 1 # unreliable
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
