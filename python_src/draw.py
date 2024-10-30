@@ -1376,7 +1376,8 @@ class Polygon:
 
             # If closed, append the first vertex to close the loop
             if self._closed and len(rotated_vertices) > 1:
-                rotated_vertices = _numpy.append(rotated_vertices, [rotated_vertices[0]], axis=0)
+                extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
+                rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
 
             self._vertices_changed = False  # Reset the flag
 

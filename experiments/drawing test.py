@@ -59,8 +59,8 @@ ellipse.set_width(1)
 
 polygon = pmma.Polygon()
 polygon.set_color([255, 0, 255])
-polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (300, 300)])
-polygon.set_closed(False)
+polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200)])
+polygon.set_closed(True)
 polygon.set_width(10)
 
 ## dont forget about shape filled with 0 width or left as none!!!
