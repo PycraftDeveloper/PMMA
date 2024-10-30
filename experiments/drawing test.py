@@ -51,13 +51,14 @@ arc.set_stop_angle(68, angle_format=pmma.Constants.DEGREES)
 arc.set_radius(300)
 arc.set_width(900)
 
-"""
+
 ellipse = pmma.Ellipse()
 ellipse.set_position([500, 500])
 ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
 ellipse.set_width(10)
 
+"""
 polygon = pmma.Polygon()
 polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200)])
@@ -76,7 +77,7 @@ while pmma.Backpack.running:
     rectangle.render()
     pixel.render()
     arc.render()
-    #ellipse.render()
+    ellipse.render()
     #polygon.render()
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 

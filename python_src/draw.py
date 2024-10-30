@@ -981,7 +981,6 @@ class Arc:
 
         # Render the arc using GL_TRIANGLE_STRIP
         self._vao.render(_moderngl.TRIANGLE_STRIP)
-        #self._vao.render(_moderngl.POINTS)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end - start
@@ -1008,8 +1007,11 @@ class Ellipse:
         else:
             self._surface = None
         self._position = _CoordinateConverter()
-        self._size = _CoordinateConverter()
+        self._outer_x_size = _PointConverter()
+        self._outer_y_size = _PointConverter()
         self._rotation = _AngleConverter()
+        self._inner_x_size = _PointConverter()
+        self._inner_y_size = _PointConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -1021,6 +1023,7 @@ class Ellipse:
         self._rotation.set_angle(0)
         self._math = _Math()
         self._width = None
+        self._position_changed = True
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -1057,7 +1060,6 @@ class Ellipse:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
-        self._vertices_changed = True
         if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
@@ -1069,12 +1071,19 @@ class Ellipse:
 
     def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(size) != _CoordinateConverter():
-            self._size.set_coordinates(size, format=size_format)
+        if type(size[0]) != _AngleConverter():
+            self._outer_x_size.set_point(size[0], format=size_format)
+        else:
+            self._outer_x_size = size[0]
+
+        if type(size[1]) != _AngleConverter():
+            self._outer_y_size.set_point(size[1], format=size_format)
+        else:
+            self._outer_y_size = size[1]
 
     def get_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
-        if self._size is not None:
-            return self._size.get_coordinates(format=format)
+        if self._outer_x_size.get_point_set() and self._outer_y_size.get_point_set():
+            return [self._outer_x_size.get_coordinates(format=format), self._outer_y_size.get_coordinates(format=format)]
 
     def set_color(self, color, format=_Constants.RGB):
         self._color_changed = True
@@ -1109,18 +1118,18 @@ class Ellipse:
         Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
         if self._vertices_changed:
-            if self._position is None or self._size is None:
+            if self._position.get_coordinate_set() is False or self._outer_x_size.get_point_set() is False or self._outer_y_size.get_point_set() is False:
                 return None  # Cannot proceed without these parameters
 
-            if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-                self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
             _Registry.number_of_render_updates += 1
 
-            center_x, center_y = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
-            size_x, size_y = self._size.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+            center_x, center_y = [0, 0]
+            outer_size_x = self._outer_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
+            outer_size_y = self._outer_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
 
-            radius = self._math.pythag(self._size.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES))
+            radius = self._math.pythag([self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES), self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES)])
 
             # Number of points to generate for the ellipse
             num_points = _Registry.shape_quality
@@ -1131,9 +1140,20 @@ class Ellipse:
             if num_points < 3:
                 num_points = 3
 
+            self._inner_x_size.set_point(self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
+            self._inner_y_size.set_point(self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
+
+            inner_size_x = self._inner_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
+            inner_size_y = self._inner_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
+
             # Generate points along the ellipse perimeter
             angles = _numpy.linspace(0, 2 * _numpy.pi, num_points)
-            vertices = _numpy.array([[center_x + (size_x / 2) * _numpy.cos(angle), center_y + (size_y / 2) * _numpy.sin(angle)] for angle in angles], dtype='f4')
+            outer_vertices = _numpy.array([[center_x + (outer_size_x / 2) * _numpy.cos(angle), center_y + (outer_size_y / 2) * _numpy.sin(angle)] for angle in angles], dtype='f4')
+            inner_vertices = _numpy.array([[center_x + (inner_size_x / 2) * _numpy.cos(angle) , center_y + (inner_size_y / 2) * _numpy.sin(angle)] for angle in angles], dtype='f4')
+
+            vertices = _numpy.empty((2 * num_points, 2), dtype='f4')
+            vertices[0::2] = outer_vertices
+            vertices[1::2] = inner_vertices
 
             # Apply rotation to each vertex if applicable
             rotation = self.get_rotation()
@@ -1170,21 +1190,22 @@ class Ellipse:
 
         self._surface.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        self._update_buffers()
+
+        if self._vertices_changed:
+            self._update_buffers()
+            self._vertices_changed = False
+
+        if self._position_changed:
+            self._program.set_shader_variable('offset', self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES))
+            self._position_changed = False
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         # Draw the polygon using triangle fan (good for convex shapes)
-        if self._width != None:
-            mode = _moderngl.LINE_STRIP
-            _Registry.context.line_width = self._width # unreliable
-        else:
-            mode = _moderngl.TRIANGLE_FAN
+        mode = _moderngl.TRIANGLE_STRIP
 
         self._vao.render(mode)
-
-        _Registry.context.line_width = 1 # unreliable
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
