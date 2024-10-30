@@ -43,10 +43,7 @@ class Line:
         self._start = _CoordinateConverter()
         self._end = _CoordinateConverter()
         self._width = 1
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -125,15 +122,6 @@ class Line:
 
     def get_width(self):
         return self._width
-
-    def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        return self._surface
 
     def _rotate_point_around_center(self, point, center, angle):
         """
@@ -288,10 +276,7 @@ class RadialPolygon:
 
         self._color = _ColorConverter()
         self._point_count = None
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
@@ -414,15 +399,6 @@ class RadialPolygon:
         if self._color is not None:
             return self._color.get_color(format=format)
 
-    def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        return self._surface
-
     def set_point_count(self, point_count=None):
         self._vertices_changed = True
         self._point_count = point_count
@@ -506,10 +482,7 @@ class Rectangle:
             _pygame.init()
 
         self._color = _ColorConverter()
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
         self._x_size = _PointConverter()
         self._y_size = _PointConverter()
@@ -753,10 +726,7 @@ class Arc:
             _pygame.init()
 
         self._color = _ColorConverter()
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
@@ -858,15 +828,6 @@ class Arc:
     def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
-
-    def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        return self._surface
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         dx = x - cx
@@ -999,10 +960,7 @@ class Ellipse:
             _pygame.init()
 
         self._color = _ColorConverter()
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
         self._outer_x_size = _PointConverter()
         self._outer_y_size = _PointConverter()
@@ -1092,15 +1050,6 @@ class Ellipse:
     def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
-
-    def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        return self._surface
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         dx = x - cx
@@ -1222,10 +1171,8 @@ class Polygon:
             _pygame.init()
 
         self._color = _ColorConverter()
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._points = []
         self._closed = True
         self._curved = False
@@ -1308,15 +1255,6 @@ class Polygon:
     def get_color(self, format=_Constants.RGBA):
         if self._color is not None:
             return self._color.get_color(format=format)
-
-    def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        return self._surface
 
     def set_width(self, width=None):
         if width <= 0:
@@ -1440,10 +1378,7 @@ class Pixel:
             _pygame.init()
 
         self._color = _ColorConverter()
-        if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        else:
-            self._surface = None
+        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
@@ -1494,15 +1429,6 @@ class Pixel:
     def get_color(self, format=_Constants.RGB):
         if self._color is not None:
             return self._color.get_color(format=format)
-
-    def set_surface(self, surface=None):
-        if surface is None and _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        return self._surface
 
     def render(self, point_size=None, dynamic_rendering=True):
         start = _time.perf_counter()
