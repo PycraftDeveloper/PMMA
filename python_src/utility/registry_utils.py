@@ -39,6 +39,7 @@ class Registry:
     compute_component_called = False
     displayed_pygame_start_message = False
     shape_quality = 0.75
+    initial_shape_quality = None
     profiler: "_pprofile__Profile" = None
     general_profile_application = None
     targeted_profile_application = None
@@ -47,4 +48,3 @@ class Registry:
     internal_log_duration = 1
     external_log_duration = 1
     power_status_checked_time = None
-    ms_since_previous_tick = 0

@@ -69,6 +69,7 @@ Next release:
 	[IMPROVEMENT] Try to detect on-screen displays like RTSS and adjust rendering mode accordingly.
 	[NEW FEATURE] Introduce the option for additional "surfaces" as render points for all content (2D and 3D) with the ability to combine them to main window
 	[NEW FEATURE] Shader based main window effects eg fading (finally)!
+	[NEW FEATURE] Add option to clear passport / clear passport data every n days perhaps
 
 Following releases:
 	[BUG FIX] Fix perlin noise for arrays.

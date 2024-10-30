@@ -214,7 +214,7 @@ generating 3D arrays.")
     if terminate_application:
         _sys__exit(0)
 
-def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
+def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape_quality_adjustments_for_low_power_mode=True):
     if (_Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine and
             _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine):
         if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
@@ -227,6 +227,12 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
         if allow_anti_aliasing_adjustments_for_low_power_mode:
             _set_allow_anti_aliasing(False)
             _set_anti_aliasing_level(0)
+
+        if allow_shape_quality_adjustments_for_low_power_mode and _Registry.initial_shape_quality is None:
+            _Registry.initial_shape_quality = _Registry.shape_quality
+            _Registry.shape_quality /= 0.5
+            if _Registry.shape_quality < 0.4:
+                _Registry.shape_quality = 0.4
     else:
         if allow_anti_aliasing_adjustments_for_low_power_mode:
             if _Registry.manually_set_do_anti_aliasing is None:
@@ -238,6 +244,10 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True):
                 _set_anti_aliasing_level(2)
             else:
                 _set_anti_aliasing_level(_Registry.manually_set_anti_aliasing_level)
+
+        if allow_shape_quality_adjustments_for_low_power_mode and _Registry.initial_shape_quality is not None:
+            _Registry.shape_quality = _Registry.initial_shape_quality
+            _Registry.initial_shape_quality = None
 
     if _Registry.in_game_loop is False: # first run detection
         _Registry.application_finished_loading_time = _time__perf_counter()
