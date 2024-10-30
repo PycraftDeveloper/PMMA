@@ -59,7 +59,7 @@ ellipse.set_width(1)
 
 polygon = pmma.Polygon()
 polygon.set_color([255, 0, 255])
-polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200)])
+polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (900, 100)])
 polygon.set_closed(True)
 polygon.set_width(10)
 
@@ -71,12 +71,12 @@ while pmma.Backpack.running:
 
     display.clear([0, 0, 0])
 
-    #radial_polygon.render()
-    #line.render()
-    #rectangle.render()
-    #pixel.render()
-    #arc.render()
-    #ellipse.render()
+    radial_polygon.render()
+    line.render()
+    rectangle.render()
+    pixel.render()
+    arc.render()
+    ellipse.render()
     polygon.render()
     #radial_polygon.set_rotation((time.perf_counter()-s)*60)
 
