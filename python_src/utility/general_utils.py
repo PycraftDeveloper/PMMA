@@ -230,9 +230,7 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape
 
         if allow_shape_quality_adjustments_for_low_power_mode and _Registry.initial_shape_quality is None:
             _Registry.initial_shape_quality = _Registry.shape_quality
-            _Registry.shape_quality /= 0.5
-            if _Registry.shape_quality < 0.4:
-                _Registry.shape_quality = 0.4
+            _Registry.shape_quality /= 2
     else:
         if allow_anti_aliasing_adjustments_for_low_power_mode:
             if _Registry.manually_set_do_anti_aliasing is None:
@@ -248,6 +246,11 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape
         if allow_shape_quality_adjustments_for_low_power_mode and _Registry.initial_shape_quality is not None:
             _Registry.shape_quality = _Registry.initial_shape_quality
             _Registry.initial_shape_quality = None
+
+    if _Registry.shape_quality > 1:
+        _Registry.shape_quality = 1
+    if _Registry.shape_quality < 0.4:
+        _Registry.shape_quality = 0.4
 
     if _Registry.in_game_loop is False: # first run detection
         _Registry.application_finished_loading_time = _time__perf_counter()
