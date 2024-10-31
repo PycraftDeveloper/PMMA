@@ -8,8 +8,10 @@ Welcome
 =======
 
 Welcome to the Python Multi-Media API (or PMMA as it is more commonly known) documentation! PMMA is a powerful API designed to help make the development of applications using the programming language Python easier and faster. PMMA is, by design, built to work in a variety of different applications, but also includes a lot of the tools commonly used in the game development industry.
+
 PMMA includes standard support for efficient 2D and 3D pipelines using OpenGL and hardware acceleration in a variety of components as standard. Where the raw speed of hardware acceleration isn’t available, we will automatically transfer some components of PMMA over from Python to Cython for an additional increase in speed, but everything is wrapped up through Python, so it is super easy to use and compatible with most IDEs.
-By default, PMMA is designed to be as fast as possible, but it has massively improved the efficiency of your Python application, far outstripping the efficiency of competing graphics APIs like Pygame and Pyglet in the majority of environments*.
+
+By default, PMMA is designed to be as fast as possible, but it has massively improved the efficiency of your Python application, far outstripping the efficiency of competing graphics APIs like Pygame and Pyglet in some of environments*.
 
 The purpose of this documentation, then, is to provide an insight into how you can use PMMA in your application by providing a detailed and clear insight into what each namespace (the names you use to interact with PMMA’s API) does. All of this has been aided by our own at-a-glance syntax designed to help you quickly understand if this is the right component for you to use so you can spend less time reading the documentation and more time developing!
 
