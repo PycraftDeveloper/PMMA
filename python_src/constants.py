@@ -10,6 +10,10 @@ class Constants:
         SMOOTH_TRANSITION
     ]
 
+    SINGLE_PERCENTAGES = []
+    for i in range(1, 101):
+        SINGLE_PERCENTAGES.append(i / 100)
+
     VALUE_TRANSITION = "value transition"
     COORDINATE_TRANSITION = "coordinate transition"
     TRANSITION_TYPES = [

@@ -199,7 +199,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         if status:
             print(status)
 
-        if self._paused or self._stop_signal:
+        if self._paused or self._stop_signal or status:
             outdata[:] = _numpy.zeros(outdata.shape)
             return
 

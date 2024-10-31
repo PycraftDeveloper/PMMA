@@ -19,6 +19,9 @@ for stream in input_container.streams:
     if stream.type == 'video':
         print(f"Codec Name: {stream.codec.name}")
         print(f"Codec Long Name: {stream.codec.long_name}")
+    if stream.type == 'audio':
+        print(f"Codec Name: {stream.codec.name}")
+        print(f"Codec Long Name: {stream.codec.long_name}")
 
 # Manually specify a hardware decoder if available
 # Example decoders: 'h264_cuvid' for NVIDIA, 'h264_vaapi' for VAAPI, 'h264_qsv' for Intel

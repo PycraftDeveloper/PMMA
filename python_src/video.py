@@ -91,6 +91,8 @@ class Video:
         self._frame_locker = _threading.Lock()
         self._frame_content_changed = True
 
+        self._video_has_audio = False
+
     def play(self):
         self._play_video = True
         self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
@@ -158,13 +160,21 @@ class Video:
         self._video_decoder_manually_set = True
         self._input_stream.codec_context.options = {'hwaccel': decoder}
 
-    def load_from_file(self, file_path):
+    def load_from_file(self, file_path, automatically_optimize_silent_videos=True):
         self._file = file_path
         self._input_container = _av.open(file_path)
 
-        video_file = _editor.VideoFileClip(file_path)
-        raw_audio_data = video_file.audio
-        self._audio_player.load_from_moviepy(raw_audio_data)
+        if automatically_optimize_silent_videos:
+            self._video_has_audio = self.has_audio_and_non_zero_data()
+        else:
+            self._video_has_audio = True
+
+        self._input_container.seek(0)
+
+        if self._video_has_audio:
+            video_file = _editor.VideoFileClip(file_path)
+            raw_audio_data = video_file.audio
+            self._audio_player.load_from_moviepy(raw_audio_data)
 
         self._input_stream = next(s for s in self._input_container.streams if s.type == 'video')
 
@@ -199,6 +209,37 @@ class Video:
         self._texture.use(location=0)
 
         self._video_loaded = True
+
+    def has_audio_and_non_zero_data(self):
+        try:
+            # Check for audio stream
+            audio_stream = next((stream for stream in self._input_container.streams if stream.type == 'audio'), None)
+            if not audio_stream:
+                return False
+
+            # Total duration of the video in seconds
+            duration = self._input_container.duration / _av.time_base
+
+            # Check audio data at each specified percentage
+            for percent in _Constants.SINGLE_PERCENTAGES:
+                # Calculate the target timestamp
+                timestamp = int(duration * percent * _av.time_base)
+                self._input_container.seek(timestamp, any_frame=False, backward=True, stream=audio_stream)
+
+                # Check if audio frames at this point have non-zero data
+                for packet in self._input_container.demux(audio_stream):
+                    for frame in packet.decode():
+                        audio_data = frame.to_ndarray()
+                        if audio_data.any():  # Non-zero audio data found
+                            return True
+                    # Only check the first frame after seeking to avoid excessive processing
+                    break
+
+            return False
+
+        except Exception as e:
+            print(f"Error processing video file: {e}")
+            return False
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
         if type(position) != _CoordinateConverter:
@@ -243,14 +284,14 @@ class Video:
     def _video_frame_extractor(self):
         while self._play_video:
             if self._video_loaded:
-                if self._audio_player.get_playing() is False:
+                if self._audio_player.get_playing() is False and self._video_has_audio:
                     self._audio_player.play(blocking=False)
                     _time.sleep(0.48) # 0.5 close / dont really know what this magic number represents yet
 
-                if self._is_playing is False and self._audio_player.get_paused() is False:
+                if self._is_playing is False and self._audio_player.get_paused() is False and self._video_has_audio:
                     self._audio_player.pause()
 
-                if self._is_playing and self._audio_player.get_paused():
+                if self._is_playing and self._audio_player.get_paused() and self._video_has_audio:
                     self._audio_player.resume()
 
                 if self._is_playing:
