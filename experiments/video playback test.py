@@ -13,7 +13,7 @@ pygame.display.set_caption("Video Playback with OpenGL")
 ctx = moderngl.create_context()
 
 # Load the video file with manually specified hardware decoding
-input_container = av.open(r"H:\Videos\Drivin'.mp4")
+input_container = av.open(r"H:\Videos\edited\Balls!.mp4")
 # Loop through the streams to find the video stream
 for stream in input_container.streams:
     if stream.type == 'video':

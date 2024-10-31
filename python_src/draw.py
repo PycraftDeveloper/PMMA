@@ -1344,6 +1344,7 @@ class Polygon:
             return None
 
         self._display.get_2D_hardware_accelerated_surface()
+
         # Update VBO with any changes to vertices or colors
         self._update_buffers()
 

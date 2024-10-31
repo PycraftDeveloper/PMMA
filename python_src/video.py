@@ -88,6 +88,9 @@ class Video:
 
         self._looping = True
 
+        self._frame_locker = _threading.Lock()
+        self._frame_content_changed = True
+
     def play(self):
         self._play_video = True
         self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
@@ -192,6 +195,9 @@ class Video:
 
         self._time_since_last_frame = 0.0
 
+        self._shader.set_shader_variable("Texture", 0)
+        self._texture.use(location=0)
+
         self._video_loaded = True
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
@@ -261,30 +267,36 @@ class Video:
                     # Convert frame to RGB for OpenGL
                     self._video_frame = frame.to_ndarray(format='rgb24')
 
+                    with self._frame_locker:
+                        self._frame_content_changed = True
+
             self._video_clock.tick(1/(self._video_frame_time))
 
     def render(self):
         if self._video_loaded and self._video_frame is not None:
             self._surface.update_attempted_render_calls(1)
 
-            self._surface.set_refresh_optimization_override(True)
-
             if self._surface.get_clear_called_but_skipped():
                 return None
 
-            self._surface.get_2D_hardware_accelerated_surface()
-            self._texture.write(self._video_frame)
+            self._surface.set_refresh_optimization_override(True)
 
-            user_desired_size = self._size.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-            scale = [user_desired_size[0] / self._video_size[0], user_desired_size[1] / self._video_size[1]]
+            with self._frame_locker:
+                if self._frame_content_changed:
+                    self._surface.get_2D_hardware_accelerated_surface()
 
-            offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
-            adjusted_offset = [offset[0] + 1, offset[1] - 1]
+                    self._texture.write(self._video_frame)
 
-            self._shader.set_shader_variable("scale", scale)
-            self._shader.set_shader_variable("offset", adjusted_offset)
+                    user_desired_size = self._size.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                    scale = [user_desired_size[0] / self._video_size[0], user_desired_size[1] / self._video_size[1]]
+
+                    offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+                    adjusted_offset = [offset[0] + 1, offset[1] - 1]
+
+                    self._shader.set_shader_variable("scale", scale)
+                    self._shader.set_shader_variable("offset", adjusted_offset)
+
+                    self._frame_content_changed = False
 
             # Render the frame
-            self._shader.set_shader_variable("Texture", 0)
-            self._texture.use(location=0)
             self._vao.render(_moderngl.TRIANGLE_STRIP)
