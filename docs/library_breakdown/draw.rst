@@ -57,14 +57,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Line.set_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: Line.get_surface() -> None
-
-   Not Yet Written
-
 .. py:method:: Line.render() -> None
 
    Not Yet Written
@@ -109,14 +101,6 @@ Methods
    Not Yet Written
 
 .. py:method:: RadialPolygon.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: RadialPolygon.set_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: RadialPolygon.get_surface() -> None
 
    Not Yet Written
 
@@ -286,14 +270,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Arc.set_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: Arc.get_surface() -> None
-
-   Not Yet Written
-
 .. py:method:: Arc.render() -> None
 
    Not Yet Written
@@ -354,14 +330,6 @@ Methods
    Not Yet Written
 
 .. py:method:: Ellipse.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.set_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: Ellipse.get_surface() -> None
 
    Not Yet Written
 
@@ -428,14 +396,6 @@ Methods
 
    Not Yet Written
 
-.. py:method:: Polygon.set_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: Polygon.get_surface() -> None
-
-   Not Yet Written
-
 .. py:method:: Polygon.set_width() -> None
 
    Not Yet Written
@@ -480,14 +440,6 @@ Methods
    Not Yet Written
 
 .. py:method:: Pixel.get_color() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.set_surface() -> None
-
-   Not Yet Written
-
-.. py:method:: Pixel.get_surface() -> None
 
    Not Yet Written
 
