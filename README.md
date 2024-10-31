@@ -24,26 +24,33 @@ After many years of development and optimization, I gained extensive knowledge o
 As I worked on other projects, I found myself copying over these utility programs, revising them and gradually evolving my implementation of specific functions or classes. Eventually, this set of utility programs grew to be longer typically than the applications using them, and I decided it was time to separate my applications into two: the application itself, and PMMA.
 
 ## Features
-* Object Oriented Programming - Most of PMMA exists as specific objects, making it super easy to customize what you want.
+* Object-Oriented Programming—Most of PMMA exists as specific objects, making it super easy to customize what you want.
 * [Cython](https://github.com/cython/cython) acceleration - Where native Python is "too slow" we switch it out for this alternative whenever possible.
 * GPU accelerated - PMMA can use GPU acceleration for 2D and 3D rendering.
-* Advanced mathematics - PMMA includes highly-optimized commonly used mathematical functions.
+* Advanced mathematics - PMMA includes highly optimised commonly used mathematical functions.
 * Advanced threading - PMMA includes an advanced form of the Threading library, which extends its existing functionality to include the ability to kill threads on the fly.
-* Advanced Tkinter - PMMA includes some advanced Tkinter functions, like getting window size, and default operating system fonts.
-* Simple shared memory - PMMA allows you to have a shared memory space for variables, as a replacement for global variables, which can be accessed easily through threads.
-* Dynamic color and coordinates - PMMA can easily convert between different color and coordinate formats.
-* Pipelines - PMMA combines complex 2D and 3D objects together and renders them at the same time for significantly improved performance.
+* Advanced Tkinter - PMMA includes some advanced Tkinter functions, like getting window size and default operating system fonts.
+* Simple shared memory - PMMA allows you to have a shared memory space for variables as a replacement for global variables, which can be accessed easily through threads.
+* Dynamic colour, coordinate, time, angle, and scalars—PMMA easily converts between different formats, so you can work with whatever is easiest for you!
 * Easy display management - PMMA allows you to easily manage your application window, including size, captions, display modes and v-sync.
-* Efficient shape rendering - PMMA includes support for a wide range of shapes, and can render these using GPU acceleration.
+* Efficient shape rendering—PMMA supports a wide range of shapes and can render them using GPU acceleration.
 * Advanced memory management - PMMA will automatically manage large objects stored in memory.
 * Fast noise generation - PMMA can very efficiently create noise patterns in 1D, 2D or 3D.
-* Application customization - PMMA can be told details about your application, and dynamically change its behavior.
-* Video playback - PMMA can play back videos from a file, in your application.
-* Simplified Audio playback - PMMA includes support for very efficient audio playback, including steaming music directly from a file instead of reading the whole file at once.
-* Realtime Effects - PMMA can be used to apply effects to audio in realtime.
-* Transitions - PMMA can automatically manage the animation of values and coordinates for you with a variety of different styles. Useful as a way of moving objects about onscreen.
+* Application customization—PMMA can be told details about your application and dynamically change its behaviour or how it appears to the operating system!
+* Video playback - PMMA can play back videos from a file, in your application. This is done by streaming the data from the disk, so wave goodbye to long video loading times and high memory usage.
+* Simplified Audio playback - PMMA includes support for very efficient audio playback, including steaming music directly from a file instead of reading the whole file at once. This is additionally supplemented with a range of additional controls like the ability to loop or pan audio and change its volume back.
+* Realtime Effects - PMMA can be used to apply effects to audio in real-time.
+* Transitions—PMMA can automatically manage the animation of values and coordinates for you in a variety of different styles. This is useful for moving objects about onscreen.
 * Advanced GPU information collection - PMMA can gather extremely detailed information about all installed GPUs.
-* Dynamic GPU allocation - PMMA can automatically distribute some graphics tasks to multiple installed GPUs to prevent excessive use on a single one.
+* Easy multi-device input—PMMA will automatically handle any additional controllers connected to your system, allowing you to interface easily with these devices. It even includes support for effects like Rumble!
+* Event management—PMMA will automatically update event objects in the background, allowing you to easily choose which events you need in your application. This idea has also been extended to detect when some events have been triggered in quick succession, like a double-tapped key (with per-key timings if needed).
+* Simple file systems – PMMA will automatically resolve file paths for you and can even scan project directories and produce unique user-friendly names for your files, which you can use instead!
+* Advanced data structures – PMMA includes access to fast implementations for advanced data structures like stacks, queues, circular queues, priority queues, priority stacks, inverted priority queues, inverted priority stacks, priority lists and inverted priority lists.
+* Command Execution—PMMA includes a super simple way for you to run command-line-level commands for your application, including the ability to get the result from the command in real time!
+* Projections—PMMA can automatically create and easily create projections that match your PMMA display for use in your 3D scenes.
+* OpenGL objects—PMMA includes its own wrapper for OpenGL through ModernGL, with a much simpler interface and the usual performance improvements thrown in.
+* Dynamic GPU allocation - PMMA can automatically try to distribute some graphics tasks to multiple installed GPUs to spread the load across all the available hardware.
+* Pipelines—PMMA combines complex 2D and 3D objects and renders them simultaneously, significantly improving performance.
 
 _Note: PMMA is still undergoing active development, and some features will be changed, added or extended in the near future - we will attempt to include backwards compatibility where possible._
 
