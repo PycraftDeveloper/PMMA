@@ -15,7 +15,7 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.general_utils import create_cache_id as _create_cache_id
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
-class _Text:
+class Text:
     def __init__(self, canvas=None):
         _initialize(self)
 

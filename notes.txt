@@ -49,18 +49,14 @@ RELEASE SCHEDULE
 [EXTENSION] - A new feature that extends an existing idea.
 [NEW FEATURE] - An entirely new feature/mechanic.
 
-Preparing for next release:
-	[BUG FIX] Few issues in some realtime audio effects - test these and try and fix.
-
 Next release:
+	[BUG FIX] Few issues in some realtime audio effects - test these and try and fix.
 	[NEW FEATURE] Create shapes like circle from RadialPolygon
 	[NEW FEATURE] Create shapes like lines from Polygon (with closed=False)
 	[NEW FEATURE] Add collisions to shapes.
 	[EXTENSION] Add paths as extension from transitions.
 	[EXTENSION] Add camera as extension from perspective.
-	[IMPROVEMENT] Add back in Images.
 	[BUG FIX] Adjust shape indexes in render pipeline
-	[IMPROVEMENT] Add back in render pipeline.
 	[NEW FEATURE] Add in collision detections for all shapes.
 	[NEW FEATURE] Add in 3D shapes (sphere, rectangle, n-prism, n-equivalent of 2D shapes)
 	[NEW FEATURE] Introduce prefix adjustments for SI-units.
