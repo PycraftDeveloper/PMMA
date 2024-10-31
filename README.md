@@ -25,7 +25,7 @@ As I worked on other projects, I found myself copying over these utility program
 
 ## Features
 * Object Oriented Programming - Most of PMMA exists as specific objects, making it super easy to customize what you want.
-  * [Cython](https://github.com/cython/cython) acceleration - Where native Python is "too slow" we switch it out for this alternative whenever possible.
+* [Cython](https://github.com/cython/cython) acceleration - Where native Python is "too slow" we switch it out for this alternative whenever possible.
 * GPU accelerated - PMMA can use GPU acceleration for 2D and 3D rendering.
 * Advanced mathematics - PMMA includes highly-optimized commonly used mathematical functions.
 * Advanced threading - PMMA includes an advanced form of the Threading library, which extends its existing functionality to include the ability to kill threads on the fly.
