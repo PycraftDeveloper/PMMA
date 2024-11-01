@@ -148,23 +148,3 @@ Here you will find all the subroutines that aren't grouped into a specific objec
 
    Not Yet Written
 
-.. py:method:: pmma.set_render_wire_frame() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.get_render_wire_frame() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.quit() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.add() -> None
-
-   Not Yet Written
-
-.. py:method:: pmma.render() -> None
-
-   Not Yet Written
-

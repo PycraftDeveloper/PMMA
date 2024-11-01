@@ -61,6 +61,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: Video.has_audio_and_non_zero_data() -> None
+
+   Not Yet Written
+
 .. py:method:: Video.set_position() -> None
 
    Not Yet Written
