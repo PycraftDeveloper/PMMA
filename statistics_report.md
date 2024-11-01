@@ -5,3 +5,8 @@
 
 
 # PMMA (Python Multi-Media API) - Statistical Analysis
+
+## Shape Rendering Performance Analysis
+
+## Memory Usage Analysis
+![memory comparison](https://github.com/user-attachments/assets/25cb0cdf-7e5e-4879-94a2-33cee67370ef)
