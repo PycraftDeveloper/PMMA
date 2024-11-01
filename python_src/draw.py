@@ -407,6 +407,7 @@ class RadialPolygon:
         return self._point_count
 
     def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
+        self._position_changed = True
         if type(centre) != _CoordinateConverter:
             self._center.set_coordinates(centre, format=format)
         else:
@@ -1015,6 +1016,7 @@ class Ellipse:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        self._position_changed = True
         if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
