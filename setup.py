@@ -32,7 +32,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "."},  # Set root as the package directory
-    packages=find_packages(where="."),  # Find all packages in root and subdirectories
+    packages=find_packages(include=["build", "cython_src", "python_src", "shaders", "pmma*"]),
     python_requires=">=3.6",
     install_requires=requirements,
     include_package_data=True,
