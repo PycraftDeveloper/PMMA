@@ -15,19 +15,11 @@ with open("requirements.txt", "r", encoding="utf-8") as req_file:
     requirements = req_file.read().splitlines()
 
 package_data={
-        "pmma": ["*"],  # Include all file types
-        "pmma.cython_src": ["*"],
-        "pmma.cython_src.utility": ["*"],
-        "pmma.python_src": ["*"],
-        "pmma.python_src.utility": ["*"],
-        "pmma.python_src.pyx_alternatives": ["*"],
-        "pmma.python_src.pyx_alternatives.utility": ["*"],
-        "pmma.shaders": ["*"]
+        "pmma": ["*"]  # Include all file types
     }
 
 # Manually specify packages
 packages = [
-    "pmma",
     "pmma.cython_src",
     "pmma.python_src",
     "pmma.shaders",
@@ -54,5 +46,5 @@ setup(
     python_requires=">=3.6",
     install_requires=requirements,
     include_package_data=True,
-    package_data=package_data,
+    #package_data=package_data,
 )
