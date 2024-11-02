@@ -2,8 +2,7 @@ name: Release Python Package to PyPI
 
 on:
   release:
-    types:
-      - created
+    types: [published]  # Trigger only when a release is published
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -13,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Fetch all history for the latest commit
 
     - name: Set up Python
       uses: actions/setup-python@v2
