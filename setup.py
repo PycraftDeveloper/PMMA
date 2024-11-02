@@ -14,6 +14,25 @@ with open("README.md", "r", encoding="utf-8") as fh:
 with open("requirements.txt", "r", encoding="utf-8") as req_file:
     requirements = req_file.read().splitlines()
 
+package_data={
+        "pmma": ["*"],  # Include all file types
+        "pmma.cython_src": ["*"],
+        "pmma.cython_src.utility": ["*"],
+        "pmma.python_src": ["*"],
+        "pmma.python_src.utility": ["*"],
+        "pmma.python_src.pyx_alternatives": ["*"],
+        "pmma.python_src.pyx_alternatives.utility": ["*"],
+        "pmma.shaders": ["*"]
+    }
+
+# Manually specify packages
+packages = [
+    "pmma",
+    "pmma.cython_src",
+    "pmma.python_src",
+    "pmma.shaders",
+]
+
 setup(
     name="pmma",
     version=latest_tag,
@@ -31,15 +50,9 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "."},  # Set root as the package directory
-    packages=find_packages(include=["pmma*", "cython_src*", "python_src*", "shaders*"]),
+    packages=packages,  # Include the pmma package and all its sub-packages
     python_requires=">=3.6",
     install_requires=requirements,
     include_package_data=True,
-    package_data={
-        "pmma": ["*"],  # Include all file types
-        "cython_src": ["*"],
-        "python_src": ["*"],
-        "shaders": ["*"],
-    },
+    package_data=package_data,
 )
