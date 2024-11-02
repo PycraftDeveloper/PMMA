@@ -1,0 +1,5 @@
+recursive-include build *
+recursive-include cython_src *
+recursive-include python_src *
+recursive-include shaders *
+include README.md LICENSE __init__.py c_setup.py requirements.txt setup.py

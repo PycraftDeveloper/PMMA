@@ -35,4 +35,5 @@ setup(
     packages=find_packages(where="."),  # Find all packages in root and subdirectories
     python_requires=">=3.6",
     install_requires=requirements,
+    include_package_data=True,
 )
