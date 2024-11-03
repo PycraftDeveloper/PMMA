@@ -1,57 +1,43 @@
-name: Deploy to Distributable Branch
+name: Update Distributables Branch
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
-  deploy:
+  update_distributables:
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out main branch
         uses: actions/checkout@v3
         with:
-          ref: main
+          fetch-depth: 0 # Fetch all branches and history
 
-      - name: Prepare pmma directory with necessary files
+      - name: Set up git user
         run: |
-          mkdir -p pmma
-          cp -r python_src pmma/
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Delete all contents in distributables branch
+        run: |
+          git checkout distributables || git checkout -b distributables
+          git rm -rf . # Remove all files in distributables branch
+
+      - name: Create pmma directory in distributables branch
+        run: mkdir -p pmma
+
+      - name: Copy contents from main branch
+        run: |
+          git checkout main -- cython_src python_src shaders
           cp -r cython_src pmma/
+          cp -r python_src pmma/
           cp -r shaders pmma/
-          cp README.md pmma/
-          cp requirements.txt pmma/
-          cp setup.py pmma/
-          cp __init__.py pmma/
-          cp pyproject.toml pmma/
 
-      - name: Check out distributable branch
+      - name: Commit and push changes to distributables branch
         run: |
-          git fetch origin distributable || true
-          git checkout -B distributable origin/distributable || git checkout -b distributable
-
-      - name: Clear old contents in distributable branch
-        run: |
-          rm -rf *
-          rm -rf .github # Prevent deletion of workflow files
-          git clean -fd
-
-      - name: Copy pmma directory contents to root of distributable branch
-        run: |
-          mv pmma/* .
-          rmdir pmma
-          git add .
-
-      - name: Commit and push changes if there are any
-        run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
-          if ! git diff-index --quiet HEAD; then
-            git commit -m "Deploy to distributable branch"
-            git push origin distributable --force
-          else
-            echo "No changes to commit"
-          fi
+          git add pmma
+          git commit -m "Update distributables branch with latest pmma content"
+          git push origin distributables --force
