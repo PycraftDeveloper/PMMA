@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
+      - name: Check out main branch
         uses: actions/checkout@v3
         with:
           ref: main
 
-      - name: Copy files to pmma directory
+      - name: Create pmma directory and copy files
         run: |
           mkdir -p pmma
           cp -r python_src pmma/
@@ -28,13 +28,24 @@ jobs:
           cp __init__.py pmma/
           cp pyproject.toml pmma/
 
-      - name: Commit changes
+      - name: Check out distributable branch
+        run: |
+          git fetch origin distributable || true
+          git checkout -B distributable origin/distributable || git checkout -b distributable
+
+      - name: Sync pmma directory with distributable branch
+        run: |
+          rm -rf pmma
+          mv pmma pmma
+          git add pmma
+
+      - name: Commit and push changes if there are any
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add pmma
-          git commit -m "Deploy to distributable branch"
-
-      - name: Push to distributable branch
-        run: |
-          git push origin `HEAD:refs/heads/distributable` -f
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Deploy to distributable branch"
+            git push origin distributable --force
+          else
+            echo "No changes to commit"
+          fi
