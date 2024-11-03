@@ -33,11 +33,17 @@ jobs:
           git fetch origin distributable || true
           git checkout -B distributable origin/distributable || git checkout -b distributable
 
-      - name: Sync pmma directory with distributable branch
+      - name: Clear old contents in distributable branch
         run: |
+          rm -rf *
+          rm -rf .github # Ensure we don't remove workflow files
+          git clean -fd
+
+      - name: Move pmma directory to distributable branch
+        run: |
+          mv pmma/* .
           rm -rf pmma
-          mv pmma pmma
-          git add pmma
+          git add .
 
       - name: Commit and push changes if there are any
         run: |
