@@ -1,0 +1,6 @@
+# Exclude all files by default
+exclude *
+
+# Include only the necessary directories
+recursive-include pmma *
+include pmma-*.dist-info/*
