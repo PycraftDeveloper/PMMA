@@ -22,6 +22,7 @@ The full breakdown of what everything does!
     number_converter.rst
     render_pipeline.rst
     constants.rst
+    __init__.rst
     formatters.rst
     recorder.rst
     logging.rst
