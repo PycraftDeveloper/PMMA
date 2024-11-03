@@ -16,7 +16,7 @@ jobs:
         with:
           ref: main
 
-      - name: Create pmma directory and copy files
+      - name: Prepare pmma directory with necessary files
         run: |
           mkdir -p pmma
           cp -r python_src pmma/
@@ -36,13 +36,13 @@ jobs:
       - name: Clear old contents in distributable branch
         run: |
           rm -rf *
-          rm -rf .github # Ensure we don't remove workflow files
+          rm -rf .github # Prevent deletion of workflow files
           git clean -fd
 
-      - name: Move pmma directory to distributable branch
+      - name: Copy pmma directory contents to root of distributable branch
         run: |
           mv pmma/* .
-          rm -rf pmma
+          rmdir pmma
           git add .
 
       - name: Commit and push changes if there are any
