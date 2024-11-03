@@ -21,6 +21,7 @@ package_data={
 
 # Manually specify packages
 packages = [
+    "pmma",
     "pmma.cython_src",
     "pmma.python_src",
     "pmma.shaders",
