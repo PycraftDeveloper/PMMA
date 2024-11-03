@@ -2,6 +2,7 @@
 cython
 getostheme
 moderngl
+moderngl_window
 moviepy
 num2words
 numba
