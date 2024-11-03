@@ -25,6 +25,7 @@ packages = [
     "pmma.cython_src",
     "pmma.python_src",
     "pmma.shaders",
+    "pmma.resources"
 ]
 
 setup(

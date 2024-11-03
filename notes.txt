@@ -69,7 +69,7 @@ Next release:
 	[IMPROVEMENT] Include the ability to globally adjust double tap time, instead of per-key.
 	[NEW FEATURE] Introduce a generic TEXT INPUT.
 	[NEW FEATURE] PMMA update checking!
-	[BUG FIX] PyPi packaging improvements.
+	[NEW FEATURE] PMMA Nuke for un-installation
 
 Following releases:
 	[BUG FIX] Fix perlin noise for arrays.
