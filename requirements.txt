@@ -1,4 +1,5 @@
 # Requirements for all systems
+av
 cython
 getostheme
 moderngl
