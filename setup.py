@@ -16,6 +16,7 @@ with open("requirements.txt", "r", encoding="utf-8") as req_file:
 
 package_data={
         "pmma": ["*"]  # Include all file types
+        "": ["__init__.py", "c_setup.py"],  # Include these root files
     }
 
 # Manually specify packages
