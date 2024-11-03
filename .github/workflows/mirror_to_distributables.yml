@@ -1,0 +1,39 @@
+name: Deploy to Distributable Branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Copy files to pmma directory
+        run: |
+          mkdir -p pmma
+          cp -r python_src pmma/
+          cp -r cython_src pmma/
+          cp -r shaders pmma/
+          cp __init__.py pmma/
+          cp README.md pmma/
+          cp requirements.txt /
+          cp setup.py /
+          cp pyproject.toml /
+
+      - name: Commit changes
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add pmma
+          git commit -m "Deploy to distributable branch"
+
+      - name: Push to distributable branch
+        run: |
+          git push origin `HEAD:refs/heads/distributable` -f
