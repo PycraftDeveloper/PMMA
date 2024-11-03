@@ -3,4 +3,6 @@ exclude *
 
 # Include only the necessary directories
 recursive-include pmma *
+include __init__.py
+include c_setup.py
 include pmma-*.dist-info/*
