@@ -36,6 +36,12 @@ jobs:
           cp -r python_src pmma/
           cp -r shaders pmma/
 
+      - name: Delete original files in distributables branch
+        run: |
+            rm -rf cython_src
+            rm -rf python_src
+            rm -rf shaders
+
       - name: Commit and push changes to distributables branch
         run: |
           git add pmma
