@@ -15,6 +15,9 @@ jobs:
       with:
         fetch-depth: 0  # Fetch all history for the latest commit
 
+    - name: Checkout distributables branch
+      run: git checkout distributables  # Switch to the distributables branch
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
