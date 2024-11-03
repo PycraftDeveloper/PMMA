@@ -31,14 +31,15 @@ jobs:
 
       - name: Copy contents from main branch
         run: |
-          git checkout main -- cython_src python_src shaders
+          git checkout main -- cython_src python_src shaders __init__.py
           cp -r cython_src pmma/
           cp -r python_src pmma/
           cp -r shaders pmma/
+          cp __init__.py pmma/__init__.py
 
       - name: Delete original files in distributables branch
         run: |
-            rm -rf cython_src python_src shaders
+            rm -rf cython_src python_src shaders __init__.py
 
       - name: Stage all changes (including deletions)
         run: git add -A
