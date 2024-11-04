@@ -192,7 +192,7 @@ class ColorConverter:
 
     def generate_color_from_perlin_noise(
             self,
-            value,
+            value=None,
             format=_Constants.RGBA,
             color_range=[0, 255],
             red_color_range=None,
