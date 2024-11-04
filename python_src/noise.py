@@ -16,6 +16,7 @@ from pmma.python_src.utility.noise_utils import NoiseIntermediary as _NoiseInter
 from pmma.python_src.utility.noise_utils import prefill_optimizer as _prefill_optimizer
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
+from pmma.python_src.utility.general_utils import get_application_run_time as _get_application_run_time
 
 class Perlin:
     def __init__(
@@ -137,7 +138,10 @@ class Perlin:
             print(error)
             print(_traceback__format_exc())
 
-    def generate_1D_perlin_noise(self, x, new_range=[-1, 1]):
+    def generate_1D_perlin_noise(self, x=None, new_range=[-1, 1]):
+        if x is None:
+            x = _get_application_run_time()
+
         noise = self._noise.fBM1D(x)
 
         if noise > _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise"]["max"]:
@@ -153,7 +157,12 @@ class Perlin:
                 dtype=_numpy__float64),
             _numpy__array(new_range, dtype=_numpy__float64))
 
-    def generate_2D_perlin_noise(self, x, y, new_range=[-1, 1]):
+    def generate_2D_perlin_noise(self, x=None, y=None, new_range=[-1, 1]):
+        if x is None:
+            x = _get_application_run_time()
+        if y is None:
+            y = _get_application_run_time()
+
         noise = self._noise.fBM2D(x, y)
 
         if noise > _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise"]["max"]:
@@ -169,7 +178,14 @@ class Perlin:
                 dtype=_numpy__float64),
             _numpy__array(new_range, dtype=_numpy__float64))
 
-    def generate_3D_perlin_noise(self, x, y, z, new_range=[-1, 1]):
+    def generate_3D_perlin_noise(self, x=None, y=None, z=None, new_range=[-1, 1]):
+        if x is None:
+            x = _get_application_run_time()
+        if y is None:
+            y = _get_application_run_time()
+        if z is None:
+            z = _get_application_run_time()
+
         noise = self._noise.fBM3D(x, y, z)
 
         if noise > _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise"]["max"]:
