@@ -430,12 +430,24 @@ class RadialPolygon:
     def get_point_count(self):
         return self._point_count
 
-    def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        center_input_format = type(center)
+        if self._center.get_coordinate_set():
+            if format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if center_input_format == _CoordinateConverter:
+                    center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    center_coords = [int(center[0]), int(center[1])]
+
+                if center_coords[0] == original_coordinates[0] and center_coords[1] == original_coordinates[1]:
+                    return
+
         self._position_changed = True
-        if type(centre) != _CoordinateConverter:
-            self._center.set_coordinates(centre, format=format)
+        if center_input_format != _CoordinateConverter:
+            self._center.set_coordinates(center, format=format)
         else:
-            self._center = centre
+            self._center = center
 
     def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._center is not None:
@@ -559,8 +571,20 @@ class Rectangle:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        position_input_type = type(position)
+        if self._position.get_coordinate_set():
+            if position_format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if position_input_type == _CoordinateConverter:
+                    position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    position_coords = [int(position[0]), int(position[1])]
+
+                if position_coords[0] == original_coordinates[0] and position_coords[1] == original_coordinates[1]:
+                    return
+
         self._position_changed = True
-        if type(position) != _CoordinateConverter:
+        if position_input_type != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -823,12 +847,24 @@ class Arc:
         if self._stop_angle is not None:
             return self._stop_angle.get_angle(format=format)
 
-    def set_center(self, centre, format=_Constants.CONVENTIONAL_COORDINATES):
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        center_input_type = type(center)
+        if self._center.get_coordinate_set():
+            if format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if center_input_type == _CoordinateConverter:
+                    center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    center_coords = [int(center[0]), int(center[1])]
+
+                if center_coords[0] == original_coordinates[0] and center_coords[1] == original_coordinates[1]:
+                    return
+
         self._position_changed = True
-        if type(centre) != _CoordinateConverter:
-            self._center.set_coordinates(centre, format=format)
+        if center_input_type != _CoordinateConverter:
+            self._center.set_coordinates(center, format=format)
         else:
-            self._center = centre
+            self._center = center
 
     def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._center is not None:
@@ -1040,6 +1076,18 @@ class Ellipse:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        position_input_type = type(position)
+        if self._position.get_coordinate_set():
+            if position_format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if position_input_type == _CoordinateConverter:
+                    position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    position_coords = [int(position[0]), int(position[1])]
+
+                if position_coords[0] == original_coordinates[0] and position_coords[1] == original_coordinates[1]:
+                    return
+
         self._position_changed = True
         if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
@@ -1407,7 +1455,6 @@ class Pixel:
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _CoordinateConverter()
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
@@ -1415,6 +1462,7 @@ class Pixel:
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._created_shape = False
+        self._position_changed = True
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -1438,10 +1486,23 @@ class Pixel:
         self._shut_down = True
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        position_input_type = type(position)
+        if self._position.get_coordinate_set():
+            if position_format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if position_input_type == _CoordinateConverter:
+                    position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    position_coords = [int(position[0]), int(position[1])]
+
+                if position_coords[0] == original_coordinates[0] and position_coords[1] == original_coordinates[1]:
+                    return
+
+        self._position_changed = True
         if type(position) != _CoordinateConverter:
-            self._vertices_changed = self._position.set_coordinates(position, format=position_format)
+            self._position.set_coordinates(position, format=position_format)
         else:
-            self._vertices_changed = self._position.set_coordinates(position.get_coordinates(format=position_format))
+            self._position = position
 
     def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
         if self._position is not None:
@@ -1487,9 +1548,9 @@ once to improve performance, but will continue to have an effect.")
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._position_changed = True
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -1501,10 +1562,10 @@ once to improve performance, but will continue to have an effect.")
             self._create_shape()
             self._created_shape = True
 
-        if self._vertices_changed:
+        if self._position_changed:
             offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
-            self._vertices_changed = False
+            self._position_changed = False
 
         if self._color_changed:
             color = self._color.get_color(format=_Constants.SMALL_RGBA)
