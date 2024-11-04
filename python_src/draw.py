@@ -81,8 +81,20 @@ class Line:
             return self._rotation.get_angle(format=format)
 
     def set_start(self, start, start_format=_Constants.CONVENTIONAL_COORDINATES):
+        start_input_type = type(start)
+        if self._start.get_coordinate_set():
+            if start_format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._start.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if start_input_type == _CoordinateConverter:
+                    start_coords = start.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    start_coords = [int(start[0]), int(start[1])]
+
+                if start_coords[0] == original_coordinates[0] and start_coords[1] == original_coordinates[1]:
+                    return
+
         self._vertices_changed = True
-        if type(start) != _CoordinateConverter:
+        if start_input_type != _CoordinateConverter:
             self._start.set_coordinates(start, format=start_format)
         else:
             self._start = start
@@ -92,8 +104,20 @@ class Line:
             return self._start.get_coordinates(format=format)
 
     def set_end(self, end, end_format=_Constants.CONVENTIONAL_COORDINATES):
+        end_input_type = type(end)
+        if self._start.get_coordinate_set():
+            if end_format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._end.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if end_input_type == _CoordinateConverter:
+                    end_coords = end.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                else:
+                    end_coords = [int(end[0]), int(end[1])]
+
+                if end_coords[0] == original_coordinates[0] and end_coords[1] == original_coordinates[1]:
+                    return
+
         self._vertices_changed = True
-        if type(end) != _CoordinateConverter:
+        if end_input_type != _CoordinateConverter:
             self._end.set_coordinates(end, format=end_format)
         else:
             self._end = end
