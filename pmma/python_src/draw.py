@@ -513,7 +513,7 @@ class RadialPolygon:
         if self._resized_event.get_value():
             self._vertices_changed = True
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._vertices_changed or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -800,7 +800,7 @@ class Rectangle:
         if self._resized_event.get_value():
             self._vertices_changed = True
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._vertices_changed or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -1068,7 +1068,7 @@ class Arc:
         if self._resized_event.get_value():
             self._vertices_changed = True
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._vertices_changed or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -1312,7 +1312,7 @@ class Ellipse:
         if self._resized_event.get_value():
             self._vertices_changed = True
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._vertices_changed or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
