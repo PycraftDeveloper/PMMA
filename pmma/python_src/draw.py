@@ -127,8 +127,30 @@ class Line:
             return self._end.get_coordinates(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
         self._color_changed = True
-        if type(color) != _ColorConverter:
+        if color_input_type != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -413,8 +435,30 @@ class RadialPolygon:
             return self._radius.get_point(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
         self._color_changed = True
-        if type(color) != _ColorConverter:
+        if color_input_type != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -610,8 +654,30 @@ class Rectangle:
             return [self._x_size.get_point(format=format), self._y_size.get_point(format=format)]
 
     def set_color(self, color, format=_Constants.RGB):
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
         self._color_changed = True
-        if type(color) != _ColorConverter:
+        if color_input_type != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -880,8 +946,30 @@ class Arc:
             return self._radius.get_point(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
         self._color_changed = True
-        if type(color) != _ColorConverter:
+        if color_input_type != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -1115,8 +1203,30 @@ class Ellipse:
             return [self._outer_x_size.get_coordinates(format=format), self._outer_y_size.get_coordinates(format=format)]
 
     def set_color(self, color, format=_Constants.RGB):
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
         self._color_changed = True
-        if type(color) != _ColorConverter:
+        if color_input_type != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -1320,8 +1430,30 @@ class Polygon:
         return points
 
     def set_color(self, color, format=_Constants.RGB):
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
         self._color_changed = True
-        if type(color) != _ColorConverter:
+        if color_input_type != _ColorConverter:
             self._color.set_color(color, format=format)
         else:
             self._color = color
@@ -1509,10 +1641,33 @@ class Pixel:
             return self._position.get_coordinates(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
-        if type(color) != _ColorConverter:
-            self._color_changed = self._color.set_color(color, format=format)
+        color_input_type = type(color)
+        if self._color.get_color_set():
+            if format == _Constants.RGB:
+                original_color = self._color.get_color(format=_Constants.RGB)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGB)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
+                    return
+
+            elif format == _Constants.RGBA:
+                original_color = self._color.get_color(format=_Constants.RGBA)
+                if color_input_type == _ColorConverter:
+                    new_color = color.get_color(format=_Constants.RGBA)
+                else:
+                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+
+                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
+                    return
+
+        self._color_changed = True
+        if color_input_type != _ColorConverter:
+            self._color.set_color(color, format=format)
         else:
-            self._color_changed = self._color.set_color(color.get_color(format=format))
+            self._color = color
 
     def get_color(self, format=_Constants.RGB):
         if self._color is not None:
