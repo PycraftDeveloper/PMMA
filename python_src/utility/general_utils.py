@@ -32,10 +32,7 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
-def clean_up_pmma():
-    print("PMMA is about to perform a clean up operation that is \
-designed to make its un-installation easier.")
-
+def clean_up():
     keep_folders = ["cython_src", "python_src", "shaders", "resources"]
     keep_files = ["__init__.py", "c_setup.py"]
     # Convert keep lists to sets for faster lookups
@@ -51,14 +48,20 @@ designed to make its un-installation easier.")
             file_path = _os.path.join(root, file)
             # Delete the file if it's not in the keep list
             if file not in keep_files_set:
-                _os.remove(file_path)
+                try:
+                    _os.remove(file_path)
+                except Exception as error:
+                    print(error)
 
         # Process directories in the current directory
         for dir_ in dirs:
             dir_path = _os.path.join(root, dir_)
             # Delete the directory if it's not in the keep list
             if dir_ not in keep_folders_set:
-                _shutil__rmtree(dir_path)
+                try:
+                    _shutil__rmtree(dir_path)
+                except Exception as error:
+                    print(error)
 
 def get_execution_time(function, *args, **kwargs):
     start_time = _time__perf_counter()

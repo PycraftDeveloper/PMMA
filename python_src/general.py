@@ -17,6 +17,16 @@ from pmma.python_src.utility.general_utils import get_execution_time as _get_exe
 from pmma.python_src.utility.general_utils import get_execution_inverse_time as _get_execution_inverse_time
 from pmma.python_src.utility.general_utils import get_application_run_time as _get_application_run_time
 from pmma.python_src.utility.general_utils import get_application_startup_duration as _get_application_startup_duration
+from pmma.python_src.utility.general_utils import clean_up as _clean_up
+
+def clean_up():
+    print("PMMA is about to perform a clean up operation that is \
+designed to make its un-installation easier. This is best run \
+before pmma.init().")
+    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("PMMA is about to perform a clean up operation that is \
+designed to make its un-installation easier. This is best run \
+before pmma.init().")
+    _clean_up()
 
 def get_application_startup_duration():
     return _get_application_startup_duration()
