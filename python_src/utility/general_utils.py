@@ -117,8 +117,7 @@ specified where you would like them to be placed. This can be done through: \
             for locations in path:
                 _Registry.profiler.dump_stats(locations)
         else:
-            with open(path, "w") as file:
-                _Registry.profiler.dump_stats(file)
+            _Registry.profiler.dump_stats(path)
 
     if _PassportIntermediary.passport_file_location is not None:
         passport = {"components used": _PassportIntermediary.components_used}
