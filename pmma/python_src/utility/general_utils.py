@@ -169,15 +169,26 @@ specified where you would like them to be placed. This can be done through: \
         else:
             path = _Registry.profile_result_path
 
+        if _Registry.clean_profile:
+            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                "You are using PMMA's clean profile function. What this does is remove all the \
+lines from the profile that your application didn't run, often considerably shortening the profile \
+results making it easier to find whats slowing your application down. This is enabled by default, \
+but can be disabled using `pmma.set_clean_profiling(False)`. Please also consider that due to the \
+removal of some lines in the profile results, it can be harder to trace and understand the profiled \
+results in some cases!")
+
         if type(path) == list or type(path) == tuple:
             for locations in path:
                 _Registry.profiler.dump_stats(locations)
 
-                perform_clean_profiling(locations)
+                if _Registry.clean_profile:
+                    perform_clean_profiling(locations)
         else:
             _Registry.profiler.dump_stats(path)
 
-            perform_clean_profiling(path)
+            if _Registry.clean_profile:
+                perform_clean_profiling(path)
 
     if _PassportIntermediary.passport_file_location is not None:
         passport = {"components used": _PassportIntermediary.components_used}
