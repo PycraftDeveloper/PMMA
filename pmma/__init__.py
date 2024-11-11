@@ -72,8 +72,7 @@ import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 def init(
-            optimize_python_extensions=True,
-            compile_c_extensions=True,
+            use_c_acceleration=True,
             memory_management_max_object_lifetime=2.5,
             memory_management_max_size=Constants.AUTOMATIC,
             general_profile_application=False,
@@ -106,7 +105,7 @@ def init(
         from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
         _LoggerIntermediary()
 
-    if compile_c_extensions: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
+    if use_c_acceleration: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
         cython_thread = _cython_utils.compile()
 
     root = _tkinter__Tk()
@@ -115,8 +114,7 @@ def init(
     _Registry.application_start_time = startup_time
     Backpack.application_start_time = startup_time
 
-    _Registry.python_acceleration_enabled = optimize_python_extensions
-    _Registry.cython_acceleration_enabled = compile_c_extensions
+    _Registry.cython_acceleration_enabled = use_c_acceleration
     _Registry.power_saving_mode = is_battery_saver_enabled()
     _Registry.power_status_checked_time = _time__perf_counter()
 
@@ -923,7 +921,7 @@ devices. We are working on a better way to handle this situation.")
         from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
         _DisplayIntermediary()
 
-    if compile_c_extensions:
+    if use_c_acceleration:
         cython_thread.join()
 
 # Jessy

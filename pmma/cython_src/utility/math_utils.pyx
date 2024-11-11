@@ -11,13 +11,17 @@ cpdef double raw_smooth_step(double t):
     return t * t * (3 - 2 * t)
 
 # Clamping and mapping function
-cpdef double raw_ranger(double value, cnp.ndarray[double, ndim=1] old, cnp.ndarray[double, ndim=1] new):
+cpdef double raw_ranger(double value, list old, list new):
+    cdef double old_range, new_range, new_value
+
+    # Ensure value is within bounds of the 'old' range
     if value > old[1]:
         value = old[1]
     elif value < old[0]:
         value = old[0]
 
-    if np.array_equal(old, new):
+    # Check if 'old' and 'new' lists are identical
+    if old[0] == new[0] and old[1] == new[1]:
         return value
 
     old_range = old[1] - old[0]
