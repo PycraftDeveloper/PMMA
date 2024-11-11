@@ -32,6 +32,12 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
+def set_clean_profiling(can_clean_profile):
+    _Registry.clean_profile = can_clean_profile
+
+def get_clean_profiling():
+    return _Registry.clean_profile
+
 def clean_up():
     keep_folders = ["cython_src", "python_src", "shaders", "resources"]
     keep_files = ["__init__.py", "c_setup.py"]
@@ -132,6 +138,24 @@ def convert_number_to_text(value):
 unfortunately to convert to words. Instead the value will be returned as a string.", variables=[value])
         return str(value)
 
+def perform_clean_profiling(path):
+    with open(path, "r") as profile_results_file:
+        profile_line_data = profile_results_file.readlines()
+
+    filtered_lines = []
+    written_abbreviated = False
+    for line in profile_line_data:
+        if not "         0|            0|            0|  0.00%|" in line:
+            filtered_lines.append(line)
+            written_abbreviated = False
+        else:
+            if written_abbreviated is False:
+                filtered_lines.append("...\n")
+                written_abbreviated = True
+
+    with open(path, "w") as new_profile_results_file:
+        new_profile_results_file.writelines(filtered_lines)
+
 def quit(show_statistics=None, terminate_application=True):
     if _Registry.profiler is not None:
         _Registry.profiler.disable()
@@ -148,8 +172,12 @@ specified where you would like them to be placed. This can be done through: \
         if type(path) == list or type(path) == tuple:
             for locations in path:
                 _Registry.profiler.dump_stats(locations)
+
+                perform_clean_profiling(locations)
         else:
             _Registry.profiler.dump_stats(path)
+
+            perform_clean_profiling(path)
 
     if _PassportIntermediary.passport_file_location is not None:
         passport = {"components used": _PassportIntermediary.components_used}

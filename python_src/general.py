@@ -18,6 +18,14 @@ from pmma.python_src.utility.general_utils import get_execution_inverse_time as 
 from pmma.python_src.utility.general_utils import get_application_run_time as _get_application_run_time
 from pmma.python_src.utility.general_utils import get_application_startup_duration as _get_application_startup_duration
 from pmma.python_src.utility.general_utils import clean_up as _clean_up
+from pmma.python_src.utility.general_utils import set_clean_profiling as _set_clean_profiling
+from pmma.python_src.utility.general_utils import get_clean_profiling as _get_clean_profiling
+
+def set_clean_profiling(can_clean_profile):
+    _set_clean_profiling(can_clean_profile)
+
+def get_clean_profiling():
+    return _get_clean_profiling()
 
 def clean_up():
     print("PMMA is about to perform a clean up operation that is \

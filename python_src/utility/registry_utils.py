@@ -48,3 +48,4 @@ class Registry:
     internal_log_duration = 1
     external_log_duration = 1
     power_status_checked_time = None
+    clean_profile = True
