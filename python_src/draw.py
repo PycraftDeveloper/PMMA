@@ -377,12 +377,13 @@ class RadialPolygon:
                                         inner_radius * _numpy.sin(angles) * 0.98))
 
         # Interleave outer and inner vertices for the triangle strip pattern
-        combined_vertices = _numpy.empty((2 * point_count + 1, 2), dtype='f4')
-        combined_vertices[0:-1:2] = outer_vertices
-        combined_vertices[1:-1:2] = inner_vertices
+        combined_vertices = _numpy.empty((2 * point_count + 2, 2), dtype='f4')
+        combined_vertices[0:-2:2] = outer_vertices
+        combined_vertices[1:-2:2] = inner_vertices
 
         # Close the shape by adding the first vertices again
-        combined_vertices[-1] = outer_vertices[0]  # Append the first outer vertex to close the shape
+        combined_vertices[-1] = inner_vertices[0]  # Append the first outer vertex to close the shape
+        combined_vertices[-2] = outer_vertices[0]  # Append the first outer vertex to close the shape
 
         # The final array of vertices
         vertices = combined_vertices
@@ -712,58 +713,28 @@ class Rectangle:
             half_inner_width = max(half_outer_width - border_width, 0)
             half_inner_height = max(half_outer_height - border_width, 0)
 
-            outer_vertices = []
-            inner_vertices = []
+            offsets = _numpy.array([
+                [-1, -1],  # Bottom-left
+                [1, -1],   # Bottom-right
+                [1, 1],    # Top-right
+                [-1, 1]    # Top-left
+            ])
 
-            # Create outer and inner vertices
-            # Bottom-left
-            outer_x = x - half_outer_width
-            outer_y = y - half_outer_height
-            inner_x = x - half_inner_width
-            inner_y = y - half_inner_height
+            # Define the half-widths and half-heights as arrays for element-wise multiplication
+            half_outer_size = _numpy.array([half_outer_width, half_outer_height])
+            half_inner_size = _numpy.array([half_inner_width, half_inner_height])
 
-            outer_vertices.append([outer_x, outer_y])
-            inner_vertices.append([inner_x, inner_y])
+            # Calculate the outer and inner vertices based on the offsets
+            outer_vertices = _numpy.array([x, y]) + offsets * half_outer_size
+            inner_vertices = _numpy.array([x, y]) + offsets * half_inner_size
 
-            # Bottom-right
-            outer_x = x + half_outer_width
-            outer_y = y - half_outer_height
-            inner_x = x + half_inner_width
-            inner_y = y - half_inner_height
-
-            outer_vertices.append([outer_x, outer_y])
-            inner_vertices.append([inner_x, inner_y])
-
-            # Top-right
-            outer_x = x + half_outer_width
-            outer_y = y + half_outer_height
-            inner_x = x + half_inner_width
-            inner_y = y + half_inner_height
-
-            outer_vertices.append([outer_x, outer_y])
-            inner_vertices.append([inner_x, inner_y])
-
-            # Top-left
-            outer_x = x - half_outer_width
-            outer_y = y + half_outer_height
-            inner_x = x - half_inner_width
-            inner_y = y + half_inner_height
-
-            outer_vertices.append([outer_x, outer_y])
-            inner_vertices.append([inner_x, inner_y])
-
-            # Create a list of vertices alternating between outer and inner vertices for triangle strip
-            combined_vertices = []
-            for i in range(len(outer_vertices)):
-                combined_vertices.append(outer_vertices[i])
-                combined_vertices.append(inner_vertices[i])
+            # Interleave the outer and inner vertices
+            combined_vertices = _numpy.empty((outer_vertices.shape[0] * 2, 2), dtype=_numpy.float32)
+            combined_vertices[0::2] = outer_vertices
+            combined_vertices[1::2] = inner_vertices
 
             # Close the shape by adding the first vertices again
-            combined_vertices.append(outer_vertices[0])
-            combined_vertices.append(inner_vertices[0])
-
-            # Convert to numpy array
-            vertices = _numpy.array(combined_vertices, dtype='f4')
+            combined_vertices = _numpy.vstack([combined_vertices, outer_vertices[0], inner_vertices[0]])
 
             # Apply rotation around the center
             rotation = self._rotation.get_angle(format=_Constants.RADIANS)
@@ -771,7 +742,7 @@ class Rectangle:
             sin_theta = _numpy.sin(rotation)
 
             # Rotate each vertex around the center
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
 
             self._vertices_changed = False  # Reset the flag
 
@@ -1012,19 +983,19 @@ class Arc:
             if point_count < 3:
                 point_count = 3
 
-            # Generate angles for arc
+            # Generate angles for the arc
             angles = _numpy.linspace(start_angle, stop_angle, point_count)
 
-            # Generate vertices for the inner and outer arcs
-            inner_vertices = _numpy.array([
-                [center_x + inner_radius * _numpy.cos(angle), center_y + inner_radius * _numpy.sin(angle)]
-                for angle in angles
-            ], dtype='f4')
+            # Use broadcasting to calculate inner and outer vertices
+            inner_vertices = _numpy.column_stack((
+                center_x + inner_radius * _numpy.cos(angles),
+                center_y + inner_radius * _numpy.sin(angles)
+            )).astype('f4')
 
-            outer_vertices = _numpy.array([
-                [center_x + outer_radius * _numpy.cos(angle), center_y + outer_radius * _numpy.sin(angle)]
-                for angle in angles
-            ], dtype='f4')
+            outer_vertices = _numpy.column_stack((
+                center_x + outer_radius * _numpy.cos(angles),
+                center_y + outer_radius * _numpy.sin(angles)
+            )).astype('f4')
 
             # Combine inner and outer vertices in a way suitable for TRIANGLE_STRIP
             vertices = _numpy.empty((2 * point_count, 2), dtype='f4')
@@ -1271,8 +1242,15 @@ class Ellipse:
 
             # Generate points along the ellipse perimeter
             angles = _numpy.linspace(0, 2 * _numpy.pi, num_points)
-            outer_vertices = _numpy.array([[center_x + (outer_size_x / 2) * _numpy.cos(angle), center_y + (outer_size_y / 2) * _numpy.sin(angle)] for angle in angles], dtype='f4')
-            inner_vertices = _numpy.array([[center_x + (inner_size_x / 2) * _numpy.cos(angle) , center_y + (inner_size_y / 2) * _numpy.sin(angle)] for angle in angles], dtype='f4')
+            cos_angles = _numpy.cos(angles)
+            sin_angles = _numpy.sin(angles)
+
+            # Vectorized calculation for outer and inner vertices
+            outer_vertices = _numpy.column_stack((center_x + (outer_size_x / 2) * cos_angles,
+                                            center_y + (outer_size_y / 2) * sin_angles)).astype('f4')
+
+            inner_vertices = _numpy.column_stack((center_x + (inner_size_x / 2) * cos_angles,
+                                            center_y + (inner_size_y / 2) * sin_angles)).astype('f4')
 
             vertices = _numpy.empty((2 * num_points, 2), dtype='f4')
             vertices[0::2] = outer_vertices

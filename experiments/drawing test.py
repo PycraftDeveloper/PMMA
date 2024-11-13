@@ -6,7 +6,7 @@ import pygame
 
 import time
 
-pmma.init(compile_c_extensions=True)
+pmma.init()
 
 pmma.set_allow_anti_aliasing(False)
 pmma.set_anti_aliasing_level(8)
@@ -54,7 +54,7 @@ ellipse = pmma.Ellipse()
 ellipse.set_position([500, 500])
 ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
-ellipse.set_width(1)
+ellipse.set_width(5)
 
 
 polygon = pmma.Polygon()
@@ -90,6 +90,6 @@ while pmma.Backpack.running:
     pmma.compute()
     end = time.perf_counter()
     display.refresh(refresh_rate=60)
-    #print(1/(end-start))
+    print(1/(end-start))
 
 pmma.quit()
