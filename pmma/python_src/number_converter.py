@@ -374,7 +374,7 @@ create the window onscreen")
 
         return self.get_coordinates(format)
 
-    def generate_color_from_perlin_noise(
+    def generate_coordinate_from_perlin_noise(
             self,
             value,
             format=_Constants.CONVENTIONAL_COORDINATES,
