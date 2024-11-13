@@ -29,29 +29,33 @@ class Perlin:
         _initialize(self)
 
         if _Registry.cython_acceleration_available:
-            self._noise_module = _importlib.import_module(
-                "pmma.bin.perlin_noise")
+            if _NoiseIntermediary.noise_module is None:
+                _NoiseIntermediary.noise_module = _importlib.import_module(
+                    "pmma.bin.perlin_noise")
 
-            self._extended_noise_module = _importlib.import_module(
-                "pmma.bin.extended_perlin_noise")
+            if _NoiseIntermediary.extended_noise_module is None:
+                _NoiseIntermediary.extended_noise_module = _importlib.import_module(
+                    "pmma.bin.extended_perlin_noise")
 
         else:
-            self._noise_module = _importlib.import_module(
-                "pmma.python_src.pyx_alternatives.utility.perlin_noise")
+            if _NoiseIntermediary.noise_module is None:
+                _NoiseIntermediary.noise_module = _importlib.import_module(
+                    "pmma.python_src.pyx_alternatives.utility.perlin_noise")
 
-            self._extended_noise_module = _importlib.import_module(
-                "pmma.python_src.pyx_alternatives.utility.extended_perlin_noise")
+            if _NoiseIntermediary.extended_noise_module is None:
+                _NoiseIntermediary.extended_noise_module = _importlib.import_module(
+                    "pmma.python_src.pyx_alternatives.utility.extended_perlin_noise")
 
         if seed is None:
             seed = _random.randint(0, 1000000)
         self._seed = seed
 
-        self._noise = self._noise_module.PerlinNoise(
+        self._noise = _NoiseIntermediary.noise_module.PerlinNoise(
             self._seed,
             octaves,
             persistence)
 
-        self._extended_noise = self._extended_noise_module.ExtendedPerlinNoise(
+        self._extended_noise = _NoiseIntermediary.extended_noise_module.ExtendedPerlinNoise(
             self._seed,
             octaves,
             persistence)
