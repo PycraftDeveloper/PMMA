@@ -376,7 +376,7 @@ create the window onscreen")
 
     def generate_coordinate_from_perlin_noise(
             self,
-            value,
+            value=None,
             format=_Constants.CONVENTIONAL_COORDINATES,
             coordinate_range=None,
             x_coordinate_range=None,
@@ -388,17 +388,17 @@ create the window onscreen")
         if self._y_noise is None:
             self._y_noise = _Perlin(seed=self._seed)
 
-        if coordinate_range is None:
-            if _Registry.display_initialized:
-                display = self._display
-                coordinate_range = [0, min(display.get_size())]
-            else:
-                coordinate_range = [0, 100]
-
         if x_coordinate_range is None:
-            x_coordinate_range = coordinate_range
+            if coordinate_range is None:
+                x_coordinate_range = [0, self._display.get_width()]
+            else:
+                x_coordinate_range = coordinate_range
+
         if y_coordinate_range is None:
-            y_coordinate_range = coordinate_range
+            if coordinate_range is None:
+                y_coordinate_range = [0, self._display.get_height()]
+            else:
+                y_coordinate_range = coordinate_range
 
         color = [
             self._x_noise.generate_1D_perlin_noise(
