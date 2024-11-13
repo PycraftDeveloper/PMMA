@@ -29,3 +29,6 @@ class NoiseIntermediary:
         "generate_2D_perlin_noise_from_range": {"min": 2, "max": -2},
         "generate_3D_perlin_noise_from_range": {"min": 2, "max": -2},
     }
+
+    noise_module = None
+    extended_noise_module = None
