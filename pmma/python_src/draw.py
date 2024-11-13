@@ -354,45 +354,33 @@ class RadialPolygon:
         else:
             point_count = self._point_count
 
-        angle_step = 2 * _math.pi / point_count
-        outer_vertices = []
-        inner_vertices = []
-
         rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
-        center = [0, 0]
+        angle_step = 2 * _math.pi / point_count
+        angles = _numpy.arange(point_count) * angle_step + rotation
+
+        # Get the outer and inner radii
         outer_radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
+        inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES) if self._width else 0
 
-        # Calculate the inner radius based on the specified width
-        if self._width is not None:
-            self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
-            inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES)  # Ensure the inner radius is not negative
-        else:
-            inner_radius = 0  # Full polygon with no inner cut-out
+        # Calculate outer vertices as an array
+        outer_vertices = _numpy.column_stack((outer_radius * _numpy.cos(angles),
+                                        outer_radius * _numpy.sin(angles)))
 
-        # Create outer and inner vertices
-        for i in range(point_count):
-            angle = i * angle_step + rotation
-            outer_x = center[0] + outer_radius * _math.cos(angle)
-            outer_y = center[1] + outer_radius * _math.sin(angle)
-            inner_x = center[0] + inner_radius * _math.cos(angle) * 0.98  # Scale inner vertices slightly inward
-            inner_y = center[1] + inner_radius * _math.sin(angle) * 0.98
+        # Calculate inner vertices with a slight inward scaling as an array
+        inner_vertices = _numpy.column_stack((inner_radius * _numpy.cos(angles) * 0.98,
+                                        inner_radius * _numpy.sin(angles) * 0.98))
 
-            outer_vertices.append([outer_x, outer_y])
-            inner_vertices.append([inner_x, inner_y])
-
-        # Create a list of vertices alternating between outer and inner vertices for triangle strip
-        combined_vertices = []
-        for i in range(point_count):
-            combined_vertices.append(outer_vertices[i])
-            combined_vertices.append(inner_vertices[i])
+        # Interleave outer and inner vertices for the triangle strip pattern
+        combined_vertices = _numpy.empty((2 * point_count + 1, 2), dtype='f4')
+        combined_vertices[0:-1:2] = outer_vertices
+        combined_vertices[1:-1:2] = inner_vertices
 
         # Close the shape by adding the first vertices again
-        combined_vertices.append(outer_vertices[0])
-        combined_vertices.append(inner_vertices[0])
+        combined_vertices[-1] = outer_vertices[0]  # Append the first outer vertex to close the shape
 
-        # Convert to numpy array
-        vertices = _numpy.array(combined_vertices, dtype='f4')
+        # The final array of vertices
+        vertices = combined_vertices
 
         if self._vbo.get_created():
             self._vbo.update(vertices)
