@@ -326,7 +326,7 @@ class RadialPolygon:
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
         self._center = _CoordinateConverter()
-        self._width = 0
+        self._width = None
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
@@ -361,8 +361,12 @@ class RadialPolygon:
 
         # Get the outer and inner radii
         outer_radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
-        self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
-        inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES) if self._width else 0
+
+        if self._width is not None:
+            self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
+            inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES) if self._width else 0
+        else:
+            inner_radius = 0
 
         # Calculate outer vertices as an array
         outer_vertices = _numpy.column_stack((outer_radius * _numpy.cos(angles),
