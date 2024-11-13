@@ -69,6 +69,7 @@ Next release:
 	[NEW FEATURE] Introduce a generic TEXT INPUT.
 	[NEW FEATURE] PMMA update checking!
 	[IMPROVEMENT] OPENGL coordinates returned as numpy arrays?
+	[IMPROVEMENT] Noise min/max for numpy arrays created only when changed?
 
 Following releases:
 	[BUG FIX] Fix perlin noise for arrays.
