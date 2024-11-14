@@ -165,7 +165,7 @@ Methods
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.generate_color_from_perlin_noise() -> None
+.. py:method:: CoordinateConverter.generate_coordinate_from_perlin_noise() -> None
 
    Not Yet Written
 
