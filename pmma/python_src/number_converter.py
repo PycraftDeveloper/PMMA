@@ -238,7 +238,7 @@ class ColorConverter:
 
         return self.get_color(format)
 
-class PointConverter:
+class DisplayScalarConverter:
     def __init__(self):
         _initialize(self)
 
