@@ -56,7 +56,6 @@ ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
 ellipse.set_width(5)
 
-
 polygon = pmma.Polygon()
 polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (900, 100)])
