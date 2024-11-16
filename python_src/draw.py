@@ -11,7 +11,7 @@ from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import DisplayCoordinatesConverter as _DisplayCoordinatesConverter
-from pmma.python_src.number_converter import PointConverter as _PointConverter
+from pmma.python_src.number_converter import DisplayScalarConverter as _DisplayScalarConverter
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
 from pmma.python_src.file import path_builder as _path_builder
@@ -323,8 +323,8 @@ class RadialPolygon:
         self._color = _ColorConverter()
         self._point_count = None
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._radius = _PointConverter()
-        self._inner_radius = _PointConverter()
+        self._radius = _DisplayScalarConverter()
+        self._inner_radius = _DisplayScalarConverter()
         self._center = _DisplayCoordinatesConverter()
         self._width = None
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -421,7 +421,7 @@ class RadialPolygon:
 
     def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(value) != _PointConverter():
+        if type(value) != _DisplayScalarConverter():
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
@@ -559,9 +559,9 @@ class Rectangle:
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
-        self._x_size = _PointConverter()
-        self._y_size = _PointConverter()
-        self._inner_radius = _PointConverter()
+        self._x_size = _DisplayScalarConverter()
+        self._y_size = _DisplayScalarConverter()
+        self._inner_radius = _DisplayScalarConverter()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -633,12 +633,12 @@ class Rectangle:
 
     def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(size[0]) != _PointConverter:
+        if type(size[0]) != _DisplayScalarConverter:
             self._x_size.set_point(size[0], format=size_format)
         else:
             self._x_size = size[0]
 
-        if type(size[1]) != _PointConverter:
+        if type(size[1]) != _DisplayScalarConverter:
             self._y_size.set_point(size[1], format=size_format)
         else:
             self._y_size = size[1]
@@ -806,8 +806,8 @@ class Arc:
 
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._radius = _PointConverter()
-        self._inner_radius = _PointConverter()
+        self._radius = _DisplayScalarConverter()
+        self._inner_radius = _DisplayScalarConverter()
         self._center = _DisplayCoordinatesConverter()
         self._start_angle = _AngleConverter()
         self._stop_angle = _AngleConverter()
@@ -902,7 +902,7 @@ class Arc:
 
     def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
         self._vertices_changed = True
-        if type(value) != _PointConverter():
+        if type(value) != _DisplayScalarConverter():
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
@@ -1075,11 +1075,11 @@ class Ellipse:
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
-        self._outer_x_size = _PointConverter()
-        self._outer_y_size = _PointConverter()
+        self._outer_x_size = _DisplayScalarConverter()
+        self._outer_y_size = _DisplayScalarConverter()
         self._rotation = _AngleConverter()
-        self._inner_x_size = _PointConverter()
-        self._inner_y_size = _PointConverter()
+        self._inner_x_size = _DisplayScalarConverter()
+        self._inner_y_size = _DisplayScalarConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
