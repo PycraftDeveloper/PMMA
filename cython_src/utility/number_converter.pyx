@@ -135,7 +135,7 @@ cdef class Point:
             display_height = self.display.get_size()[1]
             return self._point / (display_height / 2.0)
 
-cdef class DisplayCoordinates:
+cdef class Coordinate:
     cdef list _coordinate
     cdef object _logger
     cdef object display

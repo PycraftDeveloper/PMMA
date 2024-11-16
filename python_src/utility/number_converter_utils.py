@@ -70,7 +70,7 @@ class PointIntermediary:
     def get_point(self, out_type=_Constants.CONVENTIONAL_COORDINATES):
         return self._internal_number_converter.get_point(out_type)
 
-class DisplayCoordinatesIntermediary:
+class CoordinateIntermediary:
     def __del__(self, do_garbage_collection=False):
         if self._shut_down is False:
             del self
@@ -91,7 +91,7 @@ class DisplayCoordinatesIntermediary:
             self._number_converter_module = _importlib__import_module(
                 "pmma.python_src.pyx_alternatives.utility.number_converter")
 
-        self._internal_number_converter = self._number_converter_module.DisplayCoordinates()
+        self._internal_number_converter = self._number_converter_module.Coordinate()
 
     def set_coordinate(self, coordinate, in_type=_Constants.CONVENTIONAL_COORDINATES):
         self._internal_number_converter.set_coordinate(coordinate, in_type=in_type)
