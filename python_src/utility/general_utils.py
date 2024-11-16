@@ -360,7 +360,14 @@ Pipeline through PMMA to avoid any potential slowdowns.")
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(total_time_spent_drawing)
 
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
+            drawing_slow_down_message_valid_to_display = True
+
+            if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
+                    drawing_slow_down_message_valid_to_display = False
+
+            if drawing_slow_down_message_valid_to_display:
+                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
 number of draw calls being made. The program spent {} on \
 {} total render calls, limiting your maximum refresh rate to: \
 {} Hz. Switching to the more optimized Render Pipeline will \
