@@ -106,7 +106,7 @@ cdef class Color:
         elif out_type == Constants.TEXT:
             return [value for value, key in Constants.TEXT_BASED_COLORS.items() if key == self.color]
 
-cdef class Point:
+cdef class DisplayScalar:
     cdef double _point
     cdef object _logger
     cdef object display
@@ -135,7 +135,7 @@ cdef class Point:
             display_height = self.display.get_size()[1]
             return self._point / (display_height / 2.0)
 
-cdef class Coordinate:
+cdef class DisplayCoordinates:
     cdef list _coordinate
     cdef object _logger
     cdef object display

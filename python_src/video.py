@@ -14,7 +14,7 @@ from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.gpu import GPU as _GPU
 from pmma.python_src.gpu_distribution import GPUDistribution as _GPUDistribution
-from pmma.python_src.number_converter import CoordinateConverter as _CoordinateConverter
+from pmma.python_src.number_converter import DisplayCoordinatesConverter as _DisplayCoordinatesConverter
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.audio import Audio as _Audio
@@ -42,9 +42,9 @@ class Video:
         _initialize(self)
 
         self._video_loaded = False
-        self._position = _CoordinateConverter()
+        self._position = _DisplayCoordinatesConverter()
         self._position.set_coordinates([0, 0], _Constants.CONVENTIONAL_COORDINATES)
-        self._size = _CoordinateConverter()
+        self._size = _DisplayCoordinatesConverter()
         self._input_container = None
         self._gpu_distribution = _GPUDistribution()
         self._video_stream = None
@@ -242,7 +242,7 @@ class Video:
             return False
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
-        if type(position) != _CoordinateConverter:
+        if type(position) != _DisplayCoordinatesConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -251,7 +251,7 @@ class Video:
         return self._position.get_coordinates(format=format)
 
     def set_target_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
-        if type(size) != _CoordinateConverter:
+        if type(size) != _DisplayCoordinatesConverter:
             self._size.set_coordinates(size, format=size_format)
         else:
             self._size = size
