@@ -6,7 +6,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.noise import Perlin as _Perlin
 
 from pmma.python_src.utility.number_converter_utils import ColorIntermediary as _ColorIntermediary
-from pmma.python_src.utility.number_converter_utils import DisplayCoordinatesIntermediary as DisplayCoordinatesIntermediary
+from pmma.python_src.utility.number_converter_utils import CoordinateIntermediary as _CoordinateIntermediary
 from pmma.python_src.utility.number_converter_utils import PointIntermediary as _PointIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -295,11 +295,11 @@ create the window onscreen")
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-class DisplayCoordinatesConverter:
+class CoordinateConverter:
     def __init__(self, seed=None):
         _initialize(self)
 
-        self._coordinate_intermediary = DisplayCoordinatesIntermediary()
+        self._coordinate_intermediary = _CoordinateIntermediary()
         self._coordinate_cache = {}
 
         self._seed = seed

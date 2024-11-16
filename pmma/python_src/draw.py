@@ -10,7 +10,7 @@ from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.constants import Constants as _Constants
-from pmma.python_src.number_converter import DisplayCoordinatesConverter as DisplayCoordinatesConverter
+from pmma.python_src.number_converter import CoordinateConverter as _CoordinateConverter
 from pmma.python_src.number_converter import PointConverter as _PointConverter
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
@@ -40,8 +40,8 @@ class Line:
             _pygame.init()
 
         self._color = _ColorConverter()
-        self._start = DisplayCoordinatesConverter()
-        self._end = DisplayCoordinatesConverter()
+        self._start = _CoordinateConverter()
+        self._end = _CoordinateConverter()
         self._width = 1
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -85,7 +85,7 @@ class Line:
         if self._start.get_coordinate_set():
             if start_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._start.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if start_input_type == DisplayCoordinatesConverter:
+                if start_input_type == _CoordinateConverter:
                     start_coords = start.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     start_coords = [int(start[0]), int(start[1])]
@@ -94,7 +94,7 @@ class Line:
                     return
 
         self._vertices_changed = True
-        if start_input_type != DisplayCoordinatesConverter:
+        if start_input_type != _CoordinateConverter:
             self._start.set_coordinates(start, format=start_format)
         else:
             self._start = start
@@ -108,7 +108,7 @@ class Line:
         if self._start.get_coordinate_set():
             if end_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._end.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if end_input_type == DisplayCoordinatesConverter:
+                if end_input_type == _CoordinateConverter:
                     end_coords = end.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     end_coords = [int(end[0]), int(end[1])]
@@ -117,7 +117,7 @@ class Line:
                     return
 
         self._vertices_changed = True
-        if end_input_type != DisplayCoordinatesConverter:
+        if end_input_type != _CoordinateConverter:
             self._end.set_coordinates(end, format=end_format)
         else:
             self._end = end
@@ -325,7 +325,7 @@ class RadialPolygon:
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
-        self._center = DisplayCoordinatesConverter()
+        self._center = _CoordinateConverter()
         self._width = None
         self._vertices_changed = True  # Mark vertices as changed initially
         self._color_changed = True  # Mark color as changed initially
@@ -473,7 +473,7 @@ class RadialPolygon:
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if center_input_format == DisplayCoordinatesConverter:
+                if center_input_format == _CoordinateConverter:
                     center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     center_coords = [int(center[0]), int(center[1])]
@@ -482,7 +482,7 @@ class RadialPolygon:
                     return
 
         self._position_changed = True
-        if center_input_format != DisplayCoordinatesConverter:
+        if center_input_format != _CoordinateConverter:
             self._center.set_coordinates(center, format=format)
         else:
             self._center = center
@@ -558,7 +558,7 @@ class Rectangle:
 
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._position = DisplayCoordinatesConverter()
+        self._position = _CoordinateConverter()
         self._x_size = _PointConverter()
         self._y_size = _PointConverter()
         self._inner_radius = _PointConverter()
@@ -613,7 +613,7 @@ class Rectangle:
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if position_input_type == DisplayCoordinatesConverter:
+                if position_input_type == _CoordinateConverter:
                     position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     position_coords = [int(position[0]), int(position[1])]
@@ -622,7 +622,7 @@ class Rectangle:
                     return
 
         self._position_changed = True
-        if position_input_type != DisplayCoordinatesConverter:
+        if position_input_type != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -808,7 +808,7 @@ class Arc:
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _PointConverter()
         self._inner_radius = _PointConverter()
-        self._center = DisplayCoordinatesConverter()
+        self._center = _CoordinateConverter()
         self._start_angle = _AngleConverter()
         self._stop_angle = _AngleConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
@@ -882,7 +882,7 @@ class Arc:
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if center_input_type == DisplayCoordinatesConverter:
+                if center_input_type == _CoordinateConverter:
                     center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     center_coords = [int(center[0]), int(center[1])]
@@ -891,7 +891,7 @@ class Arc:
                     return
 
         self._position_changed = True
-        if center_input_type != DisplayCoordinatesConverter:
+        if center_input_type != _CoordinateConverter:
             self._center.set_coordinates(center, format=format)
         else:
             self._center = center
@@ -1074,7 +1074,7 @@ class Ellipse:
 
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._position = DisplayCoordinatesConverter()
+        self._position = _CoordinateConverter()
         self._outer_x_size = _PointConverter()
         self._outer_y_size = _PointConverter()
         self._rotation = _AngleConverter()
@@ -1132,7 +1132,7 @@ class Ellipse:
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if position_input_type == DisplayCoordinatesConverter:
+                if position_input_type == _CoordinateConverter:
                     position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     position_coords = [int(position[0]), int(position[1])]
@@ -1141,7 +1141,7 @@ class Ellipse:
                     return
 
         self._position_changed = True
-        if type(position) != DisplayCoordinatesConverter:
+        if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -1386,13 +1386,13 @@ class Polygon:
         self._vertices_changed = True
         self._points = []
         for point in points:
-            if type(point) != DisplayCoordinatesConverter:
-                new_point = DisplayCoordinatesConverter()
+            if type(point) != _CoordinateConverter:
+                new_point = _CoordinateConverter()
                 new_point.set_coordinates(point, format=format)
                 self._points.append(new_point)
             else:
                 self._points.append(point)
-            self._converted_inner_points.append(DisplayCoordinatesConverter())
+            self._converted_inner_points.append(_CoordinateConverter())
 
     def get_points(self, format=_Constants.CONVENTIONAL_COORDINATES):
         points = []
@@ -1557,7 +1557,7 @@ class Pixel:
 
         self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._position = DisplayCoordinatesConverter()
+        self._position = _CoordinateConverter()
         self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
@@ -1593,7 +1593,7 @@ class Pixel:
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if position_input_type == DisplayCoordinatesConverter:
+                if position_input_type == _CoordinateConverter:
                     position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     position_coords = [int(position[0]), int(position[1])]
@@ -1602,7 +1602,7 @@ class Pixel:
                     return
 
         self._position_changed = True
-        if type(position) != DisplayCoordinatesConverter:
+        if type(position) != _CoordinateConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
