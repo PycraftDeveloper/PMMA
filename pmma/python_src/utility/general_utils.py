@@ -14,6 +14,9 @@ from time import perf_counter as _time__perf_counter
 from sys import exit as _sys__exit
 from json import dump as _json__dump
 from shutil import rmtree as _shutil__rmtree
+from datetime import datetime as _datetime__datetime
+from requests import get as _requests__get
+from json import loads as _loads__loads
 
 from pygame import quit as _pygame__quit
 from psutil import sensors_battery as _psutil__sensors_battery
@@ -28,9 +31,33 @@ from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _s
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.pmma_configuration import save_configuration
 
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
+
+def check_for_updates():
+    if get_date_as_number()-_Registry.last_checked_for_updates > 1 or _Registry.update_available is None:
+        _Registry.last_checked_for_updates = get_date_as_number()
+
+        tag_data = _requests__get("https://api.github.com/repos/PycraftDeveloper/PMMA/tags")
+        latest_tag = _loads__loads(tag_data.text)[0]["name"]
+
+        split_current_version = _Registry.version.split(".")
+        current_version_as_integer = int(split_current_version[0] + split_current_version[1] + split_current_version[2])
+
+        split_latest_version = latest_tag.split(".")
+        latest_version_as_integer = int(split_latest_version[0] + split_latest_version[1] + split_latest_version[2])
+
+        _Registry.update_available = latest_version_as_integer > current_version_as_integer
+
+        save_configuration()
+
+    return _Registry.update_available
+
+def get_date_as_number():
+    current_date = _datetime__datetime.now()
+    return int(str(current_date.year)+str(current_date.month)+str(current_date.day))
 
 def set_clean_profiling(can_clean_profile):
     _Registry.clean_profile = can_clean_profile
@@ -246,6 +273,8 @@ generating 3D arrays.")
 
     _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
         "PMMA is now exiting. Thanks for using PMMA!")
+
+    save_configuration()
 
     if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
         _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(

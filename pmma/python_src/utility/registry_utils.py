@@ -48,3 +48,6 @@ class Registry:
     external_log_duration = 1
     power_status_checked_time = None
     clean_profile = True
+    version = "4.2.0"
+    last_checked_for_updates = None
+    update_available = None

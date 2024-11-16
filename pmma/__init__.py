@@ -70,6 +70,13 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 from pmma.python_src.utility import cython_utils as _cython_utils
 import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.pmma_configuration import load_configuration
+
+load_configuration()
+
+if (_Registry.last_checked_for_updates is None or _general_utils.get_date_as_number()-_Registry.last_checked_for_updates > 7 or _Registry.update_available is None):
+    _Registry.last_checked_for_updates = _general_utils.get_date_as_number()
+    _general_utils.check_for_updates()
 
 def init(
             use_c_acceleration=True,
@@ -131,6 +138,15 @@ def init(
     logger.log_information("Thank you for using PMMA! Please note that PMMA \
 is still in an early stage of its development, bear with us as we \
 continue to work on improving it!")
+
+    if _Registry.update_available:
+        logger.log_information("There is an update available for PMMA! Update \
+now for the latest features and changes.")
+
+        logger.log_development("An update is available for PMMA, you can update \
+PMMA by downloading the latest version of PMMA from GitHub here: \
+https://github.com/PycraftDeveloper/PMMA/releases or you can update PMMA \
+through pip by running the following command: `pip install pmma --upgrade`")
 
     if get_operating_system() == Constants.LINUX:
         try:
