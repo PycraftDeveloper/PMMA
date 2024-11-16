@@ -136,7 +136,7 @@ class Color:
         elif out_type == Constants.TEXT:
             return [value for value, key in Constants.TEXT_BASED_COLORS.items() if key == self.color]
 
-class Point:
+class DisplayScalar:
     def __init__(self):
         self._point = None
         self._logger = _InternalLogger()
@@ -158,7 +158,7 @@ class Point:
             display_size = self._display.get_size()
             return self._point / (display_size[1] / 2)
 
-class Coordinate:
+class DisplayCoordinates:
     def __init__(self):
         self._coordinate = None
         self._logger = _InternalLogger()
