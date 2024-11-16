@@ -158,7 +158,7 @@ class Point:
             display_size = self._display.get_size()
             return self._point / (display_size[1] / 2)
 
-class Coordinate:
+class DisplayCoordinates:
     def __init__(self):
         self._coordinate = None
         self._logger = _InternalLogger()
