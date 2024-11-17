@@ -103,73 +103,73 @@ Methods
 
    Not Yet Written
 
-Point Converter (``pmma.PointConverter``)
-=========================================
+Display Scalar Converter (``pmma.DisplayScalarConverter``)
+==========================================================
 
 Not Yet Written
 
 Create
 ------
 
-.. py:method:: pmma.PointConverter() -> pmma.PointConverter
+.. py:method:: pmma.DisplayScalarConverter() -> pmma.DisplayScalarConverter
 
    Not Yet Written
 
 Methods
 -------
 
-.. py:method:: PointConverter.set_point() -> None
+.. py:method:: DisplayScalarConverter.set_point() -> None
 
    Not Yet Written
 
-.. py:method:: PointConverter.get_point_set() -> None
+.. py:method:: DisplayScalarConverter.get_point_set() -> None
 
    Not Yet Written
 
-.. py:method:: PointConverter.get_point() -> None
+.. py:method:: DisplayScalarConverter.get_point() -> None
 
    Not Yet Written
 
-.. py:method:: PointConverter.quit() -> None
+.. py:method:: DisplayScalarConverter.quit() -> None
 
    Not Yet Written
 
-Coordinate Converter (``pmma.CoordinateConverter``)
-===================================================
+Display Coordinates Converter (``pmma.DisplayCoordinatesConverter``)
+====================================================================
 
 Not Yet Written
 
 Create
 ------
 
-.. py:method:: pmma.CoordinateConverter() -> pmma.CoordinateConverter
+.. py:method:: pmma.DisplayCoordinatesConverter() -> pmma.DisplayCoordinatesConverter
 
    Not Yet Written
 
 Methods
 -------
 
-.. py:method:: CoordinateConverter.set_coordinates() -> None
+.. py:method:: DisplayCoordinatesConverter.set_coordinates() -> None
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.get_coordinate_set() -> None
+.. py:method:: DisplayCoordinatesConverter.get_coordinate_set() -> None
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.get_coordinates() -> None
+.. py:method:: DisplayCoordinatesConverter.get_coordinates() -> None
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.generate_random_coordinate() -> None
+.. py:method:: DisplayCoordinatesConverter.generate_random_coordinate() -> None
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.generate_coordinate_from_perlin_noise() -> None
+.. py:method:: DisplayCoordinatesConverter.generate_coordinate_from_perlin_noise() -> None
 
    Not Yet Written
 
-.. py:method:: CoordinateConverter.quit() -> None
+.. py:method:: DisplayCoordinatesConverter.quit() -> None
 
    Not Yet Written
 
