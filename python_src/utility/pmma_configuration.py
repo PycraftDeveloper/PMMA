@@ -7,7 +7,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 def load_configuration():
     try:
-        with open(_path_builder("configuration", "config.json"), "r") as f:
+        with open(_path_builder(_Registry.base_path, "configuration", "config.json"), "r") as f:
             saved_configurations = loads(f.read())
 
         for key in saved_configurations:
@@ -21,5 +21,5 @@ def save_configuration():
         "update_available": _Registry.update_available,
     }
 
-    with open(_path_builder("configuration", "config.json"), "w") as f:
+    with open(_path_builder(_Registry.base_path, "configuration", "config.json"), "w") as f:
         f.write(dumps(saved_configurations, indent=4))
