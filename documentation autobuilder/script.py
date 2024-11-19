@@ -371,6 +371,10 @@ for file in files:
                 formatted_name = formatted_name.replace(" I C C P R O F ", " ICC Profile ").strip()
                 formatted_name = formatted_name.replace("Sys W M", "System Window Management").strip()
                 formatted_name = formatted_name.replace("Event Event", "Event").strip()
+                formatted_name = formatted_name.replace("G S M Full Rate Compressor", "GSM Full Rate Compressor").strip()
+                formatted_name = formatted_name.replace("M P 3 Compressor", "MP3 Compressor").strip()
+                formatted_name = formatted_name.replace("Re Sample", "Re-Sample").strip()
+                formatted_name = formatted_name.replace("Multi ", "Multi-").strip()
 
                 formatted_name = formatted_name.replace("1 0", "10").strip()
                 formatted_name = formatted_name.replace("1 1", "11").strip()
