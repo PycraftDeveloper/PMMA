@@ -13,17 +13,29 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Events:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
@@ -38,6 +50,9 @@ class Events:
         self.controllers = _Controllers()
 
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
+        """
+        🟩 **R** -
+        """
         if self.iteration_id == _Registry.iteration_id and _Registry.compute_component_called:
             self._logger.log_development("You have called the 'handle()' method from events \
 multiple times within a single game loop. Whilst this isn't always a bad thing, \
@@ -1602,17 +1617,29 @@ then enable it to see if it fixes or improves a desired feature.")
                     _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(True)
 
 class Backspace_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if not _Constants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -1623,41 +1650,77 @@ class Backspace_KEY:
         self._backspace_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._backspace_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._backspace_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._backspace_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._backspace_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._backspace_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._backspace_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._backspace_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._backspace_key_object_intermediary.set_double_tap_timing(value)
 
 class Tab_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.TAB_KEY_OBJECT)
@@ -1667,41 +1730,77 @@ class Tab_KEY:
         self._tab_key_object_intermediary = _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._tab_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._tab_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._tab_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._tab_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._tab_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._tab_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._tab_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._tab_key_object_intermediary.set_double_tap_timing(value)
 
 class Clear_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.CLEAR_KEY_OBJECT)
@@ -1711,41 +1810,77 @@ class Clear_KEY:
         self._clear_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._clear_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._clear_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._clear_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._clear_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._clear_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._clear_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._clear_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._clear_key_object_intermediary.set_double_tap_timing(value)
 
 class Return_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RETURN_KEY_OBJECT)
@@ -1755,41 +1890,77 @@ class Return_KEY:
         self._return_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._return_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._return_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._return_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._return_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._return_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._return_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._return_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._return_key_object_intermediary.set_double_tap_timing(value)
 
 class Pause_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PAUSE_KEY_OBJECT)
@@ -1799,41 +1970,77 @@ class Pause_KEY:
         self._pause_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._pause_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._pause_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._pause_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._pause_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._pause_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._pause_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._pause_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._pause_key_object_intermediary.set_double_tap_timing(value)
 
 class Escape_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.ESCAPE_KEY_OBJECT)
@@ -1843,41 +2050,77 @@ class Escape_KEY:
         self._escape_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._escape_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._escape_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._escape_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._escape_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._escape_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._escape_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._escape_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._escape_key_object_intermediary.set_double_tap_timing(value)
 
 class Space_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SPACE_KEY_OBJECT)
@@ -1887,41 +2130,77 @@ class Space_KEY:
         self._space_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._space_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._space_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._space_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._space_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._space_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._space_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._space_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._space_key_object_intermediary.set_double_tap_timing(value)
 
 class ExclamationMark_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.EXCLAMATIONMARK_KEY_OBJECT)
@@ -1931,41 +2210,77 @@ class ExclamationMark_KEY:
         self._exclamationmark_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._exclamationmark_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._exclamationmark_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._exclamationmark_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._exclamationmark_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._exclamationmark_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._exclamationmark_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._exclamationmark_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._exclamationmark_key_object_intermediary.set_double_tap_timing(value)
 
 class DoubleQuote_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DOUBLEQUOTE_KEY_OBJECT)
@@ -1975,41 +2290,77 @@ class DoubleQuote_KEY:
         self._doublequote_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._doublequote_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._doublequote_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._doublequote_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._doublequote_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._doublequote_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._doublequote_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._doublequote_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._doublequote_key_object_intermediary.set_double_tap_timing(value)
 
 class Hashtag_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.HASHTAG_KEY_OBJECT)
@@ -2019,41 +2370,77 @@ class Hashtag_KEY:
         self._hashtag_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._hashtag_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._hashtag_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._hashtag_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._hashtag_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._hashtag_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._hashtag_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._hashtag_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._hashtag_key_object_intermediary.set_double_tap_timing(value)
 
 class Dollar_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DOLLAR_KEY_OBJECT)
@@ -2063,41 +2450,77 @@ class Dollar_KEY:
         self._dollar_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._dollar_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._dollar_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._dollar_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._dollar_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._dollar_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._dollar_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._dollar_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._dollar_key_object_intermediary.set_double_tap_timing(value)
 
 class Ampersand_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.AMPERSAND_KEY_OBJECT)
@@ -2107,41 +2530,77 @@ class Ampersand_KEY:
         self._ampersand_key_object_intermediary = _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._ampersand_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._ampersand_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._ampersand_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._ampersand_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._ampersand_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._ampersand_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._ampersand_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._ampersand_key_object_intermediary.set_double_tap_timing(value)
 
 class SingleQuote_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SINGLEQUOTE_KEY_OBJECT)
@@ -2151,41 +2610,77 @@ class SingleQuote_KEY:
         self._singlequote_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._singlequote_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._singlequote_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._singlequote_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._singlequote_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._singlequote_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._singlequote_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._singlequote_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._singlequote_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftParenthesis_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTPARENTHESIS_KEY_OBJECT)
@@ -2195,41 +2690,77 @@ class LeftParenthesis_KEY:
         self._leftparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftparenthesis_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftparenthesis_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftparenthesis_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftparenthesis_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftparenthesis_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftparenthesis_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftparenthesis_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftparenthesis_key_object_intermediary.set_double_tap_timing(value)
 
 class RightParenthesis_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTPARENTHESIS_KEY_OBJECT)
@@ -2239,41 +2770,77 @@ class RightParenthesis_KEY:
         self._rightparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightparenthesis_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightparenthesis_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightparenthesis_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightparenthesis_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightparenthesis_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightparenthesis_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightparenthesis_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightparenthesis_key_object_intermediary.set_double_tap_timing(value)
 
 class Asterisk_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.ASTERISK_KEY_OBJECT)
@@ -2283,41 +2850,77 @@ class Asterisk_KEY:
         self._asterisk_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._asterisk_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._asterisk_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._asterisk_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._asterisk_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._asterisk_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._asterisk_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._asterisk_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._asterisk_key_object_intermediary.set_double_tap_timing(value)
 
 class Plus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PLUS_KEY_OBJECT)
@@ -2327,41 +2930,77 @@ class Plus_KEY:
         self._plus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._plus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._plus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._plus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._plus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._plus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._plus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._plus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._plus_key_object_intermediary.set_double_tap_timing(value)
 
 class Comma_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.COMMA_KEY_OBJECT)
@@ -2371,41 +3010,77 @@ class Comma_KEY:
         self._comma_key_object_intermediary = _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._comma_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._comma_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._comma_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._comma_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._comma_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._comma_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._comma_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._comma_key_object_intermediary.set_double_tap_timing(value)
 
 class Minus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MINUS_KEY_OBJECT)
@@ -2415,41 +3090,77 @@ class Minus_KEY:
         self._minus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._minus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._minus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._minus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._minus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._minus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._minus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._minus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._minus_key_object_intermediary.set_double_tap_timing(value)
 
 class Period_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PERIOD_KEY_OBJECT)
@@ -2459,41 +3170,77 @@ class Period_KEY:
         self._period_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._period_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._period_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._period_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._period_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._period_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._period_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._period_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._period_key_object_intermediary.set_double_tap_timing(value)
 
 class ForwardSlash_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FORWARDSLASH_KEY_OBJECT)
@@ -2503,41 +3250,77 @@ class ForwardSlash_KEY:
         self._forwardslash_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._forwardslash_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._forwardslash_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._forwardslash_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._forwardslash_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._forwardslash_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._forwardslash_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._forwardslash_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._forwardslash_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary0_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY0_KEY_OBJECT)
@@ -2547,41 +3330,77 @@ class Primary0_KEY:
         self._primary0_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary0_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary0_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary0_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary0_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary0_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary0_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary0_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary0_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary1_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY1_KEY_OBJECT)
@@ -2591,41 +3410,77 @@ class Primary1_KEY:
         self._primary1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary1_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary1_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary1_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary1_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary1_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary1_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary1_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary1_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary2_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY2_KEY_OBJECT)
@@ -2635,41 +3490,77 @@ class Primary2_KEY:
         self._primary2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary2_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary2_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary2_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary2_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary2_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary2_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary2_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary2_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary3_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY3_KEY_OBJECT)
@@ -2679,41 +3570,77 @@ class Primary3_KEY:
         self._primary3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary3_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary3_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary3_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary3_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary3_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary3_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary3_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary3_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary4_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY4_KEY_OBJECT)
@@ -2723,41 +3650,77 @@ class Primary4_KEY:
         self._primary4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary4_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary4_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary4_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary4_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary4_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary4_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary4_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary4_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary5_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY5_KEY_OBJECT)
@@ -2767,41 +3730,77 @@ class Primary5_KEY:
         self._primary5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary5_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary5_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary5_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary5_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary5_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary5_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary5_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary5_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary6_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY6_KEY_OBJECT)
@@ -2811,41 +3810,77 @@ class Primary6_KEY:
         self._primary6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary6_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary6_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary6_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary6_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary6_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary6_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary6_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary6_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary7_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY7_KEY_OBJECT)
@@ -2855,41 +3890,77 @@ class Primary7_KEY:
         self._primary7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary7_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary7_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary7_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary7_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary7_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary7_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary7_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary7_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary8_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY8_KEY_OBJECT)
@@ -2899,41 +3970,77 @@ class Primary8_KEY:
         self._primary8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary8_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary8_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary8_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary8_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary8_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary8_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary8_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary8_key_object_intermediary.set_double_tap_timing(value)
 
 class Primary9_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARY9_KEY_OBJECT)
@@ -2943,41 +4050,77 @@ class Primary9_KEY:
         self._primary9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary9_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primary9_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primary9_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary9_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primary9_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary9_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primary9_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primary9_key_object_intermediary.set_double_tap_timing(value)
 
 class Colon_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.COLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.COLON_KEY_OBJECT)
@@ -2987,41 +4130,77 @@ class Colon_KEY:
         self._colon_key_object_intermediary = _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._colon_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._colon_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._colon_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._colon_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._colon_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._colon_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._colon_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._colon_key_object_intermediary.set_double_tap_timing(value)
 
 class SemiColon_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SEMICOLON_KEY_OBJECT)
@@ -3031,41 +4210,77 @@ class SemiColon_KEY:
         self._semicolon_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._semicolon_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._semicolon_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._semicolon_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._semicolon_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._semicolon_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._semicolon_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._semicolon_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._semicolon_key_object_intermediary.set_double_tap_timing(value)
 
 class LessThan_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LESSTHAN_KEY_OBJECT)
@@ -3075,41 +4290,77 @@ class LessThan_KEY:
         self._lessthan_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._lessthan_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._lessthan_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._lessthan_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._lessthan_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._lessthan_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._lessthan_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._lessthan_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._lessthan_key_object_intermediary.set_double_tap_timing(value)
 
 class Equals_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.EQUALS_KEY_OBJECT)
@@ -3119,41 +4370,77 @@ class Equals_KEY:
         self._equals_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._equals_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._equals_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._equals_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._equals_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._equals_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._equals_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._equals_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._equals_key_object_intermediary.set_double_tap_timing(value)
 
 class GreaterThan_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.GREATERTHAN_KEY_OBJECT)
@@ -3163,41 +4450,77 @@ class GreaterThan_KEY:
         self._greaterthan_key_object_intermediary = _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._greaterthan_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._greaterthan_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._greaterthan_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._greaterthan_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._greaterthan_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._greaterthan_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._greaterthan_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._greaterthan_key_object_intermediary.set_double_tap_timing(value)
 
 class QuestionMark_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.QUESTIONMARK_KEY_OBJECT)
@@ -3207,41 +4530,77 @@ class QuestionMark_KEY:
         self._questionmark_key_object_intermediary = _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._questionmark_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._questionmark_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._questionmark_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._questionmark_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._questionmark_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._questionmark_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._questionmark_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._questionmark_key_object_intermediary.set_double_tap_timing(value)
 
 class At_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.AT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.AT_KEY_OBJECT)
@@ -3251,41 +4610,77 @@ class At_KEY:
         self._at_key_object_intermediary = _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._at_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._at_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._at_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._at_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._at_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._at_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._at_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._at_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftBracket_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTBRACKET_KEY_OBJECT)
@@ -3295,41 +4690,77 @@ class LeftBracket_KEY:
         self._leftbracket_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbracket_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbracket_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbracket_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbracket_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbracket_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbracket_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbracket_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbracket_key_object_intermediary.set_double_tap_timing(value)
 
 class BackSlash_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.BACKSLASH_KEY_OBJECT)
@@ -3339,41 +4770,77 @@ class BackSlash_KEY:
         self._backslash_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._backslash_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._backslash_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._backslash_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._backslash_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._backslash_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._backslash_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._backslash_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._backslash_key_object_intermediary.set_double_tap_timing(value)
 
 class RightBracket_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTBRACKET_KEY_OBJECT)
@@ -3383,41 +4850,77 @@ class RightBracket_KEY:
         self._rightbracket_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbracket_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbracket_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbracket_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbracket_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbracket_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbracket_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbracket_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbracket_key_object_intermediary.set_double_tap_timing(value)
 
 class Caret_KEY: # ^
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.CARET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.CARET_KEY_OBJECT)
@@ -3427,41 +4930,77 @@ class Caret_KEY: # ^
         self._caret_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._caret_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._caret_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._caret_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._caret_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._caret_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._caret_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._caret_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._caret_key_object_intermediary.set_double_tap_timing(value)
 
 class Underscore_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.UNDERSCORE_KEY_OBJECT)
@@ -3471,41 +5010,77 @@ class Underscore_KEY:
         self._underscore_key_object_intermediary = _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._underscore_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._underscore_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._underscore_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._underscore_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._underscore_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._underscore_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._underscore_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._underscore_key_object_intermediary.set_double_tap_timing(value)
 
 class Grave_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.GRAVE_KEY_OBJECT)
@@ -3515,41 +5090,77 @@ class Grave_KEY:
         self._grave_key_object_intermediary = _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._grave_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._grave_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._grave_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._grave_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._grave_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._grave_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._grave_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._grave_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryA_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYA_KEY_OBJECT)
@@ -3559,41 +5170,77 @@ class PrimaryA_KEY:
         self._primarya_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarya_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primarya_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primarya_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarya_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primarya_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarya_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primarya_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarya_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryB_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYB_KEY_OBJECT)
@@ -3603,41 +5250,77 @@ class PrimaryB_KEY:
         self._primaryb_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryb_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryb_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryb_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryb_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryb_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryb_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryb_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryb_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryC_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYC_KEY_OBJECT)
@@ -3647,41 +5330,77 @@ class PrimaryC_KEY:
         self._primaryc_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryc_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryc_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryc_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryc_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryc_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryc_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryc_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryc_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryD_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYD_KEY_OBJECT)
@@ -3691,41 +5410,77 @@ class PrimaryD_KEY:
         self._primaryd_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryd_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryd_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryd_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryd_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryd_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryd_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryd_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryd_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryE_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYE_KEY_OBJECT)
@@ -3735,41 +5490,77 @@ class PrimaryE_KEY:
         self._primarye_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarye_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primarye_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primarye_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarye_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primarye_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarye_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primarye_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarye_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryF_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYF_KEY_OBJECT)
@@ -3779,41 +5570,77 @@ class PrimaryF_KEY:
         self._primaryf_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryf_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryf_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryf_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryf_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryf_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryf_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryf_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryf_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryG_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYG_KEY_OBJECT)
@@ -3823,41 +5650,77 @@ class PrimaryG_KEY:
         self._primaryg_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryg_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryg_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryg_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryg_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryg_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryg_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryg_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryg_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryH_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYH_KEY_OBJECT)
@@ -3867,41 +5730,77 @@ class PrimaryH_KEY:
         self._primaryh_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryh_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryh_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryh_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryh_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryh_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryh_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryh_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryh_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryI_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYI_KEY_OBJECT)
@@ -3911,41 +5810,77 @@ class PrimaryI_KEY:
         self._primaryi_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryi_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryi_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryi_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryi_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryi_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryi_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryi_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryi_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryJ_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYJ_KEY_OBJECT)
@@ -3955,41 +5890,77 @@ class PrimaryJ_KEY:
         self._primaryj_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryj_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryj_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryj_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryj_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryj_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryj_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryj_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryj_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryK_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYK_KEY_OBJECT)
@@ -3999,41 +5970,77 @@ class PrimaryK_KEY:
         self._primaryk_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryk_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryk_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryk_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryk_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryk_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryk_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryk_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryk_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryL_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYL_KEY_OBJECT)
@@ -4043,41 +6050,77 @@ class PrimaryL_KEY:
         self._primaryl_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryl_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryl_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryl_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryl_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryl_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryl_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryl_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryl_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryM_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYM_KEY_OBJECT)
@@ -4087,41 +6130,77 @@ class PrimaryM_KEY:
         self._primarym_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarym_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primarym_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primarym_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarym_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primarym_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarym_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primarym_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarym_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryN_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYN_KEY_OBJECT)
@@ -4131,41 +6210,77 @@ class PrimaryN_KEY:
         self._primaryn_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryn_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryn_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryn_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryn_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryn_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryn_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryn_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryn_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryO_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYO_KEY_OBJECT)
@@ -4175,41 +6290,77 @@ class PrimaryO_KEY:
         self._primaryo_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryo_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryo_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryo_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryo_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryo_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryo_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryo_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryo_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryP_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYP_KEY_OBJECT)
@@ -4219,41 +6370,77 @@ class PrimaryP_KEY:
         self._primaryp_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryp_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryp_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryp_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryp_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryp_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryp_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryp_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryp_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryQ_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYQ_KEY_OBJECT)
@@ -4263,41 +6450,77 @@ class PrimaryQ_KEY:
         self._primaryq_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryq_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryq_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryq_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryq_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryq_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryq_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryq_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryq_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryR_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYR_KEY_OBJECT)
@@ -4307,41 +6530,77 @@ class PrimaryR_KEY:
         self._primaryr_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryr_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryr_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryr_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryr_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryr_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryr_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryr_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryr_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryS_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYS_KEY_OBJECT)
@@ -4351,41 +6610,77 @@ class PrimaryS_KEY:
         self._primarys_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarys_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primarys_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primarys_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarys_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primarys_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarys_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primarys_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primarys_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryT_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYT_KEY_OBJECT)
@@ -4395,41 +6690,77 @@ class PrimaryT_KEY:
         self._primaryt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryt_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryU_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYU_KEY_OBJECT)
@@ -4439,41 +6770,77 @@ class PrimaryU_KEY:
         self._primaryu_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryu_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryu_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryu_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryu_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryu_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryu_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryu_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryu_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryV_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYV_KEY_OBJECT)
@@ -4483,41 +6850,77 @@ class PrimaryV_KEY:
         self._primaryv_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryv_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryv_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryv_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryv_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryv_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryv_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryv_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryv_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryW_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYW_KEY_OBJECT)
@@ -4527,41 +6930,77 @@ class PrimaryW_KEY:
         self._primaryw_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryw_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryw_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryw_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryw_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryw_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryw_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryw_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryw_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryX_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYX_KEY_OBJECT)
@@ -4571,41 +7010,77 @@ class PrimaryX_KEY:
         self._primaryx_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryx_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryx_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryx_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryx_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryx_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryx_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryx_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryx_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryY_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYY_KEY_OBJECT)
@@ -4615,41 +7090,77 @@ class PrimaryY_KEY:
         self._primaryy_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryy_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryy_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryy_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryy_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryy_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryy_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryy_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryy_key_object_intermediary.set_double_tap_timing(value)
 
 class PrimaryZ_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRIMARYZ_KEY_OBJECT)
@@ -4659,41 +7170,77 @@ class PrimaryZ_KEY:
         self._primaryz_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryz_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryz_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryz_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryz_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryz_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryz_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._primaryz_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._primaryz_key_object_intermediary.set_double_tap_timing(value)
 
 class Delete_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DELETE_KEY_OBJECT)
@@ -4703,41 +7250,77 @@ class Delete_KEY:
         self._delete_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._delete_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._delete_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._delete_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._delete_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._delete_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._delete_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._delete_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._delete_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad0_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD0_KEY_OBJECT)
@@ -4747,41 +7330,77 @@ class Numpad0_KEY:
         self._numpad0_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad0_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad0_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad0_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad0_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad0_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad0_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad0_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad0_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad1_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD1_KEY_OBJECT)
@@ -4791,41 +7410,77 @@ class Numpad1_KEY:
         self._numpad1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad1_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad1_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad1_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad1_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad1_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad1_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad1_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad1_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad2_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD2_KEY_OBJECT)
@@ -4835,41 +7490,77 @@ class Numpad2_KEY:
         self._numpad2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad2_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad2_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad2_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad2_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad2_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad2_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad2_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad2_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad3_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD3_KEY_OBJECT)
@@ -4879,41 +7570,77 @@ class Numpad3_KEY:
         self._numpad3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad3_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad3_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad3_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad3_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad3_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad3_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad3_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad3_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad4_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD4_KEY_OBJECT)
@@ -4923,41 +7650,77 @@ class Numpad4_KEY:
         self._numpad4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad4_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad4_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad4_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad4_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad4_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad4_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad4_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad4_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad5_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD5_KEY_OBJECT)
@@ -4967,41 +7730,77 @@ class Numpad5_KEY:
         self._numpad5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad5_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad5_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad5_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad5_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad5_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad5_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad5_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad5_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad6_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD6_KEY_OBJECT)
@@ -5011,41 +7810,77 @@ class Numpad6_KEY:
         self._numpad6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad6_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad6_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad6_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad6_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad6_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad6_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad6_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad6_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad7_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD7_KEY_OBJECT)
@@ -5055,41 +7890,77 @@ class Numpad7_KEY:
         self._numpad7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad7_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad7_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad7_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad7_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad7_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad7_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad7_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad7_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad8_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD8_KEY_OBJECT)
@@ -5099,41 +7970,77 @@ class Numpad8_KEY:
         self._numpad8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad8_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad8_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad8_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad8_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad8_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad8_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad8_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad8_key_object_intermediary.set_double_tap_timing(value)
 
 class Numpad9_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPAD9_KEY_OBJECT)
@@ -5143,41 +8050,77 @@ class Numpad9_KEY:
         self._numpad9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad9_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad9_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad9_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad9_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad9_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad9_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpad9_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpad9_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadPeriod_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADPERIOD_KEY_OBJECT)
@@ -5187,41 +8130,77 @@ class NumpadPeriod_KEY:
         self._numpadperiod_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadperiod_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadperiod_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadperiod_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadperiod_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadperiod_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadperiod_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadperiod_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadperiod_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadDivide_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADDIVIDE_KEY_OBJECT)
@@ -5231,41 +8210,77 @@ class NumpadDivide_KEY:
         self._numpaddivide_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpaddivide_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpaddivide_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpaddivide_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpaddivide_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpaddivide_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpaddivide_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpaddivide_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpaddivide_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadMultiply_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADMULTIPLY_KEY_OBJECT)
@@ -5275,41 +8290,77 @@ class NumpadMultiply_KEY:
         self._numpadmultiply_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadmultiply_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadmultiply_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadmultiply_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadmultiply_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadmultiply_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadmultiply_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadmultiply_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadmultiply_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadMinus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADMINUS_KEY_OBJECT)
@@ -5319,41 +8370,77 @@ class NumpadMinus_KEY:
         self._numpadminus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadminus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadminus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadminus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadminus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadminus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadminus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadminus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadminus_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadPlus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADPLUS_KEY_OBJECT)
@@ -5363,41 +8450,77 @@ class NumpadPlus_KEY:
         self._numpadplus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadplus_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadplus_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadplus_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadplus_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadplus_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadplus_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadplus_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadplus_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadEnter_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADENTER_KEY_OBJECT)
@@ -5407,41 +8530,77 @@ class NumpadEnter_KEY:
         self._numpadenter_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadenter_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadenter_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadenter_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadenter_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadenter_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadenter_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadenter_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadenter_key_object_intermediary.set_double_tap_timing(value)
 
 class NumpadEquals_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMPADEQUALS_KEY_OBJECT)
@@ -5451,41 +8610,77 @@ class NumpadEquals_KEY:
         self._numpadequals_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadequals_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadequals_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadequals_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadequals_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadequals_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadequals_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numpadequals_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numpadequals_key_object_intermediary.set_double_tap_timing(value)
 
 class Up_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.UP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.UP_KEY_OBJECT)
@@ -5495,41 +8690,77 @@ class Up_KEY:
         self._up_key_object_intermediary = _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._up_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._up_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._up_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._up_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._up_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._up_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._up_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._up_key_object_intermediary.set_double_tap_timing(value)
 
 class Down_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DOWN_KEY_OBJECT)
@@ -5539,41 +8770,77 @@ class Down_KEY:
         self._down_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._down_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._down_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._down_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._down_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._down_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._down_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._down_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._down_key_object_intermediary.set_double_tap_timing(value)
 
 class Right_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHT_KEY_OBJECT)
@@ -5583,41 +8850,77 @@ class Right_KEY:
         self._right_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._right_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._right_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._right_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._right_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._right_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._right_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._right_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._right_key_object_intermediary.set_double_tap_timing(value)
 
 class Left_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFT_KEY_OBJECT)
@@ -5627,41 +8930,77 @@ class Left_KEY:
         self._left_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._left_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._left_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._left_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._left_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._left_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._left_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._left_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._left_key_object_intermediary.set_double_tap_timing(value)
 
 class Insert_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.INSERT_KEY_OBJECT)
@@ -5671,41 +9010,77 @@ class Insert_KEY:
         self._insert_key_object_intermediary = _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._insert_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._insert_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._insert_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._insert_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._insert_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._insert_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._insert_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._insert_key_object_intermediary.set_double_tap_timing(value)
 
 class Home_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.HOME_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.HOME_KEY_OBJECT)
@@ -5715,41 +9090,77 @@ class Home_KEY:
         self._home_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._home_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._home_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._home_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._home_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._home_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._home_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._home_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._home_key_object_intermediary.set_double_tap_timing(value)
 
 class End_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.END_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.END_KEY_OBJECT)
@@ -5759,41 +9170,77 @@ class End_KEY:
         self._end_key_object_intermediary = _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._end_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._end_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._end_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._end_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._end_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._end_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._end_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._end_key_object_intermediary.set_double_tap_timing(value)
 
 class PageUp_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PAGEUP_KEY_OBJECT)
@@ -5803,41 +9250,77 @@ class PageUp_KEY:
         self._pageup_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._pageup_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._pageup_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._pageup_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._pageup_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._pageup_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._pageup_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._pageup_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._pageup_key_object_intermediary.set_double_tap_timing(value)
 
 class PageDown_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PAGEDOWN_KEY_OBJECT)
@@ -5847,41 +9330,77 @@ class PageDown_KEY:
         self._pagedown_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._pagedown_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._pagedown_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._pagedown_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._pagedown_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._pagedown_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._pagedown_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._pagedown_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._pagedown_key_object_intermediary.set_double_tap_timing(value)
 
 class Function1_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION1_KEY_OBJECT)
@@ -5891,41 +9410,77 @@ class Function1_KEY:
         self._function1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function1_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function1_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function1_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function1_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function1_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function1_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function1_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function1_key_object_intermediary.set_double_tap_timing(value)
 
 class Function2_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION2_KEY_OBJECT)
@@ -5935,41 +9490,77 @@ class Function2_KEY:
         self._function2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function2_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function2_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function2_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function2_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function2_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function2_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function2_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function2_key_object_intermediary.set_double_tap_timing(value)
 
 class Function3_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION3_KEY_OBJECT)
@@ -5979,41 +9570,77 @@ class Function3_KEY:
         self._function3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function3_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function3_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function3_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function3_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function3_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function3_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function3_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function3_key_object_intermediary.set_double_tap_timing(value)
 
 class Function4_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION4_KEY_OBJECT)
@@ -6023,41 +9650,77 @@ class Function4_KEY:
         self._function4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function4_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function4_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function4_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function4_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function4_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function4_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function4_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function4_key_object_intermediary.set_double_tap_timing(value)
 
 class Function5_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION5_KEY_OBJECT)
@@ -6067,41 +9730,77 @@ class Function5_KEY:
         self._function5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function5_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function5_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function5_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function5_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function5_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function5_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function5_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function5_key_object_intermediary.set_double_tap_timing(value)
 
 class Function6_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION6_KEY_OBJECT)
@@ -6111,41 +9810,77 @@ class Function6_KEY:
         self._function6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function6_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function6_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function6_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function6_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function6_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function6_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function6_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function6_key_object_intermediary.set_double_tap_timing(value)
 
 class Function7_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION7_KEY_OBJECT)
@@ -6155,41 +9890,77 @@ class Function7_KEY:
         self._function7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function7_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function7_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function7_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function7_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function7_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function7_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function7_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function7_key_object_intermediary.set_double_tap_timing(value)
 
 class Function8_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION8_KEY_OBJECT)
@@ -6199,41 +9970,77 @@ class Function8_KEY:
         self._function8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function8_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function8_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function8_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function8_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function8_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function8_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function8_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function8_key_object_intermediary.set_double_tap_timing(value)
 
 class Function9_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION9_KEY_OBJECT)
@@ -6243,41 +10050,77 @@ class Function9_KEY:
         self._function9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function9_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function9_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function9_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function9_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function9_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function9_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function9_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function9_key_object_intermediary.set_double_tap_timing(value)
 
 class Function10_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION10_KEY_OBJECT)
@@ -6287,41 +10130,77 @@ class Function10_KEY:
         self._function10_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function10_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function10_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function10_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function10_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function10_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function10_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function10_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function10_key_object_intermediary.set_double_tap_timing(value)
 
 class Function11_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION11_KEY_OBJECT)
@@ -6331,41 +10210,77 @@ class Function11_KEY:
         self._function11_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function11_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function11_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function11_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function11_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function11_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function11_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function11_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function11_key_object_intermediary.set_double_tap_timing(value)
 
 class Function12_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION12_KEY_OBJECT)
@@ -6375,41 +10290,77 @@ class Function12_KEY:
         self._function12_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function12_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function12_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function12_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function12_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function12_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function12_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function12_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function12_key_object_intermediary.set_double_tap_timing(value)
 
 class Function13_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION13_KEY_OBJECT)
@@ -6419,41 +10370,77 @@ class Function13_KEY:
         self._function13_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function13_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function13_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function13_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function13_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function13_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function13_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function13_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function13_key_object_intermediary.set_double_tap_timing(value)
 
 class Function14_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION14_KEY_OBJECT)
@@ -6463,41 +10450,77 @@ class Function14_KEY:
         self._function14_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function14_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function14_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function14_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function14_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function14_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function14_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function14_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function14_key_object_intermediary.set_double_tap_timing(value)
 
 class Function15_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FUNCTION15_KEY_OBJECT)
@@ -6507,41 +10530,77 @@ class Function15_KEY:
         self._function15_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._function15_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._function15_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._function15_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._function15_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._function15_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._function15_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._function15_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._function15_key_object_intermediary.set_double_tap_timing(value)
 
 class NumLock_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.NUMLOCK_KEY_OBJECT)
@@ -6551,41 +10610,77 @@ class NumLock_KEY:
         self._numlock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._numlock_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._numlock_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._numlock_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._numlock_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._numlock_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._numlock_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._numlock_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._numlock_key_object_intermediary.set_double_tap_timing(value)
 
 class CapsLock_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.CAPSLOCK_KEY_OBJECT)
@@ -6595,41 +10690,77 @@ class CapsLock_KEY:
         self._capslock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._capslock_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._capslock_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._capslock_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._capslock_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._capslock_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._capslock_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._capslock_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._capslock_key_object_intermediary.set_double_tap_timing(value)
 
 class ScrollLock_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SCROLLLOCK_KEY_OBJECT)
@@ -6639,41 +10770,77 @@ class ScrollLock_KEY:
         self._scrolllock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._scrolllock_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._scrolllock_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._scrolllock_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._scrolllock_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._scrolllock_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._scrolllock_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._scrolllock_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._scrolllock_key_object_intermediary.set_double_tap_timing(value)
 
 class RightShift_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTSHIFT_KEY_OBJECT)
@@ -6683,41 +10850,77 @@ class RightShift_KEY:
         self._rightshift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightshift_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightshift_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightshift_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightshift_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightshift_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightshift_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightshift_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightshift_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftShift_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTSHIFT_KEY_OBJECT)
@@ -6727,41 +10930,77 @@ class LeftShift_KEY:
         self._leftshift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftshift_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftshift_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftshift_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftshift_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftshift_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftshift_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftshift_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftshift_key_object_intermediary.set_double_tap_timing(value)
 
 class Shift_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SHIFT_KEY_OBJECT)
@@ -6771,41 +11010,77 @@ class Shift_KEY:
         self._shift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._shift_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._shift_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._shift_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._shift_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._shift_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._shift_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._shift_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._shift_key_object_intermediary.set_double_tap_timing(value)
 
 class RightControl_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTCONTROL_KEY_OBJECT)
@@ -6815,41 +11090,77 @@ class RightControl_KEY:
         self._rightcontrol_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightcontrol_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightcontrol_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightcontrol_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightcontrol_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightcontrol_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightcontrol_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightcontrol_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightcontrol_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftControl_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTCONTROL_KEY_OBJECT)
@@ -6859,41 +11170,77 @@ class LeftControl_KEY:
         self._leftcontrol_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftcontrol_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftcontrol_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftcontrol_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftcontrol_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftcontrol_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftcontrol_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftcontrol_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftcontrol_key_object_intermediary.set_double_tap_timing(value)
 
 class Control_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.CONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.CONTROL_KEY_OBJECT)
@@ -6903,41 +11250,77 @@ class Control_KEY:
         self._control_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._control_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._control_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._control_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._control_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._control_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._control_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._control_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._control_key_object_intermediary.set_double_tap_timing(value)
 
 class RightAlt_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTALT_KEY_OBJECT)
@@ -6947,41 +11330,77 @@ class RightAlt_KEY:
         self._rightalt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightalt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightalt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightalt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightalt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightalt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightalt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightalt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightalt_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftAlt_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTALT_KEY_OBJECT)
@@ -6991,41 +11410,77 @@ class LeftAlt_KEY:
         self._leftalt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftalt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftalt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftalt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftalt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftalt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftalt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftalt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftalt_key_object_intermediary.set_double_tap_timing(value)
 
 class Alt_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.ALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.ALT_KEY_OBJECT)
@@ -7035,41 +11490,77 @@ class Alt_KEY:
         self._alt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._alt_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._alt_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._alt_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._alt_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._alt_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._alt_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._alt_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._alt_key_object_intermediary.set_double_tap_timing(value)
 
 class RightMeta_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTMETA_KEY_OBJECT)
@@ -7079,41 +11570,77 @@ class RightMeta_KEY:
         self._rightmeta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightmeta_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightmeta_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightmeta_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightmeta_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightmeta_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightmeta_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightmeta_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightmeta_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftMeta_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTMETA_KEY_OBJECT)
@@ -7123,41 +11650,77 @@ class LeftMeta_KEY:
         self._leftmeta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftmeta_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftmeta_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftmeta_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftmeta_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftmeta_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftmeta_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftmeta_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftmeta_key_object_intermediary.set_double_tap_timing(value)
 
 class Meta_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.META_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.META_KEY_OBJECT)
@@ -7167,41 +11730,77 @@ class Meta_KEY:
         self._meta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._meta_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._meta_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._meta_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._meta_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._meta_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._meta_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._meta_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._meta_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftSuper_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTSUPER_KEY_OBJECT)
@@ -7211,41 +11810,77 @@ class LeftSuper_KEY:
         self._leftsuper_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftsuper_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftsuper_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftsuper_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftsuper_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftsuper_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftsuper_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftsuper_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftsuper_key_object_intermediary.set_double_tap_timing(value)
 
 class RightSuper_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTSUPER_KEY_OBJECT)
@@ -7255,41 +11890,77 @@ class RightSuper_KEY:
         self._rightsuper_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightsuper_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightsuper_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightsuper_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightsuper_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightsuper_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightsuper_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightsuper_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightsuper_key_object_intermediary.set_double_tap_timing(value)
 
 class Super_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SUPER_KEY_OBJECT)
@@ -7299,41 +11970,77 @@ class Super_KEY:
         self._super_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._super_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._super_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._super_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._super_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._super_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._super_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._super_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._super_key_object_intermediary.set_double_tap_timing(value)
 
 class Mode_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MODE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MODE_KEY_OBJECT)
@@ -7343,41 +12050,77 @@ class Mode_KEY:
         self._mode_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._mode_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._mode_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._mode_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._mode_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._mode_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._mode_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._mode_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._mode_key_object_intermediary.set_double_tap_timing(value)
 
 class Help_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.HELP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.HELP_KEY_OBJECT)
@@ -7387,41 +12130,77 @@ class Help_KEY:
         self._help_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._help_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._help_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._help_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._help_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._help_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._help_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._help_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._help_key_object_intermediary.set_double_tap_timing(value)
 
 class Print_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.PRINT_KEY_OBJECT)
@@ -7431,41 +12210,77 @@ class Print_KEY:
         self._print_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._print_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._print_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._print_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._print_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._print_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._print_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._print_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._print_key_object_intermediary.set_double_tap_timing(value)
 
 class SystemRequest_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SYSTEMREQUEST_KEY_OBJECT)
@@ -7475,41 +12290,77 @@ class SystemRequest_KEY:
         self._systemrequest_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._systemrequest_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._systemrequest_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._systemrequest_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._systemrequest_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._systemrequest_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._systemrequest_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._systemrequest_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._systemrequest_key_object_intermediary.set_double_tap_timing(value)
 
 class Break_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.BREAK_KEY_OBJECT)
@@ -7519,41 +12370,77 @@ class Break_KEY:
         self._break_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._break_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._break_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._break_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._break_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._break_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._break_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._break_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._break_key_object_intermediary.set_double_tap_timing(value)
 
 class Menu_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MENU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MENU_KEY_OBJECT)
@@ -7563,41 +12450,77 @@ class Menu_KEY:
         self._menu_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._menu_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._menu_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._menu_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._menu_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._menu_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._menu_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._menu_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._menu_key_object_intermediary.set_double_tap_timing(value)
 
 class Power_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.POWER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.POWER_KEY_OBJECT)
@@ -7607,41 +12530,77 @@ class Power_KEY:
         self._power_key_object_intermediary = _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._power_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._power_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._power_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._power_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._power_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._power_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._power_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._power_key_object_intermediary.set_double_tap_timing(value)
 
 class Euro_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.EURO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.EURO_KEY_OBJECT)
@@ -7651,41 +12610,77 @@ class Euro_KEY:
         self._euro_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._euro_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._euro_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._euro_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._euro_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._euro_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._euro_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._euro_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._euro_key_object_intermediary.set_double_tap_timing(value)
 
 class AndroidBack_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.ANDROIDBACK_KEY_OBJECT)
@@ -7695,41 +12690,77 @@ class AndroidBack_KEY:
         self._androidback_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._androidback_key_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._androidback_key_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._androidback_key_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._androidback_key_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._androidback_key_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._androidback_key_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._androidback_key_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._androidback_key_object_intermediary.set_double_tap_timing(value)
 
 class LeftButton_MOUSE:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LEFTBUTTON_MOUSE_OBJECT)
@@ -7739,41 +12770,77 @@ class LeftButton_MOUSE:
         self._leftbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbutton_mouse_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbutton_mouse_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbutton_mouse_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbutton_mouse_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbutton_mouse_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbutton_mouse_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._leftbutton_mouse_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._leftbutton_mouse_object_intermediary.set_double_tap_timing(value)
 
 class MiddleButton_MOUSE:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MIDDLEBUTTON_MOUSE_OBJECT)
@@ -7783,41 +12850,77 @@ class MiddleButton_MOUSE:
         self._middlebutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._middlebutton_mouse_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._middlebutton_mouse_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._middlebutton_mouse_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._middlebutton_mouse_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._middlebutton_mouse_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._middlebutton_mouse_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._middlebutton_mouse_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._middlebutton_mouse_object_intermediary.set_double_tap_timing(value)
 
 class RightButton_MOUSE:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RIGHTBUTTON_MOUSE_OBJECT)
@@ -7827,41 +12930,77 @@ class RightButton_MOUSE:
         self._rightbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbutton_mouse_object_intermediary.set_double_tapped(value)
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbutton_mouse_object_intermediary.get_double_tapped()
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbutton_mouse_object_intermediary.get_last_tap_time()
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbutton_mouse_object_intermediary.set_last_tap_time(value)
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbutton_mouse_object_intermediary.get_pressed()
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbutton_mouse_object_intermediary.set_pressed(value)
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._rightbutton_mouse_object_intermediary.get_double_tap_timing()
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._rightbutton_mouse_object_intermediary.set_double_tap_timing(value)
 
 class Mouse_SCROLL:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MOUSE_SCROLL_OBJECT)
@@ -7871,41 +13010,77 @@ class Mouse_SCROLL:
         self._mouse_scroll_object_intermediary = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT]
 
     def get_x_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_scroll_object_intermediary.get_x_displacement()
 
     def set_x_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_scroll_object_intermediary.set_x_displacement(value)
 
     def get_x_value(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_scroll_object_intermediary.get_x_value()
 
     def set_x_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_scroll_object_intermediary.set_x_value(value)
 
     def get_y_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_scroll_object_intermediary.get_y_displacement()
 
     def set_y_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_scroll_object_intermediary.set_y_displacement(value)
 
     def get_y_value(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_scroll_object_intermediary.get_y_value()
 
     def set_y_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_scroll_object_intermediary.set_y_value(value)
 
 class Mouse_POSITION:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MOUSE_POSITION_OBJECT)
@@ -7915,44 +13090,83 @@ class Mouse_POSITION:
         self._mouse_position_object_intermediary = _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT]
 
     def get_axis_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_position_object_intermediary.get_axis_displacement()
 
     def get_x_axis_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_position_object_intermediary.get_x_axis_displacement()
 
     def get_y_axis_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_position_object_intermediary.get_y_axis_displacement()
 
     def get_x_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_position_object_intermediary.get_x_axis()
 
     def get_y_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._mouse_position_object_intermediary.get_y_axis()
 
     def set_x_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_position_object_intermediary.set_x_axis(value)
 
     def set_y_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_position_object_intermediary.set_y_axis(value)
 
     def set_x_axis_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_position_object_intermediary.set_x_axis_displacement(value)
 
     def set_y_axis_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._mouse_position_object_intermediary.set_y_axis_displacement(value)
 
 class Active_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.ACTIVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.ACTIVE_EVENT_OBJECT)
@@ -7962,23 +13176,41 @@ class Active_EVENT:
         self._active_event_object_intermediary = _Registry.pmma_module_spine[_Constants.ACTIVE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._active_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._active_event_object_intermediary.get_value()
 
 class AppTerminating_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.APPTERMINATING_EVENT_OBJECT)
@@ -7990,25 +13222,43 @@ class AppTerminating_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._appterminatingevent_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         if _get_operating_system() != _Constants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'Quit_EVENT' as this works across all platforms.")
         return self._appterminatingevent_intermediary.get_value()
 
 class AppLowMemory_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.APPLOWMEMORY_EVENT_OBJECT)
@@ -8020,25 +13270,43 @@ class AppLowMemory_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._applowmemory_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         if _get_operating_system() != _Constants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems due to how memory is allocated. If you are interested in getting information about memory, I'd recommend checking out PSUtil: https://pypi.org/project/psutil/")
         return self._applowmemory_intermediary.get_value()
 
 class AppWillEnterBackground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT)
@@ -8050,24 +13318,42 @@ class AppWillEnterBackground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._appwillenterbackground_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems.")
         return self._appwillenterbackground_intermediary.get_value()
 
 class AppDidEnterBackground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT)
@@ -8079,24 +13365,42 @@ class AppDidEnterBackground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._appdidenterbackground_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusLost' as this works across all platforms.")
         return self._appdidenterbackground_intermediary.get_value()
 
 class AppWillEnterForeground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT)
@@ -8108,24 +13412,42 @@ class AppWillEnterForeground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._appwillenterforeground_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems.")
         return self._appwillenterforeground_intermediary.get_value()
 
 class AppDidEnterForeground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT)
@@ -8137,24 +13459,42 @@ class AppDidEnterForeground_EVENT:
         self._logger = _InternalLogger()
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._appdidenterforeground_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusGained' as this works across all platforms.")
         return self._appdidenterforeground_intermediary.get_value()
 
 class AudioDeviceAdded_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.AUDIODEVICEADDED_EVENT_OBJECT)
@@ -8164,23 +13504,41 @@ class AudioDeviceAdded_EVENT:
         self._audiodeviceadded_event_object_intermediary = _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._audiodeviceadded_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._audiodeviceadded_event_object_intermediary.get_value()
 
 class AudioDeviceRemoved_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT)
@@ -8190,23 +13548,41 @@ class AudioDeviceRemoved_EVENT:
         self._audiodeviceremoved_event_object_intermediary = _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._audiodeviceremoved_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._audiodeviceremoved_event_object_intermediary.get_value()
 
 class ClipBoardUpdate_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.CLIPBOARDUPDATE_EVENT_OBJECT)
@@ -8216,23 +13592,41 @@ class ClipBoardUpdate_EVENT:
         self._clipboardupdate_event_object_intermediary = _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._clipboardupdate_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._clipboardupdate_event_object_intermediary.get_value()
 
 class DropFile_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DROPFILE_EVENT_OBJECT)
@@ -8242,23 +13636,41 @@ class DropFile_EVENT:
         self._dropfile_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT]
 
     def set_file(self, file):
+        """
+        🟩 **R** -
+        """
         self._dropfile_event_object_intermediary.set_file(file)
 
     def get_file(self):
+        """
+        🟩 **R** -
+        """
         return self._dropfile_event_object_intermediary.get_file()
 
 class DropText_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DROPTEXT_EVENT_OBJECT)
@@ -8270,25 +13682,43 @@ class DropText_EVENT:
         self._logger = _InternalLogger()
 
     def set_text(self, text):
+        """
+        🟩 **R** -
+        """
         self._deoptext_intermediary.set_text(text)
 
     def get_text(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("Please note that this event is not yet reliably supported across all operating systems. Windows compatability is generally mixed, MacOS compatability is generally good, Linux compatability varies based on what desktop envioment is being used and Android support being unofficial and limited. Effectively this means that your milage may vary when using this event if it is triggered reliably. Generally speaking however, if your developing your application to run on specific hardware - like a games console - you can try and use this event, if the event works and the software/hardware is the same, it should work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with the user dropping a text file, then open and read that for text inputs instead. In short - this event is not known to work reliably, using other events instead is recommended!")
 
         return self._deoptext_intermediary.get_text()
 
 class DropBegin_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DROPBEGIN_EVENT_OBJECT)
@@ -8298,23 +13728,41 @@ class DropBegin_EVENT:
         self._dropbegin_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._dropbegin_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._dropbegin_event_object_intermediary.get_value()
 
 class DropComplete_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.DROPCOMPLETE_EVENT_OBJECT)
@@ -8324,23 +13772,41 @@ class DropComplete_EVENT:
         self._dropcomplete_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._dropcomplete_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._dropcomplete_event_object_intermediary.get_value()
 
 class FingerMotion_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FINGERMOTION_EVENT_OBJECT)
@@ -8350,23 +13816,41 @@ class FingerMotion_EVENT:
         self._fingermotion_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._fingermotion_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._fingermotion_event_object_intermediary.get_value()
 
 class FingerDown_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FINGERDOWN_EVENT_OBJECT)
@@ -8376,23 +13860,41 @@ class FingerDown_EVENT:
         self._fingerdown_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._fingerdown_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._fingerdown_event_object_intermediary.get_value()
 
 class FingerUp_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.FINGERUP_EVENT_OBJECT)
@@ -8402,23 +13904,41 @@ class FingerUp_EVENT:
         self._fingerup_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._fingerup_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._fingerup_event_object_intermediary.get_value()
 
 class KeyMapChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.KEYMAPCHANGED_EVENT_OBJECT)
@@ -8428,23 +13948,41 @@ class KeyMapChanged_EVENT:
         self._keymapchanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._keymapchanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._keymapchanged_event_object_intermediary.get_value()
 
 class LocaleChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.LOCALECHANGED_EVENT_OBJECT)
@@ -8454,23 +13992,41 @@ class LocaleChanged_EVENT:
         self._localechanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._localechanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._localechanged_event_object_intermediary.get_value()
 
 class MultiGesture_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.MULTIGESTURE_EVENT_OBJECT)
@@ -8480,47 +14036,89 @@ class MultiGesture_EVENT:
         self._multigesture_event_object_intermediary = _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT]
 
     def get_gesture_center_x(self):
+        """
+        🟩 **R** -
+        """
         return self._multigesture_event_object_intermediary.get_gesture_center_x()
 
     def get_gesture_center_y(self):
+        """
+        🟩 **R** -
+        """
         return self._multigesture_event_object_intermediary.get_gesture_center_y()
 
     def get_pinched_value(self):
+        """
+        🟩 **R** -
+        """
         return self._multigesture_event_object_intermediary.get_pinched_value()
 
     def get_rotated_value(self):
+        """
+        🟩 **R** -
+        """
         return self._multigesture_event_object_intermediary.get_rotated_value()
 
     def get_number_of_fingers(self):
+        """
+        🟩 **R** -
+        """
         return self._multigesture_event_object_intermediary.get_number_of_fingers()
 
     def set_gesture_center_x(self, value):
+        """
+        🟩 **R** -
+        """
         self._multigesture_event_object_intermediary.set_gesture_center_x(value)
 
     def set_gesture_center_y(self, value):
+        """
+        🟩 **R** -
+        """
         self._multigesture_event_object_intermediary.set_gesture_center_y(value)
 
     def set_pinched_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._multigesture_event_object_intermediary.set_pinched_value(value)
 
     def set_rotated_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._multigesture_event_object_intermediary.set_rotated_value(value)
 
     def set_number_of_fingers(self, value):
+        """
+        🟩 **R** -
+        """
         self._multigesture_event_object_intermediary.set_number_of_fingers(value)
 
 class Quit_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.QUIT_EVENT_OBJECT)
@@ -8530,23 +14128,41 @@ class Quit_EVENT:
         self._quit_event_object_intermediary = _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._quit_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._quit_event_object_intermediary.get_value()
 
 class RenderTargetsReset_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDERTARGETSRESET_EVENT_OBJECT)
@@ -8556,23 +14172,41 @@ class RenderTargetsReset_EVENT:
         self._rendertargetsreset_event_object_intermediary = _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._rendertargetsreset_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._rendertargetsreset_event_object_intermediary.get_value()
 
 class RenderDeviceReset_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDERDEVICERESET_EVENT_OBJECT)
@@ -8582,23 +14216,41 @@ class RenderDeviceReset_EVENT:
         self._renderdevicereset_event_object_intermediary = _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._renderdevicereset_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._renderdevicereset_event_object_intermediary.get_value()
 
 class SysWMEvent_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.SYSWMEVENT_EVENT_OBJECT)
@@ -8608,23 +14260,41 @@ class SysWMEvent_EVENT:
         self._syswmevent_event_object_intermediary = _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._syswmevent_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._syswmevent_event_object_intermediary.get_value()
 
 class VideoResize_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.VIDEORESIZE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.VIDEORESIZE_EVENT_OBJECT)
@@ -8634,23 +14304,41 @@ class VideoResize_EVENT:
         self._videoresize_event_object_intermediary = _Registry.pmma_module_spine[_Constants.VIDEORESIZE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._videoresize_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._videoresize_event_object_intermediary.get_value()
 
 class VideoExpose_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.VIDEOEXPOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.VIDEOEXPOSE_EVENT_OBJECT)
@@ -8660,23 +14348,41 @@ class VideoExpose_EVENT:
         self._videoexpose_event_object_intermediary = _Registry.pmma_module_spine[_Constants.VIDEOEXPOSE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._videoexpose_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._videoexpose_event_object_intermediary.get_value()
 
 class WindowShown_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWSHOWN_EVENT_OBJECT)
@@ -8686,23 +14392,41 @@ class WindowShown_EVENT:
         self._windowshown_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowshown_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowshown_event_object_intermediary.get_value()
 
 class WindowHidden_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWHIDDEN_EVENT_OBJECT)
@@ -8712,23 +14436,41 @@ class WindowHidden_EVENT:
         self._windowhidden_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowhidden_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowhidden_event_object_intermediary.get_value()
 
 class WindowExposed_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWEXPOSED_EVENT_OBJECT)
@@ -8738,23 +14480,41 @@ class WindowExposed_EVENT:
         self._windowexposed_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowexposed_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowexposed_event_object_intermediary.get_value()
 
 class WindowMoved_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWMOVED_EVENT_OBJECT)
@@ -8764,23 +14524,41 @@ class WindowMoved_EVENT:
         self._windowmoved_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowmoved_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowmoved_event_object_intermediary.get_value()
 
 class WindowResized_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWRESIZED_EVENT_OBJECT)
@@ -8790,23 +14568,41 @@ class WindowResized_EVENT:
         self._windowresized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowresized_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowresized_event_object_intermediary.get_value()
 
 class WindowMinimized_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWMINIMIZED_EVENT_OBJECT)
@@ -8816,23 +14612,41 @@ class WindowMinimized_EVENT:
         self._windowminimized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowminimized_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowminimized_event_object_intermediary.get_value()
 
 class WindowMaximized_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWMAXIMIZED_EVENT_OBJECT)
@@ -8842,23 +14656,41 @@ class WindowMaximized_EVENT:
         self._windowmaximized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowmaximized_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowmaximized_event_object_intermediary.get_value()
 
 class WindowRestored_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWRESTORED_EVENT_OBJECT)
@@ -8868,23 +14700,41 @@ class WindowRestored_EVENT:
         self._windowrestored_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowrestored_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowrestored_event_object_intermediary.get_value()
 
 class WindowEnter_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWENTER_EVENT_OBJECT)
@@ -8894,23 +14744,41 @@ class WindowEnter_EVENT:
         self._windowenter_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowenter_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowenter_event_object_intermediary.get_value()
 
 class WindowLeave_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWLEAVE_EVENT_OBJECT)
@@ -8920,23 +14788,41 @@ class WindowLeave_EVENT:
         self._windowleave_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowleave_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowleave_event_object_intermediary.get_value()
 
 class WindowFocusGained_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT)
@@ -8946,23 +14832,41 @@ class WindowFocusGained_EVENT:
         self._windowfocusgained_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowfocusgained_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowfocusgained_event_object_intermediary.get_value()
 
 class WindowFocusLost_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWFOCUSLOST_EVENT_OBJECT)
@@ -8972,23 +14876,41 @@ class WindowFocusLost_EVENT:
         self._windowfocuslost_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowfocuslost_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowfocuslost_event_object_intermediary.get_value()
 
 class WindowClose_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWCLOSE_EVENT_OBJECT)
@@ -8998,23 +14920,41 @@ class WindowClose_EVENT:
         self._windowclose_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowclose_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowclose_event_object_intermediary.get_value()
 
 class WindowTakeFocus_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT)
@@ -9024,23 +14964,41 @@ class WindowTakeFocus_EVENT:
         self._windowtakefocus_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowtakefocus_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowtakefocus_event_object_intermediary.get_value()
 
 class WindowHitTest_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWHITTEST_EVENT_OBJECT)
@@ -9050,23 +15008,41 @@ class WindowHitTest_EVENT:
         self._windowhittest_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowhittest_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowhittest_event_object_intermediary.get_value()
 
 class WindowICCPROFChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT)
@@ -9076,23 +15052,41 @@ class WindowICCPROFChanged_EVENT:
         self._windowiccprofchanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowiccprofchanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowiccprofchanged_event_object_intermediary.get_value()
 
 class WindowDisplayChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT)
@@ -9102,23 +15096,41 @@ class WindowDisplayChanged_EVENT:
         self._windowdisplaychanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowdisplaychanged_event_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowdisplaychanged_event_object_intermediary.get_value()
 
 class JoyDeviceAdded_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.JOYDEVICEADDED_OBJECT)
@@ -9128,23 +15140,41 @@ class JoyDeviceAdded_EVENT:
         self._joydeviceadded_object_intermediary = _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._joydeviceadded_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._joydeviceadded_object_intermediary.get_value()
 
 class JoyDeviceRemoved_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.JOYDEVICEREMOVED_OBJECT)
@@ -9154,23 +15184,41 @@ class JoyDeviceRemoved_EVENT:
         self._joydeviceremoved_object_intermediary = _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._joydeviceremoved_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._joydeviceremoved_object_intermediary.get_value()
 
 class WindowFullScreenStatusChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
         if not _Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT)
@@ -9180,7 +15228,13 @@ class WindowFullScreenStatusChanged_EVENT:
         self._windowfullscreenstatechanged_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT]
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._windowfullscreenstatechanged_object_intermediary.set_value(value)
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._windowfullscreenstatechanged_object_intermediary.get_value()
