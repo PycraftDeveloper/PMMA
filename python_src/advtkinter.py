@@ -6,20 +6,35 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Tkinter:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def style(self, widget):
+        """
+        🟩 **R** -
+        """
         style = _ttk.Style()
         style.configure(
             widget,
@@ -35,6 +50,9 @@ class Tkinter:
                 ("active", "white")])
 
     def get_display_size(self):
+        """
+        🟩 **R** -
+        """
         try:
             root = _tk.Tk()
 
@@ -49,6 +67,9 @@ class Tkinter:
             return (0, 0)
 
     def set_size(self, x, y, root=None):
+        """
+        🟩 **R** -
+        """
         if root is None:
             root = _Registry.root
 

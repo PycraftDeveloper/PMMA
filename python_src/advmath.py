@@ -17,7 +17,7 @@ class Math:
     """
     def __init__(self):
         """
-        Constructor for the Math class.
+        🟩 **R** - Constructor for the Math class.
         """
         _initialize(self)
 
@@ -32,21 +32,30 @@ class Math:
                     "pmma.python_src.pyx_alternatives.utility.math_utils")
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def smooth_step(self, value):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_smooth_step(value)
 
     def pythag(self, points):
         """
-        **R** - Calculates the pythagorean distance between two points.
+        🟩 **R/C** -Calculates the pythagorean distance between two points.
 
         Parameters:
             points (list) - A list containing two tuples, each representing a point in 3D space.
@@ -59,22 +68,43 @@ class Math:
         return _MathIntermediary.math_module.raw_pythag(points)
 
     def ranger(self, value, old, new):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_ranger(value, old, new)
 
     def nparray_ranger(self, value, old, new):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_nparray_ranger(value, old, new)
 
     def gl_look_at(self, eye, target, up):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_gl_look_at(eye, target, up)
 
     def compute_position(self, pos, target, up):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_compute_position(pos, target, up)
 
     def perspective_fov(self, fov, aspect_ratio, near_plane, far_plane):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane)
 
     def look_at(self, camera_position, camera_target, up_vector):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_look_at(camera_position, camera_target, up_vector)
 
     def multiply(self, a, b):
+        """
+        🟩 **R/C** -
+        """
         return _MathIntermediary.math_module.raw_multiply(a, b)
