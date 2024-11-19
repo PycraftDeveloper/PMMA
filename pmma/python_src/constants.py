@@ -3,6 +3,9 @@ from os import sep as _os__sep
 from os import cpu_count as _os__cpu_count
 
 class Constants:
+    """
+    🟩 **R** -
+    """
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
     SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)
     TRANSITION_MOVEMENT_TYPES = [
