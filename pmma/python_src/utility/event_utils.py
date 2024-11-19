@@ -6,17 +6,29 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Backspace_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -25,15 +37,27 @@ class Backspace_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -42,9 +66,15 @@ class Backspace_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -53,23 +83,41 @@ class Backspace_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Tab_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.TAB_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -78,15 +126,27 @@ class Tab_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -95,9 +155,15 @@ class Tab_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -106,23 +172,41 @@ class Tab_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Clear_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.CLEAR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -131,15 +215,27 @@ class Clear_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -148,9 +244,15 @@ class Clear_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -159,23 +261,41 @@ class Clear_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Return_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RETURN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -184,15 +304,27 @@ class Return_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -201,9 +333,15 @@ class Return_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -212,23 +350,41 @@ class Return_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Pause_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PAUSE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -237,15 +393,27 @@ class Pause_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -254,9 +422,15 @@ class Pause_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -265,23 +439,41 @@ class Pause_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Escape_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.ESCAPE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -290,15 +482,27 @@ class Escape_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -307,9 +511,15 @@ class Escape_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -318,23 +528,41 @@ class Escape_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Space_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -343,15 +571,27 @@ class Space_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -360,9 +600,15 @@ class Space_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -371,23 +617,41 @@ class Space_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class ExclamationMark_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.EXCLAMATIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -396,15 +660,27 @@ class ExclamationMark_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -413,9 +689,15 @@ class ExclamationMark_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -424,23 +706,41 @@ class ExclamationMark_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class DoubleQuote_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DOUBLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -449,15 +749,27 @@ class DoubleQuote_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -466,9 +778,15 @@ class DoubleQuote_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -477,23 +795,41 @@ class DoubleQuote_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Hashtag_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.HASHTAG_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -502,15 +838,27 @@ class Hashtag_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -519,9 +867,15 @@ class Hashtag_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -530,23 +884,41 @@ class Hashtag_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Dollar_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DOLLAR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -555,15 +927,27 @@ class Dollar_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -572,9 +956,15 @@ class Dollar_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -583,23 +973,41 @@ class Dollar_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Ampersand_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.AMPERSAND_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -608,15 +1016,27 @@ class Ampersand_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -625,9 +1045,15 @@ class Ampersand_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -636,23 +1062,41 @@ class Ampersand_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class SingleQuote_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SINGLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -661,15 +1105,27 @@ class SingleQuote_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -678,9 +1134,15 @@ class SingleQuote_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -689,23 +1151,41 @@ class SingleQuote_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftParenthesis_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -714,15 +1194,27 @@ class LeftParenthesis_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -731,9 +1223,15 @@ class LeftParenthesis_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -742,23 +1240,41 @@ class LeftParenthesis_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightParenthesis_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -767,15 +1283,27 @@ class RightParenthesis_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -784,9 +1312,15 @@ class RightParenthesis_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -795,23 +1329,41 @@ class RightParenthesis_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Asterisk_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.ASTERISK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -820,15 +1372,27 @@ class Asterisk_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -837,9 +1401,15 @@ class Asterisk_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -848,23 +1418,41 @@ class Asterisk_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Plus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -873,15 +1461,27 @@ class Plus_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -890,9 +1490,15 @@ class Plus_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -901,23 +1507,41 @@ class Plus_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Comma_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.COMMA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -926,15 +1550,27 @@ class Comma_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -943,9 +1579,15 @@ class Comma_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -954,23 +1596,41 @@ class Comma_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Minus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -979,15 +1639,27 @@ class Minus_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -996,9 +1668,15 @@ class Minus_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1007,23 +1685,41 @@ class Minus_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Period_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1032,15 +1728,27 @@ class Period_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1049,9 +1757,15 @@ class Period_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1060,23 +1774,41 @@ class Period_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class ForwardSlash_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FORWARDSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1085,15 +1817,27 @@ class ForwardSlash_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1102,9 +1846,15 @@ class ForwardSlash_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1113,23 +1863,41 @@ class ForwardSlash_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary0_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY0_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1138,15 +1906,27 @@ class Primary0_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1155,9 +1935,15 @@ class Primary0_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1166,23 +1952,41 @@ class Primary0_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary1_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1191,15 +1995,27 @@ class Primary1_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1208,9 +2024,15 @@ class Primary1_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1219,23 +2041,41 @@ class Primary1_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary2_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1244,15 +2084,27 @@ class Primary2_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1261,9 +2113,15 @@ class Primary2_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1272,23 +2130,41 @@ class Primary2_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary3_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1297,15 +2173,27 @@ class Primary3_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1314,9 +2202,15 @@ class Primary3_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1325,23 +2219,41 @@ class Primary3_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary4_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1350,15 +2262,27 @@ class Primary4_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1367,9 +2291,15 @@ class Primary4_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1378,23 +2308,41 @@ class Primary4_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary5_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1403,15 +2351,27 @@ class Primary5_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1420,9 +2380,15 @@ class Primary5_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1431,23 +2397,41 @@ class Primary5_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary6_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1456,15 +2440,27 @@ class Primary6_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1473,9 +2469,15 @@ class Primary6_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1484,23 +2486,41 @@ class Primary6_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary7_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1509,15 +2529,27 @@ class Primary7_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1526,9 +2558,15 @@ class Primary7_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1537,23 +2575,41 @@ class Primary7_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary8_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1562,15 +2618,27 @@ class Primary8_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1579,9 +2647,15 @@ class Primary8_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1590,23 +2664,41 @@ class Primary8_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Primary9_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARY9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1615,15 +2707,27 @@ class Primary9_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1632,9 +2736,15 @@ class Primary9_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1643,23 +2753,41 @@ class Primary9_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Colon_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.COLON_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1668,15 +2796,27 @@ class Colon_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1685,9 +2825,15 @@ class Colon_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1696,23 +2842,41 @@ class Colon_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class SemiColon_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SEMICOLON_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1721,15 +2885,27 @@ class SemiColon_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1738,9 +2914,15 @@ class SemiColon_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1749,23 +2931,41 @@ class SemiColon_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LessThan_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LESSTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1774,15 +2974,27 @@ class LessThan_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1791,9 +3003,15 @@ class LessThan_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1802,23 +3020,41 @@ class LessThan_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Equals_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.EQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1827,15 +3063,27 @@ class Equals_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1844,9 +3092,15 @@ class Equals_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1855,23 +3109,41 @@ class Equals_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class GreaterThan_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.GREATERTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1880,15 +3152,27 @@ class GreaterThan_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1897,9 +3181,15 @@ class GreaterThan_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1908,23 +3198,41 @@ class GreaterThan_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class QuestionMark_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.QUESTIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1933,15 +3241,27 @@ class QuestionMark_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -1950,9 +3270,15 @@ class QuestionMark_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -1961,23 +3287,41 @@ class QuestionMark_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class At_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.AT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -1986,15 +3330,27 @@ class At_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2003,9 +3359,15 @@ class At_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2014,23 +3376,41 @@ class At_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftBracket_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2039,15 +3419,27 @@ class LeftBracket_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2056,9 +3448,15 @@ class LeftBracket_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2067,23 +3465,41 @@ class LeftBracket_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class BackSlash_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.BACKSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2092,15 +3508,27 @@ class BackSlash_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2109,9 +3537,15 @@ class BackSlash_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2120,23 +3554,41 @@ class BackSlash_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightBracket_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2145,15 +3597,27 @@ class RightBracket_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2162,9 +3626,15 @@ class RightBracket_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2173,23 +3643,41 @@ class RightBracket_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Caret_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.CARET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2198,15 +3686,27 @@ class Caret_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2215,9 +3715,15 @@ class Caret_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2226,23 +3732,41 @@ class Caret_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Underscore_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.UNDERSCORE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2251,15 +3775,27 @@ class Underscore_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2268,9 +3804,15 @@ class Underscore_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2279,23 +3821,41 @@ class Underscore_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Grave_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.GRAVE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2304,15 +3864,27 @@ class Grave_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2321,9 +3893,15 @@ class Grave_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2332,23 +3910,41 @@ class Grave_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryA_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2357,15 +3953,27 @@ class PrimaryA_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2374,9 +3982,15 @@ class PrimaryA_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2385,23 +3999,41 @@ class PrimaryA_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryB_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYB_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2410,15 +4042,27 @@ class PrimaryB_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2427,9 +4071,15 @@ class PrimaryB_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2438,23 +4088,41 @@ class PrimaryB_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryC_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYC_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2463,15 +4131,27 @@ class PrimaryC_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2480,9 +4160,15 @@ class PrimaryC_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2491,23 +4177,41 @@ class PrimaryC_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryD_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2516,15 +4220,27 @@ class PrimaryD_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2533,9 +4249,15 @@ class PrimaryD_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2544,23 +4266,41 @@ class PrimaryD_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryE_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2569,15 +4309,27 @@ class PrimaryE_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2586,9 +4338,15 @@ class PrimaryE_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2597,23 +4355,41 @@ class PrimaryE_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryF_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYF_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2622,15 +4398,27 @@ class PrimaryF_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2639,9 +4427,15 @@ class PrimaryF_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2650,23 +4444,41 @@ class PrimaryF_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryG_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYG_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2675,15 +4487,27 @@ class PrimaryG_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2692,9 +4516,15 @@ class PrimaryG_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2703,23 +4533,41 @@ class PrimaryG_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryH_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2728,15 +4576,27 @@ class PrimaryH_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2745,9 +4605,15 @@ class PrimaryH_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2756,23 +4622,41 @@ class PrimaryH_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryI_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYI_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2781,15 +4665,27 @@ class PrimaryI_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2798,9 +4694,15 @@ class PrimaryI_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2809,23 +4711,41 @@ class PrimaryI_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryJ_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYJ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2834,15 +4754,27 @@ class PrimaryJ_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2851,9 +4783,15 @@ class PrimaryJ_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2862,23 +4800,41 @@ class PrimaryJ_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryK_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2887,15 +4843,27 @@ class PrimaryK_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2904,9 +4872,15 @@ class PrimaryK_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2915,23 +4889,41 @@ class PrimaryK_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryL_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2940,15 +4932,27 @@ class PrimaryL_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -2957,9 +4961,15 @@ class PrimaryL_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -2968,23 +4978,41 @@ class PrimaryL_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryM_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYM_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -2993,15 +5021,27 @@ class PrimaryM_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3010,9 +5050,15 @@ class PrimaryM_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3021,23 +5067,41 @@ class PrimaryM_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryN_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3046,15 +5110,27 @@ class PrimaryN_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3063,9 +5139,15 @@ class PrimaryN_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3074,23 +5156,41 @@ class PrimaryN_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryO_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYO_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3099,15 +5199,27 @@ class PrimaryO_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3116,9 +5228,15 @@ class PrimaryO_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3127,23 +5245,41 @@ class PrimaryO_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryP_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3152,15 +5288,27 @@ class PrimaryP_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3169,9 +5317,15 @@ class PrimaryP_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3180,23 +5334,41 @@ class PrimaryP_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryQ_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYQ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3205,15 +5377,27 @@ class PrimaryQ_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3222,9 +5406,15 @@ class PrimaryQ_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3233,23 +5423,41 @@ class PrimaryQ_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryR_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3258,15 +5466,27 @@ class PrimaryR_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3275,9 +5495,15 @@ class PrimaryR_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3286,23 +5512,41 @@ class PrimaryR_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryS_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3311,15 +5555,27 @@ class PrimaryS_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3328,9 +5584,15 @@ class PrimaryS_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3339,23 +5601,41 @@ class PrimaryS_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryT_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3364,15 +5644,27 @@ class PrimaryT_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3381,9 +5673,15 @@ class PrimaryT_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3392,23 +5690,41 @@ class PrimaryT_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryU_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYU_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3417,15 +5733,27 @@ class PrimaryU_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3434,9 +5762,15 @@ class PrimaryU_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3445,23 +5779,41 @@ class PrimaryU_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryV_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYV_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3470,15 +5822,27 @@ class PrimaryV_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3487,9 +5851,15 @@ class PrimaryV_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3498,23 +5868,41 @@ class PrimaryV_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryW_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYW_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3523,15 +5911,27 @@ class PrimaryW_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3540,9 +5940,15 @@ class PrimaryW_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3551,23 +5957,41 @@ class PrimaryW_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryX_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYX_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3576,15 +6000,27 @@ class PrimaryX_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3593,9 +6029,15 @@ class PrimaryX_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3604,23 +6046,41 @@ class PrimaryX_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryY_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYY_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3629,15 +6089,27 @@ class PrimaryY_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3646,9 +6118,15 @@ class PrimaryY_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3657,23 +6135,41 @@ class PrimaryY_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PrimaryZ_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRIMARYZ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3682,15 +6178,27 @@ class PrimaryZ_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3699,9 +6207,15 @@ class PrimaryZ_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3710,23 +6224,41 @@ class PrimaryZ_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Delete_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DELETE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3735,15 +6267,27 @@ class Delete_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3752,9 +6296,15 @@ class Delete_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3763,23 +6313,41 @@ class Delete_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad0_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD0_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3788,15 +6356,27 @@ class Numpad0_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3805,9 +6385,15 @@ class Numpad0_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3816,23 +6402,41 @@ class Numpad0_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad1_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3841,15 +6445,27 @@ class Numpad1_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3858,9 +6474,15 @@ class Numpad1_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3869,23 +6491,41 @@ class Numpad1_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad2_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3894,15 +6534,27 @@ class Numpad2_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3911,9 +6563,15 @@ class Numpad2_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3922,23 +6580,41 @@ class Numpad2_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad3_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -3947,15 +6623,27 @@ class Numpad3_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -3964,9 +6652,15 @@ class Numpad3_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -3975,23 +6669,41 @@ class Numpad3_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad4_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4000,15 +6712,27 @@ class Numpad4_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4017,9 +6741,15 @@ class Numpad4_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4028,23 +6758,41 @@ class Numpad4_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad5_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4053,15 +6801,27 @@ class Numpad5_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4070,9 +6830,15 @@ class Numpad5_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4081,23 +6847,41 @@ class Numpad5_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad6_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4106,15 +6890,27 @@ class Numpad6_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4123,9 +6919,15 @@ class Numpad6_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4134,23 +6936,41 @@ class Numpad6_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad7_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4159,15 +6979,27 @@ class Numpad7_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4176,9 +7008,15 @@ class Numpad7_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4187,23 +7025,41 @@ class Numpad7_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad8_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4212,15 +7068,27 @@ class Numpad8_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4229,9 +7097,15 @@ class Numpad8_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4240,23 +7114,41 @@ class Numpad8_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Numpad9_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPAD9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4265,15 +7157,27 @@ class Numpad9_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4282,9 +7186,15 @@ class Numpad9_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4293,23 +7203,41 @@ class Numpad9_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadPeriod_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADPERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4318,15 +7246,27 @@ class NumpadPeriod_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4335,9 +7275,15 @@ class NumpadPeriod_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4346,23 +7292,41 @@ class NumpadPeriod_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadDivide_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADDIVIDE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4371,15 +7335,27 @@ class NumpadDivide_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4388,9 +7364,15 @@ class NumpadDivide_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4399,23 +7381,41 @@ class NumpadDivide_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadMultiply_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADMULTIPLY_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4424,15 +7424,27 @@ class NumpadMultiply_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4441,9 +7453,15 @@ class NumpadMultiply_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4452,23 +7470,41 @@ class NumpadMultiply_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadMinus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADMINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4477,15 +7513,27 @@ class NumpadMinus_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4494,9 +7542,15 @@ class NumpadMinus_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4505,23 +7559,41 @@ class NumpadMinus_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadPlus_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADPLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4530,15 +7602,27 @@ class NumpadPlus_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4547,9 +7631,15 @@ class NumpadPlus_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4558,23 +7648,41 @@ class NumpadPlus_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadEnter_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADENTER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4583,15 +7691,27 @@ class NumpadEnter_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4600,9 +7720,15 @@ class NumpadEnter_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4611,23 +7737,41 @@ class NumpadEnter_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumpadEquals_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMPADEQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4636,15 +7780,27 @@ class NumpadEquals_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4653,9 +7809,15 @@ class NumpadEquals_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4664,23 +7826,41 @@ class NumpadEquals_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Up_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.UP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4689,15 +7869,27 @@ class Up_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4706,9 +7898,15 @@ class Up_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4717,23 +7915,41 @@ class Up_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Down_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4742,15 +7958,27 @@ class Down_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4759,9 +7987,15 @@ class Down_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4770,23 +8004,41 @@ class Down_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Right_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4795,15 +8047,27 @@ class Right_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4812,9 +8076,15 @@ class Right_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4823,23 +8093,41 @@ class Right_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Left_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4848,15 +8136,27 @@ class Left_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4865,9 +8165,15 @@ class Left_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4876,23 +8182,41 @@ class Left_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Insert_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.INSERT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4901,15 +8225,27 @@ class Insert_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4918,9 +8254,15 @@ class Insert_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4929,23 +8271,41 @@ class Insert_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Home_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.HOME_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -4954,15 +8314,27 @@ class Home_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -4971,9 +8343,15 @@ class Home_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -4982,23 +8360,41 @@ class Home_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class End_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.END_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5007,15 +8403,27 @@ class End_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5024,9 +8432,15 @@ class End_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5035,23 +8449,41 @@ class End_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PageUp_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PAGEUP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5060,15 +8492,27 @@ class PageUp_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5077,9 +8521,15 @@ class PageUp_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5088,23 +8538,41 @@ class PageUp_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class PageDown_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PAGEDOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5113,15 +8581,27 @@ class PageDown_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5130,9 +8610,15 @@ class PageDown_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5141,23 +8627,41 @@ class PageDown_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function1_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5166,15 +8670,27 @@ class Function1_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5183,9 +8699,15 @@ class Function1_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5194,23 +8716,41 @@ class Function1_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function2_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5219,15 +8759,27 @@ class Function2_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5236,9 +8788,15 @@ class Function2_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5247,23 +8805,41 @@ class Function2_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function3_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5272,15 +8848,27 @@ class Function3_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5289,9 +8877,15 @@ class Function3_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5300,23 +8894,41 @@ class Function3_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function4_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5325,15 +8937,27 @@ class Function4_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5342,9 +8966,15 @@ class Function4_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5353,23 +8983,41 @@ class Function4_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function5_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5378,15 +9026,27 @@ class Function5_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5395,9 +9055,15 @@ class Function5_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5406,23 +9072,41 @@ class Function5_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function6_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5431,15 +9115,27 @@ class Function6_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5448,9 +9144,15 @@ class Function6_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5459,23 +9161,41 @@ class Function6_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function7_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5484,15 +9204,27 @@ class Function7_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5501,9 +9233,15 @@ class Function7_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5512,23 +9250,41 @@ class Function7_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function8_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5537,15 +9293,27 @@ class Function8_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5554,9 +9322,15 @@ class Function8_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5565,23 +9339,41 @@ class Function8_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function9_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5590,15 +9382,27 @@ class Function9_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5607,9 +9411,15 @@ class Function9_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5618,23 +9428,41 @@ class Function9_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function10_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION10_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5643,15 +9471,27 @@ class Function10_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5660,9 +9500,15 @@ class Function10_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5671,23 +9517,41 @@ class Function10_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function11_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION11_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5696,15 +9560,27 @@ class Function11_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5713,9 +9589,15 @@ class Function11_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5724,23 +9606,41 @@ class Function11_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function12_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION12_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5749,15 +9649,27 @@ class Function12_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5766,9 +9678,15 @@ class Function12_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5777,23 +9695,41 @@ class Function12_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function13_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION13_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5802,15 +9738,27 @@ class Function13_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5819,9 +9767,15 @@ class Function13_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5830,23 +9784,41 @@ class Function13_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function14_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION14_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5855,15 +9827,27 @@ class Function14_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5872,9 +9856,15 @@ class Function14_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5883,23 +9873,41 @@ class Function14_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Function15_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FUNCTION15_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5908,15 +9916,27 @@ class Function15_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5925,9 +9945,15 @@ class Function15_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5936,23 +9962,41 @@ class Function15_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class NumLock_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.NUMLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -5961,15 +10005,27 @@ class NumLock_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -5978,9 +10034,15 @@ class NumLock_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -5989,23 +10051,41 @@ class NumLock_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class CapsLock_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.CAPSLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6014,15 +10094,27 @@ class CapsLock_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6031,9 +10123,15 @@ class CapsLock_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6042,23 +10140,41 @@ class CapsLock_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class ScrollLock_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SCROLLLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6067,15 +10183,27 @@ class ScrollLock_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6084,9 +10212,15 @@ class ScrollLock_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6095,23 +10229,41 @@ class ScrollLock_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightShift_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6120,15 +10272,27 @@ class RightShift_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6137,9 +10301,15 @@ class RightShift_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6148,23 +10318,41 @@ class RightShift_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftShift_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6173,15 +10361,27 @@ class LeftShift_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6190,9 +10390,15 @@ class LeftShift_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6201,23 +10407,41 @@ class LeftShift_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Shift_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6226,15 +10450,27 @@ class Shift_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6243,9 +10479,15 @@ class Shift_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6254,23 +10496,41 @@ class Shift_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightControl_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6279,15 +10539,27 @@ class RightControl_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6296,9 +10568,15 @@ class RightControl_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6307,23 +10585,41 @@ class RightControl_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftControl_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6332,15 +10628,27 @@ class LeftControl_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6349,9 +10657,15 @@ class LeftControl_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6360,23 +10674,41 @@ class LeftControl_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Control_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.CONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6385,15 +10717,27 @@ class Control_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6402,9 +10746,15 @@ class Control_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6413,23 +10763,41 @@ class Control_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightAlt_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6438,15 +10806,27 @@ class RightAlt_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6455,9 +10835,15 @@ class RightAlt_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6466,23 +10852,41 @@ class RightAlt_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftAlt_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6491,15 +10895,27 @@ class LeftAlt_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6508,9 +10924,15 @@ class LeftAlt_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6519,23 +10941,41 @@ class LeftAlt_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Alt_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.ALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6544,15 +10984,27 @@ class Alt_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6561,9 +11013,15 @@ class Alt_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6572,23 +11030,41 @@ class Alt_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightMeta_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6597,15 +11073,27 @@ class RightMeta_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6614,9 +11102,15 @@ class RightMeta_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6625,23 +11119,41 @@ class RightMeta_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftMeta_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6650,15 +11162,27 @@ class LeftMeta_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6667,9 +11191,15 @@ class LeftMeta_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6678,23 +11208,41 @@ class LeftMeta_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Meta_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.META_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6703,15 +11251,27 @@ class Meta_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6720,9 +11280,15 @@ class Meta_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6731,23 +11297,41 @@ class Meta_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftSuper_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6756,15 +11340,27 @@ class LeftSuper_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6773,9 +11369,15 @@ class LeftSuper_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6784,23 +11386,41 @@ class LeftSuper_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightSuper_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6809,15 +11429,27 @@ class RightSuper_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6826,9 +11458,15 @@ class RightSuper_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6837,23 +11475,41 @@ class RightSuper_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Super_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6862,15 +11518,27 @@ class Super_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6879,9 +11547,15 @@ class Super_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6890,23 +11564,41 @@ class Super_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Mode_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MODE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6915,15 +11607,27 @@ class Mode_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6932,9 +11636,15 @@ class Mode_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6943,23 +11653,41 @@ class Mode_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Help_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.HELP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -6968,15 +11696,27 @@ class Help_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -6985,9 +11725,15 @@ class Help_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -6996,23 +11742,41 @@ class Help_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Print_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.PRINT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7021,15 +11785,27 @@ class Print_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7038,9 +11814,15 @@ class Print_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7049,23 +11831,41 @@ class Print_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class SystemRequest_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SYSTEMREQUEST_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7074,15 +11874,27 @@ class SystemRequest_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7091,9 +11903,15 @@ class SystemRequest_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7102,23 +11920,41 @@ class SystemRequest_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Break_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.BREAK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7127,15 +11963,27 @@ class Break_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7144,9 +11992,15 @@ class Break_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7155,23 +12009,41 @@ class Break_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Menu_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MENU_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7180,15 +12052,27 @@ class Menu_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7197,9 +12081,15 @@ class Menu_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7208,23 +12098,41 @@ class Menu_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Power_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.POWER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7233,15 +12141,27 @@ class Power_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7250,9 +12170,15 @@ class Power_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7261,23 +12187,41 @@ class Power_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Euro_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.EURO_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7286,15 +12230,27 @@ class Euro_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7303,9 +12259,15 @@ class Euro_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7314,23 +12276,41 @@ class Euro_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class AndroidBack_KEY:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.ANDROIDBACK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -7339,15 +12319,27 @@ class AndroidBack_KEY:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7356,9 +12348,15 @@ class AndroidBack_KEY:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7367,23 +12365,41 @@ class AndroidBack_KEY:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Y_BUTTON: # 3
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7392,15 +12408,27 @@ class Y_BUTTON: # 3
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7409,9 +12437,15 @@ class Y_BUTTON: # 3
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7420,23 +12454,41 @@ class Y_BUTTON: # 3
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class B_BUTTON: # 2
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7445,15 +12497,27 @@ class B_BUTTON: # 2
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7462,9 +12526,15 @@ class B_BUTTON: # 2
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7473,23 +12543,41 @@ class B_BUTTON: # 2
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class A_BUTTON: # 1
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7498,15 +12586,27 @@ class A_BUTTON: # 1
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7515,9 +12615,15 @@ class A_BUTTON: # 1
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7526,23 +12632,41 @@ class A_BUTTON: # 1
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class X_BUTTON: # 0
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7551,15 +12675,27 @@ class X_BUTTON: # 0
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7568,9 +12704,15 @@ class X_BUTTON: # 0
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7579,23 +12721,41 @@ class X_BUTTON: # 0
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Home_BUTTON: # 12
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7604,15 +12764,27 @@ class Home_BUTTON: # 12
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7621,9 +12793,15 @@ class Home_BUTTON: # 12
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7632,23 +12810,41 @@ class Home_BUTTON: # 12
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightJoystick_BUTTON: # 11
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7657,15 +12853,27 @@ class RightJoystick_BUTTON: # 11
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7674,9 +12882,15 @@ class RightJoystick_BUTTON: # 11
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7685,23 +12899,41 @@ class RightJoystick_BUTTON: # 11
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftJoystick_BUTTON: # 10
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7710,15 +12942,27 @@ class LeftJoystick_BUTTON: # 10
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7727,9 +12971,15 @@ class LeftJoystick_BUTTON: # 10
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7738,23 +12988,41 @@ class LeftJoystick_BUTTON: # 10
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Options_BUTTON: # 9
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7763,15 +13031,27 @@ class Options_BUTTON: # 9
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7780,9 +13060,15 @@ class Options_BUTTON: # 9
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7791,23 +13077,41 @@ class Options_BUTTON: # 9
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Track_BALL:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self.id = None
@@ -7815,35 +13119,65 @@ class Track_BALL:
         self.y_motion = 0
 
     def get_id(self):
+        """
+        🟩 **R** -
+        """
         return self.id
 
     def set_id(self, value):
+        """
+        🟩 **R** -
+        """
         self.id = value
 
     def get_x_motion(self):
+        """
+        🟩 **R** -
+        """
         return self.x_motion
 
     def set_x_motion(self, value):
+        """
+        🟩 **R** -
+        """
         self.x_motion = value
 
     def get_y_motion(self):
+        """
+        🟩 **R** -
+        """
         return self.y_motion
 
     def set_y_motion(self, value):
+        """
+        🟩 **R** -
+        """
         self.y_motion = value
 
 class Share_BUTTON: # 8
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7852,15 +13186,27 @@ class Share_BUTTON: # 8
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7869,9 +13215,15 @@ class Share_BUTTON: # 8
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7880,67 +13232,121 @@ class Share_BUTTON: # 8
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Right_TRIGGER:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self.value = 0
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self.value
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self.value = value
 
 class Left_TRIGGER:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self.value = 0
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self.value
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self.value = value
 
 class Right_BUMPER: # 5
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -7949,15 +13355,27 @@ class Right_BUMPER: # 5
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -7966,9 +13384,15 @@ class Right_BUMPER: # 5
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -7977,23 +13401,41 @@ class Right_BUMPER: # 5
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Left_BUMPER: # 4
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -8002,15 +13444,27 @@ class Left_BUMPER: # 4
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8019,9 +13473,15 @@ class Left_BUMPER: # 4
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8030,23 +13490,41 @@ class Left_BUMPER: # 4
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Center_BUTTON: # 15
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -8055,15 +13533,27 @@ class Center_BUTTON: # 15
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8072,9 +13562,15 @@ class Center_BUTTON: # 15
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8083,81 +13579,147 @@ class Center_BUTTON: # 15
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftJoystick_AXIS:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._x_axis = 0
         self._y_axis = 0
 
     def get_x_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._x_axis
 
     def get_y_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._y_axis
 
     def set_x_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._x_axis = value
 
     def set_y_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._y_axis = value
 
 class RightJoystick_AXIS:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._x_axis = 0
         self._y_axis = 0
 
     def get_x_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._x_axis
 
     def get_y_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._y_axis
 
     def set_x_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._x_axis = value
 
     def set_y_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._y_axis = value
 
 class UpHat_BUTTON:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -8166,15 +13728,27 @@ class UpHat_BUTTON:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8183,9 +13757,15 @@ class UpHat_BUTTON:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8194,23 +13774,41 @@ class UpHat_BUTTON:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class DownHat_BUTTON:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -8219,15 +13817,27 @@ class DownHat_BUTTON:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8236,9 +13846,15 @@ class DownHat_BUTTON:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8247,23 +13863,41 @@ class DownHat_BUTTON:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftHat_BUTTON:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -8272,15 +13906,27 @@ class LeftHat_BUTTON:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8289,9 +13935,15 @@ class LeftHat_BUTTON:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8300,23 +13952,41 @@ class LeftHat_BUTTON:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightHat_BUTTON:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._currently_pressed = False
@@ -8325,15 +13995,27 @@ class RightHat_BUTTON:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8342,9 +14024,15 @@ class RightHat_BUTTON:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8353,23 +14041,41 @@ class RightHat_BUTTON:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class LeftButton_MOUSE:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LEFTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -8378,15 +14084,27 @@ class LeftButton_MOUSE:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8395,9 +14113,15 @@ class LeftButton_MOUSE:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8406,23 +14130,41 @@ class LeftButton_MOUSE:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class MiddleButton_MOUSE:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MIDDLEBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -8431,15 +14173,27 @@ class MiddleButton_MOUSE:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8448,9 +14202,15 @@ class MiddleButton_MOUSE:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8459,23 +14219,41 @@ class MiddleButton_MOUSE:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class RightButton_MOUSE:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RIGHTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
@@ -8484,15 +14262,27 @@ class RightButton_MOUSE:
         self._double_tapped = False
 
     def set_double_tapped(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tapped = value
 
     def get_double_tapped(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tapped
 
     def get_last_tap_time(self):
+        """
+        🟩 **R** -
+        """
         return self._last_tap_time
 
     def set_last_tap_time(self, value):
+        """
+        🟩 **R** -
+        """
         if value-self.get_last_tap_time() <= self.get_double_tap_timing():
             self.set_double_tapped(True)
         else:
@@ -8501,9 +14291,15 @@ class RightButton_MOUSE:
         self._last_tap_time = value
 
     def get_pressed(self):
+        """
+        🟩 **R** -
+        """
         return self._currently_pressed
 
     def set_pressed(self, value):
+        """
+        🟩 **R** -
+        """
         if value:
             self.set_last_tap_time(_time__perf_counter())
         else:
@@ -8512,23 +14308,41 @@ class RightButton_MOUSE:
         self._currently_pressed = value
 
     def get_double_tap_timing(self):
+        """
+        🟩 **R** -
+        """
         return self._double_tap_timing
 
     def set_double_tap_timing(self, value):
+        """
+        🟩 **R** -
+        """
         self._double_tap_timing = value
 
 class Mouse_SCROLL:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
 
         self._x_value = 0
@@ -8537,41 +14351,77 @@ class Mouse_SCROLL:
         self._y_displacement = 0
 
     def get_x_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._x_displacement
 
     def set_x_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._x_displacement = value
 
     def get_x_value(self):
+        """
+        🟩 **R** -
+        """
         return self._x_value
 
     def set_x_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._x_value = value
 
     def get_y_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._y_displacement
 
     def set_y_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._y_displacement = value
 
     def get_y_value(self):
+        """
+        🟩 **R** -
+        """
         return self._y_value
 
     def set_y_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._y_value = value
 
 class Mouse_POSITION:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MOUSE_POSITION_OBJECT, add_to_pmma_module_spine=True)
 
         self._x_axis = 0
@@ -8580,440 +14430,803 @@ class Mouse_POSITION:
         self._y_axis_displacement = 0
 
     def get_axis_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._x_axis_displacement, self._y_axis_displacement
 
     def get_x_axis_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._x_axis_displacement
 
     def get_y_axis_displacement(self):
+        """
+        🟩 **R** -
+        """
         return self._y_axis_displacement
 
     def get_x_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._x_axis
 
     def get_y_axis(self):
+        """
+        🟩 **R** -
+        """
         return self._y_axis
 
     def set_x_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._x_axis = value
 
     def set_y_axis(self, value):
+        """
+        🟩 **R** -
+        """
         self._y_axis = value
 
     def set_x_axis_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._x_axis_displacement = value
 
     def set_y_axis_displacement(self, value):
+        """
+        🟩 **R** -
+        """
         self._y_axis_displacement = value
 
 class AppTerminating_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.APPTERMINATING_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AppLowMemory_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.APPLOWMEMORY_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AppWillEnterBackground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AppDidEnterBackground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AppWillEnterForeground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AppDidEnterForeground_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AudioDeviceAdded_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.AUDIODEVICEADDED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class AudioDeviceRemoved_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class ClipBoardUpdate_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.CLIPBOARDUPDATE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class DropFile_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._file = None
 
     def set_file(self, file):
+        """
+        🟩 **R** -
+        """
         self._file = file
 
     def get_file(self):
+        """
+        🟩 **R** -
+        """
         return self._file
 
 class DropText_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._text = None
 
     def set_text(self, text):
+        """
+        🟩 **R** -
+        """
         self._text = text
 
     def get_text(self):
+        """
+        🟩 **R** -
+        """
         return self._text
 
 class DropBegin_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DROPBEGIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class DropComplete_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DROPCOMPLETE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class FingerMotion_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FINGERMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class FingerDown_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FINGERDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class FingerUp_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FINGERUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class KeyMapChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.KEYMAPCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class LocaleChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.LOCALECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class MultiGesture_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._gesture_center_x = None
@@ -9023,537 +15236,981 @@ class MultiGesture_EVENT:
         self._number_of_fingers = 0
 
     def get_gesture_center_x(self):
+        """
+        🟩 **R** -
+        """
         return self._gesture_center_x
 
     def get_gesture_center_y(self):
+        """
+        🟩 **R** -
+        """
         return self._gesture_center_y
 
     def get_pinched_value(self):
+        """
+        🟩 **R** -
+        """
         return self._pinched_value
 
     def get_rotated_value(self):
+        """
+        🟩 **R** -
+        """
         return self._rotated_value
 
     def get_number_of_fingers(self):
+        """
+        🟩 **R** -
+        """
         return self._number_of_fingers
 
     def set_gesture_center_x(self, value):
+        """
+        🟩 **R** -
+        """
         self._gesture_center_x = value
 
     def set_gesture_center_y(self, value):
+        """
+        🟩 **R** -
+        """
         self._gesture_center_y = value
 
     def set_pinched_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._pinched_value = value
 
     def set_rotated_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._rotated_value = value
 
     def set_number_of_fingers(self, value):
+        """
+        🟩 **R** -
+        """
         self._number_of_fingers = value
 
 class Quit_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.QUIT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class RenderTargetsReset_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RENDERTARGETSRESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class RenderDeviceReset_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RENDERDEVICERESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class SysWMEvent_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowShown_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWSHOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowHidden_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWHIDDEN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowExposed_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWEXPOSED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowMoved_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowResized_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWRESIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowMinimized_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWMINIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowMaximized_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWMAXIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowRestored_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWRESTORED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowEnter_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWENTER_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowLeave_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWLEAVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowFocusGained_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowFocusLost_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWFOCUSLOST_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowClose_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWCLOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowTakeFocus_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowHitTest_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWHITTEST_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowICCPROFChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class WindowDisplayChanged_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class JoyDeviceAdded_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.JOYDEVICEADDED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
 
 class JoyDeviceRemoved_EVENT:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.JOYDEVICEREMOVED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
     def set_value(self, value):
+        """
+        🟩 **R** -
+        """
         self._value = value
 
     def get_value(self):
+        """
+        🟩 **R** -
+        """
         return self._value
