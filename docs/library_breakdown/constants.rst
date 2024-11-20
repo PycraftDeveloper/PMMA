@@ -1,7 +1,7 @@
 Constants (``pmma.Constants``)
 ==============================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------

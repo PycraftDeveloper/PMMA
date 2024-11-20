@@ -1,31 +1,36 @@
 Thread (``pmma.Thread``)
 ========================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.Thread() -> pmma.Thread
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Thread.start() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Thread.globaltrace() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Thread.localtrace() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Thread.kill() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
