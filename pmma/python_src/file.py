@@ -12,6 +12,9 @@ from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWat
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 def path_builder(*args):
+    """
+    🟩 **R** -
+    """
     result = ""
     for arg in args:
         if result != "" and _os.path.exists(result) is False:
@@ -23,65 +26,119 @@ def path_builder(*args):
     return result
 
 class File:
+    """
+    🟩 **R** -
+    """
     def __init__(self, file_path):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._file_path = file_path
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def exists(self):
+        """
+        🟩 **R** -
+        """
         return _os.path.exists(self._file_path)
 
     def get_path(self):
+        """
+        🟩 **R** -
+        """
         return self._file_path
 
     def get_directory(self):
+        """
+        🟩 **R** -
+        """
         return _os.path.dirname(self._file_path)
 
     def get_file_name_and_type(self):
+        """
+        🟩 **R** -
+        """
         return self._file_path.split(_Constants.PATH_SEPARATOR)[-1]
 
     def get_file_name(self):
+        """
+        🟩 **R** -
+        """
         return self.get_file_name_and_type().split(".")[0]
 
     def get_file_type(self):
+        """
+        🟩 **R** -
+        """
         return self.get_file_name_and_type().split(".")[-1]
 
     def move(self, new_path):
+        """
+        🟩 **R** -
+        """
         _shutil.move(self._file_path, new_path)
         self._file_path = new_path
 
     def delete(self):
+        """
+        🟩 **R** -
+        """
         _os.remove(self._file_path)
 
     def recycle(self):
+        """
+        🟩 **R** -
+        """
         _send2trash.send2trash(self._file_path)
 
     def rename(self, new_name):
+        """
+        🟩 **R** -
+        """
         file_type = self.get_file_type()
         new_file_path = _os.path.dirname(self._file_path) + _Constants.PATH_SEPARATOR + new_name + "." + file_type
         _os.rename(self._file_path, new_file_path)
         self._file_path = new_file_path
 
     def read(self):
+        """
+        🟩 **R** -
+        """
         with open(self._file_path, "r") as file:
             return file.read()
 
     def write(self, content):
+        """
+        🟩 **R** -
+        """
         with open(self._file_path, "w") as file:
             file.write(content)
 
 class FileCore:
+    """
+    🟩 **R** -
+    """
     def __init__(self, project_directory=None, passive_refresh=True):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
 
         self._locations = []
@@ -97,6 +154,9 @@ class FileCore:
         self.scan()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._watcher.stop()
 
@@ -105,10 +165,16 @@ class FileCore:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def update_locations(self, project_directory=None, force_refresh=True):
+        """
+        🟩 **R** -
+        """
         self._locations = [_Registry.base_path]
         if project_directory is not None:
             self._locations.append(project_directory)
@@ -128,6 +194,9 @@ class FileCore:
         self.refresh(force=force_refresh)
 
     def scan(self):
+        """
+        🟩 **R** -
+        """
         self._file_matrix = {}
         construction_matrix = {}
         for location in self._locations:
@@ -164,17 +233,29 @@ class FileCore:
         self._file_matrix = self._watcher.sync_file_matrix(construction_matrix)
 
     def refresh(self, force=False):
+        """
+        🟩 **R** -
+        """
         list_of_original_locations = self._locations
         if list_of_original_locations != self._locations or force:
             self.scan()
             self._watcher.update_all_locations(self._locations)
 
     def stop_passively_refreshing(self):
+        """
+        🟩 **R** -
+        """
         self._watcher.stop()
 
     def start_passively_refreshing(self):
+        """
+        🟩 **R** -
+        """
         self._watcher.start()
 
     def identify(self, identifier):
+        """
+        🟩 **R** -
+        """
         if identifier in self._file_matrix:
             return self._file_matrix[identifier]

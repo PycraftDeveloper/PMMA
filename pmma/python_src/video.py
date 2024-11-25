@@ -24,7 +24,13 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Video:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._play_video = False
             if self._video_player_thread is not None:
@@ -35,10 +41,16 @@ class Video:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._video_loaded = False
@@ -94,6 +106,9 @@ class Video:
         self._video_has_audio = False
 
     def play(self):
+        """
+        🟩 **R** -
+        """
         self._play_video = True
         self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
         self._video_player_thread.daemon = True
@@ -101,33 +116,57 @@ class Video:
         self._video_player_thread.start()
 
     def set_looping(self, looping):
+        """
+        🟩 **R** -
+        """
         self._audio_player.set_looping(looping)
         self._looping = looping
 
     def get_looping(self):
+        """
+        🟩 **R** -
+        """
         return self._looping
 
     def stop(self):
+        """
+        🟩 **R** -
+        """
         self._play_video = False
         if self._video_player_thread is not None:
             self._video_player_thread.join()
 
     def resume(self):
+        """
+        🟩 **R** -
+        """
         self._is_playing = True
 
     def pause(self):
+        """
+        🟩 **R** -
+        """
         self._is_playing = False
 
     def set_surface(self, surface=None):
+        """
+        🟩 **R** -
+        """
         if surface is None:
             surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._surface = surface
 
     def get_surface(self):
+        """
+        🟩 **R** -
+        """
         return self._surface
 
     def autodetect_and_set_decoder(self, gpu: _GPU=None):
+        """
+        🟩 **R** -
+        """
         if self._video_loaded:
             if gpu is None:
                 gpu = self._gpu_distribution.get_video_gpu()[0]
@@ -157,10 +196,16 @@ class Video:
             self._input_stream.codec_context.options = {'hwaccel': decoder}
 
     def manually_set_decoder(self, decoder):
+        """
+        🟩 **R** -
+        """
         self._video_decoder_manually_set = True
         self._input_stream.codec_context.options = {'hwaccel': decoder}
 
     def load_from_file(self, file_path, automatically_optimize_silent_videos=True):
+        """
+        🟩 **R** -
+        """
         self._file = file_path
         self._input_container = _av.open(file_path)
 
@@ -211,6 +256,9 @@ class Video:
         self._video_loaded = True
 
     def has_audio_and_non_zero_data(self):
+        """
+        🟩 **R** -
+        """
         try:
             # Check for audio stream
             audio_stream = next((stream for stream in self._input_container.streams if stream.type == 'audio'), None)
@@ -242,30 +290,51 @@ class Video:
             return False
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if type(position) != _DisplayCoordinatesConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
 
     def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         return self._position.get_coordinates(format=format)
 
     def set_target_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if type(size) != _DisplayCoordinatesConverter:
             self._size.set_coordinates(size, format=size_format)
         else:
             self._size = size
 
     def get_target_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         return self._size.get_coordinates(format=format)
 
     def get_video_size(self):
+        """
+        🟩 **R** -
+        """
         return self._video_size
 
     def get_audio_channel(self):
+        """
+        🟩 **R** -
+        """
         return self._audio_player
 
     def _loop_video(self):
+        """
+        🟩 **R** -
+        """
         # Loop the video for demonstration purposes
 
         if self._looping:
@@ -282,6 +351,9 @@ class Video:
             return
 
     def _video_frame_extractor(self):
+        """
+        🟩 **R** -
+        """
         while self._play_video:
             if self._video_loaded:
                 if self._audio_player.get_playing() is False and self._video_has_audio:
@@ -314,6 +386,9 @@ class Video:
             self._video_clock.tick(1/(self._video_frame_time))
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         if self._video_loaded and self._video_frame is not None:
             self._surface.update_attempted_render_calls(1)
 

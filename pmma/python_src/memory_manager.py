@@ -7,17 +7,29 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class MemoryManager:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if not _Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -35,6 +47,9 @@ class MemoryManager:
             object_creation_time=None,
             recreatable_object=False,
             pre_locked=False):
+        """
+        🟩 **R** -
+        """
 
         return self._memory_manager.add_object(
             obj,
@@ -45,7 +60,13 @@ class MemoryManager:
             pre_locked=pre_locked)
 
     def get(self, object_identifier):
+        """
+        🟩 **R** -
+        """
         return self._memory_manager.get_object(object_identifier)
 
     def remove(self, object_identifier):
+        """
+        🟩 **R** -
+        """
         return self._memory_manager.remove_object(object_identifier)

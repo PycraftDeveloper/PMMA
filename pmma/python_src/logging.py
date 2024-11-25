@@ -8,17 +8,29 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
 
 class Logger:
+    """
+    🟩 **R** -
+    """
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if not _Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -28,6 +40,9 @@ class Logger:
         self._logger_intermediary: "_LoggerIntermediary" = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_pmma_log_lifetime(self, value):
+        """
+        🟩 **R** -
+        """
         _Registry.internal_log_duration = value
         self._logger_intermediary.log_development("Note that updating this will automatically \
 remove all logs older than {} days old.", variables=[value])
@@ -38,6 +53,9 @@ excessive storage usage.")
         self._logger_intermediary.clear_internal_logs()
 
     def set_application_log_lifetime(self, value):
+        """
+        🟩 **R** -
+        """
         _Registry.external_log_duration = value
         self._logger_intermediary.log_development("Note that updating this will automatically \
 remove all logs older than {} days old.", variables=[value])
@@ -48,51 +66,99 @@ excessive storage usage.")
         self._logger_intermediary.clear_external_logs()
 
     def set_log_development_messages_to_terminal(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_development_messages_to_terminal(value)
 
     def set_log_information_messages_to_terminal(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_information_messages_to_terminal(value)
 
     def set_log_warning_messages_to_terminal(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_warning_messages_to_terminal(value)
 
     def set_log_error_messages_to_terminal(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_error_messages_to_terminal(value)
 
     def set_log_development_messages_to_file(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_development_messages_to_file(value)
 
     def set_log_information_messages_to_file(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_information_messages_to_file(value)
 
     def set_log_warning_messages_to_file(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_warning_messages_to_file(value)
 
     def set_log_error_messages_to_file(self, value):
+        """
+        🟩 **R** -
+        """
         self._logger_intermediary.set_external_log_error_messages_to_file(value)
 
     def get_log_development_messages_to_terminal(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_development_messages_to_terminal()
 
     def get_log_information_messages_to_terminal(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_information_messages_to_terminal()
 
     def get_log_warning_messages_to_terminal(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_warning_messages_to_terminal()
 
     def get_log_error_messages_to_terminal(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_error_messages_to_terminal()
 
     def get_log_development_messages_to_file(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_development_messages_to_file()
 
     def get_log_information_messages_to_file(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_information_messages_to_file()
 
     def get_log_warning_messages_to_file(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_warning_messages_to_file()
 
     def get_log_error_messages_to_file(self):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.get_external_log_error_messages_to_file()
 
     def set_log_levels(
@@ -105,6 +171,9 @@ excessive storage usage.")
             log_information_messages_to_file=True,
             log_warning_messages_to_file=True,
             log_error_messages_to_file=True):
+        """
+        🟩 **R** -
+        """
 
         if log_development_messages_to_terminal is None:
             self._logger_intermediary.set_external_log_development_messages_to_terminal(_Registry.development_mode)
@@ -123,13 +192,25 @@ excessive storage usage.")
         self._logger_intermediary.set_external_log_error_messages_to_file(log_error_messages_to_file)
 
     def log_development(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.DEVELOPMENT, False, variables=variables)
 
     def log_information(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.INFORMATION, False, variables=variables)
 
     def log_warning(self, message,  variables=[], do_traceback=False, repeat_for_effect=False):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.WARNING, False, variables=variables)
 
     def log_error(self, message,  variables=[], do_traceback=True, repeat_for_effect=False):
+        """
+        🟩 **R** -
+        """
         return self._logger_intermediary.logger_core(message, do_traceback, repeat_for_effect, _Constants.ERROR, False, variables=variables)

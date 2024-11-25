@@ -9,7 +9,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Executor:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._exit_code = None
@@ -19,16 +25,25 @@ class Executor:
         self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def run(self, command, blocking=True, hide_window=True):
+        """
+        🟩 **R** -
+        """
         self._exit_code = None
         self._result = None
 
@@ -42,6 +57,9 @@ class Executor:
             self._thread.join()
 
     def _run(self, command, hide_window):
+        """
+        🟩 **R** -
+        """
         command_type = type(command)
 
         try:
@@ -69,16 +87,28 @@ its arguments, leading to unsecure commands being run on the host system!")
             self._exit_code = result.returncode
 
     def get_exit_code(self):
+        """
+        🟩 **R** -
+        """
         return self._exit_code
 
     def get_result(self):
+        """
+        🟩 **R** -
+        """
         if type(self._result) == str:
             return self._result.strip()
         else:
             return self._result
 
 class AdvancedExecutor:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._exit_code = None
@@ -90,16 +120,25 @@ class AdvancedExecutor:
         self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def run(self, command, hide_window=True):
+        """
+        🟩 **R** -
+        """
         if self._command_running is False:
             self._command_running = True
 
@@ -112,17 +151,29 @@ class AdvancedExecutor:
             self._thread.start()
 
     def get_busy(self):
+        """
+        🟩 **R** -
+        """
         return self._command_running
 
     def get_result(self):
+        """
+        🟩 **R** -
+        """
         return self._result.strip()
 
     def _update_result(self, command, hide_window):
+        """
+        🟩 **R** -
+        """
         for path in self._run(command, hide_window):
             self._result += path.strip() + "\n"
         self._command_running = False
 
     def _run(self, command, hide_window):
+        """
+        🟩 **R** -
+        """
         command_type = type(command)
         if command_type == list or command_type == tuple:
             if hide_window and _get_operating_system() == _Constants.WINDOWS:

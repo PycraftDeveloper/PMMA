@@ -8,7 +8,13 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Display:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -19,28 +25,49 @@ class Display:
         self._display_intermediary: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
     def clear(self, color=None, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.clear(color=color, format=format)
 
     def set_window_in_focus(self, value):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.set_window_in_focus(value=value)
 
     def set_window_minimized(self, value):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.set_window_minimized(value=value)
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_2D_hardware_accelerated_surface(set_to_be_used=set_to_be_used)
 
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_3D_hardware_accelerated_surface(set_to_be_used=set_to_be_used)
 
     def create(
@@ -55,6 +82,9 @@ class Display:
             icon=None,
             transparent_display=False,
             centered=True):
+        """
+        🟩 **R** -
+        """
 
         self._display_intermediary.create(
             width=width,
@@ -69,27 +99,51 @@ class Display:
             centered=centered)
 
     def set_caption(self, caption=None):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.set_caption(caption=caption)
 
     def set_icon(self, icon=None):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.set_icon(icon=icon)
 
     def toggle_full_screen(self):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.toggle_full_screen()
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_size()
 
     def get_frame_time(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_frame_time()
 
     def get_height(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_height()
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_width()
 
     def get_aspect_ratio(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_aspect_ratio()
 
     def refresh(
@@ -98,6 +152,9 @@ class Display:
             lower_refresh_rate_when_minimized=True,
             lower_refresh_rate_when_unfocused=True,
             lower_refresh_rate_on_low_battery=True):
+        """
+        🟩 **R** -
+        """
 
         self._display_intermediary.refresh(
             refresh_rate=refresh_rate,
@@ -106,13 +163,25 @@ class Display:
             lower_refresh_rate_on_low_battery=lower_refresh_rate_on_low_battery)
 
     def close(self):
+        """
+        🟩 **R** -
+        """
         self._display_intermediary.close()
 
     def get_fps(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_fps()
 
     def get_refresh_rate(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_refresh_rate()
 
     def get_center(self, as_integer=True):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_center(as_integer=as_integer)

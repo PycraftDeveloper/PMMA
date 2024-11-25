@@ -13280,7 +13280,9 @@ class AppLowMemory_EVENT:
         🟩 **R** -
         """
         if _get_operating_system() != _Constants.ANDROID:
-            self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems due to how memory is allocated. If you are interested in getting information about memory, I'd recommend checking out PSUtil: https://pypi.org/project/psutil/")
+            self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative \
+to this on other operating systems due to how memory is allocated. If you are interested in getting information about memory, \
+I'd recommend checking out PSUtil: https://pypi.org/project/psutil/")
         return self._applowmemory_intermediary.get_value()
 
 class AppWillEnterBackground_EVENT:
@@ -13327,7 +13329,8 @@ class AppWillEnterBackground_EVENT:
         """
         🟩 **R** -
         """
-        self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems.")
+        self._logger.log_development("This event is exclusive to the Android operating system. \
+There is no alternative to this on other operating systems.")
         return self._appwillenterbackground_intermediary.get_value()
 
 class AppDidEnterBackground_EVENT:
@@ -13374,7 +13377,8 @@ class AppDidEnterBackground_EVENT:
         """
         🟩 **R** -
         """
-        self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusLost' as this works across all platforms.")
+        self._logger.log_development("This event is exclusive to the Android operating system. \
+Instead please use: 'WindowFocusLost' as this works across all platforms.")
         return self._appdidenterbackground_intermediary.get_value()
 
 class AppWillEnterForeground_EVENT:
@@ -13421,7 +13425,8 @@ class AppWillEnterForeground_EVENT:
         """
         🟩 **R** -
         """
-        self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative to this on other operating systems.")
+        self._logger.log_development("This event is exclusive to the Android operating system. There is no \
+alternative to this on other operating systems.")
         return self._appwillenterforeground_intermediary.get_value()
 
 class AppDidEnterForeground_EVENT:
@@ -13468,7 +13473,8 @@ class AppDidEnterForeground_EVENT:
         """
         🟩 **R** -
         """
-        self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusGained' as this works across all platforms.")
+        self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'WindowFocusGained' \
+as this works across all platforms.")
         return self._appdidenterforeground_intermediary.get_value()
 
 class AudioDeviceAdded_EVENT:
@@ -13691,7 +13697,15 @@ class DropText_EVENT:
         """
         🟩 **R** -
         """
-        self._logger.log_development("Please note that this event is not yet reliably supported across all operating systems. Windows compatability is generally mixed, MacOS compatability is generally good, Linux compatability varies based on what desktop envioment is being used and Android support being unofficial and limited. Effectively this means that your milage may vary when using this event if it is triggered reliably. Generally speaking however, if your developing your application to run on specific hardware - like a games console - you can try and use this event, if the event works and the software/hardware is the same, it should work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with the user dropping a text file, then open and read that for text inputs instead. In short - this event is not known to work reliably, using other events instead is recommended!")
+        self._logger.log_development("Please note that this event is not yet reliably supported across all \
+operating systems. Windows compatability is generally mixed, MacOS compatability is generally good, Linux \
+compatability varies based on what desktop envioment is being used and Android support being unofficial and \
+limited. Effectively this means that your milage may vary when using this event if it is triggered reliably. \
+Generally speaking however, if your developing your application to run on specific hardware - like a games \
+console - you can try and use this event, if the event works and the software/hardware is the same, it should \
+work more reliably. ALTERNATIVELY, use the 'DropFile_EVENT' event with the user dropping a text file, then \
+open and read that for text inputs instead. In short - this event is not known to work reliably, using other \
+events instead is recommended!")
 
         return self._deoptext_intermediary.get_text()
 

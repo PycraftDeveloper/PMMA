@@ -26,7 +26,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class RenderPipeline:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._render_points = []
@@ -54,26 +60,44 @@ class RenderPipeline:
         self._wire_frame = False
 
     def set_render_wire_frame(self, value):
+        """
+        🟩 **R** -
+        """
         self._wire_frame = value
 
     def get_render_wire_frame(self):
+        """
+        🟩 **R** -
+        """
         return self._wire_frame
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def add(self, render_class):
+        """
+        🟩 **R** -
+        """
         if _Constants.RENDER_PIPELINE_ABLE in render_class._attributes:
             self._render_points.append(render_class)
 
     def render(self, canvas=None): # not sure on width yet.
+        """
+        🟩 **R** -
+        """
         if canvas is None:
             self._display.get_2D_hardware_accelerated_surface()
 

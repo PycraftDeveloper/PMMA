@@ -12,7 +12,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Sampler:
+    """
+    🟩 **R** -
+    """
     def __init__(self, chunk_size=2048, sampling_rate=44100, input_device_id=None):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._pyaudio_instance = _pyaudio.PyAudio()
@@ -41,6 +47,9 @@ class Sampler:
         self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._do_sampling = False
 
@@ -52,6 +61,9 @@ class Sampler:
                 _gc__collect()
 
     def print_input_devices(self):
+        """
+        🟩 **R** -
+        """
         info = self._pyaudio_instance.get_host_api_info_by_index(0)
         numdevices = info.get('deviceCount')
         for i in range(numdevices):
@@ -60,6 +72,9 @@ class Sampler:
                 print(f"Input Device id {i} - {input_device_name}")
 
     def get_input_devices(self):
+        """
+        🟩 **R** -
+        """
         input_devices = []
         info = self._pyaudio_instance.get_host_api_info_by_index(0)
         numdevices = info.get('deviceCount')
@@ -70,6 +85,9 @@ class Sampler:
         return input_devices
 
     def set_input_device(self, input_device_id=None):
+        """
+        🟩 **R** -
+        """
         if input_device_id is None:
             input_device = self.get_default_input_device()
         else:
@@ -83,16 +101,25 @@ class Sampler:
                 self.start()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_default_input_device(self):
+        """
+        🟩 **R** -
+        """
         try:
             return self._pyaudio_instance.get_default_input_device_info()["index"]
         except IOError:
             return
 
     def sampler(self, wait_time=None):
+        """
+        🟩 **R** -
+        """
         self._is_sampling_running = True
 
         if self._input_device is None:
@@ -152,6 +179,9 @@ raised when the audio device is removed.")
         stream.close()
 
     def start(self):
+        """
+        🟩 **R** -
+        """
         if self._is_sampling_running is False:
             self._do_sampling = True
 
@@ -162,24 +192,45 @@ raised when the audio device is removed.")
             self._sampler_thread.start()
 
     def stop(self, wait_until_stopped=True):
+        """
+        🟩 **R** -
+        """
         self._do_sampling = False
         if wait_until_stopped:
             self._sampler_thread.join()
 
     def pause(self):
+        """
+        🟩 **R** -
+        """
         self._do_pause_sampling = True
 
     def unpause(self):
+        """
+        🟩 **R** -
+        """
         self._do_pause_sampling = False
 
     def get_volume(self):
+        """
+        🟩 **R** -
+        """
         return self._volume
 
     def get_frequency(self):
+        """
+        🟩 **R** -
+        """
         return self._frequency
 
     def get_loudest_frequency(self):
+        """
+        🟩 **R** -
+        """
         return self._loudest_frequency
 
     def is_sampling(self):
+        """
+        🟩 **R** -
+        """
         return self._is_sampling_running

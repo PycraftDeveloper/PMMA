@@ -22,22 +22,37 @@ from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
 from pmma.python_src.utility.opengl_utils import Texture as _Texture
 
 class OpenGL:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._logger = _InternalLogger()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def _check_if_opengl_backend_initialized(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("OpenGL backend has not been initialized yet. This is \
 most likely due to not having created a Display through PMMA. You must do this \
@@ -46,15 +61,27 @@ first if you want to be able to use these OpenGL functions.")
             raise _OpenGLNotYetInitializedError()
 
     def get_context(self):
+        """
+        🟩 **R** -
+        """
         self._check_if_opengl_backend_initialized()
         return _Registry.context
 
     def blit_image_to_texture(self, image, texture):
+        """
+        🟩 **R** -
+        """
         self._check_if_opengl_backend_initialized()
         texture.write(image)
 
 class VertexBufferObject:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -71,6 +98,9 @@ class VertexBufferObject:
         self._prep_dynamic = None
 
     def create(self, data, dynamic=False, reserve=0):
+        """
+        🟩 **R** -
+        """
         if type(data) == list or type(data) == tuple:
             data = _numpy.array(data, dtype=_numpy.float32)
             self._logger.log_development("Converting list or tuple to numpy array for compatibility \
@@ -86,10 +116,16 @@ be the first issue you address - it might not fix the problem, but there is a go
         self._created = True
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         self._prep_reserve = self._size()
         self._prep_dynamic = self.get_dynamic()
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._vbo is not None:
             if self._prep_reserve is None:
                 raise _OpenGLObjectNotPreparedForRecreation()
@@ -109,6 +145,9 @@ be the first issue you address - it might not fix the problem, but there is a go
                 self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
+        """
+        🟩 **R** -
+        """
         if self._vbo is None:
             self.create(data)
             return
@@ -118,6 +157,9 @@ be the first issue you address - it might not fix the problem, but there is a go
         self._vbo.write(self._data)
 
     def read(self, from_vbo=False):
+        """
+        🟩 **R** -
+        """
         if from_vbo:
             return self._data
         else:
@@ -125,35 +167,59 @@ be the first issue you address - it might not fix the problem, but there is a go
                 return self._vbo.read()
 
     def get_buffer_object(self):
+        """
+        🟩 **R** -
+        """
         return self._vbo
 
     def clear(self):
+        """
+        🟩 **R** -
+        """
         self._data = None
         if self._vbo is not None:
             self._vbo.clear()
 
     def bind_to_uniform_block(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._vbo is not None:
             self._vbo.bind_to_uniform_block(binding)
 
     def bind_to_shader_storage_buffer(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._vbo is not None:
             self._vbo.bind_to_storage_buffer(binding)
 
     def _size(self):
+        """
+        🟩 **R** -
+        """
         if self._vbo is not None:
             return self._vbo.size
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
     def get_dynamic(self):
+        """
+        🟩 **R** -
+        """
         if self._vbo is not None:
             return self._vbo.dynamic
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._vbo is not None:
                 self._vbo.release()
@@ -163,14 +229,26 @@ buffer, not the memory used to store it (either system memory or video memory)")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created
 
 class GenericBufferObject:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -187,15 +265,24 @@ class GenericBufferObject:
         self._prep_dynamic = None
 
     def create(self, data, dynamic=False, reserve=0):
+        """
+        🟩 **R** -
+        """
         self._data = data
         self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         self._prep_reserve = self._size()
         self._prep_dynamic = self.get_dynamic()
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._gbo is not None:
             if self._prep_reserve is None:
                 raise _OpenGLObjectNotPreparedForRecreation()
@@ -215,6 +302,9 @@ class GenericBufferObject:
                 self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
+        """
+        🟩 **R** -
+        """
         if self._gbo is None:
             self.create(data)
             return
@@ -224,6 +314,9 @@ class GenericBufferObject:
         self._gbo.write(self._data)
 
     def read(self, from_gbo=False):
+        """
+        🟩 **R** -
+        """
         if from_gbo:
             return self._data
         else:
@@ -231,35 +324,59 @@ class GenericBufferObject:
                 return self._gbo.read()
 
     def get_buffer_object(self):
+        """
+        🟩 **R** -
+        """
         return self._gbo
 
     def clear(self):
+        """
+        🟩 **R** -
+        """
         self._data = None
         if self._gbo is not None:
             self._gbo.clear()
 
     def bind_to_uniform_block(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._gbo is not None:
             self._gbo.bind_to_uniform_block(binding)
 
     def bind_to_shader_storage_buffer(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._gbo is not None:
             self._gbo.bind_to_storage_buffer(binding)
 
     def _size(self):
+        """
+        🟩 **R** -
+        """
         if self._gbo is not None:
             return self._gbo.size
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
     def get_dynamic(self):
+        """
+        🟩 **R** -
+        """
         if self._gbo is not None:
             return self._gbo.dynamic
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._gbo is not None:
                 self._gbo.release()
@@ -269,14 +386,26 @@ buffer, not the memory used to store it (either system memory or video memory)")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created
 
 class ColorBufferObject:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -293,15 +422,24 @@ class ColorBufferObject:
         self._prep_dynamic = None
 
     def create(self, data, dynamic=False, reserve=0):
+        """
+        🟩 **R** -
+        """
         self._data = data
         self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         self._prep_reserve = self._size()
         self._prep_dynamic = self.get_dynamic()
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._cbo is not None:
             if self._prep_reserve is None:
                 raise _OpenGLObjectNotPreparedForRecreation()
@@ -321,6 +459,9 @@ class ColorBufferObject:
                 self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
+        """
+        🟩 **R** -
+        """
         if self._cbo is None:
             self.create(data)
             return
@@ -330,6 +471,9 @@ class ColorBufferObject:
         self._cbo.write(self._data)
 
     def read(self, from_vbo=False):
+        """
+        🟩 **R** -
+        """
         if from_vbo:
             return self._data
         else:
@@ -337,35 +481,59 @@ class ColorBufferObject:
                 return self._cbo.read()
 
     def clear(self):
+        """
+        🟩 **R** -
+        """
         self._data = None
         if self._cbo is not None:
             self._cbo.clear()
 
     def bind_to_uniform_block(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._cbo is not None:
             self._cbo.bind_to_uniform_block(binding)
 
     def bind_to_shader_storage_buffer(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._cbo is not None:
             self._cbo.bind_to_storage_buffer(binding)
 
     def _size(self):
+        """
+        🟩 **R** -
+        """
         if self._cbo is not None:
             return self._cbo.size
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
     def get_buffer_object(self):
+        """
+        🟩 **R** -
+        """
         return self._cbo
 
     def get_dynamic(self):
+        """
+        🟩 **R** -
+        """
         if self._cbo is not None:
             return self._cbo.dynamic
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._cbo is not None:
                 self._cbo.release()
@@ -375,14 +543,26 @@ buffer, not the memory used to store it (either system memory or video memory)")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created
 
 class IndexBufferObject:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -399,15 +579,24 @@ class IndexBufferObject:
         self._prep_dynamic = None
 
     def create(self, data, dynamic=False, reserve=0):
+        """
+        🟩 **R** -
+        """
         self._data = data
         self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
         self._created = True
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         self._prep_reserve = self._size()
         self._prep_dynamic = self.get_dynamic()
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._ibo is not None:
             if self._prep_reserve is None:
                 raise _OpenGLObjectNotPreparedForRecreation()
@@ -427,6 +616,9 @@ class IndexBufferObject:
                 self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic)
 
     def update(self, data):
+        """
+        🟩 **R** -
+        """
         if self._ibo is None:
             self.create(data)
             return
@@ -436,6 +628,9 @@ class IndexBufferObject:
         self._ibo.write(self._data)
 
     def read(self, from_vbo=False):
+        """
+        🟩 **R** -
+        """
         if from_vbo:
             return self._data
         else:
@@ -443,35 +638,59 @@ class IndexBufferObject:
                 return self._ibo.read()
 
     def get_buffer_object(self):
+        """
+        🟩 **R** -
+        """
         return self._ibo
 
     def clear(self):
+        """
+        🟩 **R** -
+        """
         self._data = None
         if self._ibo is not None:
             self._ibo.clear()
 
     def bind_to_uniform_block(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._ibo is not None:
             self._ibo.bind_to_uniform_block(binding)
 
     def bind_to_shader_storage_buffer(self, binding):
+        """
+        🟩 **R** -
+        """
         if self._ibo is not None:
             self._ibo.bind_to_storage_buffer(binding)
 
     def _size(self):
+        """
+        🟩 **R** -
+        """
         if self._ibo is not None:
             return self._ibo.size
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("Just as a point of clarification, this gets the size of the \
 buffer, not the memory used to store it (either system memory or video memory)")
         return self._size()
 
     def get_dynamic(self):
+        """
+        🟩 **R** -
+        """
         if self._ibo is not None:
             return self._ibo.dynamic
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._ibo is not None:
                 self._ibo.release()
@@ -481,14 +700,26 @@ buffer, not the memory used to store it (either system memory or video memory)")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created
 
 class VertexArrayObject:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -508,9 +739,15 @@ class VertexArrayObject:
         self._logger = _InternalLogger()
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         pass # WIP
 
     def _analyse_and_filter_buffer_attributes(self, attributes):
+        """
+        🟩 **R** -
+        """
         if not (type(attributes) is list or type(attributes) is tuple):
             self._logger.log_development("Your buffer shader attributes must always be \
 an array of 2 or more components, specifying the data type and shader value that each element in the \
@@ -571,6 +808,9 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
             index_element_size=4,
             additional_buffers=[],
             additional_buffer_attributes=[]):
+        """
+        🟩 **R** -
+        """
 
         if program is None:
             raise ValueError("Program cannot be None")
@@ -622,6 +862,9 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         self._created = True
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._vao is not None:
             self._vao.release()
 
@@ -652,10 +895,16 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
             index_element_size=self._index_element_size)
 
     def render_wire_frame(self):
+        """
+        🟩 **R** -
+        """
         if self._vao is not None:
             self._vao.render(mode=_moderngl.LINE_LOOP)
 
     def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
+        """
+        🟩 **R** -
+        """
         if self._vao is not None:
             self._program.use_program()
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
@@ -672,30 +921,57 @@ using the `allow_shaders_to_adjust_point_size` keyword argument.")
                     _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
 
     def get_vertex_array_object(self):
+        """
+        🟩 **R** -
+        """
         return self._vao
 
     def get_program(self):
+        """
+        🟩 **R** -
+        """
         return self._program
 
     def get_vertex_buffer_object(self):
+        """
+        🟩 **R** -
+        """
         return self._vertex_buffer_object
 
     def get_vertex_buffer_shader_attributes(self):
+        """
+        🟩 **R** -
+        """
         return self._vertex_buffer_shader_attributes
 
     def get_additional_buffers(self):
+        """
+        🟩 **R** -
+        """
         return self._additional_buffers
 
     def get_additional_buffer_attributes(self):
+        """
+        🟩 **R** -
+        """
         return self._additional_buffer_attributes
 
     def get_index_buffer_object(self):
+        """
+        🟩 **R** -
+        """
         return self._index_buffer_object
 
     def get_element_size(self):
+        """
+        🟩 **R** -
+        """
         return self._index_element_size
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._vao is not None:
                 self._vao.release()
@@ -705,14 +981,26 @@ using the `allow_shaders_to_adjust_point_size` keyword argument.")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created
 
 class Shader:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -732,12 +1020,21 @@ class Shader:
         self._shader_loaded_from_directory = None
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         pass # WIP
 
     def get_buffer_input_variable_names(self):
+        """
+        🟩 **R** -
+        """
         return self._buffer_input_variable_names
 
     def _analyze_shader_component(self, file_data):
+        """
+        🟩 **R** -
+        """
         uniform_names = []
         self._using_gl_point_size_syntax = False
 
@@ -758,9 +1055,15 @@ class Shader:
             self._uniform_values[name] = {"value": None, "updated": False}
 
     def get_using_gl_point_size_syntax(self):
+        """
+        🟩 **R** -
+        """
         return self._using_gl_point_size_syntax
 
     def set_shader_variable(self, name, value):
+        """
+        🟩 **R** -
+        """
         if name in self._uniform_values:
             if self._uniform_values[name]["value"] is None:
                 self._uniform_values[name] = {"value": value, "updated": True}
@@ -781,41 +1084,65 @@ class Shader:
             raise ValueError(f"Uniform '{name}' not found in the shader")
 
     def get_shader_variable(self, name):
+        """
+        🟩 **R** -
+        """
         if name in self._uniform_values:
             return self._uniform_values[name]["value"]
         else:
             raise ValueError(f"Uniform '{name}' not found in the shader")
 
     def analyze(self):
+        """
+        🟩 **R** -
+        """
         if self._program_data["vertex"] is not None:
             self._analyze_shader_component(self._program_data["vertex"].split("\n"))
         if self._program_data["fragment"] is not None:
             self._analyze_shader_component(self._program_data["fragment"].split("\n"))
 
     def load_vertex_shader_from_file(self, file_path):
+        """
+        🟩 **R** -
+        """
         with open(file_path, "r") as file:
             self._program_data["vertex"] = file.read()
         self.analyze()
 
     def load_fragment_shader_from_file(self, file_path):
+        """
+        🟩 **R** -
+        """
         with open(file_path, "r") as file:
             self._program_data["fragment"] = file.read()
         self.analyze()
 
     def load_vertex_shader_from_string(self, string):
+        """
+        🟩 **R** -
+        """
         self._program_data["vertex"] = string
         self.analyze()
 
     def load_fragment_shader_from_string(self, string):
+        """
+        🟩 **R** -
+        """
         self._program_data["fragment"] = string
         self.analyze()
 
     def load_shader_from_string(self, vertex_string, fragment_shader):
+        """
+        🟩 **R** -
+        """
         self._program_data["vertex"] = vertex_string
         self._program_data["fragment"] = fragment_shader
         self.analyze()
 
     def load_shader_from_folder(self, directory):
+        """
+        🟩 **R** -
+        """
         vertex_aliases = ["vertex", "vert", "vertex_shader", "vert_shader", "vertex shader", "vert shader"]
         vertex_shader = None
         fragment_aliases = ["fragment", "frag", "fragment_shader", "frag_shader", "fragment shader", "frag shader"]
@@ -883,12 +1210,18 @@ class Shader:
         self._shader_loaded_from_directory = directory
 
     def create(self):
+        """
+        🟩 **R** -
+        """
         self._program = _Registry.context.program(
             vertex_shader=self._program_data["vertex"],
             fragment_shader=self._program_data["fragment"])
         self._created = True
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._program is not None:
             self._program.release()
 
@@ -897,9 +1230,15 @@ class Shader:
                 fragment_shader=self._program_data["fragment"])
 
     def get_program(self):
+        """
+        🟩 **R** -
+        """
         return self._program
 
     def use_program(self):
+        """
+        🟩 **R** -
+        """
         for key in self._uniform_values:
             if self._uniform_values[key]["value"] is not None:
                 data = self._uniform_values[key]
@@ -914,15 +1253,27 @@ class Shader:
         return self._program
 
     def get_vertex_shader(self):
+        """
+        🟩 **R** -
+        """
         return self._program_data["vertex"]
 
     def get_fragment_shader(self):
+        """
+        🟩 **R** -
+        """
         return self._program_data["fragment"]
 
     def get_program(self):
+        """
+        🟩 **R** -
+        """
         return self._program
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._shader_loaded_from_directory is not None:
                 self._shader_manager.remove_shader_from_memory(self._shader_loaded_from_directory)
@@ -934,61 +1285,134 @@ class Shader:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created
 
 class Texture:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._internal_texture = _Texture()
 
-    def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None, samples=None):
-        self._internal_texture.create(size, data=data, components=components, scaling=scaling, x_scaling=x_scaling, y_scaling=y_scaling, samples=samples, internal=False)
+    def create(
+            self,
+            size,
+            data=None,
+            components=_Constants.RGB,
+            scaling=_moderngl.LINEAR,
+            x_scaling=None,
+            y_scaling=None,
+            samples=None):
+        """
+        🟩 **R** -
+        """
+        self._internal_texture.create(
+            size,
+            data=data,
+            components=components,
+            scaling=scaling,
+            x_scaling=x_scaling,
+            y_scaling=y_scaling,
+            samples=samples,
+            internal=False)
 
     def write(self, data):
+        """
+        🟩 **R** -
+        """
         self._internal_texture.write(data)
 
     def load_texture(self, file_path, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+        """
+        🟩 **R** -
+        """
         self._internal_texture.load_from_file(file_path, scaling=scaling, x_scaling=x_scaling, y_scaling=y_scaling)
 
     def set_scaling(self, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+        """
+        🟩 **R** -
+        """
         self._internal_texture.set_scaling(scaling=scaling, x_scaling=x_scaling, y_scaling=y_scaling)
 
     def get_samples(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_samples()
 
     def get_intended_samples(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_intended_samples()
 
     def texture_to_PIL_image(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.texture_to_PIL_image()
 
     def get_texture(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_texture()
 
     def use(self, location=0):
+        """
+        🟩 **R** -
+        """
         self._internal_texture.use(location=location)
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_size()
 
     def get_components(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_components()
 
     def get_data(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_data()
 
     def build_mipmaps(self, base=0, max_level=1000):
+        """
+        🟩 **R** -
+        """
         self._internal_texture.build_mipmaps(base=base, max_level=max_level)
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         self._internal_texture.recreate()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._internal_texture.quit(do_garbage_collection=do_garbage_collection)
             del self
@@ -996,14 +1420,26 @@ class Texture:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._internal_texture.get_created()
 
 class FrameBufferObject:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -1015,9 +1451,15 @@ class FrameBufferObject:
         self._depth_attachment = None
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         pass # WIP
 
     def create(self, color_attachments=None, depth_attachment=None):
+        """
+        🟩 **R** -
+        """
         self._color_attachments = color_attachments
         self._depth_attachment = depth_attachment
 
@@ -1031,6 +1473,9 @@ class FrameBufferObject:
         self._created = True
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._fbo is not None:
             self._fbo.release()
 
@@ -1044,6 +1489,9 @@ class FrameBufferObject:
                 depth_attachment=self._depth_attachment)
 
     def clear(self, color=None, depth=1.0, viewport=None):
+        """
+        🟩 **R** -
+        """
         if color is None:
             color = (0.0, 0.0, 0.0, 0.0)
         elif type(color) == _ColorConverter:
@@ -1054,10 +1502,16 @@ class FrameBufferObject:
             self._fbo.clear(color=color, depth=depth, viewport=viewport)
 
     def use(self):
+        """
+        🟩 **R** -
+        """
         if self._fbo is not None:
             self._fbo.use()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._fbo is not None:
                 self._fbo.release()
@@ -1067,8 +1521,14 @@ class FrameBufferObject:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created

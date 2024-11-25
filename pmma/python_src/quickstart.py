@@ -9,6 +9,9 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class QuickStart:
+    """
+    🟩 **R** -
+    """
     def __init__(self,
             width=None,
             height=None,
@@ -20,6 +23,9 @@ class QuickStart:
             icon=None,
             transparent_display=False,
             centered=True):
+        """
+        🟩 **R** -
+        """
 
         _initialize(self)
 
@@ -39,6 +45,9 @@ class QuickStart:
         self._events = _Events()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._display.quit()
             self._events.quit()
@@ -47,6 +56,9 @@ class QuickStart:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
@@ -57,6 +69,9 @@ class QuickStart:
             handle_full_screen_events=True,
             handle_exit_events=True,
             grab_extended_keyboard_events=False):
+        """
+        🟩 **R** -
+        """
 
         self._events.handle(
             handle_full_screen_events=handle_full_screen_events,
@@ -67,6 +82,9 @@ class QuickStart:
             self._display.clear(clear_color)
 
     def end(self, refresh_rate=None):
+        """
+        🟩 **R** -
+        """
         _compute()
         self._display.refresh(refresh_rate=refresh_rate)
         return _Registry.running is False or _Backpack.running is False
