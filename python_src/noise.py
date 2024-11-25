@@ -23,12 +23,18 @@ from pmma.python_src.utility.general_utils import random_real_number as _random_
 from pmma.python_src.utility.general_utils import get_application_run_time as _get_application_run_time
 
 class Perlin:
+    """
+    🟩 **R** -
+    """
     def __init__(
             self,
             seed: float=None,
             octaves: int=1,
             persistence: float=0.5,
             do_prefill: bool=None):
+        """
+        🟩 **R** -
+        """
 
         _initialize(self)
 
@@ -81,16 +87,25 @@ class Perlin:
             self._prefill_thread.start()
 
     def __del__(self, do_garbage_collection: bool=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection: bool=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def prefill(self):
+        """
+        🟩 **R** -
+        """
         try:
             _Registry.perlin_noise_prefill_single_samples = 0
             x_samples = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
@@ -146,7 +161,13 @@ class Perlin:
             print(error)
             print(_traceback__format_exc())
 
-    def generate_1D_perlin_noise(self, x: float=None, new_range: _typing__List[float]=[-1, 1]) -> float:
+    def generate_1D_perlin_noise(
+            self,
+            x: float=None,
+            new_range: _typing__List[float]=[-1, 1]) -> float:
+        """
+        🟩 **R** -
+        """
         if x is None:
             x = _get_application_run_time()
 
@@ -164,7 +185,14 @@ class Perlin:
                     _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise"]["max"]],
             new_range)
 
-    def generate_2D_perlin_noise(self, x: float=None, y: float=None, new_range: _typing__List[float]=[-1, 1]) -> float:
+    def generate_2D_perlin_noise(
+            self,
+            x: float=None,
+            y: float=None,
+            new_range: _typing__List[float]=[-1, 1]) -> float:
+        """
+        🟩 **R** -
+        """
         if x is None:
             x = _get_application_run_time()
         if y is None:
@@ -184,7 +212,15 @@ class Perlin:
                     _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise"]["max"]],
             new_range)
 
-    def generate_3D_perlin_noise(self, x: float=None, y: float=None, z: float=None, new_range: _typing__List[float]=[-1, 1]) -> float:
+    def generate_3D_perlin_noise(
+            self,
+            x: float=None,
+            y: float=None,
+            z: float=None,
+            new_range: _typing__List[float]=[-1, 1]) -> float:
+        """
+        🟩 **R** -
+        """
         if x is None:
             x = _get_application_run_time()
         if y is None:
@@ -207,7 +243,13 @@ class Perlin:
             new_range)
 
 
-    def generate_1D_perlin_noise_from_array(self, array: _typing__List[float], new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+    def generate_1D_perlin_noise_from_array(
+            self,
+            array: _typing__List[float],
+            new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+        """
+        🟩 **R** -
+        """
         noise = self._extended_noise.generate_fbm_1d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_1D_perlin_noise_from_array"]["max"]:
@@ -226,7 +268,13 @@ class Perlin:
             function_range_as_numpy_array,
             desired_range_as_numpy_array)
 
-    def generate_2D_perlin_noise_from_array(self, array: _typing__List[_typing__List[float]], new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+    def generate_2D_perlin_noise_from_array(
+            self,
+            array: _typing__List[_typing__List[float]],
+            new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+        """
+        🟩 **R** -
+        """
         noise = self._extended_noise.generate_fbm_2d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_2D_perlin_noise_from_array"]["max"]:
@@ -249,7 +297,13 @@ class Perlin:
 
         return range_adjusted_array.reshape(noise.shape)
 
-    def generate_3D_perlin_noise_from_array(self, array: _typing__List[_typing__List[_typing__List[float]]], new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+    def generate_3D_perlin_noise_from_array(
+            self,
+            array: _typing__List[_typing__List[_typing__List[float]]],
+            new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+        """
+        🟩 **R** -
+        """
         noise = self._extended_noise.generate_fbm_3d(array)
 
         if noise.max() > _NoiseIntermediary.noise_ranges["generate_3D_perlin_noise_from_array"]["max"]:
@@ -272,7 +326,13 @@ class Perlin:
 
         return range_adjusted_array.reshape(noise.shape)
 
-    def generate_1D_perlin_noise_from_range(self, one_range: _typing__List[float], new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+    def generate_1D_perlin_noise_from_range(
+            self,
+            one_range: _typing__List[float],
+            new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+        """
+        🟩 **R** -
+        """
         if len(one_range) == 1:
             array = _numpy__linespace(0, one_range[0], one_range[0])
         elif len(one_range) == 2:
@@ -298,7 +358,14 @@ class Perlin:
             function_range_as_numpy_array,
             desired_range_as_numpy_array)
 
-    def generate_2D_perlin_noise_from_range(self, one_range: _typing__List[float], two_range: _typing__List[float], new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+    def generate_2D_perlin_noise_from_range(
+            self,
+            one_range: _typing__List[float],
+            two_range: _typing__List[float],
+            new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+        """
+        🟩 **R** -
+        """
         if len(one_range) == 1:
             x_array = _numpy__linespace(0, one_range[0], one_range[0])
         elif len(one_range) == 2:
@@ -344,6 +411,9 @@ class Perlin:
             two_range: _typing__List[float],
             three_range: _typing__List[float],
             new_range: _typing__List[float]=[-1, 1]) -> _numpy__NDArray:
+        """
+        🟩 **R** -
+        """
 
         if len(one_range) == 1:
             x_array = _numpy__linespace(0, one_range[0], one_range[0])
@@ -392,7 +462,13 @@ class Perlin:
         return range_adjusted_array.reshape(noise.shape)
 
     def set_seed(self, seed: float):
+        """
+        🟩 **R** -
+        """
         self.__init__(seed)
 
     def get_seed(self) -> float:
+        """
+        🟩 **R** -
+        """
         return self._seed

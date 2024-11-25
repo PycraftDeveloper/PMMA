@@ -6,7 +6,13 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class TimeFormatter:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._years = 0
@@ -18,6 +24,9 @@ class TimeFormatter:
         self._microseconds = 0
 
     def set_from_year(self, year):
+        """
+        🟩 **R** -
+        """
         # Convert to total seconds
         total_seconds = year * _Constants.DAYS_PER_YEAR * _Constants.SECONDS_PER_DAY
 
@@ -61,6 +70,9 @@ class TimeFormatter:
         self._microseconds = microseconds
 
     def set_from_month(self, month):
+        """
+        🟩 **R** -
+        """
         # Years
         years = _math.floor(month / 12)
         months_remainder = month - years * 12
@@ -97,6 +109,9 @@ class TimeFormatter:
         self._microseconds = microseconds
 
     def set_from_day(self, day):
+        """
+        🟩 **R** -
+        """
         # Years
         years = _math.floor(day / _Constants.DAYS_PER_YEAR)
         days_remainder = day - years * _Constants.DAYS_PER_YEAR
@@ -135,6 +150,9 @@ class TimeFormatter:
         self._microseconds = microseconds
 
     def set_from_hour(self, hour):
+        """
+        🟩 **R** -
+        """
         # Years
         days_float = hour / _Constants.HOURS_PER_DAY
         years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
@@ -172,6 +190,9 @@ class TimeFormatter:
         self._microseconds = microseconds
 
     def set_from_minute(self, minute):
+        """
+        🟩 **R** -
+        """
         # Years
         hours_float = minute / _Constants.MINUTES_PER_HOUR
         days_float = hours_float / _Constants.HOURS_PER_DAY
@@ -210,6 +231,9 @@ class TimeFormatter:
         self._microseconds = microseconds
 
     def set_from_second(self, second):
+        """
+        🟩 **R** -
+        """
         # Years
         days_float = second / _Constants.SECONDS_PER_DAY
         years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
@@ -247,6 +271,9 @@ class TimeFormatter:
         self._microseconds = microseconds
 
     def set_from_microsecond(self, microsecond):
+        """
+        🟩 **R** -
+        """
         # Convert microseconds to seconds
         seconds_float = microsecond / _Constants.MICROSECONDS_PER_SECOND
 
@@ -254,30 +281,57 @@ class TimeFormatter:
         return self.set_from_second(seconds_float)
 
     def get_year(self):
+        """
+        🟩 **R** -
+        """
         return self._years
 
     def get_month(self):
+        """
+        🟩 **R** -
+        """
         return self._months
 
     def get_day(self):
+        """
+        🟩 **R** -
+        """
         return self._days
 
     def get_hour(self):
+        """
+        🟩 **R** -
+        """
         return self._hours
 
     def get_minute(self):
+        """
+        🟩 **R** -
+        """
         return self._minutes
 
     def get_second(self):
+        """
+        🟩 **R** -
+        """
         return self._seconds
 
     def get_microsecond(self):
+        """
+        🟩 **R** -
+        """
         return self._microseconds
 
     def get_in_date_format(self):
+        """
+        🟩 **R** -
+        """
         return f"{self._days}/{self._months}/{self._years} @ {self._hours}:{self._minutes}:{self._seconds}.{self._microseconds}"
 
     def get_in_sentence_format(self):
+        """
+        🟩 **R** -
+        """
         output_string = ""
         if self._years > 0:
             if self._years > 1:
@@ -325,11 +379,17 @@ class TimeFormatter:
         return output_string
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True

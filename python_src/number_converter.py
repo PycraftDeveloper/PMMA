@@ -14,7 +14,13 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
 
 class AngleConverter:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._angle = 0
@@ -22,6 +28,9 @@ class AngleConverter:
         self._angle_set = False
 
     def set_angle(self, angle, format=_Constants.DEGREES):
+        """
+        🟩 **R** -
+        """
         if not (format in self._angle_cache and self._angle_cache[format] == angle):
             self._angle_cache = {}
             self._angle_cache[format] = angle
@@ -37,9 +46,15 @@ class AngleConverter:
         return False
 
     def get_angle_set(self):
+        """
+        🟩 **R** -
+        """
         return self._angle_set
 
     def get_angle(self, format=_Constants.DEGREES):
+        """
+        🟩 **R** -
+        """
         if format in self._angle_cache:
             return self._angle_cache[format]
         else:
@@ -54,17 +69,29 @@ class AngleConverter:
             return angle
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
 class ProportionConverter:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._value = None
@@ -72,6 +99,9 @@ class ProportionConverter:
         self._proportion_set = False
 
     def set_value(self, value, format=_Constants.DECIMAL):
+        """
+        🟩 **R** -
+        """
         if not (format in self._value_cache and self._value_cache[format] == value):
             self._value_cache = {}
             self._value_cache[format] = value
@@ -84,9 +114,15 @@ class ProportionConverter:
         return False
 
     def get_proportion_set(self):
+        """
+        🟩 **R** -
+        """
         return self._proportion_set
 
     def get_value(self, format=_Constants.DECIMAL):
+        """
+        🟩 **R** -
+        """
         if format in self._value_cache:
             return self._value_cache[format]
         else:
@@ -99,17 +135,29 @@ class ProportionConverter:
             return point
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
 class ColorConverter:
+    """
+    🟩 **R** -
+    """
     def __init__(self, seed=None):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._color_intermediary = _ColorIntermediary()
@@ -126,6 +174,9 @@ class ColorConverter:
         self._color_set = False
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         if format == _Constants.RGB:
             color = [int(color[0]), int(color[1]), int(color[2])]
         elif format == _Constants.RGBA:
@@ -141,9 +192,15 @@ class ColorConverter:
         return False
 
     def get_color_set(self):
+        """
+        🟩 **R** -
+        """
         return self._color_set
 
     def get_color(self, format):
+        """
+        🟩 **R** -
+        """
         if format in self._color_cache:
             return self._color_cache[format]
         else:
@@ -152,15 +209,24 @@ class ColorConverter:
             return point
 
     def get_color_format(self):
+        """
+        🟩 **R** -
+        """
         return self._color_intermediary.get_color_format()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
@@ -172,6 +238,9 @@ class ColorConverter:
             green_color_range=None,
             blue_color_range=None,
             alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
 
         if red_color_range is None:
             red_color_range = color_range
@@ -199,6 +268,9 @@ class ColorConverter:
             green_color_range=None,
             blue_color_range=None,
             alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
 
         if self._red_noise is None:
             self._red_noise = _Perlin(seed=self._seed)
@@ -239,7 +311,13 @@ class ColorConverter:
         return self.get_color(format)
 
 class DisplayScalarConverter:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._point_intermediary = _DisplayScalarIntermediary()
@@ -259,6 +337,9 @@ create the window onscreen")
         self._display_size = self._display.get_size()
 
     def set_point(self, point, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if format == _Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
 
@@ -271,9 +352,15 @@ create the window onscreen")
         return False
 
     def get_point_set(self):
+        """
+        🟩 **R** -
+        """
         return self._point_set
 
     def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._display.get_size() != self._display_size:
             self._display_size = self._display.get_size()
             self._point_cache = {}
@@ -286,17 +373,29 @@ create the window onscreen")
             return point
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
 class DisplayCoordinatesConverter:
+    """
+    🟩 **R** -
+    """
     def __init__(self, seed=None):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._coordinate_intermediary = _DisplayCoordinatesIntermediary()
@@ -321,6 +420,9 @@ create the window onscreen")
         self._display_size = self._display.get_size()
 
     def set_coordinates(self, coordinate, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if format == _Constants.CONVENTIONAL_COORDINATES:
             coordinate = [int(coordinate[0]), int(coordinate[1])]
 
@@ -333,9 +435,15 @@ create the window onscreen")
         return False
 
     def get_coordinate_set(self):
+        """
+        🟩 **R** -
+        """
         return self._coordinate_set
 
     def get_coordinates(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._display.get_size() != self._display_size:
             self._display_size = self._display.get_size()
             self._coordinate_cache = {}
@@ -353,6 +461,9 @@ create the window onscreen")
             coordinate_range=None,
             x_coordinate_range=None,
             y_coordinate_range=None):
+        """
+        🟩 **R** -
+        """
 
         if coordinate_range is None:
             if _Registry.display_initialized:
@@ -381,6 +492,9 @@ create the window onscreen")
             coordinate_range=None,
             x_coordinate_range=None,
             y_coordinate_range=None):
+        """
+        🟩 **R** -
+        """
 
         if self._x_noise is None:
             self._x_noise = _Perlin(seed=self._seed)
@@ -415,11 +529,17 @@ create the window onscreen")
         return self.get_coordinates(format)
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True

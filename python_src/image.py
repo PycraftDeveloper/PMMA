@@ -12,7 +12,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Image:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if _Registry.displayed_pygame_start_message is False:
@@ -34,16 +40,25 @@ class Image:
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def create_from_file(self, image_path):
+        """
+        🟩 **R** -
+        """
         if self._pil_image_address is not None:
             self._memory_manager_instance.remove(
                 self._pil_image_address)
@@ -57,6 +72,9 @@ class Image:
             recreatable_object=True)
 
     def create_from_bytes(self, image_bytes):
+        """
+        🟩 **R** -
+        """
         if self._pil_image_address is not None:
             self._memory_manager_instance.remove(
                 self._pil_image_address)
@@ -71,10 +89,16 @@ class Image:
             recreatable_object=False)
 
     def image_to_PIL_object(self):
+        """
+        🟩 **R** -
+        """
         return self._memory_manager_instance.get(
             self._pil_image_address)
 
     def image_to_display_renderable_object(self, auto_optimize=True):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
         pil_image = self._memory_manager_instance.get(
             self._pil_image_address)
@@ -103,6 +127,9 @@ class Image:
         return graphics_backend_image
 
     def blit(self, position, surface=None):
+        """
+        🟩 **R** -
+        """
         if surface is None:
             surface = self._display
 

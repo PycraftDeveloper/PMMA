@@ -25,9 +25,12 @@ from pmma.python_src.utility.error_utils import ShapeRadiusNotSpecifiedError as 
 
 class Line:
     """
-    Draws a basic line.
+    🟩 **R** -Draws a basic line.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -57,6 +60,9 @@ class Line:
         self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -66,10 +72,16 @@ class Line:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
@@ -77,10 +89,16 @@ class Line:
             self._rotation = rotation
 
     def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
     def set_start(self, start, start_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         start_input_type = type(start)
         if self._start.get_coordinate_set():
             if start_format == _Constants.CONVENTIONAL_COORDINATES:
@@ -100,10 +118,16 @@ class Line:
             self._start = start
 
     def get_start(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._start is not None:
             return self._start.get_coordinates(format=format)
 
     def set_end(self, end, end_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         end_input_type = type(end)
         if self._start.get_coordinate_set():
             if end_format == _Constants.CONVENTIONAL_COORDINATES:
@@ -123,10 +147,16 @@ class Line:
             self._end = end
 
     def get_end(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._end is not None:
             return self._end.get_coordinates(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -156,10 +186,16 @@ class Line:
             self._color = color
 
     def get_color(self, format=_Constants.RGBA):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_width(self, width=1):
+        """
+        🟩 **R** -
+        """
         if width <= 0:
             width = 1
         if width is None:
@@ -167,11 +203,14 @@ class Line:
         self._width = width
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._width
 
     def _rotate_point_around_center(self, point, center, angle):
         """
-        Rotates a 2D point around a given center by the given angle in radians, accounting for aspect ratio.
+        🟩 **R** - Rotates a 2D point around a given center by the given angle in radians, accounting for aspect ratio.
 
         :param point: A list or tuple representing the x and y coordinates (x, y)
         :param center: The center of rotation as (cx, cy)
@@ -202,7 +241,7 @@ class Line:
 
     def _rotate_line(self, angle):
         """
-        Rotates the line around its center by the given angle in radians.
+        🟩 **R** - Rotates the line around its center by the given angle in radians.
         """
         # Get start and end points
         start_coords = self.get_start(format=_Constants.OPENGL_COORDINATES)
@@ -220,6 +259,9 @@ class Line:
         return [*rotated_start, *rotated_end]
 
     def _update_buffers(self):
+        """
+        🟩 **R** -
+        """
         if self._vertices_changed:
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
@@ -274,6 +316,9 @@ class Line:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         self._display.update_attempted_render_calls(1)
@@ -306,9 +351,12 @@ class Line:
 
 class RadialPolygon:
     """
-    Draws a radial polygon.
+    🟩 **R** - Draws a radial polygon.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -341,6 +389,9 @@ class RadialPolygon:
         self._resized_event = _WindowResized_EVENT()
 
     def _create_shape(self):
+        """
+        🟩 **R** -
+        """
         if self._radius.get_point_set() is False:
             raise _ShapeRadiusNotSpecifiedError()
 
@@ -396,6 +447,9 @@ class RadialPolygon:
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -405,10 +459,16 @@ class RadialPolygon:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
@@ -416,19 +476,31 @@ class RadialPolygon:
             self._rotation = rotation
 
     def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
     def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(value) != _DisplayScalarConverter():
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -458,17 +530,29 @@ class RadialPolygon:
             self._color = color
 
     def get_color(self, format=_Constants.RGBA):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_point_count(self, point_count=None):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         self._point_count = point_count
 
     def get_point_count(self):
+        """
+        🟩 **R** -
+        """
         return self._point_count
 
     def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         center_input_format = type(center)
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
@@ -488,18 +572,30 @@ class RadialPolygon:
             self._center = center
 
     def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._center is not None:
             return self._center.get_coordinates(format=format)
 
     def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
         if width <= 0:
             width = None
         self._width = width
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._width
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         self._display.update_attempted_render_calls(1)
@@ -542,9 +638,12 @@ class RadialPolygon:
 
 class Rectangle:
     """
-    Draws a rectangle.
+    🟩 **R** - Draws a rectangle.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -577,6 +676,9 @@ class Rectangle:
         self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -586,18 +688,30 @@ class Rectangle:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
         if width <= 0:
             width = None
         self._width = width
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._width
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
@@ -605,10 +719,16 @@ class Rectangle:
             self._rotation = rotation
 
     def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         position_input_type = type(position)
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
@@ -628,10 +748,16 @@ class Rectangle:
             self._position = position
 
     def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
     def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(size[0]) != _DisplayScalarConverter:
             self._x_size.set_point(size[0], format=size_format)
@@ -644,10 +770,16 @@ class Rectangle:
             self._y_size = size[1]
 
     def get_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._x_size.get_point_set() and self._y_size.get_point_set():
             return [self._x_size.get_point(format=format), self._y_size.get_point(format=format)]
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -677,10 +809,16 @@ class Rectangle:
             self._color = color
 
     def get_color(self, format=_Constants.RGBA):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
+        """
+        🟩 **R** -
+        """
         dx = x - cx
         dy = y - cy
         return [
@@ -690,7 +828,7 @@ class Rectangle:
 
     def _update_buffers(self):
         """
-        Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
+        🟩 **R** - Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
         """
         if self._vertices_changed:
             if self._position.get_coordinate_set() is False or self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
@@ -757,6 +895,9 @@ class Rectangle:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         self._display.update_attempted_render_calls(1)
@@ -790,9 +931,12 @@ class Rectangle:
 
 class Arc:
     """
-    Draws am arc.
+    🟩 **R** - Draws an arc.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -826,6 +970,9 @@ class Arc:
         self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -835,10 +982,16 @@ class Arc:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_width(self, width=1):
+        """
+        🟩 **R** -
+        """
         if width <= 0:
             width = 1
         if width is None:
@@ -846,9 +999,15 @@ class Arc:
         self._width = width
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._width
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
@@ -856,28 +1015,46 @@ class Arc:
             self._rotation = rotation
 
     def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
     def set_start_angle(self, start_angle, angle_format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(start_angle) != _AngleConverter:
             self._start_angle.set_angle(start_angle, format=angle_format)
 
     def get_start_angle(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._start_angle is not None:
             return self._start_angle.get_angle(format=format)
 
     def set_stop_angle(self, stop_angle, angle_format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(stop_angle) != _AngleConverter:
             self._stop_angle.set_angle(stop_angle, format=angle_format)
 
     def get_stop_angle(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._stop_angle is not None:
             return self._stop_angle.get_angle(format=format)
 
     def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         center_input_type = type(center)
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
@@ -897,19 +1074,31 @@ class Arc:
             self._center = center
 
     def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._center is not None:
             return self._center.get_coordinates(format=format)
 
     def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(value) != _DisplayScalarConverter():
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -939,10 +1128,16 @@ class Arc:
             self._color = color
 
     def get_color(self, format=_Constants.RGBA):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
+        """
+        🟩 **R** -
+        """
         dx = x - cx
         dy = y - cy
         return [
@@ -952,7 +1147,7 @@ class Arc:
 
     def _update_buffers(self):
         """
-        Calculate the vertices for the arc based on start_angle, stop_angle, center, radius, and width.
+        🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, radius, and width.
         """
         if self._vertices_changed:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
@@ -1025,6 +1220,9 @@ class Arc:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         self._display.update_attempted_render_calls(1)
@@ -1058,9 +1256,12 @@ class Arc:
 
 class Ellipse:
     """
-    Draws an ellipse.
+    🟩 **R** - Draws an ellipse.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -1096,6 +1297,9 @@ class Ellipse:
         self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -1105,18 +1309,30 @@ class Ellipse:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
         if width <= 0:
             width = None
         self._width = width
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._width
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
@@ -1124,10 +1340,16 @@ class Ellipse:
             self._rotation = rotation
 
     def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         position_input_type = type(position)
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
@@ -1147,10 +1369,16 @@ class Ellipse:
             self._position = position
 
     def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
     def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(size[0]) != _AngleConverter():
             self._outer_x_size.set_point(size[0], format=size_format)
@@ -1163,10 +1391,16 @@ class Ellipse:
             self._outer_y_size = size[1]
 
     def get_size(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._outer_x_size.get_point_set() and self._outer_y_size.get_point_set():
             return [self._outer_x_size.get_coordinates(format=format), self._outer_y_size.get_coordinates(format=format)]
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -1196,10 +1430,16 @@ class Ellipse:
             self._color = color
 
     def get_color(self, format=_Constants.RGBA):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
+        """
+        🟩 **R** -
+        """
         dx = x - cx
         dy = y - cy
         return [
@@ -1209,7 +1449,7 @@ class Ellipse:
 
     def _update_buffers(self):
         """
-        Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
+        🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
         if self._vertices_changed:
             if self._position.get_coordinate_set() is False or self._outer_x_size.get_point_set() is False or self._outer_y_size.get_point_set() is False:
@@ -1276,6 +1516,9 @@ class Ellipse:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         self._display.update_attempted_render_calls(1)
@@ -1311,9 +1554,12 @@ class Ellipse:
 
 class Polygon:
     """
-    Draws a polygon.
+    🟩 **R** - Draws a polygon.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -1347,6 +1593,9 @@ class Polygon:
         self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -1356,10 +1605,16 @@ class Polygon:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
@@ -1367,22 +1622,40 @@ class Polygon:
             self._rotation = rotation
 
     def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
     def set_curved(self, curved=False):
+        """
+        🟩 **R** -
+        """
         self._curved = curved
 
     def get_curved(self):
+        """
+        🟩 **R** -
+        """
         return self._curved
 
     def set_closed(self, closed=True):
+        """
+        🟩 **R** -
+        """
         self._closed = closed
 
     def get_closed(self):
+        """
+        🟩 **R** -
+        """
         return self._closed
 
     def set_points(self, points, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         self._vertices_changed = True
         self._points = []
         for point in points:
@@ -1395,12 +1668,18 @@ class Polygon:
             self._converted_inner_points.append(_DisplayCoordinatesConverter())
 
     def get_points(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         points = []
         for point in self._points:
             points.append(point.get_coordinates(format=format))
         return points
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -1430,18 +1709,30 @@ class Polygon:
             self._color = color
 
     def get_color(self, format=_Constants.RGBA):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
         if width <= 0:
             width = None
         self._width = width
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         return self._width
 
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
+        """
+        🟩 **R** -
+        """
         dx = x - cx
         dy = y - cy
         return [
@@ -1451,7 +1742,7 @@ class Polygon:
 
     def _update_buffers(self):
         """
-        Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
+        🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
         if self._vertices_changed:
             if not self._points:
@@ -1507,6 +1798,9 @@ class Polygon:
             self._color_changed = False  # Reset the flag
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         self._display.update_attempted_render_calls(1)
@@ -1541,9 +1835,12 @@ class Polygon:
 
 class Pixel:
     """
-    Draws a Pixel.
+    🟩 **R** - Draws a Pixel.
     """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -1570,12 +1867,18 @@ class Pixel:
         self._resized_event = _WindowResized_EVENT()
 
     def _create_shape(self):
+        """
+        🟩 **R** -
+        """
         if self._vbo.get_created():
             self._vbo.update(_numpy.array([0, 0], dtype='f4'))
         else:
             self._vbo.create(_numpy.array([0, 0], dtype='f4'))
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._program.quit()
             self._vbo.quit()
@@ -1585,10 +1888,16 @@ class Pixel:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         position_input_type = type(position)
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
@@ -1608,10 +1917,16 @@ class Pixel:
             self._position = position
 
     def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
     def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         color_input_type = type(color)
         if self._color.get_color_set():
             if format == _Constants.RGB:
@@ -1641,10 +1956,16 @@ class Pixel:
             self._color = color
 
     def get_color(self, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         if self._color is not None:
             return self._color.get_color(format=format)
 
     def render(self, point_size=None, dynamic_rendering=True):
+        """
+        🟩 **R** -
+        """
         start = _time.perf_counter()
 
         if dynamic_rendering:

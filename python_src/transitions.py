@@ -12,7 +12,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Transition:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._animation_start = None
@@ -41,6 +47,9 @@ class Transition:
         self._transition_manager.add(self._transition_id, self)
 
     def create(self, transition_type, start, end, duration, transition_mode=_Constants.LINEAR_TRANSITION, object=None, object_attribute_name=None, max_speed=None, acceleration_time=None, deceleration_time=None):
+        """
+        🟩 **R** -
+        """
         if type(start) == _numpy.ndarray:
             start = start.tolist()
 
@@ -60,48 +69,93 @@ class Transition:
         self._animation_object_name = object_attribute_name
 
     def get_acceleration_time(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_acceleration_time
 
     def get_deceleration_time(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_deceleration_time
 
     def get_max_speed(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_max_speed
 
     def set_animation_running(self, value):
+        """
+        🟩 **R** -
+        """
         self._animation_running = value
 
     def get_start_time(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_start_time
 
     def get_end_time(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_end_time
 
     def get_start(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_start
 
     def get_end(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_end
 
     def get_object(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_object
 
     def get_type(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_type
 
     def get_mode(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_mode
 
     def get_duration(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_duration
 
     def get_animated_value(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_current_position
 
     def get_animation_running(self):
+        """
+        🟩 **R** -
+        """
         return self._animation_running
 
     def set_current_position(self, value):
+        """
+        🟩 **R** -
+        """
         if self._animation_object is not None:
             if self._animation_object_name is not None:
                 try:
@@ -116,33 +170,54 @@ unexpected problems later on.")
         self._animation_current_position = value
 
     def set_current_value(self, value):
+        """
+        🟩 **R** -
+        """
         self.set_current_position(value)
 
     def get_current_position(self):
+        """
+        🟩 **R** -
+        """
         self._logger.log_development("Did you know that you can directly modify \
 instantiated object attributes by specifying the object and attribute name when \
 creating your transition?")
         return self._animation_current_position
 
     def get_current_value(self):
+        """
+        🟩 **R** -
+        """
         return self.get_current_position()
 
     def pause(self): # test this behavior
+        """
+        🟩 **R** -
+        """
         now_time = _time.perf_counter()
         self._animation_duration -= (now_time - self._animation_start_time)
         self._animation_running = False
 
     def resume(self): # test this behavior
+        """
+        🟩 **R** -
+        """
         self._animation_start_time = _time.perf_counter()
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 
     def start(self):
+        """
+        🟩 **R** -
+        """
         self._animation_start_time = _time.perf_counter()
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._transition_manager.remove(self._transition_id)
 
@@ -151,5 +226,8 @@ creating your transition?")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True

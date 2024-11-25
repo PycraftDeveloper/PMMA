@@ -16,7 +16,13 @@ from pmma.python_src.utility.general_utils import create_cache_id as _create_cac
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Text:
+    """
+    🟩 **R** -
+    """
     def __init__(self, canvas=None):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if _Registry.displayed_pygame_start_message is False:
@@ -36,16 +42,25 @@ class Text:
         self._memory_manager_instance = _MemoryManager()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def _quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def _get_system_font(self, size=None, bold=None, italic=None):
+        """
+        🟩 **R** -
+        """
         system_font = _font.nametofont("TkTextFont")
         system_font_dictionary = system_font.actual()
 
@@ -62,6 +77,9 @@ class Text:
         return _pygame.font.SysFont(name, size), [name, size]
 
     def _render_text_with_transparent_background(self, in_text, bg_color):
+        """
+        🟩 **R** -
+        """
         # Create a new surface with an alpha channel (same size as in_text)
         width, height = in_text.get_size()
         alpha_surface = _pygame.Surface(
@@ -90,6 +108,9 @@ class Text:
             strikethrough=False,
             canvas=None,
             word_separator=None):
+        """
+        🟩 **R** -
+        """
 
         if word_separator is None:
             word_separator = r"(\s+)"
