@@ -1,35 +1,41 @@
 Render Pipeline (``pmma.RenderPipeline``)
 =========================================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.RenderPipeline() -> pmma.RenderPipeline
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: RenderPipeline.set_render_wire_frame() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RenderPipeline.get_render_wire_frame() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RenderPipeline.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RenderPipeline.add() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RenderPipeline.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

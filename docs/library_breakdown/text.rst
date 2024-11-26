@@ -1,12 +1,13 @@
 Text (``pmma.Text``)
 ====================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.Text() -> pmma.Text
 
-   Not Yet Written
+    🟩 **R** -
+    
 

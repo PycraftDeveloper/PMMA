@@ -1,7 +1,7 @@
 Passport (``pmma.Passport``)
 ============================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
@@ -15,149 +15,186 @@ Methods
 
 .. py:method:: Passport.get_project_log_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_name() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_sub_name() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_short_description() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_long_description() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_url() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_documentation_url() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_temporary_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_resources_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_python_src_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_c_src_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_pyx_src_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_license() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_author() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_version() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_supported_python_versions() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.get_project_size() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_log_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_name() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_sub_name() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_short_description() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_long_description() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_url() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_documentation_url() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_temporary_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_resources_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_python_src_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_c_src_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_pyx_src_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_license() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_author() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_version() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_supported_python_versions() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.set_project_size() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Passport.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

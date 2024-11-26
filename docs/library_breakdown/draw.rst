@@ -1,449 +1,542 @@
 Line (``pmma.Line``)
 ====================
 
-Draws a basic line.
+🟩 **R** -Draws a basic line.
 
 Create
 ------
 
 .. py:method:: pmma.Line() -> pmma.Line
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Line.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.set_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.get_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.set_start() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.get_start() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.set_end() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.get_end() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.set_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.get_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Line.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Radial Polygon (``pmma.RadialPolygon``)
 =======================================
 
-Draws a radial polygon.
+🟩 **R** - Draws a radial polygon.
 
 Create
 ------
 
 .. py:method:: pmma.RadialPolygon() -> pmma.RadialPolygon
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: RadialPolygon.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.set_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.get_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.set_radius() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.get_radius() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.set_point_count() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.get_point_count() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.set_center() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.get_center() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.set_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.get_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: RadialPolygon.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Rectangle (``pmma.Rectangle``)
 ==============================
 
-Draws a rectangle.
+🟩 **R** - Draws a rectangle.
 
 Create
 ------
 
 .. py:method:: pmma.Rectangle() -> pmma.Rectangle
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Rectangle.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.set_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.get_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.set_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.get_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.set_position() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.get_position() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.set_size() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.get_size() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Rectangle.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Arc (``pmma.Arc``)
 ==================
 
-Draws am arc.
+🟩 **R** - Draws an arc.
 
 Create
 ------
 
 .. py:method:: pmma.Arc() -> pmma.Arc
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Arc.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_start_angle() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_start_angle() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_stop_angle() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_stop_angle() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_center() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_center() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_radius() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_radius() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Arc.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Ellipse (``pmma.Ellipse``)
 ==========================
 
-Draws an ellipse.
+🟩 **R** - Draws an ellipse.
 
 Create
 ------
 
 .. py:method:: pmma.Ellipse() -> pmma.Ellipse
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Ellipse.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.set_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.get_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.set_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.get_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.set_position() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.get_position() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.set_size() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.get_size() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Ellipse.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Polygon (``pmma.Polygon``)
 ==========================
 
-Draws a polygon.
+🟩 **R** - Draws a polygon.
 
 Create
 ------
 
 .. py:method:: pmma.Polygon() -> pmma.Polygon
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Polygon.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.set_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.get_rotation() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.set_curved() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.get_curved() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.set_closed() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.get_closed() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.set_points() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.get_points() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.set_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.get_width() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Polygon.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Pixel (``pmma.Pixel``)
 ======================
 
-Draws a Pixel.
+🟩 **R** - Draws a Pixel.
 
 Create
 ------
 
 .. py:method:: pmma.Pixel() -> pmma.Pixel
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Pixel.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Pixel.set_position() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Pixel.get_position() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Pixel.set_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Pixel.get_color() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Pixel.render() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

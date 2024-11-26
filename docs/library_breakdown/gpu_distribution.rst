@@ -1,31 +1,36 @@
 GPU Distribution (``pmma.GPUDistribution``)
 ===========================================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.GPUDistribution() -> pmma.GPUDistribution
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: GPUDistribution.get_render_gpu() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: GPUDistribution.get_video_gpu() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: GPUDistribution.get_all_video_gpus() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: GPUDistribution.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

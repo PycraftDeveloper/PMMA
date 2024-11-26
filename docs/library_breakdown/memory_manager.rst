@@ -1,31 +1,36 @@
 Memory Manager (``pmma.MemoryManager``)
 =======================================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.MemoryManager() -> pmma.MemoryManager
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: MemoryManager.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: MemoryManager.add() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: MemoryManager.get() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: MemoryManager.remove() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

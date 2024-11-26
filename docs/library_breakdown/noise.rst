@@ -1,7 +1,7 @@
 Perlin (``pmma.Perlin``)
 ========================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
@@ -15,9 +15,43 @@ Methods
 
 .. py:method:: Perlin.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.prefill() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Perlin.generate_1D_perlin_noise() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_2D_perlin_noise() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_3D_perlin_noise() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_1D_perlin_noise_from_array() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_2D_perlin_noise_from_array() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_3D_perlin_noise_from_array() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_1D_perlin_noise_from_range() -> None
+
+   Not Yet Written
+
+.. py:method:: Perlin.generate_2D_perlin_noise_from_range() -> None
 
    Not Yet Written
 
@@ -27,9 +61,11 @@ Methods
 
 .. py:method:: Perlin.set_seed() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.get_seed() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

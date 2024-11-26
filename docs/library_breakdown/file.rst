@@ -1,110 +1,132 @@
 File (``pmma.File``)
 ====================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.File() -> pmma.File
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: File.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.exists() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.get_path() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.get_directory() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.get_file_name_and_type() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.get_file_name() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.get_file_type() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.move() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.delete() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.recycle() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.rename() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.read() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: File.write() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 File Core (``pmma.FileCore``)
 =============================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.FileCore() -> pmma.FileCore
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: FileCore.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: FileCore.update_locations() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: FileCore.scan() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: FileCore.refresh() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: FileCore.stop_passively_refreshing() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: FileCore.start_passively_refreshing() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: FileCore.identify() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

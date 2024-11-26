@@ -1,7 +1,7 @@
 Quick Start (``pmma.QuickStart``)
 =================================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
@@ -15,13 +15,16 @@ Methods
 
 .. py:method:: QuickStart.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: QuickStart.start() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: QuickStart.end() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

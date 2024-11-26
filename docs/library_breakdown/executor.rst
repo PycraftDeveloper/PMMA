@@ -1,62 +1,72 @@
 Executor (``pmma.Executor``)
 ============================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.Executor() -> pmma.Executor
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: Executor.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Executor.run() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Executor.get_exit_code() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Executor.get_result() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Advanced Executor (``pmma.AdvancedExecutor``)
 =============================================
 
-Not Yet Written
+🟩 **R** -
 
 Create
 ------
 
 .. py:method:: pmma.AdvancedExecutor() -> pmma.AdvancedExecutor
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 Methods
 -------
 
 .. py:method:: AdvancedExecutor.quit() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: AdvancedExecutor.run() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: AdvancedExecutor.get_busy() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: AdvancedExecutor.get_result() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
