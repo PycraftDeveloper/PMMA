@@ -385,6 +385,7 @@ class RadialPolygon:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._position_changed = True
+        self._initial_point_count = None
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -398,7 +399,7 @@ class RadialPolygon:
         if self._point_count is None:
             try:
                 point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
-            except ValueError:
+            except:
                 point_count = 3
             if point_count < 3:
                 point_count = 3
@@ -439,10 +440,15 @@ class RadialPolygon:
         # The final array of vertices
         vertices = combined_vertices
 
-        if self._vbo.get_created():
-            self._vbo.update(vertices)
-        else:
+        if self._initial_point_count == None or self._initial_point_count != point_count:
+            self._initial_point_count = point_count
+            self._vbo.quit()
             self._vbo.create(vertices)
+        else:
+            if self._vbo.get_created():
+                self._vbo.update(vertices)
+            else:
+                self._vbo.create(vertices)
 
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
@@ -1172,7 +1178,7 @@ class Arc:
                     ((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))
                     * proportion_of_circle) * _Registry.shape_quality
                 )
-            except ValueError:
+            except:
                 point_count = 3
 
             if point_count < 3:
@@ -1209,10 +1215,15 @@ class Arc:
             self._vertices_changed = False  # Reset the flag
 
             # Update VBO
-            if not self._vbo.get_created():
+            if self._initial_point_count == None or self._initial_point_count != point_count:
+                self._initial_point_count = point_count
+                self._vbo.quit()
                 self._vbo.create(rotated_vertices)
             else:
-                self._vbo.update(rotated_vertices)
+                if self._vbo.get_created():
+                    self._vbo.update(rotated_vertices)
+                else:
+                    self._vbo.create(rotated_vertices)
 
         if self._color_changed:
             color = self.get_color(format=_Constants.SMALL_RGBA)
@@ -1469,7 +1480,7 @@ class Ellipse:
             num_points = _Registry.shape_quality
             try:
                 num_points = 1 + int((_Constants.TAU/_math.asin(1/radius))*_Registry.shape_quality)
-            except ValueError:
+            except:
                 num_points = 3
             if num_points < 3:
                 num_points = 3
@@ -1505,10 +1516,15 @@ class Ellipse:
 
             self._vertices_changed = False  # Reset the flag
 
-            if self._vbo.get_created() is False:
+            if self._initial_point_count == None or self._initial_point_count != num_points:
+                self._initial_point_count = num_points
+                self._vbo.quit()
                 self._vbo.create(rotated_vertices)
             else:
-                self._vbo.update(rotated_vertices)
+                if self._vbo.get_created():
+                    self._vbo.update(rotated_vertices)
+                else:
+                    self._vbo.create(rotated_vertices)
 
         if self._color_changed:
             color = self.get_color(format=_Constants.SMALL_RGBA)
