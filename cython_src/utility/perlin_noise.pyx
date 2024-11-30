@@ -4,6 +4,35 @@ from libc.time cimport time
 
 cdef int PERMUTATION_SIZE = 512
 
+# Declare that no exceptions will be propagated
+cdef extern from "math.h":
+    double floor(double) nogil
+
+cdef inline double fade(double t) nogil:
+    return t * t * t * (t * (t * 6 - 15) + 10)
+
+cdef inline double lerp(double t, double a, double b) nogil:
+    return a + t * (b - a)
+
+cdef inline double grad1(int hash, double x) nogil:
+    cdef int h = hash & 15
+    cdef double grad = 1.0 + (h & 7)  # Gradient value is one of 1.0, 2.0, ..., 8.0
+    if h & 8:
+        grad = -grad  # and a random sign for the gradient
+    return grad * x  # Multiply the gradient with the distance
+
+cdef inline double grad2(int hash, double x, double y) nogil:
+    cdef int h = hash & 7  # Convert low 3 bits of hash code
+    cdef double u = x if h < 4 else y  # into 8 simple gradient directions,
+    cdef double v = y if h < 4 else x  # and compute the dot product with (x,y).
+    return ((-u if h & 1 else u) + (-2.0 * v if h & 2 else 2.0 * v))
+
+cdef inline double grad3(int hash, double x, double y, double z) nogil:
+    cdef int h = hash & 15
+    cdef double u = x if h < 8 else y
+    cdef double v = y if h < 4 else (x if h == 12 or h == 14 else z)
+    return ((u if (h & 1) == 0 else -u) + (v if (h & 2) == 0 else -v))
+
 cdef class PerlinNoise:
     cdef int p[512]
     cdef int octaves
@@ -31,31 +60,6 @@ cdef class PerlinNoise:
         for i in range(256):
             self.p[256 + i] = self.p[i] = perm[i]
 
-    cdef double fade(self, double t):
-        return t * t * t * (t * (t * 6 - 15) + 10)
-
-    cdef double lerp(self, double t, double a, double b):
-        return a + t * (b - a)
-
-    cdef double grad1(self, int hash, double x):
-        cdef int h = hash & 15
-        cdef double grad = 1.0 + (h & 7)  # Gradient value is one of 1.0, 2.0, ..., 8.0
-        if h & 8:
-            grad = -grad  # and a random sign for the gradient
-        return grad * x  # Multiply the gradient with the distance
-
-    cdef double grad2(self, int hash, double x, double y):
-        cdef int h = hash & 7  # Convert low 3 bits of hash code
-        cdef double u = x if h < 4 else y  # into 8 simple gradient directions,
-        cdef double v = y if h < 4 else x  # and compute the dot product with (x,y).
-        return ((-u if h & 1 else u) + (-2.0 * v if h & 2 else 2.0 * v))
-
-    cdef double grad3(self, int hash, double x, double y, double z):
-        cdef int h = hash & 15
-        cdef double u = x if h < 8 else y
-        cdef double v = y if h < 4 else (x if h == 12 or h == 14 else z)
-        return ((u if (h & 1) == 0 else -u) + (v if (h & 2) == 0 else -v))
-
     cdef double perlin1D(self, double x):
         cdef int X
         cdef double u
@@ -64,12 +68,12 @@ cdef class PerlinNoise:
         X = int(floor(x)) & 255
         x -= floor(x)
 
-        u = self.fade(x)
+        u = fade(x)
 
         A = self.p[X]
         B = self.p[X + 1]
 
-        return self.lerp(u, self.grad1(self.p[A], x), self.grad1(self.p[B], x - 1))
+        return lerp(u, grad1(self.p[A], x), grad1(self.p[B], x - 1))
 
     cdef double perlin2D(self, double x, double y):
         cdef int X, Y
@@ -81,14 +85,14 @@ cdef class PerlinNoise:
         x -= floor(x)
         y -= floor(y)
 
-        u = self.fade(x)
-        v = self.fade(y)
+        u = fade(x)
+        v = fade(y)
 
         A = self.p[X] + Y
         B = self.p[X + 1] + Y
 
-        return self.lerp(v, self.lerp(u, self.grad2(self.p[A], x, y), self.grad2(self.p[B], x - 1, y)),
-                            self.lerp(u, self.grad2(self.p[A + 1], x, y - 1), self.grad2(self.p[B + 1], x - 1, y - 1)))
+        return lerp(v, lerp(u, grad2(self.p[A], x, y), grad2(self.p[B], x - 1, y)),
+                            lerp(u, grad2(self.p[A + 1], x, y - 1), grad2(self.p[B + 1], x - 1, y - 1)))
 
     cdef double perlin3D(self, double x, double y, double z):
         cdef int X, Y, Z
@@ -102,9 +106,9 @@ cdef class PerlinNoise:
         y -= floor(y)
         z -= floor(z)
 
-        u = self.fade(x)
-        v = self.fade(y)
-        w = self.fade(z)
+        u = fade(x)
+        v = fade(y)
+        w = fade(z)
 
         A = self.p[X] + Y
         AA = self.p[A] + Z
@@ -113,10 +117,10 @@ cdef class PerlinNoise:
         BA = self.p[B] + Z
         BB = self.p[B + 1] + Z
 
-        return self.lerp(w, self.lerp(v, self.lerp(u, self.grad3(self.p[AA], x, y, z), self.grad3(self.p[BA], x - 1, y, z)),
-                                self.lerp(u, self.grad3(self.p[AB], x, y - 1, z), self.grad3(self.p[BB], x - 1, y - 1, z))),
-                            self.lerp(v, self.lerp(u, self.grad3(self.p[AA + 1], x, y, z - 1), self.grad3(self.p[BA + 1], x - 1, y, z - 1)),
-                                self.lerp(u, self.grad3(self.p[AB + 1], x, y - 1, z - 1), self.grad3(self.p[BB + 1], x - 1, y - 1, z - 1))))
+        return lerp(w, lerp(v, lerp(u, grad3(self.p[AA], x, y, z), grad3(self.p[BA], x - 1, y, z)),
+                                lerp(u, grad3(self.p[AB], x, y - 1, z), grad3(self.p[BB], x - 1, y - 1, z))),
+                            lerp(v, lerp(u, grad3(self.p[AA + 1], x, y, z - 1), grad3(self.p[BA + 1], x - 1, y, z - 1)),
+                                lerp(u, grad3(self.p[AB + 1], x, y - 1, z - 1), grad3(self.p[BB + 1], x - 1, y - 1, z - 1))))
 
     cpdef double fBM1D(self, double x):
         cdef double total = 0.0
