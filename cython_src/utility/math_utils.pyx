@@ -8,10 +8,16 @@ from libc.math cimport sqrt
 
 # Cubic smoothstep function for acceleration/deceleration
 cpdef double raw_smooth_step(double t):
+    """
+    🟩 **R** -
+    """
     return t * t * (3 - 2 * t)
 
 # Clamping and mapping function
 cpdef double raw_ranger(double value, list old, list new):
+    """
+    🟩 **R** -
+    """
     cdef double old_range, new_range, new_value
 
     # Ensure value is within bounds of the 'old' range
@@ -35,6 +41,9 @@ cpdef double raw_ranger(double value, list old, list new):
 
 # Clamping and mapping function for numpy arrays
 cpdef cnp.ndarray[double, ndim=1] raw_nparray_ranger(cnp.ndarray[double, ndim=1] value, cnp.ndarray[double, ndim=1] old, cnp.ndarray[double, ndim=1] new):
+    """
+    🟩 **R** -
+    """
     value[value > old[1]] = old[1]
     value[value < old[0]] = old[0]
 
@@ -54,6 +63,9 @@ cpdef cnp.ndarray[double, ndim=1] raw_nparray_ranger(cnp.ndarray[double, ndim=1]
 cpdef cnp.ndarray[double, ndim=2] raw_gl_look_at(cnp.ndarray[double, ndim=1] pos,
                                                  cnp.ndarray[double, ndim=1] target,
                                                  cnp.ndarray[double, ndim=1] up):
+    """
+    🟩 **R** -
+    """
     cdef cnp.ndarray[double, ndim=1] x, y, z
     x, y, z = raw_compute_position(pos, target, up)
 
@@ -77,6 +89,9 @@ cpdef cnp.ndarray[double, ndim=2] raw_gl_look_at(cnp.ndarray[double, ndim=1] pos
 
 # Compute the norm and direction
 cpdef double raw_pythag(cnp.ndarray[double, ndim=1] points):
+    """
+    🟩 **R** -
+    """
     cdef double sum = 0
     for point in points:
         sum += point ** 2
@@ -84,6 +99,9 @@ cpdef double raw_pythag(cnp.ndarray[double, ndim=1] points):
 
 # Function to normalize a vector
 cdef cnp.ndarray[double, ndim=1] normalize(cnp.ndarray[double, ndim=1] v):
+    """
+    🟩 **R** -
+    """
     cdef double norm = sqrt(np.dot(v, v))  # Compute the norm manually
     if norm == 0:
         return v
@@ -93,6 +111,9 @@ cdef cnp.ndarray[double, ndim=1] normalize(cnp.ndarray[double, ndim=1] v):
 cpdef tuple raw_compute_position(cnp.ndarray[double, ndim=1] pos,
                                   cnp.ndarray[double, ndim=1] target,
                                   cnp.ndarray[double, ndim=1] up):
+    """
+    🟩 **R** -
+    """
     cdef cnp.ndarray[double, ndim=1] z = normalize(target - pos)
     cdef cnp.ndarray[double, ndim=1] x = normalize(np.cross(up, z))
     cdef cnp.ndarray[double, ndim=1] y = np.cross(z, x)
@@ -102,6 +123,9 @@ cpdef tuple raw_compute_position(cnp.ndarray[double, ndim=1] pos,
 cpdef cnp.ndarray[double, ndim=2] raw_look_at(cnp.ndarray[double, ndim=1] camera_position,
                                              cnp.ndarray[double, ndim=1] camera_target,
                                              cnp.ndarray[double, ndim=1] up_vector):
+    """
+    🟩 **R** -
+    """
     cdef cnp.ndarray[double, ndim=1] vector = camera_target - camera_position
 
     cdef double x = np.linalg.norm(vector)
@@ -122,4 +146,7 @@ cpdef cnp.ndarray[double, ndim=2] raw_look_at(cnp.ndarray[double, ndim=1] camera
 # Matrix multiplication function
 cpdef cnp.ndarray[double, ndim=2] raw_multiply(cnp.ndarray[double, ndim=2] light_proj,
                                                cnp.ndarray[double, ndim=2] sun_light_look_at):
+    """
+    🟩 **R** -
+    """
     return light_proj @ sun_light_look_at

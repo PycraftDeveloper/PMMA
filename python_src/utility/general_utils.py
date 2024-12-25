@@ -37,9 +37,15 @@ if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
 def pad_numerical_string(input_string):
+    """
+    🟩 **R** -
+    """
     return "0"*(8-len(input_string)) + input_string
 
 def check_for_updates():
+    """
+    🟩 **R** -
+    """
     if _Registry.last_checked_for_updates is None or get_date_as_number()-_Registry.last_checked_for_updates > 1 or _Registry.update_available is None:
         _Registry.last_checked_for_updates = get_date_as_number()
 
@@ -67,16 +73,28 @@ def check_for_updates():
     return _Registry.update_available
 
 def get_date_as_number():
+    """
+    🟩 **R** -
+    """
     current_date = _datetime__datetime.now()
     return int(str(current_date.year)+str(current_date.month)+str(current_date.day))
 
 def set_clean_profiling(can_clean_profile):
+    """
+    🟩 **R** -
+    """
     _Registry.clean_profile = can_clean_profile
 
 def get_clean_profiling():
+    """
+    🟩 **R** -
+    """
     return _Registry.clean_profile
 
 def clean_up():
+    """
+    🟩 **R** -
+    """
     keep_folders = ["cython_src", "python_src", "shaders", "resources"]
     keep_files = ["__init__.py", "c_setup.py"]
     # Convert keep lists to sets for faster lookups
@@ -108,6 +126,9 @@ def clean_up():
                     print(error)
 
 def get_execution_time(function, *args, **kwargs):
+    """
+    🟩 **R** -
+    """
     start_time = _time__perf_counter()
     result = function(*args, **kwargs)
     end_time = _time__perf_counter()
@@ -115,6 +136,9 @@ def get_execution_time(function, *args, **kwargs):
     return result, execution_time
 
 def get_execution_inverse_time(function, *args, **kwargs):
+    """
+    🟩 **R** -
+    """
     start_time = _time__perf_counter()
     result = function(*args, **kwargs)
     end_time = _time__perf_counter()
@@ -122,6 +146,9 @@ def get_execution_inverse_time(function, *args, **kwargs):
     return result, 1/execution_time
 
 def targeted_profile_start():
+    """
+    🟩 **R** -
+    """
     if _Registry.profiler is None:
         _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
@@ -137,6 +164,9 @@ however you already specified that you want to profile everything, so this has n
 This behavior can be configured in 'pmma.init()'.")
 
 def targeted_profile_end():
+    """
+    🟩 **R** -
+    """
     if _Registry.profiler is None:
         _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
@@ -152,6 +182,9 @@ however you already specified that you want to profile everything, so this has n
 This behavior can be configured in 'pmma.init()'.")
 
 def check_if_object_is_class_or_function(param):
+    """
+    🟩 **R** -
+    """
     if _inspect__isclass(param):
         return _Constants.CLASS
     elif isinstance(param, object) and not _inspect__isfunction(param):
@@ -162,12 +195,18 @@ def check_if_object_is_class_or_function(param):
         return _Constants.UNKNOWN
 
 def get_theme():
+    """
+    🟩 **R** -
+    """
     if _getostheme__isDarkMode():
         return _Constants.DARK
     else:
         return _Constants.LIGHT
 
 def convert_number_to_text(value):
+    """
+    🟩 **R** -
+    """
     try:
         return _num2words__num2words(value, lang=_Registry.language)
     except OverflowError:
@@ -177,6 +216,9 @@ unfortunately to convert to words. Instead the value will be returned as a strin
         return str(value)
 
 def perform_clean_profiling(path):
+    """
+    🟩 **R** -
+    """
     with open(path, "r") as profile_results_file:
         profile_line_data = profile_results_file.readlines()
 
@@ -195,6 +237,9 @@ def perform_clean_profiling(path):
         new_profile_results_file.writelines(filtered_lines)
 
 def quit(show_statistics=None, terminate_application=True):
+    """
+    🟩 **R** -
+    """
     if _Registry.profiler is not None:
         _Registry.profiler.disable()
         if _Registry.profile_result_path is None:
@@ -325,6 +370,9 @@ generating 3D arrays.")
         _sys__exit(0)
 
 def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape_quality_adjustments_for_low_power_mode=True):
+    """
+    🟩 **R** -
+    """
     if (_Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine and
             _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine):
         if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
@@ -429,6 +477,9 @@ may reflect any degraded performance beyond this point.", variables=[time_format
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def register_application():
+    """
+    🟩 **R** -
+    """
     if get_operating_system() == _Constants.WINDOWS:
         VERSION = _PassportIntermediary.version
         AUTHOR = _PassportIntermediary.author
@@ -438,6 +489,9 @@ def register_application():
         _ctypes__windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 def get_operating_system():
+    """
+    🟩 **R** -
+    """
     if _platform__system() == "Windows":
         return _Constants.WINDOWS
     elif _platform__system() == "Linux":
@@ -452,6 +506,9 @@ def get_operating_system():
 def is_battery_saver_enabled(
         fallback_battery_power_saving_threshold_percentage=30,
         care_if_running_on_battery=True):
+    """
+    🟩 **R** -
+    """
     try:
         battery = _psutil__sensors_battery()
         if battery is None:
@@ -480,6 +537,9 @@ def is_battery_saver_enabled(
         return battery.percent < fallback_battery_power_saving_threshold_percentage and using_battery
 
 def random_real_number(negatives=True):
+    """
+    🟩 **R** -
+    """
     integer = _random__randint(-100, 100)
     decimal = _random__random()
     if negatives:
@@ -488,9 +548,15 @@ def random_real_number(negatives=True):
         return abs(integer + decimal)
 
 def up(path: str) -> str:
+    """
+    🟩 **R** -
+    """
     return path[::-1].split(_Constants.PATH_SEPARATOR, 1)[-1][::-1]
 
 def find_executable_nvidia_smi():
+    """
+    🟩 **R** -
+    """
     if get_operating_system() == _Constants.WINDOWS:
         # If the platform is Windows and nvidia-smi
         # could not be found from the environment path,
@@ -506,6 +572,9 @@ def find_executable_nvidia_smi():
     return nvidia_smi
 
 def update_language():
+    """
+    🟩 **R** -
+    """
     if get_operating_system() == _Constants.WINDOWS:
         try:
             windll = _ctypes__windll.kernel32
@@ -545,6 +614,9 @@ def update_language():
     _Backpack.language = detected_language
 
 def create_cache_id(*args):
+    """
+    🟩 **R** -
+    """
     cache_id = ""
     for arg in args:
         if callable(arg):
@@ -554,6 +626,9 @@ def create_cache_id(*args):
     return cache_id
 
 def swizzle(in_format, data, out_format, handle_alpha=False):
+    """
+    🟩 **R** -
+    """
     if in_format == out_format:
         return data
     elif len(data) != len(in_format):
@@ -571,6 +646,9 @@ def swizzle(in_format, data, out_format, handle_alpha=False):
         return out_data
 
 def can_swizzle(in_format, data, out_format):
+    """
+    🟩 **R** -
+    """
     if in_format == out_format:
         return True
     elif len(data) != len(in_format):
@@ -578,7 +656,13 @@ def can_swizzle(in_format, data, out_format):
     return True
 
 def get_application_run_time():
+    """
+    🟩 **R** -
+    """
     return _time__perf_counter() - _Registry.application_start_time
 
 def get_application_startup_duration():
+    """
+    🟩 **R** -
+    """
     return _Registry.application_finished_loading_time - _Registry.application_start_time

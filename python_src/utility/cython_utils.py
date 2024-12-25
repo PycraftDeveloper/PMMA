@@ -10,12 +10,18 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 def setup():
+    """
+    🟩 **R** -
+    """
     try:
         _os__mkdir(_path_builder(_Registry.base_path, "bin"))
     except FileExistsError:
         pass
 
 def compile_libraries():
+    """
+    🟩 **R** -
+    """
     try:
         import pmma.bin.perlin_noise
         import pmma.bin.extended_perlin_noise
@@ -34,6 +40,9 @@ def compile_libraries():
         _Registry.cython_acceleration_available = check_for_compiled_libraries()
 
 def check_for_compiled_libraries():
+    """
+    🟩 **R** -
+    """
     try:
         import pmma.bin.perlin_noise
         import pmma.bin.extended_perlin_noise
@@ -46,10 +55,16 @@ def check_for_compiled_libraries():
     return _Registry.cython_acceleration_available
 
 def compile_intermediary():
+    """
+    🟩 **R** -
+    """
     if check_for_compiled_libraries() is False:
         compile_libraries()
 
 def compile():
+    """
+    🟩 **R** -
+    """
     thread = _threading__Thread(target=compile_intermediary)
     thread.name = "cython_compile"
     thread.start()

@@ -10,7 +10,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class Texture:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self._unique_identifier = id(self)
@@ -29,9 +35,15 @@ class Texture:
         self._logger = _InternalLogger()
 
     def prepare_for_recreation(self):
+        """
+        🟩 **R** -
+        """
         pass # WIP
 
     def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
+        """
+        🟩 **R** -
+        """
         if self._texture is not None:
             self._texture.release()
 
@@ -71,9 +83,15 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         self._created = True
 
     def write(self, data):
+        """
+        🟩 **R** -
+        """
         self._texture.write(data)
 
     def load_from_file(self, file_path, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None):
+        """
+        🟩 **R** -
+        """
         image = _PIL__Image.open(file_path)
         self._size = image.size
         self._components = len(image.mode)
@@ -91,6 +109,9 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def set_scaling(self, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None):
+        """
+        🟩 **R** -
+        """
         if x_scaling is None:
             x_scaling = scaling
         if y_scaling is None:
@@ -99,36 +120,66 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         self._scaling = (x_scaling, y_scaling)
 
     def get_samples(self):
+        """
+        🟩 **R** -
+        """
         return self._samples
 
     def get_intended_samples(self):
+        """
+        🟩 **R** -
+        """
         return self._intended_samples
 
     def texture_to_PIL_image(self):
+        """
+        🟩 **R** -
+        """
         if self._texture is not None:
             return _PIL__Image.frombytes("RGB", self._size, self._texture.read())
 
     def get_texture(self):
+        """
+        🟩 **R** -
+        """
         return self._texture
 
     def use(self, location=0):
+        """
+        🟩 **R** -
+        """
         if self._texture is not None:
             self._texture.use(location=location)
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         return self._size
 
     def get_components(self):
+        """
+        🟩 **R** -
+        """
         return self._components
 
     def get_data(self):
+        """
+        🟩 **R** -
+        """
         return self._data
 
     def build_mipmaps(self, base=0, max_level=1000):
+        """
+        🟩 **R** -
+        """
         if self._texture is not None:
             self._texture.build_mipmaps(base=base, max_level=max_level)
 
     def recreate(self):
+        """
+        🟩 **R** -
+        """
         if self._texture is not None:
             self._texture.release()
 
@@ -136,6 +187,9 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
             self._texture.filter = (self._scaling[0], self._scaling[1])
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             if self._texture is not None:
                 self._texture.release()
@@ -145,8 +199,14 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_created(self):
+        """
+        🟩 **R** -
+        """
         return self._created

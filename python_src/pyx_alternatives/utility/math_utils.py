@@ -7,10 +7,16 @@ from numpy import dot as _numpy__dot
 from numpy import finfo as _numpy__finfo
 
 def raw_smooth_step(t):
+    """
+    🟩 **R** -
+    """
     # Cubic smoothstep function for acceleration/deceleration
     return t * t * (3 - 2 * t)
 
 def raw_ranger(value, old, new):
+    """
+    🟩 **R** -
+    """
     if value > old[1]:
         value = old[1]
     elif value < old[0]:
@@ -28,6 +34,9 @@ def raw_ranger(value, old, new):
         return new_value
 
 def raw_nparray_ranger(value, old, new):
+    """
+    🟩 **R** -
+    """
     value[value > old[1]] = old[1]
     value[value < old[0]] = old[0]
 
@@ -43,6 +52,9 @@ def raw_nparray_ranger(value, old, new):
         return new_value
 
 def raw_gl_look_at(pos, target, up):
+    """
+    🟩 **R** -
+    """
     x, y, z = raw_compute_position(
         pos, target, up)
 
@@ -65,24 +77,36 @@ def raw_gl_look_at(pos, target, up):
     return rotate * translate[:, _numpy__newaxis]
 
 def raw_pythag(points):
+    """
+    🟩 **R** -
+    """
     sum = 0
     for point in points:
         sum += point ** 2
     return sum ** 0.5
 
-def raw_compute_position(pos, target, up):
-    def normalize(v):
-        norm = _numpy__linalg.norm(v)
-        if norm == 0:
-            return v
-        return v / norm
+def normalize(v):
+    """
+    🟩 **R** -
+    """
+    norm = _numpy__linalg.norm(v)
+    if norm == 0:
+        return v
+    return v / norm
 
+def raw_compute_position(pos, target, up):
+    """
+    🟩 **R** -
+    """
     z = normalize(pos - target)
     x = normalize(_numpy__cross(normalize(up), z))
     y = _numpy__cross(z, x)
     return x, y, z
 
 def raw_look_at(camera_position, camera_target, up_vector):
+    """
+    🟩 **R** -
+    """
     vector = camera_target - camera_position
 
     x = _numpy__linalg.norm(vector)
@@ -101,4 +125,7 @@ def raw_look_at(camera_position, camera_target, up_vector):
     ], dtype="f4")
 
 def raw_multiply(light_proj, sun_light_look_at):
+    """
+    🟩 **R** -
+    """
     return light_proj * sun_light_look_at

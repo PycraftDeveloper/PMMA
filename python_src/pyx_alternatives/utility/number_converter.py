@@ -7,7 +7,13 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.general_utils import swizzle as _swizzle
 
 class Color:
+    """
+    🟩 **R** -
+    """
     def set_color(self, color, in_type=Constants.RGB): # converts to RGBA
+        """
+        🟩 **R** -
+        """
         if type(color) == str:
             color = color.lower()
         self.in_type = in_type
@@ -59,13 +65,22 @@ class Color:
             self.color = Constants.TEXT_BASED_COLORS[color.upper()] + [255]
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         self.in_type = None
         self.color = None
 
     def get_color_format(self):
+        """
+        🟩 **R** -
+        """
         return self.in_type
 
     def __convert_rgb_to_hsv(self, red, green, blue, per_maximum=100, do_round=True):
+        """
+        🟩 **R** -
+        """
         #get rgb percentage: range (0-1, 0-1, 0-1 )
         red_percentage = red / float(255)
         green_percentage = green/ float(255)
@@ -90,6 +105,9 @@ class Color:
         return color_h, color_s, color_v
 
     def get_color(self, out_type): # Converts from RGBA
+        """
+        🟩 **R** -
+        """
         if self.color is None:
             return None
         sorted_out_type = sorted(out_type)
@@ -137,13 +155,22 @@ class Color:
             return [value for value, key in Constants.TEXT_BASED_COLORS.items() if key == self.color]
 
 class DisplayScalar:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         self._point = None
         self._logger = _InternalLogger()
 
         self._display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     def set_point(self, value, in_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if in_type == Constants.CONVENTIONAL_COORDINATES:
             self._point = value
         elif in_type == Constants.OPENGL_COORDINATES:
@@ -152,6 +179,9 @@ class DisplayScalar:
             self._point = (value * half_display_height)
 
     def get_point(self, out_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._point
         elif out_type == Constants.OPENGL_COORDINATES:
@@ -159,13 +189,22 @@ class DisplayScalar:
             return self._point / (display_size[1] / 2)
 
 class DisplayCoordinates:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         self._coordinate = None
         self._logger = _InternalLogger()
 
         self._display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     def set_coordinate(self, coordinate, in_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if type(coordinate) == list or type(coordinate) == tuple:
             coordinate = list(coordinate)
         else:
@@ -190,6 +229,9 @@ class DisplayCoordinates:
             self._coordinate = [x, y]
 
     def get_coordinate(self, out_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._coordinate
 

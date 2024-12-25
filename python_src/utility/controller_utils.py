@@ -11,7 +11,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class ControllersIntermediary:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(
             self,
             unique_instance=_Constants.CONTROLLER_INTERMEDIARY_OBJECT,
@@ -29,26 +35,44 @@ class ControllersIntermediary:
             self._controllers.append(_Controller(joy_num))
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def identify_controllers(self):
+        """
+        🟩 **R** -
+        """
         for i in range(len(self._controllers)):
             print(f"Controller: {i}, has name: {self._controllers[i].get_name()}")
 
     def get_controller(self, controller_index):
+        """
+        🟩 **R** -
+        """
         return self._controllers[controller_index]
 
     def update_controllers(self):
+        """
+        🟩 **R** -
+        """
         self._controllers = []
         for joy_num in range(_pygame__joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
     def list_controllers(self):
+        """
+        🟩 **R** -
+        """
         return self._controllers

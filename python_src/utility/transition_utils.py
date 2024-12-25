@@ -16,7 +16,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class TransitionManager:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(
             self,
             unique_instance=_Constants.TRANSITION_MANAGER_OBJECT,
@@ -35,6 +41,9 @@ class TransitionManager:
         self._transition_manager.start()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self._enable_transition_management = False
 
@@ -45,19 +54,34 @@ class TransitionManager:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def _wait_for_transitions(self):
+        """
+        🟩 **R** -
+        """
         return len(self._transitions) != 0 or self._enable_transition_management is False
 
     def add(self, key, transition):
+        """
+        🟩 **R** -
+        """
         self._transitions[key] = transition
 
     def remove(self, key):
+        """
+        🟩 **R** -
+        """
         del self._transitions[key]
 
     def _linear_coordinate_transition(self, transition):
+        """
+        🟩 **R** -
+        """
         np_start = _numpy__array(transition.get_start())
         np_end = _numpy__array(transition.get_end())
         difference = _numpy__absolute(np_start - np_end)
@@ -71,6 +95,9 @@ class TransitionManager:
             transition.set_current_position(result.tolist())
 
     def _linear_value_transition(self, transition):
+        """
+        🟩 **R** -
+        """
         start = transition.get_start()
         end = transition.get_end()
         difference = abs(start - end)
@@ -84,6 +111,9 @@ class TransitionManager:
             transition.set_current_value(result)
 
     def _smooth_coordinate_transition(self, transition):
+        """
+        🟩 **R** -
+        """
         current_run_duration = _time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
 
@@ -103,6 +133,9 @@ class TransitionManager:
             transition.set_current_position(result.tolist())
 
     def _smooth_value_transition(self, transition):
+        """
+        🟩 **R** -
+        """
         current_run_duration = _time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
 
@@ -122,6 +155,9 @@ class TransitionManager:
             transition.set_current_value(result)
 
     def _manage_transitions(self):
+        """
+        🟩 **R** -
+        """
         while self._enable_transition_management:
             _waiting__wait(self._wait_for_transitions)
             if len(self._transitions) == 0:

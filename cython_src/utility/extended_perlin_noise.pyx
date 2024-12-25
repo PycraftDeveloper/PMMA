@@ -6,28 +6,46 @@ from numpy import asarray as _numpy__asarray
 from libc.math cimport floor, pow
 
 cdef double fade(double t):
+    """
+    🟩 **R** -
+    """
     return t * t * t * (t * (t * 6 - 15) + 10)
 
 cdef double lerp(double t, double a, double b):
+    """
+    🟩 **R** -
+    """
     return a + t * (b - a)
 
 cdef double grad(int hash, double x, double y=0, double z=0):
+    """
+    🟩 **R** -
+    """
     cdef int h = hash & 15
     cdef double u = x if h < 8 else y
     cdef double v = y if h < 4 else (x if h == 12 or h == 14 else z)
     return ((u if h & 1 == 0 else -u) + (v if h & 2 == 0 else -v))
 
 cdef class ExtendedPerlinNoise:
+    """
+    🟩 **R** -
+    """
     cdef int[512] permutation
     cdef int octaves
     cdef double persistence
 
     def __init__(self, int seed, int octaves, double persistence):
+        """
+        🟩 **R** -
+        """
         self.init_permutation(seed)
         self.octaves = octaves
         self.persistence = persistence
 
     def init_permutation(self, int seed):
+        """
+        🟩 **R** -
+        """
         cdef int i
         rng = _numpy__random.RandomState(seed)
         perm = rng.permutation(256)
@@ -35,6 +53,9 @@ cdef class ExtendedPerlinNoise:
             self.permutation[i] = self.permutation[i + 256] = perm[i]
 
     cdef double perlin(self, double x, double y=0, double z=0):
+        """
+        🟩 **R** -
+        """
         cdef int X = int(floor(x)) & 255
         cdef int Y = int(floor(y)) & 255
         cdef int Z = int(floor(z)) & 255
@@ -64,6 +85,9 @@ cdef class ExtendedPerlinNoise:
                                        grad(self.permutation[BB+1], x-1, y-1, z-1))))
 
     def generate_fbm_1d(self, double[:] input_array):
+        """
+        🟩 **R** -
+        """
         cdef int length = input_array.shape[0]
         cdef double[:] output_array = _numpy__empty(length, dtype=_numpy__float64)
         cdef int i, j
@@ -82,6 +106,9 @@ cdef class ExtendedPerlinNoise:
         return _numpy__asarray(output_array)
 
     def generate_fbm_2d(self, double[:, :, :] input_array):
+        """
+        🟩 **R** -
+        """
         cdef int height = input_array.shape[0]
         cdef int width = input_array.shape[1]
         cdef double[:, :] output_array = _numpy__empty((height, width), dtype=_numpy__float64)
@@ -104,6 +131,9 @@ cdef class ExtendedPerlinNoise:
         return _numpy__asarray(output_array)
 
     def generate_fbm_3d(self, double[:, :, :, :] input_array):
+        """
+        🟩 **R** -
+        """
         cdef int depth = input_array.shape[0]
         cdef int height = input_array.shape[1]
         cdef int width = input_array.shape[2]

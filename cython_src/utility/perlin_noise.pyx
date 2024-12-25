@@ -9,12 +9,21 @@ cdef extern from "math.h":
     double floor(double) nogil
 
 cdef inline double fade(double t) nogil:
+    """
+    🟩 **R** -
+    """
     return t * t * t * (t * (t * 6 - 15) + 10)
 
 cdef inline double lerp(double t, double a, double b) nogil:
+    """
+    🟩 **R** -
+    """
     return a + t * (b - a)
 
 cdef inline double grad1(int hash, double x) nogil:
+    """
+    🟩 **R** -
+    """
     cdef int h = hash & 15
     cdef double grad = 1.0 + (h & 7)  # Gradient value is one of 1.0, 2.0, ..., 8.0
     if h & 8:
@@ -22,28 +31,43 @@ cdef inline double grad1(int hash, double x) nogil:
     return grad * x  # Multiply the gradient with the distance
 
 cdef inline double grad2(int hash, double x, double y) nogil:
+    """
+    🟩 **R** -
+    """
     cdef int h = hash & 7  # Convert low 3 bits of hash code
     cdef double u = x if h < 4 else y  # into 8 simple gradient directions,
     cdef double v = y if h < 4 else x  # and compute the dot product with (x,y).
     return ((-u if h & 1 else u) + (-2.0 * v if h & 2 else 2.0 * v))
 
 cdef inline double grad3(int hash, double x, double y, double z) nogil:
+    """
+    🟩 **R** -
+    """
     cdef int h = hash & 15
     cdef double u = x if h < 8 else y
     cdef double v = y if h < 4 else (x if h == 12 or h == 14 else z)
     return ((u if (h & 1) == 0 else -u) + (v if (h & 2) == 0 else -v))
 
 cdef class PerlinNoise:
+    """
+    🟩 **R** -
+    """
     cdef int p[512]
     cdef int octaves
     cdef double persistence
 
     def __init__(self, int seed, int octaves, double persistence):
+        """
+        🟩 **R** -
+        """
         self.init_permutation(seed)
         self.octaves = octaves
         self.persistence = persistence
 
     cdef void init_permutation(self, int seed):
+        """
+        🟩 **R** -
+        """
         cdef int perm[256]
         cdef int i, j, temp
 
@@ -61,6 +85,9 @@ cdef class PerlinNoise:
             self.p[256 + i] = self.p[i] = perm[i]
 
     cdef double perlin1D(self, double x):
+        """
+        🟩 **R** -
+        """
         cdef int X
         cdef double u
         cdef int A, B
@@ -76,6 +103,9 @@ cdef class PerlinNoise:
         return lerp(u, grad1(self.p[A], x), grad1(self.p[B], x - 1))
 
     cdef double perlin2D(self, double x, double y):
+        """
+        🟩 **R** -
+        """
         cdef int X, Y
         cdef double u, v
         cdef int A, B
@@ -95,6 +125,9 @@ cdef class PerlinNoise:
                             lerp(u, grad2(self.p[A + 1], x, y - 1), grad2(self.p[B + 1], x - 1, y - 1)))
 
     cdef double perlin3D(self, double x, double y, double z):
+        """
+        🟩 **R** -
+        """
         cdef int X, Y, Z
         cdef double u, v, w
         cdef int A, AA, AB, B, BA, BB
@@ -123,6 +156,9 @@ cdef class PerlinNoise:
                                 lerp(u, grad3(self.p[AB + 1], x, y - 1, z - 1), grad3(self.p[BB + 1], x - 1, y - 1, z - 1))))
 
     cpdef double fBM1D(self, double x):
+        """
+        🟩 **R** -
+        """
         cdef double total = 0.0
         cdef double frequency = 1.0
         cdef double amplitude = 1.0
@@ -138,6 +174,9 @@ cdef class PerlinNoise:
         return total / maxValue
 
     cpdef double fBM2D(self, double x, double y):
+        """
+        🟩 **R** -
+        """
         cdef double total = 0.0
         cdef double frequency = 1.0
         cdef double amplitude = 1.0
@@ -153,6 +192,9 @@ cdef class PerlinNoise:
         return total / maxValue
 
     cpdef double fBM3D(self, double x, double y, double z):
+        """
+        🟩 **R** -
+        """
         cdef double total = 0.0
         cdef double frequency = 1.0
         cdef double amplitude = 1.0
