@@ -36,18 +36,29 @@ from pmma.python_src.utility.pmma_configuration import save_configuration
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
+def pad_numerical_string(input_string):
+    return "0"*(8-len(input_string)) + input_string
+
 def check_for_updates():
-    if get_date_as_number()-_Registry.last_checked_for_updates > 1 or _Registry.update_available is None:
+    if _Registry.last_checked_for_updates is None or get_date_as_number()-_Registry.last_checked_for_updates > 1 or _Registry.update_available is None:
         _Registry.last_checked_for_updates = get_date_as_number()
 
         tag_data = _requests__get("https://api.github.com/repos/PycraftDeveloper/PMMA/tags")
         latest_tag = _loads__loads(tag_data.text)[0]["name"]
 
         split_current_version = _Registry.version.split(".")
-        current_version_as_integer = int(split_current_version[0] + split_current_version[1] + split_current_version[2])
+        current_version_as_integer = int(
+            "1"+
+            pad_numerical_string(split_current_version[0]) +
+            pad_numerical_string(split_current_version[1]) +
+            pad_numerical_string(split_current_version[2]))
 
         split_latest_version = latest_tag.split(".")
-        latest_version_as_integer = int(split_latest_version[0] + split_latest_version[1] + split_latest_version[2])
+        latest_version_as_integer = int(
+            "1"+
+            pad_numerical_string(split_latest_version[0]) +
+            pad_numerical_string(split_latest_version[1]) +
+            pad_numerical_string(split_latest_version[2]))
 
         _Registry.update_available = latest_version_as_integer > current_version_as_integer
 
