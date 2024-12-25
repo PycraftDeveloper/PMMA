@@ -8,14 +8,23 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.general_utils import swizzle as _swizzle
 
 cdef class Color:
+    """
+    🟩 **R** -
+    """
     cdef object in_type
     cdef object color
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         self.in_type = None
         self.color = None
 
     cpdef void set_color(self, color, object in_type=Constants.RGB):
+        """
+        🟩 **R** -
+        """
         if isinstance(color, str):
             color = color.lower()
 
@@ -55,6 +64,9 @@ cdef class Color:
 
     cdef tuple __convert_rgb_to_hsv(self, double red, double green, double blue,
                                     double per_maximum=100, bint do_round=True):
+        """
+        🟩 **R** -
+        """
         cdef double red_percentage = red / 255
         cdef double green_percentage = green / 255
         cdef double blue_percentage = blue / 255
@@ -73,6 +85,9 @@ cdef class Color:
         return (color_h, color_s, color_v)
 
     cpdef object get_color(self, object out_type):
+        """
+        🟩 **R** -
+        """
         if self.color is None:
             return None
         cdef list sorted_out_type = sorted(out_type)
@@ -107,17 +122,26 @@ cdef class Color:
             return [value for value, key in Constants.TEXT_BASED_COLORS.items() if key == self.color]
 
 cdef class DisplayScalar:
+    """
+    🟩 **R** -
+    """
     cdef double _point
     cdef object _logger
     cdef object display
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         self._point = 0.0
         self._logger = _InternalLogger()
 
         self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     cpdef void set_point(self, double value, object in_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         cdef double half_display_height
 
         if in_type == Constants.CONVENTIONAL_COORDINATES:
@@ -127,6 +151,9 @@ cdef class DisplayScalar:
             self._point = value * half_display_height
 
     cpdef double get_point(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         cdef double display_height
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:
@@ -136,17 +163,26 @@ cdef class DisplayScalar:
             return self._point / (display_height / 2.0)
 
 cdef class DisplayCoordinates:
+    """
+    🟩 **R** -
+    """
     cdef list _coordinate
     cdef object _logger
     cdef object display
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         self._coordinate = [0.0, 0.0]
         self._logger = _InternalLogger()
 
         self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
     cpdef void set_coordinate(self, object coordinate, object in_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         cdef list converted_coordinate
 
         if isinstance(coordinate, (list, tuple)):
@@ -175,6 +211,9 @@ cdef class DisplayCoordinates:
             self._coordinate = [x, y]
 
     cpdef list get_coordinate(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
         cdef double display_width, display_height, x, y
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:

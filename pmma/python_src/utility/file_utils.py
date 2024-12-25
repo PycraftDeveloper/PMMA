@@ -8,25 +8,43 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class FileUtilityIntermediary:
+    """
+    🟩 **R** -
+    """
     file_matrix = {}
 
 class EventHandler(_FileSystemEventHandler):
+    """
+    🟩 **R** -
+    """
     def __init__(self, file_class):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self.file_class = file_class
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def on_created(self, event):
+        """
+        🟩 **R** -
+        """
         if event.is_directory is False:
             file_path = event.src_path
             file = file_path.split(_Constants.PATH_SEPARATOR)[-1]
@@ -58,6 +76,9 @@ class EventHandler(_FileSystemEventHandler):
                 FileUtilityIntermediary.file_matrix[new_identifier] = self.file_class(new_file)
 
     def on_deleted(self, event):
+        """
+        🟩 **R** -
+        """
         file_path = event.src_path
         local_file_matrix = dict(FileUtilityIntermediary.file_matrix)
         for file in local_file_matrix:
@@ -65,7 +86,13 @@ class EventHandler(_FileSystemEventHandler):
                 del FileUtilityIntermediary.file_matrix[file]
 
 class DirectoryWatcher:
+    """
+    🟩 **R** -
+    """
     def __init__(self, locations, file_class):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         self.observer = _Observer()
@@ -76,36 +103,60 @@ class DirectoryWatcher:
             self.watching[location] = watcher
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def sync_file_matrix(self, file_matrix):
+        """
+        🟩 **R** -
+        """
         new_file_matrix = file_matrix | FileUtilityIntermediary.file_matrix
         FileUtilityIntermediary.file_matrix = new_file_matrix
         return new_file_matrix
 
     def update_all_locations(self, locations):
+        """
+        🟩 **R** -
+        """
         self.observer.stop()
         self.__init__(locations)
         self.observer.start()
 
     def remove_location(self, location):
+        """
+        🟩 **R** -
+        """
         self.observer.unschedule(self.watching[location])
         del self.watching[location]
 
     def add_location(self, location):
+        """
+        🟩 **R** -
+        """
         event_handler = EventHandler()
         watcher = self.observer.schedule(event_handler, location, recursive=True)
         self.watching[location] = watcher
 
     def start(self):
+        """
+        🟩 **R** -
+        """
         self.observer.start()
 
     def stop(self):
+        """
+        🟩 **R** -
+        """
         self.observer.stop()

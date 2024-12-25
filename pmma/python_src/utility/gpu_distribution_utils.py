@@ -8,7 +8,13 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class GPUDistributionManager:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         if not _Constants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
@@ -23,16 +29,25 @@ class GPUDistributionManager:
         self._last_updated = _time__perf_counter()
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def update_gpu_roles(self, initialization_override=False):
+        """
+        🟩 **R** -
+        """
         if initialization_override or self._last_updated - _time__perf_counter() > 30:
             if _Registry.display_initialized:
                 self._render_gpu = []
@@ -69,11 +84,20 @@ class GPUDistributionManager:
                 self._video_gpu.append(self._render_gpu)
 
     def get_render_gpu(self):
+        """
+        🟩 **R** -
+        """
         return self._render_gpu
 
     def get_video_gpu(self, index=0):
+        """
+        🟩 **R** -
+        """
         if len(self._video_gpu) > 0:
             return self._video_gpu[index]
 
     def get_all_video_gpus(self):
+        """
+        🟩 **R** -
+        """
         return self._video_gpu

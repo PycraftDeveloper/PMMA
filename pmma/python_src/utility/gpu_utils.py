@@ -26,22 +26,37 @@ if _get_operating_system() == _Constants.WINDOWS:
     from wmi import WMI as _wmi__WMI
 
 class GPUsIntermediary:
+    """
+    🟩 **R** -
+    """
     def uuid_cleaner(self, uuid):
+        """
+        🟩 **R** -
+        """
         uuid = uuid.strip()
         uuid = uuid.replace("\\", "_")
         return uuid[:66]
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             del self
             if do_garbage_collection:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
@@ -128,17 +143,32 @@ Whilst this doesn't mean that PMMA wont run, it does mean that some \
 mechanics may run slower than expected.")
 
     def identify_gpus(self):
+        """
+        🟩 **R** -
+        """
         for i in range(len(self._gpu_instances)):
             print(f"GPU: {i}, has name: {self._gpu_instances[i].get_name()}")
 
     def get_gpu(self, gpu_index):
+        """
+        🟩 **R** -
+        """
         return self._gpu_instances[gpu_index]
 
     def all_gpus_are_unique(self):
+        """
+        🟩 **R** -
+        """
         return self._all_gpus_are_unique
 
     def get_gpu_count(self):
+        """
+        🟩 **R** -
+        """
         return len(self._gpu_instances)
 
     def get_all_gpus(self):
+        """
+        🟩 **R** -
+        """
         return self._gpu_instances

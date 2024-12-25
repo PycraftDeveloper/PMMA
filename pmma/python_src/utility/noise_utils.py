@@ -3,6 +3,9 @@ from numpy import meshgrid as _numpy__meshgrid
 from numpy import stack as _numpy__stack
 
 def prefill_optimizer(x):
+    """
+    🟩 **R** -
+    """
     x_array = _numpy__linspace(0, x, x)
     x_out_array = x_array
     y_array = _numpy__linspace(0, x, x)
@@ -17,6 +20,9 @@ def prefill_optimizer(x):
     return x_out_array, y_out_array, z_out_array
 
 class NoiseIntermediary:
+    """
+    🟩 **R** -
+    """
     prefill = False
     noise_ranges = {
         "generate_1D_perlin_noise": {"min": 2, "max": -2},

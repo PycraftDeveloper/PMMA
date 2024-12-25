@@ -2,6 +2,9 @@ from moderngl import Context as _moderngl__Context
 from pprofile import Profile as _pprofile__Profile
 
 class Registry:
+    """
+    🟩 **R** -
+    """
     compile_math_functions = True
     running = True
     temporary_files_path = None

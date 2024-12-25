@@ -25,11 +25,16 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class MemoryManagerIntermediary:
+    """
+    🟩 **R** -
+    """
     def __init__(
             self,
             object_lifetime=2.5,
             target_size=_Constants.AUTOMATIC):
-
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
@@ -97,6 +102,9 @@ leaving the target size variable can be dangerous.")
         _os__mkdir(self.memory_management_directory)
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             self.enable_memory_management = False
 
@@ -115,6 +123,9 @@ leaving the target size variable can be dangerous.")
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
@@ -126,7 +137,9 @@ leaving the target size variable can be dangerous.")
             object_creation_time=None,
             recreatable_object=False,
             pre_locked=False):
-
+        """
+        🟩 **R** -
+        """
         if self.enable_memory_management:
             if pre_locked:
                 if recreatable_object is False:
@@ -267,6 +280,9 @@ more than 25% of the assigned memory")
             raise Exception("Memory management is disabled")
 
     def get_object(self, obj_id):
+        """
+        🟩 **R** -
+        """
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
@@ -316,6 +332,9 @@ more than 25% of the assigned memory")
             raise Exception("Memory management is disabled")
 
     def remove_object(self, obj_id):
+        """
+        🟩 **R** -
+        """
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
@@ -343,12 +362,21 @@ more than 25% of the assigned memory")
             raise Exception("Memory management is disabled")
 
     def _manager_thread_organized_data_is_not_empty(self):
+        """
+        🟩 **R** -
+        """
         return self.enable_memory_management is False or (not self.manager_thread_organized_data.is_empty())
 
     def _manager_thread_wait_for_expiry(self):
+        """
+        🟩 **R** -
+        """
         return self.manager_thread_organized_data.peek_next_priority() - _time__perf_counter() <= 0 or self.manager_thread_organized_data_minimum_priority_changed or self.enable_memory_management is False
 
     def object_dictionary_manager(self):
+        """
+        🟩 **R** -
+        """
         try:
             while self.enable_memory_management:
                 if self.total_size / self.target_size > 0.9:

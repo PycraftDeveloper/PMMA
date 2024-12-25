@@ -5,6 +5,9 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import TooManyInstancesError as _TooManyInstancesError
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, logging_instantiation=False):
+    """
+    🟩 **R** -
+    """
     instance._shut_down = False
     instance._attributes = []
 

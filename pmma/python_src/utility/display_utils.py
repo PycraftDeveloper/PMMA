@@ -46,7 +46,13 @@ if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
 class DisplayIntermediary:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
@@ -121,66 +127,99 @@ class DisplayIntermediary:
         self._projection_intermediary = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT]
 
     def get_clear_called_but_skipped(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._clear_called_but_skipped
 
     def set_clear_called_but_skipped(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._clear_called_but_skipped = value
 
     def get_render_calls(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._render_calls
 
     def set_render_calls(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._render_calls = value
 
     def update_render_calls(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._attempted_render_calls += value
 
     def get_attempted_render_calls(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._render_calls
 
     def set_attempted_render_calls(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._render_calls = value
 
     def update_attempted_render_calls(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._attempted_render_calls += value
 
     def get_refresh_optimization_override(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._refresh_optimization_override
 
     def set_refresh_optimization_override(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._refresh_optimization_override = value
 
     def clear(self, color=None, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -228,18 +267,27 @@ class DisplayIntermediary:
         _Registry.context.clear(*self._color_converter.get_color(format=_Constants.SMALL_RGB))
 
     def set_window_in_focus(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._window_in_focus = value
 
     def set_window_minimized(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         self._window_minimized = value
 
     def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
         if self._shut_down is False:
             _pygame__display.quit()
             del self
@@ -247,10 +295,16 @@ class DisplayIntermediary:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def _setup_layers(self, size):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -265,6 +319,9 @@ class DisplayIntermediary:
         self._three_dimension_frame_buffer.create(color_attachments=[self._three_dimension_texture])
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -275,6 +332,9 @@ class DisplayIntermediary:
         return self._two_dimension_frame_buffer
 
     def get_3D_hardware_accelerated_surface(self, set_to_be_used=True):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -285,6 +345,9 @@ class DisplayIntermediary:
         return self._three_dimension_frame_buffer
 
     def _generate_pygame_flags(self, care_about_full_screen=True):
+        """
+        🟩 **R** -
+        """
         flags = _pygame__OPENGL | _pygame__DOUBLEBUF
 
         if self._display_attribute_no_frame:
@@ -308,6 +371,9 @@ class DisplayIntermediary:
             icon=None,
             transparent_display=False,
             centered=True):
+        """
+        🟩 **R** -
+        """
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
@@ -411,11 +477,17 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._gpu_distribution_manager.update_gpu_roles(initialization_override=True)
 
     def set_caption(self, caption=None):
+        """
+        🟩 **R** -
+        """
         if caption is None:
             caption = self._display_attribute_caption
         _pygame__display.set_caption(str(caption))
 
     def set_icon(self, icon=None):
+        """
+        🟩 **R** -
+        """
         if icon is None:
             icon = self._display_attribute_icon
         icon_img = _pygame__image.load(icon)
@@ -423,12 +495,18 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         del icon_img
 
     def get_display_projection(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._orthographic_projection
 
     def on_window_size_changed(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -447,6 +525,9 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
     def hex_color_to_windows_raw_color(self, value):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -455,6 +536,9 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         return color_key
 
     def toggle_full_screen(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -483,30 +567,45 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self.on_window_size_changed()
 
     def get_size(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._current_display_size
 
     def get_frame_time(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return 1/self.get_fps()
 
     def get_height(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._current_display_size[1]
 
     def get_width(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._current_display_size[0]
 
     def get_aspect_ratio(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -518,7 +617,9 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             lower_refresh_rate_when_minimized=True,
             lower_refresh_rate_when_unfocused=True,
             lower_refresh_rate_on_low_battery=True):
-
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
@@ -600,27 +701,42 @@ you refresh the display to ensure optimal performance and support!")
             self._clock.tick(refresh_rate)
 
     def get_clock(self):
+        """
+        🟩 **R** -
+        """
         return self._clock
 
     def close(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         _pygame__quit()
 
     def get_fps(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self._clock.get_fps()
 
     def get_refresh_rate(self):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
         return self.get_fps()
 
     def get_center(self, as_integer=True):
+        """
+        🟩 **R** -
+        """
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return

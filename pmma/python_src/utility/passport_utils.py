@@ -1,4 +1,7 @@
 class PassportIntermediary:
+    """
+    🟩 **R** -
+    """
     name = None
     sub_name = None
     short_description = None

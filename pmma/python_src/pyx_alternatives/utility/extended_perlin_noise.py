@@ -3,31 +3,52 @@ import numpy as np
 import math
 
 def fade(t):
+    """
+    🟩 **R** -
+    """
     return t * t * t * (t * (t * 6 - 15) + 10)
 
 def lerp(t, a, b):
+    """
+    🟩 **R** -
+    """
     return a + t * (b - a)
 
 def grad(hash, x, y=0, z=0):
+    """
+    🟩 **R** -
+    """
     h = hash & 15
     u = x if h < 8 else y
     v = y if h < 4 else (x if h == 12 or h == 14 else z)
     return ((u if h & 1 == 0 else -u) + (v if h & 2 == 0 else -v))
 
 class ExtendedPerlinNoise:
+    """
+    🟩 **R** -
+    """
     def __init__(self, seed, octaves, persistence):
+        """
+        🟩 **R** -
+        """
         self.octaves = octaves
         self.persistence = persistence
         self.permutation = np.empty(512, dtype=np.int32)
         self.init_permutation(seed)
 
     def init_permutation(self, seed):
+        """
+        🟩 **R** -
+        """
         rng = np.random.RandomState(seed)
         perm = rng.permutation(256)
         for i in range(256):
             self.permutation[i] = self.permutation[i + 256] = perm[i]
 
     def perlin(self, x, y=0, z=0):
+        """
+        🟩 **R** -
+        """
         X = int(math.floor(x)) & 255
         Y = int(math.floor(y)) & 255
         Z = int(math.floor(z)) & 255
@@ -57,6 +78,9 @@ class ExtendedPerlinNoise:
                                        grad(self.permutation[BB+1], x-1, y-1, z-1))))
 
     def generate_fbm_1d(self, input_array):
+        """
+        🟩 **R** -
+        """
         length = input_array.shape[0]
         output_array = np.empty(length, dtype=np.float64)
 
@@ -74,6 +98,9 @@ class ExtendedPerlinNoise:
         return np.asarray(output_array)
 
     def generate_fbm_2d(self, input_array):
+        """
+        🟩 **R** -
+        """
         height = input_array.shape[0]
         width = input_array.shape[1]
         output_array = np.empty((height, width), dtype=np.float64)
@@ -95,6 +122,9 @@ class ExtendedPerlinNoise:
         return np.asarray(output_array)
 
     def generate_fbm_3d(self, input_array):
+        """
+        🟩 **R** -
+        """
         depth = input_array.shape[0]
         height = input_array.shape[1]
         width = input_array.shape[2]
