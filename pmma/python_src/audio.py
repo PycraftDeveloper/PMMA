@@ -74,6 +74,12 @@ class Audio:
         self._audio_duration = None
         self._audio_playing_start_time = None
 
+        self._custom_audio_callback_pre_effects = None
+        self._custom_audio_callback_post_effects = None
+
+        self._custom_audio_callback_pre_effects_results = None
+        self._custom_audio_callback_post_effects_results = None
+
     def __del__(self, do_garbage_collection=False):
         """
         🟩 **R** -
@@ -94,6 +100,30 @@ class Audio:
         """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
+
+    def set_custom_audio_callback_function_pre_effects(self, function=None):
+        """
+        🟩 **R** -
+        """
+        self._custom_audio_callback_pre_effects = function
+
+    def set_custom_audio_callback_function_post_effects(self, function=None):
+        """
+        🟩 **R** -
+        """
+        self._custom_audio_callback_post_effects = function
+
+    def get_custom_audio_callback_function_pre_effects_results(self):
+        """
+        🟩 **R** -
+        """
+        return self._custom_audio_callback_pre_effects_results
+
+    def get_custom_audio_callback_function_post_effects_results(self):
+        """
+        🟩 **R** -
+        """
+        return self._custom_audio_callback_post_effects_results
 
     def load_from_file(self, file_path):
         """
@@ -259,6 +289,9 @@ that's already playing. We will therefore ignore your request to prevent unexpec
 
         if self._paused or self._stop_signal or status:
             outdata[:] = _numpy.zeros(outdata.shape)
+            if self._custom_audio_callback_pre_effects is not None:
+                self._custom_audio_callback_pre_effects_results = self._custom_audio_callback_pre_effects(outdata, frames, time, status)
+                self._custom_audio_callback_post_effects_results = self._custom_audio_callback_post_effects(outdata, frames, time, status)
             return
 
         if self._from_moviepy:
@@ -275,6 +308,9 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 else:
                     self._stop_signal = True
                     outdata[:] = _numpy.zeros(outdata.shape)
+                    if self._custom_audio_callback_pre_effects is not None:
+                        self._custom_audio_callback_pre_effects_results = self._custom_audio_callback_pre_effects(outdata, frames, time, status)
+                        self._custom_audio_callback_post_effects_results = self._custom_audio_callback_post_effects(outdata, frames, time, status)
                     return
 
         else:
@@ -291,6 +327,9 @@ that's already playing. We will therefore ignore your request to prevent unexpec
             padding_shape = (frames - len(chunk), chunk.shape[1])
             chunk = _numpy.pad(chunk, ((0, padding_shape[0]), (0, 0)), mode='constant')
 
+        if self._custom_audio_callback_pre_effects is not None:
+            self._custom_audio_callback_pre_effects_results = self._custom_audio_callback_pre_effects(outdata, frames, time, status)
+
         # Apply volume and panning
         chunk = self._apply_volume_and_pan(chunk)
 
@@ -299,6 +338,10 @@ that's already playing. We will therefore ignore your request to prevent unexpec
 
         # Output the processed audio
         outdata[:] = processed_audio
+
+        if self._custom_audio_callback_post_effects is not None:
+            self._custom_audio_callback_post_effects_results = self._custom_audio_callback_post_effects(outdata, frames, time, status)
+
         self._first_run = False
 
     def _apply_volume_and_pan(self, chunk):
