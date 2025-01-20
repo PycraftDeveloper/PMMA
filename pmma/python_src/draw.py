@@ -274,13 +274,10 @@ class Line:
             direction_length = _numpy.linalg.norm(direction)
             direction_normalized = direction / direction_length
 
-            # Calculate perpendicular (normal) vector to the line
-            width = self._display.get_width()
-            height = self._display.get_height()
-            if width < height:
-                width = ((self._width / self._display.get_width()) * self._display.get_aspect_ratio())
-            else:
-                width = ((self._width / self._display.get_height()) / self._display.get_aspect_ratio())
+            x_ndc = 2.0 / self._display.get_width()  # Horizontal pixel size in NDC
+            y_ndc = 2.0 / self._display.get_height()  # Vertical pixel size in NDC
+
+            width = self._width * _numpy.array([x_ndc, y_ndc])
 
             normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
 
