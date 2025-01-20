@@ -19,6 +19,26 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: Audio.set_custom_audio_callback_function_pre_effects() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Audio.set_custom_audio_callback_function_post_effects() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Audio.get_custom_audio_callback_function_pre_effects_results() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Audio.get_custom_audio_callback_function_post_effects_results() -> None
+
+    🟩 **R** -
+    
+
 .. py:method:: Audio.load_from_file() -> None
 
     🟩 **R** -
