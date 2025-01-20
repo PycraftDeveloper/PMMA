@@ -23,7 +23,7 @@ line = pmma.Line()
 line.set_start((10, 10))
 line.set_end((200, 200))
 line.set_color([255, 0, 255])
-line.set_width(1)
+line.set_width(5)
 
 pixel = pmma.Pixel()
 pixel.set_position((100, 100))
