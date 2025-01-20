@@ -34,7 +34,6 @@ _Registry.pygame_launch_message = _buffer.getvalue().strip()
 from pmma.python_src.utility.error_utils import *
 from pmma.python_src.gpu_distribution import *
 from pmma.python_src.number_converter import *
-from pmma.python_src.render_pipeline import *
 from pmma.python_src.data_structures import *
 from pmma.python_src.memory_manager import *
 from pmma.python_src.advthreading import *
@@ -60,7 +59,7 @@ from pmma.python_src.noise import *
 from pmma.python_src.image import *
 from pmma.python_src.audio import *
 from pmma.python_src.video import *
-from pmma.python_src.draw import *
+from pmma.python_src.shapes import *
 from pmma.python_src.file import *
 from pmma.python_src.text import *
 from pmma.python_src.gpu import *
