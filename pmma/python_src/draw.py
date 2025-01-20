@@ -266,42 +266,35 @@ class Line:
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
 
-            if self._width > 1:
-                start_coords = rotated_line_points[:2]  # Start point (x1, y1)
-                end_coords = rotated_line_points[2:]    # End point (x2, y2)
+            start_coords = rotated_line_points[:2]  # Start point (x1, y1)
+            end_coords = rotated_line_points[2:]    # End point (x2, y2)
 
-                # Calculate direction of the line
-                direction = _numpy.array(end_coords) - _numpy.array(start_coords)
-                direction_length = _numpy.linalg.norm(direction)
-                direction_normalized = direction / direction_length
+            # Calculate direction of the line
+            direction = _numpy.array(end_coords) - _numpy.array(start_coords)
+            direction_length = _numpy.linalg.norm(direction)
+            direction_normalized = direction / direction_length
 
-                # Calculate perpendicular (normal) vector to the line
-                width = self._display.get_width()
-                height = self._display.get_height()
-                if width < height:
-                    width = ((self._width / self._display.get_width()) * self._display.get_aspect_ratio())
-                else:
-                    width = ((self._width / self._display.get_height()) / self._display.get_aspect_ratio())
-
-                normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
-
-                # Calculate the vertices of the line as a rectangle
-                v1 = start_coords - normal
-                v2 = start_coords + normal
-                v3 = end_coords - normal
-                v4 = end_coords + normal
-
-                # Create the vertex array for two triangles representing the line
-                vertices = _numpy.array([
-                    *v1, *v2, *v3,  # First triangle
-                    *v3, *v2, *v4   # Second triangle
-                ], dtype='f4')
-
+            # Calculate perpendicular (normal) vector to the line
+            width = self._display.get_width()
+            height = self._display.get_height()
+            if width < height:
+                width = ((self._width / self._display.get_width()) * self._display.get_aspect_ratio())
             else:
-                # Convert vertices to a numpy array (float32 type for ModernGL compatibility)
-                vertices = _numpy.array([
-                    *rotated_line_points
-                ], dtype='f4')  # 'f4' means float32
+                width = ((self._width / self._display.get_height()) / self._display.get_aspect_ratio())
+
+            normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
+
+            # Calculate the vertices of the line as a rectangle
+            v1 = start_coords - normal
+            v2 = start_coords + normal
+            v3 = end_coords - normal
+            v4 = end_coords + normal
+
+            # Create the vertex array for two triangles representing the line
+            vertices = _numpy.array([
+                *v1, *v2, *v3,  # First triangle
+                *v3, *v2, *v4   # Second triangle
+            ], dtype='f4')
 
             if not self._vbo.get_created():
                 self._vbo.create(vertices)
@@ -341,10 +334,7 @@ class Line:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         # Render the line
-        if self._width > 1:
-            self._vao.render(mode=_moderngl.TRIANGLES)
-        else:
-            self._vao.render(mode=_moderngl.LINES)
+        self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
@@ -634,10 +624,7 @@ class RadialPolygon:
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
-        # Draw the polygon using triangle fan (good for convex shapes)
-        mode = _moderngl.TRIANGLE_STRIP
-
-        self._vao.render(mode)
+        self._vao.render(_moderngl.TRIANGLE_STRIP)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
@@ -928,9 +915,7 @@ class Rectangle:
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
-        mode = _moderngl.TRIANGLE_STRIP
-
-        self._vao.render(mode)
+        self._vao.render(_moderngl.TRIANGLE_STRIP)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
@@ -972,6 +957,7 @@ class Arc:
         self._rotation.set_angle(0)
         self._width = None
         self._position_changed = True
+        self._initial_point_count = None
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -1304,6 +1290,7 @@ class Ellipse:
         self._math = _Math()
         self._width = None
         self._position_changed = True
+        self._initial_point_count = None
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -1560,10 +1547,7 @@ class Ellipse:
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
-        # Draw the polygon using triangle fan (good for convex shapes)
-        mode = _moderngl.TRIANGLE_STRIP
-
-        self._vao.render(mode)
+        self._vao.render(_moderngl.TRIANGLE_STRIP)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
@@ -1842,9 +1826,7 @@ class Polygon:
         if self._closed is False and self._width is None:
             self._width = 1 # idk about this bit yet
 
-        mode = _moderngl.TRIANGLE_STRIP
-
-        self._vao.render(mode)
+        self._vao.render(_moderngl.TRIANGLE_STRIP)
 
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
