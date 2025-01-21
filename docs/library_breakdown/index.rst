@@ -24,20 +24,19 @@ The full breakdown of what everything does!
     text.rst
     surface.rst
     __init__.rst
-    draw.rst
     audio.rst
     file.rst
     constants.rst
     transitions.rst
     recorder.rst
     advthreading.rst
-    render_pipeline.rst
     opengl.rst
     general.rst
     backpack.rst
     executor.rst
     gpu.rst
     video.rst
+    shapes.rst
     display.rst
     noise.rst
     quickstart.rst
