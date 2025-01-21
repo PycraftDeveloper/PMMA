@@ -131,6 +131,10 @@ def init(
             object_lifetime=memory_management_max_object_lifetime,
             target_size=memory_management_max_size)
 
+    if Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
+        _ShapeGeometryManager()
+
     logger = _InternalLogger()
 
     logger.log_information("Thank you for using PMMA! Please note that PMMA \

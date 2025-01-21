@@ -10,10 +10,16 @@ from pmma.python_src.utility.display_utils import DisplayIntermediary as _Displa
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class ShapeTemplate: # add vertex manager and changes to rendering!
     def __init__(self):
         _initialize(self)
+
+        if not _Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT)
+            from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
+            _ShapeGeometryManager()
 
         self._logger = _InternalLogger()
 
@@ -30,6 +36,8 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         self._resized_event = _WindowResized_EVENT()
 
         self._geometry_created = False
+
+        _Registry.shape_count += 1
 
     def set_color(self, color, format=_Constants.RGB):
         """
@@ -102,6 +110,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         """
         if self._shut_down is False:
             del self
+            _Registry.shape_count -= 1
             if do_garbage_collection:
                 _gc__collect()
 

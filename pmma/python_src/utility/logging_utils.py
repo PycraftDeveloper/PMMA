@@ -56,7 +56,7 @@ class LoggerIntermediary:
 
         self._log_to_file_thread = _threading__Thread(target=self._file_logger_thread)
         self._log_to_file_thread.daemon = True
-        self._log_to_file_thread.name = "LoggingIntermediary:Log_To_Files_Thread"
+        self._log_to_file_thread.name = "LoggingIntermediary: Log_To_Files_Thread"
 
         self._project_log_folder = None
 

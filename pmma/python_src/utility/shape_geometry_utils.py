@@ -1,4 +1,8 @@
+from threading import Lock as _threading__Lock
+from threading import Thread as _threading__Thread
+
 from waiting import wait as _waiting__wait
+from psutil import virtual_memory as _psutil__virtual_memory
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -15,111 +19,227 @@ class ShapeGeometryManager:
         self.arc_geometry = {}
         self.ellipse_geometry = {}
         self.polygon_geometry = {}
+
         self.pixel_geometry = {"vertices": None, "references": 0}
 
-        self._display_size = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_size()
+        self.line_lock = _threading__Lock()
+        self.radial_polygon_lock = _threading__Lock()
+        self.rectangle_lock = _threading__Lock()
+        self.arc_lock = _threading__Lock()
+        self.ellipse_lock = _threading__Lock()
+        self.polygon_lock = _threading__Lock()
+
+        self.display_size = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_size()
+
+        try:
+            free_memory = _psutil__virtual_memory().free
+
+            self.max_size = free_memory / 10
+        except:
+            self.max_size = 1_000_000_000 # default 1GB max size
+
+        self.manager_thread = _threading__Thread(target=self.shape_geometry_manager)
+        self.manager_thread.daemon = True
+        self.manager_thread.name = "ShapeGeometryManager: Shape_Geometry_Manager_Thread"
+        self.manager_thread.start()
+
+    def get_size_of_dictionary(self, dictionary):
+        size = 0
+        for key in dictionary:
+            size += dictionary[key]["vertices"].nbytes
+
+    def get_total_size(self):
+        with self.line_lock:
+            line_geometry_size = self.get_size_of_dictionary(self.line_geometry)
+        with self.radial_polygon_lock:
+            radial_polygon_geometry_size = self.get_size_of_dictionary(self.radial_polygon_geometry)
+        with self.rectangle_lock:
+            rectangle_geometry_size = self.get_size_of_dictionary(self.rectangle_geometry)
+        with self.arc_lock:
+            arc_geometry_size = self.get_size_of_dictionary(self.arc_geometry)
+        with self.ellipse_lock:
+            ellipse_geometry_size = self.get_size_of_dictionary(self.ellipse_geometry)
+        with self.polygon_lock:
+            polygon_geometry_size = self.get_size_of_dictionary(self.polygon_geometry)
+
+        return line_geometry_size+radial_polygon_geometry_size+rectangle_geometry_size+arc_geometry_size+ellipse_geometry_size+polygon_geometry_size
+
+    def shape_manager_thread_wait_for_data(self):
+        return self.line_geometry != {} or self.radial_polygon_geometry != {} or self.rectangle_geometry != {} or self.arc_geometry != {} or self.ellipse_geometry != {} or self.polygon_geometry != {}
+
+    def clean_single_references(self, lock, dictionary):
+        with lock:
+            garbage_keys = []
+            for key in dictionary:
+                if dictionary[key]["references"] <= 1:
+                    garbage_keys.append(key)
+
+            for key in garbage_keys:
+                del dictionary[key]
+
+    def stricter_clean(self, lock, dictionary):
+        with lock:
+            data_efficiency_array = []
+            for key in dictionary:
+                data_efficiency_array.append([key, dictionary[key]["references"]])
+
+            data_length = len(data_efficiency_array)
+            trim_size = int(data_length/10)
+            data_efficiency_array.sort(key=lambda x: x[1])
+            for i in range(trim_size):
+                del dictionary[data_efficiency_array[i][0]]
+
+    def shape_geometry_manager(self):
+        while True:
+            _waiting__wait(self.shape_manager_thread_wait_for_data)
+
+            # clean single references
+            if self.get_total_size() > self.max_size:
+                self.clean_single_references(self.line_lock, self.line_geometry)
+                self.clean_single_references(self.radial_polygon_lock, self.radial_polygon_geometry)
+                self.clean_single_references(self.rectangle_lock, self.rectangle_geometry)
+                self.clean_single_references(self.arc_lock, self.arc_geometry)
+                self.clean_single_references(self.ellipse_lock, self.ellipse_geometry)
+                self.clean_single_references(self.polygon_lock, self.polygon_geometry)
+
+            # clean larger components if necessary
+            while True:
+                total_size = self.get_total_size()
+                if total_size < self.max_size:
+                    break
+
+                self.stricter_clean(self.line_lock, self.line_geometry)
+                self.stricter_clean(self.radial_polygon_lock, self.radial_polygon_geometry)
+                self.stricter_clean(self.rectangle_lock, self.rectangle_geometry)
+                self.stricter_clean(self.arc_lock, self.arc_geometry)
+                self.stricter_clean(self.ellipse_lock, self.ellipse_geometry)
+                self.stricter_clean(self.polygon_lock, self.polygon_geometry)
 
     def add_line(self, identifier, data):
-        self.line_geometry[identifier] = {"vertices": data, "references": 1}
+        with self.line_lock:
+            self.line_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_line_exists(self, identifier):
-        return identifier in self.line_geometry
+        with self.line_lock:
+            return identifier in self.line_geometry
 
     def get_line(self, identifier):
-        self.line_geometry[identifier]["references"] += 1
-        return self.line_geometry[identifier]["vertices"]
+        with self.line_lock:
+            self.line_geometry[identifier]["references"] += 1
+            return self.line_geometry[identifier]["vertices"]
 
     def remove_line(self, identifier):
-        if self.check_if_line_exists(identifier):
-            self.line_geometry[identifier]["references"] -= 1
-            if self.pixel_geometry["references"] <= 0:
-                self.pixel_geometry["references"] = 0
-                self.pixel_geometry["vertices"] = None
+        with self.line_lock:
+            if self.check_if_line_exists(identifier):
+                self.line_geometry[identifier]["references"] -= 1
+                if self.pixel_geometry["references"] <= 0:
+                    self.pixel_geometry["references"] = 0
+                    self.pixel_geometry["vertices"] = None
 
     def add_radial_polygon(self, identifier, data):
-        self.radial_polygon_geometry[identifier] = {"vertices": data, "references": 1}
+        with self.radial_polygon_lock:
+            self.radial_polygon_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_radial_polygon_exists(self, identifier):
-        return identifier in self.radial_polygon_geometry
+        with self.radial_polygon_lock:
+            return identifier in self.radial_polygon_geometry
 
     def get_radial_polygon(self, identifier):
-        self.radial_polygon_geometry[identifier]["references"] += 1
-        return self.radial_polygon_geometry[identifier]["vertices"]
+        with self.radial_polygon_lock:
+            self.radial_polygon_geometry[identifier]["references"] += 1
+            return self.radial_polygon_geometry[identifier]["vertices"]
 
     def remove_radial_polygon(self, identifier):
-        if self.check_if_radial_polygon_exists(identifier):
-            self.radial_polygon_geometry[identifier]["references"] -= 1
-            if self.pixel_geometry["references"] <= 0:
-                self.pixel_geometry["references"] = 0
-                self.pixel_geometry["vertices"] = None
+        with self.radial_polygon_lock:
+            if self.check_if_radial_polygon_exists(identifier):
+                self.radial_polygon_geometry[identifier]["references"] -= 1
+                if self.pixel_geometry["references"] <= 0:
+                    self.pixel_geometry["references"] = 0
+                    self.pixel_geometry["vertices"] = None
 
     def add_rectangle(self, identifier, data):
-        self.rectangle_geometry[identifier] = {"vertices": data, "references": 1}
+        with self.rectangle_lock:
+            self.rectangle_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_rectangle_exists(self, identifier):
-        return identifier in self.rectangle_geometry
+        with self.rectangle_lock:
+            return identifier in self.rectangle_geometry
 
     def get_rectangle(self, identifier):
-        self.rectangle_geometry[identifier]["references"] += 1
-        return self.rectangle_geometry[identifier]["vertices"]
+        with self.rectangle_lock:
+            self.rectangle_geometry[identifier]["references"] += 1
+            return self.rectangle_geometry[identifier]["vertices"]
 
     def remove_rectangle(self, identifier):
-        if self.check_if_rectangle_exists(identifier):
-            self.rectangle_geometry[identifier]["references"] -= 1
-            if self.pixel_geometry["references"] <= 0:
-                self.pixel_geometry["references"] = 0
-                self.pixel_geometry["vertices"] = None
+        with self.rectangle_lock:
+            if self.check_if_rectangle_exists(identifier):
+                self.rectangle_geometry[identifier]["references"] -= 1
+                if self.pixel_geometry["references"] <= 0:
+                    self.pixel_geometry["references"] = 0
+                    self.pixel_geometry["vertices"] = None
 
     def add_arc(self, identifier, data):
-        self.arc_geometry[identifier] = {"vertices": data, "references": 1}
+        with self.arc_lock:
+            self.arc_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_arc_exists(self, identifier):
-        return identifier in self.arc_geometry
+        with self.arc_lock:
+            return identifier in self.arc_geometry
 
     def get_arc(self, identifier):
-        self.arc_geometry[identifier]["references"] += 1
-        return self.arc_geometry[identifier]["vertices"]
+        with self.arc_lock:
+            self.arc_geometry[identifier]["references"] += 1
+            return self.arc_geometry[identifier]["vertices"]
 
     def remove_arc(self, identifier):
-        if self.check_if_arc_exists(identifier):
-            self.arc_geometry[identifier]["references"] -= 1
-            if self.pixel_geometry["references"] <= 0:
-                self.pixel_geometry["references"] = 0
-                self.pixel_geometry["vertices"] = None
+        with self.arc_lock:
+            if self.check_if_arc_exists(identifier):
+                self.arc_geometry[identifier]["references"] -= 1
+                if self.pixel_geometry["references"] <= 0:
+                    self.pixel_geometry["references"] = 0
+                    self.pixel_geometry["vertices"] = None
 
     def add_ellipse(self, identifier, data):
-        self.ellipse_geometry[identifier] = {"vertices": data, "references": 1}
+        with self.ellipse_lock:
+            self.ellipse_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_ellipse_exists(self, identifier):
-        return identifier in self.ellipse_geometry
+        with self.ellipse_lock:
+            return identifier in self.ellipse_geometry
 
     def get_ellipse(self, identifier):
-        self.ellipse_geometry[identifier]["references"] += 1
-        return self.ellipse_geometry[identifier]["vertices"]
+        with self.ellipse_lock:
+            self.ellipse_geometry[identifier]["references"] += 1
+            return self.ellipse_geometry[identifier]["vertices"]
 
     def remove_ellipse(self, identifier):
-        if self.check_if_ellipse_exists(identifier):
-            self.ellipse_geometry[identifier]["references"] -= 1
-            if self.pixel_geometry["references"] <= 0:
-                self.pixel_geometry["references"] = 0
-                self.pixel_geometry["vertices"] = None
+        with self.ellipse_lock:
+            if self.check_if_ellipse_exists(identifier):
+                self.ellipse_geometry[identifier]["references"] -= 1
+                if self.pixel_geometry["references"] <= 0:
+                    self.pixel_geometry["references"] = 0
+                    self.pixel_geometry["vertices"] = None
 
     def add_polygon(self, identifier, data):
-        self.polygon_geometry[identifier] = {"vertices": data, "references": 1}
+        with self.polygon_lock:
+            self.polygon_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_polygon_exists(self, identifier):
-        return identifier in self.polygon_geometry
+        with self.polygon_lock:
+            return identifier in self.polygon_geometry
 
     def get_polygon(self, identifier):
-        self.polygon_geometry[identifier]["references"] += 1
-        return self.polygon_geometry[identifier]["vertices"]
+        with self.polygon_lock:
+            self.polygon_geometry[identifier]["references"] += 1
+            return self.polygon_geometry[identifier]["vertices"]
 
     def remove_polygon(self, identifier):
-        if self.check_if_polygon_exists(identifier):
-            self.polygon_geometry[identifier]["references"] -= 1
-            if self.pixel_geometry["references"] <= 0:
-                self.pixel_geometry["references"] = 0
-                self.pixel_geometry["vertices"] = None
+        with self.polygon_lock:
+            if self.check_if_polygon_exists(identifier):
+                self.polygon_geometry[identifier]["references"] -= 1
+                if self.pixel_geometry["references"] <= 0:
+                    self.pixel_geometry["references"] = 0
+                    self.pixel_geometry["vertices"] = None
 
     def add_pixel(self, identifier, data):
         self.pixel_geometry[identifier] = {"vertices": data, "references": 1}
