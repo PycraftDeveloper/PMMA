@@ -87,8 +87,6 @@ class Constants:
     WMI = "wmi"
     PYADL = "pyadl"
 
-    RENDER_PIPELINE_ABLE = "usable in render pipeline"
-
     LIGHT = "light"
     DARK = "dark"
 
@@ -153,6 +151,7 @@ class Constants:
     GPU_DISTRIBUTION_MANAGER_OBJECT = "gpu distribution manager"
     GPU_DISTRIBUTION_OBJECT = "gpu distribution"
     PROJECTION_INTERMEDIARY_OBJECT = "projection intermediary"
+    SHAPE_GEOMETRY_MANAGER_OBJECT = "shape geometry manager"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
@@ -401,6 +400,7 @@ class Constants:
         GPU_DISTRIBUTION_MANAGER_OBJECT,
         GPU_DISTRIBUTION_OBJECT,
         PROJECTION_INTERMEDIARY_OBJECT,
+        SHAPE_GEOMETRY_MANAGER_OBJECT,
 
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,
