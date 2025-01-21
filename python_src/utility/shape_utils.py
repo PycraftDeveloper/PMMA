@@ -1,18 +1,33 @@
 from gc import collect as _gc__collect
 
+import pygame as _pygame
+
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
+from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 
+from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
-class ShapeTemplate: # copied interface from ColorConverter. Now integrate into this shapes interface. Then remove color interface from shapes! Then continue to copy duplicated attributes
-    # before adding vertex manager and changes to rendering!
+class ShapeTemplate: # add vertex manager and changes to rendering!
     def __init__(self):
         _initialize(self)
+
+        self._logger = _InternalLogger()
+
+        if _Registry.displayed_pygame_start_message is False:
+            _Registry.displayed_pygame_start_message = True
+            self._logger.log_information(_Registry.pygame_launch_message)
+            _pygame.init()
 
         self._color_changed = True
         self._fill_color_manager = _ColorConverter()
         self._color = None
+        self._display: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+
+        self._resized_event = _WindowResized_EVENT()
 
     def set_color(self, color, format=_Constants.RGB):
         """
@@ -43,9 +58,6 @@ class ShapeTemplate: # copied interface from ColorConverter. Now integrate into 
     def get_color(self, format):
         if self._fill_color_manager.get_color_set():
             return self._fill_color_manager.get_color(format=format)
-
-    def get_color_format(self):
-        return self._fill_color_manager.get_color_format()
 
     def generate_random_color(
             self,

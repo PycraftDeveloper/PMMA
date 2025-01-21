@@ -2,7 +2,6 @@ import math as _math
 import time as _time
 from gc import collect as _gc__collect
 
-import pygame as _pygame
 import moderngl as _moderngl
 import numpy as _numpy
 
@@ -12,15 +11,12 @@ from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import DisplayCoordinatesConverter as _DisplayCoordinatesConverter
 from pmma.python_src.number_converter import DisplayScalarConverter as _DisplayScalarConverter
-from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.advmath import Math as _Math
-from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.error_utils import ShapeRadiusNotSpecifiedError as _ShapeRadiusNotSpecifiedError
 from pmma.python_src.utility.shape_utils import ShapeTemplate as _ShapeTemplate
 
@@ -36,19 +32,9 @@ class Line(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
         self._start = _DisplayCoordinatesConverter()
         self._end = _DisplayCoordinatesConverter()
         self._width = 1
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_line"))
@@ -57,8 +43,6 @@ class Line(_ShapeTemplate):
         self._vao = _VertexArrayObject()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
-
-        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -309,17 +293,7 @@ class RadialPolygon(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
         self._point_count = None
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _DisplayScalarConverter()
         self._inner_radius = _DisplayScalarConverter()
         self._center = _DisplayCoordinatesConverter()
@@ -334,8 +308,6 @@ class RadialPolygon(_ShapeTemplate):
         self._rotation.set_angle(0)
         self._position_changed = True
         self._initial_point_count = None
-
-        self._resized_event = _WindowResized_EVENT()
 
     def _create_shape(self):
         """
@@ -559,16 +531,6 @@ class Rectangle(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
         self._y_size = _DisplayScalarConverter()
@@ -583,8 +545,6 @@ class Rectangle(_ShapeTemplate):
         self._vao = _VertexArrayObject()
         self._width = None
         self._position_changed = True
-
-        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -810,16 +770,6 @@ class Arc(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _DisplayScalarConverter()
         self._inner_radius = _DisplayScalarConverter()
         self._center = _DisplayCoordinatesConverter()
@@ -836,8 +786,6 @@ class Arc(_ShapeTemplate):
         self._width = None
         self._position_changed = True
         self._initial_point_count = None
-
-        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -1101,16 +1049,6 @@ class Ellipse(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
         self._outer_x_size = _DisplayScalarConverter()
         self._outer_y_size = _DisplayScalarConverter()
@@ -1129,8 +1067,6 @@ class Ellipse(_ShapeTemplate):
         self._width = None
         self._position_changed = True
         self._initial_point_count = None
-
-        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -1362,16 +1298,6 @@ class Polygon(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._points = []
         self._closed = True
         self._curved = False
@@ -1386,8 +1312,6 @@ class Polygon(_ShapeTemplate):
         self._math = _Math()
         self._width = None
         self._converted_inner_points = []
-
-        self._resized_event = _WindowResized_EVENT()
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -1600,16 +1524,6 @@ class Pixel(_ShapeTemplate):
 
         _initialize(self)
 
-        self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
-
-        self._logger = _InternalLogger()
-
-        if _Registry.displayed_pygame_start_message is False:
-            _Registry.displayed_pygame_start_message = True
-            self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame.init()
-
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
@@ -1618,8 +1532,6 @@ class Pixel(_ShapeTemplate):
         self._vao = _VertexArrayObject()
         self._created_shape = False
         self._position_changed = True
-
-        self._resized_event = _WindowResized_EVENT()
 
     def _create_shape(self):
         """

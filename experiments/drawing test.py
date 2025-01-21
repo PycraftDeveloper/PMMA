@@ -65,6 +65,10 @@ polygon.set_width(10)
 ## dont forget about shape filled with 0 width or left as none!!!
 s = time.perf_counter()
 while pmma.Backpack.running:
+    s = time.perf_counter()
+    radial_polygon.generate_random_color()
+    e = time.perf_counter()
+    print(1/(e-s))
     start = time.perf_counter()
     events.handle()
 
