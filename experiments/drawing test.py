@@ -65,10 +65,10 @@ polygon.set_width(10)
 ## dont forget about shape filled with 0 width or left as none!!!
 s = time.perf_counter()
 while pmma.Backpack.running:
-    s = time.perf_counter()
+    a = time.perf_counter()
     radial_polygon.generate_random_color()
-    e = time.perf_counter()
-    print(1/(e-s))
+    b = time.perf_counter()
+    #print(1/(b-a))
     start = time.perf_counter()
     events.handle()
 
@@ -89,7 +89,6 @@ while pmma.Backpack.running:
 
     #ellipse.set_rotation((time.perf_counter()-s))
     #arc.set_rotation((time.perf_counter()-s)*50)
-
     pmma.compute()
     end = time.perf_counter()
     display.refresh(refresh_rate=60)

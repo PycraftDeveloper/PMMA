@@ -422,11 +422,6 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape
         new_iteration_id = _random__random()
     _Registry.iteration_id = new_iteration_id
 
-    number_of_render_updates = _Registry.number_of_render_updates
-    total_time_spent_drawing = _Registry.total_time_spent_drawing
-    _Registry.number_of_render_updates = 0
-    _Registry.total_time_spent_drawing = 0
-
     if _PassportIntermediary.passport_changed:
         _PassportIntermediary.passport_changed = False
         register_application()
@@ -437,30 +432,6 @@ created an events object. Handling events for your PMMA display is important as 
 it tells the operating system that the application is still running and allows the \
 user to interact with your application. Failure to do this can lead to an unresponsive \
 window which can cause unexpected behavior.")
-
-    if number_of_render_updates > 600 and _Registry.application_average_frame_rate['Samples'] > 3:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance might soon be degraded by \
-the time spent handling draw calls. Consider switching to the more optimized Render \
-Pipeline through PMMA to avoid any potential slowdowns.")
-
-    if total_time_spent_drawing != 0:
-        if 1/(total_time_spent_drawing) < _Registry.refresh_rate * 0.9 and _Registry.application_average_frame_rate['Samples'] > 3:
-            time_formatter_instance = _TimeFormatter()
-            time_formatter_instance.set_from_second(total_time_spent_drawing)
-
-            drawing_slow_down_message_valid_to_display = True
-
-            if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
-                    drawing_slow_down_message_valid_to_display = False
-
-            if drawing_slow_down_message_valid_to_display:
-                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Your application performance is limited by the total \
-number of draw calls being made. The program spent {} on \
-{} total render calls, limiting your maximum refresh rate to: \
-{} Hz. Switching to the more optimized Render Pipeline will \
-likely improve application performance. Note that this message will only appear once, but \
-may reflect any degraded performance beyond this point.", variables=[time_formatter_instance.get_in_sentence_format(), number_of_render_updates, 1/(total_time_spent_drawing)])
 
     if _Registry.display_initialized:
         if (_Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine and

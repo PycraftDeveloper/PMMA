@@ -39,6 +39,8 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
 
         _Registry.shape_count += 1
 
+        self.old_shape_identifier = None
+
     def set_color(self, color, format=_Constants.RGB):
         """
         🟩 **R** -
