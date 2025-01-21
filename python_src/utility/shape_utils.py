@@ -29,6 +29,8 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
 
         self._resized_event = _WindowResized_EVENT()
 
+        self._geometry_created = False
+
     def set_color(self, color, format=_Constants.RGB):
         """
         🟩 **R** -

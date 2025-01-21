@@ -620,7 +620,7 @@ def create_cache_id(*args):
     cache_id = ""
     for arg in args:
         if callable(arg):
-            cache_id += id(arg)
+            cache_id += str(id(arg))
         else:
             cache_id += str(arg)
     return cache_id

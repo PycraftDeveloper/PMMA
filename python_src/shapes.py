@@ -35,7 +35,6 @@ class Line(_ShapeTemplate):
         self._start = _DisplayCoordinatesConverter()
         self._end = _DisplayCoordinatesConverter()
         self._width = 1
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_line"))
         self._program.create()
@@ -67,7 +66,7 @@ class Line(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -96,7 +95,7 @@ class Line(_ShapeTemplate):
                 if start_coords[0] == original_coordinates[0] and start_coords[1] == original_coordinates[1]:
                     return
 
-        self._vertices_changed = True
+        self._geometry_created = False
         if start_input_type != _DisplayCoordinatesConverter:
             self._start.set_coordinates(start, format=start_format)
         else:
@@ -125,7 +124,7 @@ class Line(_ShapeTemplate):
                 if end_coords[0] == original_coordinates[0] and end_coords[1] == original_coordinates[1]:
                     return
 
-        self._vertices_changed = True
+        self._geometry_created = False
         if end_input_type != _DisplayCoordinatesConverter:
             self._end.set_coordinates(end, format=end_format)
         else:
@@ -208,7 +207,7 @@ class Line(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        if self._vertices_changed:
+        if self._geometry_created is False:
             _Registry.number_of_render_updates += 1
             rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
 
@@ -244,7 +243,7 @@ class Line(_ShapeTemplate):
             else:
                 self._vbo.update(vertices)
 
-            self._vertices_changed = False  # Reset the flag
+            self._geometry_created = True
 
         if self._color_changed:
             self._program.set_shader_variable('color', self._color)
@@ -259,9 +258,9 @@ class Line(_ShapeTemplate):
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._geometry_created = False
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._geometry_created is False:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
