@@ -83,7 +83,7 @@ leaving the target size variable can be dangerous.")
 
         self.manager_thread = _threading__Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
-        self.manager_thread.name = "MemoryManagerIntermediary:Object_Memory_Management_Thread"
+        self.manager_thread.name = "MemoryManagerIntermediary: Object_Memory_Management_Thread"
         self.manager_thread.start()
         self.max_obj_creation_time = float("-inf")
         self.max_obj_size = 0

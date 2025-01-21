@@ -54,3 +54,4 @@ class Registry:
     version = "4.2.0"
     last_checked_for_updates = None
     update_available = None
+    shape_count = 0

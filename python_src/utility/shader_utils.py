@@ -30,7 +30,7 @@ class LoadedShaderReferenceManager:
 
         self._reference_manager_thread = _threading__Thread(target=self.reference_manager)
         self._reference_manager_thread.daemon = True
-        self._reference_manager_thread.name = "LoadedShaderReferenceManager:Reference_Checker_Thread"
+        self._reference_manager_thread.name = "LoadedShaderReferenceManager: Reference_Checker_Thread"
 
         self._enable_reference_checking = True
         self._shader_intermediary = ShaderIntermediary
