@@ -297,7 +297,6 @@ class RadialPolygon(_ShapeTemplate):
         self._inner_radius = _DisplayScalarConverter()
         self._center = _DisplayCoordinatesConverter()
         self._width = None
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_radial_polygon"))
         self._program.create()
@@ -394,7 +393,7 @@ class RadialPolygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -411,7 +410,7 @@ class RadialPolygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(value) != _DisplayScalarConverter():
             self._radius.set_point(value, format=format)
 
@@ -426,7 +425,7 @@ class RadialPolygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         self._point_count = point_count
 
     def get_point_count(self):
@@ -487,9 +486,9 @@ class RadialPolygon(_ShapeTemplate):
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._geometry_created = False
 
-        if self._color_changed or self._vertices_changed or self._position_changed:
+        if self._color_changed or self._geometry_created is False or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -497,9 +496,9 @@ class RadialPolygon(_ShapeTemplate):
 
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
-        if self._vertices_changed:
+        if self._geometry_created is False:
             self._create_shape()
-            self._vertices_changed = False
+            self._geometry_created = True
 
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
@@ -536,7 +535,6 @@ class Rectangle(_ShapeTemplate):
         self._inner_radius = _DisplayScalarConverter()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_rectangle"))
         self._program.create()
@@ -582,7 +580,7 @@ class Rectangle(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -628,7 +626,7 @@ class Rectangle(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(size[0]) != _DisplayScalarConverter:
             self._x_size.set_point(size[0], format=size_format)
         else:
@@ -661,7 +659,7 @@ class Rectangle(_ShapeTemplate):
         """
         🟩 **R** - Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
         """
-        if self._vertices_changed:
+        if self._geometry_created is False:
             if self._position.get_coordinate_set() is False or self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
                 return None
 
@@ -713,7 +711,7 @@ class Rectangle(_ShapeTemplate):
             # Rotate each vertex around the center
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
 
-            self._vertices_changed = False  # Reset the flag
+            self._geometry_created = True  # Reset the flag
 
             if self._vbo.get_created() is False:
                 self._vbo.create(rotated_vertices)
@@ -733,9 +731,9 @@ class Rectangle(_ShapeTemplate):
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._geometry_created = False
 
-        if self._color_changed or self._vertices_changed or self._position_changed:
+        if self._color_changed or self._geometry_created is False or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -774,7 +772,6 @@ class Arc(_ShapeTemplate):
         self._center = _DisplayCoordinatesConverter()
         self._start_angle = _AngleConverter()
         self._stop_angle = _AngleConverter()
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_arc"))
         self._program.create()
@@ -825,7 +822,7 @@ class Arc(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -842,7 +839,7 @@ class Arc(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(start_angle) != _AngleConverter:
             self._start_angle.set_angle(start_angle, format=angle_format)
 
@@ -857,7 +854,7 @@ class Arc(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(stop_angle) != _AngleConverter:
             self._stop_angle.set_angle(stop_angle, format=angle_format)
 
@@ -901,7 +898,7 @@ class Arc(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(value) != _DisplayScalarConverter():
             self._radius.set_point(value, format=format)
 
@@ -927,7 +924,7 @@ class Arc(_ShapeTemplate):
         """
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, radius, and width.
         """
-        if self._vertices_changed:
+        if self._geometry_created is False:
             if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
@@ -984,7 +981,7 @@ class Arc(_ShapeTemplate):
                 for v in vertices
             ], dtype='f4')
 
-            self._vertices_changed = False  # Reset the flag
+            self._geometry_created = True  # Reset the flag
 
             # Update VBO
             if self._initial_point_count == None or self._initial_point_count != point_count:
@@ -1010,9 +1007,9 @@ class Arc(_ShapeTemplate):
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._geometry_created = False
 
-        if self._color_changed or self._vertices_changed or self._position_changed:
+        if self._color_changed or self._geometry_created is False or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -1054,7 +1051,6 @@ class Ellipse(_ShapeTemplate):
         self._rotation = _AngleConverter()
         self._inner_x_size = _DisplayScalarConverter()
         self._inner_y_size = _DisplayScalarConverter()
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_ellipse"))
         self._program.create()
@@ -1104,7 +1100,7 @@ class Ellipse(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -1150,7 +1146,7 @@ class Ellipse(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(size[0]) != _AngleConverter():
             self._outer_x_size.set_point(size[0], format=size_format)
         else:
@@ -1183,7 +1179,7 @@ class Ellipse(_ShapeTemplate):
         """
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
-        if self._vertices_changed:
+        if self._geometry_created is False:
             if self._position.get_coordinate_set() is False or self._outer_x_size.get_point_set() is False or self._outer_y_size.get_point_set() is False:
                 return None  # Cannot proceed without these parameters
 
@@ -1235,7 +1231,7 @@ class Ellipse(_ShapeTemplate):
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            self._vertices_changed = False  # Reset the flag
+            self._geometry_created = True  # Reset the flag
 
             if self._initial_point_count == None or self._initial_point_count != num_points:
                 self._initial_point_count = num_points
@@ -1260,9 +1256,9 @@ class Ellipse(_ShapeTemplate):
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._geometry_created = False
 
-        if self._color_changed or self._vertices_changed or self._position_changed:
+        if self._color_changed or self._geometry_created is False or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -1300,7 +1296,6 @@ class Polygon(_ShapeTemplate):
         self._points = []
         self._closed = True
         self._curved = False
-        self._vertices_changed = True  # Mark vertices as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_polygon"))
         self._program.create()
@@ -1335,7 +1330,7 @@ class Polygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         if type(rotation) != _AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
@@ -1376,7 +1371,7 @@ class Polygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        self._vertices_changed = True
+        self._geometry_created = False
         self._points = []
         for point in points:
             if type(point) != _DisplayCoordinatesConverter:
@@ -1425,7 +1420,7 @@ class Polygon(_ShapeTemplate):
         """
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
-        if self._vertices_changed:
+        if self._geometry_created is False:
             if not self._points:
                 return None  # No points to form the polygon
 
@@ -1466,7 +1461,7 @@ class Polygon(_ShapeTemplate):
                 extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
                 rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
 
-            self._vertices_changed = False  # Reset the flag
+            self._geometry_created = True  # Reset the flag
 
             if self._vbo.get_created() is False:
                 self._vbo.create(rotated_vertices)
@@ -1486,9 +1481,9 @@ class Polygon(_ShapeTemplate):
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
-            self._vertices_changed = True
+            self._geometry_created = False
 
-        if self._color_changed or self._vertices_changed:
+        if self._color_changed or self._geometry_created is False:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -1529,7 +1524,6 @@ class Pixel(_ShapeTemplate):
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
-        self._created_shape = False
         self._position_changed = True
 
     def _create_shape(self):
@@ -1632,9 +1626,9 @@ once to improve performance, but will continue to have an effect.")
 
         self._display.get_2D_hardware_accelerated_surface()
 
-        if self._created_shape is False:
+        if self._geometry_created is False:
             self._create_shape()
-            self._created_shape = True
+            self._geometry_created = True
 
         if self._position_changed:
             offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
