@@ -22,14 +22,11 @@ class Registry:
     display_initialized = False
     context: "_moderngl__Context" = None
     power_saving_mode = False
-    number_of_render_updates = 0
-    total_time_spent_drawing = 0
     pmma_initialized = False
     pygame_launch_message = ""
     in_game_loop = False
     application_start_time = None
     application_finished_loading_time = None
-    application_average_frame_rate = {"Samples": 0, "Mean": 0}
     perlin_noise_prefill_single_samples = 0
     perlin_noise_prefill_array_samples = 0
     window_context = None

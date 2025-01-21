@@ -19,6 +19,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.error_utils import ShapeRadiusNotSpecifiedError as _ShapeRadiusNotSpecifiedError
 from pmma.python_src.utility.shape_utils import ShapeTemplate as _ShapeTemplate
+from pmma.python_src.utility.general_utils import create_cache_id as _create_cache_id
 
 class Line(_ShapeTemplate):
     """
@@ -184,14 +185,10 @@ class Line(_ShapeTemplate):
         # Scale back the x-coordinate to remove aspect ratio effect
         return [x_prime / aspect_ratio + center[0], y_prime + center[1]]
 
-    def _rotate_line(self, angle):
+    def _rotate_line(self, angle, start_coords, end_coords):
         """
         🟩 **R** - Rotates the line around its center by the given angle in radians.
         """
-        # Get start and end points
-        start_coords = self.get_start(format=_Constants.OPENGL_COORDINATES)
-        end_coords = self.get_end(format=_Constants.OPENGL_COORDINATES)
-
         # Calculate the center of the line
         center_x = (start_coords[0] + end_coords[0]) / 2
         center_y = (start_coords[1] + end_coords[1]) / 2
@@ -208,35 +205,54 @@ class Line(_ShapeTemplate):
         🟩 **R** -
         """
         if self._geometry_created is False:
-            _Registry.number_of_render_updates += 1
-            rotated_line_points = self._rotate_line(self._rotation.get_angle(format=_Constants.RADIANS))
+            rotation_in_radians = self._rotation.get_angle(format=_Constants.RADIANS)
+            start_coords = self.get_start(format=_Constants.OPENGL_COORDINATES)
+            end_coords = self.get_end(format=_Constants.OPENGL_COORDINATES)
 
-            start_coords = rotated_line_points[:2]  # Start point (x1, y1)
-            end_coords = rotated_line_points[2:]    # End point (x2, y2)
+            identifier = _create_cache_id(
+                rotation_in_radians,
+                start_coords,
+                end_coords,
+                self._width)
 
-            # Calculate direction of the line
-            direction = _numpy.array(end_coords) - _numpy.array(start_coords)
-            direction_length = _numpy.linalg.norm(direction)
-            direction_normalized = direction / direction_length
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
 
-            x_ndc = 2.0 / self._display.get_width()  # Horizontal pixel size in NDC
-            y_ndc = 2.0 / self._display.get_height()  # Vertical pixel size in NDC
+            if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_line_exists(identifier):
+                vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_line(identifier)
+            else:
+                rotated_line_points = self._rotate_line(rotation_in_radians, start_coords, end_coords)
 
-            width = self._width * _numpy.array([x_ndc, y_ndc])
+                start_coords = rotated_line_points[:2]  # Start point (x1, y1)
+                end_coords = rotated_line_points[2:]    # End point (x2, y2)
 
-            normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
+                # Calculate direction of the line
+                direction = _numpy.array(end_coords) - _numpy.array(start_coords)
+                direction_length = _numpy.linalg.norm(direction)
+                direction_normalized = direction / direction_length
 
-            # Calculate the vertices of the line as a rectangle
-            v1 = start_coords - normal
-            v2 = start_coords + normal
-            v3 = end_coords - normal
-            v4 = end_coords + normal
+                x_ndc = 2.0 / self._display.get_width()  # Horizontal pixel size in NDC
+                y_ndc = 2.0 / self._display.get_height()  # Vertical pixel size in NDC
 
-            # Create the vertex array for two triangles representing the line
-            vertices = _numpy.array([
-                *v1, *v2, *v3,  # First triangle
-                *v3, *v2, *v4   # Second triangle
-            ], dtype='f4')
+                width = self._width * _numpy.array([x_ndc, y_ndc])
+
+                normal = _numpy.array([-direction_normalized[1], direction_normalized[0]]) * width
+
+                # Calculate the vertices of the line as a rectangle
+                v1 = start_coords - normal
+                v2 = start_coords + normal
+                v3 = end_coords - normal
+                v4 = end_coords + normal
+
+                # Create the vertex array for two triangles representing the line
+                vertices = _numpy.array([
+                    *v1, *v2, *v3,  # First triangle
+                    *v3, *v2, *v4   # Second triangle
+                ], dtype='f4')
+
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_line(identifier, vertices)
+
+            self.old_shape_identifier = identifier
 
             if not self._vbo.get_created():
                 self._vbo.create(vertices)
@@ -253,8 +269,6 @@ class Line(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
@@ -276,9 +290,6 @@ class Line(_ShapeTemplate):
 
         # Render the line
         self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
 
 class RadialPolygon(_ShapeTemplate):
     """
@@ -481,8 +492,6 @@ class RadialPolygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
@@ -513,9 +522,6 @@ class RadialPolygon(_ShapeTemplate):
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         self._vao.render(_moderngl.TRIANGLE_STRIP)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
 
 class Rectangle(_ShapeTemplate):
     """
@@ -665,8 +671,6 @@ class Rectangle(_ShapeTemplate):
 
             self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
-            _Registry.number_of_render_updates += 1
-
             # Unpack size and position
             x_size = self._x_size.get_point(_Constants.OPENGL_COORDINATES)
             y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
@@ -726,8 +730,6 @@ class Rectangle(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
@@ -751,9 +753,6 @@ class Rectangle(_ShapeTemplate):
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         self._vao.render(_moderngl.TRIANGLE_STRIP)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
 
 class Arc(_ShapeTemplate):
     """
@@ -930,8 +929,6 @@ class Arc(_ShapeTemplate):
 
             self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
-            _Registry.number_of_render_updates += 1
-
             center_x, center_y = [0, 0]
             start_angle = self._start_angle.get_angle(format=_Constants.RADIANS)
             stop_angle = self._stop_angle.get_angle(format=_Constants.RADIANS)
@@ -1002,8 +999,6 @@ class Arc(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
@@ -1029,9 +1024,6 @@ class Arc(_ShapeTemplate):
 
         # Render the arc using GL_TRIANGLE_STRIP
         self._vao.render(_moderngl.TRIANGLE_STRIP)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end - start
 
 class Ellipse(_ShapeTemplate):
     """
@@ -1185,8 +1177,6 @@ class Ellipse(_ShapeTemplate):
 
             self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
-            _Registry.number_of_render_updates += 1
-
             center_x, center_y = [0, 0]
             outer_size_x = self._outer_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
             outer_size_y = self._outer_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
@@ -1251,8 +1241,6 @@ class Ellipse(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
@@ -1277,9 +1265,6 @@ class Ellipse(_ShapeTemplate):
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
 
         self._vao.render(_moderngl.TRIANGLE_STRIP)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
 
 class Polygon(_ShapeTemplate):
     """
@@ -1426,8 +1411,6 @@ class Polygon(_ShapeTemplate):
 
             self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
-            _Registry.number_of_render_updates += 1
-
             outer_points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
 
             inner_points = []
@@ -1476,8 +1459,6 @@ class Polygon(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         self._display.update_attempted_render_calls(1)
 
         if self._resized_event.get_value():
@@ -1502,9 +1483,6 @@ class Polygon(_ShapeTemplate):
             self._width = 1 # idk about this bit yet
 
         self._vao.render(_moderngl.TRIANGLE_STRIP)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
 
 class Pixel(_ShapeTemplate):
     """
@@ -1587,8 +1565,6 @@ class Pixel(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        start = _time.perf_counter()
-
         if dynamic_rendering:
             if self._position is None:
                 self._logger.log_development("You didn't set a position for this shape. \
@@ -1667,6 +1643,3 @@ simply 'aliased-away'. You can use this to make points appear larger, however it
 recommended to do this in the shader it's self with: `gl_PointSize`.")
 
         self._vao.render(mode=_moderngl.POINTS)
-
-        end = _time.perf_counter()
-        _Registry.total_time_spent_drawing += end-start
