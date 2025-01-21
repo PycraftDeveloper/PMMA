@@ -32,7 +32,7 @@ pixel.set_color([255, 255, 255])
 radial_polygon = pmma.RadialPolygon()
 radial_polygon.set_center([400, 350])
 radial_polygon.set_radius(300)
-radial_polygon.set_color([255, 0, 0])
+radial_polygon.generate_random_color()
 radial_polygon.set_point_count(3)
 radial_polygon.set_width(180)
 

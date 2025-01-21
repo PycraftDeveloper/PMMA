@@ -22,8 +22,9 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.error_utils import ShapeRadiusNotSpecifiedError as _ShapeRadiusNotSpecifiedError
+from pmma.python_src.utility.shape_utils import ShapeTemplate as _ShapeTemplate
 
-class Line:
+class Line(_ShapeTemplate):
     """
     🟩 **R** -Draws a basic line.
     """
@@ -31,6 +32,8 @@ class Line:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -42,13 +45,11 @@ class Line:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
         self._start = _DisplayCoordinatesConverter()
         self._end = _DisplayCoordinatesConverter()
         self._width = 1
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._vertices_changed = True  # Mark vertices as changed initially
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_line"))
         self._program.create()
@@ -152,45 +153,6 @@ class Line:
         """
         if self._end is not None:
             return self._end.get_coordinates(format=format)
-
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGBA):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
 
     def set_width(self, width=1):
         """
@@ -301,8 +263,7 @@ class Line:
             self._vertices_changed = False  # Reset the flag
 
         if self._color_changed:
-            color = self.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
     def render(self):
@@ -336,7 +297,7 @@ class Line:
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
 
-class RadialPolygon:
+class RadialPolygon(_ShapeTemplate):
     """
     🟩 **R** - Draws a radial polygon.
     """
@@ -344,6 +305,8 @@ class RadialPolygon:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -355,7 +318,6 @@ class RadialPolygon:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
         self._point_count = None
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _DisplayScalarConverter()
@@ -363,7 +325,6 @@ class RadialPolygon:
         self._center = _DisplayCoordinatesConverter()
         self._width = None
         self._vertices_changed = True  # Mark vertices as changed initially
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_radial_polygon"))
         self._program.create()
@@ -490,45 +451,6 @@ class RadialPolygon:
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGBA):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
-
     def set_point_count(self, point_count=None):
         """
         🟩 **R** -
@@ -614,8 +536,7 @@ class RadialPolygon:
             self._position_changed = False
 
         if self._color_changed:
-            color = self.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
@@ -626,7 +547,7 @@ class RadialPolygon:
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
 
-class Rectangle:
+class Rectangle(_ShapeTemplate):
     """
     🟩 **R** - Draws a rectangle.
     """
@@ -634,6 +555,8 @@ class Rectangle:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -645,7 +568,6 @@ class Rectangle:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
@@ -654,7 +576,6 @@ class Rectangle:
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._vertices_changed = True  # Mark vertices as changed initially
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_rectangle"))
         self._program.create()
@@ -766,45 +687,6 @@ class Rectangle:
         if self._x_size.get_point_set() and self._y_size.get_point_set():
             return [self._x_size.get_point(format=format), self._y_size.get_point(format=format)]
 
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGBA):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
-
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         """
         🟩 **R** -
@@ -880,8 +762,7 @@ class Rectangle:
                 self._vbo.update(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
     def render(self):
@@ -917,7 +798,7 @@ class Rectangle:
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
 
-class Arc:
+class Arc(_ShapeTemplate):
     """
     🟩 **R** - Draws an arc.
     """
@@ -925,6 +806,8 @@ class Arc:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -936,7 +819,6 @@ class Arc:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._radius = _DisplayScalarConverter()
         self._inner_radius = _DisplayScalarConverter()
@@ -944,7 +826,6 @@ class Arc:
         self._start_angle = _AngleConverter()
         self._stop_angle = _AngleConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_arc"))
         self._program.create()
@@ -1084,45 +965,6 @@ class Arc:
         if self._radius is not None:
             return self._radius.get_point(format=format)
 
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGBA):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
-
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         """
         🟩 **R** -
@@ -1209,8 +1051,7 @@ class Arc:
                     self._vbo.create(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
     def render(self):
@@ -1248,7 +1089,7 @@ class Arc:
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end - start
 
-class Ellipse:
+class Ellipse(_ShapeTemplate):
     """
     🟩 **R** - Draws an ellipse.
     """
@@ -1256,6 +1097,8 @@ class Ellipse:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -1267,7 +1110,6 @@ class Ellipse:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
         self._outer_x_size = _DisplayScalarConverter()
@@ -1276,7 +1118,6 @@ class Ellipse:
         self._inner_x_size = _DisplayScalarConverter()
         self._inner_y_size = _DisplayScalarConverter()
         self._vertices_changed = True  # Mark vertices as changed initially
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_ellipse"))
         self._program.create()
@@ -1392,45 +1233,6 @@ class Ellipse:
         if self._outer_x_size.get_point_set() and self._outer_y_size.get_point_set():
             return [self._outer_x_size.get_coordinates(format=format), self._outer_y_size.get_coordinates(format=format)]
 
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGBA):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
-
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         """
         🟩 **R** -
@@ -1511,8 +1313,7 @@ class Ellipse:
                     self._vbo.create(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
     def render(self):
@@ -1549,7 +1350,7 @@ class Ellipse:
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
 
-class Polygon:
+class Polygon(_ShapeTemplate):
     """
     🟩 **R** - Draws a polygon.
     """
@@ -1557,6 +1358,8 @@ class Polygon:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -1568,14 +1371,11 @@ class Polygon:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
-
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._points = []
         self._closed = True
         self._curved = False
         self._vertices_changed = True  # Mark vertices as changed initially
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_polygon"))
         self._program.create()
@@ -1673,45 +1473,6 @@ class Polygon:
             points.append(point.get_coordinates(format=format))
         return points
 
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGBA):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
-
     def set_width(self, width=None):
         """
         🟩 **R** -
@@ -1790,8 +1551,7 @@ class Polygon:
                 self._vbo.update(rotated_vertices)
 
         if self._color_changed:
-            color = self.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
     def render(self):
@@ -1828,7 +1588,7 @@ class Polygon:
         end = _time.perf_counter()
         _Registry.total_time_spent_drawing += end-start
 
-class Pixel:
+class Pixel(_ShapeTemplate):
     """
     🟩 **R** - Draws a Pixel.
     """
@@ -1836,6 +1596,8 @@ class Pixel:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._attributes.append(_Constants.RENDER_PIPELINE_ABLE)
@@ -1847,10 +1609,8 @@ class Pixel:
             self._logger.log_information(_Registry.pygame_launch_message)
             _pygame.init()
 
-        self._color = _ColorConverter()
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
         self._position = _DisplayCoordinatesConverter()
-        self._color_changed = True  # Mark color as changed initially
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
         self._program.create()
@@ -1918,45 +1678,6 @@ class Pixel:
         if self._position is not None:
             return self._position.get_coordinates(format=format)
 
-    def set_color(self, color, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        color_input_type = type(color)
-        if self._color.get_color_set():
-            if format == _Constants.RGB:
-                original_color = self._color.get_color(format=_Constants.RGB)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGB)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2]:
-                    return
-
-            elif format == _Constants.RGBA:
-                original_color = self._color.get_color(format=_Constants.RGBA)
-                if color_input_type == _ColorConverter:
-                    new_color = color.get_color(format=_Constants.RGBA)
-                else:
-                    new_color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
-
-                if new_color[0] == original_color[0] and new_color[1] == original_color[1] and new_color[2] == original_color[2] and new_color[3] == original_color[3]:
-                    return
-
-        self._color_changed = True
-        if color_input_type != _ColorConverter:
-            self._color.set_color(color, format=format)
-        else:
-            self._color = color
-
-    def get_color(self, format=_Constants.RGB):
-        """
-        🟩 **R** -
-        """
-        if self._color is not None:
-            return self._color.get_color(format=format)
-
     def render(self, point_size=None, dynamic_rendering=True):
         """
         🟩 **R** -
@@ -2010,8 +1731,7 @@ once to improve performance, but will continue to have an effect.")
             self._position_changed = False
 
         if self._color_changed:
-            color = self._color.get_color(format=_Constants.SMALL_RGBA)
-            self._program.set_shader_variable('color', color)
+            self._program.set_shader_variable('color', self._color)
             self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
