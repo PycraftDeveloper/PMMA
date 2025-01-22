@@ -52,3 +52,4 @@ class Registry:
     last_checked_for_updates = None
     update_available = None
     shape_count = 0
+    application_average_frame_rate = {"Samples": 0, "Mean": 0}

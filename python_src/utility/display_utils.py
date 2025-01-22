@@ -651,6 +651,16 @@ you refresh the display to ensure optimal performance and support!")
 
             _pygame__display.flip()
 
+        frame_rate = self.get_fps()
+        if _Registry.application_average_frame_rate["Samples"] == 0:
+            _Registry.application_average_frame_rate["Mean"] = frame_rate
+            _Registry.application_average_frame_rate["Samples"] = 1
+        else:
+            mean = _Registry.application_average_frame_rate["Mean"] * _Registry.application_average_frame_rate["Samples"]
+            mean += frame_rate
+            _Registry.application_average_frame_rate["Samples"] += 1
+            _Registry.application_average_frame_rate["Mean"] = mean / _Registry.application_average_frame_rate["Samples"]
+
         if refresh_rate > 0:
             self._clock.tick(refresh_rate)
 
