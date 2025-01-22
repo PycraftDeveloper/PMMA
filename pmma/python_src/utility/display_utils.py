@@ -524,6 +524,9 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._refresh_optimization_override = True
         self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
+        if _Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].reset()
+
     def hex_color_to_windows_raw_color(self, value):
         """
         🟩 **R** -

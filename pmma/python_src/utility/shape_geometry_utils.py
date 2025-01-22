@@ -44,6 +44,20 @@ class ShapeGeometryManager: # CLEAR EVERYTHING WHEN SCREEN RESIZED!!!!
         self.manager_thread.name = "ShapeGeometryManager: Shape_Geometry_Manager_Thread"
         self.manager_thread.start()
 
+    def reset(self):
+        with self.line_lock:
+            self.line_geometry = {}
+        with self.radial_polygon_lock:
+            self.radial_polygon_geometry = {}
+        with self.rectangle_lock:
+            self.rectangle_geometry = {}
+        with self.arc_lock:
+            self.arc_geometry = {}
+        with self.ellipse_lock:
+            self.ellipse_geometry = {}
+        with self.polygon_lock:
+            self.polygon_geometry = {}
+
     def get_size_of_dictionary(self, dictionary):
         size = 0
         for key in dictionary:
