@@ -93,7 +93,7 @@ while pmma.Backpack.running:
 
     pmma.compute()
     end = time.perf_counter()
-    display.refresh(refresh_rate=6000)
+    display.refresh(refresh_rate=60)
     #print(1/(end-start))
 
 pmma.quit()
