@@ -130,90 +130,60 @@ class DisplayIntermediary:
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         return self._clear_called_but_skipped
 
     def set_clear_called_but_skipped(self, value):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         self._clear_called_but_skipped = value
 
     def get_render_calls(self):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         return self._render_calls
 
     def set_render_calls(self, value):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         self._render_calls = value
 
     def update_render_calls(self, value):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         self._attempted_render_calls += value
 
     def get_attempted_render_calls(self):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         return self._render_calls
 
     def set_attempted_render_calls(self, value):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         self._render_calls = value
 
     def update_attempted_render_calls(self, value):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         self._attempted_render_calls += value
 
     def get_refresh_optimization_override(self):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         return self._refresh_optimization_override
 
     def set_refresh_optimization_override(self, value):
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         self._refresh_optimization_override = value
 
     def clear(self, color=None, format=_Constants.RGB):
@@ -305,9 +275,6 @@ class DisplayIntermediary:
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         if _Registry.do_anti_aliasing is False:
             samples = 0
         else:
@@ -494,7 +461,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         _pygame__display.set_icon(icon_img)
         del icon_img
 
-    def get_display_projection(self):
+    def get_display_projection(self): # should be public
         """
         🟩 **R** -
         """
@@ -507,9 +474,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         size = _pygame__display.get_window_size()
 
         self._current_display_size = size
@@ -531,9 +495,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         """
         🟩 **R** -
         """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
         color_key = int(value[1:], 16)
         color_key = ((color_key & 0xFF0000) >> 16) | (color_key & 0x00FF00) | ((color_key & 0x0000FF) << 16)
         return color_key
