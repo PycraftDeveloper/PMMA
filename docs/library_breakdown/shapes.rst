@@ -49,16 +49,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Line.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Line.get_color() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Line.set_width() -> None
 
     🟩 **R** -
@@ -111,16 +101,6 @@ Methods
     
 
 .. py:method:: RadialPolygon.get_radius() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: RadialPolygon.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: RadialPolygon.get_color() -> None
 
     🟩 **R** -
     
@@ -221,16 +201,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Rectangle.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Rectangle.get_color() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Rectangle.render() -> None
 
     🟩 **R** -
@@ -317,16 +287,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Arc.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Arc.get_color() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Arc.render() -> None
 
     🟩 **R** -
@@ -389,16 +349,6 @@ Methods
     
 
 .. py:method:: Ellipse.get_size() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Ellipse.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Ellipse.get_color() -> None
 
     🟩 **R** -
     
@@ -469,16 +419,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Polygon.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Polygon.get_color() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Polygon.set_width() -> None
 
     🟩 **R** -
@@ -521,16 +461,6 @@ Methods
     
 
 .. py:method:: Pixel.get_position() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Pixel.set_color() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Pixel.get_color() -> None
 
     🟩 **R** -
     
