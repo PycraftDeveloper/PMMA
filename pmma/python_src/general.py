@@ -57,17 +57,17 @@ def get_application_run_time():
     """
     return _get_application_run_time()
 
-def get_execution_time():
+def get_execution_time(function, *args, **kwargs):
     """
     🟩 **R** -
     """
-    return _get_execution_time()
+    return _get_execution_time(function, *args, **kwargs)
 
-def get_execution_inverse_time():
+def get_execution_inverse_time(function, *args, **kwargs):
     """
     🟩 **R** -
     """
-    return _get_execution_inverse_time()
+    return _get_execution_inverse_time(function, *args, **kwargs)
 
 def targeted_profile_start():
     """
