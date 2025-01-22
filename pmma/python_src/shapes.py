@@ -325,51 +325,62 @@ class RadialPolygon(_ShapeTemplate):
         if self._radius.get_point_set() is False:
             raise _ShapeRadiusNotSpecifiedError()
 
-        if self._point_count is None:
-            try:
-                point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
-            except:
-                point_count = 3
-            if point_count < 3:
-                point_count = 3
+        radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
+        identifier = _create_cache_id(radius)
+
+        if self.old_shape_identifier is not None:
+            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
+
+        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_radial_polygon_exists(identifier):
+            vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_radial_polygon(identifier)
         else:
-            point_count = self._point_count
+            if self._point_count is None:
+                try:
+                    point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
+                except:
+                    point_count = 3
+                if point_count < 3:
+                    point_count = 3
+            else:
+                point_count = self._point_count
 
-        rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
+            rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
-        angle_step = 2 * _math.pi / point_count
-        angles = _numpy.arange(point_count) * angle_step + rotation
+            angle_step = 2 * _math.pi / point_count
+            angles = _numpy.arange(point_count) * angle_step + rotation
 
-        # Get the outer and inner radii
-        outer_radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
+            # Get the outer and inner radii
+            outer_radius = radius
 
-        if self._width is not None:
-            self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
-            inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES) if self._width else 0
-        else:
-            inner_radius = 0
+            if self._width is not None:
+                self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
+                inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES) if self._width else 0
+            else:
+                inner_radius = 0
 
-        # Calculate outer vertices as an array
-        outer_vertices = _numpy.column_stack((outer_radius * _numpy.cos(angles),
-                                        outer_radius * _numpy.sin(angles)))
+            # Calculate outer vertices as an array
+            outer_vertices = _numpy.column_stack((outer_radius * _numpy.cos(angles),
+                                            outer_radius * _numpy.sin(angles)))
 
-        # Calculate inner vertices with a slight inward scaling as an array
-        inner_vertices = _numpy.column_stack((inner_radius * _numpy.cos(angles) * 0.98,
-                                        inner_radius * _numpy.sin(angles) * 0.98))
+            # Calculate inner vertices with a slight inward scaling as an array
+            inner_vertices = _numpy.column_stack((inner_radius * _numpy.cos(angles) * 0.98,
+                                            inner_radius * _numpy.sin(angles) * 0.98))
 
-        # Interleave outer and inner vertices for the triangle strip pattern
-        combined_vertices = _numpy.empty((2 * point_count + 2, 2), dtype='f4')
-        combined_vertices[0:-2:2] = outer_vertices
-        combined_vertices[1:-2:2] = inner_vertices
+            # Interleave outer and inner vertices for the triangle strip pattern
+            combined_vertices = _numpy.empty((2 * point_count + 2, 2), dtype='f4')
+            combined_vertices[0:-2:2] = outer_vertices
+            combined_vertices[1:-2:2] = inner_vertices
 
-        # Close the shape by adding the first vertices again
-        combined_vertices[-1] = inner_vertices[0]  # Append the first outer vertex to close the shape
-        combined_vertices[-2] = outer_vertices[0]  # Append the first outer vertex to close the shape
+            # Close the shape by adding the first vertices again
+            combined_vertices[-1] = inner_vertices[0]  # Append the first outer vertex to close the shape
+            combined_vertices[-2] = outer_vertices[0]  # Append the first outer vertex to close the shape
 
-        # The final array of vertices
-        vertices = combined_vertices
+            # The final array of vertices
+            vertices = combined_vertices
 
-        if self._initial_point_count == None or self._initial_point_count != point_count:
+        self.old_shape_identifier = identifier
+
+        if self._initial_point_count == None or self._initial_point_count != point_count: # delete and recreate as size changed.
             self._initial_point_count = point_count
             self._vbo.quit()
             self._vbo.create(vertices)
