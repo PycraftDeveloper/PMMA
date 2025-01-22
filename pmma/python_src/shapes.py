@@ -52,6 +52,10 @@ class Line(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
+
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -326,7 +330,9 @@ class RadialPolygon(_ShapeTemplate):
             raise _ShapeRadiusNotSpecifiedError()
 
         radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
-        identifier = _create_cache_id(radius)
+        rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
+
+        identifier = _create_cache_id(radius, rotation)
 
         if self.old_shape_identifier is not None:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
@@ -343,8 +349,6 @@ class RadialPolygon(_ShapeTemplate):
                     point_count = 3
             else:
                 point_count = self._point_count
-
-            rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
             angle_step = 2 * _math.pi / point_count
             angles = _numpy.arange(point_count) * angle_step + rotation
@@ -378,6 +382,8 @@ class RadialPolygon(_ShapeTemplate):
             # The final array of vertices
             vertices = combined_vertices
 
+            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_radial_polygon(identifier, vertices)
+
         self.old_shape_identifier = identifier
 
         if self._initial_point_count == None or self._initial_point_count != point_count: # delete and recreate as size changed.
@@ -400,6 +406,10 @@ class RadialPolygon(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
+
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -568,6 +578,10 @@ class Rectangle(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
+
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -680,58 +694,70 @@ class Rectangle(_ShapeTemplate):
             if self._position.get_coordinate_set() is False or self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
                 return None
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
-            # Unpack size and position
             x_size = self._x_size.get_point(_Constants.OPENGL_COORDINATES)
             y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
-            half_outer_width = x_size / 2
-            half_outer_height = y_size / 2
-            x, y = (0, 0)
-
-            self._inner_radius.set_point(self._width)
-            border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
-
-            half_inner_width = max(half_outer_width - border_width, 0)
-            half_inner_height = max(half_outer_height - border_width, 0)
-
-            offsets = _numpy.array([
-                [-1, -1],  # Bottom-left
-                [1, -1],   # Bottom-right
-                [1, 1],    # Top-right
-                [-1, 1]    # Top-left
-            ])
-
-            # Define the half-widths and half-heights as arrays for element-wise multiplication
-            half_outer_size = _numpy.array([half_outer_width, half_outer_height])
-            half_inner_size = _numpy.array([half_inner_width, half_inner_height])
-
-            # Calculate the outer and inner vertices based on the offsets
-            outer_vertices = _numpy.array([x, y]) + offsets * half_outer_size
-            inner_vertices = _numpy.array([x, y]) + offsets * half_inner_size
-
-            # Interleave the outer and inner vertices
-            combined_vertices = _numpy.empty((outer_vertices.shape[0] * 2, 2), dtype=_numpy.float32)
-            combined_vertices[0::2] = outer_vertices
-            combined_vertices[1::2] = inner_vertices
-
-            # Close the shape by adding the first vertices again
-            combined_vertices = _numpy.vstack([combined_vertices, outer_vertices[0], inner_vertices[0]])
-
-            # Apply rotation around the center
             rotation = self._rotation.get_angle(format=_Constants.RADIANS)
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
 
-            # Rotate each vertex around the center
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
+            identifier = _create_cache_id(x_size, y_size, self._width, rotation)
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
+
+            if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_rectangle_exists(identifier):
+                vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_rectangle(identifier)
+            else:
+                # Unpack size and position
+                half_outer_width = x_size / 2
+                half_outer_height = y_size / 2
+                x, y = (0, 0)
+
+                self._inner_radius.set_point(self._width)
+                border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
+
+                half_inner_width = max(half_outer_width - border_width, 0)
+                half_inner_height = max(half_outer_height - border_width, 0)
+
+                offsets = _numpy.array([
+                    [-1, -1],  # Bottom-left
+                    [1, -1],   # Bottom-right
+                    [1, 1],    # Top-right
+                    [-1, 1]    # Top-left
+                ])
+
+                # Define the half-widths and half-heights as arrays for element-wise multiplication
+                half_outer_size = _numpy.array([half_outer_width, half_outer_height])
+                half_inner_size = _numpy.array([half_inner_width, half_inner_height])
+
+                # Calculate the outer and inner vertices based on the offsets
+                outer_vertices = _numpy.array([x, y]) + offsets * half_outer_size
+                inner_vertices = _numpy.array([x, y]) + offsets * half_inner_size
+
+                # Interleave the outer and inner vertices
+                combined_vertices = _numpy.empty((outer_vertices.shape[0] * 2, 2), dtype=_numpy.float32)
+                combined_vertices[0::2] = outer_vertices
+                combined_vertices[1::2] = inner_vertices
+
+                # Close the shape by adding the first vertices again
+                combined_vertices = _numpy.vstack([combined_vertices, outer_vertices[0], inner_vertices[0]])
+
+                # Apply rotation around the center
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
+
+                # Rotate each vertex around the center
+                vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
+
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_rectangle(identifier, vertices)
 
             self._geometry_created = True  # Reset the flag
+            self.old_shape_identifier = identifier
 
             if self._vbo.get_created() is False:
-                self._vbo.create(rotated_vertices)
+                self._vbo.create(vertices)
             else:
-                self._vbo.update(rotated_vertices)
+                self._vbo.update(vertices)
+
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._color_changed:
             self._program.set_shader_variable('color', self._color)
@@ -801,6 +827,10 @@ class Arc(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
+
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -935,61 +965,74 @@ class Arc(_ShapeTemplate):
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, radius, and width.
         """
         if self._geometry_created is False:
-            if self._center is None or self._radius is None or self._start_angle is None or self._stop_angle is None:
+            if self._radius is None or self._start_angle is None or self._stop_angle is None:
                 return None  # Cannot proceed without these parameters
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
-            center_x, center_y = [0, 0]
             start_angle = self._start_angle.get_angle(format=_Constants.RADIANS)
             stop_angle = self._stop_angle.get_angle(format=_Constants.RADIANS)
             outer_radius = self._radius.get_point(format=_Constants.OPENGL_COORDINATES)
-            self._inner_radius.set_point(self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width)
-            inner_radius = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)  # Ensure inner radius is non-negative
-            inner_radius = max(inner_radius, 0)
-
-            # Determine the number of points to create smooth arcs for both inner and outer radii
-            try:
-                proportion_of_circle = abs(stop_angle - start_angle) / _Constants.TAU
-                point_count = 1 + int(
-                    ((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))
-                    * proportion_of_circle) * _Registry.shape_quality
-                )
-            except:
-                point_count = 3
-
-            if point_count < 3:
-                point_count = 3
-
-            # Generate angles for the arc
-            angles = _numpy.linspace(start_angle, stop_angle, point_count)
-
-            # Use broadcasting to calculate inner and outer vertices
-            inner_vertices = _numpy.column_stack((
-                center_x + inner_radius * _numpy.cos(angles),
-                center_y + inner_radius * _numpy.sin(angles)
-            )).astype('f4')
-
-            outer_vertices = _numpy.column_stack((
-                center_x + outer_radius * _numpy.cos(angles),
-                center_y + outer_radius * _numpy.sin(angles)
-            )).astype('f4')
-
-            # Combine inner and outer vertices in a way suitable for TRIANGLE_STRIP
-            vertices = _numpy.empty((2 * point_count, 2), dtype='f4')
-            vertices[0::2] = outer_vertices
-            vertices[1::2] = inner_vertices
-
-            # Apply rotation if necessary
             rotation = self._rotation.get_angle(format=_Constants.RADIANS)
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
-            rotated_vertices = _numpy.array([
-                self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
-                for v in vertices
-            ], dtype='f4')
+
+            identifier = _create_cache_id(start_angle, stop_angle, outer_radius, rotation, self._width)
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
+
+            if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_arc_exists(identifier):
+                rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_arc(identifier)
+            else:
+                center_x, center_y = [0, 0]
+                self._inner_radius.set_point(self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width)
+                inner_radius = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)  # Ensure inner radius is non-negative
+                inner_radius = max(inner_radius, 0)
+
+                # Determine the number of points to create smooth arcs for both inner and outer radii
+                try:
+                    proportion_of_circle = abs(stop_angle - start_angle) / _Constants.TAU
+                    point_count = 1 + int(
+                        ((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES)))
+                        * proportion_of_circle) * _Registry.shape_quality
+                    )
+                except:
+                    point_count = 3
+
+                if point_count < 3:
+                    point_count = 3
+
+                # Generate angles for the arc
+                angles = _numpy.linspace(start_angle, stop_angle, point_count)
+
+                # Use broadcasting to calculate inner and outer vertices
+                inner_vertices = _numpy.column_stack((
+                    center_x + inner_radius * _numpy.cos(angles),
+                    center_y + inner_radius * _numpy.sin(angles)
+                )).astype('f4')
+
+                outer_vertices = _numpy.column_stack((
+                    center_x + outer_radius * _numpy.cos(angles),
+                    center_y + outer_radius * _numpy.sin(angles)
+                )).astype('f4')
+
+                # Combine inner and outer vertices in a way suitable for TRIANGLE_STRIP
+                vertices = _numpy.empty((2 * point_count, 2), dtype='f4')
+                vertices[0::2] = outer_vertices
+                vertices[1::2] = inner_vertices
+
+                # Apply rotation if necessary
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
+                rotated_vertices = _numpy.array([
+                    self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
+                    for v in vertices
+                ], dtype='f4')
+
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
 
             self._geometry_created = True  # Reset the flag
+
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+
+            self.old_shape_identifier = identifier
 
             # Update VBO
             if self._initial_point_count == None or self._initial_point_count != point_count:
@@ -1074,6 +1117,10 @@ class Ellipse(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
+
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -1183,56 +1230,73 @@ class Ellipse(_ShapeTemplate):
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
         if self._geometry_created is False:
-            if self._position.get_coordinate_set() is False or self._outer_x_size.get_point_set() is False or self._outer_y_size.get_point_set() is False:
+            if self._outer_x_size.get_point_set() is False or self._outer_y_size.get_point_set() is False:
                 return None  # Cannot proceed without these parameters
+
+            outer_size_x = self._outer_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
+            outer_size_y = self._outer_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
+            rotation = self._rotation.get_angle(format=_Constants.RADIANS)
+
+            identifier = _create_cache_id(
+                outer_size_x,
+                outer_size_y,
+                self._width,
+                rotation)
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
+
+            if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_ellipse_exists(identifier):
+                rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_ellipse(identifier)
+            else:
+                center_x, center_y = [0, 0]
+
+                radius = self._math.pythag([self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES), self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES)])
+
+                # Number of points to generate for the ellipse
+                num_points = _Registry.shape_quality
+                try:
+                    num_points = 1 + int((_Constants.TAU/_math.asin(1/radius))*_Registry.shape_quality)
+                except:
+                    num_points = 3
+                if num_points < 3:
+                    num_points = 3
+
+                self._inner_x_size.set_point(self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
+                self._inner_y_size.set_point(self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
+
+                inner_size_x = max(self._inner_x_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
+                inner_size_y = max(self._inner_y_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
+
+                # Generate points along the ellipse perimeter
+                angles = _numpy.linspace(0, 2 * _numpy.pi, num_points)
+                cos_angles = _numpy.cos(angles)
+                sin_angles = _numpy.sin(angles)
+
+                # Vectorized calculation for outer and inner vertices
+                outer_vertices = _numpy.column_stack((center_x + (outer_size_x / 2) * cos_angles,
+                                                center_y + (outer_size_y / 2) * sin_angles)).astype('f4')
+
+                inner_vertices = _numpy.column_stack((center_x + (inner_size_x / 2) * cos_angles,
+                                                center_y + (inner_size_y / 2) * sin_angles)).astype('f4')
+
+                vertices = _numpy.empty((2 * num_points, 2), dtype='f4')
+                vertices[0::2] = outer_vertices
+                vertices[1::2] = inner_vertices
+
+                # Apply rotation to each vertex if applicable
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
+
+                rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
+
+            self._geometry_created = True  # Reset the flag
 
             self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
-            center_x, center_y = [0, 0]
-            outer_size_x = self._outer_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
-            outer_size_y = self._outer_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
-
-            radius = self._math.pythag([self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES), self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES)])
-
-            # Number of points to generate for the ellipse
-            num_points = _Registry.shape_quality
-            try:
-                num_points = 1 + int((_Constants.TAU/_math.asin(1/radius))*_Registry.shape_quality)
-            except:
-                num_points = 3
-            if num_points < 3:
-                num_points = 3
-
-            self._inner_x_size.set_point(self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
-            self._inner_y_size.set_point(self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
-
-            inner_size_x = max(self._inner_x_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
-            inner_size_y = max(self._inner_y_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
-
-            # Generate points along the ellipse perimeter
-            angles = _numpy.linspace(0, 2 * _numpy.pi, num_points)
-            cos_angles = _numpy.cos(angles)
-            sin_angles = _numpy.sin(angles)
-
-            # Vectorized calculation for outer and inner vertices
-            outer_vertices = _numpy.column_stack((center_x + (outer_size_x / 2) * cos_angles,
-                                            center_y + (outer_size_y / 2) * sin_angles)).astype('f4')
-
-            inner_vertices = _numpy.column_stack((center_x + (inner_size_x / 2) * cos_angles,
-                                            center_y + (inner_size_y / 2) * sin_angles)).astype('f4')
-
-            vertices = _numpy.empty((2 * num_points, 2), dtype='f4')
-            vertices[0::2] = outer_vertices
-            vertices[1::2] = inner_vertices
-
-            # Apply rotation to each vertex if applicable
-            rotation = self.get_rotation()
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
-
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
-
-            self._geometry_created = True  # Reset the flag
+            self.old_shape_identifier = identifier
 
             if self._initial_point_count == None or self._initial_point_count != num_points:
                 self._initial_point_count = num_points
@@ -1311,6 +1375,10 @@ class Polygon(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
+
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -1420,42 +1488,55 @@ class Polygon(_ShapeTemplate):
             if not self._points:
                 return None  # No points to form the polygon
 
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
             outer_points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
+            rotation = self._rotation.get_angle(format=_Constants.RADIANS)
 
-            inner_points = []
-            index = 0
-            for p in self._points:
-                coordinate = p.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                adjusted_x = coordinate[0] - self._width*2
-                adjusted_y = coordinate[1] - self._width
-                adjusted_point = [adjusted_x, adjusted_y]
-                self._converted_inner_points[index].set_coordinates(adjusted_point, format=_Constants.CONVENTIONAL_COORDINATES)
-                inner_points.append(self._converted_inner_points[index].get_coordinates(format=_Constants.OPENGL_COORDINATES))
-                index += 1
+            identifier = _create_cache_id(
+                outer_points,
+                rotation,
+                self._width)
 
-            inner_points = _numpy.array(inner_points, dtype='f4')
-            # Calculate center (average of points)
-            center_x, center_y = _numpy.mean(outer_points, axis=0)
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
 
-            vertices = _numpy.empty((2 * len(self._points), 2), dtype='f4')
-            vertices[0::2] = outer_points
-            vertices[1::2] = inner_points
+            if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_polygon_exists(identifier):
+                rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_polygon(identifier)
+            else:
+                inner_points = []
+                index = 0
+                for p in self._points:
+                    coordinate = p.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                    adjusted_x = coordinate[0] - self._width*2
+                    adjusted_y = coordinate[1] - self._width
+                    adjusted_point = [adjusted_x, adjusted_y]
+                    self._converted_inner_points[index].set_coordinates(adjusted_point, format=_Constants.CONVENTIONAL_COORDINATES)
+                    inner_points.append(self._converted_inner_points[index].get_coordinates(format=_Constants.OPENGL_COORDINATES))
+                    index += 1
 
-            # Apply rotation
-            rotation = self.get_rotation()
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
+                inner_points = _numpy.array(inner_points, dtype='f4')
+                # Calculate center (average of points)
+                center_x, center_y = _numpy.mean(outer_points, axis=0)
 
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+                vertices = _numpy.empty((2 * len(self._points), 2), dtype='f4')
+                vertices[0::2] = outer_points
+                vertices[1::2] = inner_points
 
-            # If closed, append the first vertex to close the loop
-            if self._closed and len(rotated_vertices) > 1:
-                extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
-                rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
+                # Apply rotation
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
+
+                rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+
+                # If closed, append the first vertex to close the loop
+                if self._closed and len(rotated_vertices) > 1:
+                    extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
+                    rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
+
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, vertices)
 
             self._geometry_created = True  # Reset the flag
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self.old_shape_identifier = identifier
 
             if self._vbo.get_created() is False:
                 self._vbo.create(rotated_vertices)
@@ -1519,10 +1600,16 @@ class Pixel(_ShapeTemplate):
         """
         🟩 **R** -
         """
-        if self._vbo.get_created():
-            self._vbo.update(_numpy.array([0, 0], dtype='f4'))
+        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_pixel_exists():
+            vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_pixel()
         else:
-            self._vbo.create(_numpy.array([0, 0], dtype='f4'))
+            vertices = _numpy.array([0, 0], dtype='f4')
+            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_pixel(vertices)
+
+        if self._vbo.get_created():
+            self._vbo.update(vertices)
+        else:
+            self._vbo.create(vertices)
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -1532,6 +1619,10 @@ class Pixel(_ShapeTemplate):
             self._program.quit()
             self._vbo.quit()
             self._vao.quit()
+
+            if self.old_shape_identifier is not None:
+                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_pixel()
+
             del self
             if do_garbage_collection:
                 _gc__collect()

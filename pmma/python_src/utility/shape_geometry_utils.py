@@ -247,19 +247,19 @@ class ShapeGeometryManager:
                 if self.polygon_geometry[identifier]["references"] <= 0:
                     del self.polygon_geometry[identifier]
 
-    def add_pixel(self, identifier, data):
-        self.pixel_geometry[identifier] = {"vertices": data, "references": 1}
+    def add_pixel(self, data):
+        self.pixel_geometry = {"vertices": data, "references": 1}
 
-    def check_if_pixel_exists(self, identifier):
-        return identifier in self.pixel_geometry
+    def check_if_pixel_exists(self):
+        return self.pixel_geometry["vertices"] != None
 
-    def get_pixel(self, identifier):
-        self.pixel_geometry[identifier]["references"] += 1
-        return self.pixel_geometry[identifier]["vertices"]
+    def get_pixel(self):
+        self.pixel_geometry["references"] += 1
+        return self.pixel_geometry["vertices"]
 
-    def remove_pixel(self, identifier):
-        if self.check_if_pixel_exists(identifier):
-            self.pixel_geometry[identifier]["references"] -= 1
+    def remove_pixel(self):
+        if self.check_if_pixel_exists():
+            self.pixel_geometry["references"] -= 1
             if self.pixel_geometry["references"] <= 0:
                 self.pixel_geometry["references"] = 0
                 self.pixel_geometry["vertices"] = None
