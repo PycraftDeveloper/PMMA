@@ -329,8 +329,9 @@ class RectangleUtils:
         x_size = self._x_size.get_point(_Constants.OPENGL_COORDINATES)
         y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
+        width = self._width.get_point(_Constants.OPENGL_COORDINATES)
 
-        identifier = _create_cache_id(x_size, y_size, self._width, rotation)
+        identifier = _create_cache_id(x_size, y_size, width, rotation)
 
         if self.old_shape_identifier is not None:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
@@ -343,11 +344,8 @@ class RectangleUtils:
             half_outer_height = y_size / 2
             x, y = (0, 0)
 
-            self._inner_radius.set_point(self._width)
-            border_width = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)
-
-            half_inner_width = max(half_outer_width - border_width, 0)
-            half_inner_height = max(half_outer_height - border_width, 0)
+            half_inner_width = max(half_outer_width - width, 0)
+            half_inner_height = max(half_outer_height - width, 0)
 
             offsets = _numpy.array([
                 [-1, -1],  # Bottom-left
