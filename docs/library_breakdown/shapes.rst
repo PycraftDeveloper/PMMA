@@ -19,6 +19,11 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: Line.render() -> None
+
+    🟩 **R** -
+    
+
 .. py:method:: Line.set_rotation() -> None
 
     🟩 **R** -
@@ -59,11 +64,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Line.render() -> None
-
-    🟩 **R** -
-    
-
 Radial Polygon (``pmma.RadialPolygon``)
 =======================================
 
@@ -81,6 +81,11 @@ Methods
 -------
 
 .. py:method:: RadialPolygon.quit() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: RadialPolygon.render() -> None
 
     🟩 **R** -
     
@@ -135,11 +140,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: RadialPolygon.render() -> None
-
-    🟩 **R** -
-    
-
 Rectangle (``pmma.Rectangle``)
 ==============================
 
@@ -157,6 +157,11 @@ Methods
 -------
 
 .. py:method:: Rectangle.quit() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Rectangle.render() -> None
 
     🟩 **R** -
     
@@ -201,11 +206,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Rectangle.render() -> None
-
-    🟩 **R** -
-    
-
 Arc (``pmma.Arc``)
 ==================
 
@@ -223,6 +223,11 @@ Methods
 -------
 
 .. py:method:: Arc.quit() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Arc.render() -> None
 
     🟩 **R** -
     
@@ -287,11 +292,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Arc.render() -> None
-
-    🟩 **R** -
-    
-
 Ellipse (``pmma.Ellipse``)
 ==========================
 
@@ -309,6 +309,11 @@ Methods
 -------
 
 .. py:method:: Ellipse.quit() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Ellipse.render() -> None
 
     🟩 **R** -
     
@@ -353,11 +358,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Ellipse.render() -> None
-
-    🟩 **R** -
-    
-
 Polygon (``pmma.Polygon``)
 ==========================
 
@@ -375,6 +375,11 @@ Methods
 -------
 
 .. py:method:: Polygon.quit() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Polygon.render() -> None
 
     🟩 **R** -
     
@@ -429,11 +434,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Polygon.render() -> None
-
-    🟩 **R** -
-    
-
 Pixel (``pmma.Pixel``)
 ======================
 
@@ -455,17 +455,17 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: Pixel.render() -> None
+
+    🟩 **R** -
+    
+
 .. py:method:: Pixel.set_position() -> None
 
     🟩 **R** -
     
 
 .. py:method:: Pixel.get_position() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Pixel.render() -> None
 
     🟩 **R** -
     
