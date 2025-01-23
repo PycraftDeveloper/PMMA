@@ -36,6 +36,14 @@ from pmma.python_src.utility.pmma_configuration import save_configuration
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
+def get_pmma_identifier():
+    """
+    🟩 **R** -
+    """
+    identifier = _Registry.pmma_identifier
+    identifier += 1
+    return identifier
+
 def pad_numerical_string(input_string):
     """
     🟩 **R** -

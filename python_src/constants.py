@@ -6,7 +6,8 @@ class Constants:
     """
     🟩 **R** -
     """
-    RENDER_PIPELINEABLE = "render pipelineable"
+    RENDER_PIPELINE_COMPATIBLE = "render pipeline compatible"
+    PMMA_OBJECT_IDENTIFIER = "PMMA object identifier"
 
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
     SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)

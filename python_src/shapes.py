@@ -35,6 +35,8 @@ class Line(_ShapeTemplate, _LineUtils):
 
         _initialize(self)
 
+        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
         self._start = _DisplayCoordinatesConverter()
         self._end = _DisplayCoordinatesConverter()
         self._width = 1
@@ -203,6 +205,8 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
         self._point_count = None
         self._radius = _DisplayScalarConverter()
@@ -377,6 +381,8 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         _initialize(self)
 
+        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
         self._position = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
         self._y_size = _DisplayScalarConverter()
@@ -542,6 +548,8 @@ class Arc(_ShapeTemplate, _ArcUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
         self._radius = _DisplayScalarConverter()
         self._inner_radius = _DisplayScalarConverter()
@@ -737,6 +745,8 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
 
         _initialize(self)
 
+        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
         self._position = _DisplayCoordinatesConverter()
         self._outer_x_size = _DisplayScalarConverter()
         self._outer_y_size = _DisplayScalarConverter()
@@ -906,6 +916,8 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
         self._points = []
         self._closed = True
