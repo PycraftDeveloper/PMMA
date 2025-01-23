@@ -240,7 +240,7 @@ class RadialPolygonUtils:
         radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
-        identifier = _create_cache_id(radius, rotation)
+        identifier = _create_cache_id(radius, rotation, self._width)
 
         if self.old_shape_identifier is not None:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
@@ -308,6 +308,19 @@ class RadialPolygonUtils:
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
 class RectangleUtils:
+    def _arc(self, cx, cy, start_angle, end_angle, r, segments):
+        arc_vertices = []
+        for angle in _numpy.linspace(start_angle, end_angle, segments):
+            px = cx + r * _math.cos(angle)
+            py = cy + r * _math.sin(angle)
+            arc_vertices.append((px, py))
+        return arc_vertices
+
+    def _generate_corner(self, cx, cy, start_angle, end_angle, outer_radius, inner_radius, segments):
+        outer_arc = self._arc(cx, cy, start_angle, end_angle, outer_radius, segments)
+        inner_arc = self._arc(cx, cy, start_angle, end_angle, inner_radius, segments)
+        return zip(outer_arc, inner_arc)
+
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
         """
         🟩 **R** -
@@ -330,8 +343,11 @@ class RectangleUtils:
         y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
         width = self._width.get_point(_Constants.OPENGL_COORDINATES)
+        corner_radius = self._corner_radius.get_point(_Constants.OPENGL_COORDINATES)
+        corner_radius = min(corner_radius, x_size / 2, y_size / 2)
+        width = min(width, x_size / 2, y_size / 2)
 
-        identifier = _create_cache_id(x_size, y_size, width, rotation)
+        identifier = _create_cache_id(x_size, y_size, width, rotation, corner_radius)
 
         if self.old_shape_identifier is not None:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
@@ -339,43 +355,79 @@ class RectangleUtils:
         if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_rectangle_exists(identifier):
             vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_rectangle(identifier)
         else:
-            # Unpack size and position
-            half_outer_width = x_size / 2
-            half_outer_height = y_size / 2
-            x, y = (0, 0)
+            # start
 
-            half_inner_width = max(half_outer_width - width, 0)
-            half_inner_height = max(half_outer_height - width, 0)
+            segments = 16  # Number of segments for each corner
+            vertices = []
 
-            offsets = _numpy.array([
-                [-1, -1],  # Bottom-left
-                [1, -1],   # Bottom-right
-                [1, 1],    # Top-right
-                [-1, 1]    # Top-left
-            ])
+            # Outer and inner rectangle dimensions
+            outer_radius = corner_radius
+            inner_radius = corner_radius - width
+            outer_width = x_size
+            outer_height = y_size
 
-            # Define the half-widths and half-heights as arrays for element-wise multiplication
-            half_outer_size = _numpy.array([half_outer_width, half_outer_height])
-            half_inner_size = _numpy.array([half_inner_width, half_inner_height])
+            # Generate vertices for the rounded rectangle (outer and inner arcs)
 
-            # Calculate the outer and inner vertices based on the offsets
-            outer_vertices = _numpy.array([x, y]) + offsets * half_outer_size
-            inner_vertices = _numpy.array([x, y]) + offsets * half_inner_size
+            # Bottom-left corner
+            bl_corners = self._generate_corner(
+                -outer_width / 2 + outer_radius,
+                -outer_height / 2 + outer_radius,
+                _math.pi, 1.5 * _math.pi,
+                outer_radius,
+                inner_radius,
+                segments)
+            # Bottom-right corner
+            br_corners = self._generate_corner(
+                outer_width / 2 - outer_radius,
+                -outer_height / 2 + outer_radius,
+                1.5 * _math.pi,
+                2 * _math.pi,
+                outer_radius,
+                inner_radius,
+                segments)
+            # Top-right corner
+            tr_corners = self._generate_corner(
+                outer_width / 2 - outer_radius,
+                outer_height / 2 - outer_radius,
+                0,
+                0.5 * _math.pi,
+                outer_radius,
+                inner_radius,
+                segments)
+            # Top-left corner
+            tl_corners = self._generate_corner(
+                -outer_width / 2 + outer_radius,
+                outer_height / 2 - outer_radius,
+                0.5 * _math.pi,
+                _math.pi,
+                outer_radius,
+                inner_radius,
+                segments)
 
-            # Interleave the outer and inner vertices
-            combined_vertices = _numpy.empty((outer_vertices.shape[0] * 2, 2), dtype=_numpy.float32)
-            combined_vertices[0::2] = outer_vertices
-            combined_vertices[1::2] = inner_vertices
+            # Combine all corners and edges in triangle strip order
+            for outer, inner in bl_corners:
+                vertices.extend([outer, inner])
+            for outer, inner in br_corners:
+                vertices.extend([outer, inner])
+            for outer, inner in tr_corners:
+                vertices.extend([outer, inner])
+            for outer, inner in tl_corners:
+                vertices.extend([outer, inner])
 
-            # Close the shape by adding the first vertices again
-            combined_vertices = _numpy.vstack([combined_vertices, outer_vertices[0], inner_vertices[0]])
+            # Close the shape by connecting the last and first vertices
+            vertices.append(vertices[0])  # Outer vertex
+            vertices.append(vertices[1])  # Inner vertex
+
+            combined_vertices = _numpy.array(vertices, dtype='f4')
+
+            # end -> combined_vertices
 
             # Apply rotation around the center
             cos_theta = _numpy.cos(rotation)
             sin_theta = _numpy.sin(rotation)
 
             # Rotate each vertex around the center
-            vertices = _numpy.array([self._rotate_point(v[0], v[1], x, y, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
+            vertices = _numpy.array([self._rotate_point(v[0], v[1], 0, 0, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
 
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_rectangle(identifier, vertices)
 

@@ -395,6 +395,8 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
         self._position_changed = True
+        self._corner_radius = _DisplayScalarConverter()
+        self._corner_radius.set_point(1)
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -468,6 +470,23 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         🟩 **R** -
         """
         return self._width.get_point(format=format)
+
+    def set_corner_radius(self, corner_radius=1, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        if type(corner_radius) != _DisplayScalarConverter:
+            if corner_radius < 1:
+                corner_radius = 1
+            self._corner_radius.set_point(corner_radius, format=format)
+        else:
+            self._corner_radius = corner_radius
+
+    def get_corner_width(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._corner_radius.get_point(format=format)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
