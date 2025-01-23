@@ -6,6 +6,8 @@ class Constants:
     """
     🟩 **R** -
     """
+    RENDER_PIPELINEABLE = "render pipelineable"
+
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
     SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)
     TRANSITION_MOVEMENT_TYPES = [
@@ -152,6 +154,7 @@ class Constants:
     GPU_DISTRIBUTION_OBJECT = "gpu distribution"
     PROJECTION_INTERMEDIARY_OBJECT = "projection intermediary"
     SHAPE_GEOMETRY_MANAGER_OBJECT = "shape geometry manager"
+    RENDER_PIPELINE_MANAGER_OBJECT = "render pipeline manager"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
@@ -401,6 +404,7 @@ class Constants:
         GPU_DISTRIBUTION_OBJECT,
         PROJECTION_INTERMEDIARY_OBJECT,
         SHAPE_GEOMETRY_MANAGER_OBJECT,
+        RENDER_PIPELINE_MANAGER_OBJECT,
 
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,
