@@ -191,6 +191,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._texture is not None:
                 self._texture.release()
             del _Registry.opengl_objects[self._unique_identifier]

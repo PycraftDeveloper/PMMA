@@ -135,6 +135,10 @@ def init(
         from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
         _ShapeGeometryManager()
 
+    if Constants.RENDER_PIPELINE_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.render_pipeline_utils import RenderPipelineManager as _RenderPipelineManager
+        _RenderPipelineManager()
+
     logger = _InternalLogger()
 
     logger.log_information("Thank you for using PMMA! Please note that PMMA \

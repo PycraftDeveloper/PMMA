@@ -221,6 +221,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._vbo is not None:
                 self._vbo.release()
             del _Registry.opengl_objects[self._unique_identifier]
@@ -378,6 +379,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._gbo is not None:
                 self._gbo.release()
             del _Registry.opengl_objects[self._unique_identifier]
@@ -535,6 +537,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._cbo is not None:
                 self._cbo.release()
             del _Registry.opengl_objects[self._unique_identifier]
@@ -692,6 +695,7 @@ buffer, not the memory used to store it (either system memory or video memory)")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._ibo is not None:
                 self._ibo.release()
             del _Registry.opengl_objects[self._unique_identifier]
@@ -973,6 +977,7 @@ using the `allow_shaders_to_adjust_point_size` keyword argument.")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._vao is not None:
                 self._vao.release()
             del _Registry.opengl_objects[self._unique_identifier]
@@ -1275,6 +1280,7 @@ class Shader:
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._shader_loaded_from_directory is not None:
                 self._shader_manager.remove_shader_from_memory(self._shader_loaded_from_directory)
             if self._program is not None:
@@ -1513,6 +1519,7 @@ class FrameBufferObject:
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._created = False
             if self._fbo is not None:
                 self._fbo.release()
             del _Registry.opengl_objects[self._unique_identifier]
