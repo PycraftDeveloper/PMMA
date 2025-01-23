@@ -386,7 +386,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._position = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
         self._y_size = _DisplayScalarConverter()
-        self._inner_radius = _DisplayScalarConverter()
+        self._width = _DisplayScalarConverter()
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._program = _Shader()
@@ -394,7 +394,6 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
-        self._width = None
         self._position_changed = True
 
     def __del__(self, do_garbage_collection=False):
@@ -455,19 +454,20 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         self._vao.render(_moderngl.TRIANGLE_STRIP)
 
-    def set_width(self, width=None):
+    def set_width(self, width=1, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        if width <= 0:
-            width = None
-        self._width = width
+        if type(width) != _DisplayScalarConverter:
+            self._width.set_point(width, format=format)
+        else:
+            self._width = width
 
-    def get_width(self):
+    def get_width(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        return self._width
+        return self._width.get_point(format=format)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
