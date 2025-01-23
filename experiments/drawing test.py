@@ -40,8 +40,8 @@ rectangle = pmma.Rectangle()
 rectangle.set_position((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
-rectangle.set_width(109000)
-rectangle.set_corner_radius(300000)
+#rectangle.set_width(90)
+rectangle.set_corner_radius(100)
 
 arc = pmma.Arc()
 arc.set_center([500, 500])
@@ -82,6 +82,8 @@ while pmma.Backpack.running:
     arc.render()
     ellipse.render()
     polygon.render()
+
+    rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
 
     #line.set_end((500, 60*(time.perf_counter()-start)))
 

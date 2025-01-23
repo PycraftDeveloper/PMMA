@@ -387,6 +387,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._x_size = _DisplayScalarConverter()
         self._y_size = _DisplayScalarConverter()
         self._width = _DisplayScalarConverter()
+        self._width.set_point(1)
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._program = _Shader()
@@ -460,6 +461,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         """
         🟩 **R** -
         """
+        self._geometry_created = False
         if type(width) != _DisplayScalarConverter:
             self._width.set_point(width, format=format)
         else:
@@ -475,6 +477,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         """
         🟩 **R** -
         """
+        self._geometry_created = False
         if type(corner_radius) != _DisplayScalarConverter:
             if corner_radius < 1:
                 corner_radius = 1

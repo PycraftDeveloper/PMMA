@@ -325,8 +325,8 @@ class RectangleUtils:
         """
         🟩 **R** -
         """
-        dx = x - cx
-        dy = y - cy
+        dx = x -cx
+        dy = y -cy
         return [
             cx + dx * cos_theta - dy * sin_theta,
             cy + dx * sin_theta + dy * cos_theta
@@ -336,7 +336,7 @@ class RectangleUtils:
         """
         🟩 **R** - Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
         """
-        if self._position.get_coordinate_set() is False or self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
+        if self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
             return None
 
         x_size = self._x_size.get_point(_Constants.OPENGL_COORDINATES)
@@ -355,9 +355,19 @@ class RectangleUtils:
         if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_rectangle_exists(identifier):
             vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_rectangle(identifier)
         else:
-            # start
+            try:
+                minimum_radius = min(
+                    self._corner_radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES),
+                    self._x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) / 2,
+                    self._y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) / 2)
 
-            segments = 16  # Number of segments for each corner
+                segments = 1 + int((_Constants.TAU / _math.asin(1 / minimum_radius)) * _Registry.shape_quality)
+                segments //= 4
+            except:
+                segments = 3
+            if segments < 3:
+                segments = 3
+
             vertices = []
 
             # Outer and inner rectangle dimensions
@@ -365,8 +375,6 @@ class RectangleUtils:
             inner_radius = corner_radius - width
             outer_width = x_size
             outer_height = y_size
-
-            # Generate vertices for the rounded rectangle (outer and inner arcs)
 
             # Bottom-left corner
             bl_corners = self._generate_corner(
@@ -419,8 +427,6 @@ class RectangleUtils:
             vertices.append(vertices[1])  # Inner vertex
 
             combined_vertices = _numpy.array(vertices, dtype='f4')
-
-            # end -> combined_vertices
 
             # Apply rotation around the center
             cos_theta = _numpy.cos(rotation)
