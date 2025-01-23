@@ -8,8 +8,12 @@ class RenderPipelineManager:
     def __init__(self):
         _initialize(self, unique_instance=_Constants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        self.renderable_objects = []
         self.render_queue = []
+
+        self.old_order = {}
+        self.new_order = {}
+
+        self.current_location = [0, 0]
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -27,29 +31,20 @@ class RenderPipelineManager:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def evaluate_render_queue(self):
-        for renderable_object in self.renderable_objects:
-            if _Constants.RENDER_PIPELINEABLE in renderable_object._attributes:
-                if type(self.render_queue[-1]) == RenderPipeline:
-                    self.render_queue[-1].add_object(renderable_object)
-                elif self.render_queue[-1]._attributes == _Constants.RENDER_PIPELINEABLE:
-                    initial_object = self.render_queue.pop()
-                    self.render_queue.append(RenderPipeline())
-                    self.render_queue[-1].add_object(initial_object)
-                    self.render_queue[-1].add_object(renderable_object)
-                else:
-                    self.render_queue.append(renderable_object)
-            else:
-                self.render_queue.append(renderable_object)
+    def add_object(self, new_object):
+        if self.render_queue == []:
+            self.render_queue.append(new_object)
+            location = self.current_location
+            self.current_location[0] += 1
+            return location
+        else:
+            if type(self.render_queue[-1]) == RenderPipeline:
+                identifier = self.render_queue[-1].add_object(new_object) # place holder
+                location = self.current_location
+                self.current_location[1] = identifier
+                return location
+            elif self.render_queue[-1]._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
 
-    def add_renderable_object(self, renderable_object):
-        self.renderable_objects.append(renderable_object)
-
-    def render(self):
-        self.evaluate_render_queue()
-        for renderable_object in self.render_queue:
-            renderable_object.render()
-        self.render_queue = []
 
 class RenderPipeline:
     def __init__(self):

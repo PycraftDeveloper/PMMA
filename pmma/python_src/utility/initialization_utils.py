@@ -3,13 +3,16 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import TooManyInstancesError as _TooManyInstancesError
+from pmma.python_src.utility.general_utils import get_pmma_identifier as _get_pmma_identifier
 
 def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, logging_instantiation=False):
     """
     🟩 **R** -
     """
     instance._shut_down = False
-    instance._attributes = []
+    instance._properties = {
+        _Constants.PMMA_OBJECT_IDENTIFIER: _get_pmma_identifier(),
+        _Constants.RENDER_PIPELINE_COMPATIBLE: False}
 
     if _Registry.pmma_initialized is False:
         if not logging_instantiation:
