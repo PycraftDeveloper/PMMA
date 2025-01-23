@@ -34,7 +34,6 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
 
         self._color_changed = True
         self._fill_color_manager = _ColorConverter()
-        self._color = None
         self._display: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
         self._resized_event = _WindowResized_EVENT()
@@ -44,6 +43,9 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         _Registry.shape_count += 1
 
         self.old_shape_identifier = None
+
+        self._color_data = None
+        self._vertex_data = None
 
     def set_color(self, color, format=_Constants.RGB):
         """
@@ -66,7 +68,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             self._fill_color_manager.set_color(color, format=format)
 
         if self._color_changed:
-            self._color = self._fill_color_manager.get_color(format=_Constants.SMALL_RGBA)
+            self._color_data = self._fill_color_manager.get_color(format=_Constants.SMALL_RGBA)
 
     def get_color_set(self):
         return self._fill_color_manager.get_color_set()
@@ -83,7 +85,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             blue_color_range=None,
             alpha_color_range=None):
         self._color_changed = True
-        self._color = self._fill_color_manager.generate_random_color(
+        self._color_data = self._fill_color_manager.generate_random_color(
             format=_Constants.SMALL_RGBA,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -100,7 +102,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             blue_color_range=None,
             alpha_color_range=None):
         self._color_changed = True
-        self._color = self._fill_color_manager.generate_color_from_perlin_noise(
+        self._color_data = self._fill_color_manager.generate_color_from_perlin_noise(
             self,
             value=value,
             format=_Constants.SMALL_RGBA,
@@ -223,6 +225,7 @@ class LineUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_line(identifier, vertices)
 
         self.old_shape_identifier = identifier
+        self._vertex_data = vertices
 
         if not self._vbo.get_created():
             self._vbo.create(vertices)
@@ -290,6 +293,7 @@ class RadialPolygonUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_radial_polygon(identifier, vertices)
 
         self.old_shape_identifier = identifier
+        self._vertex_data = vertices
 
         if self._initial_point_count == None or self._initial_point_count != point_count: # delete and recreate as size changed.
             self._initial_point_count = point_count
@@ -379,6 +383,7 @@ class RectangleUtils:
 
         self._geometry_created = True  # Reset the flag
         self.old_shape_identifier = identifier
+        self._vertex_data = vertices
 
         if self._vbo.get_created() is False:
             self._vbo.create(vertices)
@@ -467,10 +472,9 @@ class ArcUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
-
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
         self.old_shape_identifier = identifier
+        self._vertex_data = rotated_vertices
 
         # Update VBO
         if self._initial_point_count == None or self._initial_point_count != point_count:
@@ -562,10 +566,9 @@ class EllipseUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
-
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
         self.old_shape_identifier = identifier
+        self._vertex_data = rotated_vertices
 
         if self._initial_point_count == None or self._initial_point_count != num_points:
             self._initial_point_count = num_points
@@ -640,11 +643,12 @@ class PolygonUtils:
                 extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
                 rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, vertices)
+            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
         self.old_shape_identifier = identifier
+        self._vertex_data = rotated_vertices
 
         if self._vbo.get_created() is False:
             self._vbo.create(rotated_vertices)

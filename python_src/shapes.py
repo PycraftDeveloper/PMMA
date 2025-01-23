@@ -92,7 +92,7 @@ class Line(_ShapeTemplate, _LineUtils):
             self._geometry_created = True
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
@@ -269,7 +269,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._position_changed = False
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
@@ -437,7 +437,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._geometry_created = True
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False
 
         if self._position_changed:
@@ -605,7 +605,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._geometry_created = True
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
         if self._position_changed:
@@ -801,7 +801,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._geometry_created = True
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
         if self._position_changed:
@@ -967,7 +967,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
             self._geometry_created = True
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
@@ -1152,7 +1152,7 @@ once to improve performance, but will continue to have an effect.")
             self._position_changed = False
 
         if self._color_changed:
-            self._program.set_shader_variable('color', self._color)
+            self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
         if self._vao.get_created() is False:
