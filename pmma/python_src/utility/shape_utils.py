@@ -4,6 +4,7 @@ import math as _math
 import pygame as _pygame
 import numpy as _numpy
 
+from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
@@ -227,10 +228,7 @@ class LineUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
 
-        if not self._vbo.get_created():
-            self._vbo.create(vertices)
-        else:
-            self._vbo.update(vertices)
+        self._vbo.set_data(vertices)
 
 class RadialPolygonUtils:
     def _create_geometry(self):
@@ -240,7 +238,18 @@ class RadialPolygonUtils:
         radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
-        identifier = _create_cache_id(radius, rotation, self._width)
+        if self._point_count is None:
+            try:
+                point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
+            except:
+                point_count = 3
+        else:
+            point_count = self._point_count
+
+        if point_count < 3:
+            point_count = 3
+
+        identifier = _create_cache_id(radius, rotation, self._width, point_count)
 
         if self.old_shape_identifier is not None:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
@@ -248,16 +257,6 @@ class RadialPolygonUtils:
         if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_radial_polygon_exists(identifier):
             vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_radial_polygon(identifier)
         else:
-            if self._point_count is None:
-                try:
-                    point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
-                except:
-                    point_count = 3
-                if point_count < 3:
-                    point_count = 3
-            else:
-                point_count = self._point_count
-
             angle_step = 2 * _math.pi / point_count
             angles = _numpy.arange(point_count) * angle_step + rotation
 
@@ -295,15 +294,7 @@ class RadialPolygonUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
 
-        if self._initial_point_count == None or self._initial_point_count != point_count: # delete and recreate as size changed.
-            self._initial_point_count = point_count
-            self._vbo.quit()
-            self._vbo.create(vertices)
-        else:
-            if self._vbo.get_created():
-                self._vbo.update(vertices)
-            else:
-                self._vbo.create(vertices)
+        self._vbo.set_data(vertices)
 
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
@@ -441,10 +432,7 @@ class RectangleUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
 
-        if self._vbo.get_created() is False:
-            self._vbo.create(vertices)
-        else:
-            self._vbo.update(vertices)
+        self._vbo.set_data(vertices)
 
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
@@ -533,15 +521,7 @@ class ArcUtils:
         self._vertex_data = rotated_vertices
 
         # Update VBO
-        if self._initial_point_count == None or self._initial_point_count != point_count:
-            self._initial_point_count = point_count
-            self._vbo.quit()
-            self._vbo.create(rotated_vertices)
-        else:
-            if self._vbo.get_created():
-                self._vbo.update(rotated_vertices)
-            else:
-                self._vbo.create(rotated_vertices)
+        self._vbo.set_data(rotated_vertices)
 
 class EllipseUtils:
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
@@ -626,15 +606,7 @@ class EllipseUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = rotated_vertices
 
-        if self._initial_point_count == None or self._initial_point_count != num_points:
-            self._initial_point_count = num_points
-            self._vbo.quit()
-            self._vbo.create(rotated_vertices)
-        else:
-            if self._vbo.get_created():
-                self._vbo.update(rotated_vertices)
-            else:
-                self._vbo.create(rotated_vertices)
+        self._vbo.set_data(rotated_vertices)
 
 class PolygonUtils:
     def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
@@ -706,10 +678,7 @@ class PolygonUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = rotated_vertices
 
-        if self._vbo.get_created() is False:
-            self._vbo.create(rotated_vertices)
-        else:
-            self._vbo.update(rotated_vertices)
+        self._vbo.set_data(rotated_vertices)
 
 class PixelUtils:
     def _create_geometry(self):
@@ -722,7 +691,4 @@ class PixelUtils:
             vertices = _numpy.array([0, 0], dtype='f4')
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_pixel(vertices)
 
-        if self._vbo.get_created():
-            self._vbo.update(vertices)
-        else:
-            self._vbo.create(vertices)
+        self._vbo.set_data(vertices)

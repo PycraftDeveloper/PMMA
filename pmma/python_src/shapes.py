@@ -318,6 +318,8 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
+        if point_count < 3:
+            point_count = 3
         self._point_count = point_count
 
     def get_point_count(self):

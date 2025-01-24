@@ -74,7 +74,7 @@ first if you want to be able to use these OpenGL functions.")
         self._check_if_opengl_backend_initialized()
         texture.write(image)
 
-class VertexBufferObject:
+class BufferObject:
     """
     🟩 **R** -
     """
@@ -84,147 +84,27 @@ class VertexBufferObject:
         """
         _initialize(self)
 
-        self._unique_identifier = id(self)
-        _Registry.opengl_objects[self._unique_identifier] = self
+        _Registry.opengl_objects[self._properties[_Constants.PMMA_OBJECT_IDENTIFIER]] = self
 
         self._data = None
-        self._vbo = None
-
-        self._created = False
+        self._buffer_object = None
 
         self._logger = _InternalLogger()
 
-        self._prep_reserve = None
-        self._prep_dynamic = None
-
-    def create(self, data, dynamic=False, reserve=0):
-        """
-        🟩 **R** -
-        """
-        if type(data) == list or type(data) == tuple:
-            data = _numpy.array(data, dtype=_numpy.float32)
-            self._logger.log_development("Converting list or tuple to numpy array for compatibility \
-with OpenGL. The data you submit to this 'create' method should be in a 'C-Like' format. A great \
-example of a 'C-Like' format would be a numpy array. Theoretically this conversion process should \
-work fine, however can be an 'inefficient' representation of the data it contains as we air on the \
-side of caution when it is created, effectively meaning it might use up more memory than absolutely \
-required. If however you see this message and encounter strange rendering behavior, this should always \
-be the first issue you address - it might not fix the problem, but there is a good chance it might.")
-
-        self._data = data
-        self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
-        self._created = True
-
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        self._prep_reserve = self._size()
-        self._prep_dynamic = self.get_dynamic()
-
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._vbo is not None:
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                reserve = self._prep_reserve
-
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                dynamic = self._prep_dynamic
-
-            self._vbo.release()
-
-            if self._data is None:
-                self._vbo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
-            else:
-                self._vbo = _Registry.context.buffer(self._data, dynamic=dynamic)
-
-    def update(self, data):
-        """
-        🟩 **R** -
-        """
-        if self._vbo is None:
-            self.create(data)
-            return
-
-        self._data = data
-        self._vbo.clear()
-        self._vbo.write(self._data)
-
-    def read(self, from_vbo=False):
-        """
-        🟩 **R** -
-        """
-        if from_vbo:
-            return self._data
-        else:
-            if self._vbo is not None:
-                return self._vbo.read()
-
-    def get_buffer_object(self):
-        """
-        🟩 **R** -
-        """
-        return self._vbo
-
-    def clear(self):
-        """
-        🟩 **R** -
-        """
-        self._data = None
-        if self._vbo is not None:
-            self._vbo.clear()
-
-    def bind_to_uniform_block(self, binding):
-        """
-        🟩 **R** -
-        """
-        if self._vbo is not None:
-            self._vbo.bind_to_uniform_block(binding)
-
-    def bind_to_shader_storage_buffer(self, binding):
-        """
-        🟩 **R** -
-        """
-        if self._vbo is not None:
-            self._vbo.bind_to_storage_buffer(binding)
-
-    def _size(self):
-        """
-        🟩 **R** -
-        """
-        if self._vbo is not None:
-            return self._vbo.size
-
-    def get_size(self):
-        """
-        🟩 **R** -
-        """
-        self._logger.log_development("Just as a point of clarification, this gets the size of the \
-buffer, not the memory used to store it (either system memory or video memory)")
-        return self._size()
-
-    def get_dynamic(self):
-        """
-        🟩 **R** -
-        """
-        if self._vbo is not None:
-            return self._vbo.dynamic
+        self._reserve = 0
+        self._dynamic = False
 
     def __del__(self, do_garbage_collection=False):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
-            self._created = False
-            if self._vbo is not None:
-                self._vbo.release()
-            del _Registry.opengl_objects[self._unique_identifier]
+            self._data = None
+
+            if self._buffer_object is not None:
+                self._buffer_object.release()
+
+            del _Registry.opengl_objects[self._properties[_Constants.PMMA_OBJECT_IDENTIFIER]]
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -236,485 +116,121 @@ buffer, not the memory used to store it (either system memory or video memory)")
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def get_created(self):
-        """
-        🟩 **R** -
-        """
-        return self._created
-
-class GenericBufferObject:
-    """
-    🟩 **R** -
-    """
-    def __init__(self):
-        """
-        🟩 **R** -
-        """
-        _initialize(self)
-
-        self._unique_identifier = id(self)
-        _Registry.opengl_objects[self._unique_identifier] = self
-
-        self._data = None
-        self._gbo = None
-
-        self._created = False
-
-        self._logger = _InternalLogger()
-
-        self._prep_reserve = None
-        self._prep_dynamic = None
-
-    def create(self, data, dynamic=False, reserve=0):
-        """
-        🟩 **R** -
-        """
-        self._data = data
-        self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
-        self._created = True
-
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        self._prep_reserve = self._size()
-        self._prep_dynamic = self.get_dynamic()
-
     def recreate(self):
         """
         🟩 **R** -
         """
-        if self._gbo is not None:
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                reserve = self._prep_reserve
+        if self._buffer_object is not None:
+            reserve = max(self._buffer_object.size, self._data.nbytes)
+            dynamic = self._buffer_object.dynamic
 
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                dynamic = self._prep_dynamic
+            self._buffer_object.release()
 
-            self._gbo.release()
+            self._buffer_object = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
 
-            if self._data is None:
-                self._gbo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
-            else:
-                self._gbo = _Registry.context.buffer(self._data, dynamic=dynamic)
+    def _update_buffer_object(self):
+        old_reserve = self._reserve
 
-    def update(self, data):
-        """
-        🟩 **R** -
-        """
-        if self._gbo is None:
-            self.create(data)
-            return
+        self._reserve = max(self._reserve, self._data.nbytes)
 
-        self._data = data
-        self._gbo.clear()
-        self._gbo.write(self._data)
-
-    def read(self, from_gbo=False):
-        """
-        🟩 **R** -
-        """
-        if from_gbo:
-            return self._data
+        if self._data is not None:
+            reserve = 0
         else:
-            if self._gbo is not None:
-                return self._gbo.read()
+            reserve = self._reserve
+
+        if self._buffer_object is None:
+            self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
+        else:
+            if old_reserve != reserve:
+                self._buffer_object.release()
+                self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
+            else:
+                self._buffer_object.write(self._data)
 
     def get_buffer_object(self):
         """
         🟩 **R** -
         """
-        return self._gbo
+        return self._buffer_object
 
-    def clear(self):
+    def has_data(self):
         """
         🟩 **R** -
         """
+        return self._data is not None
+
+    def set_data(self, data):
+        self._data = data
+        self._update_buffer_object()
+
+    def set_dynamic(self, dynamic):
+        self._dynamic = dynamic
+
+        if self._buffer_object is not None:
+            self._update_buffer_object()
+
+    def get_dynamic(self):
+        return self._dynamic
+
+    def set_reserve(self, reserve):
+        self._reserve = reserve
+
+        self._reserve = max(self._reserve, self._data.nbytes)
+        self._update_buffer_object()
+
+    def get_reserve(self):
+        return self._reserve
+
+    def get_data(self):
+        return self._data
+
+    def clear(self):
         self._data = None
-        if self._gbo is not None:
-            self._gbo.clear()
+
+        if self._buffer_object is not None:
+            self._buffer_object.clear()
 
     def bind_to_uniform_block(self, binding):
         """
         🟩 **R** -
         """
-        if self._gbo is not None:
-            self._gbo.bind_to_uniform_block(binding)
+        if self._buffer_object is not None:
+            self._buffer_object.bind_to_uniform_block(binding)
 
     def bind_to_shader_storage_buffer(self, binding):
         """
         🟩 **R** -
         """
-        if self._gbo is not None:
-            self._gbo.bind_to_storage_buffer(binding)
+        if self._buffer_object is not None:
+            self._buffer_object.bind_to_storage_buffer(binding)
 
-    def _size(self):
-        """
-        🟩 **R** -
-        """
-        if self._gbo is not None:
-            return self._gbo.size
-
-    def get_size(self):
-        """
-        🟩 **R** -
-        """
-        self._logger.log_development("Just as a point of clarification, this gets the size of the \
-buffer, not the memory used to store it (either system memory or video memory)")
-        return self._size()
-
-    def get_dynamic(self):
-        """
-        🟩 **R** -
-        """
-        if self._gbo is not None:
-            return self._gbo.dynamic
-
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            self._created = False
-            if self._gbo is not None:
-                self._gbo.release()
-            del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def get_created(self):
-        """
-        🟩 **R** -
-        """
-        return self._created
-
-class ColorBufferObject:
-    """
-    🟩 **R** -
-    """
+class GenericBufferObject(BufferObject):
     def __init__(self):
         """
         🟩 **R** -
         """
-        _initialize(self)
+        super().__init__()
 
-        self._unique_identifier = id(self)
-        _Registry.opengl_objects[self._unique_identifier] = self
-
-        self._data = None
-        self._cbo = None
-
-        self._created = False
-
-        self._logger = _InternalLogger()
-
-        self._prep_reserve = None
-        self._prep_dynamic = None
-
-    def create(self, data, dynamic=False, reserve=0):
-        """
-        🟩 **R** -
-        """
-        self._data = data
-        self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
-        self._created = True
-
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        self._prep_reserve = self._size()
-        self._prep_dynamic = self.get_dynamic()
-
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._cbo is not None:
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                reserve = self._prep_reserve
-
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                dynamic = self._prep_dynamic
-
-            self._cbo.release()
-
-            if self._data is None:
-                self._cbo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
-            else:
-                self._cbo = _Registry.context.buffer(self._data, dynamic=dynamic)
-
-    def update(self, data):
-        """
-        🟩 **R** -
-        """
-        if self._cbo is None:
-            self.create(data)
-            return
-
-        self._data = data
-        self._cbo.clear()
-        self._cbo.write(self._data)
-
-    def read(self, from_vbo=False):
-        """
-        🟩 **R** -
-        """
-        if from_vbo:
-            return self._data
-        else:
-            if self._cbo is not None:
-                return self._cbo.read()
-
-    def clear(self):
-        """
-        🟩 **R** -
-        """
-        self._data = None
-        if self._cbo is not None:
-            self._cbo.clear()
-
-    def bind_to_uniform_block(self, binding):
-        """
-        🟩 **R** -
-        """
-        if self._cbo is not None:
-            self._cbo.bind_to_uniform_block(binding)
-
-    def bind_to_shader_storage_buffer(self, binding):
-        """
-        🟩 **R** -
-        """
-        if self._cbo is not None:
-            self._cbo.bind_to_storage_buffer(binding)
-
-    def _size(self):
-        """
-        🟩 **R** -
-        """
-        if self._cbo is not None:
-            return self._cbo.size
-
-    def get_size(self):
-        """
-        🟩 **R** -
-        """
-        self._logger.log_development("Just as a point of clarification, this gets the size of the \
-buffer, not the memory used to store it (either system memory or video memory)")
-        return self._size()
-
-    def get_buffer_object(self):
-        """
-        🟩 **R** -
-        """
-        return self._cbo
-
-    def get_dynamic(self):
-        """
-        🟩 **R** -
-        """
-        if self._cbo is not None:
-            return self._cbo.dynamic
-
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            self._created = False
-            if self._cbo is not None:
-                self._cbo.release()
-            del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def get_created(self):
-        """
-        🟩 **R** -
-        """
-        return self._created
-
-class IndexBufferObject:
-    """
-    🟩 **R** -
-    """
+class VertexBufferObject(BufferObject):
     def __init__(self):
         """
         🟩 **R** -
         """
-        _initialize(self)
+        super().__init__()
 
-        self._unique_identifier = id(self)
-        _Registry.opengl_objects[self._unique_identifier] = self
-
-        self._data = None
-        self._ibo = None
-
-        self._created = False
-
-        self._logger = _InternalLogger()
-
-        self._prep_reserve = None
-        self._prep_dynamic = None
-
-    def create(self, data, dynamic=False, reserve=0):
+class IndexBufferObject(BufferObject):
+    def __init__(self):
         """
         🟩 **R** -
         """
-        self._data = data
-        self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
-        self._created = True
+        super().__init__()
 
-    def prepare_for_recreation(self):
+class ColorBufferObject(BufferObject):
+    def __init__(self):
         """
         🟩 **R** -
         """
-        self._prep_reserve = self._size()
-        self._prep_dynamic = self.get_dynamic()
-
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._ibo is not None:
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                reserve = self._prep_reserve
-
-            if self._prep_reserve is None:
-                raise _OpenGLObjectNotPreparedForRecreation()
-            else:
-                dynamic = self._prep_dynamic
-
-            self._ibo.release()
-
-            if self._data is None:
-                self._ibo = _Registry.context.buffer(dynamic=dynamic, reserve=reserve)
-            else:
-                self._ibo = _Registry.context.buffer(self._data, dynamic=dynamic)
-
-    def update(self, data):
-        """
-        🟩 **R** -
-        """
-        if self._ibo is None:
-            self.create(data)
-            return
-
-        self._data = data
-        self._ibo.clear()
-        self._ibo.write(self._data)
-
-    def read(self, from_vbo=False):
-        """
-        🟩 **R** -
-        """
-        if from_vbo:
-            return self._data
-        else:
-            if self._ibo is not None:
-                return self._ibo.read()
-
-    def get_buffer_object(self):
-        """
-        🟩 **R** -
-        """
-        return self._ibo
-
-    def clear(self):
-        """
-        🟩 **R** -
-        """
-        self._data = None
-        if self._ibo is not None:
-            self._ibo.clear()
-
-    def bind_to_uniform_block(self, binding):
-        """
-        🟩 **R** -
-        """
-        if self._ibo is not None:
-            self._ibo.bind_to_uniform_block(binding)
-
-    def bind_to_shader_storage_buffer(self, binding):
-        """
-        🟩 **R** -
-        """
-        if self._ibo is not None:
-            self._ibo.bind_to_storage_buffer(binding)
-
-    def _size(self):
-        """
-        🟩 **R** -
-        """
-        if self._ibo is not None:
-            return self._ibo.size
-
-    def get_size(self):
-        """
-        🟩 **R** -
-        """
-        self._logger.log_development("Just as a point of clarification, this gets the size of the \
-buffer, not the memory used to store it (either system memory or video memory)")
-        return self._size()
-
-    def get_dynamic(self):
-        """
-        🟩 **R** -
-        """
-        if self._ibo is not None:
-            return self._ibo.dynamic
-
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            self._created = False
-            if self._ibo is not None:
-                self._ibo.release()
-            del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
-        self._shut_down = True
-
-    def get_created(self):
-        """
-        🟩 **R** -
-        """
-        return self._created
+        super().__init__()
 
 class VertexArrayObject:
     """
@@ -825,7 +341,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
         if vertex_buffer_object is None:
             raise ValueError("Vertex buffer object cannot be None")
-        if vertex_buffer_object.get_created() is False:
+        if vertex_buffer_object.has_data() is False:
             raise ValueError("Vertex buffer object has not been created yet")
 
         self._vertex_buffer_object = vertex_buffer_object
