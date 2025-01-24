@@ -242,8 +242,8 @@ class Video:
         self._texture = _Texture()
         self._texture.create(self._video_size, components=_Constants.RGB)
 
-        if self._vbo.get_created() is False:
-            self._vbo.create(self._surface_vertices)
+        if self._vbo.has_data() is False:
+            self._vbo.set_data(self._surface_vertices)
 
         if self._vao.get_created() is False:
             self._vao.create(self._shader, self._vbo, ["2f", "in_vert", "2f", "in_text"])
