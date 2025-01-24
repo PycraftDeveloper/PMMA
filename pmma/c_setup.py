@@ -42,6 +42,13 @@ if compiler == "msvc":
             include_dirs=[numpy.get_include()],
             extra_compile_args=["/O2"],
             define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
+        ),
+        Extension(
+            "render_pipeline_utils",
+            [cython_src_path+"render_pipeline_utils.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["/O2"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         )
     ]
 elif compiler == "gcc" or compiler == "unix":
@@ -72,6 +79,13 @@ elif compiler == "gcc" or compiler == "unix":
             include_dirs=[numpy.get_include()],
             extra_compile_args=["-O3"],
             define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
+        ),
+        Extension(
+            "render_pipeline_utils",
+            [cython_src_path+"render_pipeline_utils.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["-O3"],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         )
     ]
 else:
@@ -96,6 +110,12 @@ else:
         Extension(
             "math_utils",
             [cython_src_path+"math_utils.pyx"],
+            include_dirs=[numpy.get_include()],
+            define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
+        ),
+        Extension(
+            "render_pipeline_utils",
+            [cython_src_path+"render_pipeline_utils.pyx"],
             include_dirs=[numpy.get_include()],
             define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
         )

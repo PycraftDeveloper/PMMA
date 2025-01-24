@@ -44,7 +44,7 @@ class RenderPipelineManager:
                 self.current_location[1] = identifier
                 return location
             elif self.render_queue[-1]._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
-
+                pass
 
 class RenderPipeline:
     def __init__(self):
