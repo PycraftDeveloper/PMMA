@@ -176,6 +176,16 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: Rectangle.set_corner_radius() -> None
+
+    🟩 **R** -
+    
+
+.. py:method:: Rectangle.get_corner_width() -> None
+
+    🟩 **R** -
+    
+
 .. py:method:: Rectangle.set_rotation() -> None
 
     🟩 **R** -

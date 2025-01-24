@@ -29,15 +29,15 @@ Methods
     🟩 **R** -
     
 
-Vertex Buffer Object (``pmma.VertexBufferObject``)
-==================================================
+Buffer Object (``pmma.BufferObject``)
+=====================================
 
 🟩 **R** -
 
 Create
 ------
 
-.. py:method:: pmma.VertexBufferObject() -> pmma.VertexBufferObject
+.. py:method:: pmma.BufferObject() -> pmma.BufferObject
 
     🟩 **R** -
     
@@ -45,67 +45,60 @@ Create
 Methods
 -------
 
-.. py:method:: VertexBufferObject.create() -> None
+.. py:method:: BufferObject.quit() -> None
 
     🟩 **R** -
     
 
-.. py:method:: VertexBufferObject.prepare_for_recreation() -> None
+.. py:method:: BufferObject.recreate() -> None
 
     🟩 **R** -
     
 
-.. py:method:: VertexBufferObject.recreate() -> None
+.. py:method:: BufferObject.get_buffer_object() -> None
 
     🟩 **R** -
     
 
-.. py:method:: VertexBufferObject.update() -> None
+.. py:method:: BufferObject.has_data() -> None
 
     🟩 **R** -
     
 
-.. py:method:: VertexBufferObject.read() -> None
+.. py:method:: BufferObject.set_data() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.set_dynamic() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.get_dynamic() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.set_reserve() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.get_reserve() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.get_data() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.clear() -> None
+
+   Not Yet Written
+
+.. py:method:: BufferObject.bind_to_uniform_block() -> None
 
     🟩 **R** -
     
 
-.. py:method:: VertexBufferObject.get_buffer_object() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.clear() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.bind_to_uniform_block() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.bind_to_shader_storage_buffer() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.get_size() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.get_dynamic() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.quit() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexBufferObject.get_created() -> None
+.. py:method:: BufferObject.bind_to_shader_storage_buffer() -> None
 
     🟩 **R** -
     
@@ -113,7 +106,7 @@ Methods
 Generic Buffer Object (``pmma.GenericBufferObject``)
 ====================================================
 
-🟩 **R** -
+Not Yet Written
 
 Create
 ------
@@ -123,151 +116,15 @@ Create
     🟩 **R** -
     
 
-Methods
--------
+Vertex Buffer Object (``pmma.VertexBufferObject``)
+==================================================
 
-.. py:method:: GenericBufferObject.create() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.prepare_for_recreation() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.recreate() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.update() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.read() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.get_buffer_object() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.clear() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.bind_to_uniform_block() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.bind_to_shader_storage_buffer() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.get_size() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.get_dynamic() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.quit() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: GenericBufferObject.get_created() -> None
-
-    🟩 **R** -
-    
-
-Color Buffer Object (``pmma.ColorBufferObject``)
-================================================
-
-🟩 **R** -
+Not Yet Written
 
 Create
 ------
 
-.. py:method:: pmma.ColorBufferObject() -> pmma.ColorBufferObject
-
-    🟩 **R** -
-    
-
-Methods
--------
-
-.. py:method:: ColorBufferObject.create() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.prepare_for_recreation() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.recreate() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.update() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.read() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.clear() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.bind_to_uniform_block() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.bind_to_shader_storage_buffer() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.get_size() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.get_buffer_object() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.get_dynamic() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.quit() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: ColorBufferObject.get_created() -> None
+.. py:method:: pmma.VertexBufferObject() -> pmma.VertexBufferObject
 
     🟩 **R** -
     
@@ -275,7 +132,7 @@ Methods
 Index Buffer Object (``pmma.IndexBufferObject``)
 ================================================
 
-🟩 **R** -
+Not Yet Written
 
 Create
 ------
@@ -285,70 +142,15 @@ Create
     🟩 **R** -
     
 
-Methods
--------
+Color Buffer Object (``pmma.ColorBufferObject``)
+================================================
 
-.. py:method:: IndexBufferObject.create() -> None
+Not Yet Written
 
-    🟩 **R** -
-    
+Create
+------
 
-.. py:method:: IndexBufferObject.prepare_for_recreation() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.recreate() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.update() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.read() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.get_buffer_object() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.clear() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.bind_to_uniform_block() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.bind_to_shader_storage_buffer() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.get_size() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.get_dynamic() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.quit() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: IndexBufferObject.get_created() -> None
+.. py:method:: pmma.ColorBufferObject() -> pmma.ColorBufferObject
 
     🟩 **R** -
     
