@@ -385,7 +385,7 @@ class Video:
 
             self._video_clock.tick(1/(self._video_frame_time))
 
-    def render(self):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
@@ -416,3 +416,6 @@ class Video:
 
             # Render the frame
             self._vao.render(_moderngl.TRIANGLE_STRIP)
+
+    def render(self):
+        self._internal_render()

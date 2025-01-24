@@ -1,7 +1,5 @@
 from gc import collect as _gc__collect
 
-import moderngl as _moderngl
-
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
@@ -75,19 +73,11 @@ class Line(_ShapeTemplate, _LineUtils):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        if self._color_changed or self._geometry_created is False:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
-        # Update VBO with any changes to vertices or colors
+        color_changed = self._color_changed
+        geometry_created = self._geometry_created
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -97,11 +87,7 @@ class Line(_ShapeTemplate, _LineUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        # Render the line
-        self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
+        self._internal_render(color_changed, geometry_created)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -250,19 +236,13 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        if self._color_changed or self._geometry_created is False or self._position_changed:
-            self._display.set_refresh_optimization_override(True)
+        color_changed = self._color_changed
+        geometry_created = self._geometry_created
+        position_changed = self._position_changed
 
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
-        # Update VBO with any changes to vertices or colors
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -276,10 +256,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        self._vao.render(_moderngl.TRIANGLE_STRIP)
+        self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -428,19 +405,12 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        if self._color_changed or self._geometry_created is False or self._position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
-        # Update VBO with any changes to vertices or colors
+        color_changed = self._color_changed
+        geometry_created = self._geometry_created
+        position_changed = self._position_changed
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -454,10 +424,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._program.set_shader_variable('offset', self._position.get_coordinates(_Constants.OPENGL_COORDINATES))
             self._position_changed = False
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        self._vao.render(_moderngl.TRIANGLE_STRIP)
+        self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=1, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -618,19 +585,12 @@ class Arc(_ShapeTemplate, _ArcUtils):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        if self._color_changed or self._geometry_created is False or self._position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
-        # Update VBO with any changes to vertices or colors
+        color_changed = self._color_changed
+        geometry_created = self._geometry_created
+        position_changed = self._position_changed
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -644,11 +604,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._program.set_shader_variable('offset', self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES))
             self._position_changed = False
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        # Render the arc using GL_TRIANGLE_STRIP
-        self._vao.render(_moderngl.TRIANGLE_STRIP)
+        self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=1):
         """
@@ -816,19 +772,12 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        if self._color_changed or self._geometry_created is False or self._position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
-        # Update VBO with any changes to vertices or colors
+        color_changed = self._color_changed
+        geometry_created = self._geometry_created
+        position_changed = self._position_changed
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -842,10 +791,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._program.set_shader_variable('offset', self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES))
             self._position_changed = False
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        self._vao.render(_moderngl.TRIANGLE_STRIP)
+        self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=None):
         """
@@ -984,20 +930,12 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        if self._color_changed or self._geometry_created is False:
-            self._display.set_refresh_optimization_override(True)
+        color_changed = self._color_changed
+        geometry_created = self._geometry_created
 
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
-
-        # Update VBO with any changes to vertices or colors
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -1006,14 +944,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        # Draw the polygon using triangle fan (good for convex shapes)
-        if self._closed is False and self._width is None:
-            self._width = 1 # idk about this bit yet
-
-        self._vao.render(_moderngl.TRIANGLE_STRIP)
+        self._internal_render(color_changed, geometry_created)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -1137,46 +1068,15 @@ class Pixel(_ShapeTemplate, _PixelUtils):
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def render(self, point_size=None, dynamic_rendering=True):
+    def render(self):
         """
         🟩 **R** -
         """
-        if dynamic_rendering:
-            if self._position is None:
-                self._logger.log_development("You didn't set a position for this shape. \
-Therefore we not be rendering it to avoid any potential errors. This can be an effectively \
-technique to 'prepare' a shape for rendering later on. This behavior can be controlled by \
-setting the 'dynamic_rendering' key word argument to False. This message will only appear \
-once to improve performance, but will continue to have an effect.")
-                return None
-            conventional_position = self.get_position(format=_Constants.CONVENTIONAL_COORDINATES)
-            if conventional_position[0] < 0 or conventional_position[1] < 0:
-                self._logger.log_development("Your position for this shape is off the \
-screen, therefore as a performance improving feature we wont bother rendering it \
-(because you wont see it). This behavior can be controlled by setting the \
-'dynamic_rendering' key word argument to False. This message will only appear \
-once to improve performance, but will continue to have an effect.")
-                return None
-            if conventional_position[0] > self._display.get_width() or conventional_position[1] > self._display.get_height():
-                self._logger.log_development("Your position for this shape is off the \
-screen, therefore as a performance improving feature we wont bother rendering it \
-(because you wont see it). This behavior can be controlled by setting the \
-'dynamic_rendering' key word argument to False. This message will only appear \
-once to improve performance, but will continue to have an effect.")
-                return None
-
-        self._display.update_attempted_render_calls(1)
-
         if self._resized_event.get_value():
             self._position_changed = True
 
-        if self._color_changed or self._position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
-        self._display.get_2D_hardware_accelerated_surface()
+        color_changed = self._color_changed
+        position_changed = self._position_changed
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -1191,34 +1091,7 @@ once to improve performance, but will continue to have an effect.")
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        if self._vao.get_created() is False:
-            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
-
-        if point_size is None:
-            if _Registry.do_anti_aliasing:
-                self._logger.log_development("When using anti-aliasing we need to slightly \
-increase the point size to ensure that it is rendered visibly onscreen. That is why sometimes \
-your single pixel might appear like a 2x2 instead of 1x1 pixels wide. This behavior can be \
-forced back to 1 by using the 'point_size' key word argument to this method call, however \
-we generally don't recommend this without good reason.")
-                if _Registry.anti_aliasing_level > 8:
-                    self._logger.log_development("You are using an anti-aliasing level of \
-more than 8. When using high anti-aliasing samples we automatically increase the pixel size \
-slightly to ensure that it is still visible. However in testing we where not able to exceed \
-an anti-aliasing level of 8, you have here so we cannot guarantee that the pixel will be \
-visible. If the pixel cannot be found then adjust the point size parameter to this method \
-call to larger than 2.")
-                _Registry.context.point_size = 2
-            else:
-                _Registry.context.point_size = 1
-        else:
-            _Registry.context.point_size = point_size
-            self._logger.log_development("You have specified a custom point size. This should \
-only really be used to fix any potential problems with anti-aliasing and small pixels being \
-simply 'aliased-away'. You can use this to make points appear larger, however its generally \
-recommended to do this in the shader it's self with: `gl_PointSize`.")
-
-        self._vao.render(mode=_moderngl.POINTS)
+        self._internal_render(color_changed, position_changed)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
         """
