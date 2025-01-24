@@ -418,4 +418,7 @@ class Video:
             self._vao.render(_moderngl.TRIANGLE_STRIP)
 
     def render(self):
-        self._internal_render()
+        if _Registry.render_pipeline_acceleration_available:
+            pass
+        else:
+            self._internal_render()

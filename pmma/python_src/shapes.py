@@ -1116,7 +1116,10 @@ class Pixel(_ShapeTemplate, _PixelUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        self._internal_render(color_changed, position_changed)
+        if _Registry.render_pipeline_acceleration_available:
+            pass
+        else:
+            self._internal_render(color_changed, position_changed)
 
     def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
         """

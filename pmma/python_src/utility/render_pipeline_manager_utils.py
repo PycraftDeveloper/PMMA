@@ -18,6 +18,10 @@ class RenderPipelineManager:
             self.render_pipeline_module = _importlib.import_module(
                 "pmma.python_src.pyx_alternatives.utility.render_pipeline_utils")
 
+        _Registry.render_pipeline_acceleration_available = True
+
+        ### (anything below this is heuristic) ###
+
         self.render_queue = []
 
         self.old_order = {}
@@ -30,6 +34,7 @@ class RenderPipelineManager:
         🟩 **R** -
         """
         if self._shut_down is False:
+            _Registry.render_pipeline_acceleration_available = False
             del self
             if do_garbage_collection:
                 _gc__collect()
