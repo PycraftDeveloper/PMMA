@@ -76,15 +76,17 @@ while pmma.Backpack.running:
     display.clear([0, 0, 0])
 
     radial_polygon.render()
-    line.render()
-    rectangle.render()
-    pixel.render()
-    arc.render()
-    ellipse.render()
-    polygon.render()
+    #line.render()
+    #rectangle.render()
+    #pixel.render()
+    #arc.render()
+    #ellipse.render()
+    #polygon.render()
+
+    #radial_polygon.set_point_count(4)
 
     #rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
-    print(int((1+math.sin(pmma.get_application_run_time()))*10))
+    #print(int((1+math.sin(pmma.get_application_run_time()))*10))
     radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
 
     #line.set_end((500, 60*(time.perf_counter()-start)))
