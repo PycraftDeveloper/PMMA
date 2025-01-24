@@ -118,24 +118,6 @@ class BufferObject:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._buffer_object is not None:
-            reserve = max(self._buffer_object.size, self._data.nbytes)
-            dynamic = self._buffer_object.dynamic
-
-            if self._data is not None:
-                reserve = 0
-            else:
-                reserve = self._reserve
-
-            self._buffer_object.release()
-
-            self._buffer_object = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
-            self._reassign_to_vertex_array_object = True
-
     def _update_buffer_object(self):
         old_reserve = self._reserve
 
@@ -399,7 +381,6 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
             program = self._program.use_program()
 
             if self._index_buffer_object is not None:
-                self._index_buffer_object.recreate()
                 ibo = self._index_buffer_object.get_buffer_object()
             else:
                 ibo = None
@@ -409,39 +390,6 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
 
             for buffer_count in range(len(self._additional_buffers)):
                 buffer_passthrough.append((self._additional_buffers[buffer_count].get_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
-
-            self._vao = _Registry.context.vertex_array(
-                program,
-                buffer_passthrough,
-                index_buffer=ibo,
-                index_element_size=self._index_element_size)
-
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._vao is not None:
-            self._vao.release()
-
-            self._program.recreate()
-            self._vertex_buffer_object.recreate()
-
-            if self._index_buffer_object is not None:
-                self._index_buffer_object.recreate()
-                ibo = self._index_buffer_object.get_buffer_object()
-            else:
-                ibo = None
-
-            for buffer in self._additional_buffers:
-                buffer.recreate()
-
-            buffer_passthrough = [
-                (self._vertex_buffer_object.get_buffer_object(), *self._vertex_buffer_shader_attributes)]
-
-            for buffer_count in range(len(self._additional_buffers)):
-                buffer_passthrough.append((self._additional_buffers[buffer_count].get_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
-
-            program = self._program.use_program()
 
             self._vao = _Registry.context.vertex_array(
                 program,
@@ -782,17 +730,6 @@ class Shader:
             fragment_shader=self._program_data["fragment"])
         self._created = True
 
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._program is not None:
-            self._program.release()
-
-            self._program = _Registry.context.program(
-                vertex_shader=self._program_data["vertex"],
-                fragment_shader=self._program_data["fragment"])
-
     def get_program(self):
         """
         🟩 **R** -
@@ -968,12 +905,6 @@ class Texture:
         """
         self._internal_texture.build_mipmaps(base=base, max_level=max_level)
 
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        self._internal_texture.recreate()
-
     def __del__(self, do_garbage_collection=False):
         """
         🟩 **R** -
@@ -1036,22 +967,6 @@ class FrameBufferObject:
             color_attachments=color_attachments,
             depth_attachment=self._depth_attachment)
         self._created = True
-
-    def recreate(self):
-        """
-        🟩 **R** -
-        """
-        if self._fbo is not None:
-            self._fbo.release()
-
-            color_attachments = []
-            for color_attachment in self._color_attachments:
-                color_attachment.recreate()
-                color_attachments.append(color_attachment.get_texture())
-
-            self._fbo = _Registry.context.framebuffer(
-                color_attachments=color_attachments,
-                depth_attachment=self._depth_attachment)
 
     def clear(self, color=None, depth=1.0, viewport=None):
         """
