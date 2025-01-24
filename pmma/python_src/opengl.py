@@ -155,6 +155,7 @@ class BufferObject:
                 self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
                 self._reassign_to_vertex_array_object = True
             else:
+                self._buffer_object.clear()
                 self._buffer_object.write(self._data)
 
     def get_buffer_object(self):
@@ -391,6 +392,30 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
             index_element_size=self._index_element_size)
         self._created = True
 
+    def _reassociate_buffers(self):
+        if self._vao is not None:
+            self._vao.release()
+
+            program = self._program.use_program()
+
+            if self._index_buffer_object is not None:
+                self._index_buffer_object.recreate()
+                ibo = self._index_buffer_object.get_buffer_object()
+            else:
+                ibo = None
+
+            buffer_passthrough = [
+                (self._vertex_buffer_object.get_buffer_object(), *self._vertex_buffer_shader_attributes)]
+
+            for buffer_count in range(len(self._additional_buffers)):
+                buffer_passthrough.append((self._additional_buffers[buffer_count].get_buffer_object(), *self._additional_buffer_attributes[buffer_count]))
+
+            self._vao = _Registry.context.vertex_array(
+                program,
+                buffer_passthrough,
+                index_buffer=ibo,
+                index_element_size=self._index_element_size)
+
     def recreate(self):
         """
         🟩 **R** -
@@ -436,6 +461,14 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         🟩 **R** -
         """
         if self._vao is not None:
+            if self._vertex_buffer_object._reassign_to_vertex_array_object:
+                self._reassociate_buffers()
+                self._vertex_buffer_object._reassign_to_vertex_array_object = False
+            if self._index_buffer_object is not None:
+                if self._index_buffer_object._reassign_to_vertex_array_object:
+                    self._reassociate_buffers()
+                    self._index_buffer_object._reassign_to_vertex_array_object = False
+
             self._program.use_program()
             if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
                 if self._program.get_using_gl_point_size_syntax():
