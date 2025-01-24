@@ -10,6 +10,7 @@ from pmma.python_src.number_converter import AngleConverter as _AngleConverter
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.advmath import Math as _Math
 
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.shape_utils import ShapeTemplate as _ShapeTemplate
@@ -32,8 +33,12 @@ class Line(_ShapeTemplate, _LineUtils):
         super().__init__()
 
         _initialize(self)
-
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
+        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
+            _render_pipeline_utils.RenderPipelineManager()
 
         self._start = _DisplayCoordinatesConverter()
         self._end = _DisplayCoordinatesConverter()
@@ -191,8 +196,12 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         super().__init__()
 
         _initialize(self)
-
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
+        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
+            _render_pipeline_utils.RenderPipelineManager()
 
         self._point_count = None
         self._radius = _DisplayScalarConverter()
@@ -359,8 +368,12 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         super().__init__()
 
         _initialize(self)
-
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
+        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
+            _render_pipeline_utils.RenderPipelineManager()
 
         self._position = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
@@ -539,8 +552,12 @@ class Arc(_ShapeTemplate, _ArcUtils):
         super().__init__()
 
         _initialize(self)
-
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
+        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
+            _render_pipeline_utils.RenderPipelineManager()
 
         self._radius = _DisplayScalarConverter()
         self._inner_radius = _DisplayScalarConverter()
@@ -724,8 +741,12 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         super().__init__()
 
         _initialize(self)
-
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
+        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
+            _render_pipeline_utils.RenderPipelineManager()
 
         self._position = _DisplayCoordinatesConverter()
         self._outer_x_size = _DisplayScalarConverter()
@@ -886,8 +907,12 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         super().__init__()
 
         _initialize(self)
-
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+
+        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
+            _render_pipeline_utils.RenderPipelineManager()
 
         self._points = []
         self._closed = True

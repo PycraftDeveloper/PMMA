@@ -136,7 +136,7 @@ def init(
         _ShapeGeometryManager()
 
     if Constants.RENDER_PIPELINE_MANAGER_OBJECT in _PassportIntermediary.components_used:
-        from pmma.python_src.utility.render_pipeline_utils import RenderPipelineManager as _RenderPipelineManager
+        from pmma.python_src.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
         _RenderPipelineManager()
 
     logger = _InternalLogger()
