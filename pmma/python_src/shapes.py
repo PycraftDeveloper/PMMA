@@ -278,6 +278,11 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
+        if self._vbo._reassign_to_vertex_array_object:
+            '''self._vao.quit()
+            self._vao.create(self._program, self._vbo, ['2f', 'in_position'])'''
+            self._vao.recreate()
+            self._vbo._reassign_to_vertex_array_object = False
 
         self._vao.render(_moderngl.TRIANGLE_STRIP)
 

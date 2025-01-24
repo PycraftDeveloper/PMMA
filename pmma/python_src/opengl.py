@@ -94,6 +94,8 @@ class BufferObject:
         self._reserve = 0
         self._dynamic = False
 
+        self._reassign_to_vertex_array_object = False
+
     def __del__(self, do_garbage_collection=False):
         """
         🟩 **R** -
@@ -124,9 +126,15 @@ class BufferObject:
             reserve = max(self._buffer_object.size, self._data.nbytes)
             dynamic = self._buffer_object.dynamic
 
+            if self._data is not None:
+                reserve = 0
+            else:
+                reserve = self._reserve
+
             self._buffer_object.release()
 
             self._buffer_object = _Registry.context.buffer(self._data, dynamic=dynamic, reserve=reserve)
+            self._reassign_to_vertex_array_object = True
 
     def _update_buffer_object(self):
         old_reserve = self._reserve
@@ -140,10 +148,12 @@ class BufferObject:
 
         if self._buffer_object is None:
             self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
+            self._reassign_to_vertex_array_object = True
         else:
-            if old_reserve != reserve:
+            if old_reserve != self._reserve:
                 self._buffer_object.release()
                 self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
+                self._reassign_to_vertex_array_object = True
             else:
                 self._buffer_object.write(self._data)
 
@@ -342,7 +352,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         if vertex_buffer_object is None:
             raise ValueError("Vertex buffer object cannot be None")
         if vertex_buffer_object.has_data() is False:
-            raise ValueError("Vertex buffer object has not been created yet")
+            raise ValueError("Vertex buffer object has no data")
 
         self._vertex_buffer_object = vertex_buffer_object
 
@@ -409,10 +419,10 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
             program = self._program.use_program()
 
             self._vao = _Registry.context.vertex_array(
-            program,
-            buffer_passthrough,
-            index_buffer=ibo,
-            index_element_size=self._index_element_size)
+                program,
+                buffer_passthrough,
+                index_buffer=ibo,
+                index_element_size=self._index_element_size)
 
     def render_wire_frame(self):
         """
