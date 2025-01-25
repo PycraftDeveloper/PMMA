@@ -111,6 +111,5 @@ Methods
 
 .. py:method:: Video.render() -> None
 
-    🟩 **R** -
-    
+   Not Yet Written
 
