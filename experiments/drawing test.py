@@ -37,7 +37,7 @@ radial_polygon.set_point_count(3)
 radial_polygon.set_width(180)
 
 rectangle = pmma.Rectangle()
-rectangle.set_position((900, 200))
+rectangle.set_center((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
 #rectangle.set_width(90)
@@ -100,7 +100,7 @@ while pmma.Backpack.running:
 
     pmma.compute()
     end = time.perf_counter()
-    display.refresh(refresh_rate=60)
+    display.refresh(refresh_rate=6000000)
     #print(1/(end-start))
     #quit()
 

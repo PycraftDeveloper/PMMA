@@ -132,12 +132,15 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         self._shut_down = True
 
 class LineUtils:
-    def _internal_render(self):
+    def _internal_render(self, color_changed):
         """
         🟩 **R** -
         """
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
+
+        if color_changed:
+            self._program.set_shader_variable('color', self._color_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -245,12 +248,18 @@ class LineUtils:
         self._vbo.set_data(vertices)
 
 class RadialPolygonUtils:
-    def _internal_render(self):
+    def _internal_render(self, color_changed, position_changed):
         """
         🟩 **R** -
         """
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
+
+        if color_changed:
+            self._program.set_shader_variable('color', self._color_data)
+
+        if position_changed:
+            self._program.set_shader_variable('offset', self._offset_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -325,12 +334,18 @@ class RadialPolygonUtils:
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
 class RectangleUtils:
-    def _internal_render(self):
+    def _internal_render(self, color_changed, position_changed):
         """
         🟩 **R** -
         """
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
+
+        if color_changed:
+            self._program.set_shader_variable('color', self._color_data)
+
+        if position_changed:
+            self._program.set_shader_variable('offset', self._offset_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -475,12 +490,18 @@ class RectangleUtils:
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
 class ArcUtils:
-    def _internal_render(self):
+    def _internal_render(self, color_changed, position_changed):
         """
         🟩 **R** -
         """
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
+
+        if color_changed:
+            self._program.set_shader_variable('color', self._color_data)
+
+        if position_changed:
+            self._program.set_shader_variable('offset', self._offset_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -575,12 +596,18 @@ class ArcUtils:
         self._vbo.set_data(rotated_vertices)
 
 class EllipseUtils:
-    def _internal_render(self):
+    def _internal_render(self, color_changed, position_changed):
         """
         🟩 **R** -
         """
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
+
+        if color_changed:
+            self._program.set_shader_variable('color', self._color_data)
+
+        if position_changed:
+            self._program.set_shader_variable('offset', self._offset_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -672,13 +699,15 @@ class EllipseUtils:
         self._vbo.set_data(rotated_vertices)
 
 class PolygonUtils:
-    def _internal_render(self):
+    def _internal_render(self, color_changed):
         """
         🟩 **R** -
         """
         self._display.get_2D_hardware_accelerated_surface()
 
         # Update VBO with any changes to vertices or colors
+        if color_changed:
+            self._program.set_shader_variable('color', self._color_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])

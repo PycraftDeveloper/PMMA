@@ -93,13 +93,14 @@ class Line(_ShapeTemplate, _LineUtils):
             self._create_geometry()
             self._geometry_created = True
 
-        if self._color_changed:
-            self._program.set_shader_variable('color', self._color_data)
-            self._color_changed = False  # Reset the flag
+        color_changed = self._color_changed
+        self._color_changed = False  # Reset the flag
+
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
-        #self._internal_render(color_changed, geometry_created)
+        #self._internal_render(color_changed)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -267,15 +268,16 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._create_geometry()
             self._geometry_created = True
 
+        color_changed = self._color_changed
+        self._color_changed = False  # Reset the flag
+
+        position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
-            self._program.set_shader_variable('offset', offset)
             self._offset_data = offset
             self._position_changed = False
 
-        if self._color_changed:
-            self._program.set_shader_variable('color', self._color_data)
-            self._color_changed = False  # Reset the flag
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         #self._internal_render(color_changed, geometry_created, position_changed)
@@ -388,7 +390,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
             _render_pipeline_utils.RenderPipelineManager()
 
-        self._position = _DisplayCoordinatesConverter()
+        self._center = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
         self._y_size = _DisplayScalarConverter()
         self._width = _DisplayScalarConverter()
@@ -446,15 +448,16 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._create_geometry()
             self._geometry_created = True
 
-        if self._color_changed:
-            self._program.set_shader_variable('color', self._color_data)
-            self._color_changed = False
+        color_changed = self._color_changed
+        self._color_changed = False  # Reset the flag
 
+        position_changed = self._position_changed
         if self._position_changed:
-            offset = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
-            self._program.set_shader_variable('offset', offset)
+            offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._offset_data = offset
             self._position_changed = False
+
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -511,34 +514,34 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         if self._rotation is not None:
             return self._rotation.get_angle(format=format)
 
-    def set_position(self, position, position_format=_Constants.CONVENTIONAL_COORDINATES):
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        position_input_type = type(position)
-        if self._position.get_coordinate_set():
-            if position_format == _Constants.CONVENTIONAL_COORDINATES:
-                original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if position_input_type == _DisplayCoordinatesConverter:
-                    position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+        center_input_type = type(center)
+        if self._center.get_coordinate_set():
+            if format == _Constants.CONVENTIONAL_COORDINATES:
+                original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
+                if center_input_type == _DisplayCoordinatesConverter:
+                    center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
-                    position_coords = [int(position[0]), int(position[1])]
+                    center_coords = [int(center[0]), int(center[1])]
 
-                if position_coords[0] == original_coordinates[0] and position_coords[1] == original_coordinates[1]:
+                if center_coords[0] == original_coordinates[0] and center_coords[1] == original_coordinates[1]:
                     return
 
         self._position_changed = True
-        if position_input_type != _DisplayCoordinatesConverter:
-            self._position.set_coordinates(position, format=position_format)
+        if center_input_type != _DisplayCoordinatesConverter:
+            self._center.set_coordinates(center, format=format)
         else:
-            self._position = position
+            self._center = center
 
-    def get_position(self, format=_Constants.CONVENTIONAL_COORDINATES):
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        if self._position is not None:
-            return self._position.get_coordinates(format=format)
+        if self._center is not None:
+            return self._center.get_coordinates(format=format)
 
     def set_size(self, size, size_format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -638,15 +641,16 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._create_geometry()
             self._geometry_created = True
 
-        if self._color_changed:
-            self._program.set_shader_variable('color', self._color_data)
-            self._color_changed = False  # Reset the flag
+        color_changed = self._color_changed
+        self._color_changed = False  # Reset the flag
 
+        position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
-            self._program.set_shader_variable('offset', offset)
             self._offset_data = offset
             self._position_changed = False
+
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -837,15 +841,16 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._create_geometry()
             self._geometry_created = True
 
-        if self._color_changed:
-            self._program.set_shader_variable('color', self._color_data)
-            self._color_changed = False  # Reset the flag
+        color_changed = self._color_changed
+        self._color_changed = False  # Reset the flag
 
+        position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
-            self._program.set_shader_variable('offset', offset)
             self._offset_data = offset
             self._position_changed = False
+
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -1007,9 +1012,10 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
             self._create_geometry()
             self._geometry_created = True
 
-        if self._color_changed:
-            self._program.set_shader_variable('color', self._color_data)
-            self._color_changed = False  # Reset the flag
+        color_changed = self._color_changed
+        self._color_changed = False  # Reset the flag
+
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
