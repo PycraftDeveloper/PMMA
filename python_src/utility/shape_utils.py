@@ -5,7 +5,6 @@ import pygame as _pygame
 import numpy as _numpy
 import moderngl as _moderngl
 
-from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
@@ -48,6 +47,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
 
         self._color_data = None
         self._vertex_data = None
+        self._offset_data = [0, 0]
 
     def set_color(self, color, format=_Constants.RGB):
         """
@@ -132,18 +132,10 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         self._shut_down = True
 
 class LineUtils:
-    def _internal_render(self, color_changed, geometry_created):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
-        if color_changed or geometry_created is False:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
@@ -333,18 +325,10 @@ class RadialPolygonUtils:
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
 class RectangleUtils:
-    def _internal_render(self, color_changed, geometry_created, position_changed):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
-        if color_changed or geometry_created is False or position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
@@ -491,18 +475,10 @@ class RectangleUtils:
         self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
 class ArcUtils:
-    def _internal_render(self, color_changed, geometry_created, position_changed):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
-        if color_changed or geometry_created is False or position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
@@ -599,18 +575,10 @@ class ArcUtils:
         self._vbo.set_data(rotated_vertices)
 
 class EllipseUtils:
-    def _internal_render(self, color_changed, geometry_created, position_changed):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
-        if color_changed or geometry_created is False or position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
@@ -704,18 +672,10 @@ class EllipseUtils:
         self._vbo.set_data(rotated_vertices)
 
 class PolygonUtils:
-    def _internal_render(self, color_changed, geometry_created):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
-        if color_changed or geometry_created is False:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
         self._display.get_2D_hardware_accelerated_surface()
 
         # Update VBO with any changes to vertices or colors

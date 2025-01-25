@@ -6,6 +6,7 @@ import moderngl as _moderngl
 
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.opengl import ColorBufferObject as _ColorBufferObject
+from pmma.python_src.opengl import GenericBufferObject as _GenericBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.constants import Constants as _Constants
@@ -79,7 +80,7 @@ class RenderPipelineManager:
                 #render_pipeline = self.render_pipeline_module.RenderPipeline()
                 render_pipeline = RenderPipeline()
                 for element in group:
-                    render_pipeline.add_shape(element._vertex_data, element._color_data)
+                    render_pipeline.add_shape(element._vertex_data, element._color_data, element._offset_data)
                 self._render_queue.append(render_pipeline)
             else:
                 self._render_queue.append(group)
@@ -100,25 +101,33 @@ class RenderPipeline:
 
         self.vertex_data = []
         self.color_data = []
+        self.offset_data = []
         self._vbo = _VertexBufferObject()
         self._cbo = _ColorBufferObject()
+        self._obo = _GenericBufferObject()
         self._vao = _VertexArrayObject()
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
         self._program.create()
+        aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+        self._program.set_shader_variable('aspect_ratio', aspect_ratio+1) # deliberate offset
 
-    def add_shape(self, vertices, colors):
+    def add_shape(self, vertices, colors, offset=[0, 0]):
         """
         Adds a shape's vertex and color data to the buffers, with degenerate vertices for Triangle Strip rendering.
         """
+        vertices = vertices.flatten()
         if len(colors) == 3:
             colors.append(1)
 
         old_color = colors
-        num_points = vertices.shape[0] + 1
+        old_offset = offset
+        num_points = vertices.shape[0] // 2
         colors = []
+        offset = []
         for i in range(num_points):
             colors.extend(old_color)
+            offset.extend(old_offset)
 
         if len(self.vertex_data) > 0:
             # Add degenerate vertices to disconnect the previous shape
@@ -126,15 +135,24 @@ class RenderPipeline:
             self.vertex_data.extend(vertices[:2])  # Repeat first vertex of new shape
             self.color_data.extend(self.color_data[-4:])  # Repeat last color
             self.color_data.extend(colors[:4])  # Repeat first color of new shape
+            self.offset_data.extend(self.offset_data[-2:])
+            self.offset_data.extend(offset[:2])
 
         # Append the new shape's vertices and colors
         self.vertex_data.extend(vertices.tolist())
         self.color_data.extend(colors)
+        self.offset_data.extend(offset)
 
     def _internal_render(self):
         self._vbo.set_data(self.get_vertex_buffer())
         self._cbo.set_data(self.get_color_buffer())
-        self._vao.create(self._program, self._vbo, ["2f", "in_position"], color_buffer_object=self._cbo, color_buffer_shader_attributes=["4f", "in_color"])
+        self._obo.set_data(self.get_offset_buffer())
+        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+        self._vao.create(
+            self._program,
+            self._vbo, ["2f", "in_position"],
+            color_buffer_object=self._cbo, color_buffer_shader_attributes=["4f", "in_color"],
+            additional_buffers=[self._obo], additional_buffer_attributes=[["2f", "in_offset"]])
         self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
 
     def get_vertex_buffer(self):
@@ -144,3 +162,6 @@ class RenderPipeline:
     def get_color_buffer(self):
         """Returns a NumPy array of color data."""
         return _numpy.array(self.color_data, dtype=_numpy.float32)
+
+    def get_offset_buffer(self):
+        return _numpy.array(self.offset_data, dtype=_numpy.float32)
