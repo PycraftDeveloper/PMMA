@@ -19,14 +19,6 @@ class RenderPipelineManager:
     def __init__(self):
         _initialize(self, unique_instance=_Constants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        if _Registry.cython_acceleration_available:
-            self.render_pipeline_module = _importlib.import_module(
-                "pmma.bin.render_pipeline_utils")
-
-        else:
-            self.render_pipeline_module = _importlib.import_module(
-                "pmma.python_src.pyx_alternatives.utility.render_pipeline_utils")
-
         _Registry.render_pipeline_acceleration_available = True
 
         self._render_queue = []
