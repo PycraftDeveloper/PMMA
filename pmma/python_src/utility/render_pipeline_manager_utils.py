@@ -144,7 +144,7 @@ class RenderPipeline:
         num_points = vertices.shape[0] // 2
         colors = []
         offset = []
-        for i in range(num_points):
+        for _ in range(num_points):
             colors.extend(old_color)
             offset.extend(old_offset)
 
