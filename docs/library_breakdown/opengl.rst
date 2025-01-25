@@ -50,11 +50,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: BufferObject.recreate() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: BufferObject.get_buffer_object() -> None
 
     🟩 **R** -
@@ -177,11 +172,6 @@ Methods
     
 
 .. py:method:: VertexArrayObject.create() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: VertexArrayObject.recreate() -> None
 
     🟩 **R** -
     
@@ -327,11 +317,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Shader.recreate() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Shader.get_program() -> None
 
     🟩 **R** -
@@ -448,11 +433,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Texture.recreate() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Texture.quit() -> None
 
     🟩 **R** -
@@ -485,11 +465,6 @@ Methods
     
 
 .. py:method:: FrameBufferObject.create() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: FrameBufferObject.recreate() -> None
 
     🟩 **R** -
     

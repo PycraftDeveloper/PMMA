@@ -348,12 +348,12 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Ellipse.set_position() -> None
+.. py:method:: Ellipse.set_center() -> None
 
     🟩 **R** -
     
 
-.. py:method:: Ellipse.get_position() -> None
+.. py:method:: Ellipse.get_center() -> None
 
     🟩 **R** -
     
