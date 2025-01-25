@@ -154,12 +154,9 @@ class LineUtils:
         :param angle: The angle to rotate by, in radians.
         :return: The rotated point as a [x', y'] list.
         """
-        # Get the aspect ratio (width/height)
-        aspect_ratio = self._display.get_width() / self._display.get_height()
-
         # Scale the point and center coordinates to account for aspect ratio
-        scaled_point = [point[0] * aspect_ratio, point[1]]
-        scaled_center = [center[0] * aspect_ratio, center[1]]
+        scaled_point = [point[0], point[1]]
+        scaled_center = [center[0], center[1]]
 
         # Translate the point to the origin (relative to the center)
         translated_x = scaled_point[0] - scaled_center[0]
@@ -174,7 +171,7 @@ class LineUtils:
 
         # Translate the point back to its original position (relative to the center)
         # Scale back the x-coordinate to remove aspect ratio effect
-        return [x_prime / aspect_ratio + center[0], y_prime + center[1]]
+        return [x_prime + center[0], y_prime + center[1]]
 
     def _rotate_line(self, angle, start_coords, end_coords):
         """
@@ -194,7 +191,9 @@ class LineUtils:
     def _create_geometry(self):
         rotation_in_radians = self._rotation.get_angle(format=_Constants.RADIANS)
         start_coords = self.get_start(format=_Constants.OPENGL_COORDINATES)
+        start_coords = [start_coords[0] * self._display.get_aspect_ratio(), start_coords[1]]
         end_coords = self.get_end(format=_Constants.OPENGL_COORDINATES)
+        end_coords = [end_coords[0] * self._display.get_aspect_ratio(), end_coords[1]]
 
         identifier = _create_cache_id(
             rotation_in_radians,
@@ -218,7 +217,7 @@ class LineUtils:
             direction_length = _numpy.linalg.norm(direction)
             direction_normalized = direction / direction_length
 
-            x_ndc = 2.0 / self._display.get_width()  # Horizontal pixel size in NDC
+            x_ndc = 2.0 / self._display.get_width() * self._display.get_aspect_ratio()  # Horizontal pixel size in NDC
             y_ndc = 2.0 / self._display.get_height()  # Vertical pixel size in NDC
 
             width = self._width * _numpy.array([x_ndc, y_ndc])
@@ -241,6 +240,7 @@ class LineUtils:
 
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
+        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         self._vbo.set_data(vertices)
 
@@ -696,7 +696,7 @@ class PolygonUtils:
         dx = x - cx
         dy = y - cy
         return [
-            cx + dx * cos_theta - dy * sin_theta,
+            self._display.get_aspect_ratio() * (cx + dx * cos_theta - dy * sin_theta),
             cy + dx * sin_theta + dy * cos_theta
         ]
 
@@ -725,7 +725,7 @@ class PolygonUtils:
             index = 0
             for p in self._points:
                 coordinate = p.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                adjusted_x = coordinate[0] - self._width*2
+                adjusted_x = coordinate[0] - self._width
                 adjusted_y = coordinate[1] - self._width
                 adjusted_point = [adjusted_x, adjusted_y]
                 self._converted_inner_points[index].set_coordinates(adjusted_point, format=_Constants.CONVENTIONAL_COORDINATES)
