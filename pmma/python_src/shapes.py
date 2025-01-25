@@ -81,8 +81,13 @@ class Line(_ShapeTemplate, _LineUtils):
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        color_changed = self._color_changed
-        geometry_created = self._geometry_created
+        self._display.update_attempted_render_calls(1)
+
+        if self._color_changed or self._geometry_created is False:
+            self._display.set_refresh_optimization_override(True)
+
+        if self._display.get_clear_called_but_skipped():
+            return None
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -91,8 +96,6 @@ class Line(_ShapeTemplate, _LineUtils):
         if self._color_changed:
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
-
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -252,13 +255,9 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        color_changed = self._color_changed
-        geometry_created = self._geometry_created
-        position_changed = self._position_changed
-
         self._display.update_attempted_render_calls(1)
 
-        if color_changed or geometry_created is False or position_changed:
+        if self._color_changed or self._geometry_created is False or self._position_changed:
             self._display.set_refresh_optimization_override(True)
 
         if self._display.get_clear_called_but_skipped():
@@ -271,6 +270,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._program.set_shader_variable('offset', offset)
+            self._offset_data = offset
             self._position_changed = False
 
         if self._color_changed:
@@ -434,9 +434,13 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        color_changed = self._color_changed
-        geometry_created = self._geometry_created
-        position_changed = self._position_changed
+        self._display.update_attempted_render_calls(1)
+
+        if self._color_changed or self._geometry_created is False or self._position_changed:
+            self._display.set_refresh_optimization_override(True)
+
+        if self._display.get_clear_called_but_skipped():
+            return None
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -447,10 +451,10 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._color_changed = False
 
         if self._position_changed:
-            self._program.set_shader_variable('offset', self._position.get_coordinates(_Constants.OPENGL_COORDINATES))
+            offset = self._position.get_coordinates(_Constants.OPENGL_COORDINATES)
+            self._program.set_shader_variable('offset', offset)
+            self._offset_data = offset
             self._position_changed = False
-
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -622,9 +626,13 @@ class Arc(_ShapeTemplate, _ArcUtils):
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        color_changed = self._color_changed
-        geometry_created = self._geometry_created
-        position_changed = self._position_changed
+        self._display.update_attempted_render_calls(1)
+
+        if self._color_changed or self._geometry_created is False or self._position_changed:
+            self._display.set_refresh_optimization_override(True)
+
+        if self._display.get_clear_called_but_skipped():
+            return None
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -635,10 +643,10 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._color_changed = False  # Reset the flag
 
         if self._position_changed:
-            self._program.set_shader_variable('offset', self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES))
+            offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+            self._program.set_shader_variable('offset', offset)
+            self._offset_data = offset
             self._position_changed = False
-
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -817,9 +825,13 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        color_changed = self._color_changed
-        geometry_created = self._geometry_created
-        position_changed = self._position_changed
+        self._display.update_attempted_render_calls(1)
+
+        if self._color_changed or self._geometry_created is False or self._position_changed:
+            self._display.set_refresh_optimization_override(True)
+
+        if self._display.get_clear_called_but_skipped():
+            return None
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -830,10 +842,10 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._color_changed = False  # Reset the flag
 
         if self._position_changed:
-            self._program.set_shader_variable('offset', self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES))
+            offset = self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES)
+            self._program.set_shader_variable('offset', offset)
+            self._offset = offset
             self._position_changed = False
-
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created, position_changed]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -983,8 +995,13 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         if self._resized_event.get_value():
             self._geometry_created = False
 
-        color_changed = self._color_changed
-        geometry_created = self._geometry_created
+        self._display.update_attempted_render_calls(1)
+
+        if self._color_changed or self._geometry_created is False:
+            self._display.set_refresh_optimization_override(True)
+
+        if self._display.get_clear_called_but_skipped():
+            return None
 
         if self._geometry_created is False:
             self._create_geometry()
@@ -993,8 +1010,6 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         if self._color_changed:
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
-
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
