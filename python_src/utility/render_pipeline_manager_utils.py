@@ -1,7 +1,15 @@
 from gc import collect as _gc__collect
 import importlib as _importlib
 
+import numpy as _numpy
+import moderngl as _moderngl
+
+from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
+from pmma.python_src.opengl import ColorBufferObject as _ColorBufferObject
+from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
+from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -20,14 +28,9 @@ class RenderPipelineManager:
 
         _Registry.render_pipeline_acceleration_available = True
 
-        ### (anything below this is heuristic) ###
-
-        self.render_queue = []
-
-        self.old_order = {}
-        self.new_order = {}
-
-        self.current_location = [0, 0]
+        self._render_queue = []
+        self._groupings = []
+        self._raw_data = []
 
     def __del__(self, do_garbage_collection=False):
         """
@@ -46,17 +49,98 @@ class RenderPipelineManager:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def add_object(self, new_object):
-        if self.render_queue == []:
-            self.render_queue.append(new_object)
-            location = self.current_location
-            self.current_location[0] += 1
-            return location
-        else:
-            if type(self.render_queue[-1]) == RenderPipeline:
-                identifier = self.render_queue[-1].add_object(new_object) # place holder
-                location = self.current_location
-                self.current_location[1] = identifier
-                return location
-            elif self.render_queue[-1]._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
-                pass
+    def add_to_render_pipeline(self, object):
+        self._raw_data.append(object)
+
+    def arrange(self): # acceleration % = (1 / num of groupings) * 100
+        self._render_queue = []
+        new_groupings = []
+        for content in self._raw_data:
+            if new_groupings == []:
+                if content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
+                    new_groupings.append([content])
+                else:
+                    new_groupings.append(content)
+                continue
+
+            if type(new_groupings[-1]) == list:
+                if content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
+                    new_groupings[-1].append(content)
+                else:
+                    new_groupings.append(content)
+            else:
+                if content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
+                    new_groupings.append([content])
+                else:
+                    new_groupings.append(content)
+
+        for group in new_groupings:
+            if type(group) == list:
+                #render_pipeline = self.render_pipeline_module.RenderPipeline()
+                render_pipeline = RenderPipeline()
+                for element in group:
+                    render_pipeline.add_shape(element._vertex_data, element._color_data)
+                self._render_queue.append(render_pipeline)
+            else:
+                self._render_queue.append(group)
+
+        self._raw_data = []
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self.arrange()
+        for renderable in self._render_queue:
+            renderable._internal_render(*renderable._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA])
+
+class RenderPipeline:
+    def __init__(self):
+        _initialize(self)
+
+        self.vertex_data = []
+        self.color_data = []
+        self._vbo = _VertexBufferObject()
+        self._cbo = _ColorBufferObject()
+        self._vao = _VertexArrayObject()
+        self._program = _Shader()
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
+        self._program.create()
+
+    def add_shape(self, vertices, colors):
+        """
+        Adds a shape's vertex and color data to the buffers, with degenerate vertices for Triangle Strip rendering.
+        """
+        if len(colors) == 3:
+            colors.append(1)
+
+        old_color = colors
+        num_points = vertices.shape[0] + 1
+        colors = []
+        for i in range(num_points):
+            colors.extend(old_color)
+
+        if len(self.vertex_data) > 0:
+            # Add degenerate vertices to disconnect the previous shape
+            self.vertex_data.extend(self.vertex_data[-2:])  # Repeat last vertex
+            self.vertex_data.extend(vertices[:2])  # Repeat first vertex of new shape
+            self.color_data.extend(self.color_data[-4:])  # Repeat last color
+            self.color_data.extend(colors[:4])  # Repeat first color of new shape
+
+        # Append the new shape's vertices and colors
+        self.vertex_data.extend(vertices.tolist())
+        self.color_data.extend(colors)
+
+    def _internal_render(self):
+        self._vbo.set_data(self.get_vertex_buffer())
+        self._cbo.set_data(self.get_color_buffer())
+        self._vao.create(self._program, self._vbo, ["2f", "in_position"], color_buffer_object=self._cbo, color_buffer_shader_attributes=["4f", "in_color"])
+        self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
+
+    def get_vertex_buffer(self):
+        """Returns a NumPy array of vertex data."""
+        return _numpy.array(self.vertex_data, dtype=_numpy.float32)
+
+    def get_color_buffer(self):
+        """Returns a NumPy array of color data."""
+        return _numpy.array(self.color_data, dtype=_numpy.float32)

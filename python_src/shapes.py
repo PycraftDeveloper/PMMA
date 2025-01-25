@@ -92,7 +92,11 @@ class Line(_ShapeTemplate, _LineUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        self._internal_render(color_changed, geometry_created)
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
+
+        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+
+        #self._internal_render(color_changed, geometry_created)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -252,6 +256,14 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         geometry_created = self._geometry_created
         position_changed = self._position_changed
 
+        self._display.update_attempted_render_calls(1)
+
+        if color_changed or geometry_created is False or position_changed:
+            self._display.set_refresh_optimization_override(True)
+
+        if self._display.get_clear_called_but_skipped():
+            return None
+
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -265,7 +277,8 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        self._internal_render(color_changed, geometry_created, position_changed)
+        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        #self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -437,7 +450,11 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._program.set_shader_variable('offset', self._position.get_coordinates(_Constants.OPENGL_COORDINATES))
             self._position_changed = False
 
-        self._internal_render(color_changed, geometry_created, position_changed)
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created, position_changed]
+
+        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+
+        #self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=1, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -621,7 +638,11 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._program.set_shader_variable('offset', self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES))
             self._position_changed = False
 
-        self._internal_render(color_changed, geometry_created, position_changed)
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created, position_changed]
+
+        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+
+        #self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=1):
         """
@@ -812,7 +833,11 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._program.set_shader_variable('offset', self._position.get_coordinates(format=_Constants.OPENGL_COORDINATES))
             self._position_changed = False
 
-        self._internal_render(color_changed, geometry_created, position_changed)
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created, position_changed]
+
+        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+
+        #self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=None):
         """
@@ -969,7 +994,11 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
             self._program.set_shader_variable('color', self._color_data)
             self._color_changed = False  # Reset the flag
 
-        self._internal_render(color_changed, geometry_created)
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
+
+        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+
+        #self._internal_render(color_changed, geometry_created)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -1117,7 +1146,8 @@ class Pixel(_ShapeTemplate, _PixelUtils):
             self._color_changed = False  # Reset the flag
 
         if _Registry.render_pipeline_acceleration_available:
-            pass
+            self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
+            _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         else:
             self._internal_render(color_changed, position_changed)
 

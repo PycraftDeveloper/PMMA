@@ -87,7 +87,7 @@ while pmma.Backpack.running:
 
     #rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
     #print(int((1+math.sin(pmma.get_application_run_time()))*10))
-    radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
+    #radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
 
     #line.set_end((500, 60*(time.perf_counter()-start)))
 
@@ -102,5 +102,6 @@ while pmma.Backpack.running:
     end = time.perf_counter()
     display.refresh(refresh_rate=60)
     #print(1/(end-start))
+    #quit()
 
 pmma.quit()
