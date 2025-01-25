@@ -419,6 +419,6 @@ class Video:
 
     def render(self):
         if _Registry.render_pipeline_acceleration_available:
-            pass
+            _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         else:
             self._internal_render()
