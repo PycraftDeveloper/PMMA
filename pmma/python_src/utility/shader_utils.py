@@ -77,11 +77,15 @@ class LoadedShaderReferenceManager:
 
             self._loaded_shaders_from_file_changed = False
 
+            garbage_elements = []
             with self.reference_manager_lock:
                 for shader in self._shader_intermediary.loaded_shaders_from_file:
                     shader_object = self._shader_intermediary.loaded_shaders_from_file[shader]
                     if shader_object["reference_count"] == 0:
-                        del self._shader_intermediary.loaded_shaders_from_file[shader]
+                        garbage_elements.append(shader)
+
+                for element in garbage_elements:
+                    del self._shader_intermediary.loaded_shaders_from_file[element]
 
 class ShaderManager:
     """

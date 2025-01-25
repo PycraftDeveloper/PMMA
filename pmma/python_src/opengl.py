@@ -84,7 +84,8 @@ class BufferObject:
         """
         _initialize(self)
 
-        _Registry.opengl_objects[self._properties[_Constants.PMMA_OBJECT_IDENTIFIER]] = self
+        self._unique_identifier = id(self)
+        _Registry.opengl_objects[self._unique_identifier] = self
 
         self._data = None
         self._buffer_object = None
@@ -106,7 +107,7 @@ class BufferObject:
             if self._buffer_object is not None:
                 self._buffer_object.release()
 
-            del _Registry.opengl_objects[self._properties[_Constants.PMMA_OBJECT_IDENTIFIER]]
+            del _Registry.opengl_objects[self._unique_identifier]
             del self
             if do_garbage_collection:
                 _gc__collect()

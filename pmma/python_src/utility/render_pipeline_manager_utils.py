@@ -54,38 +54,44 @@ class RenderPipelineManager:
         self._raw_data.append(object)
 
     def arrange(self): # acceleration % = (1 / num of groupings) * 100
-        self._render_queue = []
+        # Quit all existing render pipelines
+        for element in self._render_queue:
+            if isinstance(element, RenderPipeline):
+                element.quit(do_garbage_collection=False)
+
+        # Clear the render queue for new groupings
+        self._render_queue.clear()
+
         new_groupings = []
+        current_group = None
+
         for content in self._raw_data:
-            if new_groupings == []:
-                if content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
-                    new_groupings.append([content])
-                else:
-                    new_groupings.append(content)
-                continue
+            is_compatible = content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]
 
-            if type(new_groupings[-1]) == list:
-                if content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
-                    new_groupings[-1].append(content)
-                else:
-                    new_groupings.append(content)
+            if is_compatible:
+                # Start a new group if none exists or the last group isn't compatible
+                if not current_group:
+                    current_group = []
+                    new_groupings.append(current_group)
+                current_group.append(content)
             else:
-                if content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]:
-                    new_groupings.append([content])
-                else:
-                    new_groupings.append(content)
+                # End the current group if it exists
+                if current_group:
+                    current_group = None
+                new_groupings.append(content)
 
+        # Build the render queue
         for group in new_groupings:
-            if type(group) == list:
-                #render_pipeline = self.render_pipeline_module.RenderPipeline()
-                render_pipeline = RenderPipeline()
+            if isinstance(group, list):
+                render_pipeline = RenderPipeline()  # Replace with self.render_pipeline_module.RenderPipeline if needed
                 for element in group:
                     render_pipeline.add_shape(element._vertex_data, element._color_data, element._offset_data)
                 self._render_queue.append(render_pipeline)
             else:
                 self._render_queue.append(group)
 
-        self._raw_data = []
+        # Clear raw data
+        self._raw_data.clear()
 
     def render(self):
         """
@@ -111,6 +117,27 @@ class RenderPipeline:
         self._program.create()
         aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
         self._program.set_shader_variable('aspect_ratio', aspect_ratio+1) # deliberate offset
+
+    def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
+        if self._shut_down is False:
+            self._program.quit(do_garbage_collection=False)
+            self._vao.quit(do_garbage_collection=False)
+            self._vbo.quit(do_garbage_collection=False)
+            self._cbo.quit(do_garbage_collection=False)
+            self._obo.quit(do_garbage_collection=False)
+            del self
+            if do_garbage_collection:
+                _gc__collect()
+
+    def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
 
     def add_shape(self, vertices, colors, offset=[0, 0]):
         """
