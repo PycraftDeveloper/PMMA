@@ -97,9 +97,12 @@ class RenderPipeline:
     def __init__(self):
         _initialize(self)
 
-        self.vertex_data = []
-        self.color_data = []
-        self.offset_data = []
+        # Initialize numpy arrays for vertex, color, and offset data
+        self.vertex_data = _numpy.empty((0,), dtype=_numpy.float32)
+        self.color_data = _numpy.empty((0,), dtype=_numpy.float32)
+        self.offset_data = _numpy.empty((0,), dtype=_numpy.float32)
+
+        # Other initialization
         self._vbo = _VertexBufferObject()
         self._cbo = _ColorBufferObject()
         self._obo = _GenericBufferObject()
@@ -107,14 +110,12 @@ class RenderPipeline:
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
         self._program.create()
+
         aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
-        self._program.set_shader_variable('aspect_ratio', aspect_ratio+1) # deliberate offset
+        self._program.set_shader_variable("aspect_ratio", aspect_ratio + 1)  # deliberate offset
 
     def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
+        if not self._shut_down:
             self._program.quit(do_garbage_collection=False)
             self._vao.quit(do_garbage_collection=False)
             self._vbo.quit(do_garbage_collection=False)
@@ -125,9 +126,6 @@ class RenderPipeline:
                 _gc__collect()
 
     def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
@@ -136,51 +134,46 @@ class RenderPipeline:
         Adds a shape's vertex and color data to the buffers, with degenerate vertices for Triangle Strip rendering.
         """
         vertices = vertices.flatten()
+        num_points = vertices.shape[0] // 2
+
+        # Ensure colors is a list of four components (RGBA)
         if len(colors) == 3:
             colors.append(1)
 
-        old_color = colors
-        old_offset = offset
-        num_points = vertices.shape[0] // 2
-        colors = []
-        offset = []
-        for _ in range(num_points):
-            colors.extend(old_color)
-            offset.extend(old_offset)
+        # Create colors and offsets arrays
+        colors_array = _numpy.tile(colors, num_points).astype(_numpy.float32)
+        offset_array = _numpy.tile(offset, num_points).astype(_numpy.float32)
 
-        if len(self.vertex_data) > 0:
+        if self.vertex_data.size > 0:
             # Add degenerate vertices to disconnect the previous shape
-            self.vertex_data.extend(self.vertex_data[-2:])  # Repeat last vertex
-            self.vertex_data.extend(vertices[:2])  # Repeat first vertex of new shape
-            self.color_data.extend(self.color_data[-4:])  # Repeat last color
-            self.color_data.extend(colors[:4])  # Repeat first color of new shape
-            self.offset_data.extend(self.offset_data[-2:])
-            self.offset_data.extend(offset[:2])
+            degenerate_vertex = self.vertex_data[-2:]  # Last vertex
+            degenerate_color = self.color_data[-4:]  # Last color
+            degenerate_offset = self.offset_data[-2:]  # Last offset
 
-        # Append the new shape's vertices and colors
-        self.vertex_data.extend(vertices.tolist())
-        self.color_data.extend(colors)
-        self.offset_data.extend(offset)
+            first_vertex = vertices[:2]  # First vertex of new shape
+            first_color = colors_array[:4]  # First color of new shape
+            first_offset = offset_array[:2]  # First offset of new shape
+
+            self.vertex_data = _numpy.concatenate([self.vertex_data, degenerate_vertex, first_vertex])
+            self.color_data = _numpy.concatenate([self.color_data, degenerate_color, first_color])
+            self.offset_data = _numpy.concatenate([self.offset_data, degenerate_offset, first_offset])
+
+        # Append the new shape's vertices, colors, and offsets
+        self.vertex_data = _numpy.concatenate([self.vertex_data, vertices])
+        self.color_data = _numpy.concatenate([self.color_data, colors_array])
+        self.offset_data = _numpy.concatenate([self.offset_data, offset_array])
 
     def _internal_render(self):
-        self._vbo.set_data(self.get_vertex_buffer())
-        self._cbo.set_data(self.get_color_buffer())
-        self._obo.set_data(self.get_offset_buffer())
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+        self._vbo.set_data(self.vertex_data)
+        self._cbo.set_data(self.color_data)
+        self._obo.set_data(self.offset_data)
+        self._program.set_shader_variable(
+            "aspect_ratio", _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+        )
         self._vao.create(
             self._program,
             self._vbo, ["2f", "in_position"],
             color_buffer_object=self._cbo, color_buffer_shader_attributes=["4f", "in_color"],
-            additional_buffers=[self._obo], additional_buffer_attributes=[["2f", "in_offset"]])
+            additional_buffers=[self._obo], additional_buffer_attributes=[["2f", "in_offset"]]
+        )
         self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
-
-    def get_vertex_buffer(self):
-        """Returns a NumPy array of vertex data."""
-        return _numpy.array(self.vertex_data, dtype=_numpy.float32)
-
-    def get_color_buffer(self):
-        """Returns a NumPy array of color data."""
-        return _numpy.array(self.color_data, dtype=_numpy.float32)
-
-    def get_offset_buffer(self):
-        return _numpy.array(self.offset_data, dtype=_numpy.float32)
