@@ -52,7 +52,7 @@ arc.set_radius(300)
 arc.set_width(900)
 
 ellipse = pmma.Ellipse()
-ellipse.set_position([500, 500])
+ellipse.set_center([500, 500])
 ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
 ellipse.set_width(5)
@@ -77,17 +77,17 @@ while pmma.Backpack.running:
 
     line.render()
     radial_polygon.render()
-    #rectangle.render()
-    #pixel.render()
-    #arc.render()
-    #ellipse.render()
-    #polygon.render()
+    rectangle.render()
+    pixel.render()
+    arc.render()
+    ellipse.render()
+    polygon.render()
 
     #radial_polygon.set_point_count(4)
 
     #rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
     #print(int((1+math.sin(pmma.get_application_run_time()))*10))
-    #radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
+    radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
 
     #line.set_end((500, 60*(time.perf_counter()-start)))
 
