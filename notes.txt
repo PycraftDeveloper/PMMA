@@ -56,7 +56,6 @@ Next release:
 	[NEW FEATURE] Add collisions to shapes.
 	[EXTENSION] Add paths as extension from transitions.
 	[EXTENSION] Add camera as extension from perspective.
-	[BUG FIX] Adjust shape indexes in render pipeline
 	[NEW FEATURE] Add in collision detections for all shapes.
 	[NEW FEATURE] Add in 3D shapes (sphere, rectangle, n-prism, n-equivalent of 2D shapes)
 	[NEW FEATURE] Introduce prefix adjustments for SI-units.
