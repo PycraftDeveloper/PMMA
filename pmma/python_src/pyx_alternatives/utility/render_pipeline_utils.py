@@ -1,7 +1,7 @@
 import numpy as np
 
 class RenderPipeline:
-    def __cinit__(self):
+    def __init__(self):
         """
         Initialize the ShapeManager with a ModernGL context and shader program.
         """

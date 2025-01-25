@@ -8,6 +8,7 @@ class Constants:
     """
     RENDER_PIPELINE_COMPATIBLE = "render pipeline compatible"
     PMMA_OBJECT_IDENTIFIER = "PMMA object identifier"
+    ADDITIONAL_INTERNAL_RENDER_DATA = "additional internal render data"
 
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
     SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)

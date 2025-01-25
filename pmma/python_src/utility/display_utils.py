@@ -622,6 +622,10 @@ you refresh the display to ensure optimal performance and support!")
 
         _Registry.refresh_rate = refresh_rate
         if self._clear_called_but_skipped is False:
+            if _Registry.render_pipeline_acceleration_available:
+                self.get_2D_hardware_accelerated_surface()
+                _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].render()
+
             _Registry.context.screen.use()
             self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 

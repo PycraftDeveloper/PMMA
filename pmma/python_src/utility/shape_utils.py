@@ -253,18 +253,10 @@ class LineUtils:
         self._vbo.set_data(vertices)
 
 class RadialPolygonUtils:
-    def _internal_render(self, color_changed, geometry_created, position_changed):
+    def _internal_render(self):
         """
         🟩 **R** -
         """
-        self._display.update_attempted_render_calls(1)
-
-        if color_changed or geometry_created is False or position_changed:
-            self._display.set_refresh_optimization_override(True)
-
-        if self._display.get_clear_called_but_skipped():
-            return None
-
         self._display.get_2D_hardware_accelerated_surface()
         # Update VBO with any changes to vertices or colors
 
