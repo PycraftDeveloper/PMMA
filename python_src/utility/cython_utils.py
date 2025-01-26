@@ -27,6 +27,7 @@ def compile_libraries():
         import pmma.bin.extended_perlin_noise
         import pmma.bin.number_converter
         import pmma.bin.math_utils
+        import pmma.bin.render_pipeline_utils
         _Registry.cython_acceleration_available = True
     except ImportError:
         try:
@@ -48,6 +49,7 @@ def check_for_compiled_libraries():
         import pmma.bin.extended_perlin_noise
         import pmma.bin.number_converter
         import pmma.bin.math_utils
+        import pmma.bin.render_pipeline_utils
         _Registry.cython_acceleration_available = True
     except ImportError:
         _Registry.cython_acceleration_available = False
