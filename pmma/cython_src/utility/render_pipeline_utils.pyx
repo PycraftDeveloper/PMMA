@@ -74,11 +74,12 @@ cdef class RenderPipeline:
         self._obo.quit(do_garbage_collection=False)
 
     cpdef update(self, shapes):
-        cdef int i, num_points
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array
+        cdef int i, num_points, total_vertices, total_colors, total_offsets
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors, offset
         cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex, degenerate_color, degenerate_offset
         cdef cnp.ndarray[cnp.float32_t, ndim=1] first_vertex, first_color, first_offset
 
+        # Check if update is needed
         if shapes == self.shapes:
             for shape in shapes:
                 if (shape._render_pipeline_color_data_changed or
@@ -90,10 +91,24 @@ cdef class RenderPipeline:
 
         self.shapes = shapes
 
-        # Reallocate buffers
-        self.vertex_data = np.empty((0,), dtype=np.float32)
-        self.color_data = np.empty((0,), dtype=np.float32)
-        self.offset_data = np.empty((0,), dtype=np.float32)
+        # Calculate total sizes for preallocation
+        total_vertices = 0
+        total_colors = 0
+        total_offsets = 0
+        for shape in shapes:
+            vertices = shape._vertex_data.flatten()
+            total_vertices += vertices.shape[0]
+            total_colors += (vertices.shape[0] // 2) * 4  # RGBA per vertex
+            total_offsets += vertices.shape[0]  # 2D offset per vertex
+
+        # Preallocate buffers
+        self.vertex_data = np.empty((total_vertices + 2 * len(shapes),), dtype=np.float32)  # Degenerate vertices
+        self.color_data = np.empty((total_colors + 8 * len(shapes),), dtype=np.float32)  # Degenerate colors
+        self.offset_data = np.empty((total_offsets + 2 * len(shapes),), dtype=np.float32)  # Degenerate offsets
+
+        cdef int vertex_index = 0
+        cdef int color_index = 0
+        cdef int offset_index = 0
 
         for i, shape in enumerate(shapes):
             vertices = shape._vertex_data.flatten()
@@ -113,36 +128,57 @@ cdef class RenderPipeline:
             colors_array = repeat_array_cython(colors, num_points)
             offset_array = repeat_array_cython(offset, num_points)
 
-            if self.vertex_data.size > 0:
-                degenerate_vertex = self.vertex_data[-2:]
-                degenerate_color = self.color_data[-4:]
-                degenerate_offset = self.offset_data[-2:]
+            if vertex_index > 0:
+                # Add degenerate triangle to join previous and current shape
+                degenerate_vertex = self.vertex_data[vertex_index - 2:vertex_index]
+                degenerate_color = self.color_data[color_index - 4:color_index]
+                degenerate_offset = self.offset_data[offset_index - 2:offset_index]
 
                 first_vertex = vertices[:2]
                 first_color = colors_array[:4]
                 first_offset = offset_array[:2]
 
-                self.vertex_data = np.concatenate([self.vertex_data, degenerate_vertex, first_vertex])
-                self.color_data = np.concatenate([self.color_data, degenerate_color, first_color])
-                self.offset_data = np.concatenate([self.offset_data, degenerate_offset, first_offset])
+                self.vertex_data[vertex_index:vertex_index + 2] = degenerate_vertex
+                self.color_data[color_index:color_index + 4] = degenerate_color
+                self.offset_data[offset_index:offset_index + 2] = degenerate_offset
 
-            self.vertex_data = np.concatenate([self.vertex_data, vertices])
-            self.color_data = np.concatenate([self.color_data, colors_array])
-            self.offset_data = np.concatenate([self.offset_data, offset_array])
+                vertex_index += 2
+                color_index += 4
+                offset_index += 2
+
+            # Add shape data
+            self.vertex_data[vertex_index:vertex_index + vertices.shape[0]] = vertices
+            self.color_data[color_index:color_index + colors_array.shape[0]] = colors_array
+            self.offset_data[offset_index:offset_index + offset_array.shape[0]] = offset_array
+
+            vertex_index += vertices.shape[0]
+            color_index += colors_array.shape[0]
+            offset_index += offset_array.shape[0]
 
             if i == len(shapes) - 1:
+                # Add degenerate triangle at the end
                 degenerate_vertex = vertices[-2:]
                 degenerate_color = colors_array[-4:]
                 degenerate_offset = offset_array[-2:]
 
-                self.vertex_data = np.concatenate([self.vertex_data, degenerate_vertex, degenerate_vertex])
-                self.color_data = np.concatenate([self.color_data, degenerate_color, degenerate_color])
-                self.offset_data = np.concatenate([self.offset_data, degenerate_offset, degenerate_offset])
+                self.vertex_data[vertex_index:vertex_index + 2] = degenerate_vertex
+                self.color_data[color_index:color_index + 4] = degenerate_color
+                self.offset_data[offset_index:offset_index + 2] = degenerate_offset
+
+                vertex_index += 2
+                color_index += 4
+                offset_index += 2
 
             shape._render_pipeline_color_data_changed = False
             shape._render_pipeline_vertex_data_changed = False
             shape._render_pipeline_offset_data_changed = False
 
+        # Trim excess memory
+        self.vertex_data = self.vertex_data[:vertex_index]
+        self.color_data = self.color_data[:color_index]
+        self.offset_data = self.offset_data[:offset_index]
+
+        # Update VBOs
         self._vbo.set_data(self.vertex_data)
         self._cbo.set_data(self.color_data)
         self._obo.set_data(self.offset_data)
