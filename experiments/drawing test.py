@@ -26,7 +26,7 @@ line.set_color([255, 0, 255])
 line.set_width(5)
 
 pixel = pmma.Pixel()
-pixel.set_position((100, 100))
+pixel.set_position((400, 350))
 pixel.set_color([255, 255, 255])
 
 radial_polygon = pmma.RadialPolygon()

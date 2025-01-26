@@ -49,6 +49,10 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         self._vertex_data = None
         self._offset_data = [0, 0]
 
+        self._render_pipeline_color_data_changed = True
+        self._render_pipeline_vertex_data_changed = True
+        self._render_pipeline_offset_data_changed = True
+
     def set_color(self, color, format=_Constants.RGB):
         """
         🟩 **R** -
