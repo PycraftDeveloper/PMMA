@@ -75,8 +75,7 @@ cdef class RenderPipeline:
 
     cpdef update(self, shapes):
         cdef int i, num_points, total_vertices, total_colors, total_offsets
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices
-        cdef list colors, offset
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors, offset
         cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex, degenerate_color, degenerate_offset
         cdef cnp.ndarray[cnp.float32_t, ndim=1] first_vertex, first_color, first_offset
 
@@ -116,13 +115,18 @@ cdef class RenderPipeline:
             colors = shape._color_data
             offset = shape._offset_data
 
-            num_points = (vertices.shape[0] // 2)
+            num_points = vertices.shape[0] // 2
 
             if len(colors) == 3:
-                colors.append(1.0)
+                colors = np.append(colors, 1.0)  # Ensure RGBA
+                colors = colors.astype(np.float32)
+            else:
+                colors = np.array(colors, dtype=np.float32)
 
-            colors_array = np.array(colors*num_points, dtype=np.float32)
-            offset_array = np.array(offset*num_points, dtype=np.float32)
+            offset = np.array(offset, dtype=np.float32)
+
+            colors_array = repeat_array_cython(colors, num_points)
+            offset_array = repeat_array_cython(offset, num_points)
 
             if vertex_index > 0:
                 # Add degenerate triangle to join previous and current shape
