@@ -14,6 +14,16 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
+def repeat_array_cython(base, N):
+    base_size = base.shape[0]
+    result = _numpy.zeros(N * base_size, dtype=_numpy.float32)
+
+    # Fill the result array using slicing
+    for i in range(N):
+        result[i * base_size : (i + 1) * base_size] = base
+
+    return result
+
 class RenderPipeline:
     def __init__(self):
         _initialize(self)
@@ -36,6 +46,8 @@ class RenderPipeline:
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
         self._program.create()
+
+        self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
     def __del__(self, do_garbage_collection=False):
         if not self._shut_down:
@@ -84,10 +96,15 @@ class RenderPipeline:
             num_points = vertices.shape[0] // 2
 
             if len(colors) == 3:
-                colors.append(1)  # Ensure RGBA
+                colors = _numpy.append(colors, 1.0)  # Ensure RGBA
+                colors = colors.astype(_numpy.float32)
+            else:
+                colors = _numpy.array(colors, dtype=_numpy.float32)
 
-            colors_array = _numpy.tile(colors, num_points).astype(_numpy.float32)
-            offset_array = _numpy.tile(offset, num_points).astype(_numpy.float32)
+            offset = _numpy.array(offset, dtype=_numpy.float32)
+
+            colors_array = repeat_array_cython(colors, num_points) # -1 ??
+            offset_array = repeat_array_cython(offset, num_points)
 
             if self.vertex_data.size > 0:
                 # Add degenerate vertices to disconnect the previous shape
@@ -126,9 +143,13 @@ class RenderPipeline:
         self._obo.set_data(self.offset_data)
 
     def _internal_render(self):
-        self._program.set_shader_variable(
-            "aspect_ratio", _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
-        )
+        new_aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+        if new_aspect_ratio != self.aspect_ratio:
+            self._program.set_shader_variable(
+                "aspect_ratio", new_aspect_ratio
+            )
+            self.aspect_ratio = new_aspect_ratio
+
         self._vao.create(
             self._program,
             self._vbo, ["2f", "in_position"],

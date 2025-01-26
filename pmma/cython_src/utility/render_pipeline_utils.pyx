@@ -15,6 +15,19 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
+cdef cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(
+    cnp.ndarray[cnp.float32_t, ndim=1] base, int N
+):
+    cdef int base_size = base.shape[0]
+    cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.zeros(N * base_size, dtype=np.float32)
+    cdef int i
+
+    # Fill the result array using slicing
+    for i in range(N):
+        result[i * base_size : (i + 1) * base_size] = base
+
+    return result
+
 cdef class RenderPipeline:
     cdef:
         list shapes
@@ -26,9 +39,12 @@ cdef class RenderPipeline:
         object _obo
         object _vao
         object _program
+        float aspect_ratio
 
     def __cinit__(self):
         self.shapes = []  # Store references to shapes
+
+        self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
         # Preallocate memory for vertex, color, and offset data
         self.vertex_data = np.empty((0,), dtype=np.float32)
@@ -57,7 +73,7 @@ cdef class RenderPipeline:
         self._cbo.quit(do_garbage_collection=False)
         self._obo.quit(do_garbage_collection=False)
 
-    def update(self, shapes):
+    cpdef update(self, shapes):
         cdef int i, num_points
         cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array
         cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex, degenerate_color, degenerate_offset
@@ -88,9 +104,14 @@ cdef class RenderPipeline:
 
             if len(colors) == 3:
                 colors = np.append(colors, 1.0)  # Ensure RGBA
+                colors = colors.astype(np.float32)
+            else:
+                colors = np.array(colors, dtype=np.float32)
 
-            colors_array = np.tile(colors, num_points).astype(np.float32)
-            offset_array = np.tile(offset, num_points).astype(np.float32)
+            offset = np.array(offset, dtype=np.float32)
+
+            colors_array = repeat_array_cython(colors, num_points) # -1 ??
+            offset_array = repeat_array_cython(offset, num_points)
 
             if self.vertex_data.size > 0:
                 degenerate_vertex = self.vertex_data[-2:]
@@ -127,9 +148,13 @@ cdef class RenderPipeline:
         self._obo.set_data(self.offset_data)
 
     def _internal_render(self):
-        self._program.set_shader_variable(
-            "aspect_ratio", _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
-        )
+        new_aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+        if new_aspect_ratio != self.aspect_ratio:
+            self._program.set_shader_variable(
+                "aspect_ratio", new_aspect_ratio
+            )
+            self.aspect_ratio = new_aspect_ratio
+
         self._vao.create(
             self._program,
             self._vbo, ["2f", "in_position"],
