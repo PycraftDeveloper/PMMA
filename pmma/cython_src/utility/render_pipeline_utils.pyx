@@ -110,7 +110,7 @@ cdef class RenderPipeline:
 
             offset = np.array(offset, dtype=np.float32)
 
-            colors_array = repeat_array_cython(colors, num_points) # -1 ??
+            colors_array = repeat_array_cython(colors, num_points)
             offset_array = repeat_array_cython(offset, num_points)
 
             if self.vertex_data.size > 0:
