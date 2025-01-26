@@ -196,12 +196,12 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Rectangle.set_position() -> None
+.. py:method:: Rectangle.set_center() -> None
 
     🟩 **R** -
     
 
-.. py:method:: Rectangle.get_position() -> None
+.. py:method:: Rectangle.get_center() -> None
 
     🟩 **R** -
     
