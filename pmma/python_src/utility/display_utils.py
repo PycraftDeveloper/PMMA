@@ -351,7 +351,7 @@ class DisplayIntermediary:
         if vsync:
             self._logger.log_development("Your display is using vsync. Therefore the \
 maximum refresh rate of the display is limited by either the refresh rate, app performance \
-or the refresh rate vof the monitor - WHICHEVER IS SMALLEST. If you are testing the performance \
+or the refresh rate of the monitor - WHICHEVER IS SMALLEST. If you are testing the performance \
 of your application make sure to disable this, but otherwise its best left enabled as it can \
 reduce graphical tearing and other rendering anomalies.")
 
