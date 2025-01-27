@@ -5,6 +5,40 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+
+class ConverterIntermediaryManager:
+    def __init__(self):
+        _initialize(self, unique_instance=_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+
+        self.converter_intermediary = None
+
+        if _Registry.cython_acceleration_available:
+            self.converter_intermediary = _importlib__import_module(
+                "pmma.bin.number_converter")
+
+        else:
+            self.converter_intermediary = _importlib__import_module(
+                "pmma.python_src.pyx_alternatives.utility.number_converter")
+
+    def __del__(self, do_garbage_collection=False):
+        """
+        🟩 **R** -
+        """
+        if self._shut_down is False:
+            del self
+            if do_garbage_collection:
+                _gc__collect()
+
+    def quit(self, do_garbage_collection=True):
+        """
+        🟩 **R** -
+        """
+        self.__del__(do_garbage_collection=do_garbage_collection)
+        self._shut_down = True
+
+    def get_converter(self):
+        return self.converter_intermediary
 
 class ColorIntermediary:
     """
@@ -32,12 +66,12 @@ class ColorIntermediary:
         """
         _initialize(self)
 
-        if _Registry.cython_acceleration_available:
-            self._number_converter_module = _importlib__import_module(
-                "pmma.bin.number_converter")
-        else:
-            self._number_converter_module = _importlib__import_module(
-                "pmma.python_src.pyx_alternatives.utility.number_converter")
+        if not _Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
+            _number_converter_utils()
+
+        self._number_converter_module = _Registry.pmma_module_spine[_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT].get_converter()
 
         self._internal_number_converter = self._number_converter_module.Color()
 
@@ -91,12 +125,12 @@ class DisplayScalarIntermediary:
         """
         _initialize(self)
 
-        if _Registry.cython_acceleration_available:
-            self._number_converter_module = _importlib__import_module(
-                "pmma.bin.number_converter")
-        else:
-            self._number_converter_module = _importlib__import_module(
-                "pmma.python_src.pyx_alternatives.utility.number_converter")
+        if not _Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
+            _number_converter_utils()
+
+        self._number_converter_module = _Registry.pmma_module_spine[_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT].get_converter()
 
         self._internal_number_converter = self._number_converter_module.DisplayScalar()
 
@@ -138,12 +172,12 @@ class DisplayCoordinatesIntermediary:
         """
         _initialize(self)
 
-        if _Registry.cython_acceleration_available:
-            self._number_converter_module = _importlib__import_module(
-                "pmma.bin.number_converter")
-        else:
-            self._number_converter_module = _importlib__import_module(
-                "pmma.python_src.pyx_alternatives.utility.number_converter")
+        if not _Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
+            _number_converter_utils()
+
+        self._number_converter_module = _Registry.pmma_module_spine[_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT].get_converter()
 
         self._internal_number_converter = self._number_converter_module.DisplayCoordinates()
 

@@ -139,6 +139,10 @@ def init(
         from pmma.python_src.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
         _RenderPipelineManager()
 
+    if Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _ConverterIntermediaryManager
+        _ConverterIntermediaryManager()
+
     logger = _InternalLogger()
 
     logger.log_information("Thank you for using PMMA! Please note that PMMA \
