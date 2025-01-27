@@ -1,5 +1,7 @@
 import colorsys
 
+import numpy as _numpy
+
 from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -113,32 +115,32 @@ class Color:
         sorted_out_type = sorted(out_type)
 
         if sorted_out_type == Constants.SORTED_RGBA:
-            return _swizzle(Constants.RGBA, self.color, out_type)
+            return _numpy.array(_swizzle(Constants.RGBA, self.color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_RGB:
-            return _swizzle(Constants.RGB, self.color[0:3], out_type)
+            return _numpy.array(_swizzle(Constants.RGB, self.color[0:3], out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_HSL:
             color = list(self.__convert_rgb_to_hsv(*self.color[0:3]))
-            return _swizzle(Constants.HSL, color, out_type)
+            return _numpy.array(_swizzle(Constants.HSL, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_HSLA:
             color = list(self.__convert_rgb_to_hsv(*self.color[0:3])) + [round((100/255)*self.color[3])]
-            return _swizzle(Constants.HSLA, color, out_type)
+            return _numpy.array(_swizzle(Constants.HSLA, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSL:
             color = list(self.__convert_rgb_to_hsv(
                 *self.color[0:3],
                 per_maximum=1,
                 do_round=False))
 
-            return _swizzle(Constants.SMALL_HSL, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_HSL, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSLA:
             color = list(self.__convert_rgb_to_hsv(
                 *self.color[0:3],
                 per_maximum=1,
                 do_round=False)) + [round((1/255)*self.color[3])]
 
-            return _swizzle(Constants.SMALL_HSLA, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_HSLA, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGB:
             color = self.color[0]/255, self.color[1]/255, self.color[2]/255
-            return _swizzle(Constants.SMALL_RGB, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_RGB, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGBA:
             color = (
                 self.color[0]/255,
@@ -146,7 +148,7 @@ class Color:
                 self.color[2]/255,
                 self.color[3]/255)
 
-            return _swizzle(Constants.SMALL_RGBA, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_RGBA, color, out_type), dtype=_numpy.float32)
         elif out_type == Constants.HEX:
             return '#%02x%02x%02x' % tuple(self.color[0:3])
         elif out_type == Constants.HEXA:
@@ -216,7 +218,7 @@ class DisplayCoordinates:
         elif len(coordinate) == 1:
             coordinate = [coordinate[0], 0]
         elif len(coordinate) > 2:
-            self._logger.log_development("This process is only required for coordinates in 2D or 1D space.")
+            self._logger.log_development("This process is only required for 2D coordinates.")
             coordinate = coordinate[:2]
 
         if in_type == Constants.CONVENTIONAL_COORDINATES:
@@ -233,10 +235,10 @@ class DisplayCoordinates:
         🟩 **R** -
         """
         if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return self._coordinate
+            return _numpy.array(self._coordinate, dtype=_numpy.float32)
 
         elif out_type == Constants.OPENGL_COORDINATES:
             display_size = self._display.get_size()
             x = (2 * self._coordinate[0]) / display_size[0] - 1  # Removed the extra negative
             y = 1 - (2 * self._coordinate[1]) / display_size[1]  # This is correct
-            return [x, y]
+            return _numpy.array([x, y], dtype=_numpy.float32)

@@ -1,6 +1,9 @@
 from colorsys import hsv_to_rgb as _colorsys__hsv_to_rgb
 from colorsys import rgb_to_hsv as _colorsys__rgb_to_hsv
 
+import numpy as _numpy
+cimport numpy as cnp
+
 from pmma.python_src.constants import Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -21,7 +24,7 @@ cdef class Color:
         self.in_type = None
         self.color = None
 
-    cpdef void set_color(self, color, object in_type=Constants.RGB):
+    cpdef void set_color(self, color, str in_type=Constants.RGB):
         """
         🟩 **R** -
         """
@@ -84,7 +87,7 @@ cdef class Color:
             color_v = per_maximum * color_hsv_percentage[2]
         return (color_h, color_s, color_v)
 
-    cpdef object get_color(self, object out_type):
+    cpdef object get_color(self, str out_type):
         """
         🟩 **R** -
         """
@@ -92,28 +95,28 @@ cdef class Color:
             return None
         cdef list sorted_out_type = sorted(out_type)
         if sorted_out_type == Constants.SORTED_RGBA:
-            return _swizzle(Constants.RGBA, self.color, out_type)
+            return _numpy.array(_swizzle(Constants.RGBA, self.color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_RGB:
-            return _swizzle(Constants.RGB, self.color[0:3], out_type)
+            return _numpy.array(_swizzle(Constants.RGB, self.color[0:3], out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_HSL:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2]))
-            return _swizzle(Constants.HSL, color, out_type)
+            return _numpy.array(_swizzle(Constants.HSL, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_HSLA:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2])) + [round((100 / 255) * self.color[3])]
-            return _swizzle(Constants.HSLA, color, out_type)
+            return _numpy.array(_swizzle(Constants.HSLA, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSL:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2], per_maximum=1, do_round=False))
-            return _swizzle(Constants.SMALL_HSL, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_HSL, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSLA:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2], per_maximum=1, do_round=False)) + \
                     [round((1 / 255) * self.color[3])]
-            return _swizzle(Constants.SMALL_HSLA, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_HSLA, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGB:
             color = [self.color[0] / 255, self.color[1] / 255, self.color[2] / 255]
-            return _swizzle(Constants.SMALL_RGB, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_RGB, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGBA:
             color = [self.color[0] / 255, self.color[1] / 255, self.color[2] / 255, self.color[3] / 255]
-            return _swizzle(Constants.SMALL_RGBA, color, out_type)
+            return _numpy.array(_swizzle(Constants.SMALL_RGBA, color, out_type), dtype=_numpy.float32)
         elif out_type == Constants.HEX:
             return '#%02x%02x%02x' % tuple(self.color[0:3])
         elif out_type == Constants.HEXA:
@@ -138,7 +141,7 @@ cdef class DisplayScalar:
 
         self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-    cpdef void set_point(self, double value, object in_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef void set_point(self, double value, str in_type=Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
@@ -150,7 +153,7 @@ cdef class DisplayScalar:
             half_display_height = self.display.get_size()[1] / 2.0
             self._point = value * half_display_height
 
-    cpdef double get_point(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef double get_point(self, str out_type=Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
@@ -179,7 +182,7 @@ cdef class DisplayCoordinates:
 
         self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
 
-    cpdef void set_coordinate(self, object coordinate, object in_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef void set_coordinate(self, object coordinate, str in_type=Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
@@ -195,7 +198,7 @@ cdef class DisplayCoordinates:
         elif len(converted_coordinate) == 1:
             converted_coordinate.append(0.0)
         elif len(converted_coordinate) > 2:
-            self._logger.log_development("This process is only required for coordinates in 2D or 1D space.")
+            self._logger.log_development("This process is only required for 2D coordinates.")
             converted_coordinate = converted_coordinate[:2]
 
         cdef double half_display_width, half_display_height, x, y
@@ -210,14 +213,14 @@ cdef class DisplayCoordinates:
             y = -half_display_height * (converted_coordinate[1] - 1)
             self._coordinate = [x, y]
 
-    cpdef list get_coordinate(self, object out_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef cnp.ndarray[cnp.float32_t, ndim=1] get_coordinate(self, str out_type=Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
         cdef double display_width, display_height, x, y
 
         if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return [self._coordinate[0], self._coordinate[1]]
+            return _numpy.array(self._coordinate, dtype=_numpy.float32)
 
         elif out_type == Constants.OPENGL_COORDINATES:
             display_size = self.display.get_size()
@@ -225,4 +228,4 @@ cdef class DisplayCoordinates:
             display_height = display_size[1]
             x = (2.0 * self._coordinate[0]) / display_width - 1.0
             y = 1.0 - (2.0 * self._coordinate[1]) / display_height
-            return [x, y]
+            return _numpy.array([x, y], dtype=_numpy.float32)
