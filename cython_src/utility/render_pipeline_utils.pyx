@@ -102,8 +102,8 @@ cdef class RenderPipeline:
 
             num_points = vertices.shape[0] // 2
 
-            colors_array = np.array(colors*num_points, dtype=np.float32)
-            offset_array = np.array(offset*num_points, dtype=np.float32)
+            colors_array = repeat_array_cython(colors, num_points)
+            offset_array = repeat_array_cython(offset, num_points)
 
             if self.vertex_data.size > 0:
                 degenerate_vertex = self.vertex_data[-2:]

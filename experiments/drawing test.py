@@ -77,6 +77,7 @@ while pmma.Backpack.running:
 
     line.render()
     radial_polygon.render()
+    radial_polygon.render()
     rectangle.render()
     pixel.render()
     arc.render()
