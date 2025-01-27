@@ -74,10 +74,11 @@ cdef class RenderPipeline:
         self._obo.quit(do_garbage_collection=False)
 
     cpdef update(self, shapes):
-        cdef int i, num_points
+        cdef int i, num_points, vertex_index, color_index, offset_index
         cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array, colors, offset
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex, degenerate_color, degenerate_offset
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] first_vertex, first_color, first_offset
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex_start, degenerate_vertex_end
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_color_start, degenerate_color_end
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_offset_start, degenerate_offset_end
 
         if shapes == self.shapes:
             for shape in shapes:
@@ -90,51 +91,98 @@ cdef class RenderPipeline:
 
         self.shapes = shapes
 
-        # Reallocate buffers
-        self.vertex_data = np.empty((0,), dtype=np.float32)
-        self.color_data = np.empty((0,), dtype=np.float32)
-        self.offset_data = np.empty((0,), dtype=np.float32)
+        # Compute total size for buffers (including degenerate vertices)
+        cdef int total_vertices = 0
+        cdef int total_colors = 0
+        cdef int total_offsets = 0
 
-        for i, shape in enumerate(shapes):
+        for shape in shapes:
+            vertices = shape._vertex_data.flatten()
+            num_points = vertices.shape[0] // 2
+            total_vertices += vertices.shape[0] + 4  # +4 for degenerate vertices (2 per shape)
+            total_colors += num_points * 4 + 8       # +8 for degenerate colors (4 per shape)
+            total_offsets += num_points * 2 + 4     # +4 for degenerate offsets (2 per shape)
+
+        # Preallocate buffers
+        self.vertex_data = np.empty((total_vertices,), dtype=np.float32)
+        self.color_data = np.empty((total_colors,), dtype=np.float32)
+        self.offset_data = np.empty((total_offsets,), dtype=np.float32)
+
+        # Fill buffers using slicing
+        vertex_index = 0
+        color_index = 0
+        offset_index = 0
+
+        for i in range(len(shapes)):
+            shape = shapes[i]
+
             vertices = shape._vertex_data.flatten()
             colors = shape._color_data
             offset = shape._offset_data
 
             num_points = vertices.shape[0] // 2
-
             colors_array = repeat_array_cython(colors, num_points)
             offset_array = repeat_array_cython(offset, num_points)
 
-            if self.vertex_data.size > 0:
-                degenerate_vertex = self.vertex_data[-2:]
-                degenerate_color = self.color_data[-4:]
-                degenerate_offset = self.offset_data[-2:]
+            if vertex_index > 0:
+                # Add degenerate vertices to separate shapes
+                degenerate_vertex_start = self.vertex_data[vertex_index - 2:vertex_index]
+                degenerate_color_start = self.color_data[color_index - 4:color_index]
+                degenerate_offset_start = self.offset_data[offset_index - 2:offset_index]
 
-                first_vertex = vertices[:2]
-                first_color = colors_array[:4]
-                first_offset = offset_array[:2]
+                degenerate_vertex_end = vertices[:2]
+                degenerate_color_end = colors_array[:4]
+                degenerate_offset_end = offset_array[:2]
 
-                self.vertex_data = np.concatenate([self.vertex_data, degenerate_vertex, first_vertex])
-                self.color_data = np.concatenate([self.color_data, degenerate_color, first_color])
-                self.offset_data = np.concatenate([self.offset_data, degenerate_offset, first_offset])
+                self.vertex_data[vertex_index:vertex_index + 4] = np.concatenate(
+                    [degenerate_vertex_start, degenerate_vertex_end]
+                )
+                self.color_data[color_index:color_index + 8] = np.concatenate(
+                    [degenerate_color_start, degenerate_color_end]
+                )
+                self.offset_data[offset_index:offset_index + 4] = np.concatenate(
+                    [degenerate_offset_start, degenerate_offset_end]
+                )
 
-            self.vertex_data = np.concatenate([self.vertex_data, vertices])
-            self.color_data = np.concatenate([self.color_data, colors_array])
-            self.offset_data = np.concatenate([self.offset_data, offset_array])
+                vertex_index += 4
+                color_index += 8
+                offset_index += 4
+
+            # Add current shape's data
+            self.vertex_data[vertex_index:vertex_index + vertices.shape[0]] = vertices
+            self.color_data[color_index:color_index + colors_array.shape[0]] = colors_array
+            self.offset_data[offset_index:offset_index + offset_array.shape[0]] = offset_array
+
+            vertex_index += vertices.shape[0]
+            color_index += colors_array.shape[0]
+            offset_index += offset_array.shape[0]
 
             if i == len(shapes) - 1:
-                degenerate_vertex = vertices[-2:]
-                degenerate_color = colors_array[-4:]
-                degenerate_offset = offset_array[-2:]
+                # Add final degenerate vertices to close the last shape
+                degenerate_vertex_end = vertices[-2:]
+                degenerate_color_end = colors_array[-4:]
+                degenerate_offset_end = offset_array[-2:]
 
-                self.vertex_data = np.concatenate([self.vertex_data, degenerate_vertex, degenerate_vertex])
-                self.color_data = np.concatenate([self.color_data, degenerate_color, degenerate_color])
-                self.offset_data = np.concatenate([self.offset_data, degenerate_offset, degenerate_offset])
+                self.vertex_data[vertex_index:vertex_index + 4] = np.concatenate(
+                    [degenerate_vertex_end, degenerate_vertex_end]
+                )
+                self.color_data[color_index:color_index + 8] = np.concatenate(
+                    [degenerate_color_end, degenerate_color_end]
+                )
+                self.offset_data[offset_index:offset_index + 4] = np.concatenate(
+                    [degenerate_offset_end, degenerate_offset_end]
+                )
 
+                vertex_index += 4
+                color_index += 8
+                offset_index += 4
+
+            # Reset shape change flags
             shape._render_pipeline_color_data_changed = False
             shape._render_pipeline_vertex_data_changed = False
             shape._render_pipeline_offset_data_changed = False
 
+        # Upload data to GPU
         self._vbo.set_data(self.vertex_data)
         self._cbo.set_data(self.color_data)
         self._obo.set_data(self.offset_data)
