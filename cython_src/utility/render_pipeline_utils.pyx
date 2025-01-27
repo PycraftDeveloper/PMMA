@@ -15,9 +15,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
-cdef cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(
-    cnp.ndarray[cnp.float32_t, ndim=1] base, int N
-):
+cdef cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
     cdef int base_size = base.shape[0]
     cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.zeros(N * base_size, dtype=np.float32)
     cdef int i
@@ -76,9 +74,6 @@ cdef class RenderPipeline:
     cpdef update(self, shapes):
         cdef int i, num_points, vertex_index, color_index, offset_index
         cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array, colors, offset
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex_start, degenerate_vertex_end
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_color_start, degenerate_color_end
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_offset_start, degenerate_offset_end
 
         if shapes == self.shapes:
             for shape in shapes:
@@ -96,7 +91,9 @@ cdef class RenderPipeline:
         cdef int total_colors = 0
         cdef int total_offsets = 0
 
-        for shape in shapes:
+        for i in range(len(shapes)):
+            shape = shapes[i]
+
             vertices = shape._vertex_data.flatten()
             num_points = vertices.shape[0] // 2
             total_vertices += vertices.shape[0] + 4  # +4 for degenerate vertices (2 per shape)
@@ -126,23 +123,15 @@ cdef class RenderPipeline:
 
             if vertex_index > 0:
                 # Add degenerate vertices to separate shapes
-                degenerate_vertex_start = self.vertex_data[vertex_index - 2:vertex_index]
-                degenerate_color_start = self.color_data[color_index - 4:color_index]
-                degenerate_offset_start = self.offset_data[offset_index - 2:offset_index]
+                # Copy the last vertex of the previous shape
+                self.vertex_data[vertex_index:vertex_index + 2] = self.vertex_data[vertex_index - 2:vertex_index]
+                self.color_data[color_index:color_index + 4] = self.color_data[color_index - 4:color_index]
+                self.offset_data[offset_index:offset_index + 2] = self.offset_data[offset_index - 2:offset_index]
 
-                degenerate_vertex_end = vertices[:2]
-                degenerate_color_end = colors_array[:4]
-                degenerate_offset_end = offset_array[:2]
-
-                self.vertex_data[vertex_index:vertex_index + 4] = np.concatenate(
-                    [degenerate_vertex_start, degenerate_vertex_end]
-                )
-                self.color_data[color_index:color_index + 8] = np.concatenate(
-                    [degenerate_color_start, degenerate_color_end]
-                )
-                self.offset_data[offset_index:offset_index + 4] = np.concatenate(
-                    [degenerate_offset_start, degenerate_offset_end]
-                )
+                # Copy the first vertex of the current shape
+                self.vertex_data[vertex_index + 2:vertex_index + 4] = vertices[:2]
+                self.color_data[color_index + 4:color_index + 8] = colors_array[:4]
+                self.offset_data[offset_index + 2:offset_index + 4] = offset_array[:2]
 
                 vertex_index += 4
                 color_index += 8
@@ -158,20 +147,14 @@ cdef class RenderPipeline:
             offset_index += offset_array.shape[0]
 
             if i == len(shapes) - 1:
-                # Add final degenerate vertices to close the last shape
-                degenerate_vertex_end = vertices[-2:]
-                degenerate_color_end = colors_array[-4:]
-                degenerate_offset_end = offset_array[-2:]
-
-                self.vertex_data[vertex_index:vertex_index + 4] = np.concatenate(
-                    [degenerate_vertex_end, degenerate_vertex_end]
-                )
-                self.color_data[color_index:color_index + 8] = np.concatenate(
-                    [degenerate_color_end, degenerate_color_end]
-                )
-                self.offset_data[offset_index:offset_index + 4] = np.concatenate(
-                    [degenerate_offset_end, degenerate_offset_end]
-                )
+                # Add degenerate vertices for the end of the last shape
+                # Copy the last vertex of the current shape twice to close the shape cleanly
+                self.vertex_data[vertex_index:vertex_index + 2] = vertices[-2:]
+                self.vertex_data[vertex_index + 2:vertex_index + 4] = vertices[-2:]
+                self.color_data[color_index:color_index + 4] = colors_array[-4:]
+                self.color_data[color_index + 4:color_index + 8] = colors_array[-4:]
+                self.offset_data[offset_index:offset_index + 2] = offset_array[-2:]
+                self.offset_data[offset_index + 2:offset_index + 4] = offset_array[-2:]
 
                 vertex_index += 4
                 color_index += 8
