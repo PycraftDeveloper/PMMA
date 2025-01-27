@@ -47,7 +47,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
 
         self._color_data = None
         self._vertex_data = None
-        self._offset_data = [0, 0]
+        self._offset_data = _numpy.array([0, 0], dtype=_numpy.float32)
 
         self._render_pipeline_color_data_changed = True
         self._render_pipeline_vertex_data_changed = True

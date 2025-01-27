@@ -2,6 +2,8 @@ from gc import collect as _gc__collect
 import random as _random
 import math as _math
 
+import numpy as _numpy
+
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.noise import Perlin as _Perlin
 
@@ -178,12 +180,12 @@ class ColorConverter:
         🟩 **R** -
         """
         if format == _Constants.RGB:
-            color = [int(color[0]), int(color[1]), int(color[2])]
+            color = _numpy.array([int(color[0]), int(color[1]), int(color[2])])
         elif format == _Constants.RGBA:
-            color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
+            color = _numpy.array([int(color[0]), int(color[1]), int(color[2]), int(color[3])])
         ### extend this, ignore HEX and SMALL values!!!
 
-        if not (format in self._color_cache and self._color_cache[format] == color):
+        if not (format in self._color_cache and _numpy.array_equal(self._color_cache[format], color)):
             self._color_cache = {}
             self._color_cache[format] = color
             self._color_intermediary.set_color(color, format)
@@ -426,7 +428,7 @@ create the window onscreen")
         if format == _Constants.CONVENTIONAL_COORDINATES:
             coordinate = [int(coordinate[0]), int(coordinate[1])]
 
-        if not (format in self._coordinate_cache and self._coordinate_cache[format] == coordinate):
+        if not (format in self._coordinate_cache and _numpy.array_equal(self._coordinate_cache[format], coordinate)):
             self._coordinate_cache = {}
             self._coordinate_cache[format] = coordinate
             self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)

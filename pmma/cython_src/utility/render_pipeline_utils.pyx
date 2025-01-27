@@ -75,7 +75,7 @@ cdef class RenderPipeline:
 
     cpdef update(self, shapes):
         cdef int i, num_points
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array, colors, offset
         cdef cnp.ndarray[cnp.float32_t, ndim=1] degenerate_vertex, degenerate_color, degenerate_offset
         cdef cnp.ndarray[cnp.float32_t, ndim=1] first_vertex, first_color, first_offset
 
@@ -101,9 +101,6 @@ cdef class RenderPipeline:
             offset = shape._offset_data
 
             num_points = vertices.shape[0] // 2
-
-            if len(colors) == 3:
-                colors.append(1.0)  # Ensure RGBA
 
             colors_array = np.array(colors*num_points, dtype=np.float32)
             offset_array = np.array(offset*num_points, dtype=np.float32)

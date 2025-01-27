@@ -204,7 +204,8 @@ class DisplayIntermediary:
             self._color_converter.set_color(color, format=format)
 
         if self._previous_frame_color is not None:
-            if self._color_converter.get_color(format=_Constants.RGBA) == self._previous_frame_color.get_color(format=_Constants.RGBA):
+            background_color_comparison = self._color_converter.get_color(format=_Constants.RGBA) == self._previous_frame_color.get_color(format=_Constants.RGBA)
+            if background_color_comparison.all():
                 if self._refresh_optimization_override is False:
                     if self._render_calls == self._attempted_render_calls:
                         self._render_calls = self._attempted_render_calls
