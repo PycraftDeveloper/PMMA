@@ -309,7 +309,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(value) != _DisplayScalarConverter():
+        if type(value) != _DisplayScalarConverter:
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
@@ -764,7 +764,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(value) != _DisplayScalarConverter():
+        if type(value) != _DisplayScalarConverter:
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
@@ -935,12 +935,12 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(size[0]) != _AngleConverter():
+        if type(size[0]) != _AngleConverter:
             self._outer_x_size.set_point(size[0], format=size_format)
         else:
             self._outer_x_size = size[0]
 
-        if type(size[1]) != _AngleConverter():
+        if type(size[1]) != _AngleConverter:
             self._outer_y_size.set_point(size[1], format=size_format)
         else:
             self._outer_y_size = size[1]

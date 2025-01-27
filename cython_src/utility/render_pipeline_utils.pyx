@@ -76,7 +76,8 @@ cdef class RenderPipeline:
         cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array, colors, offset
 
         if shapes == self.shapes:
-            for shape in shapes:
+            for i in range(len(shapes)):
+                shape = shapes[i]
                 if (shape._render_pipeline_color_data_changed or
                     shape._render_pipeline_vertex_data_changed or
                     shape._render_pipeline_offset_data_changed):
