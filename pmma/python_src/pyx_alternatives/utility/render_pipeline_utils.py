@@ -1,6 +1,4 @@
-from gc import collect as _gc__collect
-
-import numpy as _numpy
+import numpy as np
 import moderngl as _moderngl
 
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
@@ -12,11 +10,10 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 def repeat_array_cython(base, N):
     base_size = base.shape[0]
-    result = _numpy.zeros(N * base_size, dtype=_numpy.float32)
+    result = np.zeros(N * base_size, dtype=np.float32)
 
     # Fill the result array using slicing
     for i in range(N):
@@ -26,12 +23,14 @@ def repeat_array_cython(base, N):
 
 class RenderPipeline:
     def __init__(self):
-        _initialize(self)
-
         self.shapes = []  # Store references to shapes
-        self.vertex_data = _numpy.empty((0,), dtype=_numpy.float32)
-        self.color_data = _numpy.empty((0,), dtype=_numpy.float32)
-        self.offset_data = _numpy.empty((0,), dtype=_numpy.float32)
+
+        self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio() + 1
+
+        # Preallocate memory for vertex, color, and offset data
+        self.vertex_data = np.empty((0,), dtype=np.float32)
+        self.color_data = np.empty((0,), dtype=np.float32)
+        self.offset_data = np.empty((0,), dtype=np.float32)
 
         # Buffer objects
         self._vbo = _VertexBufferObject()
@@ -47,97 +46,107 @@ class RenderPipeline:
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
         self._program.create()
 
-        self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
-
-    def __del__(self, do_garbage_collection=False):
-        if not self._shut_down:
-            self._program.quit(do_garbage_collection=False)
-            self._vao.quit(do_garbage_collection=False)
-            self._vbo.quit(do_garbage_collection=False)
-            self._cbo.quit(do_garbage_collection=False)
-            self._obo.quit(do_garbage_collection=False)
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
+    def quit(self):
         self._shut_down = True
+        self._program.quit(do_garbage_collection=False)
+        self._vao.quit(do_garbage_collection=False)
+        self._vbo.quit(do_garbage_collection=False)
+        self._cbo.quit(do_garbage_collection=False)
+        self._obo.quit(do_garbage_collection=False)
 
     def update(self, shapes):
-        """
-        Updates the pipeline's vertex, color, and offset data based on the given shapes.
-        """
-        # If the list of shapes hasn't changed
         if shapes == self.shapes:
-            # Check if any of the shapes' data has changed
-            for shape in shapes:
-                if shape._render_pipeline_color_data_changed:  # Check if `shape._vertex_data` has changed
-                    break
-                if shape._render_pipeline_vertex_data_changed:  # Check if `shape._color_data` has changed
-                    break
-                if shape._render_pipeline_offset_data_changed:  # Check if `shape._offset_data` has changed
+            for i in range(len(shapes)):
+                shape = shapes[i]
+                if (shape._render_pipeline_color_data_changed or
+                    shape._render_pipeline_vertex_data_changed or
+                    shape._render_pipeline_offset_data_changed):
                     break
             else:
-                # If no changes were detected, we don't need to update
                 return
 
-        # Update the shapes and recalculate the data
         self.shapes = shapes
-        self.vertex_data = _numpy.empty((0,), dtype=_numpy.float32)
-        self.color_data = _numpy.empty((0,), dtype=_numpy.float32)
-        self.offset_data = _numpy.empty((0,), dtype=_numpy.float32)
 
-        for i, shape in enumerate(shapes):
+        # Compute total size for buffers (including degenerate vertices)
+        total_vertices = 0
+        total_colors = 0
+        total_offsets = 0
+
+        for i in range(len(shapes)):
+            shape = shapes[i]
+
+            vertices = shape._vertex_data.flatten()
+            num_points = vertices.shape[0] // 2
+            total_vertices += vertices.shape[0] + 4  # +4 for degenerate vertices (2 per shape)
+            total_colors += num_points * 4 + 8       # +8 for degenerate colors (4 per shape)
+            total_offsets += num_points * 2 + 4     # +4 for degenerate offsets (2 per shape)
+
+        # Preallocate buffers
+        self.vertex_data = np.empty((total_vertices,), dtype=np.float32)
+        self.color_data = np.empty((total_colors,), dtype=np.float32)
+        self.offset_data = np.empty((total_offsets,), dtype=np.float32)
+
+        # Fill buffers using slicing
+        vertex_index = 0
+        color_index = 0
+        offset_index = 0
+
+        for i in range(len(shapes)):
+            shape = shapes[i]
+
             vertices = shape._vertex_data.flatten()
             colors = shape._color_data
             offset = shape._offset_data
 
             num_points = vertices.shape[0] // 2
-
-            if len(colors) == 3:
-                colors = _numpy.append(colors, 1.0)  # Ensure RGBA
-                colors = colors.astype(_numpy.float32)
-            else:
-                colors = _numpy.array(colors, dtype=_numpy.float32)
-
-            offset = _numpy.array(offset, dtype=_numpy.float32)
-
-            colors_array = repeat_array_cython(colors, num_points) # -1 ??
+            colors_array = repeat_array_cython(colors, num_points)
             offset_array = repeat_array_cython(offset, num_points)
 
-            if self.vertex_data.size > 0:
-                # Add degenerate vertices to disconnect the previous shape
-                degenerate_vertex = self.vertex_data[-2:]  # Last vertex
-                degenerate_color = self.color_data[-4:]  # Last color
-                degenerate_offset = self.offset_data[-2:]  # Last offset
+            if vertex_index > 0:
+                # Add degenerate vertices to separate shapes
+                # Copy the last vertex of the previous shape
+                self.vertex_data[vertex_index:vertex_index + 2] = self.vertex_data[vertex_index - 2:vertex_index]
+                self.color_data[color_index:color_index + 4] = self.color_data[color_index - 4:color_index]
+                self.offset_data[offset_index:offset_index + 2] = self.offset_data[offset_index - 2:offset_index]
 
-                first_vertex = vertices[:2]  # First vertex of new shape
-                first_color = colors_array[:4]  # First color of new shape
-                first_offset = offset_array[:2]  # First offset of new shape
+                # Copy the first vertex of the current shape
+                self.vertex_data[vertex_index + 2:vertex_index + 4] = vertices[:2]
+                self.color_data[color_index + 4:color_index + 8] = colors_array[:4]
+                self.offset_data[offset_index + 2:offset_index + 4] = offset_array[:2]
 
-                self.vertex_data = _numpy.concatenate([self.vertex_data, degenerate_vertex, first_vertex])
-                self.color_data = _numpy.concatenate([self.color_data, degenerate_color, first_color])
-                self.offset_data = _numpy.concatenate([self.offset_data, degenerate_offset, first_offset])
+                vertex_index += 4
+                color_index += 8
+                offset_index += 4
 
-            self.vertex_data = _numpy.concatenate([self.vertex_data, vertices])
-            self.color_data = _numpy.concatenate([self.color_data, colors_array])
-            self.offset_data = _numpy.concatenate([self.offset_data, offset_array])
+            # Add current shape's data
+            self.vertex_data[vertex_index:vertex_index + vertices.shape[0]] = vertices
+            self.color_data[color_index:color_index + colors_array.shape[0]] = colors_array
+            self.offset_data[offset_index:offset_index + offset_array.shape[0]] = offset_array
 
-            # Add degenerate vertices at the end of the last shape to disconnect it from the first shape
-            if i == len(shapes) - 1:  # Last shape in the list
-                degenerate_vertex = vertices[-2:]  # Last vertex of the shape
-                degenerate_color = colors_array[-4:]  # Last color of the shape
-                degenerate_offset = offset_array[-2:]  # Last offset of the shape
+            vertex_index += vertices.shape[0]
+            color_index += colors_array.shape[0]
+            offset_index += offset_array.shape[0]
 
-                self.vertex_data = _numpy.concatenate([self.vertex_data, degenerate_vertex, degenerate_vertex])
-                self.color_data = _numpy.concatenate([self.color_data, degenerate_color, degenerate_color])
-                self.offset_data = _numpy.concatenate([self.offset_data, degenerate_offset, degenerate_offset])
+            if i == len(shapes) - 1:
+                # Add degenerate vertices for the end of the last shape
+                # Copy the last vertex of the current shape twice to close the shape cleanly
+                self.vertex_data[vertex_index:vertex_index + 2] = vertices[-2:]
+                self.vertex_data[vertex_index + 2:vertex_index + 4] = vertices[-2:]
+                self.color_data[color_index:color_index + 4] = colors_array[-4:]
+                self.color_data[color_index + 4:color_index + 8] = colors_array[-4:]
+                self.offset_data[offset_index:offset_index + 2] = offset_array[-2:]
+                self.offset_data[offset_index + 2:offset_index + 4] = offset_array[-2:]
 
+                vertex_index += 4
+                color_index += 8
+                offset_index += 4
+
+            # Reset shape change flags
             shape._render_pipeline_color_data_changed = False
             shape._render_pipeline_vertex_data_changed = False
             shape._render_pipeline_offset_data_changed = False
 
+        # Upload data to GPU
         self._vbo.set_data(self.vertex_data)
         self._cbo.set_data(self.color_data)
         self._obo.set_data(self.offset_data)

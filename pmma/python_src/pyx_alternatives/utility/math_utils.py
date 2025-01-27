@@ -22,8 +22,7 @@ def raw_ranger(value, old, new):
     elif value < old[0]:
         value = old[0]
 
-    comparing_two_arrays = (old == new)
-    if comparing_two_arrays.all():
+    if old == new:
         return value
     else:
         old_range = (old[1] - old[0])

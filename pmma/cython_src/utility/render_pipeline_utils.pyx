@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 import numpy as np
 cimport numpy as cnp
 import moderngl as _moderngl
@@ -13,7 +11,6 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 cdef cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
     cdef int base_size = base.shape[0]
@@ -71,9 +68,10 @@ cdef class RenderPipeline:
         self._cbo.quit(do_garbage_collection=False)
         self._obo.quit(do_garbage_collection=False)
 
-    cpdef update(self, shapes):
+    cpdef void update(self, list shapes):
         cdef int i, num_points, vertex_index, color_index, offset_index
         cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array, colors, offset
+        cdef object shape
 
         if shapes == self.shapes:
             for i in range(len(shapes)):
