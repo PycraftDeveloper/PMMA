@@ -60,11 +60,16 @@ cdef class RenderPipeline:
                 pipeline_data[index+14:index+16] = offsets[:2]
                 index += 16
 
-            for j in range(num_points):
-                pipeline_data[index:index+2] = vertices[j*2:j*2+2]
-                pipeline_data[index+2:index+6] = colors[j*4:j*4+4]
-                pipeline_data[index+6:index+8] = offsets[j*2:j*2+2]
-                index += 8
+            pipeline_data[index:index + 8 * num_points:8] = vertices[::2]
+            pipeline_data[index + 1:index + 8 * num_points:8] = vertices[1::2]
+            pipeline_data[index + 2:index + 8 * num_points:8] = colors[::4]
+            pipeline_data[index + 3:index + 8 * num_points:8] = colors[1::4]
+            pipeline_data[index + 4:index + 8 * num_points:8] = colors[2::4]
+            pipeline_data[index + 5:index + 8 * num_points:8] = colors[3::4]
+            pipeline_data[index + 6:index + 8 * num_points:8] = offsets[::2]
+            pipeline_data[index + 7:index + 8 * num_points:8] = offsets[1::2]
+
+            index += 8 * num_points
 
             if i == len(shape_data) - 1:
                 pipeline_data[index:index+8] = pipeline_data[index-8:index]
