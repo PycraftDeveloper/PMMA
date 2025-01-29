@@ -10,6 +10,10 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
+import cython
+
+@cython.boundscheck(False) # compiler directive
+@cython.wraparound(False) # compiler directive
 cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
     cdef int base_size = base.shape[0]
     cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.zeros(N * base_size, dtype=np.float32)
@@ -41,6 +45,8 @@ cdef class RenderPipeline:
         self._vao.quit(do_garbage_collection=False)
         self._gbo.quit(do_garbage_collection=False)
 
+    @cython.boundscheck(False) # compiler directive
+    @cython.wraparound(False) # compiler directive
     cdef void internal_update(self, list shape_data, int total_data_points):
         cdef cnp.ndarray[cnp.float32_t, ndim=1] pipeline_data = np.empty(total_data_points, dtype=np.float32)
         cdef cnp.ndarray[cnp.float32_t, ndim=1] colors, vertices, offsets
@@ -78,6 +84,8 @@ cdef class RenderPipeline:
 
         self._gbo.set_data(pipeline_data)
 
+    @cython.boundscheck(False) # compiler directive
+    @cython.wraparound(False) # compiler directive
     cpdef void update(self, list shapes):
         cdef int i, num_points, total_data_points = 0
         cdef list shape_data_list = []
