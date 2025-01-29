@@ -252,12 +252,6 @@ class VertexArrayObject:
 
         self._logger = _InternalLogger()
 
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        pass # WIP
-
     def _analyse_and_filter_buffer_attributes(self, attributes):
         """
         🟩 **R** -
