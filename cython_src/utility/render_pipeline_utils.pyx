@@ -10,7 +10,7 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-cdef cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
+cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
     cdef int base_size = base.shape[0]
     cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.zeros(N * base_size, dtype=np.float32)
     cdef int i
@@ -71,14 +71,21 @@ cdef class RenderPipeline:
             num_points = vertices.shape[0] // 2
 
             if i > 0:
-                # Insert degenerate vertices (last of previous shape and first of current shape)
+                # Insert degenerate vertex: repeat last vertex of previous shape
                 pipeline_data[index:index+8] = pipeline_data[index-8:index]
-                pipeline_data[index+8:index+16] = np.hstack([vertices[:2], colors[:4], offsets[:2]])
-                index += 16
+
+                # Insert first vertex of the new shape
+                pipeline_data[index+8:index+10] = vertices[:2]  # Position
+                pipeline_data[index+10:index+14] = colors[:4]   # Color
+                pipeline_data[index+14:index+16] = offsets[:2]  # Offset
+
+                index += 16  # Move index forward correctly
 
             # Insert actual shape data
             for j in range(num_points):
-                pipeline_data[index:index+8] = np.hstack([vertices[j*2:j*2+2], colors[j*4:j*4+4], offsets[j*2:j*2+2]])
+                pipeline_data[index:index+2] = vertices[j*2:j*2+2]
+                pipeline_data[index+2:index+6] = colors[j*4:j*4+4]
+                pipeline_data[index+6:index+8] = offsets[j*2:j*2+2]
                 index += 8
 
             if i == len(shapes) - 1:
