@@ -55,16 +55,6 @@ class RenderPipeline:
         self._obo.quit(do_garbage_collection=False)
 
     def update(self, shapes):
-        if shapes == self.shapes:
-            for i in range(len(shapes)):
-                shape = shapes[i]
-                if (shape._render_pipeline_color_data_changed or
-                    shape._render_pipeline_vertex_data_changed or
-                    shape._render_pipeline_offset_data_changed):
-                    break
-            else:
-                return
-
         self.shapes = shapes
 
         # Compute total size for buffers (including degenerate vertices)
@@ -75,7 +65,7 @@ class RenderPipeline:
         for i in range(len(shapes)):
             shape = shapes[i]
 
-            vertices = shape._vertex_data.flatten()
+            vertices = shape._vertex_data
             num_points = vertices.shape[0] // 2
             total_vertices += vertices.shape[0] + 4  # +4 for degenerate vertices (2 per shape)
             total_colors += num_points * 4 + 8       # +8 for degenerate colors (4 per shape)
@@ -94,7 +84,7 @@ class RenderPipeline:
         for i in range(len(shapes)):
             shape = shapes[i]
 
-            vertices = shape._vertex_data.flatten()
+            vertices = shape._vertex_data
             colors = shape._color_data
             offset = shape._offset_data
 

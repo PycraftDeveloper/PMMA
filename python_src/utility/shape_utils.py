@@ -326,7 +326,7 @@ class RadialPolygonUtils:
             combined_vertices[-2] = outer_vertices[0]  # Append the first outer vertex to close the shape
 
             # The final array of vertices
-            vertices = combined_vertices
+            vertices = combined_vertices.flatten()
 
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_radial_polygon(identifier, vertices)
 
@@ -483,6 +483,8 @@ class RectangleUtils:
             # Rotate each vertex around the center
             vertices = _numpy.array([self._rotate_point(v[0], v[1], 0, 0, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
 
+            vertices = vertices.flatten()
+
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_rectangle(identifier, vertices)
 
         self._geometry_created = True  # Reset the flag
@@ -584,10 +586,13 @@ class ArcUtils:
             # Apply rotation if necessary
             cos_theta = _numpy.cos(rotation)
             sin_theta = _numpy.sin(rotation)
+
             rotated_vertices = _numpy.array([
                 self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
                 for v in vertices
             ], dtype='f4')
+
+            rotated_vertices = rotated_vertices.flatten()
 
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
 
@@ -693,6 +698,8 @@ class EllipseUtils:
 
             rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
+            rotated_vertices = rotated_vertices.flatten()
+
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
@@ -783,6 +790,8 @@ class PolygonUtils:
             if self._closed and len(rotated_vertices) > 1:
                 extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
                 rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
+
+            rotated_vertices = rotated_vertices.flatten()
 
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, rotated_vertices)
 
