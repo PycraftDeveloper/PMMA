@@ -91,11 +91,9 @@ class Line(_ShapeTemplate, _LineUtils):
 
         if self._geometry_created is False:
             self._create_geometry()
-            self._render_pipeline_vertex_data_changed = True
             self._geometry_created = True
 
         color_changed = self._color_changed
-        self._render_pipeline_color_data_changed = color_changed
         self._color_changed = False  # Reset the flag
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed]
@@ -268,18 +266,15 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
 
         if self._geometry_created is False:
             self._create_geometry()
-            self._render_pipeline_vertex_data_changed = True
             self._geometry_created = True
 
         color_changed = self._color_changed
-        self._render_pipeline_color_data_changed = color_changed
         self._color_changed = False  # Reset the flag
 
         position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._offset_data = offset
-            self._render_pipeline_offset_data_changed = True
             self._position_changed = False
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
@@ -451,18 +446,15 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         if self._geometry_created is False:
             self._create_geometry()
-            self._render_pipeline_vertex_data_changed = True
             self._geometry_created = True
 
         color_changed = self._color_changed
-        self._render_pipeline_color_data_changed = color_changed
         self._color_changed = False  # Reset the flag
 
         position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._offset_data = offset
-            self._render_pipeline_offset_data_changed = True
             self._position_changed = False
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
@@ -647,18 +639,15 @@ class Arc(_ShapeTemplate, _ArcUtils):
 
         if self._geometry_created is False:
             self._create_geometry()
-            self._render_pipeline_vertex_data_changed = True
             self._geometry_created = True
 
         color_changed = self._color_changed
-        self._render_pipeline_color_data_changed = color_changed
         self._color_changed = False  # Reset the flag
 
         position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._offset_data = offset
-            self._render_pipeline_offset_data_changed = True
             self._position_changed = False
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
@@ -850,18 +839,15 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
 
         if self._geometry_created is False:
             self._create_geometry()
-            self._render_pipeline_vertex_data_changed = True
             self._geometry_created = True
 
         color_changed = self._color_changed
-        self._render_pipeline_color_data_changed = color_changed
         self._color_changed = False  # Reset the flag
 
         position_changed = self._position_changed
         if self._position_changed:
             offset = self._center.get_coordinates(format=_Constants.OPENGL_COORDINATES)
             self._offset_data = offset
-            self._render_pipeline_offset_data_changed = True
             self._position_changed = False
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
@@ -1024,11 +1010,9 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
 
         if self._geometry_created is False:
             self._create_geometry()
-            self._render_pipeline_vertex_data_changed = True
             self._geometry_created = True
 
         color_changed = self._color_changed
-        self._render_pipeline_color_data_changed = color_changed
         self._color_changed = False  # Reset the flag
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed]

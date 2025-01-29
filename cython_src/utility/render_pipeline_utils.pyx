@@ -2,8 +2,6 @@ import numpy as np
 cimport numpy as cnp
 import moderngl as _moderngl
 
-from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
-from pmma.python_src.opengl import ColorBufferObject as _ColorBufferObject
 from pmma.python_src.opengl import GenericBufferObject as _GenericBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
@@ -25,34 +23,17 @@ cdef cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.floa
 
 cdef class RenderPipeline:
     cdef:
-        list shapes
-        object vertex_data
-        object color_data
-        object offset_data
-        object _vbo
-        object _cbo
-        object _obo
+        object _gbo
         object _vao
         object _program
         float aspect_ratio
 
     def __cinit__(self):
-        self.shapes = []  # Store references to shapes
-
         self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
 
-        # Preallocate memory for vertex, color, and offset data
-        self.vertex_data = np.empty((0,), dtype=np.float32)
-        self.color_data = np.empty((0,), dtype=np.float32)
-        self.offset_data = np.empty((0,), dtype=np.float32)
-
         # Buffer objects
-        self._vbo = _VertexBufferObject()
-        self._vbo.set_dynamic(True)
-        self._cbo = _ColorBufferObject()
-        self._cbo.set_dynamic(True)
-        self._obo = _GenericBufferObject()
-        self._obo.set_dynamic(True)
+        self._gbo = _GenericBufferObject()
+        self._gbo.set_dynamic(True)
         self._vao = _VertexArrayObject()
 
         # Shader
@@ -64,100 +45,50 @@ cdef class RenderPipeline:
         self._shut_down = True
         self._program.quit(do_garbage_collection=False)
         self._vao.quit(do_garbage_collection=False)
-        self._vbo.quit(do_garbage_collection=False)
-        self._cbo.quit(do_garbage_collection=False)
-        self._obo.quit(do_garbage_collection=False)
+        self._gbo.quit(do_garbage_collection=False)
 
     cpdef void update(self, list shapes):
-        cdef int i, num_points, vertex_index, color_index, offset_index
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors_array, offset_array, colors, offset
+        cdef int i, num_points, index
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors, offsets
         cdef object shape
 
-        self.shapes = shapes
+        # Compute total size for buffer (including degenerate vertices)
+        cdef int total_data_points = 0
+        for shape in shapes:
+            num_points = shape._vertex_data.shape[0] // 2
+            total_data_points += (num_points + 2) * 8  # 2 extra degenerate vertices, each with 8 attributes (2 pos, 4 col, 2 offset)
 
-        # Compute total size for buffers (including degenerate vertices)
-        cdef int total_vertices = 0
-        cdef int total_colors = 0
-        cdef int total_offsets = 0
+        # Preallocate buffer
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] pipeline_data = np.empty(total_data_points, dtype=np.float32)
 
+        index = 0
         for i in range(len(shapes)):
             shape = shapes[i]
-
             vertices = shape._vertex_data
-            num_points = vertices.shape[0] // 2
-            total_vertices += vertices.shape[0] + 4  # +4 for degenerate vertices (2 per shape)
-            total_colors += num_points * 4 + 8       # +8 for degenerate colors (4 per shape)
-            total_offsets += num_points * 2 + 4     # +4 for degenerate offsets (2 per shape)
-
-        # Preallocate buffers
-        self.vertex_data = np.empty((total_vertices,), dtype=np.float32)
-        self.color_data = np.empty((total_colors,), dtype=np.float32)
-        self.offset_data = np.empty((total_offsets,), dtype=np.float32)
-
-        # Fill buffers using slicing
-        vertex_index = 0
-        color_index = 0
-        offset_index = 0
-
-        for i in range(len(shapes)):
-            shape = shapes[i]
-
-            vertices = shape._vertex_data
-            colors = shape._color_data
-            offset = shape._offset_data
+            colors = repeat_array_cython(shape._color_data, vertices.shape[0] // 2)
+            offsets = repeat_array_cython(shape._offset_data, vertices.shape[0] // 2)
 
             num_points = vertices.shape[0] // 2
-            colors_array = repeat_array_cython(colors, num_points)
-            offset_array = repeat_array_cython(offset, num_points)
 
-            if vertex_index > 0:
-                # Add degenerate vertices to separate shapes
-                # Copy the last vertex of the previous shape
-                self.vertex_data[vertex_index:vertex_index + 2] = self.vertex_data[vertex_index - 2:vertex_index]
-                self.color_data[color_index:color_index + 4] = self.color_data[color_index - 4:color_index]
-                self.offset_data[offset_index:offset_index + 2] = self.offset_data[offset_index - 2:offset_index]
+            if i > 0:
+                # Insert degenerate vertices (last of previous shape and first of current shape)
+                pipeline_data[index:index+8] = pipeline_data[index-8:index]
+                pipeline_data[index+8:index+16] = np.hstack([vertices[:2], colors[:4], offsets[:2]])
+                index += 16
 
-                # Copy the first vertex of the current shape
-                self.vertex_data[vertex_index + 2:vertex_index + 4] = vertices[:2]
-                self.color_data[color_index + 4:color_index + 8] = colors_array[:4]
-                self.offset_data[offset_index + 2:offset_index + 4] = offset_array[:2]
-
-                vertex_index += 4
-                color_index += 8
-                offset_index += 4
-
-            # Add current shape's data
-            self.vertex_data[vertex_index:vertex_index + vertices.shape[0]] = vertices
-            self.color_data[color_index:color_index + colors_array.shape[0]] = colors_array
-            self.offset_data[offset_index:offset_index + offset_array.shape[0]] = offset_array
-
-            vertex_index += vertices.shape[0]
-            color_index += colors_array.shape[0]
-            offset_index += offset_array.shape[0]
+            # Insert actual shape data
+            for j in range(num_points):
+                pipeline_data[index:index+8] = np.hstack([vertices[j*2:j*2+2], colors[j*4:j*4+4], offsets[j*2:j*2+2]])
+                index += 8
 
             if i == len(shapes) - 1:
-                # Add degenerate vertices for the end of the last shape
-                # Copy the last vertex of the current shape twice to close the shape cleanly
-                self.vertex_data[vertex_index:vertex_index + 2] = vertices[-2:]
-                self.vertex_data[vertex_index + 2:vertex_index + 4] = vertices[-2:]
-                self.color_data[color_index:color_index + 4] = colors_array[-4:]
-                self.color_data[color_index + 4:color_index + 8] = colors_array[-4:]
-                self.offset_data[offset_index:offset_index + 2] = offset_array[-2:]
-                self.offset_data[offset_index + 2:offset_index + 4] = offset_array[-2:]
-
-                vertex_index += 4
-                color_index += 8
-                offset_index += 4
-
-            # Reset shape change flags
-            shape._render_pipeline_color_data_changed = False
-            shape._render_pipeline_vertex_data_changed = False
-            shape._render_pipeline_offset_data_changed = False
+                # Insert degenerate vertices (last vertex repeated)
+                pipeline_data[index:index+8] = pipeline_data[index-8:index]
+                pipeline_data[index+8:index+16] = pipeline_data[index-8:index]
+                index += 16
 
         # Upload data to GPU
-        self._vbo.set_data(self.vertex_data)
-        self._cbo.set_data(self.color_data)
-        self._obo.set_data(self.offset_data)
+        self._gbo.set_data(pipeline_data)
 
     def _internal_render(self):
         new_aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
@@ -169,8 +100,5 @@ cdef class RenderPipeline:
 
         self._vao.create(
             self._program,
-            self._vbo, ["2f", "in_position"],
-            color_buffer_object=self._cbo, color_buffer_shader_attributes=["4f", "in_color"],
-            additional_buffers=[self._obo], additional_buffer_attributes=[["2f", "in_offset"]],
-        )
+            self._gbo, ["2f", "in_position", "4f", "in_color", "2f", "in_offset"])
         self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
