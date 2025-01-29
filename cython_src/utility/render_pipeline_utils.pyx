@@ -47,26 +47,15 @@ cdef class RenderPipeline:
         self._vao.quit(do_garbage_collection=False)
         self._gbo.quit(do_garbage_collection=False)
 
-    cpdef void update(self, list shapes):
-        cdef int i, num_points, index
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors, offsets
-        cdef object shape
-
-        # Compute total size for buffer (including degenerate vertices)
-        cdef int total_data_points = 0
-        for shape in shapes:
-            num_points = shape._vertex_data.shape[0] // 2
-            total_data_points += (num_points + 2) * 8  # 2 extra degenerate vertices, each with 8 attributes (2 pos, 4 col, 2 offset)
-
+    cdef void internal_update(self, cnp.ndarray[cnp.float32_t, ndim=3] shape_data, int total_data_points):
         # Preallocate buffer
         cdef cnp.ndarray[cnp.float32_t, ndim=1] pipeline_data = np.empty(total_data_points, dtype=np.float32)
 
         index = 0
-        for i in range(len(shapes)):
-            shape = shapes[i]
-            vertices = shape._vertex_data
-            colors = repeat_array_cython(shape._color_data, vertices.shape[0] // 2)
-            offsets = repeat_array_cython(shape._offset_data, vertices.shape[0] // 2)
+        for i in range(shape_data.shape[0]):
+            vertices = shape_data[i][0]
+            colors = repeat_array_cython(shape_data[i][1], vertices.shape[0] // 2)
+            offsets = repeat_array_cython(shape_data[i][2], vertices.shape[0] // 2)
 
             num_points = vertices.shape[0] // 2
 
@@ -88,7 +77,7 @@ cdef class RenderPipeline:
                 pipeline_data[index+6:index+8] = offsets[j*2:j*2+2]
                 index += 8
 
-            if i == len(shapes) - 1:
+            if i == shape_data.shape[0] - 1:
                 # Insert degenerate vertices (last vertex repeated)
                 pipeline_data[index:index+8] = pipeline_data[index-8:index]
                 pipeline_data[index+8:index+16] = pipeline_data[index-8:index]
@@ -96,6 +85,24 @@ cdef class RenderPipeline:
 
         # Upload data to GPU
         self._gbo.set_data(pipeline_data)
+
+    cpdef void update(self, list shapes):
+        cdef int i, num_points, index
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] vertices, colors, offsets
+        cdef cnp.ndarray[cnp.float32_t, ndim=3] shape_data
+        cdef object shape
+        cdef cnp.ndarray[cnp.float32_t, ndim=1] single_shape_data
+
+        # Compute total size for buffer (including degenerate vertices)
+        cdef int total_data_points = 0
+        for shape in shapes:
+            num_points = shape._vertex_data.shape[0] // 2
+            total_data_points += (num_points + 2) * 8  # 2 extra degenerate vertices, each with 8 attributes (2 pos, 4 col, 2 offset)
+
+            single_shape_data = np.array([shape._vertex_data, shape._color_data, shape._offset_data])
+            shape_data = np.append(shape_data, single_shape_data)
+
+        self.internal_update(shape_data, total_data_points)
 
     def _internal_render(self):
         new_aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
