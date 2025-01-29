@@ -48,8 +48,8 @@ cdef class RenderPipeline:
     @cython.boundscheck(False) # compiler directive
     @cython.wraparound(False) # compiler directive
     cdef void internal_update(self, list shape_data, int total_data_points):
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] pipeline_data = np.empty(total_data_points, dtype=np.float32)
-        cdef cnp.ndarray[cnp.float32_t, ndim=1] colors, vertices, offsets
+        cdef cnp.float32_t[::1] pipeline_data = np.empty(total_data_points, dtype=np.float32)
+        cdef cnp.float32_t[::1] colors, vertices, offsets
         cdef int index = 0
         cdef int i, num_points
 
@@ -89,8 +89,10 @@ cdef class RenderPipeline:
     cpdef void update(self, list shapes):
         cdef int i, num_points, total_data_points = 0
         cdef list shape_data_list = []
+        cdef object shape
 
-        for shape in shapes:
+        for i in range(len(shapes)):
+            shape = shapes[i]
             num_points = shape._vertex_data.shape[0] // 2
             total_data_points += (num_points + 2) * 8
             shape_data_list.append([shape._vertex_data, shape._color_data, shape._offset_data])
