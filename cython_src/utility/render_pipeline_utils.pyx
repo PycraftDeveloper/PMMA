@@ -12,16 +12,16 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 import cython
 
-@cython.boundscheck(False) # compiler directive
-@cython.wraparound(False) # compiler directive
+from libc.string cimport memcpy
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
 cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
     cdef int base_size = base.shape[0]
-    cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.zeros(N * base_size, dtype=np.float32)
+    cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.empty(N * base_size, dtype=np.float32)
     cdef int i
-
     for i in range(N):
-        result[i * base_size : (i + 1) * base_size] = base
-
+        memcpy(&result[i * base_size], &base[0], base_size * sizeof(cnp.float32_t))
     return result
 
 cdef class RenderPipeline:
