@@ -132,7 +132,7 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
         self._shut_down = True
 
 class LineUtils:
-    def _internal_render(self, color_changed):
+    def _internal_render(self, color_changed, geometry_created):
         """
         🟩 **R** -
         """
@@ -141,6 +141,10 @@ class LineUtils:
 
         if color_changed:
             self._program.set_shader_variable('color', self._color_data)
+
+        if geometry_created is False:
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -243,12 +247,9 @@ class LineUtils:
 
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
-        self._vbo.set_data(vertices)
 
 class RadialPolygonUtils:
-    def _internal_render(self, color_changed, position_changed):
+    def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
         """
@@ -260,6 +261,10 @@ class RadialPolygonUtils:
 
         if position_changed:
             self._program.set_shader_variable('offset', self._offset_data)
+
+        if geometry_created is False:
+            self._vbo.set_data(self._vertex_data)
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -329,12 +334,8 @@ class RadialPolygonUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
 
-        self._vbo.set_data(vertices)
-
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
 class RectangleUtils:
-    def _internal_render(self, color_changed, position_changed):
+    def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
         """
@@ -346,6 +347,10 @@ class RectangleUtils:
 
         if position_changed:
             self._program.set_shader_variable('offset', self._offset_data)
+
+        if geometry_created is False:
+            self._vbo.set_data(self._vertex_data)
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -487,12 +492,8 @@ class RectangleUtils:
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
 
-        self._vbo.set_data(vertices)
-
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
-
 class ArcUtils:
-    def _internal_render(self, color_changed, position_changed):
+    def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
         """
@@ -504,6 +505,11 @@ class ArcUtils:
 
         if position_changed:
             self._program.set_shader_variable('offset', self._offset_data)
+
+        if geometry_created is False:
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            # Update VBO
+            self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -593,15 +599,11 @@ class ArcUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
         self.old_shape_identifier = identifier
         self._vertex_data = rotated_vertices
 
-        # Update VBO
-        self._vbo.set_data(rotated_vertices)
-
 class EllipseUtils:
-    def _internal_render(self, color_changed, position_changed):
+    def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
         """
@@ -613,6 +615,10 @@ class EllipseUtils:
 
         if position_changed:
             self._program.set_shader_variable('offset', self._offset_data)
+
+        if geometry_created is False:
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -699,14 +705,11 @@ class EllipseUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
         self.old_shape_identifier = identifier
         self._vertex_data = rotated_vertices
 
-        self._vbo.set_data(rotated_vertices)
-
 class PolygonUtils:
-    def _internal_render(self, color_changed):
+    def _internal_render(self, color_changed, geometry_created):
         """
         🟩 **R** -
         """
@@ -715,6 +718,10 @@ class PolygonUtils:
         # Update VBO with any changes to vertices or colors
         if color_changed:
             self._program.set_shader_variable('color', self._color_data)
+
+        if geometry_created is False:
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -792,11 +799,8 @@ class PolygonUtils:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
-        self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
         self.old_shape_identifier = identifier
         self._vertex_data = rotated_vertices
-
-        self._vbo.set_data(rotated_vertices)
 
 class PixelUtils:
     def _internal_render(self, color_changed, position_changed, point_size=None):
