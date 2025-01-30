@@ -89,6 +89,7 @@ class Line(_ShapeTemplate, _LineUtils):
         if self._display.get_clear_called_but_skipped():
             return None
 
+        geometry_created = self._geometry_created
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -96,7 +97,7 @@ class Line(_ShapeTemplate, _LineUtils):
         color_changed = self._color_changed
         self._color_changed = False  # Reset the flag
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed]
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -264,6 +265,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         if self._display.get_clear_called_but_skipped():
             return None
 
+        geometry_created = self._geometry_created
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -277,7 +279,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         #self._internal_render(color_changed, geometry_created, position_changed)
@@ -444,6 +446,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         if self._display.get_clear_called_but_skipped():
             return None
 
+        geometry_created = self._geometry_created
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -457,7 +460,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -637,6 +640,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         if self._display.get_clear_called_but_skipped():
             return None
 
+        geometry_created = self._geometry_created
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -650,7 +654,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -837,6 +841,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         if self._display.get_clear_called_but_skipped():
             return None
 
+        geometry_created = self._geometry_created
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -850,7 +855,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -1008,6 +1013,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         if self._display.get_clear_called_but_skipped():
             return None
 
+        geometry_created = self._geometry_created
         if self._geometry_created is False:
             self._create_geometry()
             self._geometry_created = True
@@ -1015,7 +1021,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         color_changed = self._color_changed
         self._color_changed = False  # Reset the flag
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed]
+        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
