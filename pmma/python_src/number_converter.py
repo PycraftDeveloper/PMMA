@@ -363,8 +363,9 @@ create the window onscreen")
         """
         🟩 **R** -
         """
-        if self._display.get_size() != self._display_size:
-            self._display_size = self._display.get_size()
+        display_size = self._display.get_size()
+        if display_size != self._display_size:
+            self._display_size = display_size
             self._point_cache = {}
 
         if format in self._point_cache:
@@ -428,12 +429,12 @@ create the window onscreen")
         if format == _Constants.CONVENTIONAL_COORDINATES:
             coordinate = _numpy.array([int(coordinate[0]), int(coordinate[1])])
         else:
-            coordinate = _numpy.array(coordinate)
+            coordinate = _numpy.array(coordinate, dtype=_numpy.float32)
 
         if not (format in self._coordinate_cache and self._coordinate_cache[format].tobytes() == coordinate.tobytes()):
             self._coordinate_cache = {}
             self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
-            self._coordinate_cache[format] = self._coordinate_intermediary.get_coordinate(out_type=format)
+            self._coordinate_cache[format] = coordinate
             self._coordinate_set = True
             return True
         return False
@@ -448,8 +449,9 @@ create the window onscreen")
         """
         🟩 **R** -
         """
-        if self._display.get_size() != self._display_size:
-            self._display_size = self._display.get_size()
+        display_size = self._display.get_size()
+        if display_size != self._display_size:
+            self._display_size = display_size
             self._coordinate_cache = {}
 
         if format in self._coordinate_cache:
