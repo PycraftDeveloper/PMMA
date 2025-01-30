@@ -185,7 +185,7 @@ class ColorConverter:
             color = _numpy.array([int(color[0]), int(color[1]), int(color[2]), int(color[3])])
         ### extend this, ignore HEX and SMALL values!!!
 
-        if not (format in self._color_cache and _numpy.array_equal(self._color_cache[format], color)):
+        if not (format in self._color_cache and self._color_cache[format].tobytes() == color.tobytes()):
             self._color_cache = {}
             self._color_cache[format] = color
             self._color_intermediary.set_color(color, format)
@@ -345,7 +345,7 @@ create the window onscreen")
         if format == _Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
 
-        if not (format in self._point_cache and _numpy.array_equal(self._point_cache[format], point)):
+        if not (format in self._point_cache and self._point_cache[format] == point):
             self._point_cache = {}
             self._point_cache[format] = point
             self._point_intermediary.set_point(point, in_type=format)
@@ -428,7 +428,7 @@ create the window onscreen")
         if format == _Constants.CONVENTIONAL_COORDINATES:
             coordinate = [int(coordinate[0]), int(coordinate[1])]
 
-        if not (format in self._coordinate_cache and _numpy.array_equal(self._coordinate_cache[format], coordinate)):
+        if not (format in self._coordinate_cache and _numpy.all(self._coordinate_cache[format] == coordinate)):
             self._coordinate_cache = {}
             self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
             self._coordinate_cache[format] = self._coordinate_intermediary.get_coordinate(out_type=format)
