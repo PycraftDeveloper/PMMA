@@ -188,7 +188,7 @@ cdef class DisplayCoordinates:
         """
         cdef list converted_coordinate
 
-        if isinstance(coordinate, (list, tuple)):
+        if isinstance(coordinate, (list, tuple, _numpy.ndarray)):
             converted_coordinate = list(coordinate)
         else:
             converted_coordinate = [float(coordinate)]
