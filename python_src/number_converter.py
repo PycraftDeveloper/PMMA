@@ -180,15 +180,15 @@ class ColorConverter:
         🟩 **R** -
         """
         if format == _Constants.RGB:
-            color = _numpy.array([int(color[0]), int(color[1]), int(color[2])])
+            color = [int(color[0]), int(color[1]), int(color[2])]
         elif format == _Constants.RGBA:
-            color = _numpy.array([int(color[0]), int(color[1]), int(color[2]), int(color[3])])
+            color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
         ### extend this, ignore HEX and SMALL values!!!
 
-        if not (format in self._color_cache and self._color_cache[format].tobytes() == color.tobytes()):
+        if not (format in self._color_cache and self._color_cache[format].tolist() == color):
             self._color_cache = {}
-            self._color_cache[format] = color
             self._color_intermediary.set_color(color, format)
+            self._color_cache[format] = self._color_intermediary.get_color(_Constants.RGBA)
             self._color_set = True
             return True
         return False
@@ -426,9 +426,11 @@ create the window onscreen")
         🟩 **R** -
         """
         if format == _Constants.CONVENTIONAL_COORDINATES:
-            coordinate = [int(coordinate[0]), int(coordinate[1])]
+            coordinate = _numpy.array([int(coordinate[0]), int(coordinate[1])])
+        else:
+            coordinate = _numpy.array(coordinate)
 
-        if not (format in self._coordinate_cache and _numpy.all(self._coordinate_cache[format] == coordinate)):
+        if not (format in self._coordinate_cache and self._coordinate_cache[format].tobytes() == coordinate.tobytes()):
             self._coordinate_cache = {}
             self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
             self._coordinate_cache[format] = self._coordinate_intermediary.get_coordinate(out_type=format)
