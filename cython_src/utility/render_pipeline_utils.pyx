@@ -88,14 +88,15 @@ cdef class RenderPipeline:
     @cython.wraparound(False) # compiler directive
     cpdef void update(self, list shapes):
         cdef int i, num_points, total_data_points = 0
-        cdef list shape_data_list = []
+        cdef int num_shapes = len(shapes)
+        cdef list shape_data_list = [None] * num_shapes  # Preallocate list
         cdef object shape
 
-        for i in range(len(shapes)):
+        for i in range(num_shapes):
             shape = shapes[i]
             num_points = shape._vertex_data.shape[0] // 2
             total_data_points += (num_points + 2) * 8
-            shape_data_list.append([shape._vertex_data, shape._color_data, shape._offset_data])
+            shape_data_list[i] = [shape._vertex_data, shape._color_data, shape._offset_data]
 
         self.internal_update(shape_data_list, total_data_points)
 
