@@ -166,11 +166,6 @@ Create
 Methods
 -------
 
-.. py:method:: VertexArrayObject.prepare_for_recreation() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: VertexArrayObject.create() -> None
 
     🟩 **R** -
