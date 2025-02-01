@@ -1,4 +1,5 @@
 from gc import collect as _gc__collect
+from math import asin as _math__asin
 
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
@@ -329,7 +330,18 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         """
         🟩 **R** -
         """
-        return self._point_count
+        if self._point_count is None:
+            try:
+                point_count = 1 + int((_Constants.TAU / _math__asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
+            except:
+                point_count = 3
+        else:
+            point_count = self._point_count
+
+        if point_count < 3:
+            point_count = 3
+
+        return point_count
 
     def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
         """
