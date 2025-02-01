@@ -37,7 +37,7 @@ class Registry:
     handled_events = False
     compute_component_called = False
     displayed_pygame_start_message = False
-    shape_quality = 0.75
+    shape_quality = 0.27341772151898736 # 0.75
     initial_shape_quality = None
     profiler: "_pprofile__Profile" = None
     general_profile_application = None
