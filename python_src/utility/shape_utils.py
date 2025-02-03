@@ -204,8 +204,8 @@ class LineUtils:
 
         identifier = _create_cache_id(
             rotation_in_radians,
-            start_coords,
-            end_coords,
+            tuple(start_coords),
+            tuple(end_coords),
             self._width)
 
         if self.old_shape_identifier is not None:
@@ -745,7 +745,7 @@ class PolygonUtils:
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
 
         identifier = _create_cache_id(
-            outer_points,
+            outer_points.tobytes(),
             rotation,
             self._width)
 
