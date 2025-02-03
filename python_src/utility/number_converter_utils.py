@@ -108,6 +108,7 @@ class DisplayScalarIntermediary:
         🟩 **R** -
         """
         if self._shut_down is False:
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -134,6 +135,11 @@ class DisplayScalarIntermediary:
 
         self._internal_number_converter = self._number_converter_module.DisplayScalar()
 
+        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
+
+    def _handle_resize(self):
+        self._internal_number_converter.update_display_height()
+
     def set_point(self, value, in_type=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
@@ -155,6 +161,7 @@ class DisplayCoordinatesIntermediary:
         🟩 **R** -
         """
         if self._shut_down is False:
+            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -180,6 +187,11 @@ class DisplayCoordinatesIntermediary:
         self._number_converter_module = _Registry.pmma_module_spine[_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT].get_converter()
 
         self._internal_number_converter = self._number_converter_module.DisplayCoordinates()
+
+        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
+
+    def _handle_resize(self):
+        self._internal_number_converter.update_display_size()
 
     def set_coordinate(self, coordinate, in_type=_Constants.CONVENTIONAL_COORDINATES):
         """
