@@ -33,8 +33,7 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
-Rendering Polygon fails.
-Rendering shapes need to be updated when window resized. Note though that this breaks pretty much all positioning and shapes so IDK what to do about that at the moment lol.
+Using the render pipeline causes memory leak, but its any usage of render pipeline, not specifically a shape. Investigate further - NOT C exclusive. Therefore test rendering without render pipeline on pline accelerated objects...
 
 UNCONFIRMED RELEASE SCHEDULE
 ============================
