@@ -588,7 +588,7 @@ def create_cache_id(*args):
     """
     🟩 **R** -
     """
-    return "".join(str(id(arg)) if callable(arg) else str(arg) for arg in args)
+    return hash(args)
 
 def swizzle(in_format, data, out_format, handle_alpha=False):
     """

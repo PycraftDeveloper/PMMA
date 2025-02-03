@@ -184,7 +184,6 @@ class ColorConverter:
         elif format == _Constants.RGBA:
             color = [int(color[0]), int(color[1]), int(color[2]), int(color[3])]
         ### extend this, ignore HEX and SMALL values!!!
-
         if not (format in self._color_cache and self._color_cache[format].tolist() == color):
             self._color_cache = {}
             self._color_intermediary.set_color(color, format)
@@ -345,7 +344,7 @@ create the window onscreen")
         if format == _Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
 
-        if not (format in self._point_cache and self._point_cache[format] == point):
+        if not (self._point_cache.get(format) and self._point_cache[format] == point):
             self._point_cache = {}
             self._point_cache[format] = point
             self._point_intermediary.set_point(point, in_type=format)
@@ -366,7 +365,7 @@ create the window onscreen")
         """
         🟩 **R** -
         """
-        if format in self._point_cache:
+        if self._point_cache.get(format):
             return self._point_cache[format]
         else:
             point = self._point_intermediary.get_point(out_type=format)

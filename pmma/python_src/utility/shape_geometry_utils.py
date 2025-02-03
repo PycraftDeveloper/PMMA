@@ -153,7 +153,7 @@ class ShapeGeometryManager:
             self.line_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_line_exists(self, identifier):
-        return identifier in self.line_geometry
+        return self.line_geometry.get(identifier) != None
 
     def get_line(self, identifier):
         with self.line_lock:
@@ -162,7 +162,7 @@ class ShapeGeometryManager:
 
     def remove_line(self, identifier):
         with self.line_lock:
-            if self.check_if_line_exists(identifier):
+            if self.line_geometry.get(identifier):
                 self.line_geometry[identifier]["references"] -= 1
                 if self.line_geometry[identifier]["references"] <= 0:
                     del self.line_geometry[identifier]
@@ -172,7 +172,7 @@ class ShapeGeometryManager:
             self.radial_polygon_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_radial_polygon_exists(self, identifier):
-        return identifier in self.radial_polygon_geometry
+        return self.radial_polygon_geometry.get(identifier) != None
 
     def get_radial_polygon(self, identifier):
         with self.radial_polygon_lock:
@@ -181,7 +181,7 @@ class ShapeGeometryManager:
 
     def remove_radial_polygon(self, identifier):
         with self.radial_polygon_lock:
-            if self.check_if_radial_polygon_exists(identifier):
+            if self.radial_polygon_geometry.get(identifier):
                 self.radial_polygon_geometry[identifier]["references"] -= 1
                 if self.radial_polygon_geometry[identifier]["references"] <= 0:
                     del self.radial_polygon_geometry[identifier]
@@ -191,7 +191,7 @@ class ShapeGeometryManager:
             self.rectangle_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_rectangle_exists(self, identifier):
-        return identifier in self.rectangle_geometry
+        return self.rectangle_geometry.get(identifier) != None
 
     def get_rectangle(self, identifier):
         with self.rectangle_lock:
@@ -200,7 +200,7 @@ class ShapeGeometryManager:
 
     def remove_rectangle(self, identifier):
         with self.rectangle_lock:
-            if self.check_if_rectangle_exists(identifier):
+            if self.rectangle_geometry.get(identifier):
                 self.rectangle_geometry[identifier]["references"] -= 1
                 if self.rectangle_geometry[identifier]["references"] <= 0:
                     del self.rectangle_geometry[identifier]
@@ -210,7 +210,7 @@ class ShapeGeometryManager:
             self.arc_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_arc_exists(self, identifier):
-        return identifier in self.arc_geometry
+        return self.arc_geometry.get(identifier) != None
 
     def get_arc(self, identifier):
         with self.arc_lock:
@@ -219,7 +219,7 @@ class ShapeGeometryManager:
 
     def remove_arc(self, identifier):
         with self.arc_lock:
-            if self.check_if_arc_exists(identifier):
+            if self.arc_geometry.get(identifier):
                 self.arc_geometry[identifier]["references"] -= 1
                 if self.arc_geometry[identifier]["references"] <= 0:
                     del self.arc_geometry[identifier]
@@ -229,7 +229,7 @@ class ShapeGeometryManager:
             self.ellipse_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_ellipse_exists(self, identifier):
-        return identifier in self.ellipse_geometry
+        return self.ellipse_geometry.get(identifier) != None
 
     def get_ellipse(self, identifier):
         with self.ellipse_lock:
@@ -238,7 +238,7 @@ class ShapeGeometryManager:
 
     def remove_ellipse(self, identifier):
         with self.ellipse_lock:
-            if self.check_if_ellipse_exists(identifier):
+            if self.ellipse_geometry.get(identifier):
                 self.ellipse_geometry[identifier]["references"] -= 1
                 if self.ellipse_geometry[identifier]["references"] <= 0:
                     del self.ellipse_geometry[identifier]
@@ -248,7 +248,7 @@ class ShapeGeometryManager:
             self.polygon_geometry[identifier] = {"vertices": data, "references": 1}
 
     def check_if_polygon_exists(self, identifier):
-        return identifier in self.polygon_geometry
+        return self.polygon_geometry.get(identifier) != None
 
     def get_polygon(self, identifier):
         with self.polygon_lock:
@@ -257,7 +257,7 @@ class ShapeGeometryManager:
 
     def remove_polygon(self, identifier):
         with self.polygon_lock:
-            if self.check_if_polygon_exists(identifier):
+            if self.polygon_geometry.get(identifier):
                 self.polygon_geometry[identifier]["references"] -= 1
                 if self.polygon_geometry[identifier]["references"] <= 0:
                     del self.polygon_geometry[identifier]
