@@ -126,6 +126,8 @@ class DisplayIntermediary:
 
         self._projection_intermediary = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT]
 
+        self.functions_to_call_on_resize = {}
+
     def get_clear_called_but_skipped(self):
         """
         🟩 **R** -
@@ -491,6 +493,15 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         if _Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].reset()
+
+        for key in self.functions_to_call_on_resize:
+            self.functions_to_call_on_resize[key]._handle_resize()
+
+    def add_to_functions_to_call_on_resize(self, obj):
+        self.functions_to_call_on_resize[id(obj)] = obj
+
+    def remove_from_functions_to_call_on_resize(self, obj):
+        del self.functions_to_call_on_resize[id(obj)]
 
     def hex_color_to_windows_raw_color(self, value):
         """

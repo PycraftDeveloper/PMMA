@@ -336,7 +336,7 @@ create the window onscreen")
             raise _DisplayNotYetCreatedError()
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._display_size = self._display.get_size()
+        self._display.add_to_functions_to_call_on_resize(self)
 
     def set_point(self, point, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -359,15 +359,13 @@ create the window onscreen")
         """
         return self._point_set
 
+    def _handle_resize(self):
+        self._point_cache = {}
+
     def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        display_size = self._display.get_size()
-        if display_size != self._display_size:
-            self._display_size = display_size
-            self._point_cache = {}
-
         if format in self._point_cache:
             return self._point_cache[format]
         else:
@@ -380,6 +378,7 @@ create the window onscreen")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._display.remove_from_functions_to_call_on_resize(self)
             del self
             if do_garbage_collection:
                 _gc__collect()
@@ -420,7 +419,7 @@ create the window onscreen")
             raise _DisplayNotYetCreatedError()
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
-        self._display_size = self._display.get_size()
+        self._display.add_to_functions_to_call_on_resize(self)
 
     def set_coordinates(self, coordinate, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -445,15 +444,13 @@ create the window onscreen")
         """
         return self._coordinate_set
 
+    def _handle_resize(self):
+        self._coordinate_cache = {}
+
     def get_coordinates(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        display_size = self._display.get_size()
-        if display_size != self._display_size:
-            self._display_size = display_size
-            self._coordinate_cache = {}
-
         if format in self._coordinate_cache:
             return self._coordinate_cache[format]
         else:
@@ -539,6 +536,7 @@ create the window onscreen")
         🟩 **R** -
         """
         if self._shut_down is False:
+            self._display.remove_from_functions_to_call_on_resize(self)
             del self
             if do_garbage_collection:
                 _gc__collect()

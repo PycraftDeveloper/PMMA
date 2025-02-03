@@ -31,8 +31,6 @@ class ShapeGeometryManager:
         self.ellipse_lock = _threading__Lock()
         self.polygon_lock = _threading__Lock()
 
-        self.display_size = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_size()
-
         try:
             free_memory = _psutil__virtual_memory().free
 
