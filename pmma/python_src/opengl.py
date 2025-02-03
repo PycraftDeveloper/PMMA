@@ -87,7 +87,7 @@ class BufferObject:
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
-        self._data = None
+        self._data_size = 0
         self._buffer_object = None
 
         self._logger = _InternalLogger()
@@ -102,7 +102,7 @@ class BufferObject:
         🟩 **R** -
         """
         if self._shut_down is False:
-            self._data = None
+            self._data_size = 0
 
             if self._buffer_object is not None:
                 self._buffer_object.release()
@@ -119,27 +119,32 @@ class BufferObject:
         self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
-    def _update_buffer_object(self):
+    def _update_buffer_object(self, data=None):
+        if data is None:
+            if self._buffer_object is not None:
+                data = self._buffer_object.read()
+
         old_reserve = self._reserve
 
-        self._reserve = max(self._reserve, self._data.nbytes)
+        self._reserve = max(self._reserve, self._data_size)
 
-        if self._data is not None:
+        if data is not None:
             reserve = 0
         else:
             reserve = self._reserve
 
         if self._buffer_object is None:
-            self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
+            self._buffer_object = _Registry.context.buffer(data, dynamic=self._dynamic, reserve=reserve)
             self._reassign_to_vertex_array_object = True
         else:
             if old_reserve != self._reserve:
                 self._buffer_object.release()
-                self._buffer_object = _Registry.context.buffer(self._data, dynamic=self._dynamic, reserve=reserve)
+                _gc__collect()
+                self._buffer_object = _Registry.context.buffer(data, dynamic=self._dynamic, reserve=reserve)
                 self._reassign_to_vertex_array_object = True
             else:
                 self._buffer_object.clear()
-                self._buffer_object.write(self._data)
+                self._buffer_object.write(data)
 
     def get_buffer_object(self):
         """
@@ -151,11 +156,15 @@ class BufferObject:
         """
         🟩 **R** -
         """
-        return self._data is not None
+        return self._data_size > 0
 
     def set_data(self, data):
-        self._data = data
-        self._update_buffer_object()
+        self._data_size = data.nbytes
+        self._update_buffer_object(data=data)
+
+    def get_data(self):
+        if self._buffer_object is not None:
+            return self._buffer_object.read()
 
     def set_dynamic(self, dynamic):
         self._dynamic = dynamic
@@ -169,7 +178,7 @@ class BufferObject:
     def set_reserve(self, reserve):
         self._reserve = reserve
 
-        self._reserve = max(self._reserve, self._data.nbytes)
+        self._reserve = max(self._reserve, self._data_size)
         self._update_buffer_object()
 
     def get_reserve(self):
@@ -179,8 +188,7 @@ class BufferObject:
         return self._data
 
     def clear(self):
-        self._data = None
-
+        self._data_size = 0
         if self._buffer_object is not None:
             self._buffer_object.clear()
 
@@ -372,6 +380,8 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
     def _reassociate_buffers(self):
         if self._vao is not None:
             self._vao.release()
+
+            _gc__collect()
 
             program = self._program.use_program()
 
