@@ -272,9 +272,6 @@ class RadialPolygonUtils:
         self._vao.render(_moderngl.TRIANGLE_STRIP)
 
     def _create_geometry(self):
-        if self._radius.get_point_set() is False:
-            raise _ShapeRadiusNotSpecifiedError()
-
         radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
@@ -385,9 +382,6 @@ class RectangleUtils:
         """
         🟩 **R** - Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
         """
-        if self._x_size.get_point_set() is False or self._y_size.get_point_set() is False:
-            return None
-
         x_size = self._x_size.get_point(_Constants.OPENGL_COORDINATES)
         y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
@@ -640,9 +634,6 @@ class EllipseUtils:
         """
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, and radius.
         """
-        if self._outer_x_size.get_point_set() is False or self._outer_y_size.get_point_set() is False:
-            return None  # Cannot proceed without these parameters
-
         outer_size_x = self._outer_x_size.get_point(format=_Constants.OPENGL_COORDINATES)
         outer_size_y = self._outer_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
