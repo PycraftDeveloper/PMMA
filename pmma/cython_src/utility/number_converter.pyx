@@ -130,7 +130,7 @@ cdef class DisplayScalar:
     """
     cdef double _point
     cdef object _logger
-    cdef object display
+    cdef int display_height
 
     def __init__(self):
         """
@@ -138,8 +138,10 @@ cdef class DisplayScalar:
         """
         self._point = 0.0
         self._logger = _InternalLogger()
+        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
 
-        self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+    cpdef void update_display_height(self):
+        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
 
     cpdef void set_point(self, double value, str in_type=Constants.CONVENTIONAL_COORDINATES):
         """
@@ -150,7 +152,7 @@ cdef class DisplayScalar:
         if in_type == Constants.CONVENTIONAL_COORDINATES:
             self._point = value
         elif in_type == Constants.OPENGL_COORDINATES:
-            half_display_height = self.display.get_size()[1] / 2.0
+            half_display_height = self.display_height / 2.0
             self._point = value * half_display_height
 
     cpdef double get_point(self, str out_type=Constants.CONVENTIONAL_COORDINATES):
@@ -162,8 +164,7 @@ cdef class DisplayScalar:
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._point
         elif out_type == Constants.OPENGL_COORDINATES:
-            display_height = self.display.get_size()[1]
-            return self._point / (display_height / 2.0)
+            return self._point / (self.display_height / 2.0)
 
 cdef class DisplayCoordinates:
     """
@@ -171,7 +172,7 @@ cdef class DisplayCoordinates:
     """
     cdef list _coordinate
     cdef object _logger
-    cdef object display
+    cdef tuple display_size
 
     def __init__(self):
         """
@@ -180,7 +181,10 @@ cdef class DisplayCoordinates:
         self._coordinate = [0.0, 0.0]
         self._logger = _InternalLogger()
 
-        self.display = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        self.display_size = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
+
+    cpdef void update_display_size(self):
+        self.display_size = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
 
     cpdef void set_coordinate(self, object coordinate, str in_type=Constants.CONVENTIONAL_COORDINATES):
         """
@@ -206,9 +210,8 @@ cdef class DisplayCoordinates:
         if in_type == Constants.CONVENTIONAL_COORDINATES:
             self._coordinate = converted_coordinate
         elif in_type == Constants.OPENGL_COORDINATES:
-            display_size = self.display.get_size()
-            half_display_width = display_size[0] / 2.0
-            half_display_height = display_size[1] / 2.0
+            half_display_width = self.display_size[0] / 2.0
+            half_display_height = self.display_size[1] / 2.0
             x = half_display_width * (converted_coordinate[0] + 1)
             y = -half_display_height * (converted_coordinate[1] - 1)
             self._coordinate = [x, y]
@@ -223,9 +226,8 @@ cdef class DisplayCoordinates:
             return _numpy.array(self._coordinate, dtype=_numpy.float32)
 
         elif out_type == Constants.OPENGL_COORDINATES:
-            display_size = self.display.get_size()
-            display_width = display_size[0]
-            display_height = display_size[1]
+            display_width = self.display_size[0]
+            display_height = self.display_size[1]
             x = (2.0 * self._coordinate[0]) / display_width - 1.0
             y = 1.0 - (2.0 * self._coordinate[1]) / display_height
             return _numpy.array([x, y], dtype=_numpy.float32)
