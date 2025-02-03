@@ -1,37 +1,39 @@
-from pyrr import Matrix44 as _pyrr__Matrix44
-from numpy import newaxis as _numpy__newaxis
-from numpy import linalg as _numpy__linalg
-from numpy import cross as _numpy__cross
-from numpy import array as _numpy__array
-from numpy import dot as _numpy__dot
-from numpy import finfo as _numpy__finfo
+import numpy as np
 
+# Define the types for numpy arrays
+
+# Cubic smoothstep function for acceleration/deceleration
 def raw_smooth_step(t):
     """
     🟩 **R** -
     """
-    # Cubic smoothstep function for acceleration/deceleration
     return t * t * (3 - 2 * t)
 
+# Clamping and mapping function
 def raw_ranger(value, old, new):
     """
     🟩 **R** -
     """
+    # Ensure value is within bounds of the 'old' range
     if value > old[1]:
         value = old[1]
     elif value < old[0]:
         value = old[0]
 
-    if old == new:
+    # Check if 'old' and 'new' lists are identical
+    if old[0] == new[0] and old[1] == new[1]:
         return value
-    else:
-        old_range = (old[1] - old[0])
-        new_range = (new[1] - new[0])
-        if old_range == 0:
-            old_range = _numpy__finfo(float).tiny
-        new_value = (((value - old[0]) * new_range) / old_range) + new[0]
-        return new_value
 
+    old_range = old[1] - old[0]
+    new_range = new[1] - new[0]
+
+    if old_range == 0:
+        old_range = np.finfo(float).tiny
+
+    new_value = (((value - old[0]) * new_range) / old_range) + new[0]
+    return new_value
+
+# Clamping and mapping function for numpy arrays
 def raw_nparray_ranger(value, old, new):
     """
     🟩 **R** -
@@ -39,30 +41,31 @@ def raw_nparray_ranger(value, old, new):
     value[value > old[1]] = old[1]
     value[value < old[0]] = old[0]
 
-    comparing_two_arrays = (old == new)
-    if comparing_two_arrays.all():
+    if np.array_equal(old, new):
         return value
-    else:
-        old_range = (old[1] - old[0])
-        new_range = (new[1] - new[0])
-        if old_range == 0:
-            old_range = _numpy__finfo(float).tiny
-        new_value = (((value - old[0]) * new_range) / old_range) + new[0]
-        return new_value
 
+    old_range = old[1] - old[0]
+    new_range = new[1] - new[0]
+
+    if old_range == 0:
+        old_range = np.finfo(float).tiny
+
+    new_value = (((value - old[0]) * new_range) / old_range) + new[0]
+    return new_value
+
+# Compute the camera's orientation matrix
 def raw_gl_look_at(pos, target, up):
     """
     🟩 **R** -
     """
-    x, y, z = raw_compute_position(
-        pos, target, up)
+    x, y, z = raw_compute_position(pos, target, up)
 
-    translate = _pyrr__Matrix44.identity(dtype="f4")
-    translate[3][0] = -pos.x
-    translate[3][1] = -pos.y
-    translate[3][2] = -pos.z
+    translate = np.identity(4, dtype=np.double32)
+    translate[3][0] = -pos[0]
+    translate[3][1] = -pos[1]
+    translate[3][2] = -pos[2]
 
-    rotate = _pyrr__Matrix44.identity(dtype="f4")
+    rotate = np.identity(4, dtype=np.double32)
     rotate[0][0] = x[0]  # -- X
     rotate[1][0] = x[1]
     rotate[2][0] = x[2]
@@ -73,8 +76,9 @@ def raw_gl_look_at(pos, target, up):
     rotate[1][2] = z[1]
     rotate[2][2] = z[2]
 
-    return rotate * translate[:, _numpy__newaxis]
+    return rotate @ translate[:, np.newaxis]
 
+# Compute the norm and direction
 def raw_pythag(points):
     """
     🟩 **R** -
@@ -84,47 +88,51 @@ def raw_pythag(points):
         sum += point ** 2
     return sum ** 0.5
 
+# Function to normalize a vector
 def normalize(v):
     """
     🟩 **R** -
     """
-    norm = _numpy__linalg.norm(v)
+    norm = np.dot(v, v) ** 0.5  # Compute the norm manually
     if norm == 0:
         return v
     return v / norm
 
+# Function to compute the camera's basis vectors
 def raw_compute_position(pos, target, up):
     """
     🟩 **R** -
     """
-    z = normalize(pos - target)
-    x = normalize(_numpy__cross(normalize(up), z))
-    y = _numpy__cross(z, x)
-    return x, y, z
+    z = normalize(target - pos)
+    x = normalize(np.cross(up, z))
+    y = np.cross(z, x)
+    return (x, y, z)
 
+# Look at function
 def raw_look_at(camera_position, camera_target, up_vector):
     """
     🟩 **R** -
     """
     vector = camera_target - camera_position
 
-    x = _numpy__linalg.norm(vector)
+    x = np.linalg.norm(vector)
     vector = vector / x
 
-    vector2 = _numpy__cross(up_vector, vector)
-    vector2 /= _numpy__linalg.norm(vector2)
+    vector2 = np.cross(up_vector, vector)
+    vector2 /= np.linalg.norm(vector2)
 
-    vector3 = _numpy__cross(vector, vector2)
-    return _numpy__array([
+    vector3 = np.cross(vector, vector2)
+
+    return np.array([
         [vector2[0], vector3[0], vector[0], 0.0],
         [vector2[1], vector3[1], vector[1], 0.0],
         [vector2[2], vector3[2], vector[2], 0.0],
-        [-_numpy__dot(vector2, camera_position), -_numpy__dot(
-            vector3, camera_position), _numpy__dot(vector, camera_position), 1.0]
-    ], dtype="f4")
+        [-np.dot(vector2, camera_position), -np.dot(vector3, camera_position), np.dot(vector, camera_position), 1.0]
+    ], dtype=np.double32)
 
+# Matrix multiplication function
 def raw_multiply(light_proj, sun_light_look_at):
     """
     🟩 **R** -
     """
-    return light_proj * sun_light_look_at
+    return light_proj @ sun_light_look_at

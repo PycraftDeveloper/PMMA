@@ -1,6 +1,10 @@
+from math import floor as _math__floor
+
 # Correct import for numpy and accessing its random module
-import numpy as np
-import math
+from numpy import random as _numpy__random
+from numpy import empty as _numpy__empty
+from numpy import float64 as _numpy__float64
+from numpy import asarray as _numpy__asarray
 
 def fade(t):
     """
@@ -31,16 +35,16 @@ class ExtendedPerlinNoise:
         """
         🟩 **R** -
         """
+        self.permutation = [0]*512
+        self.init_permutation(seed)
         self.octaves = octaves
         self.persistence = persistence
-        self.permutation = np.empty(512, dtype=np.int32)
-        self.init_permutation(seed)
 
     def init_permutation(self, seed):
         """
         🟩 **R** -
         """
-        rng = np.random.RandomState(seed)
+        rng = _numpy__random.RandomState(seed)
         perm = rng.permutation(256)
         for i in range(256):
             self.permutation[i] = self.permutation[i + 256] = perm[i]
@@ -49,13 +53,13 @@ class ExtendedPerlinNoise:
         """
         🟩 **R** -
         """
-        X = int(math.floor(x)) & 255
-        Y = int(math.floor(y)) & 255
-        Z = int(math.floor(z)) & 255
+        X = int(_math__floor(x)) & 255
+        Y = int(_math__floor(y)) & 255
+        Z = int(_math__floor(z)) & 255
 
-        x -= math.floor(x)
-        y -= math.floor(y)
-        z -= math.floor(z)
+        x -= _math__floor(x)
+        y -= _math__floor(y)
+        z -= _math__floor(z)
 
         u = fade(x)
         v = fade(y)
@@ -82,8 +86,7 @@ class ExtendedPerlinNoise:
         🟩 **R** -
         """
         length = input_array.shape[0]
-        output_array = np.empty(length, dtype=np.float64)
-
+        output_array = _numpy__empty(length, dtype=_numpy__float64)
         for i in range(length):
             amplitude = 1.0
             frequency = 1.0
@@ -95,7 +98,7 @@ class ExtendedPerlinNoise:
                 amplitude *= self.persistence
                 frequency *= 2
             output_array[i] = total / max_amplitude
-        return np.asarray(output_array)
+        return _numpy__asarray(output_array)
 
     def generate_fbm_2d(self, input_array):
         """
@@ -103,8 +106,7 @@ class ExtendedPerlinNoise:
         """
         height = input_array.shape[0]
         width = input_array.shape[1]
-        output_array = np.empty((height, width), dtype=np.float64)
-
+        output_array = _numpy__empty((height, width), dtype=_numpy__float64)
         for i in range(height):
             for j in range(width):
                 x = input_array[i, j, 0]
@@ -119,7 +121,7 @@ class ExtendedPerlinNoise:
                     amplitude *= self.persistence
                     frequency *= 2
                 output_array[i, j] = total / max_amplitude
-        return np.asarray(output_array)
+        return _numpy__asarray(output_array)
 
     def generate_fbm_3d(self, input_array):
         """
@@ -128,7 +130,7 @@ class ExtendedPerlinNoise:
         depth = input_array.shape[0]
         height = input_array.shape[1]
         width = input_array.shape[2]
-        output_array = np.empty((depth, height, width), dtype=np.float64)
+        output_array = _numpy__empty((depth, height, width), dtype=_numpy__float64)
 
         for i in range(depth):
             for j in range(height):
@@ -146,4 +148,4 @@ class ExtendedPerlinNoise:
                         amplitude *= self.persistence
                         frequency *= 2
                     output_array[i, j, k] = total / max_amplitude
-        return np.asarray(output_array)
+        return _numpy__asarray(output_array)
