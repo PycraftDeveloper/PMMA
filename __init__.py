@@ -49,7 +49,6 @@ from pmma.python_src.executor import *
 from pmma.python_src.settings import *
 from pmma.python_src.sampler import *
 from pmma.python_src.display import *
-from pmma.python_src.surface import *
 from pmma.python_src.general import *
 from pmma.python_src.advmath import *
 from pmma.python_src.opengl import *
@@ -61,7 +60,6 @@ from pmma.python_src.audio import *
 from pmma.python_src.video import *
 from pmma.python_src.shapes import *
 from pmma.python_src.file import *
-from pmma.python_src.text import *
 from pmma.python_src.gpu import *
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
@@ -69,7 +67,7 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 from pmma.python_src.utility import cython_utils as _cython_utils
 import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.pmma_configuration import load_configuration, save_configuration
+from pmma.python_src.utility.pmma_configuration import load_configuration
 
 load_configuration()
 
