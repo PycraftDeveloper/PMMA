@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 import os as _os
 from platform import system as _platform__system
 
@@ -257,21 +256,18 @@ class DisplayIntermediary:
             return
         self._window_minimized = value
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
             _pygame__display.quit()
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def _setup_layers(self, size):

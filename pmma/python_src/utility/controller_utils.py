@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 from pygame import joystick as _pygame__joystick
 from pygame import init as _pygame__init
 
@@ -34,20 +32,10 @@ class ControllersIntermediary:
         for joy_num in range(_pygame__joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def identify_controllers(self):
