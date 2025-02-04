@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 import numpy as _numpy
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -18,20 +16,10 @@ class Stack:
         self._max_size = max_size
         self._has_changed = False
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def push(self, item):
@@ -96,20 +84,10 @@ class Queue:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self, max_size=None):
@@ -184,20 +162,10 @@ class CircularQueue:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self, size):
@@ -295,20 +263,10 @@ class PriorityQueue:
     """
     🟩 **R** - higher value, higher priority
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -421,20 +379,10 @@ class InvertedPriorityQueue:
     """
     🟩 **R** - lower value, higher priority.
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -547,20 +495,10 @@ class PriorityList:
     """
     🟩 **R** - higher value, higher priority
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -698,20 +636,10 @@ class InvertedPriorityList:
     """
     🟩 **R** - Lower value, higher priority
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):

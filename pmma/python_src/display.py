@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
@@ -42,20 +40,10 @@ class Display:
         """
         self._display_intermediary.set_window_minimized(value=value)
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_2D_hardware_accelerated_surface(self, set_to_be_used=True):

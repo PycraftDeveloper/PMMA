@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 import pygame as _pygame
 
 from pmma.python_src.constants import Constants as _Constants
@@ -27,20 +25,10 @@ class Controllers:
 
         self._controller_intermediary = _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT]
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def identify_controllers(self):
@@ -71,20 +59,10 @@ class Controller:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self, joy_num):

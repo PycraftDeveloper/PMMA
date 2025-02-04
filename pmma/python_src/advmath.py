@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 import importlib as _importlib
 
 from numpy import array as _numpy__array
@@ -28,20 +27,10 @@ class Math:
                 _MathIntermediary.math_module = _importlib.import_module(
                     "pmma.python_src.pyx_alternatives.utility.math_utils")
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def smooth_step(self, value):
