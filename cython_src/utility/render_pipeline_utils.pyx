@@ -30,6 +30,7 @@ cdef class RenderPipeline:
         object _vao
         object _program
         float aspect_ratio
+        int _total_vertexes
 
     def __cinit__(self):
         self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
@@ -39,6 +40,7 @@ cdef class RenderPipeline:
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
         self._program.create()
+        self._total_vertexes = 0
 
     def quit(self, bint do_garbage_collection=True):
         self._program.quit(do_garbage_collection=False)
@@ -106,5 +108,7 @@ cdef class RenderPipeline:
             self._program.set_shader_variable("aspect_ratio", new_aspect_ratio)
             self.aspect_ratio = new_aspect_ratio
 
-        self._vao.create(self._program, self._gbo, ["2f", "in_position", "4f", "in_color", "2f", "in_offset"])
+        if self._vao.get_created() is False:
+            self._vao.create(self._program, self._gbo, ["2f", "in_position", "4f", "in_color", "2f", "in_offset"])
+
         self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
