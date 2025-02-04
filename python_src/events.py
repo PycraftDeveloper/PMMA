@@ -2036,7 +2036,6 @@ class Space_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2107,7 +2106,6 @@ class ExclamationMark_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -2180,7 +2178,6 @@ class DoubleQuote_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2251,7 +2248,6 @@ class Hashtag_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -2324,7 +2320,6 @@ class Dollar_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2395,7 +2390,6 @@ class Ampersand_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -2468,7 +2462,6 @@ class SingleQuote_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2539,7 +2532,6 @@ class LeftParenthesis_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -2612,7 +2604,6 @@ class RightParenthesis_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2683,7 +2674,6 @@ class Asterisk_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -2756,7 +2746,6 @@ class Plus_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2827,7 +2816,6 @@ class Comma_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -2900,7 +2888,6 @@ class Minus_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -2971,7 +2958,6 @@ class Period_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3044,7 +3030,6 @@ class ForwardSlash_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3115,7 +3100,6 @@ class Primary0_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3188,7 +3172,6 @@ class Primary1_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3259,7 +3242,6 @@ class Primary2_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3332,7 +3314,6 @@ class Primary3_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3403,7 +3384,6 @@ class Primary4_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3476,7 +3456,6 @@ class Primary5_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3547,7 +3526,6 @@ class Primary6_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3620,7 +3598,6 @@ class Primary7_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3691,7 +3668,6 @@ class Primary8_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3764,7 +3740,6 @@ class Primary9_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3835,7 +3810,6 @@ class Colon_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -3908,7 +3882,6 @@ class SemiColon_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -3979,7 +3952,6 @@ class LessThan_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -4052,7 +4024,6 @@ class Equals_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4123,7 +4094,6 @@ class GreaterThan_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -4196,7 +4166,6 @@ class QuestionMark_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4267,7 +4236,6 @@ class At_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -4340,7 +4308,6 @@ class LeftBracket_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4412,7 +4379,6 @@ class BackSlash_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4483,7 +4449,6 @@ class RightBracket_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -4628,7 +4593,6 @@ class Underscore_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4699,7 +4663,6 @@ class Grave_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -4772,7 +4735,6 @@ class PrimaryA_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4843,7 +4805,6 @@ class PrimaryB_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -4916,7 +4877,6 @@ class PrimaryC_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -4987,7 +4947,6 @@ class PrimaryD_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5060,7 +5019,6 @@ class PrimaryE_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5131,7 +5089,6 @@ class PrimaryF_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5204,7 +5161,6 @@ class PrimaryG_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5275,7 +5231,6 @@ class PrimaryH_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5348,7 +5303,6 @@ class PrimaryI_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5419,7 +5373,6 @@ class PrimaryJ_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5492,7 +5445,6 @@ class PrimaryK_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5563,7 +5515,6 @@ class PrimaryL_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5636,7 +5587,6 @@ class PrimaryM_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5707,7 +5657,6 @@ class PrimaryN_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5780,7 +5729,6 @@ class PrimaryO_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5851,7 +5799,6 @@ class PrimaryP_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -5924,7 +5871,6 @@ class PrimaryQ_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -5995,7 +5941,6 @@ class PrimaryR_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6068,7 +6013,6 @@ class PrimaryS_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -6139,7 +6083,6 @@ class PrimaryT_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6212,7 +6155,6 @@ class PrimaryU_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -6283,7 +6225,6 @@ class PrimaryV_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6356,7 +6297,6 @@ class PrimaryW_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -6427,7 +6367,6 @@ class PrimaryX_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6500,7 +6439,6 @@ class PrimaryY_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -6571,7 +6509,6 @@ class PrimaryZ_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6644,7 +6581,6 @@ class Delete_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -6715,7 +6651,6 @@ class Numpad0_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6788,7 +6723,6 @@ class Numpad1_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -6859,7 +6793,6 @@ class Numpad2_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -6932,7 +6865,6 @@ class Numpad3_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7003,7 +6935,6 @@ class Numpad4_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7076,7 +7007,6 @@ class Numpad5_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7147,7 +7077,6 @@ class Numpad6_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7220,7 +7149,6 @@ class Numpad7_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7291,7 +7219,6 @@ class Numpad8_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7364,7 +7291,6 @@ class Numpad9_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7435,7 +7361,6 @@ class NumpadPeriod_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7508,7 +7433,6 @@ class NumpadDivide_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7579,7 +7503,6 @@ class NumpadMultiply_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7652,7 +7575,6 @@ class NumpadMinus_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7723,7 +7645,6 @@ class NumpadPlus_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7796,7 +7717,6 @@ class NumpadEnter_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -7867,7 +7787,6 @@ class NumpadEquals_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -7940,7 +7859,6 @@ class Up_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8011,7 +7929,6 @@ class Down_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8084,7 +8001,6 @@ class Right_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8155,7 +8071,6 @@ class Left_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8228,7 +8143,6 @@ class Insert_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8299,7 +8213,6 @@ class Home_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8372,7 +8285,6 @@ class End_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8443,7 +8355,6 @@ class PageUp_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8516,7 +8427,6 @@ class PageDown_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8587,7 +8497,6 @@ class Function1_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8660,7 +8569,6 @@ class Function2_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8731,7 +8639,6 @@ class Function3_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8804,7 +8711,6 @@ class Function4_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -8875,7 +8781,6 @@ class Function5_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -8948,7 +8853,6 @@ class Function6_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9019,7 +8923,6 @@ class Function7_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9092,7 +8995,6 @@ class Function8_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9163,7 +9065,6 @@ class Function9_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9236,7 +9137,6 @@ class Function10_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9307,7 +9207,6 @@ class Function11_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9380,7 +9279,6 @@ class Function12_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9451,7 +9349,6 @@ class Function13_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9524,7 +9421,6 @@ class Function14_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9595,7 +9491,6 @@ class Function15_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9668,7 +9563,6 @@ class NumLock_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9739,7 +9633,6 @@ class CapsLock_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9812,7 +9705,6 @@ class ScrollLock_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -9883,7 +9775,6 @@ class RightShift_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -9956,7 +9847,6 @@ class LeftShift_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10027,7 +9917,6 @@ class Shift_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10100,7 +9989,6 @@ class RightControl_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10171,7 +10059,6 @@ class LeftControl_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10244,7 +10131,6 @@ class Control_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10315,7 +10201,6 @@ class RightAlt_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10388,7 +10273,6 @@ class LeftAlt_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10459,7 +10343,6 @@ class Alt_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10532,7 +10415,6 @@ class RightMeta_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10603,7 +10485,6 @@ class LeftMeta_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10676,7 +10557,6 @@ class Meta_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10747,7 +10627,6 @@ class LeftSuper_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10820,7 +10699,6 @@ class RightSuper_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -10891,7 +10769,6 @@ class Super_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -10964,7 +10841,6 @@ class Mode_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11035,7 +10911,6 @@ class Help_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11108,7 +10983,6 @@ class Print_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11179,7 +11053,6 @@ class SystemRequest_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11252,7 +11125,6 @@ class Break_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11323,7 +11195,6 @@ class Menu_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11396,7 +11267,6 @@ class Power_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11467,7 +11337,6 @@ class Euro_KEY:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11540,7 +11409,6 @@ class AndroidBack_KEY:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11611,7 +11479,6 @@ class LeftButton_MOUSE:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11684,7 +11551,6 @@ class MiddleButton_MOUSE:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11755,7 +11621,6 @@ class RightButton_MOUSE:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11828,7 +11693,6 @@ class Mouse_SCROLL:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -11899,7 +11763,6 @@ class Mouse_POSITION:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -11978,7 +11841,6 @@ class Active_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12013,7 +11875,6 @@ class AppTerminating_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12053,7 +11914,6 @@ class AppLowMemory_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12096,7 +11956,6 @@ class AppWillEnterBackground_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12135,7 +11994,6 @@ class AppDidEnterBackground_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12176,7 +12034,6 @@ class AppWillEnterForeground_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12215,7 +12072,6 @@ class AppDidEnterForeground_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12256,7 +12112,6 @@ class AudioDeviceAdded_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12291,7 +12146,6 @@ class AudioDeviceRemoved_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12328,7 +12182,6 @@ class ClipBoardUpdate_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12364,7 +12217,6 @@ class DropFile_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12399,7 +12251,6 @@ class DropText_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12448,7 +12299,6 @@ class DropBegin_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12483,7 +12333,6 @@ class DropComplete_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12520,7 +12369,6 @@ class FingerMotion_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12555,7 +12403,6 @@ class FingerDown_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12592,7 +12439,6 @@ class FingerUp_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12627,7 +12473,6 @@ class KeyMapChanged_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12664,7 +12509,6 @@ class LocaleChanged_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12699,7 +12543,6 @@ class MultiGesture_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12784,7 +12627,6 @@ class Quit_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12819,7 +12661,6 @@ class RenderTargetsReset_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12856,7 +12697,6 @@ class RenderDeviceReset_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12891,7 +12731,6 @@ class SysWMEvent_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -12928,7 +12767,6 @@ class VideoResize_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -12963,7 +12801,6 @@ class VideoExpose_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13000,7 +12837,6 @@ class WindowShown_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13035,7 +12871,6 @@ class WindowHidden_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13072,7 +12907,6 @@ class WindowExposed_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13107,7 +12941,6 @@ class WindowMoved_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13144,7 +12977,6 @@ class WindowResized_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13179,7 +13011,6 @@ class WindowMinimized_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13216,7 +13047,6 @@ class WindowMaximized_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13251,7 +13081,6 @@ class WindowRestored_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13288,7 +13117,6 @@ class WindowEnter_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13323,7 +13151,6 @@ class WindowLeave_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13360,7 +13187,6 @@ class WindowFocusGained_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13395,7 +13221,6 @@ class WindowFocusLost_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13432,7 +13257,6 @@ class WindowClose_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13467,7 +13291,6 @@ class WindowTakeFocus_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13504,7 +13327,6 @@ class WindowHitTest_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13539,7 +13361,6 @@ class WindowICCPROFChanged_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13576,7 +13397,6 @@ class WindowDisplayChanged_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13611,7 +13431,6 @@ class JoyDeviceAdded_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
@@ -13648,7 +13467,6 @@ class JoyDeviceRemoved_EVENT:
     🟩 **R** -
     """
 
-
     def quit(self):
         """
         🟩 **R** -
@@ -13683,7 +13501,6 @@ class WindowFullScreenStatusChanged_EVENT:
     """
     🟩 **R** -
     """
-
 
     def quit(self):
         """
