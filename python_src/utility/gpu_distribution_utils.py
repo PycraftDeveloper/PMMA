@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 from time import perf_counter as _time__perf_counter
 
 from pmma.python_src.constants import Constants as _Constants
@@ -28,20 +27,10 @@ class GPUDistributionManager:
         self._video_gpu = []
         self._last_updated = _time__perf_counter()
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def update_gpu_roles(self, initialization_override=False):

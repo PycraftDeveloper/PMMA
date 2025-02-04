@@ -1,5 +1,4 @@
 from importlib import import_module as _importlib__import_module
-from gc import collect as _gc__collect
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -21,20 +20,10 @@ class ConverterIntermediaryManager:
             self.converter_intermediary = _importlib__import_module(
                 "pmma.python_src.pyx_alternatives.utility.number_converter")
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def get_converter(self):
@@ -44,20 +33,10 @@ class ColorIntermediary:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -103,21 +82,18 @@ class DisplayScalarIntermediary:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def __init__(self):
@@ -156,21 +132,18 @@ class DisplayCoordinatesIntermediary:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
             _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def __init__(self):

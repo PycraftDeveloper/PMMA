@@ -1,7 +1,6 @@
 from datetime import datetime as _datetime__datetime
 from traceback import format_stack as _traceback__format_stack
 from traceback import print_exc as _traceback__print_exec
-from gc import collect as _gc__collect
 from threading import Lock as _threading__Lock
 from threading import Thread as _threading__Thread
 from os import mkdir as _os__mkdir
@@ -287,22 +286,19 @@ class LoggerIntermediary:
         """
         return self._internal_log_error_messages_to_file
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
             self._logging_thread_active = False
             self._log_to_file_thread.join()
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def _file_logger_thread_wait_for_load(self):
@@ -544,20 +540,10 @@ class InternalLogger:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):

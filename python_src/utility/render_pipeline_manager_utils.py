@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 import importlib as _importlib
 
 from pmma.python_src.constants import Constants as _Constants
@@ -24,15 +23,12 @@ class RenderPipelineManager:
         self._raw_data = []
         self._pipeline_cache = {}  # Cache of pipelines keyed by shape IDs
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         if not self._shut_down:
             _Registry.render_pipeline_acceleration_available = False
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
-        self.__del__(do_garbage_collection=do_garbage_collection)
+    def quit(self):
+        self.__del__()
         self._shut_down = True
 
     def add_to_render_pipeline(self, shape):
