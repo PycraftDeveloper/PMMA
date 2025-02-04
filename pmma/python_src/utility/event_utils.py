@@ -9,11 +9,10 @@ class Backspace_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -90,11 +89,10 @@ class Tab_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -171,11 +169,10 @@ class Clear_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -252,11 +249,10 @@ class Return_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -333,11 +329,10 @@ class Pause_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -414,11 +409,10 @@ class Escape_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -495,11 +489,10 @@ class Space_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -576,11 +569,10 @@ class ExclamationMark_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -657,11 +649,10 @@ class DoubleQuote_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -738,11 +729,10 @@ class Hashtag_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -819,11 +809,10 @@ class Dollar_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -900,11 +889,10 @@ class Ampersand_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -981,11 +969,10 @@ class SingleQuote_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1062,11 +1049,10 @@ class LeftParenthesis_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1143,11 +1129,10 @@ class RightParenthesis_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1224,11 +1209,10 @@ class Asterisk_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1305,11 +1289,10 @@ class Plus_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1386,11 +1369,10 @@ class Comma_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1467,11 +1449,10 @@ class Minus_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1548,11 +1529,10 @@ class Period_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1629,11 +1609,10 @@ class ForwardSlash_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1710,11 +1689,10 @@ class Primary0_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1791,11 +1769,10 @@ class Primary1_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1872,11 +1849,10 @@ class Primary2_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -1953,11 +1929,10 @@ class Primary3_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2034,11 +2009,10 @@ class Primary4_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2115,11 +2089,10 @@ class Primary5_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2196,11 +2169,10 @@ class Primary6_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2277,11 +2249,10 @@ class Primary7_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2358,11 +2329,10 @@ class Primary8_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2439,11 +2409,10 @@ class Primary9_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2520,11 +2489,10 @@ class Colon_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2601,11 +2569,10 @@ class SemiColon_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2682,11 +2649,10 @@ class LessThan_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2763,11 +2729,10 @@ class Equals_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2844,11 +2809,10 @@ class GreaterThan_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -2925,11 +2889,10 @@ class QuestionMark_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3006,11 +2969,10 @@ class At_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3087,11 +3049,10 @@ class LeftBracket_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3168,11 +3129,10 @@ class BackSlash_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3249,11 +3209,10 @@ class RightBracket_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3330,11 +3289,10 @@ class Caret_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3411,11 +3369,10 @@ class Underscore_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3492,11 +3449,10 @@ class Grave_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3573,11 +3529,10 @@ class PrimaryA_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3654,11 +3609,10 @@ class PrimaryB_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3735,11 +3689,10 @@ class PrimaryC_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3816,11 +3769,10 @@ class PrimaryD_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3897,11 +3849,10 @@ class PrimaryE_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -3978,11 +3929,10 @@ class PrimaryF_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4059,11 +4009,10 @@ class PrimaryG_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4140,11 +4089,10 @@ class PrimaryH_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4221,11 +4169,10 @@ class PrimaryI_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4302,11 +4249,10 @@ class PrimaryJ_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4383,11 +4329,10 @@ class PrimaryK_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4464,11 +4409,10 @@ class PrimaryL_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4545,11 +4489,10 @@ class PrimaryM_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4626,11 +4569,10 @@ class PrimaryN_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4707,11 +4649,10 @@ class PrimaryO_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4788,11 +4729,10 @@ class PrimaryP_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4869,11 +4809,10 @@ class PrimaryQ_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -4950,11 +4889,10 @@ class PrimaryR_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5031,11 +4969,10 @@ class PrimaryS_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5112,11 +5049,10 @@ class PrimaryT_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5193,11 +5129,10 @@ class PrimaryU_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5274,11 +5209,10 @@ class PrimaryV_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5355,11 +5289,10 @@ class PrimaryW_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5436,11 +5369,10 @@ class PrimaryX_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5517,11 +5449,10 @@ class PrimaryY_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5598,11 +5529,10 @@ class PrimaryZ_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5679,11 +5609,10 @@ class Delete_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5760,11 +5689,10 @@ class Numpad0_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5841,11 +5769,10 @@ class Numpad1_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -5922,11 +5849,10 @@ class Numpad2_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6003,11 +5929,10 @@ class Numpad3_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6084,11 +6009,10 @@ class Numpad4_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6165,11 +6089,10 @@ class Numpad5_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6246,11 +6169,10 @@ class Numpad6_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6327,11 +6249,10 @@ class Numpad7_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6408,11 +6329,10 @@ class Numpad8_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6489,11 +6409,10 @@ class Numpad9_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6570,11 +6489,10 @@ class NumpadPeriod_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6651,11 +6569,10 @@ class NumpadDivide_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6732,11 +6649,10 @@ class NumpadMultiply_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6813,11 +6729,10 @@ class NumpadMinus_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6894,11 +6809,10 @@ class NumpadPlus_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -6975,11 +6889,10 @@ class NumpadEnter_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7056,11 +6969,10 @@ class NumpadEquals_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7137,11 +7049,10 @@ class Up_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7218,11 +7129,10 @@ class Down_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7299,11 +7209,10 @@ class Right_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7380,11 +7289,10 @@ class Left_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7461,11 +7369,10 @@ class Insert_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7542,11 +7449,10 @@ class Home_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7623,11 +7529,10 @@ class End_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7704,11 +7609,10 @@ class PageUp_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7785,11 +7689,10 @@ class PageDown_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7866,11 +7769,10 @@ class Function1_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -7947,11 +7849,10 @@ class Function2_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8028,11 +7929,10 @@ class Function3_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8109,11 +8009,10 @@ class Function4_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8190,11 +8089,10 @@ class Function5_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8271,11 +8169,10 @@ class Function6_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8352,11 +8249,10 @@ class Function7_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8433,11 +8329,10 @@ class Function8_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8514,11 +8409,10 @@ class Function9_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8595,11 +8489,10 @@ class Function10_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8676,11 +8569,10 @@ class Function11_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8757,11 +8649,10 @@ class Function12_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8838,11 +8729,10 @@ class Function13_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -8919,11 +8809,10 @@ class Function14_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9000,11 +8889,10 @@ class Function15_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9081,11 +8969,10 @@ class NumLock_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9162,11 +9049,10 @@ class CapsLock_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9243,11 +9129,10 @@ class ScrollLock_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9324,11 +9209,10 @@ class RightShift_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9405,11 +9289,10 @@ class LeftShift_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9486,11 +9369,10 @@ class Shift_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9567,11 +9449,10 @@ class RightControl_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9648,11 +9529,10 @@ class LeftControl_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9729,11 +9609,10 @@ class Control_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9810,11 +9689,10 @@ class RightAlt_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9891,11 +9769,10 @@ class LeftAlt_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -9972,11 +9849,10 @@ class Alt_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10053,11 +9929,10 @@ class RightMeta_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10134,11 +10009,10 @@ class LeftMeta_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10215,11 +10089,10 @@ class Meta_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10296,11 +10169,10 @@ class LeftSuper_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10377,11 +10249,10 @@ class RightSuper_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10458,11 +10329,10 @@ class Super_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10539,11 +10409,10 @@ class Mode_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10620,11 +10489,10 @@ class Help_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10701,11 +10569,10 @@ class Print_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10782,11 +10649,10 @@ class SystemRequest_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10863,11 +10729,10 @@ class Break_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -10944,11 +10809,10 @@ class Menu_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11025,11 +10889,10 @@ class Power_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11106,11 +10969,10 @@ class Euro_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11187,11 +11049,10 @@ class AndroidBack_KEY:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11268,11 +11129,10 @@ class Y_BUTTON: # 3
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11349,11 +11209,10 @@ class B_BUTTON: # 2
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11430,11 +11289,10 @@ class A_BUTTON: # 1
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11511,11 +11369,10 @@ class X_BUTTON: # 0
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11592,11 +11449,10 @@ class Home_BUTTON: # 12
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11673,11 +11529,10 @@ class RightJoystick_BUTTON: # 11
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11754,11 +11609,10 @@ class LeftJoystick_BUTTON: # 10
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11835,11 +11689,10 @@ class Options_BUTTON: # 9
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11916,11 +11769,10 @@ class Track_BALL:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -11974,11 +11826,10 @@ class Share_BUTTON: # 8
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12055,11 +11906,10 @@ class Right_TRIGGER:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12087,11 +11937,10 @@ class Left_TRIGGER:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12119,11 +11968,10 @@ class Right_BUMPER: # 5
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12200,11 +12048,10 @@ class Left_BUMPER: # 4
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12281,11 +12128,10 @@ class Center_BUTTON: # 15
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12362,11 +12208,10 @@ class LeftJoystick_AXIS:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12407,11 +12252,10 @@ class RightJoystick_AXIS:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12452,11 +12296,10 @@ class UpHat_BUTTON:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12533,11 +12376,10 @@ class DownHat_BUTTON:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12614,11 +12456,10 @@ class LeftHat_BUTTON:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12695,11 +12536,10 @@ class RightHat_BUTTON:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12776,11 +12616,10 @@ class LeftButton_MOUSE:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12857,11 +12696,10 @@ class MiddleButton_MOUSE:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -12938,11 +12776,10 @@ class RightButton_MOUSE:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13019,11 +12856,10 @@ class Mouse_SCROLL:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13090,11 +12926,10 @@ class Mouse_POSITION:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13167,11 +13002,10 @@ class AppTerminating_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13199,11 +13033,10 @@ class AppLowMemory_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13231,11 +13064,10 @@ class AppWillEnterBackground_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13263,11 +13095,10 @@ class AppDidEnterBackground_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13295,11 +13126,10 @@ class AppWillEnterForeground_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13327,11 +13157,10 @@ class AppDidEnterForeground_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13359,11 +13188,10 @@ class AudioDeviceAdded_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13391,11 +13219,10 @@ class AudioDeviceRemoved_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13423,11 +13250,10 @@ class ClipBoardUpdate_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13455,11 +13281,10 @@ class DropFile_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13487,11 +13312,10 @@ class DropText_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13519,11 +13343,10 @@ class DropBegin_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13551,11 +13374,10 @@ class DropComplete_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13583,11 +13405,10 @@ class FingerMotion_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13615,11 +13436,10 @@ class FingerDown_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13647,11 +13467,10 @@ class FingerUp_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13679,11 +13498,10 @@ class KeyMapChanged_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13711,11 +13529,10 @@ class LocaleChanged_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13743,11 +13560,10 @@ class MultiGesture_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13827,11 +13643,10 @@ class Quit_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13859,11 +13674,10 @@ class RenderTargetsReset_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13891,11 +13705,10 @@ class RenderDeviceReset_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13923,11 +13736,10 @@ class SysWMEvent_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13955,11 +13767,10 @@ class WindowShown_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -13987,11 +13798,10 @@ class WindowHidden_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14019,11 +13829,10 @@ class WindowExposed_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14051,11 +13860,10 @@ class WindowMoved_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14083,11 +13891,10 @@ class WindowResized_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14115,11 +13922,10 @@ class WindowMinimized_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14147,11 +13953,10 @@ class WindowMaximized_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14179,11 +13984,10 @@ class WindowRestored_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14211,11 +14015,10 @@ class WindowEnter_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14243,11 +14046,10 @@ class WindowLeave_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14275,11 +14077,10 @@ class WindowFocusGained_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14307,11 +14108,10 @@ class WindowFocusLost_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14339,11 +14139,10 @@ class WindowClose_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14371,11 +14170,10 @@ class WindowTakeFocus_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14403,11 +14201,10 @@ class WindowHitTest_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14435,11 +14232,10 @@ class WindowICCPROFChanged_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14467,11 +14263,10 @@ class WindowDisplayChanged_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14499,11 +14294,10 @@ class JoyDeviceAdded_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
@@ -14531,11 +14325,10 @@ class JoyDeviceRemoved_EVENT:
     🟩 **R** -
     """
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def __init__(self):
