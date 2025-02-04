@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 from time import perf_counter as _time__perf_counter
 
 from pmma.python_src.constants import Constants as _Constants
