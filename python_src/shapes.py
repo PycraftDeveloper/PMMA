@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 from math import asin as _math__asin
 
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
@@ -52,7 +51,7 @@ class Line(_ShapeTemplate, _LineUtils):
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -64,15 +63,11 @@ class Line(_ShapeTemplate, _LineUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):
@@ -228,7 +223,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         self._position_changed = True
         self._initial_point_count = None
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -240,15 +235,11 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):
@@ -420,7 +411,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._corner_radius = _DisplayScalarConverter()
         self._corner_radius.set_point(1)
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -432,15 +423,11 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):
@@ -614,7 +601,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         self._position_changed = True
         self._initial_point_count = None
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -626,15 +613,11 @@ class Arc(_ShapeTemplate, _ArcUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):
@@ -815,7 +798,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         self._position_changed = True
         self._initial_point_count = None
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -827,15 +810,11 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):
@@ -987,7 +966,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         self._width = None
         self._converted_inner_points = []
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -999,15 +978,11 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):
@@ -1138,7 +1113,7 @@ class Pixel(_ShapeTemplate, _PixelUtils):
         self._vao = _VertexArrayObject()
         self._position_changed = True
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -1150,15 +1125,11 @@ class Pixel(_ShapeTemplate, _PixelUtils):
             if self.old_shape_identifier is not None:
                 _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_pixel()
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def render(self):

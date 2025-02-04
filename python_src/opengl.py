@@ -33,20 +33,10 @@ class OpenGL:
 
         self._logger = _InternalLogger()
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def _check_if_opengl_backend_initialized(self):
@@ -97,7 +87,7 @@ class BufferObject:
 
         self._reassign_to_vertex_array_object = False
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -108,15 +98,12 @@ class BufferObject:
                 self._buffer_object.release()
 
             del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def _update_buffer_object(self, data=None):
@@ -484,7 +471,7 @@ using the `allow_shaders_to_adjust_point_size` keyword argument.")
         """
         return self._index_element_size
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -493,15 +480,12 @@ using the `allow_shaders_to_adjust_point_size` keyword argument.")
             if self._vao is not None:
                 self._vao.release()
             del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def get_created(self):
@@ -776,7 +760,7 @@ class Shader:
         """
         return self._program
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -787,15 +771,12 @@ class Shader:
             if self._program is not None:
                 self._program.release()
             del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def get_created(self):
@@ -910,21 +891,18 @@ class Texture:
         """
         self._internal_texture.build_mipmaps(base=base, max_level=max_level)
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
-            self._internal_texture.quit(do_garbage_collection=do_garbage_collection)
-            del self
-            if do_garbage_collection:
-                _gc__collect()
+            self._internal_texture.quit()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def get_created(self):
@@ -993,7 +971,7 @@ class FrameBufferObject:
         if self._fbo is not None:
             self._fbo.use()
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -1002,15 +980,12 @@ class FrameBufferObject:
             if self._fbo is not None:
                 self._fbo.release()
             del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def get_created(self):

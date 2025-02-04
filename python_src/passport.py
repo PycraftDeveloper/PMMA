@@ -1,6 +1,3 @@
-from gc import collect as _gc__collect
-from os import mkdir as _os__mkdir
-
 from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
@@ -306,18 +303,8 @@ afterwards may cause unintentional or unexpected behavior as some changes may no
         _PassportIntermediary.passport_changed = True
         _PassportIntermediary.project_size = project_size
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True

@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 import time as _time
 import threading as _threading
 
@@ -27,7 +26,7 @@ class Video:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -36,15 +35,11 @@ class Video:
             if self._video_player_thread is not None:
                 self._video_player_thread.join()
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def __init__(self):

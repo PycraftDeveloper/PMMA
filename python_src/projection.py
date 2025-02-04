@@ -1,5 +1,4 @@
 import numpy as _numpy
-from gc import collect as _gc__collect
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
@@ -37,20 +36,10 @@ class PredefinedProjections:
         """
         return self._projections_intermediary.get_perspective_projection()
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
 class PerspectiveProjection:
@@ -144,20 +133,10 @@ class PerspectiveProjection:
             ], dtype=_numpy.float32)
         return self._projection
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
 class OrthographicProjection:
@@ -180,20 +159,10 @@ class OrthographicProjection:
         self._projection_changed = True
         self._projection = None
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def set_minimum_x_size(self, min_x_size):

@@ -1,5 +1,4 @@
 import time as _time
-from gc import collect as _gc__collect
 
 from PIL import Image as _ImageModule
 import pygame as _pygame
@@ -39,20 +38,10 @@ class Image:
 
         self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def create_from_file(self, image_path):

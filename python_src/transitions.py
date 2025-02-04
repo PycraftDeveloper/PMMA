@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 import time as _time
 
 import numpy as _numpy
@@ -214,20 +213,16 @@ creating your transition?")
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
             self._transition_manager.remove(self._transition_id)
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
