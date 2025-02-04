@@ -64,6 +64,10 @@ Methods
 
    Not Yet Written
 
+.. py:method:: BufferObject.get_data() -> None
+
+   Not Yet Written
+
 .. py:method:: BufferObject.set_dynamic() -> None
 
    Not Yet Written
