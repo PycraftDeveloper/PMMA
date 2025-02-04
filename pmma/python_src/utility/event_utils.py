@@ -8,14 +8,6 @@ class Backspace_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -97,14 +89,6 @@ class Tab_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -186,14 +170,6 @@ class Clear_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -275,14 +251,6 @@ class Return_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -364,14 +332,6 @@ class Pause_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -453,14 +413,6 @@ class Escape_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -542,14 +494,6 @@ class Space_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -631,14 +575,6 @@ class ExclamationMark_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -720,14 +656,6 @@ class DoubleQuote_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -809,14 +737,6 @@ class Hashtag_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -898,14 +818,6 @@ class Dollar_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -987,14 +899,6 @@ class Ampersand_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1076,14 +980,6 @@ class SingleQuote_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1165,14 +1061,6 @@ class LeftParenthesis_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1254,14 +1142,6 @@ class RightParenthesis_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1343,14 +1223,6 @@ class Asterisk_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1432,14 +1304,6 @@ class Plus_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1521,14 +1385,6 @@ class Comma_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1610,14 +1466,6 @@ class Minus_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1699,14 +1547,6 @@ class Period_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1788,14 +1628,6 @@ class ForwardSlash_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1877,14 +1709,6 @@ class Primary0_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -1966,14 +1790,6 @@ class Primary1_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2055,14 +1871,6 @@ class Primary2_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2144,14 +1952,6 @@ class Primary3_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2233,14 +2033,6 @@ class Primary4_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2322,14 +2114,6 @@ class Primary5_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2411,14 +2195,6 @@ class Primary6_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2500,14 +2276,6 @@ class Primary7_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2589,14 +2357,6 @@ class Primary8_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2678,14 +2438,6 @@ class Primary9_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2767,14 +2519,6 @@ class Colon_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2856,14 +2600,6 @@ class SemiColon_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -2945,14 +2681,6 @@ class LessThan_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3034,14 +2762,6 @@ class Equals_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3123,14 +2843,6 @@ class GreaterThan_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3212,14 +2924,6 @@ class QuestionMark_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3301,14 +3005,6 @@ class At_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3390,14 +3086,6 @@ class LeftBracket_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3479,14 +3167,6 @@ class BackSlash_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3568,14 +3248,6 @@ class RightBracket_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3657,14 +3329,6 @@ class Caret_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3746,14 +3410,6 @@ class Underscore_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3835,14 +3491,6 @@ class Grave_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -3924,14 +3572,6 @@ class PrimaryA_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4013,14 +3653,6 @@ class PrimaryB_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4102,14 +3734,6 @@ class PrimaryC_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4191,14 +3815,6 @@ class PrimaryD_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4280,14 +3896,6 @@ class PrimaryE_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4369,14 +3977,6 @@ class PrimaryF_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4458,14 +4058,6 @@ class PrimaryG_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4547,14 +4139,6 @@ class PrimaryH_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4636,14 +4220,6 @@ class PrimaryI_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4725,14 +4301,6 @@ class PrimaryJ_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4814,14 +4382,6 @@ class PrimaryK_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4903,14 +4463,6 @@ class PrimaryL_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -4992,14 +4544,6 @@ class PrimaryM_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5081,14 +4625,6 @@ class PrimaryN_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5170,14 +4706,6 @@ class PrimaryO_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5259,14 +4787,6 @@ class PrimaryP_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5348,14 +4868,6 @@ class PrimaryQ_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5437,14 +4949,6 @@ class PrimaryR_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5526,14 +5030,6 @@ class PrimaryS_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5615,14 +5111,6 @@ class PrimaryT_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5704,14 +5192,6 @@ class PrimaryU_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5793,14 +5273,6 @@ class PrimaryV_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5882,14 +5354,6 @@ class PrimaryW_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -5971,14 +5435,6 @@ class PrimaryX_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6060,14 +5516,6 @@ class PrimaryY_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6149,14 +5597,6 @@ class PrimaryZ_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6238,14 +5678,6 @@ class Delete_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6327,14 +5759,6 @@ class Numpad0_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6416,14 +5840,6 @@ class Numpad1_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6505,14 +5921,6 @@ class Numpad2_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6594,14 +6002,6 @@ class Numpad3_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6683,14 +6083,6 @@ class Numpad4_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6772,14 +6164,6 @@ class Numpad5_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6861,14 +6245,6 @@ class Numpad6_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -6950,14 +6326,6 @@ class Numpad7_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7039,14 +6407,6 @@ class Numpad8_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7128,14 +6488,6 @@ class Numpad9_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7217,14 +6569,6 @@ class NumpadPeriod_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7306,14 +6650,6 @@ class NumpadDivide_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7395,14 +6731,6 @@ class NumpadMultiply_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7484,14 +6812,6 @@ class NumpadMinus_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7573,14 +6893,6 @@ class NumpadPlus_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7662,14 +6974,6 @@ class NumpadEnter_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7751,14 +7055,6 @@ class NumpadEquals_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7840,14 +7136,6 @@ class Up_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -7929,14 +7217,6 @@ class Down_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8018,14 +7298,6 @@ class Right_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8107,14 +7379,6 @@ class Left_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8196,14 +7460,6 @@ class Insert_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8285,14 +7541,6 @@ class Home_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8374,14 +7622,6 @@ class End_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8463,14 +7703,6 @@ class PageUp_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8552,14 +7784,6 @@ class PageDown_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8641,14 +7865,6 @@ class Function1_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8730,14 +7946,6 @@ class Function2_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8819,14 +8027,6 @@ class Function3_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8908,14 +8108,6 @@ class Function4_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -8997,14 +8189,6 @@ class Function5_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9086,14 +8270,6 @@ class Function6_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9175,14 +8351,6 @@ class Function7_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9264,14 +8432,6 @@ class Function8_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9353,14 +8513,6 @@ class Function9_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9442,14 +8594,6 @@ class Function10_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9531,14 +8675,6 @@ class Function11_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9620,14 +8756,6 @@ class Function12_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9709,14 +8837,6 @@ class Function13_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9798,14 +8918,6 @@ class Function14_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9887,14 +8999,6 @@ class Function15_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -9976,14 +9080,6 @@ class NumLock_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10065,14 +9161,6 @@ class CapsLock_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10154,14 +9242,6 @@ class ScrollLock_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10243,14 +9323,6 @@ class RightShift_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10332,14 +9404,6 @@ class LeftShift_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10421,14 +9485,6 @@ class Shift_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10510,14 +9566,6 @@ class RightControl_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10599,14 +9647,6 @@ class LeftControl_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10688,14 +9728,6 @@ class Control_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10777,14 +9809,6 @@ class RightAlt_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10866,14 +9890,6 @@ class LeftAlt_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -10955,14 +9971,6 @@ class Alt_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11044,14 +10052,6 @@ class RightMeta_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11133,14 +10133,6 @@ class LeftMeta_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11222,14 +10214,6 @@ class Meta_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11311,14 +10295,6 @@ class LeftSuper_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11400,14 +10376,6 @@ class RightSuper_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11489,14 +10457,6 @@ class Super_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11578,14 +10538,6 @@ class Mode_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11667,14 +10619,6 @@ class Help_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11756,14 +10700,6 @@ class Print_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11845,14 +10781,6 @@ class SystemRequest_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -11934,14 +10862,6 @@ class Break_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12023,14 +10943,6 @@ class Menu_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12112,14 +11024,6 @@ class Power_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12201,14 +11105,6 @@ class Euro_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12290,14 +11186,6 @@ class AndroidBack_KEY:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12379,14 +11267,6 @@ class Y_BUTTON: # 3
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12468,14 +11348,6 @@ class B_BUTTON: # 2
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12557,14 +11429,6 @@ class A_BUTTON: # 1
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12646,14 +11510,6 @@ class X_BUTTON: # 0
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12735,14 +11591,6 @@ class Home_BUTTON: # 12
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12824,14 +11672,6 @@ class RightJoystick_BUTTON: # 11
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -12913,14 +11753,6 @@ class LeftJoystick_BUTTON: # 10
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13002,14 +11834,6 @@ class Options_BUTTON: # 9
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13091,14 +11915,6 @@ class Track_BALL:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13157,14 +11973,6 @@ class Share_BUTTON: # 8
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13246,14 +12054,6 @@ class Right_TRIGGER:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13286,14 +12086,6 @@ class Left_TRIGGER:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13326,14 +12118,6 @@ class Right_BUMPER: # 5
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13415,14 +12199,6 @@ class Left_BUMPER: # 4
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13504,14 +12280,6 @@ class Center_BUTTON: # 15
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13593,14 +12361,6 @@ class LeftJoystick_AXIS:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13646,14 +12406,6 @@ class RightJoystick_AXIS:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13699,14 +12451,6 @@ class UpHat_BUTTON:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13788,14 +12532,6 @@ class DownHat_BUTTON:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13877,14 +12613,6 @@ class LeftHat_BUTTON:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -13966,14 +12694,6 @@ class RightHat_BUTTON:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14055,14 +12775,6 @@ class LeftButton_MOUSE:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14144,14 +12856,6 @@ class MiddleButton_MOUSE:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14233,14 +12937,6 @@ class RightButton_MOUSE:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14322,14 +13018,6 @@ class Mouse_SCROLL:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14401,14 +13089,6 @@ class Mouse_POSITION:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14486,14 +13166,6 @@ class AppTerminating_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14526,14 +13198,6 @@ class AppLowMemory_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14566,14 +13230,6 @@ class AppWillEnterBackground_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14606,14 +13262,6 @@ class AppDidEnterBackground_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14646,14 +13294,6 @@ class AppWillEnterForeground_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14686,14 +13326,6 @@ class AppDidEnterForeground_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14726,14 +13358,6 @@ class AudioDeviceAdded_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14766,14 +13390,6 @@ class AudioDeviceRemoved_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14806,14 +13422,6 @@ class ClipBoardUpdate_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14846,14 +13454,6 @@ class DropFile_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14886,14 +13486,6 @@ class DropText_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14926,14 +13518,6 @@ class DropBegin_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -14966,14 +13550,6 @@ class DropComplete_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15006,14 +13582,6 @@ class FingerMotion_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15046,14 +13614,6 @@ class FingerDown_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15086,14 +13646,6 @@ class FingerUp_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15126,14 +13678,6 @@ class KeyMapChanged_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15166,14 +13710,6 @@ class LocaleChanged_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15206,14 +13742,6 @@ class MultiGesture_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15298,14 +13826,6 @@ class Quit_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15338,14 +13858,6 @@ class RenderTargetsReset_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15378,14 +13890,6 @@ class RenderDeviceReset_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15418,14 +13922,6 @@ class SysWMEvent_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15458,14 +13954,6 @@ class WindowShown_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15498,14 +13986,6 @@ class WindowHidden_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15538,14 +14018,6 @@ class WindowExposed_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15578,14 +14050,6 @@ class WindowMoved_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15618,14 +14082,6 @@ class WindowResized_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15658,14 +14114,6 @@ class WindowMinimized_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15698,14 +14146,6 @@ class WindowMaximized_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15738,14 +14178,6 @@ class WindowRestored_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15778,14 +14210,6 @@ class WindowEnter_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15818,14 +14242,6 @@ class WindowLeave_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15858,14 +14274,6 @@ class WindowFocusGained_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15898,14 +14306,6 @@ class WindowFocusLost_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15938,14 +14338,6 @@ class WindowClose_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -15978,14 +14370,6 @@ class WindowTakeFocus_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -16018,14 +14402,6 @@ class WindowHitTest_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -16058,14 +14434,6 @@ class WindowICCPROFChanged_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -16098,14 +14466,6 @@ class WindowDisplayChanged_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -16138,14 +14498,6 @@ class JoyDeviceAdded_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
@@ -16178,14 +14530,6 @@ class JoyDeviceRemoved_EVENT:
     """
     🟩 **R** -
     """
-    def __del__(self, do_garbage_collection=False):
-        """
-        🟩 **R** -
-        """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def quit(self, do_garbage_collection=True):
         """
