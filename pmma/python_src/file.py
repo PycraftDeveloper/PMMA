@@ -1,6 +1,5 @@
 import os as _os
 import shutil as _shutil
-from gc import collect as _gc__collect
 
 import send2trash as _send2trash
 
@@ -37,20 +36,10 @@ class File:
 
         self._file_path = file_path
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def exists(self):
@@ -153,22 +142,18 @@ class FileCore:
 
         self.scan()
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
             self._watcher.stop()
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def update_locations(self, project_directory=None, force_refresh=True):

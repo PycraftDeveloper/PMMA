@@ -1,5 +1,4 @@
 import threading as _threading
-from gc import collect as _gc__collect
 import time as _time
 
 import pyaudio as _pyaudio
@@ -46,7 +45,7 @@ class Sampler:
 
         self._logger = _InternalLogger()
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -55,10 +54,6 @@ class Sampler:
 
             if self._is_sampling_running:
                 self._sampler_thread.join()
-
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
     def print_input_devices(self):
         """
@@ -100,11 +95,11 @@ class Sampler:
                 self.stop()
                 self.start()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def get_default_input_device(self):
