@@ -1,5 +1,9 @@
-import numpy as np
+import cython
+
+from libc.string cimport memcpy
 cimport numpy as cnp
+
+import numpy as np
 import moderngl as _moderngl
 
 from pmma.python_src.opengl import GenericBufferObject as _GenericBufferObject
@@ -9,10 +13,6 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-
-import cython
-
-from libc.string cimport memcpy
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
