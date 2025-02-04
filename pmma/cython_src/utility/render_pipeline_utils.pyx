@@ -42,10 +42,10 @@ cdef class RenderPipeline:
         self._program.create()
         self._total_vertexes = 0
 
-    def quit(self, bint do_garbage_collection=True):
-        self._program.quit(do_garbage_collection=False)
-        self._vao.quit(do_garbage_collection=False)
-        self._gbo.quit(do_garbage_collection=False)
+    def quit(self):
+        self._program.quit()
+        self._vao.quit()
+        self._gbo.quit()
 
     @cython.boundscheck(False) # compiler directive
     @cython.wraparound(False) # compiler directive

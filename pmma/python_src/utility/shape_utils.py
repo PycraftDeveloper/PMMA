@@ -1,4 +1,3 @@
-from gc import collect as _gc__collect
 import math as _math
 
 import pygame as _pygame
@@ -114,21 +113,18 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             blue_color_range=blue_color_range,
             alpha_color_range=alpha_color_range)
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
         if self._shut_down is False:
-            del self
             _Registry.shape_count -= 1
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
 class LineUtils:

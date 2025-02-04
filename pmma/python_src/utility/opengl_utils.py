@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 from PIL import Image as _PIL__Image
 from moderngl import LINEAR as _moderngl__LINEAR
 
@@ -186,7 +184,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
             self._texture = _Registry.context.texture(self._size, self._components, self._data, samples=self._samples)
             self._texture.filter = (self._scaling[0], self._scaling[1])
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -195,15 +193,12 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
             if self._texture is not None:
                 self._texture.release()
             del _Registry.opengl_objects[self._unique_identifier]
-            del self
-            if do_garbage_collection:
-                _gc__collect()
 
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def get_created(self):

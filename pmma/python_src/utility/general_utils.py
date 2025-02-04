@@ -3,11 +3,11 @@ from subprocess import check_output as _subprocess__check_output
 from subprocess import run as _subprocess__run
 from subprocess import CalledProcessError as _subprocess__CalledProcessorError
 import os as _os
+from gc import collect as _gc__collect
 from distutils import spawn as _spawn
 from random import random as _random__random
 from random import randint as _random__randint
 from platform import system as _platform__system
-from gc import collect as _gc__collect
 from inspect import isclass as _inspect__isclass
 from inspect import isfunction as _inspect__isfunction
 from time import perf_counter as _time__perf_counter
@@ -338,7 +338,7 @@ generating 3D arrays.")
             variables=[_Constants.DISPLAY_OBJECT],
             repeat_for_effect=True)
 
-        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].quit(do_garbage_collection=False)
+        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].quit()
         del _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
 
     logger = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
@@ -352,7 +352,7 @@ generating 3D arrays.")
             variables=[key],
             repeat_for_effect=True)
 
-        _Registry.pmma_module_spine[key].quit(do_garbage_collection=False)
+        _Registry.pmma_module_spine[key].quit()
 
     del _Registry.pmma_module_spine
 
@@ -364,7 +364,7 @@ generating 3D arrays.")
         "Quitting PMMA object with ID: logging intermediary",
         repeat_for_effect=True)
 
-    logger.quit(do_garbage_collection=True)
+    logger.quit()
 
     if terminate_application:
         _sys__exit(0)

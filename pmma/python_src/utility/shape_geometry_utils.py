@@ -1,7 +1,6 @@
 from threading import Lock as _threading__Lock
 from threading import Thread as _threading__Thread
 from time import sleep as _time__sleep
-from gc import collect as _gc__collect
 
 from waiting import wait as _waiting__wait
 from psutil import virtual_memory as _psutil__virtual_memory
@@ -43,20 +42,10 @@ class ShapeGeometryManager:
         self.manager_thread.name = "ShapeGeometryManager: Shape_Geometry_Manager_Thread"
         self.manager_thread.start()
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def reset(self):

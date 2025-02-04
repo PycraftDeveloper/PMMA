@@ -1,5 +1,3 @@
-from gc import collect as _gc__collect
-
 from watchdog.observers import Observer as _Observer
 from watchdog.events import FileSystemEventHandler as _FileSystemEventHandler
 
@@ -25,20 +23,10 @@ class EventHandler(_FileSystemEventHandler):
 
         self.file_class = file_class
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def on_created(self, event):
@@ -102,20 +90,10 @@ class DirectoryWatcher:
             watcher = self.observer.schedule(event_handler, location, recursive=True)
             self.watching[location] = watcher
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def sync_file_matrix(self, file_matrix):

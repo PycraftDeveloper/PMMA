@@ -1,6 +1,5 @@
 from threading import Thread as _threading__Thread
 from threading import Lock as _threading__Lock
-from gc import collect as _gc__collect
 
 from waiting import wait as _waiting__wait
 
@@ -38,7 +37,7 @@ class LoadedShaderReferenceManager:
 
         self._reference_manager_thread.start()
 
-    def __del__(self, do_garbage_collection=False):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -47,15 +46,11 @@ class LoadedShaderReferenceManager:
 
             self._reference_manager_thread.join()
 
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
+    def quit(self):
         """
         🟩 **R** -
         """
-        self.__del__(do_garbage_collection=do_garbage_collection)
+        self.__del__()
         self._shut_down = True
 
     def wait_for_shader_filling(self):
@@ -103,20 +98,10 @@ class ShaderManager:
 
         self._shader_reference_manager: "LoadedShaderReferenceManager"= _Registry.pmma_module_spine[_Constants.SHADER_REFERENCE_MANAGER_OBJECT]
 
-    def __del__(self, do_garbage_collection=False):
+    def quit(self):
         """
         🟩 **R** -
         """
-        if self._shut_down is False:
-            del self
-            if do_garbage_collection:
-                _gc__collect()
-
-    def quit(self, do_garbage_collection=True):
-        """
-        🟩 **R** -
-        """
-        self.__del__(do_garbage_collection=do_garbage_collection)
         self._shut_down = True
 
     def add_shader_from_file(self, file_name, vertex=None, fragment=None, using_gl_point_size_syntax=False, uniform_values=[], buffer_names=[]):
