@@ -1,9 +1,29 @@
-import pygame as _pygame
+from pygame import joystick as _pygame__joystick
 
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-import pmma.python_src.utility.event_utils as _event_utils
+from pmma.python_src.utility.event_utils import Y_BUTTON as _event_utils__Y_BUTTON
+from pmma.python_src.utility.event_utils import B_BUTTON as _event_utils__B_BUTTON
+from pmma.python_src.utility.event_utils import A_BUTTON as _event_utils__A_BUTTON
+from pmma.python_src.utility.event_utils import X_BUTTON as _event_utils__X_BUTTON
+from pmma.python_src.utility.event_utils import Home_BUTTON as _event_utils__Home_BUTTON
+from pmma.python_src.utility.event_utils import RightJoystick_BUTTON as _event_utils__RightJoystick_BUTTON
+from pmma.python_src.utility.event_utils import LeftJoystick_BUTTON as _event_utils__LeftJoystick_BUTTON
+from pmma.python_src.utility.event_utils import Options_BUTTON as _event_utils__Options_BUTTON
+from pmma.python_src.utility.event_utils import Share_BUTTON as _event_utils__Share_BUTTON
+from pmma.python_src.utility.event_utils import Right_TRIGGER as _event_utils__Right_TRIGGER
+from pmma.python_src.utility.event_utils import Left_TRIGGER as _event_utils__Left_TRIGGER
+from pmma.python_src.utility.event_utils import Right_BUMPER as _event_utils__Right_BUMPER
+from pmma.python_src.utility.event_utils import Left_BUMPER as _event_utils__Left_BUMPER
+from pmma.python_src.utility.event_utils import Center_BUTTON as _event_utils__Center_BUTTON
+from pmma.python_src.utility.event_utils import LeftJoystick_AXIS as _event_utils__LeftJoystick_AXIS
+from pmma.python_src.utility.event_utils import RightJoystick_AXIS as _event_utils__RightJoystick_AXIS
+from pmma.python_src.utility.event_utils import UpHat_BUTTON as _event_utils__UpHat_BUTTON
+from pmma.python_src.utility.event_utils import DownHat_BUTTON as _event_utils__DownHat_BUTTON
+from pmma.python_src.utility.event_utils import LeftHat_BUTTON as _event_utils__LeftHat_BUTTON
+from pmma.python_src.utility.event_utils import RightHat_BUTTON as _event_utils__RightHat_BUTTON
+from pmma.python_src.utility.event_utils import Track_BALL as _event_utils__Track_BALL
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
@@ -72,39 +92,39 @@ class Controller:
         _initialize(self)
 
         self._joy_num = joy_num
-        self._joy = _pygame.joystick.Joystick(joy_num)
+        self._joy = _pygame__joystick.Joystick(joy_num)
         self._joy.init()
 
-        self._y_button = _event_utils.Y_BUTTON()
-        self._b_button = _event_utils.B_BUTTON()
-        self._a_button = _event_utils.A_BUTTON()
-        self._x_button = _event_utils.X_BUTTON()
-        self._home_button = _event_utils.Home_BUTTON()
-        self._right_joystick_button = _event_utils.RightJoystick_BUTTON()
-        self._left_joystick_button = _event_utils.LeftJoystick_BUTTON()
-        self._options_button = _event_utils.Options_BUTTON()
-        self._share_button = _event_utils.Share_BUTTON()
-        self._right_trigger = _event_utils.Right_TRIGGER()
-        self._left_trigger = _event_utils.Left_TRIGGER()
-        self._right_bumper = _event_utils.Right_BUMPER()
-        self._left_bumper = _event_utils.Left_BUMPER()
-        self._center_button = _event_utils.Center_BUTTON()
-        self._left_joystick_axis = _event_utils.LeftJoystick_AXIS()
-        self._right_joystick_axis = _event_utils.RightJoystick_AXIS()
-        self._up_hat_button = _event_utils.UpHat_BUTTON()
-        self._down_hat_button = _event_utils.DownHat_BUTTON()
-        self._left_hat_button = _event_utils.LeftHat_BUTTON()
-        self._right_hat_button = _event_utils.RightHat_BUTTON()
+        self._y_button = _event_utils__Y_BUTTON()
+        self._b_button = _event_utils__B_BUTTON()
+        self._a_button = _event_utils__A_BUTTON()
+        self._x_button = _event_utils__X_BUTTON()
+        self._home_button = _event_utils__Home_BUTTON()
+        self._right_joystick_button = _event_utils__RightJoystick_BUTTON()
+        self._left_joystick_button = _event_utils__LeftJoystick_BUTTON()
+        self._options_button = _event_utils__Options_BUTTON()
+        self._share_button = _event_utils__Share_BUTTON()
+        self._right_trigger = _event_utils__Right_TRIGGER()
+        self._left_trigger = _event_utils__Left_TRIGGER()
+        self._right_bumper = _event_utils__Right_BUMPER()
+        self._left_bumper = _event_utils__Left_BUMPER()
+        self._center_button = _event_utils__Center_BUTTON()
+        self._left_joystick_axis = _event_utils__LeftJoystick_AXIS()
+        self._right_joystick_axis = _event_utils__RightJoystick_AXIS()
+        self._up_hat_button = _event_utils__UpHat_BUTTON()
+        self._down_hat_button = _event_utils__DownHat_BUTTON()
+        self._left_hat_button = _event_utils__LeftHat_BUTTON()
+        self._right_hat_button = _event_utils__RightHat_BUTTON()
 
         self._track_balls = []
         for instance in range(self._joy.get_numballs()):
-            track_ball = _event_utils.Track_BALL()
+            track_ball = _event_utils__Track_BALL()
             track_ball.set_id(instance)
             self._track_balls.append(track_ball)
 
         self._logger = _InternalLogger()
 
-    def get_track_ball_from_id(self, id) -> '_event_utils.Track_BALL':
+    def get_track_ball_from_id(self, id) -> '_event_utils__Track_BALL':
         """
         🟩 **R** -
         """
