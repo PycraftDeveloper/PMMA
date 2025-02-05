@@ -98,7 +98,7 @@ cpdef double raw_pythag(cnp.ndarray[double, ndim=1] points):
     return sqrt(sum)
 
 # Function to normalize a vector
-cdef cnp.ndarray[double, ndim=1] normalize(cnp.ndarray[double, ndim=1] v):
+cdef inline cnp.ndarray[double, ndim=1] normalize(cnp.ndarray[double, ndim=1] v):
     """
     🟩 **R** -
     """

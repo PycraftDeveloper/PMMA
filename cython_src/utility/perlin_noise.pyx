@@ -1,26 +1,30 @@
+# cython: language_level=3
+
 from libc.math cimport floor
 from libc.stdlib cimport rand, srand
 from libc.time cimport time
+
+import cython
 
 cdef int PERMUTATION_SIZE = 512
 
 # Declare that no exceptions will be propagated
 cdef extern from "math.h":
-    double floor(double) nogil
+    double floor(double) noexcept nogil
 
-cdef inline double fade(double t) nogil:
+cdef inline double fade(double t) noexcept nogil:
     """
     🟩 **R** -
     """
     return t * t * t * (t * (t * 6 - 15) + 10)
 
-cdef inline double lerp(double t, double a, double b) nogil:
+cdef inline double lerp(double t, double a, double b) noexcept nogil:
     """
     🟩 **R** -
     """
     return a + t * (b - a)
 
-cdef inline double grad1(int hash, double x) nogil:
+cdef inline double grad1(int hash, double x) noexcept nogil:
     """
     🟩 **R** -
     """
@@ -30,7 +34,7 @@ cdef inline double grad1(int hash, double x) nogil:
         grad = -grad  # and a random sign for the gradient
     return grad * x  # Multiply the gradient with the distance
 
-cdef inline double grad2(int hash, double x, double y) nogil:
+cdef inline double grad2(int hash, double x, double y) noexcept nogil:
     """
     🟩 **R** -
     """
@@ -39,7 +43,7 @@ cdef inline double grad2(int hash, double x, double y) nogil:
     cdef double v = y if h < 4 else x  # and compute the dot product with (x,y).
     return ((-u if h & 1 else u) + (-2.0 * v if h & 2 else 2.0 * v))
 
-cdef inline double grad3(int hash, double x, double y, double z) nogil:
+cdef inline double grad3(int hash, double x, double y, double z) noexcept nogil:
     """
     🟩 **R** -
     """
@@ -64,7 +68,7 @@ cdef class PerlinNoise:
         self.octaves = octaves
         self.persistence = persistence
 
-    cdef void init_permutation(self, int seed):
+    cdef void init_permutation(self, int seed) noexcept:
         """
         🟩 **R** -
         """
@@ -84,7 +88,9 @@ cdef class PerlinNoise:
         for i in range(256):
             self.p[256 + i] = self.p[i] = perm[i]
 
-    cdef double perlin1D(self, double x):
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    cdef inline double perlin1D(self, double x) noexcept:
         """
         🟩 **R** -
         """
@@ -102,7 +108,9 @@ cdef class PerlinNoise:
 
         return lerp(u, grad1(self.p[A], x), grad1(self.p[B], x - 1))
 
-    cdef double perlin2D(self, double x, double y):
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    cdef inline double perlin2D(self, double x, double y) noexcept:
         """
         🟩 **R** -
         """
@@ -124,7 +132,9 @@ cdef class PerlinNoise:
         return lerp(v, lerp(u, grad2(self.p[A], x, y), grad2(self.p[B], x - 1, y)),
                             lerp(u, grad2(self.p[A + 1], x, y - 1), grad2(self.p[B + 1], x - 1, y - 1)))
 
-    cdef double perlin3D(self, double x, double y, double z):
+    @cython.boundscheck(False)
+    @cython.wraparound(False)
+    cdef inline double perlin3D(self, double x, double y, double z) noexcept:
         """
         🟩 **R** -
         """
@@ -155,7 +165,7 @@ cdef class PerlinNoise:
                             lerp(v, lerp(u, grad3(self.p[AA + 1], x, y, z - 1), grad3(self.p[BA + 1], x - 1, y, z - 1)),
                                 lerp(u, grad3(self.p[AB + 1], x, y - 1, z - 1), grad3(self.p[BB + 1], x - 1, y - 1, z - 1))))
 
-    cpdef double fBM1D(self, double x):
+    cpdef double fBM1D(self, double x) noexcept:
         """
         🟩 **R** -
         """
@@ -173,7 +183,7 @@ cdef class PerlinNoise:
 
         return total / maxValue
 
-    cpdef double fBM2D(self, double x, double y):
+    cpdef double fBM2D(self, double x, double y) noexcept:
         """
         🟩 **R** -
         """
@@ -191,7 +201,7 @@ cdef class PerlinNoise:
 
         return total / maxValue
 
-    cpdef double fBM3D(self, double x, double y, double z):
+    cpdef double fBM3D(self, double x, double y, double z) noexcept:
         """
         🟩 **R** -
         """
