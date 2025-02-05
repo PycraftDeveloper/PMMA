@@ -1,5 +1,6 @@
-import threading as _threading
-import queue as _queue
+from threading import Thread as _threading__Thread
+from queue import Queue as _queue__Queue
+from queue import Empty as _queue__Empty
 import time as _time
 
 import sounddevice as _sound_device
@@ -55,7 +56,7 @@ class Audio:
         self._playback_thread = None
         self._channels = 2
         self._queue_max_size = 60
-        self._audio_queue = _queue.Queue(maxsize=self._queue_max_size)
+        self._audio_queue = _queue__Queue(maxsize=self._queue_max_size)
         self._audio_data = None
         self._from_moviepy = False
         self._moviepy_audio_itr = None
@@ -228,7 +229,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 self._start_playback()
             else:
                 # Start playback in a separate thread (non-blocking)
-                self._playback_thread = _threading.Thread(target=self._start_playback)
+                self._playback_thread = _threading__Thread(target=self._start_playback)
                 self._playback_thread.daemon = True
                 self._playback_thread.name = "Audio:Playing_Audio_Thread"
                 self._playback_thread.start()
@@ -297,7 +298,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 if self._looping:
                     self._moviepy_audio_itr = self._audio_generator(2048)
                     self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
-            except _queue.Empty:
+            except _queue__Empty:
                 if self._looping:
                     outdata.fill(0)
                 else:

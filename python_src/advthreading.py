@@ -1,7 +1,7 @@
-import sys as _sys
-import threading as _threading
+from sys import settrace as _sys__settrace
+from threading import Thread as _threading__Thread
 
-class Thread(_threading.Thread):
+class Thread(_threading__Thread):
     """
     🟩 **R** -
     """
@@ -9,7 +9,7 @@ class Thread(_threading.Thread):
         """
         🟩 **R** -
         """
-        _threading.Thread.__init__(self, *args, **keywords)
+        _threading__Thread.__init__(self, *args, **keywords)
 
         self._killed = False
 
@@ -19,13 +19,13 @@ class Thread(_threading.Thread):
         """
         self.__run_backup = self.run
         self.run = self.__run
-        _threading.Thread.start(self)
+        _threading__Thread.start(self)
 
     def __run(self):
         """
         🟩 **R** -
         """
-        _sys.settrace(self.globaltrace)
+        _sys__settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
 

@@ -1,4 +1,4 @@
-import importlib as _importlib
+from importlib import import_module as _importlib__import_module
 
 from numpy import array as _numpy__array
 from numpy import float64 as _numpy__float64
@@ -19,12 +19,12 @@ class Math:
 
         if _Registry.cython_acceleration_available:
             if _MathIntermediary.math_module is None:
-                _MathIntermediary.math_module = _importlib.import_module(
+                _MathIntermediary.math_module = _importlib__import_module(
                     "pmma.bin.math_utils")
 
         else:
             if _MathIntermediary.math_module is None:
-                _MathIntermediary.math_module = _importlib.import_module(
+                _MathIntermediary.math_module = _importlib__import_module(
                     "pmma.python_src.pyx_alternatives.utility.math_utils")
 
     def quit(self):

@@ -1,5 +1,5 @@
-import tkinter as _tk
-from tkinter import ttk as _ttk
+from tkinter import Tk as _tkinter__Tk
+from tkinter.ttk import Style as _tkinter__ttk_Style
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -24,7 +24,7 @@ class Tkinter:
         """
         🟩 **R** -
         """
-        style = _ttk.Style()
+        style = _tkinter__ttk_Style()
         style.configure(
             widget,
             background="white",
@@ -43,7 +43,7 @@ class Tkinter:
         🟩 **R** -
         """
         try:
-            root = _tk.Tk()
+            root = _tkinter__Tk()
 
             screen_size_x = root.winfo_screenwidth()
             screen_size_y = root.winfo_screenheight()

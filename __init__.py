@@ -67,9 +67,9 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 from pmma.python_src.utility import cython_utils as _cython_utils
 import pmma.python_src.utility.general_utils as _general_utils
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.pmma_configuration import load_configuration
+from pmma.python_src.utility.pmma_configuration import load_configuration as _load_configuration
 
-load_configuration()
+_load_configuration()
 
 if (_Registry.last_checked_for_updates is None or _general_utils.get_date_as_number()-_Registry.last_checked_for_updates > 7 or _Registry.update_available is None):
     _general_utils.check_for_updates()
