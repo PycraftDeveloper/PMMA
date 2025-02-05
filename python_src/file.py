@@ -1,7 +1,12 @@
-import os as _os
-import shutil as _shutil
+from os import path as _os__path
+from os import mkdir as _os__mkdir
+from os import remove as _os__remove
+from os import rename as _os__rename
+from os import walk as _os__walk
+from os import sep as _os__sep
+from shutil import move as _shutil__move
 
-import send2trash as _send2trash
+from send2trash import send2trash as _send2trash__send2trash
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -16,8 +21,8 @@ def path_builder(*args):
     """
     result = ""
     for arg in args:
-        if result != "" and _os.path.exists(result) is False:
-            _os.mkdir(result)
+        if result != "" and _os__path.exists(result) is False:
+            _os__mkdir(result)
 
         result += arg
         result += _Constants.PATH_SEPARATOR
@@ -46,7 +51,7 @@ class File:
         """
         🟩 **R** -
         """
-        return _os.path.exists(self._file_path)
+        return _os__path.exists(self._file_path)
 
     def get_path(self):
         """
@@ -58,7 +63,7 @@ class File:
         """
         🟩 **R** -
         """
-        return _os.path.dirname(self._file_path)
+        return _os__path.dirname(self._file_path)
 
     def get_file_name_and_type(self):
         """
@@ -82,28 +87,28 @@ class File:
         """
         🟩 **R** -
         """
-        _shutil.move(self._file_path, new_path)
+        _shutil__move(self._file_path, new_path)
         self._file_path = new_path
 
     def delete(self):
         """
         🟩 **R** -
         """
-        _os.remove(self._file_path)
+        _os__remove(self._file_path)
 
     def recycle(self):
         """
         🟩 **R** -
         """
-        _send2trash.send2trash(self._file_path)
+        _send2trash__send2trash(self._file_path)
 
     def rename(self, new_name):
         """
         🟩 **R** -
         """
         file_type = self.get_file_type()
-        new_file_path = _os.path.dirname(self._file_path) + _Constants.PATH_SEPARATOR + new_name + "." + file_type
-        _os.rename(self._file_path, new_file_path)
+        new_file_path = _os__path.dirname(self._file_path) + _Constants.PATH_SEPARATOR + new_name + "." + file_type
+        _os__rename(self._file_path, new_file_path)
         self._file_path = new_file_path
 
     def read(self):
@@ -185,9 +190,9 @@ class FileCore:
         self._file_matrix = {}
         construction_matrix = {}
         for location in self._locations:
-            for root, subdirs, files in _os.walk(location):
+            for root, subdirs, files in _os__walk(location):
                 for file in files:
-                    file_path = _os.path.join(root, file)
+                    file_path = _os__path.join(root, file)
                     if file not in construction_matrix:
                         construction_matrix[file] = File(file_path)
                     else: # duplicate name resolver
@@ -196,8 +201,8 @@ class FileCore:
 
                         new_file = file_path
 
-                        original_file_split = original_file.split(_os.sep)
-                        new_file_split = new_file.split(_os.sep)
+                        original_file_split = original_file.split(_os__sep)
+                        new_file_split = new_file.split(_os__sep)
 
                         original_identifier = original_file_split[-1]
                         new_identifier = new_file_split[-1]
@@ -206,8 +211,8 @@ class FileCore:
                         del new_file_split[-1]
 
                         while original_identifier == new_identifier:
-                            original_identifier = original_file_split[-1] + _os.sep + original_identifier
-                            new_identifier = new_file_split[-1] + _os.sep + new_identifier
+                            original_identifier = original_file_split[-1] + _os__sep + original_identifier
+                            new_identifier = new_file_split[-1] + _os__sep + new_identifier
 
                             del original_file_split[-1]
                             del new_file_split[-1]

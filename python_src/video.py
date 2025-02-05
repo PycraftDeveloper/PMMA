@@ -1,11 +1,14 @@
-import time as _time
-import threading as _threading
+from time import sleep as _time__sleep
+from threading import Thread as _threading__Thread
+from threading import Lock as _threading__Lock
 
-import moderngl as _moderngl
-import numpy as _numpy
-import av as _av
-import moviepy.editor as _editor
-import pygame as _pygame
+from moderngl import TRIANGLE_STRIP as _moderngl__TRIANGLE_STRIP
+from numpy import array as _numpy__array
+from av import open as _av__open
+from av import time_base as _av__time_base
+from av import error as _av__error
+from moviepy import VideoFileClip as _moviepy__VideoFileClip
+from pygame import time as _pygame__time
 
 from pmma.python_src.opengl import Texture as _Texture
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
@@ -58,7 +61,7 @@ class Video:
         self._video_decoder_manually_set = False
         self._video_frame_time = None
         self._texture = None
-        self._surface_vertices = _numpy.array(
+        self._surface_vertices = _numpy__array(
             [
                 -1.0,  1.0, 0.0, 1.0,
                 -1.0, -1.0, 0.0, 0.0,
@@ -87,7 +90,7 @@ class Video:
         self._is_playing = True
         self._audio_sync = False
 
-        self._video_clock = _pygame.time.Clock()
+        self._video_clock = _pygame__time.Clock()
 
         self._video_frame = None
         self._video_player_thread = None
@@ -95,7 +98,7 @@ class Video:
 
         self._looping = True
 
-        self._frame_locker = _threading.Lock()
+        self._frame_locker = _threading__Lock()
         self._frame_content_changed = True
 
         self._video_has_audio = False
@@ -105,7 +108,7 @@ class Video:
         🟩 **R** -
         """
         self._play_video = True
-        self._video_player_thread = _threading.Thread(target=self._video_frame_extractor)
+        self._video_player_thread = _threading__Thread(target=self._video_frame_extractor)
         self._video_player_thread.daemon = True
         self._video_player_thread.name = "Video:Playing_Video_Thread"
         self._video_player_thread.start()
@@ -202,7 +205,7 @@ class Video:
         🟩 **R** -
         """
         self._file = file_path
-        self._input_container = _av.open(file_path)
+        self._input_container = _av__open(file_path)
 
         if automatically_optimize_silent_videos:
             self._video_has_audio = self.has_audio_and_non_zero_data()
@@ -212,7 +215,7 @@ class Video:
         self._input_container.seek(0)
 
         if self._video_has_audio:
-            video_file = _editor.VideoFileClip(file_path)
+            video_file = _moviepy__VideoFileClip(file_path)
             raw_audio_data = video_file.audio
             self._audio_player.load_from_moviepy(raw_audio_data)
 
@@ -261,12 +264,12 @@ class Video:
                 return False
 
             # Total duration of the video in seconds
-            duration = self._input_container.duration / _av.time_base
+            duration = self._input_container.duration / _av__time_base
 
             # Check audio data at each specified percentage
             for percent in _Constants.SINGLE_PERCENTAGES:
                 # Calculate the target timestamp
-                timestamp = int(duration * percent * _av.time_base)
+                timestamp = int(duration * percent * _av__time_base)
                 self._input_container.seek(timestamp, any_frame=False, backward=True, stream=audio_stream)
 
                 # Check if audio frames at this point have non-zero data
@@ -353,7 +356,7 @@ class Video:
             if self._video_loaded:
                 if self._audio_player.get_playing() is False and self._video_has_audio:
                     self._audio_player.play(blocking=False)
-                    _time.sleep(0.48) # 0.5 close / dont really know what this magic number represents yet
+                    _time__sleep(0.48) # 0.5 close / dont really know what this magic number represents yet
 
                 if self._is_playing is False and self._audio_player.get_paused() is False and self._video_has_audio:
                     self._audio_player.pause()
@@ -366,7 +369,7 @@ class Video:
                         next_frame = next(self._input_container.decode(video=0))
                     except StopIteration:
                         next_frame = self._loop_video()
-                    except _av.error.EOFError:
+                    except _av__error.EOFError:
                         next_frame = self._loop_video()
 
                     if next_frame is not None:
@@ -410,7 +413,7 @@ class Video:
                     self._frame_content_changed = False
 
             # Render the frame
-            self._vao.render(_moderngl.TRIANGLE_STRIP)
+            self._vao.render(_moderngl__TRIANGLE_STRIP)
 
     def render(self):
         if _Registry.render_pipeline_acceleration_available:

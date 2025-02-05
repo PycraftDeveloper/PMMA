@@ -1,4 +1,4 @@
-import math as _math
+from math import floor as _math__floor
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -30,35 +30,35 @@ class TimeFormatter:
         total_seconds = year * _Constants.DAYS_PER_YEAR * _Constants.SECONDS_PER_DAY
 
         # Years
-        years = _math.floor(year)
+        years = _math__floor(year)
         remainder_seconds = total_seconds - (years * _Constants.DAYS_PER_YEAR * _Constants.SECONDS_PER_DAY)
 
         # Months
         month = remainder_seconds / (_Constants.DAYS_PER_MONTH * _Constants.SECONDS_PER_DAY)
-        months = _math.floor(month)
+        months = _math__floor(month)
         remainder_seconds -= months * _Constants.DAYS_PER_MONTH * _Constants.SECONDS_PER_DAY
 
         # Days
         day = remainder_seconds / _Constants.SECONDS_PER_DAY
-        days = _math.floor(day)
+        days = _math__floor(day)
         remainder_seconds -= days * _Constants.SECONDS_PER_DAY
 
         # Hours
         hour = remainder_seconds / _Constants.SECONDS_PER_HOUR
-        hours = _math.floor(hour)
+        hours = _math__floor(hour)
         remainder_seconds -= hours * _Constants.SECONDS_PER_HOUR
 
         # Minutes
         minute = remainder_seconds / _Constants.SECONDS_PER_MINUTE
-        minutes = _math.floor(minute)
+        minutes = _math__floor(minute)
         remainder_seconds -= minutes * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
-        seconds = _math.floor(remainder_seconds)
+        seconds = _math__floor(remainder_seconds)
         remainder_seconds -= seconds
 
         # Microseconds
-        microseconds = _math.floor(remainder_seconds * 1e6)
+        microseconds = _math__floor(remainder_seconds * 1e6)
 
         self._years = years
         self._months = months
@@ -73,31 +73,31 @@ class TimeFormatter:
         🟩 **R** -
         """
         # Years
-        years = _math.floor(month / 12)
+        years = _math__floor(month / 12)
         months_remainder = month - years * 12
 
         # Months
-        months = _math.floor(months_remainder)
+        months = _math__floor(months_remainder)
         day = (months_remainder - months) * _Constants.DAYS_PER_MONTH
-        days = _math.floor(day)
+        days = _math__floor(day)
 
         # Remainder in seconds
         remainder_seconds = (day - days) * _Constants.SECONDS_PER_DAY
 
         # Hours
-        hours = _math.floor(remainder_seconds / _Constants.SECONDS_PER_HOUR)
+        hours = _math__floor(remainder_seconds / _Constants.SECONDS_PER_HOUR)
         remainder_seconds -= hours * _Constants.SECONDS_PER_HOUR
 
         # Minutes
-        minutes = _math.floor(remainder_seconds / _Constants.SECONDS_PER_MINUTE)
+        minutes = _math__floor(remainder_seconds / _Constants.SECONDS_PER_MINUTE)
         remainder_seconds -= minutes * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
-        seconds = _math.floor(remainder_seconds)
+        seconds = _math__floor(remainder_seconds)
         remainder_seconds -= seconds
 
         # Microseconds
-        microseconds = _math.floor(remainder_seconds * 1e6)
+        microseconds = _math__floor(remainder_seconds * 1e6)
 
         self._years = years
         self._months = months
@@ -112,33 +112,33 @@ class TimeFormatter:
         🟩 **R** -
         """
         # Years
-        years = _math.floor(day / _Constants.DAYS_PER_YEAR)
+        years = _math__floor(day / _Constants.DAYS_PER_YEAR)
         days_remainder = day - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        months = _math__floor(days_remainder / _Constants.DAYS_PER_MONTH)
         days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
-        days = _math.floor(days_remainder)
+        days = _math__floor(days_remainder)
 
         # Remainder in seconds
         remainder_seconds = (days_remainder - days) * _Constants.SECONDS_PER_DAY
 
         # Hours
-        hours = _math.floor(remainder_seconds / _Constants.SECONDS_PER_HOUR)
+        hours = _math__floor(remainder_seconds / _Constants.SECONDS_PER_HOUR)
         remainder_seconds -= hours * _Constants.SECONDS_PER_HOUR
 
         # Minutes
-        minutes = _math.floor(remainder_seconds / _Constants.SECONDS_PER_MINUTE)
+        minutes = _math__floor(remainder_seconds / _Constants.SECONDS_PER_MINUTE)
         remainder_seconds -= minutes * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
-        seconds = _math.floor(remainder_seconds)
+        seconds = _math__floor(remainder_seconds)
         remainder_seconds -= seconds
 
         # Microseconds
-        microseconds = _math.floor(remainder_seconds * 1e6)
+        microseconds = _math__floor(remainder_seconds * 1e6)
 
         self._years = years
         self._months = months
@@ -154,31 +154,31 @@ class TimeFormatter:
         """
         # Years
         days_float = hour / _Constants.HOURS_PER_DAY
-        years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
+        years = _math__floor(days_float / _Constants.DAYS_PER_YEAR)
         days_remainder = days_float - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        months = _math__floor(days_remainder / _Constants.DAYS_PER_MONTH)
         days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
-        days = _math.floor(days_remainder)
+        days = _math__floor(days_remainder)
         hours_remainder = (days_remainder - days) * _Constants.HOURS_PER_DAY
 
         # Hours
-        hours = _math.floor(hours_remainder)
+        hours = _math__floor(hours_remainder)
         minute = (hours_remainder - hours) * _Constants.SECONDS_PER_HOUR / _Constants.SECONDS_PER_MINUTE
 
         # Minutes
-        minutes = _math.floor(minute)
+        minutes = _math__floor(minute)
         remainder_seconds = (minute - minutes) * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
-        seconds = _math.floor(remainder_seconds)
+        seconds = _math__floor(remainder_seconds)
         remainder_seconds -= seconds
 
         # Microseconds
-        microseconds = _math.floor(remainder_seconds * 1e6)
+        microseconds = _math__floor(remainder_seconds * 1e6)
 
         self._years = years
         self._months = months
@@ -195,31 +195,31 @@ class TimeFormatter:
         # Years
         hours_float = minute / _Constants.MINUTES_PER_HOUR
         days_float = hours_float / _Constants.HOURS_PER_DAY
-        years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
+        years = _math__floor(days_float / _Constants.DAYS_PER_YEAR)
         days_remainder = days_float - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        months = _math__floor(days_remainder / _Constants.DAYS_PER_MONTH)
         days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
-        days = _math.floor(days_remainder)
+        days = _math__floor(days_remainder)
         hours_float = (days_remainder - days) * _Constants.HOURS_PER_DAY
 
         # Hours
-        hours = _math.floor(hours_float)
+        hours = _math__floor(hours_float)
         minutes_remainder = (hours_float - hours) * _Constants.MINUTES_PER_HOUR
 
         # Minutes
-        minutes = _math.floor(minutes_remainder)
+        minutes = _math__floor(minutes_remainder)
         remainder_seconds = (minutes_remainder - minutes) * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
-        seconds = _math.floor(remainder_seconds)
+        seconds = _math__floor(remainder_seconds)
         remainder_seconds -= seconds
 
         # Microseconds
-        microseconds = _math.floor(remainder_seconds * 1e6)
+        microseconds = _math__floor(remainder_seconds * 1e6)
 
         self._years = years
         self._months = months
@@ -235,31 +235,31 @@ class TimeFormatter:
         """
         # Years
         days_float = second / _Constants.SECONDS_PER_DAY
-        years = _math.floor(days_float / _Constants.DAYS_PER_YEAR)
+        years = _math__floor(days_float / _Constants.DAYS_PER_YEAR)
         days_remainder = days_float - years * _Constants.DAYS_PER_YEAR
 
         # Months
-        months = _math.floor(days_remainder / _Constants.DAYS_PER_MONTH)
+        months = _math__floor(days_remainder / _Constants.DAYS_PER_MONTH)
         days_remainder -= months * _Constants.DAYS_PER_MONTH
 
         # Days
-        days = _math.floor(days_remainder)
+        days = _math__floor(days_remainder)
         hours_float = (days_remainder - days) * _Constants.HOURS_PER_DAY
 
         # Hours
-        hours = _math.floor(hours_float)
+        hours = _math__floor(hours_float)
         minutes_float = (hours_float - hours) * _Constants.MINUTES_PER_HOUR
 
         # Minutes
-        minutes = _math.floor(minutes_float)
+        minutes = _math__floor(minutes_float)
         remainder_seconds = (minutes_float - minutes) * _Constants.SECONDS_PER_MINUTE
 
         # Seconds
-        seconds = _math.floor(remainder_seconds)
+        seconds = _math__floor(remainder_seconds)
         remainder_seconds -= seconds
 
         # Microseconds
-        microseconds = _math.floor(remainder_seconds * 1e6)
+        microseconds = _math__floor(remainder_seconds * 1e6)
 
         self._years = years
         self._months = months

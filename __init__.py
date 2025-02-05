@@ -55,7 +55,6 @@ from pmma.python_src.opengl import *
 from pmma.python_src.events import *
 from pmma.python_src.error import *
 from pmma.python_src.noise import *
-from pmma.python_src.image import *
 from pmma.python_src.audio import *
 from pmma.python_src.video import *
 from pmma.python_src.shapes import *
