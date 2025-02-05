@@ -7,7 +7,7 @@ from numpy import array as _numpy__array
 from av import open as _av__open
 from av import time_base as _av__time_base
 from av import error as _av__error
-from moviepy import VideoFileClip as _moviepy__VideoFileClip
+from moviepy import editor as _moviepy__editor
 from pygame import time as _pygame__time
 
 from pmma.python_src.opengl import Texture as _Texture
@@ -215,7 +215,7 @@ class Video:
         self._input_container.seek(0)
 
         if self._video_has_audio:
-            video_file = _moviepy__VideoFileClip(file_path)
+            video_file = _moviepy__editor.VideoFileClip(file_path)
             raw_audio_data = video_file.audio
             self._audio_player.load_from_moviepy(raw_audio_data)
 
