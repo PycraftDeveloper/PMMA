@@ -1,4 +1,4 @@
-import threading as _threading
+from threading import Thread as _threading__Thread
 
 try:
     import pyadl as _pyadl
@@ -20,8 +20,8 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 if _get_operating_system() == _Constants.WINDOWS:
-    import wmi as _wmi
-    import pythoncom as _pythoncom
+    from wmi import WMI as _wmi__WMI
+    from pythoncom import CoInitialize as _pythoncom__CoInitialize
 
 class GPUs:
     """
@@ -502,11 +502,11 @@ make sure that you are able to pass through the GPU device.")
         🟩 **R** -
         """
         if _get_operating_system() == _Constants.WINDOWS:
-            _pythoncom.CoInitialize()
+            _pythoncom__CoInitialize()
         if wait_for_completion:
             self._update(everything=everything, data_points=data_points)
         else:
-            thread = _threading.Thread(target=self._update, args=(everything, data_points))
+            thread = _threading__Thread(target=self._update, args=(everything, data_points))
             thread.daemon = True
             thread.name = "GPU:Update_Data_Thread"
             thread.start()
@@ -610,7 +610,7 @@ make sure that you are able to pass through the GPU device.")
                             set_attributes.append(data_point)
 
             elif priority == _Constants.WMI and wmi_data != [] and _get_operating_system() == _Constants.WINDOWS:
-                computer = _wmi.WMI()
+                computer = _wmi__WMI()
                 gpu_data = computer.Win32_VideoController()[self._module_identification_indices[_Constants.WMI]]
                 result = []
                 for data_point in wmi_data:

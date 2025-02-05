@@ -1,8 +1,13 @@
 from gc import collect as _gc__collect
-import os as _os
+from os import path as _os__path
 
-import moderngl as _moderngl
-import numpy as _numpy
+from moderngl import LINE_LOOP as _moderngl__LINE_LOOP
+from moderngl import TRIANGLES as _moderngl__TRIANGLES
+from moderngl import POINTS as _moderngl__POINTS
+from moderngl import PROGRAM_POINT_SIZE as _moderngl__PROGRAM_POINT_SIZE
+from moderngl import LINEAR as _moderngl__LINEAR
+from numpy import ndarray as _numpy__ndarray
+from numpy import array_equal as _numpy__array_equal
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.file import path_builder as _path_builder
@@ -394,9 +399,9 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         🟩 **R** -
         """
         if self._vao is not None:
-            self._vao.render(mode=_moderngl.LINE_LOOP)
+            self._vao.render(mode=_moderngl__LINE_LOOP)
 
-    def render(self, mode=_moderngl.TRIANGLES, allow_shaders_to_adjust_point_size=True):
+    def render(self, mode=_moderngl__TRIANGLES, allow_shaders_to_adjust_point_size=True):
         """
         🟩 **R** -
         """
@@ -410,18 +415,18 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
                     self._index_buffer_object._reassign_to_vertex_array_object = False
 
             self._program.use_program()
-            if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
+            if allow_shaders_to_adjust_point_size and mode == _moderngl__POINTS:
                 if self._program.get_using_gl_point_size_syntax():
-                    _Registry.context.enable(_moderngl.PROGRAM_POINT_SIZE)
+                    _Registry.context.enable(_moderngl__PROGRAM_POINT_SIZE)
                     self._logger.log_development("We have automatically detected that you want to \
 render points with their size individually specified in your shader. By default this isn't enabled \
 in OpenGL, but we have enabled it here so you don't have to. This behavior can be controlled \
 using the `allow_shaders_to_adjust_point_size` keyword argument.")
 
             self._vao.render(mode=mode)
-            if allow_shaders_to_adjust_point_size and mode == _moderngl.POINTS:
+            if allow_shaders_to_adjust_point_size and mode == _moderngl__POINTS:
                 if self._program.get_using_gl_point_size_syntax():
-                    _Registry.context.disable(_moderngl.PROGRAM_POINT_SIZE)
+                    _Registry.context.disable(_moderngl__PROGRAM_POINT_SIZE)
 
     def get_vertex_array_object(self):
         """
@@ -570,8 +575,8 @@ class Shader:
                 self._uniform_values[name] = {"value": value, "updated": True}
                 return
 
-            if type(value) == _numpy.ndarray and type(self._uniform_values[name]["value"]) == _numpy.ndarray:
-                if _numpy.array_equal(value, self._uniform_values[name]["value"]) is False:
+            if type(value) == _numpy__ndarray and type(self._uniform_values[name]["value"]) == _numpy__ndarray:
+                if _numpy__array_equal(value, self._uniform_values[name]["value"]) is False:
                     self._uniform_values[name] = {"value": value, "updated": True}
                 return
             elif type(value) in [_OrthographicProjection, _PerspectiveProjection]:
@@ -663,7 +668,7 @@ class Shader:
             for name in vertex_aliases:
                 path = _path_builder(directory, f"{name}.glsl")
                 shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.VERTEX_ONLY)
-                if shader_exists or _os.path.exists(path):
+                if shader_exists or _os__path.exists(path):
                     if shader_exists:
                         vertex_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=_Constants.VERTEX_ONLY)
                         self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
@@ -680,7 +685,7 @@ class Shader:
             for name in fragment_aliases:
                 path = _path_builder(directory, f"{name}.glsl")
                 shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.FRAGMENT_ONLY)
-                if shader_exists or _os.path.exists(path):
+                if shader_exists or _os__path.exists(path):
                     if shader_exists:
                         fragment_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=_Constants.FRAGMENT_ONLY)
                         self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
@@ -735,7 +740,7 @@ class Shader:
                 if data["updated"]:
                     if isinstance(data["value"], (float, int, tuple, list)):
                         self._program[key].value = data["value"]
-                    elif isinstance(data["value"], (bytes, bytearray, _numpy.ndarray)):
+                    elif isinstance(data["value"], (bytes, bytearray, _numpy__ndarray)):
                         self._program[key].write(data["value"])
                     else:
                         raise TypeError("Invalid data type for uniform variable")
@@ -802,7 +807,7 @@ class Texture:
             size,
             data=None,
             components=_Constants.RGB,
-            scaling=_moderngl.LINEAR,
+            scaling=_moderngl__LINEAR,
             x_scaling=None,
             y_scaling=None,
             samples=None):
@@ -825,13 +830,13 @@ class Texture:
         """
         self._internal_texture.write(data)
 
-    def load_texture(self, file_path, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+    def load_texture(self, file_path, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None):
         """
         🟩 **R** -
         """
         self._internal_texture.load_from_file(file_path, scaling=scaling, x_scaling=x_scaling, y_scaling=y_scaling)
 
-    def set_scaling(self, scaling=_moderngl.LINEAR, x_scaling=None, y_scaling=None):
+    def set_scaling(self, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None):
         """
         🟩 **R** -
         """

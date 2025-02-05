@@ -1,6 +1,6 @@
-import random as _random
-import importlib as _importlib
-import threading as _threading
+from random import randint as _random__randint
+from importlib import import_module as _importlib__import_module
+from threading import Thread as _threading__Thread
 from traceback import format_exc as _traceback__format_exc
 from time import sleep as _time__sleep
 from typing import List as _typing__List
@@ -39,24 +39,24 @@ class Perlin:
 
         if _Registry.cython_acceleration_available:
             if _NoiseIntermediary.noise_module is None:
-                _NoiseIntermediary.noise_module = _importlib.import_module(
+                _NoiseIntermediary.noise_module = _importlib__import_module(
                     "pmma.bin.perlin_noise")
 
             if _NoiseIntermediary.extended_noise_module is None:
-                _NoiseIntermediary.extended_noise_module = _importlib.import_module(
+                _NoiseIntermediary.extended_noise_module = _importlib__import_module(
                     "pmma.bin.extended_perlin_noise")
 
         else:
             if _NoiseIntermediary.noise_module is None:
-                _NoiseIntermediary.noise_module = _importlib.import_module(
+                _NoiseIntermediary.noise_module = _importlib__import_module(
                     "pmma.python_src.pyx_alternatives.utility.perlin_noise")
 
             if _NoiseIntermediary.extended_noise_module is None:
-                _NoiseIntermediary.extended_noise_module = _importlib.import_module(
+                _NoiseIntermediary.extended_noise_module = _importlib__import_module(
                     "pmma.python_src.pyx_alternatives.utility.extended_perlin_noise")
 
         if seed is None:
-            seed = _random.randint(0, 1000000)
+            seed = _random__randint(0, 1000000)
         self._seed = seed
 
         self._noise = _NoiseIntermediary.noise_module.PerlinNoise(
@@ -77,7 +77,7 @@ class Perlin:
         self._math = _advmath__Math()
 
         if self._do_prefill:
-            self._prefill_thread = _threading.Thread(
+            self._prefill_thread = _threading__Thread(
                 target=self.prefill)
             self._prefill_thread.name = "PerlinNoise:Prefill_Thread"
 

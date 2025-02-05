@@ -1,6 +1,6 @@
-import time as _time
+from time import perf_counter as _time__perf_counter
 
-import numpy as _numpy
+from numpy import ndarray as _numpy__ndarray
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -49,10 +49,10 @@ class Transition:
         """
         🟩 **R** -
         """
-        if type(start) == _numpy.ndarray:
+        if type(start) == _numpy__ndarray:
             start = start.tolist()
 
-        if type(end) == _numpy.ndarray:
+        if type(end) == _numpy__ndarray:
             end = end.tolist()
 
         self._animation_object = object
@@ -193,7 +193,7 @@ creating your transition?")
         """
         🟩 **R** -
         """
-        now_time = _time.perf_counter()
+        now_time = _time__perf_counter()
         self._animation_duration -= (now_time - self._animation_start_time)
         self._animation_running = False
 
@@ -201,7 +201,7 @@ creating your transition?")
         """
         🟩 **R** -
         """
-        self._animation_start_time = _time.perf_counter()
+        self._animation_start_time = _time__perf_counter()
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 
@@ -209,7 +209,7 @@ creating your transition?")
         """
         🟩 **R** -
         """
-        self._animation_start_time = _time.perf_counter()
+        self._animation_start_time = _time__perf_counter()
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 

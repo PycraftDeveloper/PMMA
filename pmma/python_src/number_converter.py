@@ -1,7 +1,5 @@
-import random as _random
-import math as _math
-
-import numpy as _numpy
+from random import randint as _random__randint
+from math import pi as _math__pi
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.noise import Perlin as _Perlin
@@ -38,7 +36,7 @@ class AngleConverter:
             if format == _Constants.DEGREES:
                 self._angle = angle
             elif format == _Constants.RADIANS:
-                self._angle = (angle / _math.pi) * 180
+                self._angle = (angle / _math__pi) * 180
             elif format == _Constants.GRADIANS:
                 self._angle = angle * (10/9)
             self._angle_set = True
@@ -61,7 +59,7 @@ class AngleConverter:
             if format == _Constants.DEGREES:
                 angle =  self._angle
             elif format == _Constants.RADIANS:
-                angle = (self._angle / 180) * _math.pi
+                angle = (self._angle / 180) * _math__pi
             elif format == _Constants.GRADIANS:
                 angle = self._angle / (10/9)
 
@@ -220,7 +218,7 @@ class ColorConverter:
         if alpha_color_range is None:
             alpha_color_range = color_range
 
-        color = [_random.randint(*red_color_range), _random.randint(*green_color_range), _random.randint(*blue_color_range), _random.randint(*alpha_color_range)]
+        color = [_random__randint(*red_color_range), _random__randint(*green_color_range), _random__randint(*blue_color_range), _random__randint(*alpha_color_range)]
 
         self.set_color(
             color,
@@ -433,7 +431,7 @@ create the window onscreen")
         if y_coordinate_range is None:
             y_coordinate_range = coordinate_range
 
-        coordinate = [_random.randint(*x_coordinate_range), _random.randint(*y_coordinate_range)]
+        coordinate = [_random__randint(*x_coordinate_range), _random__randint(*y_coordinate_range)]
 
         self.set_coordinates(
             coordinate,

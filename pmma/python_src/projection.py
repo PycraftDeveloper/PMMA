@@ -1,4 +1,6 @@
-import numpy as _numpy
+from numpy import tan as _numpy__tan
+from numpy import array as _numpy__array
+from numpy import float32 as _numpy__float32
 
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
@@ -124,13 +126,13 @@ class PerspectiveProjection:
         """
         if self._projection is None or self._projection_changed is True:
             self._projection_changed = False
-            f = 1.0 / _numpy.tan(self._fov.get_angle(format=_Constants.RADIANS) / 2)
-            self._projection = _numpy.array([
+            f = 1.0 / _numpy__tan(self._fov.get_angle(format=_Constants.RADIANS) / 2)
+            self._projection = _numpy__array([
                 [f / self._aspect_ratio, 0,  0,  0],
                 [0, f,  0,  0],
                 [0, 0,  (self._far + self._near) / (self._near - self._far), (2 * self._far * self._near) / (self._near - self._far)],
                 [0, 0, -1,  0]
-            ], dtype=_numpy.float32)
+            ], dtype=_numpy__float32)
         return self._projection
 
     def quit(self):
@@ -249,7 +251,7 @@ class OrthographicProjection:
         """
         if self._projection is None or self._projection_changed is True:
             self._projection_changed = False
-            self._projection = _numpy.array([
+            self._projection = _numpy__array([
                 [2 / (self._max_x_size - self._min_x_size), 0, 0, -(self._max_x_size + self._min_x_size) / (self._max_x_size - self._min_x_size)],
                 [0, 2 / (self._min_y_size - self._max_y_size), 0, -(self._min_y_size + self._max_y_size) / (self._min_y_size - self._max_y_size)],
                 [0, 0, -2 / (self._far - self._near), -(self._far + self._near) / (self._far - self._near)],
