@@ -29,8 +29,6 @@ The full breakdown of what everything does!
     shapes.rst
     passport.rst
     backpack.rst
-    text.rst
-    surface.rst
     advtkinter.rst
     noise.rst
     transitions.rst
