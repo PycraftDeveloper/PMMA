@@ -20,7 +20,6 @@ from pmma.python_src.utility.error_utils import OpenGLNotYetInitializedError as 
 from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeFormatError as _UnexpectedBufferAttributeFormatError
 from pmma.python_src.utility.error_utils import UnknownDataTypeError as _UnknownDataTypeError
 from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeError as _UnexpectedBufferAttributeError
-from pmma.python_src.utility.error_utils import OpenGLObjectNotPreparedForRecreation as _OpenGLObjectNotPreparedForRecreation
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
