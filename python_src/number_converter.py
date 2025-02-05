@@ -7,12 +7,11 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.noise import Perlin as _Perlin
 
 from pmma.python_src.utility.number_converter_utils import ColorIntermediary as _ColorIntermediary
-from pmma.python_src.utility.number_converter_utils import DisplayCoordinatesIntermediary as _DisplayCoordinatesIntermediary
-from pmma.python_src.utility.number_converter_utils import DisplayScalarIntermediary as _DisplayScalarIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class AngleConverter:
     """
@@ -290,8 +289,14 @@ class DisplayScalarConverter:
         """
         _initialize(self)
 
-        self._point_intermediary = _DisplayScalarIntermediary()
-        self._point_cache = {}
+        if not _Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
+            _number_converter_utils()
+
+        self._number_converter_module = _Registry.pmma_module_spine[_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT].get_converter()
+
+        self._internal_number_converter = self._number_converter_module.DisplayScalar()
 
         self._point_set = False
 
@@ -313,13 +318,8 @@ create the window onscreen")
         if format == _Constants.CONVENTIONAL_COORDINATES:
             point = int(point)
 
-        if not (self._point_cache.get(format) and self._point_cache[format] == point):
-            self._point_cache = {}
-            self._point_cache[format] = point
-            self._point_intermediary.set_point(point, in_type=format)
-            self._point_set = True
-            return True
-        return False
+        self._internal_number_converter.set_point(point, in_type=format)
+        self._point_set = True
 
     def get_point_set(self):
         """
@@ -329,17 +329,13 @@ create the window onscreen")
 
     def _handle_resize(self):
         self._point_cache = {}
+        self._internal_number_converter.update_display_height()
 
     def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        if self._point_cache.get(format):
-            return self._point_cache[format]
-        else:
-            point = self._point_intermediary.get_point(out_type=format)
-            self._point_cache[format] = point
-            return point
+        return self._internal_number_converter.get_point(format)
 
     def __del__(self):
         """
@@ -365,8 +361,14 @@ class DisplayCoordinatesConverter:
         """
         _initialize(self)
 
-        self._coordinate_intermediary = _DisplayCoordinatesIntermediary()
-        self._coordinate_cache = {}
+        if not _Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
+            _number_converter_utils()
+
+        self._number_converter_module = _Registry.pmma_module_spine[_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT].get_converter()
+
+        self._internal_number_converter = self._number_converter_module.DisplayCoordinates()
 
         self._seed = seed
 
@@ -390,18 +392,8 @@ create the window onscreen")
         """
         🟩 **R** -
         """
-        if format == _Constants.CONVENTIONAL_COORDINATES:
-            coordinate = _numpy.array([int(coordinate[0]), int(coordinate[1])])
-        else:
-            coordinate = _numpy.array(coordinate, dtype=_numpy.float32)
-
-        if not (format in self._coordinate_cache and self._coordinate_cache[format].tobytes() == coordinate.tobytes()):
-            self._coordinate_cache = {}
-            self._coordinate_intermediary.set_coordinate(coordinate, in_type=format)
-            self._coordinate_cache[format] = coordinate
-            self._coordinate_set = True
-            return True
-        return False
+        self._internal_number_converter.set_coordinate(coordinate, in_type=format)
+        self._coordinate_set = True
 
     def get_coordinate_set(self):
         """
@@ -411,17 +403,13 @@ create the window onscreen")
 
     def _handle_resize(self):
         self._coordinate_cache = {}
+        self._internal_number_converter.update_display_size()
 
     def get_coordinates(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """
-        if format in self._coordinate_cache:
-            return self._coordinate_cache[format]
-        else:
-            coordinate = self._coordinate_intermediary.get_coordinate(out_type=format)
-            self._coordinate_cache[format] = coordinate
-            return coordinate
+        return self._internal_number_converter.get_coordinate(format)
 
     def generate_random_coordinate(
             self,

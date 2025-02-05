@@ -16,7 +16,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
+cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N) noexcept:
     cdef int base_size = base.shape[0]
     cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.empty(N * base_size, dtype=np.float32)
     cdef int i

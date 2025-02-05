@@ -159,8 +159,6 @@ cdef class DisplayScalar:
         """
         🟩 **R** -
         """
-        cdef double display_height
-
         if out_type == Constants.CONVENTIONAL_COORDINATES:
             return self._point
         elif out_type == Constants.OPENGL_COORDINATES:
