@@ -1,4 +1,326 @@
-import pygame as _pygame
+from pygame import init as _pygame__init
+from pygame import event as _pygame__event
+from pygame import APP_TERMINATING as _pygame__APP_TERMINATING
+from pygame import APP_LOWMEMORY as _pygame__APP_LOWMEMORY
+from pygame import APP_WILLENTERBACKGROUND as _pygame__APP_WILLENTERBACKGROUND
+from pygame import APP_DIDENTERBACKGROUND as _pygame__APP_DIDENTERBACKGROUND
+from pygame import APP_WILLENTERFOREGROUND as _pygame__APP_WILLENTERFOREGROUND
+from pygame import APP_DIDENTERFOREGROUND as _pygame__APP_DIDENTERFOREGROUND
+from pygame import AUDIODEVICEADDED as _pygame__AUDIODEVICEADDED
+from pygame import AUDIODEVICEREMOVED as _pygame__AUDIODEVICEREMOVED
+from pygame import CLIPBOARDUPDATE as _pygame__CLIPBOARDUPDATE
+from pygame import DROPFILE as _pygame__DROPFILE
+from pygame import DROPTEXT as _pygame__DROPTEXT
+from pygame import DROPBEGIN as _pygame__DROPBEGIN
+from pygame import DROPCOMPLETE as _pygame__DROPCOMPLETE
+from pygame import FINGERMOTION as _pygame__FINGERMOTION
+from pygame import FINGERDOWN as _pygame__FINGERDOWN
+from pygame import FINGERUP as _pygame__FINGERUP
+from pygame import KEYMAPCHANGED as _pygame__KEYMAPCHANGED
+from pygame import JOYAXISMOTION as _pygame__JOYAXISMOTION
+from pygame import JOYBALLMOTION as _pygame__JOYBALLMOTION
+from pygame import JOYBUTTONDOWN as _pygame__JOYBUTTONDOWN
+from pygame import JOYBUTTONUP as _pygame__JOYBUTTONUP
+from pygame import JOYDEVICEADDED as _pygame__JOYDEVICEADDED
+from pygame import JOYDEVICEREMOVED as _pygame__JOYDEVICEREMOVED
+from pygame import LOCALECHANGED as _pygame__LOCALECHANGED
+from pygame import MOUSEMOTION as _pygame__MOUSEMOTION
+from pygame import MOUSEBUTTONDOWN as _pygame__MOUSEBUTTONDOWN
+from pygame import MOUSEBUTTONUP as _pygame__MOUSEBUTTONUP
+from pygame import MOUSEWHEEL as _pygame__MOUSEWHEEL
+from pygame import KEYDOWN as _pygame__KEYDOWN
+from pygame import K_BACKSPACE as _pygame__K_BACKSPACE
+from pygame import K_TAB as _pygame__K_TAB
+from pygame import K_CLEAR as _pygame__K_CLEAR
+from pygame import K_RETURN as _pygame__K_RETURN
+from pygame import K_PAUSE as _pygame__K_PAUSE
+from pygame import K_ESCAPE as _pygame__K_ESCAPE
+from pygame import K_SPACE as _pygame__K_SPACE
+from pygame import K_EXCLAIM as _pygame__K_EXCLAIM
+from pygame import K_QUOTEDBL as _pygame__K_QUOTEDBL
+from pygame import K_HASH as _pygame__K_HASH
+from pygame import K_DOLLAR as _pygame__K_DOLLAR
+from pygame import K_AMPERSAND as _pygame__K_AMPERSAND
+from pygame import K_QUOTE as _pygame__K_QUOTE
+from pygame import K_LEFTPAREN as _pygame__K_LEFTPAREN
+from pygame import K_RIGHTPAREN as _pygame__K_RIGHTPAREN
+from pygame import K_ASTERISK as _pygame__K_ASTERISK
+from pygame import K_PLUS as _pygame__K_PLUS
+from pygame import K_COMMA as _pygame__K_COMMA
+from pygame import K_MINUS as _pygame__K_MINUS
+from pygame import K_PERIOD as _pygame__K_PERIOD
+from pygame import K_SLASH as _pygame__K_SLASH
+from pygame import K_0 as _pygame__K_0
+from pygame import K_1 as _pygame__K_1
+from pygame import K_2 as _pygame__K_2
+from pygame import K_3 as _pygame__K_3
+from pygame import K_4 as _pygame__K_4
+from pygame import K_5 as _pygame__K_5
+from pygame import K_6 as _pygame__K_6
+from pygame import K_7 as _pygame__K_7
+from pygame import K_8 as _pygame__K_8
+from pygame import K_9 as _pygame__K_9
+from pygame import K_COLON as _pygame__K_COLON
+from pygame import K_SEMICOLON as _pygame__K_SEMICOLON
+from pygame import K_LESS as _pygame__K_LESS
+from pygame import K_EQUALS as _pygame__K_EQUALS
+from pygame import K_GREATER as _pygame__K_GREATER
+from pygame import K_QUESTION as _pygame__K_QUESTION
+from pygame import K_AT as _pygame__K_AT
+from pygame import K_LEFTBRACKET as _pygame__K_LEFTBRACKET
+from pygame import K_BACKSLASH as _pygame__K_BACKSLASH
+from pygame import K_RIGHTBRACKET as _pygame__K_RIGHTBRACKET
+from pygame import K_CARET as _pygame__K_CARET
+from pygame import K_UNDERSCORE as _pygame__K_UNDERSCORE
+from pygame import K_BACKQUOTE as _pygame__K_BACKQUOTE
+from pygame import K_a as _pygame__K_a
+from pygame import K_b as _pygame__K_b
+from pygame import K_c as _pygame__K_c
+from pygame import K_d as _pygame__K_d
+from pygame import K_e as _pygame__K_e
+from pygame import K_f as _pygame__K_f
+from pygame import K_g as _pygame__K_g
+from pygame import K_h as _pygame__K_h
+from pygame import K_i as _pygame__K_i
+from pygame import K_j as _pygame__K_j
+from pygame import K_k as _pygame__K_k
+from pygame import K_l as _pygame__K_l
+from pygame import K_m as _pygame__K_m
+from pygame import K_n as _pygame__K_n
+from pygame import K_o as _pygame__K_o
+from pygame import K_p as _pygame__K_p
+from pygame import K_q as _pygame__K_q
+from pygame import K_r as _pygame__K_r
+from pygame import K_s as _pygame__K_s
+from pygame import K_t as _pygame__K_t
+from pygame import K_u as _pygame__K_u
+from pygame import K_v as _pygame__K_v
+from pygame import K_w as _pygame__K_w
+from pygame import K_x as _pygame__K_x
+from pygame import K_y as _pygame__K_y
+from pygame import K_z as _pygame__K_z
+from pygame import K_DELETE as _pygame__K_DELETE
+from pygame import K_KP0 as _pygame__K_KP0
+from pygame import K_KP1 as _pygame__K_KP1
+from pygame import K_KP2 as _pygame__K_KP2
+from pygame import K_KP3 as _pygame__K_KP3
+from pygame import K_KP4 as _pygame__K_KP4
+from pygame import K_KP5 as _pygame__K_KP5
+from pygame import K_KP6 as _pygame__K_KP6
+from pygame import K_KP7 as _pygame__K_KP7
+from pygame import K_KP8 as _pygame__K_KP8
+from pygame import K_KP9 as _pygame__K_KP9
+from pygame import K_KP_PERIOD as _pygame__K_KP_PERIOD
+from pygame import K_KP_DIVIDE as _pygame__K_KP_DIVIDE
+from pygame import K_KP_MULTIPLY as _pygame__K_KP_MULTIPLY
+from pygame import K_KP_MINUS as _pygame__K_KP_MINUS
+from pygame import K_KP_PLUS as _pygame__K_KP_PLUS
+from pygame import K_KP_ENTER as _pygame__K_KP_ENTER
+from pygame import K_KP_EQUALS as _pygame__K_KP_EQUALS
+from pygame import K_UP as _pygame__K_UP
+from pygame import K_DOWN as _pygame__K_DOWN
+from pygame import K_RIGHT as _pygame__K_RIGHT
+from pygame import K_LEFT as _pygame__K_LEFT
+from pygame import K_INSERT as _pygame__K_INSERT
+from pygame import K_HOME as _pygame__K_HOME
+from pygame import K_END as _pygame__K_END
+from pygame import K_PAGEUP as _pygame__K_PAGEUP
+from pygame import K_PAGEDOWN as _pygame__K_PAGEDOWN
+from pygame import K_F1 as _pygame__K_F1
+from pygame import K_F2 as _pygame__K_F2
+from pygame import K_F3 as _pygame__K_F3
+from pygame import K_F4 as _pygame__K_F4
+from pygame import K_F5 as _pygame__K_F5
+from pygame import K_F6 as _pygame__K_F6
+from pygame import K_F7 as _pygame__K_F7
+from pygame import K_F8 as _pygame__K_F8
+from pygame import K_F9 as _pygame__K_F9
+from pygame import K_F10 as _pygame__K_F10
+from pygame import K_F11 as _pygame__K_F11
+from pygame import K_F12 as _pygame__K_F12
+from pygame import K_F13 as _pygame__K_F13
+from pygame import K_F14 as _pygame__K_F14
+from pygame import K_F15 as _pygame__K_F15
+from pygame import K_NUMLOCK as _pygame__K_NUMLOCK
+from pygame import K_CAPSLOCK as _pygame__K_CAPSLOCK
+from pygame import K_SCROLLOCK as _pygame__K_SCROLLOCK
+from pygame import K_RSHIFT as _pygame__K_RSHIFT
+from pygame import K_LSHIFT as _pygame__K_LSHIFT
+from pygame import K_RCTRL as _pygame__K_RCTRL
+from pygame import K_LCTRL as _pygame__K_LCTRL
+from pygame import K_RALT as _pygame__K_RALT
+from pygame import K_LALT as _pygame__K_LALT
+from pygame import K_RMETA as _pygame__K_RMETA
+from pygame import K_LMETA as _pygame__K_LMETA
+from pygame import K_LSUPER as _pygame__K_LSUPER
+from pygame import K_RSUPER as _pygame__K_RSUPER
+from pygame import K_MODE as _pygame__K_MODE
+from pygame import K_HELP as _pygame__K_HELP
+from pygame import K_PRINT as _pygame__K_PRINT
+from pygame import K_SYSREQ as _pygame__K_SYSREQ
+from pygame import K_BREAK as _pygame__K_BREAK
+from pygame import K_MENU as _pygame__K_MENU
+from pygame import K_POWER as _pygame__K_POWER
+from pygame import K_EURO as _pygame__K_EURO
+from pygame import K_AC_BACK as _pygame__K_AC_BACK
+from pygame import KEYUP as _pygame__KEYUP
+from pygame import K_BACKSPACE as _pygame__K_BACKSPACE
+from pygame import K_TAB as _pygame__K_TAB
+from pygame import K_CLEAR as _pygame__K_CLEAR
+from pygame import K_RETURN as _pygame__K_RETURN
+from pygame import K_PAUSE as _pygame__K_PAUSE
+from pygame import K_ESCAPE as _pygame__K_ESCAPE
+from pygame import K_SPACE as _pygame__K_SPACE
+from pygame import K_EXCLAIM as _pygame__K_EXCLAIM
+from pygame import K_QUOTEDBL as _pygame__K_QUOTEDBL
+from pygame import K_HASH as _pygame__K_HASH
+from pygame import K_DOLLAR as _pygame__K_DOLLAR
+from pygame import K_AMPERSAND as _pygame__K_AMPERSAND
+from pygame import K_QUOTE as _pygame__K_QUOTE
+from pygame import K_LEFTPAREN as _pygame__K_LEFTPAREN
+from pygame import K_RIGHTPAREN as _pygame__K_RIGHTPAREN
+from pygame import K_ASTERISK as _pygame__K_ASTERISK
+from pygame import K_PLUS as _pygame__K_PLUS
+from pygame import K_COMMA as _pygame__K_COMMA
+from pygame import K_MINUS as _pygame__K_MINUS
+from pygame import K_PERIOD as _pygame__K_PERIOD
+from pygame import K_SLASH as _pygame__K_SLASH
+from pygame import K_0 as _pygame__K_0
+from pygame import K_1 as _pygame__K_1
+from pygame import K_2 as _pygame__K_2
+from pygame import K_3 as _pygame__K_3
+from pygame import K_4 as _pygame__K_4
+from pygame import K_5 as _pygame__K_5
+from pygame import K_6 as _pygame__K_6
+from pygame import K_7 as _pygame__K_7
+from pygame import K_8 as _pygame__K_8
+from pygame import K_9 as _pygame__K_9
+from pygame import K_COLON as _pygame__K_COLON
+from pygame import K_SEMICOLON as _pygame__K_SEMICOLON
+from pygame import K_LESS as _pygame__K_LESS
+from pygame import K_EQUALS as _pygame__K_EQUALS
+from pygame import K_GREATER as _pygame__K_GREATER
+from pygame import K_QUESTION as _pygame__K_QUESTION
+from pygame import K_AT as _pygame__K_AT
+from pygame import K_LEFTBRACKET as _pygame__K_LEFTBRACKET
+from pygame import K_BACKSLASH as _pygame__K_BACKSLASH
+from pygame import K_RIGHTBRACKET as _pygame__K_RIGHTBRACKET
+from pygame import K_CARET as _pygame__K_CARET
+from pygame import K_UNDERSCORE as _pygame__K_UNDERSCORE
+from pygame import K_BACKQUOTE as _pygame__K_BACKQUOTE
+from pygame import K_a as _pygame__K_a
+from pygame import K_b as _pygame__K_b
+from pygame import K_c as _pygame__K_c
+from pygame import K_d as _pygame__K_d
+from pygame import K_e as _pygame__K_e
+from pygame import K_f as _pygame__K_f
+from pygame import K_g as _pygame__K_g
+from pygame import K_h as _pygame__K_h
+from pygame import K_i as _pygame__K_i
+from pygame import K_j as _pygame__K_j
+from pygame import K_k as _pygame__K_k
+from pygame import K_l as _pygame__K_l
+from pygame import K_m as _pygame__K_m
+from pygame import K_n as _pygame__K_n
+from pygame import K_o as _pygame__K_o
+from pygame import K_p as _pygame__K_p
+from pygame import K_q as _pygame__K_q
+from pygame import K_r as _pygame__K_r
+from pygame import K_s as _pygame__K_s
+from pygame import K_t as _pygame__K_t
+from pygame import K_u as _pygame__K_u
+from pygame import K_v as _pygame__K_v
+from pygame import K_w as _pygame__K_w
+from pygame import K_x as _pygame__K_x
+from pygame import K_y as _pygame__K_y
+from pygame import K_z as _pygame__K_z
+from pygame import K_DELETE as _pygame__K_DELETE
+from pygame import K_KP0 as _pygame__K_KP0
+from pygame import K_KP1 as _pygame__K_KP1
+from pygame import K_KP2 as _pygame__K_KP2
+from pygame import K_KP3 as _pygame__K_KP3
+from pygame import K_KP4 as _pygame__K_KP4
+from pygame import K_KP5 as _pygame__K_KP5
+from pygame import K_KP6 as _pygame__K_KP6
+from pygame import K_KP7 as _pygame__K_KP7
+from pygame import K_KP8 as _pygame__K_KP8
+from pygame import K_KP9 as _pygame__K_KP9
+from pygame import K_KP_PERIOD as _pygame__K_KP_PERIOD
+from pygame import K_KP_DIVIDE as _pygame__K_KP_DIVIDE
+from pygame import K_KP_MULTIPLY as _pygame__K_KP_MULTIPLY
+from pygame import K_KP_MINUS as _pygame__K_KP_MINUS
+from pygame import K_KP_PLUS as _pygame__K_KP_PLUS
+from pygame import K_KP_ENTER as _pygame__K_KP_ENTER
+from pygame import K_KP_EQUALS as _pygame__K_KP_EQUALS
+from pygame import K_UP as _pygame__K_UP
+from pygame import K_DOWN as _pygame__K_DOWN
+from pygame import K_RIGHT as _pygame__K_RIGHT
+from pygame import K_LEFT as _pygame__K_LEFT
+from pygame import K_INSERT as _pygame__K_INSERT
+from pygame import K_HOME as _pygame__K_HOME
+from pygame import K_END as _pygame__K_END
+from pygame import K_PAGEUP as _pygame__K_PAGEUP
+from pygame import K_PAGEDOWN as _pygame__K_PAGEDOWN
+from pygame import K_F1 as _pygame__K_F1
+from pygame import K_F2 as _pygame__K_F2
+from pygame import K_F3 as _pygame__K_F3
+from pygame import K_F4 as _pygame__K_F4
+from pygame import K_F5 as _pygame__K_F5
+from pygame import K_F6 as _pygame__K_F6
+from pygame import K_F7 as _pygame__K_F7
+from pygame import K_F8 as _pygame__K_F8
+from pygame import K_F9 as _pygame__K_F9
+from pygame import K_F10 as _pygame__K_F10
+from pygame import K_F11 as _pygame__K_F11
+from pygame import K_F12 as _pygame__K_F12
+from pygame import K_F13 as _pygame__K_F13
+from pygame import K_F14 as _pygame__K_F14
+from pygame import K_F15 as _pygame__K_F15
+from pygame import K_NUMLOCK as _pygame__K_NUMLOCK
+from pygame import K_CAPSLOCK as _pygame__K_CAPSLOCK
+from pygame import K_SCROLLOCK as _pygame__K_SCROLLOCK
+from pygame import K_RSHIFT as _pygame__K_RSHIFT
+from pygame import K_LSHIFT as _pygame__K_LSHIFT
+from pygame import K_RCTRL as _pygame__K_RCTRL
+from pygame import K_LCTRL as _pygame__K_LCTRL
+from pygame import K_RALT as _pygame__K_RALT
+from pygame import K_LALT as _pygame__K_LALT
+from pygame import K_RMETA as _pygame__K_RMETA
+from pygame import K_LMETA as _pygame__K_LMETA
+from pygame import K_LSUPER as _pygame__K_LSUPER
+from pygame import K_RSUPER as _pygame__K_RSUPER
+from pygame import K_MODE as _pygame__K_MODE
+from pygame import K_HELP as _pygame__K_HELP
+from pygame import K_PRINT as _pygame__K_PRINT
+from pygame import K_SYSREQ as _pygame__K_SYSREQ
+from pygame import K_BREAK as _pygame__K_BREAK
+from pygame import K_MENU as _pygame__K_MENU
+from pygame import K_POWER as _pygame__K_POWER
+from pygame import K_EURO as _pygame__K_EURO
+from pygame import K_AC_BACK as _pygame__K_AC_BACK
+from pygame import MULTIGESTURE as _pygame__MULTIGESTURE
+from pygame import QUIT as _pygame__QUIT
+from pygame import RENDER_TARGETS_RESET as _pygame__RENDER_TARGETS_RESET
+from pygame import RENDER_DEVICE_RESET as _pygame__RENDER_DEVICE_RESET
+from pygame import SYSWMEVENT as _pygame__SYSWMEVENT
+from pygame import WINDOWSHOWN as _pygame__WINDOWSHOWN
+from pygame import WINDOWHIDDEN as _pygame__WINDOWHIDDEN
+from pygame import WINDOWEXPOSED as _pygame__WINDOWEXPOSED
+from pygame import WINDOWMOVED as _pygame__WINDOWMOVED
+from pygame import WINDOWRESIZED as _pygame__WINDOWRESIZED
+from pygame import WINDOWSIZECHANGED as _pygame__WINDOWSIZECHANGED
+from pygame import WINDOWMINIMIZED as _pygame__WINDOWMINIMIZED
+from pygame import WINDOWMAXIMIZED as _pygame__WINDOWMAXIMIZED
+from pygame import WINDOWRESTORED as _pygame__WINDOWRESTORED
+from pygame import WINDOWENTER as _pygame__WINDOWENTER
+from pygame import WINDOWLEAVE as _pygame__WINDOWLEAVE
+from pygame import WINDOWFOCUSGAINED as _pygame__WINDOWFOCUSGAINED
+from pygame import WINDOWFOCUSLOST as _pygame__WINDOWFOCUSLOST
+from pygame import WINDOWCLOSE as _pygame__WINDOWCLOSE
+from pygame import WINDOWTAKEFOCUS as _pygame__WINDOWTAKEFOCUS
+from pygame import WINDOWHITTEST as _pygame__WINDOWHITTEST
+from pygame import WINDOWICCPROFCHANGED as _pygame__WINDOWICCPROFCHANGED
+from pygame import WINDOWDISPLAYCHANGED as _pygame__WINDOWDISPLAYCHANGED
 
 from pmma.python_src.general import get_operating_system as _get_operating_system
 from pmma.python_src.constants import Constants as _Constants
@@ -31,7 +353,7 @@ class Events:
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
             _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
-            _pygame.init()
+            _pygame__init()
 
         self.iteration_id = 0
 
@@ -59,7 +381,7 @@ example when creating Virtual Desktop applications usig PMMA, but should NOT be 
 most applications. We advise you make and test your application with this feature disabled, \
 then enable it to see if it fixes or improves a desired feature.")
 
-            _pygame.event.set_keyboard_grab(True)
+            _pygame__event.set_keyboard_grab(True)
 
         _Registry.handled_events = True
 
@@ -201,45 +523,45 @@ then enable it to see if it fixes or improves a desired feature.")
             _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(0)
             _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(0)
 
-        raw_events = _pygame.event.get()
+        raw_events = _pygame__event.get()
         for event in raw_events:
-            if event.type == _pygame.APP_TERMINATING:
+            if event.type == _pygame__APP_TERMINATING:
                 if _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.APP_LOWMEMORY:
+            elif event.type == _pygame__APP_LOWMEMORY:
                 if _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.APP_WILLENTERBACKGROUND:
+            elif event.type == _pygame__APP_WILLENTERBACKGROUND:
                 if _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.APP_DIDENTERBACKGROUND:
+            elif event.type == _pygame__APP_DIDENTERBACKGROUND:
                 if _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.APP_WILLENTERFOREGROUND:
+            elif event.type == _pygame__APP_WILLENTERFOREGROUND:
                 if _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.APP_DIDENTERFOREGROUND:
+            elif event.type == _pygame__APP_DIDENTERFOREGROUND:
                 if _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.AUDIODEVICEADDED:
+            elif event.type == _pygame__AUDIODEVICEADDED:
                 if _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.AUDIODEVICEREMOVED:
+            elif event.type == _pygame__AUDIODEVICEREMOVED:
                 if _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.CLIPBOARDUPDATE:
+            elif event.type == _pygame__CLIPBOARDUPDATE:
                 if _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame.DROPFILE:
+            elif event.type == _pygame__DROPFILE:
                 if _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_value(True)
 
