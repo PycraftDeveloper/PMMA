@@ -32,12 +32,6 @@ class Texture:
 
         self._logger = _InternalLogger()
 
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        pass # WIP
-
     def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
         """
         🟩 **R** -

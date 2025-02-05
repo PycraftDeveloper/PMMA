@@ -97,8 +97,6 @@ class Line(_ShapeTemplate, _LineUtils):
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
-        #self._internal_render(color_changed)
-
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
         🟩 **R** -
@@ -463,8 +461,6 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
-        #self._internal_render(color_changed, geometry_created, position_changed)
-
     def set_width(self, width=1, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
@@ -652,8 +648,6 @@ class Arc(_ShapeTemplate, _ArcUtils):
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
-
-        #self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_width(self, width=1):
         """
@@ -850,8 +844,6 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
-        #self._internal_render(color_changed, geometry_created, position_changed)
-
     def set_width(self, width=None):
         """
         🟩 **R** -
@@ -1011,8 +1003,6 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
-
-        #self._internal_render(color_changed, geometry_created)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """

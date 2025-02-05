@@ -7,7 +7,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class ConverterIntermediaryManager:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.converter_intermediary = None
@@ -27,6 +33,9 @@ class ConverterIntermediaryManager:
         self._shut_down = True
 
     def get_converter(self):
+        """
+        🟩 **R** -
+        """
         return self.converter_intermediary
 
 class ColorIntermediary:

@@ -175,4 +175,7 @@ class Display:
         return self._display_intermediary.get_center(as_integer=as_integer)
 
     def get_display_projection(self):
+        """
+        🟩 **R** -
+        """
         return self._display_intermediary.get_display_projection()

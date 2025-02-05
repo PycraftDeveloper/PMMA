@@ -16,8 +16,14 @@ from pmma.python_src.utility.passport_utils import PassportIntermediary as _Pass
 from pmma.python_src.utility.general_utils import create_cache_id as _create_cache_id
 from pmma.python_src.utility.error_utils import ShapeRadiusNotSpecifiedError as _ShapeRadiusNotSpecifiedError
 
-class ShapeTemplate: # add vertex manager and changes to rendering!
+class ShapeTemplate:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self)
 
         if not _Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
@@ -72,9 +78,15 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             self._color_data = self._fill_color_manager.get_color(format=_Constants.SMALL_RGBA)
 
     def get_color_set(self):
+        """
+        🟩 **R** -
+        """
         return self._fill_color_manager.get_color_set()
 
     def get_color(self, format):
+        """
+        🟩 **R** -
+        """
         if self._fill_color_manager.get_color_set():
             return self._fill_color_manager.get_color(format=format)
 
@@ -85,6 +97,9 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             green_color_range=None,
             blue_color_range=None,
             alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
         self._color_changed = True
         self._color_data = self._fill_color_manager.generate_random_color(
             format=_Constants.SMALL_RGBA,
@@ -102,6 +117,9 @@ class ShapeTemplate: # add vertex manager and changes to rendering!
             green_color_range=None,
             blue_color_range=None,
             alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
         self._color_changed = True
         self._color_data = self._fill_color_manager.generate_color_from_perlin_noise(
             self,
@@ -192,6 +210,9 @@ class LineUtils:
         return [*rotated_start, *rotated_end]
 
     def _create_geometry(self):
+        """
+        🟩 **R** -
+        """
         rotation_in_radians = self._rotation.get_angle(format=_Constants.RADIANS)
         start_coords = self.get_start(format=_Constants.OPENGL_COORDINATES)
         start_coords = [start_coords[0] * self._display.get_aspect_ratio(), start_coords[1]]
@@ -245,6 +266,9 @@ class LineUtils:
         self._vertex_data = vertices
 
 class RadialPolygonUtils:
+    """
+    🟩 **R** -
+    """
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
@@ -268,6 +292,9 @@ class RadialPolygonUtils:
         self._vao.render(_moderngl.TRIANGLE_STRIP)
 
     def _create_geometry(self):
+        """
+        🟩 **R** -
+        """
         radius = self._radius.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(_Constants.RADIANS)  # Get the current rotation angle
 
@@ -328,6 +355,9 @@ class RadialPolygonUtils:
         self._vertex_data = vertices
 
 class RectangleUtils:
+    """
+    🟩 **R** -
+    """
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
@@ -351,6 +381,9 @@ class RectangleUtils:
         self._vao.render(_moderngl.TRIANGLE_STRIP)
 
     def _arc(self, cx, cy, start_angle, end_angle, r, segments):
+        """
+        🟩 **R** -
+        """
         arc_vertices = []
         for angle in _numpy.linspace(start_angle, end_angle, segments):
             px = cx + r * _math.cos(angle)
@@ -359,6 +392,9 @@ class RectangleUtils:
         return arc_vertices
 
     def _generate_corner(self, cx, cy, start_angle, end_angle, outer_radius, inner_radius, segments):
+        """
+        🟩 **R** -
+        """
         outer_arc = self._arc(cx, cy, start_angle, end_angle, outer_radius, segments)
         inner_arc = self._arc(cx, cy, start_angle, end_angle, inner_radius, segments)
         return zip(outer_arc, inner_arc)
@@ -483,6 +519,9 @@ class RectangleUtils:
         self._vertex_data = vertices
 
 class ArcUtils:
+    """
+    🟩 **R** -
+    """
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
@@ -593,6 +632,9 @@ class ArcUtils:
         self._vertex_data = rotated_vertices
 
 class EllipseUtils:
+    """
+    🟩 **R** -
+    """
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
         🟩 **R** -
@@ -696,6 +738,9 @@ class EllipseUtils:
         self._vertex_data = rotated_vertices
 
 class PolygonUtils:
+    """
+    🟩 **R** -
+    """
     def _internal_render(self, color_changed, geometry_created):
         """
         🟩 **R** -
@@ -790,6 +835,9 @@ class PolygonUtils:
         self._vertex_data = rotated_vertices
 
 class PixelUtils:
+    """
+    🟩 **R** -
+    """
     def _internal_render(self, color_changed, position_changed, point_size=None):
         """
         🟩 **R** -

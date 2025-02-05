@@ -6,7 +6,13 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 class RenderPipelineManager:
+    """
+    🟩 **R** -
+    """
     def __init__(self):
+        """
+        🟩 **R** -
+        """
         _initialize(self, unique_instance=_Constants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
         _Registry.render_pipeline_acceleration_available = True
 
@@ -24,17 +30,29 @@ class RenderPipelineManager:
         self._pipeline_cache = {}  # Cache of pipelines keyed by shape IDs
 
     def __del__(self):
+        """
+        🟩 **R** -
+        """
         if not self._shut_down:
             _Registry.render_pipeline_acceleration_available = False
 
     def quit(self):
+        """
+        🟩 **R** -
+        """
         self.__del__()
         self._shut_down = True
 
     def add_to_render_pipeline(self, shape):
+        """
+        🟩 **R** -
+        """
         self._raw_data.append(shape)
 
     def arrange(self):
+        """
+        🟩 **R** -
+        """
         # Group shapes by compatibility and preserve pipeline cache
         new_groupings = []
         current_group = None
@@ -79,6 +97,9 @@ class RenderPipelineManager:
         self._raw_data.clear()
 
     def render(self):
+        """
+        🟩 **R** -
+        """
         self.arrange()
         _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
         for renderable in self._render_queue:

@@ -2,7 +2,10 @@ from locale import windows_locale as _locale__windows_locale
 from subprocess import check_output as _subprocess__check_output
 from subprocess import run as _subprocess__run
 from subprocess import CalledProcessError as _subprocess__CalledProcessorError
-import os as _os
+from os import walk as _os__walk
+from os import path as _os__path
+from os import environ as _os__environ
+from os import remove as _os__remove
 from gc import collect as _gc__collect
 from distutils import spawn as _spawn
 from random import random as _random__random
@@ -101,23 +104,23 @@ def clean_up():
     keep_folders_set = set(keep_folders)
     keep_files_set = set(keep_files)
 
-    for root, dirs, files in _os.walk(_Registry.base_path, topdown=True):
+    for root, dirs, files in _os__walk(_Registry.base_path, topdown=True):
         # Modify `dirs` in-place to skip the folders we want to keep
         dirs[:] = [d for d in dirs if d not in keep_folders_set]
 
         # Process files in the current directory
         for file in files:
-            file_path = _os.path.join(root, file)
+            file_path = _os__path.join(root, file)
             # Delete the file if it's not in the keep list
             if file not in keep_files_set:
                 try:
-                    _os.remove(file_path)
+                    _os__remove(file_path)
                 except Exception as error:
                     print(error)
 
         # Process directories in the current directory
         for dir_ in dirs:
-            dir_path = _os.path.join(root, dir_)
+            dir_path = _os__path.join(root, dir_)
             # Delete the directory if it's not in the keep list
             if dir_ not in keep_folders_set:
                 try:
@@ -466,7 +469,7 @@ def get_operating_system():
     if _platform__system() == "Windows":
         return _Constants.WINDOWS
     elif _platform__system() == "Linux":
-        if "ANDROID_STORAGE" in _os.environ:
+        if "ANDROID_STORAGE" in _os__environ:
             return _Constants.ANDROID
         return _Constants.LINUX
     elif _platform__system() == "Darwin":
@@ -534,8 +537,8 @@ def find_executable_nvidia_smi():
         # try to find it from system drive with default installation path
         nvidia_smi = _spawn.find_executable("nvidia-smi")
         if nvidia_smi is None:
-            nvidia_smi = f"{_os.environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
-            if not _os.path.isfile(nvidia_smi):
+            nvidia_smi = f"{_os__environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
+            if not _os__path.isfile(nvidia_smi):
                 nvidia_smi = None
     else:
         nvidia_smi = "nvidia-smi"

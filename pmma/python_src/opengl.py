@@ -112,6 +112,9 @@ class BufferObject:
         self._shut_down = True
 
     def _update_buffer_object(self, data=None):
+        """
+        🟩 **R** -
+        """
         if data is None:
             if self._buffer_object is not None:
                 data = self._buffer_object.read()
@@ -151,35 +154,59 @@ class BufferObject:
         return self._data_size > 0
 
     def set_data(self, data):
+        """
+        🟩 **R** -
+        """
         self._data_size = data.nbytes
         self._update_buffer_object(data=data)
 
     def get_data(self):
+        """
+        🟩 **R** -
+        """
         if self._buffer_object is not None:
             return self._buffer_object.read()
 
     def set_dynamic(self, dynamic):
+        """
+        🟩 **R** -
+        """
         self._dynamic = dynamic
 
         if self._buffer_object is not None:
             self._update_buffer_object()
 
     def get_dynamic(self):
+        """
+        🟩 **R** -
+        """
         return self._dynamic
 
     def set_reserve(self, reserve):
+        """
+        🟩 **R** -
+        """
         self._reserve = reserve
 
         self._reserve = max(self._reserve, self._data_size)
         self._update_buffer_object()
 
     def get_reserve(self):
+        """
+        🟩 **R** -
+        """
         return self._reserve
 
     def get_data(self):
+        """
+        🟩 **R** -
+        """
         return self._data
 
     def clear(self):
+        """
+        🟩 **R** -
+        """
         self._data_size = 0
         if self._buffer_object is not None:
             self._buffer_object.clear()
@@ -370,6 +397,9 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         self._created = True
 
     def _reassociate_buffers(self):
+        """
+        🟩 **R** -
+        """
         if self._vao is not None:
             self._vao.release()
 
@@ -524,12 +554,6 @@ class Shader:
         self._using_gl_point_size_syntax = False
         self._shader_manager = _ShaderManager()
         self._shader_loaded_from_directory = None
-
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        pass # WIP
 
     def get_buffer_input_variable_names(self):
         """
@@ -933,12 +957,6 @@ class FrameBufferObject:
         self._created = False
         self._color_attachments = None
         self._depth_attachment = None
-
-    def prepare_for_recreation(self):
-        """
-        🟩 **R** -
-        """
-        pass # WIP
 
     def create(self, color_attachments=None, depth_attachment=None):
         """
