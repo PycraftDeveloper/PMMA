@@ -1,3 +1,5 @@
+# cython: language_level=3
+
 from colorsys import hsv_to_rgb as _colorsys__hsv_to_rgb
 from colorsys import rgb_to_hsv as _colorsys__rgb_to_hsv
 
@@ -126,106 +128,102 @@ cdef class Color:
 
 cdef class DisplayScalar:
     """
-    🟩 **R** -
+    🟩 **R** - Optimized version
     """
     cdef double _point
     cdef object _logger
-    cdef int display_height
+    cdef double display_height
+    cdef object _display_object  # Store reference to avoid repeated lookups
 
     def __init__(self):
         """
-        🟩 **R** -
+        🟩 **R** - Optimized
         """
         self._point = 0.0
         self._logger = _InternalLogger()
-        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
+        self._display_object = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        self.display_height = self._display_object.get_height()
 
-    cpdef void update_display_height(self):
-        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
+    cpdef void update_display_height(self) noexcept:
+        """ Update display height with stored reference """
+        self.display_height = self._display_object.get_height()
 
-    cpdef void set_point(self, double value, str in_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef void set_point(self, double value, str in_type) noexcept:
         """
-        🟩 **R** -
+        🟩 **R** - Optimized
         """
         cdef double half_display_height
 
-        if in_type == Constants.CONVENTIONAL_COORDINATES:
+        if in_type == Constants.CONVENTIONAL_COORDINATES:  # Constants.CONVENTIONAL_COORDINATES
             self._point = value
-        elif in_type == Constants.OPENGL_COORDINATES:
-            half_display_height = self.display_height / 2.0
+        elif in_type == Constants.OPENGL_COORDINATES:  # Constants.OPENGL_COORDINATES
+            half_display_height = self.display_height * 0.5
             self._point = value * half_display_height
 
-    cpdef double get_point(self, str out_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef double get_point(self, str out_type) noexcept:
         """
-        🟩 **R** -
+        🟩 **R** - Optimized
         """
-        if out_type == Constants.CONVENTIONAL_COORDINATES:
+        if out_type == Constants.CONVENTIONAL_COORDINATES:  # Constants.CONVENTIONAL_COORDINATES
             return self._point
-        elif out_type == Constants.OPENGL_COORDINATES:
-            return self._point / (self.display_height / 2.0)
+        elif out_type == Constants.OPENGL_COORDINATES:  # Constants.OPENGL_COORDINATES
+            return self._point / (self.display_height * 0.5)
 
 cdef class DisplayCoordinates:
     """
-    🟩 **R** -
+    🟩 **R** - Optimized
     """
-    cdef list _coordinate
+    cdef double _coordinate[2]  # Use a fixed-size C array
     cdef object _logger
-    cdef tuple display_size
+    cdef double display_width, display_height
+    cdef object _display_object  # Store reference for performance
 
     def __init__(self):
         """
-        🟩 **R** -
+        🟩 **R** - Optimized
         """
-        self._coordinate = [0.0, 0.0]
+        self._coordinate[0] = 0.0
+        self._coordinate[1] = 0.0
         self._logger = _InternalLogger()
+        self._display_object = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
+        self.display_width, self.display_height = self._display_object.get_size()
 
-        self.display_size = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
+    cpdef void update_display_size(self) noexcept:
+        """ Update display size """
+        self.display_width, self.display_height = self._display_object.get_size()
 
-    cpdef void update_display_size(self):
-        self.display_size = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
-
-    cpdef void set_coordinate(self, object coordinate, str in_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef void set_coordinate(self, object coordinate, str in_type) noexcept:
         """
-        🟩 **R** -
+        🟩 **R** - Optimized
         """
-        cdef list converted_coordinate
+        cdef double x, y
 
-        if isinstance(coordinate, (list, tuple, _numpy.ndarray)):
-            converted_coordinate = list(coordinate)
-        else:
-            converted_coordinate = [float(coordinate)]
+        try:
+            # Assume coordinate is iterable and extract values
+            x, y = coordinate[0], coordinate[1]
+        except (IndexError, TypeError):
+            x, y = 0.0, 0.0  # Default case
 
-        if len(converted_coordinate) == 0:
-            converted_coordinate = [0.0, 0.0]
-        elif len(converted_coordinate) == 1:
-            converted_coordinate.append(0.0)
-        elif len(converted_coordinate) > 2:
-            self._logger.log_development("This process is only required for 2D coordinates.")
-            converted_coordinate = converted_coordinate[:2]
+        cdef double half_display_width = self.display_width * 0.5
+        cdef double half_display_height = self.display_height * 0.5
 
-        cdef double half_display_width, half_display_height, x, y
+        if in_type == Constants.CONVENTIONAL_COORDINATES:  # Constants.CONVENTIONAL_COORDINATES
+            self._coordinate[0] = x
+            self._coordinate[1] = y
+        elif in_type == Constants.OPENGL_COORDINATES:  # Constants.OPENGL_COORDINATES
+            self._coordinate[0] = half_display_width * (x + 1)
+            self._coordinate[1] = -half_display_height * (y - 1)
 
-        if in_type == Constants.CONVENTIONAL_COORDINATES:
-            self._coordinate = converted_coordinate
-        elif in_type == Constants.OPENGL_COORDINATES:
-            half_display_width = self.display_size[0] / 2.0
-            half_display_height = self.display_size[1] / 2.0
-            x = half_display_width * (converted_coordinate[0] + 1)
-            y = -half_display_height * (converted_coordinate[1] - 1)
-            self._coordinate = [x, y]
-
-    cpdef cnp.ndarray[cnp.float32_t, ndim=1] get_coordinate(self, str out_type=Constants.CONVENTIONAL_COORDINATES):
+    cpdef cnp.ndarray[cnp.float32_t, ndim=1] get_coordinate(self, str out_type):
         """
-        🟩 **R** -
+        🟩 **R** - Optimized
         """
-        cdef double display_width, display_height, x, y
+        cdef double x, y
 
-        if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return _numpy.array(self._coordinate, dtype=_numpy.float32)
+        if out_type == Constants.CONVENTIONAL_COORDINATES:  # Constants.CONVENTIONAL_COORDINATES
+            return _numpy.array([self._coordinate[0], self._coordinate[1]], dtype=_numpy.float32)
 
-        elif out_type == Constants.OPENGL_COORDINATES:
-            display_width = self.display_size[0]
-            display_height = self.display_size[1]
-            x = (2.0 * self._coordinate[0]) / display_width - 1.0
-            y = 1.0 - (2.0 * self._coordinate[1]) / display_height
+        elif out_type == Constants.OPENGL_COORDINATES:  # Constants.OPENGL_COORDINATES
+            x = (2.0 * self._coordinate[0]) / self.display_width - 1.0
+            y = 1.0 - (2.0 * self._coordinate[1]) / self.display_height
             return _numpy.array([x, y], dtype=_numpy.float32)

@@ -1,3 +1,5 @@
+# cython: language_level=3
+
 # Correct import for numpy and accessing its random module
 from numpy import random as _numpy__random
 from numpy import empty as _numpy__empty
@@ -5,19 +7,19 @@ from numpy import float64 as _numpy__float64
 from numpy import asarray as _numpy__asarray
 from libc.math cimport floor, pow
 
-cdef double fade(double t):
+cdef inline double fade(double t) noexcept:
     """
     🟩 **R** -
     """
     return t * t * t * (t * (t * 6 - 15) + 10)
 
-cdef double lerp(double t, double a, double b):
+cdef inline double lerp(double t, double a, double b) noexcept:
     """
     🟩 **R** -
     """
     return a + t * (b - a)
 
-cdef double grad(int hash, double x, double y=0, double z=0):
+cdef inline double grad(int hash, double x, double y=0, double z=0) noexcept:
     """
     🟩 **R** -
     """
@@ -52,7 +54,7 @@ cdef class ExtendedPerlinNoise:
         for i in range(256):
             self.permutation[i] = self.permutation[i + 256] = perm[i]
 
-    cdef double perlin(self, double x, double y=0, double z=0):
+    cdef inline double perlin(self, double x, double y=0, double z=0) noexcept:
         """
         🟩 **R** -
         """

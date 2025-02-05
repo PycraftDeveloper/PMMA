@@ -1,3 +1,5 @@
+# cython: language_level=3
+
 import cython
 
 from libc.string cimport memcpy
@@ -16,7 +18,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N) noexcept:
+cdef inline cnp.ndarray[cnp.float32_t, ndim=1] repeat_array_cython(cnp.ndarray[cnp.float32_t, ndim=1] base, int N):
     cdef int base_size = base.shape[0]
     cdef cnp.ndarray[cnp.float32_t, ndim=1] result = np.empty(N * base_size, dtype=np.float32)
     cdef int i
@@ -49,7 +51,7 @@ cdef class RenderPipeline:
 
     @cython.boundscheck(False) # compiler directive
     @cython.wraparound(False) # compiler directive
-    cdef void internal_update(self, list shape_data, int total_data_points):
+    cdef void internal_update(self, list shape_data, int total_data_points) noexcept:
         cdef cnp.float32_t[::1] pipeline_data = np.empty(total_data_points, dtype=np.float32)
         cdef cnp.float32_t[::1] colors, vertices, offsets
         cdef int index = 0
