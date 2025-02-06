@@ -58,12 +58,6 @@ polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (900, 100)])
 polygon.set_closed(True)
 
-octagon = pmma.Square()
-octagon.set_center(display.get_center())
-octagon.set_length(50)
-octagon.set_color([255, 255, 255])
-
-## dont forget about shape filled with 0 width or left as none!!!
 s = time.perf_counter()
 while pmma.Backpack.running:
     a = time.perf_counter()
@@ -83,7 +77,6 @@ while pmma.Backpack.running:
     arc.render()
     ellipse.render()
     polygon.render()
-    octagon.render()
 
     #radial_polygon.set_point_count(4)
 

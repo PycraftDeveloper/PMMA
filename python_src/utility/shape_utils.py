@@ -301,12 +301,12 @@ class RadialPolygonUtils:
             try:
                 point_count = 1 + int((_Constants.TAU / _math.asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
             except:
-                point_count = 2
+                point_count = 3
         else:
             point_count = self._point_count
 
-        if point_count < 2:
-            point_count = 2
+        if point_count < 3:
+            point_count = 3
 
         identifier = _create_cache_id(radius, rotation, self._width, point_count)
 

@@ -7,6 +7,139 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
+class Circle:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
 class Decagon:
     """
     🟩 **R** -
