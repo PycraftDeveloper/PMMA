@@ -212,7 +212,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         self._center = _DisplayCoordinatesConverter()
         self._width = None
         self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_radial_polygon"))
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
@@ -310,8 +310,8 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if point_count < 2:
-            point_count = 2
+        if point_count < 3:
+            point_count = 3
         self._point_count = point_count
 
     def get_point_count(self):
@@ -322,12 +322,12 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             try:
                 point_count = 1 + int((_Constants.TAU / _math__asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
             except:
-                point_count = 2
+                point_count = 3
         else:
             point_count = self._point_count
 
-        if point_count < 2:
-            point_count = 2
+        if point_count < 3:
+            point_count = 3
 
         return point_count
 
@@ -400,7 +400,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_rectangle"))
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
@@ -586,7 +586,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         self._start_angle = _AngleConverter()
         self._stop_angle = _AngleConverter()
         self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_arc"))
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
@@ -780,7 +780,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         self._inner_x_size = _DisplayScalarConverter()
         self._inner_y_size = _DisplayScalarConverter()
         self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_ellipse"))
+        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
         self._vbo = _VertexBufferObject()
         self._vao = _VertexArrayObject()
@@ -1031,12 +1031,6 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         🟩 **R** -
         """
         return self._curved
-
-    def set_closed(self, closed=True):
-        """
-        🟩 **R** -
-        """
-        self._closed = closed
 
     def get_closed(self):
         """
