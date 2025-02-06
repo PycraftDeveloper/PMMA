@@ -417,6 +417,8 @@ class RectangleUtils:
         y_size = self._y_size.get_point(_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
         width = self._width.get_point(_Constants.OPENGL_COORDINATES)
+        if width == 0:
+            width = max(x_size / 2, y_size / 2)
         corner_radius = self._corner_radius.get_point(_Constants.OPENGL_COORDINATES)
         corner_radius = min(corner_radius, x_size / 2, y_size / 2)
         width = min(width, x_size / 2, y_size / 2)
@@ -577,9 +579,16 @@ class ArcUtils:
             rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_arc(identifier)
         else:
             center_x, center_y = [0, 0]
-            self._inner_radius.set_point(self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width)
+
+            if self._width is not None:
+                self._inner_radius.set_point(max(self._radius.get_point() - self._width, 0))
+                inner_radius = self._inner_radius.get_point(_Constants.OPENGL_COORDINATES) if self._width else 0
+            else:
+                inner_radius = 0
+
+            '''self._inner_radius.set_point(self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width)
             inner_radius = self._inner_radius.get_point(format=_Constants.OPENGL_COORDINATES)  # Ensure inner radius is non-negative
-            inner_radius = max(inner_radius, 0)
+            inner_radius = max(inner_radius, 0)'''
 
             # Determine the number of points to create smooth arcs for both inner and outer radii
             try:
@@ -675,10 +684,15 @@ class EllipseUtils:
         outer_size_y = self._outer_y_size.get_point(format=_Constants.OPENGL_COORDINATES)
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
 
+        if self._width is None:
+            width = max(self._outer_x_size.get_point(), self._outer_y_size.get_point())
+        else:
+            width = self._width
+
         identifier = _create_cache_id(
             outer_size_x,
             outer_size_y,
-            self._width,
+            width,
             rotation)
 
         if self.old_shape_identifier is not None:
@@ -700,8 +714,8 @@ class EllipseUtils:
             if num_points < 3:
                 num_points = 3
 
-            self._inner_x_size.set_point(self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
-            self._inner_y_size.set_point(self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - self._width*2)
+            self._inner_x_size.set_point(self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - width*2)
+            self._inner_y_size.set_point(self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) - width*2)
 
             inner_size_x = max(self._inner_x_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
             inner_size_y = max(self._inner_y_size.get_point(format=_Constants.OPENGL_COORDINATES), 0)
@@ -784,10 +798,15 @@ class PolygonUtils:
         outer_points = _numpy.array([p.get_coordinates(format=_Constants.OPENGL_COORDINATES) for p in self._points], dtype='f4')
         rotation = self._rotation.get_angle(format=_Constants.RADIANS)
 
+        if self._width is None:
+            width = 1
+        else:
+            width = self._width
+
         identifier = _create_cache_id(
             outer_points.tobytes(),
             rotation,
-            self._width)
+            width)
 
         if self.old_shape_identifier is not None:
             _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
@@ -799,8 +818,8 @@ class PolygonUtils:
             index = 0
             for p in self._points:
                 coordinate = p.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                adjusted_x = coordinate[0] - self._width
-                adjusted_y = coordinate[1] - self._width
+                adjusted_x = coordinate[0] - width
+                adjusted_y = coordinate[1] - width
                 adjusted_point = [adjusted_x, adjusted_y]
                 self._converted_inner_points[index].set_coordinates(adjusted_point, format=_Constants.CONVENTIONAL_COORDINATES)
                 inner_points.append(self._converted_inner_points[index].get_coordinates(format=_Constants.OPENGL_COORDINATES))

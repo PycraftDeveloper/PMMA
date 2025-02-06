@@ -396,7 +396,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         self._x_size = _DisplayScalarConverter()
         self._y_size = _DisplayScalarConverter()
         self._width = _DisplayScalarConverter()
-        self._width.set_point(1)
+        self._width.set_point(0)
         self._rotation = _AngleConverter()
         self._rotation.set_angle(0)
         self._program = _Shader()
@@ -460,7 +460,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
-    def set_width(self, width=1, format=_Constants.CONVENTIONAL_COORDINATES):
+    def set_width(self, width=0, format=_Constants.CONVENTIONAL_COORDINATES):
         """
         🟩 **R** -
         """

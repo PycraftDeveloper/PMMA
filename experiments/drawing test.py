@@ -23,7 +23,6 @@ line = pmma.Line()
 line.set_start((10, 10))
 line.set_end((200, 200))
 line.set_color([255, 0, 255])
-line.set_width(5)
 
 pixel = pmma.Pixel()
 pixel.set_position((400, 350))
@@ -34,13 +33,12 @@ radial_polygon.set_center([400, 350])
 radial_polygon.set_radius(300)
 radial_polygon.generate_random_color()
 radial_polygon.set_point_count(3)
-radial_polygon.set_width(180)
 
 rectangle = pmma.Rectangle()
 rectangle.set_center((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
-#rectangle.set_width(90)
+rectangle.set_width(9000)
 rectangle.set_corner_radius(100)
 
 arc = pmma.Arc()
@@ -49,19 +47,21 @@ arc.set_color([0, 0, 255])
 arc.set_start_angle(0)
 arc.set_stop_angle(68, angle_format=pmma.Constants.DEGREES)
 arc.set_radius(300)
-arc.set_width(900)
 
 ellipse = pmma.Ellipse()
 ellipse.set_center([500, 500])
 ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
-ellipse.set_width(5)
 
 polygon = pmma.Polygon()
 polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (900, 100)])
 polygon.set_closed(True)
-polygon.set_width(10)
+
+octagon = pmma.Square()
+octagon.set_center(display.get_center())
+octagon.set_length(50)
+octagon.set_color([255, 255, 255])
 
 ## dont forget about shape filled with 0 width or left as none!!!
 s = time.perf_counter()
@@ -83,6 +83,7 @@ while pmma.Backpack.running:
     arc.render()
     ellipse.render()
     polygon.render()
+    octagon.render()
 
     #radial_polygon.set_point_count(4)
 

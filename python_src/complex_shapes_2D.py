@@ -32,6 +32,61 @@ class Decagon:
         """
         self._radial_polygon.render()
 
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
         🟩 **R** -
@@ -110,6 +165,61 @@ class Nonagon:
         🟩 **R** -
         """
         self._radial_polygon.render()
+
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -190,6 +300,61 @@ class Octagon:
         """
         self._radial_polygon.render()
 
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
         🟩 **R** -
@@ -268,6 +433,61 @@ class Heptagon:
         🟩 **R** -
         """
         self._radial_polygon.render()
+
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -352,6 +572,61 @@ class Hexagon:
         """
         self._radial_polygon.render()
 
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
         🟩 **R** -
@@ -430,6 +705,61 @@ class Pentagon:
         🟩 **R** -
         """
         self._radial_polygon.render()
+
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -512,6 +842,61 @@ class Triangle:
         🟩 **R** -
         """
         self._radial_polygon.render()
+
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -604,6 +989,61 @@ class Square:
         🟩 **R** -
         """
         self._rectangle.render()
+
+    def set_color(self, color, format=_Constants.RGB):
+        """
+        🟩 **R** -
+        """
+        self._rectangle.set_color(color, format=format)
+
+    def get_color_set(self):
+        """
+        🟩 **R** -
+        """
+        return self._rectangle.get_color_set()
+
+    def get_color(self, format):
+        """
+        🟩 **R** -
+        """
+        return self._rectangle.get_color(format=format)
+
+    def generate_random_color(
+            self,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._rectangle.generate_random_color(
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
+
+    def generate_color_from_perlin_noise(
+            self,
+            value=None,
+            color_range=[0, 255],
+            red_color_range=None,
+            green_color_range=None,
+            blue_color_range=None,
+            alpha_color_range=None):
+        """
+        🟩 **R** -
+        """
+        self._rectangle.generate_color_from_perlin_noise(
+            self,
+            value=value,
+            color_range=color_range,
+            red_color_range=red_color_range,
+            green_color_range=green_color_range,
+            blue_color_range=blue_color_range,
+            alpha_color_range=alpha_color_range)
 
     def set_width(self, width=1, format=_Constants.CONVENTIONAL_COORDINATES):
         """
