@@ -49,8 +49,6 @@ RELEASE SCHEDULE
 
 Next release:
 	[BUG FIX] Few issues in some realtime audio effects - test these and try and fix.
-	[NEW FEATURE] Create shapes like circle from RadialPolygon
-	[NEW FEATURE] Create shapes like lines from Polygon (with closed=False)
 	[NEW FEATURE] Add collisions to shapes.
 	[EXTENSION] Add paths as extension from transitions.
 	[EXTENSION] Add camera as extension from perspective.

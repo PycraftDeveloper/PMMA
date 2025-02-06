@@ -53,10 +53,9 @@ ellipse.set_center([500, 500])
 ellipse.set_color([255, 255, 0])
 ellipse.set_size([300, 200])
 
-polygon = pmma.Polygon()
+polygon = pmma.Lines()
 polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (900, 100)])
-polygon.set_closed(True)
 
 s = time.perf_counter()
 while pmma.Backpack.running:

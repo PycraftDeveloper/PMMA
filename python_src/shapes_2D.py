@@ -1032,12 +1032,6 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         """
         return self._curved
 
-    def set_closed(self, closed=True):
-        """
-        🟩 **R** -
-        """
-        self._closed = closed
-
     def get_closed(self):
         """
         🟩 **R** -
