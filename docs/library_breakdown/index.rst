@@ -10,7 +10,6 @@ The full breakdown of what everything does!
     sampler.rst
     gpu_distribution.rst
     file.rst
-    image.rst
     executor.rst
     gpu.rst
     controller.rst

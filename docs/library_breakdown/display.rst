@@ -116,5 +116,6 @@ Methods
 
 .. py:method:: Display.get_display_projection() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 

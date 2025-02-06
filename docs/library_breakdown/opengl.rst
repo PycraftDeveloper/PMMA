@@ -62,35 +62,43 @@ Methods
 
 .. py:method:: BufferObject.set_data() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.get_data() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.set_dynamic() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.get_dynamic() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.set_reserve() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.get_reserve() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.get_data() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.clear() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: BufferObject.bind_to_uniform_block() -> None
 
@@ -180,11 +188,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: VertexArrayObject.render() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: VertexArrayObject.get_vertex_array_object() -> None
 
     🟩 **R** -
@@ -250,11 +253,6 @@ Create
 
 Methods
 -------
-
-.. py:method:: Shader.prepare_for_recreation() -> None
-
-    🟩 **R** -
-    
 
 .. py:method:: Shader.get_buffer_input_variable_names() -> None
 
@@ -377,16 +375,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Texture.load_texture() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Texture.set_scaling() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Texture.get_samples() -> None
 
     🟩 **R** -
@@ -457,11 +445,6 @@ Create
 
 Methods
 -------
-
-.. py:method:: FrameBufferObject.prepare_for_recreation() -> None
-
-    🟩 **R** -
-    
 
 .. py:method:: FrameBufferObject.create() -> None
 
