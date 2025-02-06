@@ -272,7 +272,6 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
-        #self._internal_render(color_changed, geometry_created, position_changed)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -311,8 +310,8 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if point_count < 3:
-            point_count = 3
+        if point_count < 2:
+            point_count = 2
         self._point_count = point_count
 
     def get_point_count(self):
@@ -323,12 +322,12 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             try:
                 point_count = 1 + int((_Constants.TAU / _math__asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
             except:
-                point_count = 3
+                point_count = 2
         else:
             point_count = self._point_count
 
-        if point_count < 3:
-            point_count = 3
+        if point_count < 2:
+            point_count = 2
 
         return point_count
 
