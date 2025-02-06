@@ -32,6 +32,7 @@ with _contextlib__redirect_stdout(_buffer):
 _Registry.pygame_launch_message = _buffer.getvalue().strip()
 
 from pmma.python_src.utility.error_utils import *
+from pmma.python_src.complex_shapes_2D import *
 from pmma.python_src.gpu_distribution import *
 from pmma.python_src.number_converter import *
 from pmma.python_src.data_structures import *
@@ -43,6 +44,7 @@ from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
 from pmma.python_src.quickstart import *
 from pmma.python_src.projection import *
+from pmma.python_src.shapes_2D import *
 from pmma.python_src.backpack import *
 from pmma.python_src.passport import *
 from pmma.python_src.executor import *
@@ -57,7 +59,6 @@ from pmma.python_src.error import *
 from pmma.python_src.noise import *
 from pmma.python_src.audio import *
 from pmma.python_src.video import *
-from pmma.python_src.shapes import *
 from pmma.python_src.file import *
 from pmma.python_src.gpu import *
 
