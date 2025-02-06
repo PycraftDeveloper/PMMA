@@ -7,6 +7,484 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
+class Decagon:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+        self._radial_polygon.set_point_count(10)
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
+class Nonagon:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+        self._radial_polygon.set_point_count(9)
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
+class Octagon:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+        self._radial_polygon.set_point_count(8)
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
+class Heptagon:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+        self._radial_polygon.set_point_count(7)
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
+class Septagon(Heptagon):
+    def __init__(self):
+        super().__init__()
+
+class Hexagon:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+        self._radial_polygon.set_point_count(6)
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
+class Pentagon:
+    """
+    🟩 **R** -
+    """
+    def __init__(self):
+        """
+        🟩 **R** -
+        """
+        _initialize(self)
+
+        self._radial_polygon = _RadialPolygon()
+        self._radial_polygon.set_point_count(5)
+
+    def quit(self):
+        """
+        🟩 **R** -
+        """
+        self._shut_down = True
+
+    def render(self):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.render()
+
+    def set_rotation(self, rotation, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_rotation(rotation, format=format)
+
+    def get_rotation(self, format=_Constants.RADIANS):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_rotation(format=format)
+
+    def set_radius(self, value, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_radius(value, format=format)
+
+    def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_radius(format=format)
+
+    def get_point_count(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_point_count()
+
+    def set_center(self, center, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_center(center, format=format)
+
+    def get_center(self, format=_Constants.CONVENTIONAL_COORDINATES):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_center(format=format)
+
+    def set_width(self, width=None):
+        """
+        🟩 **R** -
+        """
+        self._radial_polygon.set_width(width=width)
+
+    def get_width(self):
+        """
+        🟩 **R** -
+        """
+        return self._radial_polygon.get_width()
+
 class Triangle:
     """
     🟩 **R** -
