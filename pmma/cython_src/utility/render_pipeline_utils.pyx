@@ -104,7 +104,7 @@ cdef class RenderPipeline:
 
         self.internal_update(shape_data_list, total_data_points)
 
-    def _internal_render(self):
+    cpdef _internal_render(self):
         new_aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
         if new_aspect_ratio != self.aspect_ratio:
             self._program.set_shader_variable("aspect_ratio", new_aspect_ratio)

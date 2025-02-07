@@ -37,8 +37,11 @@ class Line(_ShapeTemplate, _LineUtils):
 
         if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
-            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
-            _render_pipeline_utils.RenderPipelineManager()
+            if _Registry.cython_acceleration_available:
+                from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            else:
+                from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            _RenderPipelineManager()
 
         self._start = _DisplayCoordinatesConverter()
         self._end = _DisplayCoordinatesConverter()
@@ -203,8 +206,11 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
 
         if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
-            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
-            _render_pipeline_utils.RenderPipelineManager()
+            if _Registry.cython_acceleration_available:
+                from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            else:
+                from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            _RenderPipelineManager()
 
         self._point_count = None
         self._radius = _DisplayScalarConverter()
@@ -389,8 +395,11 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
-            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
-            _render_pipeline_utils.RenderPipelineManager()
+            if _Registry.cython_acceleration_available:
+                from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            else:
+                from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            _RenderPipelineManager()
 
         self._center = _DisplayCoordinatesConverter()
         self._x_size = _DisplayScalarConverter()
@@ -577,8 +586,11 @@ class Arc(_ShapeTemplate, _ArcUtils):
 
         if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
-            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
-            _render_pipeline_utils.RenderPipelineManager()
+            if _Registry.cython_acceleration_available:
+                from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            else:
+                from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            _RenderPipelineManager()
 
         self._radius = _DisplayScalarConverter()
         self._inner_radius = _DisplayScalarConverter()
@@ -770,8 +782,11 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
 
         if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
-            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
-            _render_pipeline_utils.RenderPipelineManager()
+            if _Registry.cython_acceleration_available:
+                from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            else:
+                from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            _RenderPipelineManager()
 
         self._center = _DisplayCoordinatesConverter()
         self._outer_x_size = _DisplayScalarConverter()
@@ -940,8 +955,11 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
 
         if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
-            import pmma.python_src.utility.render_pipeline_manager_utils as _render_pipeline_utils
-            _render_pipeline_utils.RenderPipelineManager()
+            if _Registry.cython_acceleration_available:
+                from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            else:
+                from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+            _RenderPipelineManager()
 
         self._points = []
         self._closed = True

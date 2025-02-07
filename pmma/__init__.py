@@ -135,10 +135,6 @@ def init(
         from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
         _ShapeGeometryManager()
 
-    if Constants.RENDER_PIPELINE_MANAGER_OBJECT in _PassportIntermediary.components_used:
-        from pmma.python_src.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
-        _RenderPipelineManager()
-
     if Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _ConverterIntermediaryManager
         _ConverterIntermediaryManager()
@@ -949,5 +945,12 @@ devices. We are working on a better way to handle this situation.")
 
     if use_c_acceleration:
         cython_thread.join()
+
+    if Constants.RENDER_PIPELINE_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        if _Registry.cython_acceleration_available:
+            from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+        else:
+            from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
+        _RenderPipelineManager()
 
 # Jessy

@@ -12,15 +12,16 @@ def get_pmma_identifier():
     identifier += 1
     return identifier
 
-def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, logging_instantiation=False):
+def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, logging_instantiation=False, cython_class=False):
     """
     🟩 **R** -
     """
-    instance._shut_down = False
-    instance._properties = {
-        _Constants.PMMA_OBJECT_IDENTIFIER: get_pmma_identifier(),
-        _Constants.RENDER_PIPELINE_COMPATIBLE: False,
-        _Constants.ADDITIONAL_INTERNAL_RENDER_DATA: []}
+    if cython_class is False:
+        instance._shut_down = False
+        instance._properties = {
+            _Constants.PMMA_OBJECT_IDENTIFIER: get_pmma_identifier(),
+            _Constants.RENDER_PIPELINE_COMPATIBLE: False,
+            _Constants.ADDITIONAL_INTERNAL_RENDER_DATA: []}
 
     if _Registry.pmma_initialized is False:
         if not logging_instantiation:
