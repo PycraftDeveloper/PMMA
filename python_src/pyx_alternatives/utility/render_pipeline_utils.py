@@ -9,14 +9,11 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-def repeat_array_python(base, N):
-    base = base.astype(np.float32)  # Ensure correct dtype
+def repeat_array(base, N):
     base_size = base.shape[0]
     result = np.empty(N * base_size, dtype=np.float32)
-
     for i in range(N):
-        result[i * base_size: (i + 1) * base_size] = base
-
+        result[i * base_size:(i + 1) * base_size] = base
     return result
 
 class RenderPipeline:
@@ -42,8 +39,8 @@ class RenderPipeline:
         for i in range(len(shape_data)):
             vertices = shape_data[i][0]
             num_points = vertices.shape[0] // 2
-            colors = repeat_array_python(shape_data[i][1], num_points)
-            offsets = repeat_array_python(shape_data[i][2], num_points)
+            colors = repeat_array(shape_data[i][1], num_points)
+            offsets = repeat_array(shape_data[i][2], num_points)
 
             if i > 0:
                 pipeline_data[index:index+8] = pipeline_data[index-8:index]
@@ -89,7 +86,7 @@ class RenderPipeline:
             self._program.set_shader_variable("aspect_ratio", new_aspect_ratio)
             self.aspect_ratio = new_aspect_ratio
 
-        if self._vao.get_created() is False:
+        if not self._vao.get_created():
             self._vao.create(self._program, self._gbo, ["2f", "in_position", "4f", "in_color", "2f", "in_offset"])
 
         self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
