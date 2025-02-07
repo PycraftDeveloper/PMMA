@@ -1,4 +1,4 @@
-from threading import Lock as _threading__Lock
+from threading import RLock as _threading__RLock
 from threading import Thread as _threading__Thread
 from time import sleep as _time__sleep
 
@@ -29,12 +29,12 @@ class ShapeGeometryManager:
 
         self.pixel_geometry = {"vertices": None, "references": 0}
 
-        self.line_lock = _threading__Lock()
-        self.radial_polygon_lock = _threading__Lock()
-        self.rectangle_lock = _threading__Lock()
-        self.arc_lock = _threading__Lock()
-        self.ellipse_lock = _threading__Lock()
-        self.polygon_lock = _threading__Lock()
+        self.line_lock = _threading__RLock()
+        self.radial_polygon_lock = _threading__RLock()
+        self.rectangle_lock = _threading__RLock()
+        self.arc_lock = _threading__RLock()
+        self.ellipse_lock = _threading__RLock()
+        self.polygon_lock = _threading__RLock()
 
         try:
             free_memory = _psutil__virtual_memory().free
@@ -175,7 +175,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        return self.line_geometry.get(identifier) != None
+        return identifier in self.line_geometry
 
     def get_line(self, identifier):
         """
@@ -190,7 +190,7 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         with self.line_lock:
-            if self.line_geometry.get(identifier):
+            if identifier in self.line_geometry:
                 self.line_geometry[identifier]["references"] -= 1
                 if self.line_geometry[identifier]["references"] <= 0:
                     del self.line_geometry[identifier]
@@ -206,7 +206,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        return self.radial_polygon_geometry.get(identifier) != None
+        return identifier in self.radial_polygon_geometry
 
     def get_radial_polygon(self, identifier):
         """
@@ -221,7 +221,7 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         with self.radial_polygon_lock:
-            if self.radial_polygon_geometry.get(identifier):
+            if identifier in self.radial_polygon_geometry:
                 self.radial_polygon_geometry[identifier]["references"] -= 1
                 if self.radial_polygon_geometry[identifier]["references"] <= 0:
                     del self.radial_polygon_geometry[identifier]
@@ -237,7 +237,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        return self.rectangle_geometry.get(identifier) != None
+        return identifier in self.rectangle_geometry
 
     def get_rectangle(self, identifier):
         """
@@ -252,7 +252,7 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         with self.rectangle_lock:
-            if self.rectangle_geometry.get(identifier):
+            if identifier in self.rectangle_geometry:
                 self.rectangle_geometry[identifier]["references"] -= 1
                 if self.rectangle_geometry[identifier]["references"] <= 0:
                     del self.rectangle_geometry[identifier]
@@ -268,7 +268,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        return self.arc_geometry.get(identifier) != None
+        return identifier in self.arc_geometry
 
     def get_arc(self, identifier):
         """
@@ -283,7 +283,7 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         with self.arc_lock:
-            if self.arc_geometry.get(identifier):
+            if identifier in self.arc_geometry:
                 self.arc_geometry[identifier]["references"] -= 1
                 if self.arc_geometry[identifier]["references"] <= 0:
                     del self.arc_geometry[identifier]
@@ -299,7 +299,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        return self.ellipse_geometry.get(identifier) != None
+        return identifier in self.ellipse_geometry
 
     def get_ellipse(self, identifier):
         """
@@ -314,7 +314,7 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         with self.ellipse_lock:
-            if self.ellipse_geometry.get(identifier):
+            if identifier in self.ellipse_geometry:
                 self.ellipse_geometry[identifier]["references"] -= 1
                 if self.ellipse_geometry[identifier]["references"] <= 0:
                     del self.ellipse_geometry[identifier]
@@ -330,7 +330,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        return self.polygon_geometry.get(identifier) != None
+        return identifier in self.polygon_geometry
 
     def get_polygon(self, identifier):
         """
@@ -345,7 +345,7 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         with self.polygon_lock:
-            if self.polygon_geometry.get(identifier):
+            if identifier in self.polygon_geometry:
                 self.polygon_geometry[identifier]["references"] -= 1
                 if self.polygon_geometry[identifier]["references"] <= 0:
                     del self.polygon_geometry[identifier]
