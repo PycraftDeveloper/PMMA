@@ -73,6 +73,7 @@ while pmma.Backpack.running:
     radial_polygon.render()
     rectangle.render()
     pixel.render()
+    #if random.choice([True, False]):
     arc.render()
     ellipse.render()
     polygon.render()

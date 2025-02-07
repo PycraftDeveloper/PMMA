@@ -42,6 +42,7 @@ cdef class RenderPipeline:
         self._program = _Shader()
         self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "render_pipeline"))
         self._program.create()
+        self._program.set_shader_variable("aspect_ratio", self.aspect_ratio)
         self._total_vertexes = 0
 
     def quit(self):
