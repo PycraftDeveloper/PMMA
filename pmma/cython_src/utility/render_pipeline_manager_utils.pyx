@@ -27,7 +27,7 @@ cdef class RenderPipelineManager:
         self._raw_data = []
         self._pipeline_cache = {}  # Cache of pipelines keyed by shape IDs
 
-    def __dealloc__(self):
+    def __del__(self):
         """
         🟩 **R** -
         """
@@ -37,7 +37,7 @@ cdef class RenderPipelineManager:
         """
         🟩 **R** -
         """
-        self.__dealloc__()
+        self.__del__()
 
     cpdef void add_to_render_pipeline(self, object shape):
         """

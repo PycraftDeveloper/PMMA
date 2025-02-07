@@ -184,6 +184,7 @@ class Line(_ShapeTemplate, _LineUtils):
         if width is None:
             width = 1
         self._width = width
+        self._geometry_created = False
 
     def get_width(self):
         """
@@ -373,6 +374,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         if width <= 0:
             width = None
         self._width = width
+        self._geometry_created = False
 
     def get_width(self):
         """
@@ -669,6 +671,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         if width is None:
             width = 1
         self._width = width
+        self._geometry_created = False
 
     def get_width(self):
         """
@@ -865,6 +868,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         if width <= 0:
             width = None
         self._width = width
+        self._geometry_created = False
 
     def get_width(self):
         """
@@ -1042,6 +1046,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         """
         🟩 **R** -
         """
+        self._geometry_created = False
         self._curved = curved
 
     def get_curved(self):
@@ -1087,6 +1092,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         if width <= 0:
             width = None
         self._width = width
+        self._geometry_created = False
 
     def get_width(self):
         """
