@@ -6,6 +6,8 @@ The full breakdown of what everything does!
 .. toctree::
     :maxdepth: 1
 
+    shapes_2D.rst
+    complex_shapes_2D.rst
     video.rst
     sampler.rst
     gpu_distribution.rst
@@ -25,7 +27,6 @@ The full breakdown of what everything does!
     general.rst
     number_converter.rst
     recorder.rst
-    shapes.rst
     passport.rst
     backpack.rst
     advtkinter.rst
