@@ -35,7 +35,7 @@ class RenderPipeline:
         self._vao.quit()
         self._gbo.quit()
 
-    def  internal_update(self, shape_data, total_data_points):
+    def internal_update(self, shape_data, total_data_points):
         pipeline_data = np.empty(total_data_points, dtype=np.float32)
         index = 0
 
@@ -70,7 +70,7 @@ class RenderPipeline:
 
         self._gbo.set_data(pipeline_data)
 
-    def  update(self, shapes):
+    def update(self, shapes):
         total_data_points = 0
         num_shapes = len(shapes)
         shape_data_list = [None] * num_shapes  # Preallocate list
