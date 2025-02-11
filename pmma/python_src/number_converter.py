@@ -327,7 +327,6 @@ create the window onscreen")
 
     def _handle_resize(self):
         self._point_cache = {}
-        self._internal_number_converter.update_display_height()
 
     def get_point(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -401,7 +400,6 @@ create the window onscreen")
 
     def _handle_resize(self):
         self._coordinate_cache = {}
-        self._internal_number_converter.update_display_size()
 
     def get_coordinates(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
