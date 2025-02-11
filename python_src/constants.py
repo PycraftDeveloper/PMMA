@@ -154,7 +154,6 @@ class Constants:
     TRANSITION_MANAGER_OBJECT = "transition manager"
     GPU_DISTRIBUTION_MANAGER_OBJECT = "gpu distribution manager"
     GPU_DISTRIBUTION_OBJECT = "gpu distribution"
-    PROJECTION_INTERMEDIARY_OBJECT = "projection intermediary"
     SHAPE_GEOMETRY_MANAGER_OBJECT = "shape geometry manager"
     RENDER_PIPELINE_MANAGER_OBJECT = "render pipeline manager"
     CONVERTER_INTERMEDIARY_MANAGER_OBJECT = "converter intermediary manager object"
@@ -405,7 +404,6 @@ class Constants:
         TRANSITION_OBJECT,
         GPU_DISTRIBUTION_MANAGER_OBJECT,
         GPU_DISTRIBUTION_OBJECT,
-        PROJECTION_INTERMEDIARY_OBJECT,
         SHAPE_GEOMETRY_MANAGER_OBJECT,
         RENDER_PIPELINE_MANAGER_OBJECT,
         CONVERTER_INTERMEDIARY_MANAGER_OBJECT,
