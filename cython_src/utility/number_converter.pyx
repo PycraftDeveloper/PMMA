@@ -133,7 +133,6 @@ cdef class DisplayScalar:
     cdef double _point
     cdef object _logger
     cdef double display_height
-    cdef object _display_object  # Store reference to avoid repeated lookups
 
     def __init__(self):
         """
@@ -141,12 +140,15 @@ cdef class DisplayScalar:
         """
         self._point = 0.0
         self._logger = _InternalLogger()
-        self._display_object = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        self.display_height = self._display_object.get_height()
+        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
 
-    cpdef void update_display_height(self) noexcept:
+    def __del__(self):
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
+
+    def _handle_resize(self):
         """ Update display height with stored reference """
-        self.display_height = self._display_object.get_height()
+        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
 
     cpdef void set_point(self, double value, str in_type) noexcept:
         """
@@ -185,12 +187,15 @@ cdef class DisplayCoordinates:
         self._coordinate[0] = 0.0
         self._coordinate[1] = 0.0
         self._logger = _InternalLogger()
-        self._display_object = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT]
-        self.display_width, self.display_height = self._display_object.get_size()
+        self.display_width, self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
 
-    cpdef void update_display_size(self) noexcept:
+    def __del__(self):
+        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
+
+    def _handle_resize(self):
         """ Update display size """
-        self.display_width, self.display_height = self._display_object.get_size()
+        self.display_width, self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
 
     cpdef void set_coordinate(self, object coordinate, str in_type) noexcept:
         """
