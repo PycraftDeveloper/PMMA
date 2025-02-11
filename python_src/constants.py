@@ -157,6 +157,8 @@ class Constants:
     SHAPE_GEOMETRY_MANAGER_OBJECT = "shape geometry manager"
     RENDER_PIPELINE_MANAGER_OBJECT = "render pipeline manager"
     CONVERTER_INTERMEDIARY_MANAGER_OBJECT = "converter intermediary manager object"
+    CAMERA_OBJECT = "camera object"
+    CAMERA_MANAGER_OBJECT = "camera intermediary object"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
     TAB_KEY_OBJECT = "tab_key_object"
@@ -407,6 +409,8 @@ class Constants:
         SHAPE_GEOMETRY_MANAGER_OBJECT,
         RENDER_PIPELINE_MANAGER_OBJECT,
         CONVERTER_INTERMEDIARY_MANAGER_OBJECT,
+        CAMERA_OBJECT,
+        CAMERA_MANAGER_OBJECT,
 
         GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,

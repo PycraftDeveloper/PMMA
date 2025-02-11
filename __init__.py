@@ -52,6 +52,7 @@ from pmma.python_src.sampler import *
 from pmma.python_src.display import *
 from pmma.python_src.general import *
 from pmma.python_src.advmath import *
+from pmma.python_src.camera import *
 from pmma.python_src.opengl import *
 from pmma.python_src.events import *
 from pmma.python_src.error import *
@@ -168,6 +169,10 @@ control over this, but its most likely worrying about there not being any valid 
 devices. We are working on a better way to handle this situation.")
 
     register_application()
+
+    if Constants.CAMERA_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.camera_utils import CameraManager as _CameraManager
+        _CameraManager()
 
     if Constants.TRANSITION_MANAGER_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
