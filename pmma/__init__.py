@@ -43,7 +43,6 @@ from pmma.python_src.controller import *
 from pmma.python_src.advtkinter import *
 from pmma.python_src.formatters import *
 from pmma.python_src.quickstart import *
-from pmma.python_src.projection import *
 from pmma.python_src.shapes_2D import *
 from pmma.python_src.backpack import *
 from pmma.python_src.passport import *
@@ -185,10 +184,6 @@ devices. We are working on a better way to handle this situation.")
     if Constants.CONTROLLER_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
         _ControllersIntermediary()
-
-    if Constants.PROJECTION_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
-        from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
-        _ProjectionIntermediary()
 
     if Constants.SHADER_REFERENCE_MANAGER_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.shader_utils import LoadedShaderReferenceManager as _LoadedShaderReferenceManager

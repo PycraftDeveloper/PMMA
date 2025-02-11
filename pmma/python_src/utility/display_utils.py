@@ -32,8 +32,6 @@ from pmma.python_src.events import WindowMinimized_EVENT as _WindowMinimized_EVE
 from pmma.python_src.events import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
 from pmma.python_src.events import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
 from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.projection import OrthographicProjection as _OrthographicProjection
-from pmma.python_src.projection import PerspectiveProjection as _PerspectiveProjection
 from pmma.python_src.advtkinter import Tkinter as _Tkinter
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
@@ -105,8 +103,6 @@ class DisplayIntermediary:
         self._three_dimension_texture = _Texture()
         self._three_dimension_frame_buffer = _FrameBufferObject()
 
-        self._orthographic_projection = None
-
         self._tkinter_backend = _Tkinter()
 
         self._clock = _pygame__time.Clock()
@@ -117,13 +113,6 @@ class DisplayIntermediary:
             _GPUDistributionManager()
 
         self._gpu_distribution_manager = _Registry.pmma_module_spine[_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT]
-
-        if not _Constants.PROJECTION_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PROJECTION_INTERMEDIARY_OBJECT)
-            from pmma.python_src.utility.projection_utils import ProjectionIntermediary as _ProjectionIntermediary
-            _ProjectionIntermediary()
-
-        self._projection_intermediary = _Registry.pmma_module_spine[_Constants.PROJECTION_INTERMEDIARY_OBJECT]
 
         self.functions_to_call_on_resize = {}
 
@@ -460,15 +449,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         _pygame__display.set_icon(icon_img)
         del icon_img
 
-    def get_display_projection(self): # should be public
-        """
-        🟩 **R** -
-        """
-        if _Registry.display_initialized is False:
-            self._logger.log_development("You need to create a display with the `create` before you can use this function.")
-            return
-        return self._orthographic_projection
-
     def on_window_size_changed(self):
         """
         🟩 **R** -
@@ -476,9 +456,6 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         size = _pygame__display.get_window_size()
 
         self._current_display_size = size
-
-        self._projection_intermediary.orthographic_projection = _OrthographicProjection(0, size[0], size[1], 0, 1, -1)
-        self._projection_intermediary.perspective_projection = _PerspectiveProjection(60, self.get_aspect_ratio(), 0.1, 1000) # determine these later
 
         self._setup_layers(size)
 
