@@ -20,9 +20,9 @@ def initialize(instance, unique_instance=None, add_to_pmma_module_spine=False, l
     if cython_class is False:
         instance._shut_down = False
         instance._properties = {
-            _Constants.PMMA_OBJECT_IDENTIFIER: get_pmma_identifier(),
-            _Constants.RENDER_PIPELINE_COMPATIBLE: False,
-            _Constants.ADDITIONAL_INTERNAL_RENDER_DATA: []}
+            _InternalConstants.PMMA_OBJECT_IDENTIFIER: get_pmma_identifier(),
+            _InternalConstants.RENDER_PIPELINE_COMPATIBLE: False,
+            _InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA: []}
 
     if _Registry.pmma_initialized is False:
         if not logging_instantiation:

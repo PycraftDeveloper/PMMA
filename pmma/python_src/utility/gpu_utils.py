@@ -62,7 +62,7 @@ class GPUsIntermediary:
                 adl_uuid = adl_uuid.decode("utf-8")
                 adl_uuid = self.uuid_cleaner(adl_uuid)
                 json_identifier = _json__dumps({"bus": adl_bus, "uuid": adl_uuid})
-                self._unique_gpus[json_identifier] = {_Constants.SMI: None, _Constants.WMI: None, _Constants.PYADL: adl_index}
+                self._unique_gpus[json_identifier] = {_InternalConstants.SMI: None, _InternalConstants.WMI: None, _InternalConstants.PYADL: adl_index}
                 adl_index += 1
 
         nvidia_smi = _find_executable_nvidia_smi()
@@ -83,7 +83,7 @@ class GPUsIntermediary:
                     for key in self._unique_gpus:
                         unloaded_key = _json__loads(key)
                         if unloaded_key["bus"] == smi_bus:
-                            self._unique_gpus[key][_Constants.SMI] = smi_index
+                            self._unique_gpus[key][_InternalConstants.SMI] = smi_index
 
         if _get_operating_system() == _Constants.WINDOWS:
             computer = _wmi__WMI()
@@ -94,7 +94,7 @@ class GPUsIntermediary:
                 for key in self._unique_gpus:
                     unloaded_key = _json__loads(key)
                     if unloaded_key["uuid"] == wmi_uuid:
-                        self._unique_gpus[key][_Constants.WMI] = wmi_index
+                        self._unique_gpus[key][_InternalConstants.WMI] = wmi_index
 
                 wmi_index += 1
 

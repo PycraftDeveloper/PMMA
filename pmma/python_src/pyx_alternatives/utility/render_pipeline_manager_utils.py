@@ -51,7 +51,7 @@ class RenderPipelineManager:
         current_group = None
 
         for content in self._raw_data:
-            is_compatible = content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]
+            is_compatible = content._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE]
 
             if is_compatible:
                 if current_group is None:
@@ -97,6 +97,6 @@ class RenderPipelineManager:
         _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
         for renderable in self._render_queue:
             if hasattr(renderable, "_properties"):
-                renderable._internal_render(*renderable._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA])
+                renderable._internal_render(*renderable._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA])
             else:
                 renderable._internal_render()

@@ -6,10 +6,6 @@ class Constants:
     """
     🟩 **R** -
     """
-    RENDER_PIPELINE_COMPATIBLE = "render pipeline compatible"
-    PMMA_OBJECT_IDENTIFIER = "PMMA object identifier"
-    ADDITIONAL_INTERNAL_RENDER_DATA = "additional internal render data"
-
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
     SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)
     TRANSITION_MOVEMENT_TYPES = [
@@ -79,17 +75,11 @@ class Constants:
     MINUTES_PER_HOUR = 60
     MICROSECONDS_PER_SECOND = 1e6
 
-    CREATE_NO_WINDOW = 0x08000000
-
     WINDOWS = "windows"
     LINUX = "linux"
     MACOS = "macOS"
     JAVA = "java"
     ANDROID = "android"
-
-    SMI = "nvidia-smi"
-    WMI = "wmi"
-    PYADL = "pyadl"
 
     LIGHT = "light"
     DARK = "dark"

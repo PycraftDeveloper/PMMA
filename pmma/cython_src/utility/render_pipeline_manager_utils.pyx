@@ -56,7 +56,7 @@ cdef class RenderPipelineManager:
         cdef object content
 
         for content in self._raw_data:
-            is_compatible = content._properties[_Constants.RENDER_PIPELINE_COMPATIBLE]
+            is_compatible = content._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE]
             if is_compatible:
                 if current_group is None:
                     current_group = []
@@ -105,6 +105,6 @@ cdef class RenderPipelineManager:
         cdef object renderable
         for renderable in self._render_queue:
             if hasattr(renderable, "_properties"):
-                renderable._internal_render(*renderable._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA])
+                renderable._internal_render(*renderable._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA])
             else:
                 renderable._internal_render()
