@@ -1,41 +1,28 @@
 class InternalConstants:
+    SMI = "nvidia-smi"
+    WMI = "wmi"
+    PYADL = "pyadl"
+
+    CREATE_NO_WINDOW = 0x08000000
+
+    RENDER_PIPELINE_COMPATIBLE = "render pipeline compatible"
+    PMMA_OBJECT_IDENTIFIER = "PMMA object identifier"
+    ADDITIONAL_INTERNAL_RENDER_DATA = "additional internal render data"
+
     DISPLAY_OBJECT = "display"
     EVENTS_OBJECT = "events"
-    DRAW_OBJECT = "draw"
-    ADVMATH_OBJECT = "advanced math"
-    THREAD_OBJECT = "thread"
-    TKINTER_OBJECT = "tkinter"
-    BACKPACK_OBJECT = "backpack"
-    COLOR_OBJECT = "color"
-    CONSTANTS_OBJECT = "constants"
-    COORDINATE_OBJECT = "coordinate"
-    FILE_OBJECT = "file"
     FILECORE_OBJECT = "file core"
-    PERLIN_OBJECT = "perlin"
-    BENCHMARK_OBJECT = "benchmark"
-    PASSPORT_OBJECT = "passport"
-    SAMPLER_OBJECT = "sampler"
-    REGISTRY_OBJECT = "registry"
-    TEXT_OBJECT = "text"
-    MEMORY_MANAGER_OBJECT = "memory manager"
     MEMORY_MANAGER_INTERMEDIARY_OBJECT = "memory manager intermediary"
-    IMAGE_OBJECT = "image"
-    LOGGING_OBJECT = "logging"
     LOGGING_INTERMEDIARY_OBJECT = "logging intermediary"
     OPENGL_OBJECT = "opengl"
-    OPENGL_INTERMEDIARY_OBJECT = "opengl intermediary"
-    GPUS_OBJECT = "GPUs"
     GPUS_INTERMEDIARY_OBJECT = "GPUs intermediary"
     CONTROLLER_INTERMEDIARY_OBJECT = "controller intermediary"
     SHADER_REFERENCE_MANAGER_OBJECT = "shader reference manager"
-    TRANSITION_OBJECT =  "transition"
     TRANSITION_MANAGER_OBJECT = "transition manager"
     GPU_DISTRIBUTION_MANAGER_OBJECT = "gpu distribution manager"
-    GPU_DISTRIBUTION_OBJECT = "gpu distribution"
     SHAPE_GEOMETRY_MANAGER_OBJECT = "shape geometry manager"
     RENDER_PIPELINE_MANAGER_OBJECT = "render pipeline manager"
     CONVERTER_INTERMEDIARY_MANAGER_OBJECT = "converter intermediary manager object"
-    CAMERA_OBJECT = "camera object"
     CAMERA_MANAGER_OBJECT = "camera intermediary object"
 
     BACKSPACE_KEY_OBJECT = "backspace_key_object"
@@ -255,43 +242,20 @@ class InternalConstants:
     OBJECT_IDENTIFIERS = [
         DISPLAY_OBJECT,
         EVENTS_OBJECT,
-        DRAW_OBJECT,
-        ADVMATH_OBJECT,
-        THREAD_OBJECT,
-        TKINTER_OBJECT,
-        BACKPACK_OBJECT,
-        COLOR_OBJECT,
-        CONSTANTS_OBJECT,
-        COORDINATE_OBJECT,
-        FILE_OBJECT,
         FILECORE_OBJECT,
-        PERLIN_OBJECT,
-        BENCHMARK_OBJECT,
-        PASSPORT_OBJECT,
-        SAMPLER_OBJECT,
-        REGISTRY_OBJECT,
-        TEXT_OBJECT,
-        MEMORY_MANAGER_OBJECT,
         MEMORY_MANAGER_INTERMEDIARY_OBJECT,
-        IMAGE_OBJECT,
-        LOGGING_OBJECT,
         OPENGL_OBJECT,
-        OPENGL_INTERMEDIARY_OBJECT,
         CONTROLLER_INTERMEDIARY_OBJECT,
         LOGGING_INTERMEDIARY_OBJECT,
         SHADER_REFERENCE_MANAGER_OBJECT,
         TRANSITION_MANAGER_OBJECT,
-        TRANSITION_OBJECT,
         GPU_DISTRIBUTION_MANAGER_OBJECT,
-        GPU_DISTRIBUTION_OBJECT,
         SHAPE_GEOMETRY_MANAGER_OBJECT,
         RENDER_PIPELINE_MANAGER_OBJECT,
         CONVERTER_INTERMEDIARY_MANAGER_OBJECT,
-        CAMERA_OBJECT,
         CAMERA_MANAGER_OBJECT,
-
-        GPUS_OBJECT,
         GPUS_INTERMEDIARY_OBJECT,
+
         BACKSPACE_KEY_OBJECT,
         TAB_KEY_OBJECT,
         CLEAR_KEY_OBJECT,

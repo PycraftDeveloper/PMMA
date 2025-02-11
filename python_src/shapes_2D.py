@@ -34,7 +34,7 @@ class Line(_ShapeTemplate, _LineUtils):
         super().__init__()
 
         _initialize(self)
-        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+        self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
@@ -97,7 +97,7 @@ class Line(_ShapeTemplate, _LineUtils):
         color_changed = self._color_changed
         self._color_changed = False  # Reset the flag
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
+        self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -204,7 +204,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         super().__init__()
 
         _initialize(self)
-        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+        self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
@@ -277,7 +277,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
+        self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -394,7 +394,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         super().__init__()
 
         _initialize(self)
-        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+        self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
@@ -468,7 +468,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
+        self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -585,7 +585,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         super().__init__()
 
         _initialize(self)
-        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+        self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
@@ -659,7 +659,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
+        self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -782,7 +782,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         super().__init__()
 
         _initialize(self)
-        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+        self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
@@ -858,7 +858,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._offset_data = offset
             self._position_changed = False
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
+        self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
         _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -956,7 +956,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         super().__init__()
 
         _initialize(self)
-        self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
+        self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
@@ -1022,7 +1022,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         color_changed = self._color_changed
         self._color_changed = False  # Reset the flag
 
-        self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
+        self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
         _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
@@ -1164,7 +1164,7 @@ class Pixel(_ShapeTemplate, _PixelUtils):
             self._color_changed = False  # Reset the flag
 
         if _Registry.render_pipeline_acceleration_available:
-            self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
+            self._properties[_InternalConstants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
             _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         else:
             self._internal_render(color_changed, position_changed)
