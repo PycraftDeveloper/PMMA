@@ -125,20 +125,6 @@ def init(
 
     _general_utils__update_language()
 
-    if Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
-        from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
-        _MemoryManagerIntermediary(
-            object_lifetime=memory_management_max_object_lifetime,
-            target_size=memory_management_max_size)
-
-    if Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _PassportIntermediary.components_used:
-        from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
-        _ShapeGeometryManager()
-
-    if Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _PassportIntermediary.components_used:
-        from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _ConverterIntermediaryManager
-        _ConverterIntermediaryManager()
-
     logger = _InternalLogger()
 
     logger.log_information("Thank you for using PMMA! Please note that PMMA \
@@ -169,6 +155,20 @@ control over this, but its most likely worrying about there not being any valid 
 devices. We are working on a better way to handle this situation.")
 
     register_application()
+
+    if Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
+        _MemoryManagerIntermediary(
+            object_lifetime=memory_management_max_object_lifetime,
+            target_size=memory_management_max_size)
+
+    if Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
+        _ShapeGeometryManager()
+
+    if Constants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _PassportIntermediary.components_used:
+        from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _ConverterIntermediaryManager
+        _ConverterIntermediaryManager()
 
     if Constants.CAMERA_MANAGER_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.camera_utils import CameraManager as _CameraManager
