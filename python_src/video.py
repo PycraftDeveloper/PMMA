@@ -83,8 +83,6 @@ class Video:
             from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
             _DisplayIntermediary()
 
-        self._surface = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
-
         self._display = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
         self._time_since_last_frame = 0.0
         self._video_size = None
@@ -146,21 +144,6 @@ class Video:
         🟩 **R** -
         """
         self._is_playing = False
-
-    def set_surface(self, surface=None):
-        """
-        🟩 **R** -
-        """
-        if surface is None:
-            surface = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
-
-        self._surface = surface
-
-    def get_surface(self):
-        """
-        🟩 **R** -
-        """
-        return self._surface
 
     def autodetect_and_set_decoder(self, gpu: _GPU=None):
         """
@@ -389,16 +372,16 @@ class Video:
         🟩 **R** -
         """
         if self._video_loaded and self._video_frame is not None:
-            self._surface.update_attempted_render_calls(1)
+            self._display.update_attempted_render_calls(1)
 
-            if self._surface.get_clear_called_but_skipped():
+            if self._display.get_clear_called_but_skipped():
                 return None
 
-            self._surface.set_refresh_optimization_override(True)
+            self._display.set_refresh_optimization_override(True)
 
             with self._frame_locker:
                 if self._frame_content_changed:
-                    self._surface.get_2D_hardware_accelerated_surface()
+                    self._display.get_2D_hardware_accelerated_surface()
 
                     self._texture.write(self._video_frame)
 
