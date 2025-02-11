@@ -1,6 +1,7 @@
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 def set_development_mode(value, internal=True):
     """
@@ -8,7 +9,7 @@ def set_development_mode(value, internal=True):
     """
     _Registry.development_mode = value
     if internal is False:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("Welcome to developer mode. Setting this \
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development("Welcome to developer mode. Setting this \
 will allow for more developer focused information to be displayed to you - handy \
 for building and debugging applications using PMMA!")
 
@@ -51,14 +52,14 @@ def set_allow_anti_aliasing(value, internal=True):
     if original != value:
         _Registry.do_anti_aliasing = value
         if internal is False:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have changed if anti-aliasing will be used in \
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have changed if anti-aliasing will be used in \
 PMMA - this wont effect your own textures for compatibility reasons. However, excessive changes \
 to this value can cause uncomfortable flickering and other rendering issues as content already \
 on the display is cleared in this process. Excessive changes to this value can also negatively \
 effect performance too, so this setting is best used sparingly (for example as a toggle with an \
 application's setting menu).")
         if _Registry.display_initialized:
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
+            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].on_window_size_changed()
 
 def get_allow_anti_aliasing():
     """
@@ -76,14 +77,14 @@ def set_anti_aliasing_level(value, internal=True):
         _Registry.anti_aliasing_level = value
         if _Registry.do_anti_aliasing:
             if internal is False:
-                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have changed the quality of the anti-aliasing that will be used in \
+                _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have changed the quality of the anti-aliasing that will be used in \
 PMMA - this wont effect your own textures for compatibility reasons. However, excessive changes \
 to this value can cause uncomfortable flickering and other rendering issues as content already \
 on the display is cleared in this process. Excessive changes to this value can also negatively \
 effect performance too, so this setting is best used sparingly (for example as a toggle with an \
 application's setting menu).")
             if _Registry.display_initialized:
-                _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
+                _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].on_window_size_changed()
 
 def get_anti_aliasing_level():
     """

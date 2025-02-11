@@ -13,6 +13,7 @@ from pmma.python_src.advmath import Math as _Math
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class TransitionManager:
     """
@@ -24,7 +25,7 @@ class TransitionManager:
         """
         _initialize(
             self,
-            unique_instance=_Constants.TRANSITION_MANAGER_OBJECT,
+            unique_instance=_InternalConstants.TRANSITION_MANAGER_OBJECT,
             add_to_pmma_module_spine=True)
 
         self._transitions = {}

@@ -21,6 +21,7 @@ from pmma.python_src.utility.shape_utils import ArcUtils as _ArcUtils
 from pmma.python_src.utility.shape_utils import EllipseUtils as _EllipseUtils
 from pmma.python_src.utility.shape_utils import PolygonUtils as _PolygonUtils
 from pmma.python_src.utility.shape_utils import PixelUtils as _PixelUtils
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Line(_ShapeTemplate, _LineUtils):
     """
@@ -35,8 +36,8 @@ class Line(_ShapeTemplate, _LineUtils):
         _initialize(self)
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
-        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+        if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -64,7 +65,7 @@ class Line(_ShapeTemplate, _LineUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
 
     def quit(self):
         """
@@ -98,7 +99,7 @@ class Line(_ShapeTemplate, _LineUtils):
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
-        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -205,8 +206,8 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         _initialize(self)
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
-        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+        if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -238,7 +239,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
 
     def quit(self):
         """
@@ -278,7 +279,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
-        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -395,8 +396,8 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         _initialize(self)
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
-        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+        if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -429,7 +430,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
 
     def quit(self):
         """
@@ -469,7 +470,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
-        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
     def set_width(self, width=0, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -586,8 +587,8 @@ class Arc(_ShapeTemplate, _ArcUtils):
         _initialize(self)
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
-        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+        if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -620,7 +621,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
 
     def quit(self):
         """
@@ -660,7 +661,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
-        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
     def set_width(self, width=1):
         """
@@ -783,8 +784,8 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         _initialize(self)
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
-        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+        if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -819,7 +820,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
 
     def quit(self):
         """
@@ -859,7 +860,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed, geometry_created]
 
-        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
     def set_width(self, width=None):
         """
@@ -957,8 +958,8 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         _initialize(self)
         self._properties[_Constants.RENDER_PIPELINE_COMPATIBLE] = True
 
-        if not _Constants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDER_PIPELINE_MANAGER_OBJECT)
+        if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -989,7 +990,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
 
     def quit(self):
         """
@@ -1023,7 +1024,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
 
         self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, geometry_created]
 
-        _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+        _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
 
     def set_rotation(self, rotation, format=_Constants.RADIANS):
         """
@@ -1130,7 +1131,7 @@ class Pixel(_ShapeTemplate, _PixelUtils):
             self._vao.quit()
 
             if self.old_shape_identifier is not None:
-                _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_pixel()
+                _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_pixel()
 
     def quit(self):
         """
@@ -1164,7 +1165,7 @@ class Pixel(_ShapeTemplate, _PixelUtils):
 
         if _Registry.render_pipeline_acceleration_available:
             self._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA] = [color_changed, position_changed]
-            _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+            _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         else:
             self._internal_render(color_changed, position_changed)
 

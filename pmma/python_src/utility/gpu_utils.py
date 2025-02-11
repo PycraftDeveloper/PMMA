@@ -20,6 +20,7 @@ from pmma.python_src.executor import Executor as _Executor
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 if _get_operating_system() == _Constants.WINDOWS:
     from wmi import WMI as _wmi__WMI
@@ -46,7 +47,7 @@ class GPUsIntermediary:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.GPUS_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 

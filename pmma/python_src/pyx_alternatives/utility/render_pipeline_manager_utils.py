@@ -2,6 +2,7 @@ from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.pyx_alternatives.utility.render_pipeline_utils import RenderPipeline as _RenderPipeline
 
@@ -13,7 +14,7 @@ class RenderPipelineManager:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
         _Registry.render_pipeline_acceleration_available = True
 
         self._render_queue = []
@@ -93,7 +94,7 @@ class RenderPipelineManager:
         🟩 **R** -
         """
         self.arrange()
-        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
         for renderable in self._render_queue:
             if hasattr(renderable, "_properties"):
                 renderable._internal_render(*renderable._properties[_Constants.ADDITIONAL_INTERNAL_RENDER_DATA])

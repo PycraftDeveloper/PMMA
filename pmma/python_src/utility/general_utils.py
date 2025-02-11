@@ -35,6 +35,7 @@ from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _s
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.pmma_configuration import save_configuration
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
@@ -153,7 +154,7 @@ def targeted_profile_start():
     🟩 **R** -
     """
     if _Registry.profiler is None:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
 
@@ -161,7 +162,7 @@ however you haven't enabled profiling in 'pmma.init()'. Therefore this has no ef
     if _Registry.targeted_profile_application:
         _Registry.profiler.enable()
     else:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you already specified that you want to profile everything, so this has no effect. \
 This behavior can be configured in 'pmma.init()'.")
@@ -171,7 +172,7 @@ def targeted_profile_end():
     🟩 **R** -
     """
     if _Registry.profiler is None:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
 
@@ -179,7 +180,7 @@ however you haven't enabled profiling in 'pmma.init()'. Therefore this has no ef
     if _Registry.targeted_profile_application:
         _Registry.profiler.disable()
     else:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Just a quick heads up, you are attempting to profile this specifically \
 however you already specified that you want to profile everything, so this has no effect. \
 This behavior can be configured in 'pmma.init()'.")
@@ -213,7 +214,7 @@ def convert_number_to_text(value):
     try:
         return _num2words__num2words(value, lang=_Registry.language)
     except OverflowError:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "Woah! {} is a very large number - too big \
 unfortunately to convert to words. Instead the value will be returned as a string.", variables=[value])
         return str(value)
@@ -246,7 +247,7 @@ def quit(show_statistics=None, terminate_application=True):
     if _Registry.profiler is not None:
         _Registry.profiler.disable()
         if _Registry.profile_result_path is None:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "We are using the default locations for storing profile information as you never \
 specified where you would like them to be placed. This can be done through: \
 `pmma.set_profile_result_path(path)`. Instead we are going to be storing your profiled results here: {}",
@@ -256,7 +257,7 @@ specified where you would like them to be placed. This can be done through: \
             path = _Registry.profile_result_path
 
         if _Registry.clean_profile:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "You are using PMMA's clean profile function. What this does is remove all the \
 lines from the profile that your application didn't run, often considerably shortening the profile \
 results making it easier to find whats slowing your application down. This is enabled by default, \
@@ -292,30 +293,30 @@ results in some cases!")
         if _Registry.display_initialized:
             time_formatter_instance = _TimeFormatter()
             time_formatter_instance.set_from_second(_time__perf_counter() - _Registry.application_start_time)
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
         if _Registry.application_finished_loading_time is not None:
             time_formatter_instance.set_from_second(_Registry.application_finished_loading_time - _Registry.application_start_time)
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} loaded in: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
 
         if _Registry.display_initialized:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information("PMMA statistics: {} had an average \
 frame rate of {} Hz.", variables=[app_name, _Registry.application_average_frame_rate['Mean']])
 
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
             "PMMA statistics: {} used {} instances of PMMA operations.", variables=[app_name, _Registry.number_of_instantiated_objects])
 
         if _Registry.perlin_noise_prefill_single_samples != 0 or _Registry.perlin_noise_prefill_array_samples != 0:
-            logged_noise_statistics = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+            logged_noise_statistics = _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                 "PMMA statistics: {} used Noise component. In the prefilling process, {} single \
 samples where used, and {}/10 array samples where used.",
                 variables=[app_name, _Registry.perlin_noise_prefill_single_samples,
                 _Registry.perlin_noise_prefill_array_samples])
 
             if logged_noise_statistics:
-                _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+                _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                     "The Noise component of PMMA uses a prefilling process to try \
 and identify the minimum and maximum values for each noise method. This is required as depending \
 on how PMMA uses compilation - or not uses compilation - the ranges can change as the precision \
@@ -327,25 +328,25 @@ operations, meaning that fewer need to be called for every single call. Addition
 nD size of 10 is enforced as larger values often result in excessive memory usage, especially when \
 generating 3D arrays.")
 
-    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].clear_internal_logs()
-    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].clear_external_logs()
+    _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].clear_internal_logs()
+    _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].clear_external_logs()
 
-    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+    _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
         "PMMA is now exiting. Thanks for using PMMA!")
 
     save_configuration()
 
-    if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(
+    if _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
             "Quitting PMMA object with ID: {}",
-            variables=[_Constants.DISPLAY_OBJECT],
+            variables=[_InternalConstants.DISPLAY_OBJECT],
             repeat_for_effect=True)
 
-        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].quit()
-        del _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].quit()
+        del _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
 
-    logger = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
-    del _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
+    logger = _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT]
+    del _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT]
 
     keys = list(_Registry.pmma_module_spine.keys())
 
@@ -376,10 +377,10 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape
     """
     🟩 **R** -
     """
-    if (_Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine and
-            _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine):
-        if _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].get_value():
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].on_window_size_changed()
+    if (_InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine and
+            _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine):
+        if _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT].get_value():
+            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].on_window_size_changed()
 
     if _time__perf_counter() - _Registry.power_status_checked_time > 10:
         _Registry.power_saving_mode = is_battery_saver_enabled()
@@ -429,26 +430,26 @@ def compute(allow_anti_aliasing_adjustments_for_low_power_mode=True, allow_shape
         _PassportIntermediary.passport_changed = False
         register_application()
 
-    if _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys() and not _Constants.EVENTS_OBJECT in _Registry.pmma_module_spine.keys():
-        _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have created a display through PMMA, but haven't \
+    if _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys() and not _InternalConstants.EVENTS_OBJECT in _Registry.pmma_module_spine.keys():
+        _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development("You have created a display through PMMA, but haven't \
 created an events object. Handling events for your PMMA display is important as \
 it tells the operating system that the application is still running and allows the \
 user to interact with your application. Failure to do this can lead to an unresponsive \
 window which can cause unexpected behavior.")
 
     if _Registry.display_initialized:
-        if (_Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine and
-                _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].get_value()):
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(False)
-        elif (_Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine and
-                _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()):
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_minimized(True)
-        if (_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine and
-                _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()):
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(True)
-        elif (_Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine and
-                _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()):
-            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].set_window_in_focus(False)
+        if (_InternalConstants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_InternalConstants.WINDOWRESTORED_EVENT_OBJECT].get_value()):
+            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].set_window_minimized(False)
+        elif (_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT].get_value()):
+            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].set_window_minimized(True)
+        if (_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT].get_value()):
+            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].set_window_in_focus(True)
+        elif (_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine and
+                _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT].get_value()):
+            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].set_window_in_focus(False)
 
 def register_application():
     """

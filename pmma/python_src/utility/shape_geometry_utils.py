@@ -5,10 +5,8 @@ from time import sleep as _time__sleep
 from waiting import wait as _waiting__wait
 from psutil import virtual_memory as _psutil__virtual_memory
 
-from pmma.python_src.constants import Constants as _Constants
-
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class ShapeGeometryManager:
     """
@@ -18,7 +16,7 @@ class ShapeGeometryManager:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.line_geometry = {}
         self.radial_polygon_geometry = {}

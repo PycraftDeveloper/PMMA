@@ -23,6 +23,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class MemoryManagerIntermediary:
     """
@@ -35,7 +36,7 @@ class MemoryManagerIntermediary:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 

@@ -1,10 +1,9 @@
-from pmma.python_src.constants import Constants as _Constants
-
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class CameraManager:
     def __init__(self):
-        _initialize(self, unique_instance=_Constants.CAMERA_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.CAMERA_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self._cameras = {}
         self._primary_camera = None

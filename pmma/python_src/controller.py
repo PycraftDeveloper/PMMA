@@ -1,7 +1,5 @@
 from pygame import joystick as _pygame__joystick
 
-from pmma.python_src.constants import Constants as _Constants
-
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.event_utils import Y_BUTTON as _event_utils__Y_BUTTON
 from pmma.python_src.utility.event_utils import B_BUTTON as _event_utils__B_BUTTON
@@ -27,6 +25,7 @@ from pmma.python_src.utility.event_utils import Track_BALL as _event_utils__Trac
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Controllers:
     """
@@ -38,12 +37,12 @@ class Controllers:
         """
         _initialize(self)
 
-        if not _Constants.CONTROLLER_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.CONTROLLER_INTERMEDIARY_OBJECT)
+        if not _InternalConstants.CONTROLLER_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.CONTROLLER_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.controller_utils import ControllersIntermediary as _ControllersIntermediary
             _ControllersIntermediary()
 
-        self._controller_intermediary = _Registry.pmma_module_spine[_Constants.CONTROLLER_INTERMEDIARY_OBJECT]
+        self._controller_intermediary = _Registry.pmma_module_spine[_InternalConstants.CONTROLLER_INTERMEDIARY_OBJECT]
 
     def quit(self):
         """

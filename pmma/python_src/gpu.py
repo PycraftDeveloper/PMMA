@@ -18,6 +18,7 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 if _get_operating_system() == _Constants.WINDOWS:
     from wmi import WMI as _wmi__WMI
@@ -33,12 +34,12 @@ class GPUs:
         """
         _initialize(self)
 
-        if not _Constants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.GPUS_INTERMEDIARY_OBJECT)
+        if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
             _GPUsIntermediary()
 
-        self._gpu_intermediary = _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT]
+        self._gpu_intermediary = _Registry.pmma_module_spine[_InternalConstants.GPUS_INTERMEDIARY_OBJECT]
 
     def quit(self):
         """
