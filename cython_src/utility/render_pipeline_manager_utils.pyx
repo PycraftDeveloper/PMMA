@@ -1,9 +1,11 @@
 # cython: language_level=3
 
 from pmma.python_src.constants import Constants as _Constants
+
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.bin.render_pipeline_utils import RenderPipeline as _RenderPipeline
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 cdef class RenderPipelineManager:
     """
@@ -19,7 +21,7 @@ cdef class RenderPipelineManager:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True, cython_class=True)
+        _initialize(self, unique_instance=_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True, cython_class=True)
         _Registry.render_pipeline_acceleration_available = True
 
         self._render_queue = []
@@ -99,7 +101,7 @@ cdef class RenderPipelineManager:
         🟩 **R** -
         """
         self.arrange()
-        _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_2D_hardware_accelerated_surface()
         cdef object renderable
         for renderable in self._render_queue:
             if hasattr(renderable, "_properties"):

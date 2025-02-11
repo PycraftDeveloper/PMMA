@@ -1,9 +1,9 @@
 from pygame import joystick as _pygame__joystick
 from pygame import init as _pygame__init
 
-from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.controller import Controller as _Controller
 
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
@@ -18,7 +18,7 @@ class ControllersIntermediary:
         """
         _initialize(
             self,
-            unique_instance=_Constants.CONTROLLER_INTERMEDIARY_OBJECT,
+            unique_instance=_InternalConstants.CONTROLLER_INTERMEDIARY_OBJECT,
             add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()

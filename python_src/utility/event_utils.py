@@ -1,7 +1,6 @@
 from time import perf_counter as _time__perf_counter
 
-from pmma.python_src.constants import Constants as _Constants
-
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Backspace_KEY:
@@ -19,7 +18,7 @@ class Backspace_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -99,7 +98,7 @@ class Tab_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.TAB_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.TAB_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -179,7 +178,7 @@ class Clear_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.CLEAR_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.CLEAR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -259,7 +258,7 @@ class Return_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RETURN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RETURN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -339,7 +338,7 @@ class Pause_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PAUSE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PAUSE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -419,7 +418,7 @@ class Escape_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.ESCAPE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.ESCAPE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -499,7 +498,7 @@ class Space_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -579,7 +578,7 @@ class ExclamationMark_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.EXCLAMATIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -659,7 +658,7 @@ class DoubleQuote_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DOUBLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DOUBLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -739,7 +738,7 @@ class Hashtag_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.HASHTAG_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.HASHTAG_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -819,7 +818,7 @@ class Dollar_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DOLLAR_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DOLLAR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -899,7 +898,7 @@ class Ampersand_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.AMPERSAND_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.AMPERSAND_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -979,7 +978,7 @@ class SingleQuote_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SINGLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SINGLEQUOTE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1059,7 +1058,7 @@ class LeftParenthesis_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1139,7 +1138,7 @@ class RightParenthesis_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1219,7 +1218,7 @@ class Asterisk_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.ASTERISK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.ASTERISK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1299,7 +1298,7 @@ class Plus_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1379,7 +1378,7 @@ class Comma_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.COMMA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.COMMA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1459,7 +1458,7 @@ class Minus_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1539,7 +1538,7 @@ class Period_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1619,7 +1618,7 @@ class ForwardSlash_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FORWARDSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FORWARDSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1699,7 +1698,7 @@ class Primary0_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY0_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY0_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1779,7 +1778,7 @@ class Primary1_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY1_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1859,7 +1858,7 @@ class Primary2_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY2_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -1939,7 +1938,7 @@ class Primary3_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY3_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2019,7 +2018,7 @@ class Primary4_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY4_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2099,7 +2098,7 @@ class Primary5_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY5_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2179,7 +2178,7 @@ class Primary6_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY6_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2259,7 +2258,7 @@ class Primary7_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY7_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2339,7 +2338,7 @@ class Primary8_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY8_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2419,7 +2418,7 @@ class Primary9_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARY9_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARY9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2499,7 +2498,7 @@ class Colon_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.COLON_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.COLON_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2579,7 +2578,7 @@ class SemiColon_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SEMICOLON_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SEMICOLON_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2659,7 +2658,7 @@ class LessThan_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LESSTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LESSTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2739,7 +2738,7 @@ class Equals_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.EQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.EQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2819,7 +2818,7 @@ class GreaterThan_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.GREATERTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.GREATERTHAN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2899,7 +2898,7 @@ class QuestionMark_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.QUESTIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.QUESTIONMARK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -2979,7 +2978,7 @@ class At_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.AT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.AT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3059,7 +3058,7 @@ class LeftBracket_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3139,7 +3138,7 @@ class BackSlash_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.BACKSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.BACKSLASH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3219,7 +3218,7 @@ class RightBracket_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTBRACKET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3299,7 +3298,7 @@ class Caret_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.CARET_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.CARET_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3379,7 +3378,7 @@ class Underscore_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.UNDERSCORE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.UNDERSCORE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3459,7 +3458,7 @@ class Grave_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.GRAVE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.GRAVE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3539,7 +3538,7 @@ class PrimaryA_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3619,7 +3618,7 @@ class PrimaryB_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYB_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYB_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3699,7 +3698,7 @@ class PrimaryC_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYC_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYC_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3779,7 +3778,7 @@ class PrimaryD_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYD_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3859,7 +3858,7 @@ class PrimaryE_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -3939,7 +3938,7 @@ class PrimaryF_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYF_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYF_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4019,7 +4018,7 @@ class PrimaryG_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYG_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYG_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4099,7 +4098,7 @@ class PrimaryH_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYH_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYH_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4179,7 +4178,7 @@ class PrimaryI_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYI_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYI_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4259,7 +4258,7 @@ class PrimaryJ_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYJ_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYJ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4339,7 +4338,7 @@ class PrimaryK_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4419,7 +4418,7 @@ class PrimaryL_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4499,7 +4498,7 @@ class PrimaryM_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYM_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYM_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4579,7 +4578,7 @@ class PrimaryN_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4659,7 +4658,7 @@ class PrimaryO_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYO_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYO_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4739,7 +4738,7 @@ class PrimaryP_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4819,7 +4818,7 @@ class PrimaryQ_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYQ_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYQ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4899,7 +4898,7 @@ class PrimaryR_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYR_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYR_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -4979,7 +4978,7 @@ class PrimaryS_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5059,7 +5058,7 @@ class PrimaryT_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5139,7 +5138,7 @@ class PrimaryU_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYU_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYU_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5219,7 +5218,7 @@ class PrimaryV_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYV_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYV_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5299,7 +5298,7 @@ class PrimaryW_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYW_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYW_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5379,7 +5378,7 @@ class PrimaryX_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYX_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYX_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5459,7 +5458,7 @@ class PrimaryY_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYY_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYY_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5539,7 +5538,7 @@ class PrimaryZ_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRIMARYZ_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRIMARYZ_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5619,7 +5618,7 @@ class Delete_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DELETE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DELETE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5699,7 +5698,7 @@ class Numpad0_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD0_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD0_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5779,7 +5778,7 @@ class Numpad1_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD1_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5859,7 +5858,7 @@ class Numpad2_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD2_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -5939,7 +5938,7 @@ class Numpad3_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD3_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6019,7 +6018,7 @@ class Numpad4_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD4_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6099,7 +6098,7 @@ class Numpad5_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD5_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6179,7 +6178,7 @@ class Numpad6_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD6_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6259,7 +6258,7 @@ class Numpad7_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD7_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6339,7 +6338,7 @@ class Numpad8_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD8_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6419,7 +6418,7 @@ class Numpad9_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPAD9_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPAD9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6499,7 +6498,7 @@ class NumpadPeriod_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADPERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADPERIOD_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6579,7 +6578,7 @@ class NumpadDivide_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADDIVIDE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADDIVIDE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6659,7 +6658,7 @@ class NumpadMultiply_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADMULTIPLY_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6739,7 +6738,7 @@ class NumpadMinus_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADMINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADMINUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6819,7 +6818,7 @@ class NumpadPlus_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADPLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADPLUS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6899,7 +6898,7 @@ class NumpadEnter_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADENTER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADENTER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -6979,7 +6978,7 @@ class NumpadEquals_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMPADEQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMPADEQUALS_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7059,7 +7058,7 @@ class Up_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.UP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.UP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7139,7 +7138,7 @@ class Down_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7219,7 +7218,7 @@ class Right_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7299,7 +7298,7 @@ class Left_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7379,7 +7378,7 @@ class Insert_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.INSERT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.INSERT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7459,7 +7458,7 @@ class Home_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.HOME_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.HOME_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7539,7 +7538,7 @@ class End_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.END_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.END_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7619,7 +7618,7 @@ class PageUp_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PAGEUP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PAGEUP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7699,7 +7698,7 @@ class PageDown_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PAGEDOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PAGEDOWN_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7779,7 +7778,7 @@ class Function1_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION1_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION1_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7859,7 +7858,7 @@ class Function2_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION2_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION2_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -7939,7 +7938,7 @@ class Function3_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION3_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION3_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8019,7 +8018,7 @@ class Function4_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION4_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION4_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8099,7 +8098,7 @@ class Function5_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION5_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION5_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8179,7 +8178,7 @@ class Function6_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION6_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION6_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8259,7 +8258,7 @@ class Function7_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION7_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION7_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8339,7 +8338,7 @@ class Function8_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION8_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION8_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8419,7 +8418,7 @@ class Function9_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION9_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION9_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8499,7 +8498,7 @@ class Function10_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION10_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION10_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8579,7 +8578,7 @@ class Function11_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION11_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION11_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8659,7 +8658,7 @@ class Function12_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION12_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION12_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8739,7 +8738,7 @@ class Function13_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION13_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION13_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8819,7 +8818,7 @@ class Function14_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION14_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION14_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8899,7 +8898,7 @@ class Function15_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FUNCTION15_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FUNCTION15_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -8979,7 +8978,7 @@ class NumLock_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.NUMLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.NUMLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9059,7 +9058,7 @@ class CapsLock_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.CAPSLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.CAPSLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9139,7 +9138,7 @@ class ScrollLock_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SCROLLLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SCROLLLOCK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9219,7 +9218,7 @@ class RightShift_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9299,7 +9298,7 @@ class LeftShift_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTSHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9379,7 +9378,7 @@ class Shift_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SHIFT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9459,7 +9458,7 @@ class RightControl_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9539,7 +9538,7 @@ class LeftControl_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTCONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9619,7 +9618,7 @@ class Control_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.CONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.CONTROL_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9699,7 +9698,7 @@ class RightAlt_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9779,7 +9778,7 @@ class LeftAlt_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9859,7 +9858,7 @@ class Alt_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.ALT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.ALT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -9939,7 +9938,7 @@ class RightMeta_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10019,7 +10018,7 @@ class LeftMeta_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTMETA_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10099,7 +10098,7 @@ class Meta_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.META_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.META_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10179,7 +10178,7 @@ class LeftSuper_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10259,7 +10258,7 @@ class RightSuper_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTSUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10339,7 +10338,7 @@ class Super_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SUPER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10419,7 +10418,7 @@ class Mode_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MODE_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MODE_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10499,7 +10498,7 @@ class Help_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.HELP_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.HELP_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10579,7 +10578,7 @@ class Print_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.PRINT_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.PRINT_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10659,7 +10658,7 @@ class SystemRequest_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SYSTEMREQUEST_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SYSTEMREQUEST_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10739,7 +10738,7 @@ class Break_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.BREAK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.BREAK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10819,7 +10818,7 @@ class Menu_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MENU_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MENU_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10899,7 +10898,7 @@ class Power_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.POWER_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.POWER_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -10979,7 +10978,7 @@ class Euro_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.EURO_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.EURO_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -11059,7 +11058,7 @@ class AndroidBack_KEY:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.ANDROIDBACK_KEY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.ANDROIDBACK_KEY_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -12626,7 +12625,7 @@ class LeftButton_MOUSE:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LEFTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LEFTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -12706,7 +12705,7 @@ class MiddleButton_MOUSE:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MIDDLEBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -12786,7 +12785,7 @@ class RightButton_MOUSE:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RIGHTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT, add_to_pmma_module_spine=True)
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -12866,7 +12865,7 @@ class Mouse_SCROLL:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MOUSE_SCROLL_OBJECT, add_to_pmma_module_spine=True)
 
         self._x_value = 0
         self._x_displacement = 0
@@ -12936,7 +12935,7 @@ class Mouse_POSITION:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MOUSE_POSITION_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MOUSE_POSITION_OBJECT, add_to_pmma_module_spine=True)
 
         self._x_axis = 0
         self._y_axis = 0
@@ -13012,7 +13011,7 @@ class AppTerminating_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.APPTERMINATING_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.APPTERMINATING_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13043,7 +13042,7 @@ class AppLowMemory_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.APPLOWMEMORY_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.APPLOWMEMORY_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13074,7 +13073,7 @@ class AppWillEnterBackground_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13105,7 +13104,7 @@ class AppDidEnterBackground_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13136,7 +13135,7 @@ class AppWillEnterForeground_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13167,7 +13166,7 @@ class AppDidEnterForeground_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13198,7 +13197,7 @@ class AudioDeviceAdded_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.AUDIODEVICEADDED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13229,7 +13228,7 @@ class AudioDeviceRemoved_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13260,7 +13259,7 @@ class ClipBoardUpdate_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.CLIPBOARDUPDATE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13291,7 +13290,7 @@ class DropFile_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DROPFILE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._file = None
 
@@ -13322,7 +13321,7 @@ class DropText_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DROPTEXT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._text = None
 
@@ -13353,7 +13352,7 @@ class DropBegin_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DROPBEGIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DROPBEGIN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13384,7 +13383,7 @@ class DropComplete_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DROPCOMPLETE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DROPCOMPLETE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13415,7 +13414,7 @@ class FingerMotion_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FINGERMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FINGERMOTION_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13446,7 +13445,7 @@ class FingerDown_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FINGERDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FINGERDOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13477,7 +13476,7 @@ class FingerUp_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FINGERUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FINGERUP_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13508,7 +13507,7 @@ class KeyMapChanged_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.KEYMAPCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13539,7 +13538,7 @@ class LocaleChanged_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LOCALECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.LOCALECHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13570,7 +13569,7 @@ class MultiGesture_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.MULTIGESTURE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._gesture_center_x = None
         self._gesture_center_y = None
@@ -13653,7 +13652,7 @@ class Quit_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.QUIT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.QUIT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13684,7 +13683,7 @@ class RenderTargetsReset_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RENDERTARGETSRESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13715,7 +13714,7 @@ class RenderDeviceReset_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.RENDERDEVICERESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13746,7 +13745,7 @@ class SysWMEvent_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SYSWMEVENT_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13777,7 +13776,7 @@ class WindowShown_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWSHOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWSHOWN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13808,7 +13807,7 @@ class WindowHidden_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWHIDDEN_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13839,7 +13838,7 @@ class WindowExposed_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWEXPOSED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13870,7 +13869,7 @@ class WindowMoved_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWMOVED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13901,7 +13900,7 @@ class WindowResized_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWRESIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWRESIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13932,7 +13931,7 @@ class WindowMinimized_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWMINIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13963,7 +13962,7 @@ class WindowMaximized_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWMAXIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -13994,7 +13993,7 @@ class WindowRestored_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWRESTORED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWRESTORED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14025,7 +14024,7 @@ class WindowEnter_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWENTER_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWENTER_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14056,7 +14055,7 @@ class WindowLeave_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWLEAVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWLEAVE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14087,7 +14086,7 @@ class WindowFocusGained_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14118,7 +14117,7 @@ class WindowFocusLost_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWFOCUSLOST_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14149,7 +14148,7 @@ class WindowClose_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWCLOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWCLOSE_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14180,7 +14179,7 @@ class WindowTakeFocus_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14211,7 +14210,7 @@ class WindowHitTest_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWHITTEST_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWHITTEST_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14242,7 +14241,7 @@ class WindowICCPROFChanged_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14273,7 +14272,7 @@ class WindowDisplayChanged_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14304,7 +14303,7 @@ class JoyDeviceAdded_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.JOYDEVICEADDED_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.JOYDEVICEADDED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 
@@ -14335,7 +14334,7 @@ class JoyDeviceRemoved_EVENT:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.JOYDEVICEREMOVED_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.JOYDEVICEREMOVED_OBJECT, add_to_pmma_module_spine=True)
 
         self._value = None
 

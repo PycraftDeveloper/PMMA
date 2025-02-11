@@ -24,6 +24,7 @@ from pmma.python_src.audio import Audio as _Audio
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Video:
     """
@@ -77,14 +78,14 @@ class Video:
 
         self._audio_player = _Audio()
 
-        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+        if not _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DISPLAY_OBJECT)
             from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
             _DisplayIntermediary()
 
-        self._surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._surface = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
 
-        self._display = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
         self._time_since_last_frame = 0.0
         self._video_size = None
         self._is_playing = True
@@ -151,7 +152,7 @@ class Video:
         🟩 **R** -
         """
         if surface is None:
-            surface = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+            surface = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
 
         self._surface = surface
 
@@ -417,6 +418,6 @@ class Video:
 
     def render(self):
         if _Registry.render_pipeline_acceleration_available:
-            _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
+            _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].add_to_render_pipeline(self)
         else:
             self._internal_render()

@@ -323,7 +323,6 @@ from pygame import WINDOWICCPROFCHANGED as _pygame__WINDOWICCPROFCHANGED
 from pygame import WINDOWDISPLAYCHANGED as _pygame__WINDOWDISPLAYCHANGED
 
 from pmma.python_src.general import get_operating_system as _get_operating_system
-from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.controller import Controllers as _Controllers
 
@@ -331,6 +330,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Events:
     """
@@ -346,13 +346,13 @@ class Events:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
             _pygame__init()
 
         self.iteration_id = 0
@@ -385,213 +385,213 @@ then enable it to see if it fixes or improves a desired feature.")
 
         _Registry.handled_events = True
 
-        if _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.APPTERMINATING_EVENT_OBJECT].set_value(False)
 
-        if _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.APPLOWMEMORY_EVENT_OBJECT].set_value(False)
 
-        if _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(False)
 
-        if _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(False)
 
-        if _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(False)
 
-        if _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(False)
 
-        if _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(False)
 
-        if _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_file(False)
+        if _InternalConstants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.DROPFILE_EVENT_OBJECT].set_file(False)
 
-        if _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].set_text(None)
+        if _InternalConstants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.DROPTEXT_EVENT_OBJECT].set_text(None)
 
-        if _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.DROPBEGIN_EVENT_OBJECT].set_value(False)
 
-        if _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.DROPCOMPLETE_EVENT_OBJECT].set_value(False)
 
-        if _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.FINGERMOTION_EVENT_OBJECT].set_value(False)
 
-        if _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.FINGERDOWN_EVENT_OBJECT].set_value(False)
 
-        if _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
-           _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
+           _Registry.pmma_module_spine[_InternalConstants.FINGERUP_EVENT_OBJECT].set_value(False)
 
-        if _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.LOCALECHANGED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(None)
-            _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(None)
-            _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(None)
-            _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(None)
-            _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(None)
+        if _InternalConstants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(None)
+            _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(None)
+            _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(None)
+            _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(None)
+            _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(None)
 
-        if _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.QUIT_EVENT_OBJECT].set_value(False)
 
-        if _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(False)
 
-        if _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT].set_value(False)
 
-        if _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.SYSWMEVENT_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWSHOWN_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWMOVED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWRESTORED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWENTER_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWLEAVE_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWCLOSE_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWHITTEST_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(False)
+        if _InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(False)
 
-        if _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].set_value(False)
+        if _InternalConstants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEADDED_OBJECT].set_value(False)
 
-        if _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].set_value(False)
+        if _InternalConstants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEREMOVED_OBJECT].set_value(False)
 
-        if _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(0)
-            _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(0)
+        if _InternalConstants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_x_displacement(0)
+            _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_y_displacement(0)
 
-        if _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(0)
-            _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(0)
+        if _InternalConstants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(0)
+            _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(0)
 
         raw_events = _pygame__event.get()
         for event in raw_events:
             if event.type == _pygame__APP_TERMINATING:
-                if _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.APPTERMINATING_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__APP_LOWMEMORY:
-                if _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__APP_WILLENTERBACKGROUND:
-                if _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__APP_DIDENTERBACKGROUND:
-                if _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__APP_WILLENTERFOREGROUND:
-                if _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__APP_DIDENTERFOREGROUND:
-                if _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__AUDIODEVICEADDED:
-                if _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__AUDIODEVICEREMOVED:
-                if _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__CLIPBOARDUPDATE:
-                if _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__DROPFILE:
-                if _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.DROPFILE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__DROPTEXT:
-                if _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.DROPTEXT_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__DROPBEGIN:
-                if _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.DROPBEGIN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__DROPCOMPLETE:
-                if _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.DROPCOMPLETE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__FINGERMOTION:
-                if _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.FINGERMOTION_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__FINGERDOWN:
-                if _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.FINGERDOWN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__FINGERUP:
-                if _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.FINGERUP_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__KEYMAPCHANGED:
-                if _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__JOYAXISMOTION:
                 controller = self.controllers.get_controller(event.joy)
@@ -687,1244 +687,1244 @@ then enable it to see if it fixes or improves a desired feature.")
                     controller.set_center_button_pressed(False)
 
             elif event.type == _pygame__JOYDEVICEADDED:
-                if _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT].set_value(True)
+                if _InternalConstants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEADDED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
             elif event.type == _pygame__JOYDEVICEREMOVED:
-                if _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT].set_value(True)
+                if _InternalConstants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEREMOVED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
             elif event.type == _pygame__LOCALECHANGED:
-                if _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.LOCALECHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__MOUSEMOTION:
-                if _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
+                if _InternalConstants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
                     mouse_x_position, mouse_y_position = event.pos
                     mouse_x_displacement, mouse_y_displacement = event.rel
-                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis(mouse_x_position)
-                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis(mouse_y_position)
-                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(mouse_x_displacement)
-                    _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(mouse_y_displacement)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_x_axis(mouse_x_position)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_y_axis(mouse_y_position)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(mouse_x_displacement)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(mouse_y_displacement)
 
             elif event.type == _pygame__MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    if _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
                 elif event.button == 2:
-                    if _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(True)
+                    if _InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(True)
 
                 elif event.button == 3:
-                    if _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
             elif event.type == _pygame__MOUSEBUTTONUP:
                 if event.button == 1:
-                    if _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
                 elif event.button == 2:
-                    if _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(False)
+                    if _InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT].set_pressed(False)
 
                 elif event.button == 3:
-                    if _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
             elif event.type == _pygame__MOUSEWHEEL:
-                if _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
+                if _InternalConstants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
                     x_displacement = event.precise_x
                     y_displacement = event.precise_y
                     if event.flipped:
                         x_displacement *= -1
                         y_displacement *= -1
-                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_displacement(x_displacement)
-                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_displacement(y_displacement)
-                    total_x = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_x_value()
-                    total_y = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].get_y_value()
-                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_x_value(total_x + x_displacement)
-                    _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT].set_y_value(total_y + y_displacement)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_x_displacement(x_displacement)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_y_displacement(y_displacement)
+                    total_x = _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].get_x_value()
+                    total_y = _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].get_y_value()
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_x_value(total_x + x_displacement)
+                    _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_y_value(total_y + y_displacement)
 
             elif event.type == _pygame__KEYDOWN:
                 if event.key == _pygame__K_BACKSPACE:
-                    if _Constants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.BACKSPACE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_TAB:
-                    if _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.TAB_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.TAB_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_CLEAR:
-                    if _Constants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.CLEAR_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RETURN:
-                    if _Constants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RETURN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_PAUSE:
-                    if _Constants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PAUSE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_ESCAPE:
-                    if _Constants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.ESCAPE_KEY_OBJECT].set_pressed(True)
                     if handle_exit_events:
                         _Registry.running = False
                         _Backpack.running = False
 
                 elif event.key == _pygame__K_SPACE:
-                    if _Constants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SPACE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_EXCLAIM:
-                    if _Constants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_QUOTEDBL:
-                    if _Constants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_HASH:
-                    if _Constants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.HASHTAG_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_DOLLAR:
-                    if _Constants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DOLLAR_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_AMPERSAND:
-                    if _Constants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.AMPERSAND_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_QUOTE:
-                    if _Constants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SINGLEQUOTE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LEFTPAREN:
-                    if _Constants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RIGHTPAREN:
-                    if _Constants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_ASTERISK:
-                    if _Constants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.ASTERISK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_PLUS:
-                    if _Constants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PLUS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_COMMA:
-                    if _Constants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.COMMA_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_MINUS:
-                    if _Constants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MINUS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_PERIOD:
-                    if _Constants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PERIOD_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_SLASH:
-                    if _Constants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FORWARDSLASH_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_0:
-                    if _Constants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY0_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_1:
-                    if _Constants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY1_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_2:
-                    if _Constants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY2_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_3:
-                    if _Constants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY3_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_4:
-                    if _Constants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY4_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_5:
-                    if _Constants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY5_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_6:
-                    if _Constants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY6_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_7:
-                    if _Constants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY7_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_8:
-                    if _Constants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY8_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_9:
-                    if _Constants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY9_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_COLON:
-                    if _Constants.COLON_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.COLON_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.COLON_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_SEMICOLON:
-                    if _Constants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SEMICOLON_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LESS:
-                    if _Constants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LESSTHAN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_EQUALS:
-                    if _Constants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.EQUALS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_GREATER:
-                    if _Constants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.GREATERTHAN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_QUESTION:
-                    if _Constants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.QUESTIONMARK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_AT:
-                    if _Constants.AT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.AT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.AT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LEFTBRACKET:
-                    if _Constants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTBRACKET_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_BACKSLASH:
-                    if _Constants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.BACKSLASH_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RIGHTBRACKET:
-                    if _Constants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTBRACKET_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_CARET:
-                    if _Constants.CARET_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.CARET_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.CARET_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_UNDERSCORE:
-                    if _Constants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.UNDERSCORE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_BACKQUOTE:
-                    if _Constants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.GRAVE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_a:
-                    if _Constants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYA_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_b:
-                    if _Constants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYB_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_c:
-                    if _Constants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYC_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_d:
-                    if _Constants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYD_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_e:
-                    if _Constants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_f:
-                    if _Constants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYF_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_g:
-                    if _Constants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYG_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_h:
-                    if _Constants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYH_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_i:
-                    if _Constants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYI_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_j:
-                    if _Constants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYJ_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_k:
-                    if _Constants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_l:
-                    if _Constants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYL_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_m:
-                    if _Constants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYM_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_n:
-                    if _Constants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_o:
-                    if _Constants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYO_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_p:
-                    if _Constants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYP_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_q:
-                    if _Constants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYQ_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_r:
-                    if _Constants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYR_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_s:
-                    if _Constants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_t:
-                    if _Constants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_u:
-                    if _Constants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYU_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_v:
-                    if _Constants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYV_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_w:
-                    if _Constants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYW_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_x:
-                    if _Constants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYX_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_y:
-                    if _Constants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYY_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_z:
-                    if _Constants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYZ_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_DELETE:
-                    if _Constants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DELETE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP0:
-                    if _Constants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD0_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP1:
-                    if _Constants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD1_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP2:
-                    if _Constants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD2_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP3:
-                    if _Constants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD3_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP4:
-                    if _Constants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD4_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP5:
-                    if _Constants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD5_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP6:
-                    if _Constants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD6_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP7:
-                    if _Constants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD7_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP8:
-                    if _Constants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD8_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP9:
-                    if _Constants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD9_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_PERIOD:
-                    if _Constants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADPERIOD_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_DIVIDE:
-                    if _Constants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_MULTIPLY:
-                    if _Constants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_MINUS:
-                    if _Constants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADMINUS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_PLUS:
-                    if _Constants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADPLUS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_ENTER:
-                    if _Constants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADENTER_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_KP_EQUALS:
-                    if _Constants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADEQUALS_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_UP:
-                    if _Constants.UP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.UP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.UP_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_DOWN:
-                    if _Constants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DOWN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RIGHT:
-                    if _Constants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LEFT:
-                    if _Constants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_INSERT:
-                    if _Constants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.INSERT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_HOME:
-                    if _Constants.HOME_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.HOME_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.HOME_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_END:
-                    if _Constants.END_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.END_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.END_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_PAGEUP:
-                    if _Constants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PAGEUP_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_PAGEDOWN:
-                    if _Constants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PAGEDOWN_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F1:
-                    if _Constants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION1_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F2:
-                    if _Constants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION2_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F3:
-                    if _Constants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION3_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F4:
-                    if _Constants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION4_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F5:
-                    if _Constants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION5_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F6:
-                    if _Constants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION6_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F7:
-                    if _Constants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION7_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F8:
-                    if _Constants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION8_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F9:
-                    if _Constants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION9_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F10:
-                    if _Constants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION10_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F11:
-                    if _Constants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION11_KEY_OBJECT].set_pressed(True)
                     if handle_full_screen_events:
                         if _Registry.display_initialized:
-                            _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].toggle_full_screen()
-                            if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                                _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
+                            _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].toggle_full_screen()
+                            if _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                                _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
 
                 elif event.key == _pygame__K_F12:
-                    if _Constants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION12_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F13:
-                    if _Constants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION13_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F14:
-                    if _Constants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION14_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_F15:
-                    if _Constants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION15_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_NUMLOCK:
-                    if _Constants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMLOCK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_CAPSLOCK:
-                    if _Constants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.CAPSLOCK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_SCROLLOCK:
-                    if _Constants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SCROLLLOCK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RSHIFT:
-                    if _Constants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTSHIFT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LSHIFT:
-                    if _Constants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTSHIFT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RCTRL:
-                    if _Constants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTCONTROL_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LCTRL:
-                    if _Constants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTCONTROL_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RALT:
-                    if _Constants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTALT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LALT:
-                    if _Constants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTALT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RMETA:
-                    if _Constants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTMETA_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LMETA:
-                    if _Constants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTMETA_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_LSUPER:
-                    if _Constants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTSUPER_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_RSUPER:
-                    if _Constants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTSUPER_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_MODE:
-                    if _Constants.MODE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.MODE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MODE_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_HELP:
-                    if _Constants.HELP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.HELP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.HELP_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_PRINT:
-                    if _Constants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRINT_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_SYSREQ:
-                    if _Constants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_BREAK:
-                    if _Constants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.BREAK_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_MENU:
-                    if _Constants.MENU_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.MENU_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MENU_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_POWER:
-                    if _Constants.POWER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.POWER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.POWER_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_EURO:
-                    if _Constants.EURO_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.EURO_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.EURO_KEY_OBJECT].set_pressed(True)
 
                 elif event.key == _pygame__K_AC_BACK:
-                    if _Constants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_pressed(True)
+                    if _InternalConstants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.ANDROIDBACK_KEY_OBJECT].set_pressed(True)
 
             elif event.type == _pygame__KEYUP:
                 if event.key == _pygame__K_BACKSPACE:
-                    if _Constants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.BACKSPACE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_TAB:
-                    if _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.TAB_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.TAB_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_CLEAR:
-                    if _Constants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.CLEAR_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RETURN:
-                    if _Constants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RETURN_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_PAUSE:
-                    if _Constants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PAUSE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_ESCAPE:
-                    if _Constants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.ESCAPE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_SPACE:
-                    if _Constants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SPACE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_EXCLAIM:
-                    if _Constants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_QUOTEDBL:
-                    if _Constants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_HASH:
-                    if _Constants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.HASHTAG_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_DOLLAR:
-                    if _Constants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DOLLAR_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_AMPERSAND:
-                    if _Constants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.AMPERSAND_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_QUOTE:
-                    if _Constants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SINGLEQUOTE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LEFTPAREN:
-                    if _Constants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RIGHTPAREN:
-                    if _Constants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_ASTERISK:
-                    if _Constants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.ASTERISK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_PLUS:
-                    if _Constants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PLUS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_COMMA:
-                    if _Constants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.COMMA_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_MINUS:
-                    if _Constants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MINUS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_PERIOD:
-                    if _Constants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PERIOD_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_SLASH:
-                    if _Constants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FORWARDSLASH_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_0:
-                    if _Constants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY0_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_1:
-                    if _Constants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY1_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_2:
-                    if _Constants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY2_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_3:
-                    if _Constants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY3_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_4:
-                    if _Constants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY4_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_5:
-                    if _Constants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY5_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_6:
-                    if _Constants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY6_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_7:
-                    if _Constants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY7_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_8:
-                    if _Constants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY8_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_9:
-                    if _Constants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARY9_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_COLON:
-                    if _Constants.COLON_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.COLON_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.COLON_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_SEMICOLON:
-                    if _Constants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SEMICOLON_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LESS:
-                    if _Constants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LESSTHAN_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_EQUALS:
-                    if _Constants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.EQUALS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_GREATER:
-                    if _Constants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.GREATERTHAN_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_QUESTION:
-                    if _Constants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.QUESTIONMARK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_AT:
-                    if _Constants.AT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.AT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.AT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LEFTBRACKET:
-                    if _Constants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTBRACKET_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_BACKSLASH:
-                    if _Constants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.BACKSLASH_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RIGHTBRACKET:
-                    if _Constants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTBRACKET_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_CARET:
-                    if _Constants.CARET_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.CARET_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.CARET_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_UNDERSCORE:
-                    if _Constants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.UNDERSCORE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_BACKQUOTE:
-                    if _Constants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.GRAVE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_a:
-                    if _Constants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYA_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_b:
-                    if _Constants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYB_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_c:
-                    if _Constants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYC_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_d:
-                    if _Constants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYD_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_e:
-                    if _Constants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_f:
-                    if _Constants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYF_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_g:
-                    if _Constants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYG_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_h:
-                    if _Constants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYH_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_i:
-                    if _Constants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYI_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_j:
-                    if _Constants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYJ_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_k:
-                    if _Constants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_l:
-                    if _Constants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYL_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_m:
-                    if _Constants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYM_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_n:
-                    if _Constants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYN_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_o:
-                    if _Constants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYO_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_p:
-                    if _Constants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYP_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_q:
-                    if _Constants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYQ_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_r:
-                    if _Constants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYR_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_s:
-                    if _Constants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_t:
-                    if _Constants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_u:
-                    if _Constants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYU_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_v:
-                    if _Constants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYV_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_w:
-                    if _Constants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYW_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_x:
-                    if _Constants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYX_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_y:
-                    if _Constants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYY_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_z:
-                    if _Constants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRIMARYZ_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_DELETE:
-                    if _Constants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DELETE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP0:
-                    if _Constants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD0_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP1:
-                    if _Constants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD1_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP2:
-                    if _Constants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD2_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP3:
-                    if _Constants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD3_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP4:
-                    if _Constants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD4_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP5:
-                    if _Constants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD5_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP6:
-                    if _Constants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD6_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP7:
-                    if _Constants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD7_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP8:
-                    if _Constants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD8_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP9:
-                    if _Constants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPAD9_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_PERIOD:
-                    if _Constants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADPERIOD_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_DIVIDE:
-                    if _Constants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_MULTIPLY:
-                    if _Constants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_MINUS:
-                    if _Constants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADMINUS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_PLUS:
-                    if _Constants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADPLUS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_ENTER:
-                    if _Constants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADENTER_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_KP_EQUALS:
-                    if _Constants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMPADEQUALS_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_UP:
-                    if _Constants.UP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.UP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.UP_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_DOWN:
-                    if _Constants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.DOWN_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RIGHT:
-                    if _Constants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LEFT:
-                    if _Constants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_INSERT:
-                    if _Constants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.INSERT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_HOME:
-                    if _Constants.HOME_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.HOME_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.HOME_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_END:
-                    if _Constants.END_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.END_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.END_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_PAGEUP:
-                    if _Constants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PAGEUP_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_PAGEDOWN:
-                    if _Constants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PAGEDOWN_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F1:
-                    if _Constants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION1_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F2:
-                    if _Constants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION2_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F3:
-                    if _Constants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION3_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F4:
-                    if _Constants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION4_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F5:
-                    if _Constants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION5_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F6:
-                    if _Constants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION6_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F7:
-                    if _Constants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION7_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F8:
-                    if _Constants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION8_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F9:
-                    if _Constants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION9_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F10:
-                    if _Constants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION10_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F11:
-                    if _Constants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION11_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F12:
-                    if _Constants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION12_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F13:
-                    if _Constants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION13_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F14:
-                    if _Constants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION14_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_F15:
-                    if _Constants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.FUNCTION15_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_NUMLOCK:
-                    if _Constants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.NUMLOCK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_CAPSLOCK:
-                    if _Constants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.CAPSLOCK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_SCROLLOCK:
-                    if _Constants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SCROLLLOCK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RSHIFT:
-                    if _Constants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTSHIFT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LSHIFT:
-                    if _Constants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTSHIFT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RCTRL:
-                    if _Constants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTCONTROL_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LCTRL:
-                    if _Constants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTCONTROL_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RALT:
-                    if _Constants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTALT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LALT:
-                    if _Constants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTALT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RMETA:
-                    if _Constants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTMETA_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LMETA:
-                    if _Constants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTMETA_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_LSUPER:
-                    if _Constants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.LEFTSUPER_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_RSUPER:
-                    if _Constants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.RIGHTSUPER_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_MODE:
-                    if _Constants.MODE_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.MODE_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MODE_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_HELP:
-                    if _Constants.HELP_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.HELP_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.HELP_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_PRINT:
-                    if _Constants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.PRINT_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_SYSREQ:
-                    if _Constants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_BREAK:
-                    if _Constants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.BREAK_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_MENU:
-                    if _Constants.MENU_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.MENU_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.MENU_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_POWER:
-                    if _Constants.POWER_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.POWER_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.POWER_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_EURO:
-                    if _Constants.EURO_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.EURO_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.EURO_KEY_OBJECT].set_pressed(False)
 
                 elif event.key == _pygame__K_AC_BACK:
-                    if _Constants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine:
-                        _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT].set_pressed(False)
+                    if _InternalConstants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine:
+                        _Registry.pmma_module_spine[_InternalConstants.ANDROIDBACK_KEY_OBJECT].set_pressed(False)
 
             elif event.type == _pygame__MULTIGESTURE:
-                if _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(event.x)
-                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(event.y)
-                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(event.num_fingers)
-                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(event.rotated)
-                    _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(event.pinched)
+                if _InternalConstants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(event.x)
+                    _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(event.y)
+                    _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_number_of_fingers(event.num_fingers)
+                    _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(event.rotated)
+                    _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(event.pinched)
 
             elif event.type == _pygame__QUIT:
-                if _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.QUIT_EVENT_OBJECT].set_value(True)
                 if handle_exit_events:
                     _Registry.running = False
                     _Backpack.running = False
 
             elif event.type == _pygame__RENDER_TARGETS_RESET:
-                if _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__RENDER_DEVICE_RESET:
-                if _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__SYSWMEVENT:
-                if _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.SYSWMEVENT_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWSHOWN:
-                if _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWSHOWN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWHIDDEN:
-                if _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWEXPOSED:
-                if _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWMOVED:
-                if _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWMOVED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWRESIZED or event.type == _pygame__WINDOWSIZECHANGED:
-                if _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWMINIMIZED:
-                if _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWMAXIMIZED:
-                if _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWRESTORED:
-                if _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWRESTORED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWENTER:
-                if _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWENTER_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWLEAVE:
-                if _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWLEAVE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWFOCUSGAINED:
-                if _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWFOCUSLOST:
-                if _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWCLOSE:
-                if _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWCLOSE_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWTAKEFOCUS:
-                if _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWHITTEST:
-                if _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWHITTEST_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWICCPROFCHANGED:
-                if _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(True)
 
             elif event.type == _pygame__WINDOWDISPLAYCHANGED:
-                if _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
-                    _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(True)
+                if _InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
+                    _Registry.pmma_module_spine[_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(True)
 
 class Backspace_KEY:
     """
@@ -1943,12 +1943,12 @@ class Backspace_KEY:
         """
         _initialize(self)
 
-        if not _Constants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.BACKSPACE_KEY_OBJECT)
+        if not _InternalConstants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.BACKSPACE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Backspace_KEY as _Backspace_KEY
             _Backspace_KEY()
 
-        self._backspace_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BACKSPACE_KEY_OBJECT]
+        self._backspace_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.BACKSPACE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2014,12 +2014,12 @@ class Tab_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.TAB_KEY_OBJECT)
+        if not _InternalConstants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.TAB_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Tab_KEY as _Tab_KEY
             _Tab_KEY()
 
-        self._tab_key_object_intermediary = _Registry.pmma_module_spine[_Constants.TAB_KEY_OBJECT]
+        self._tab_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.TAB_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2085,12 +2085,12 @@ class Clear_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.CLEAR_KEY_OBJECT)
+        if not _InternalConstants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.CLEAR_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Clear_KEY as _Clear_KEY
             _Clear_KEY()
 
-        self._clear_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CLEAR_KEY_OBJECT]
+        self._clear_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.CLEAR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2156,12 +2156,12 @@ class Return_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RETURN_KEY_OBJECT)
+        if not _InternalConstants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RETURN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Return_KEY as _Return_KEY
             _Return_KEY()
 
-        self._return_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RETURN_KEY_OBJECT]
+        self._return_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RETURN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2227,12 +2227,12 @@ class Pause_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PAUSE_KEY_OBJECT)
+        if not _InternalConstants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PAUSE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Pause_KEY as _Pause_KEY
             _Pause_KEY()
 
-        self._pause_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAUSE_KEY_OBJECT]
+        self._pause_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PAUSE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2298,12 +2298,12 @@ class Escape_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.ESCAPE_KEY_OBJECT)
+        if not _InternalConstants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.ESCAPE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Escape_KEY as _Escape_KEY
             _Escape_KEY()
 
-        self._escape_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ESCAPE_KEY_OBJECT]
+        self._escape_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.ESCAPE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2369,12 +2369,12 @@ class Space_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SPACE_KEY_OBJECT)
+        if not _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SPACE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Space_KEY as _Space_KEY
             _Space_KEY()
 
-        self._space_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SPACE_KEY_OBJECT]
+        self._space_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SPACE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2440,12 +2440,12 @@ class ExclamationMark_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.EXCLAMATIONMARK_KEY_OBJECT)
+        if not _InternalConstants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import ExclamationMark_KEY as _ExclamationMark_KEY
             _ExclamationMark_KEY()
 
-        self._exclamationmark_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EXCLAMATIONMARK_KEY_OBJECT]
+        self._exclamationmark_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2511,12 +2511,12 @@ class DoubleQuote_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DOUBLEQUOTE_KEY_OBJECT)
+        if not _InternalConstants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DOUBLEQUOTE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import DoubleQuote_KEY as _DoubleQuote_KEY
             _DoubleQuote_KEY()
 
-        self._doublequote_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOUBLEQUOTE_KEY_OBJECT]
+        self._doublequote_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DOUBLEQUOTE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2582,12 +2582,12 @@ class Hashtag_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.HASHTAG_KEY_OBJECT)
+        if not _InternalConstants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.HASHTAG_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Hashtag_KEY as _Hashtag_KEY
             _Hashtag_KEY()
 
-        self._hashtag_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HASHTAG_KEY_OBJECT]
+        self._hashtag_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.HASHTAG_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2653,12 +2653,12 @@ class Dollar_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DOLLAR_KEY_OBJECT)
+        if not _InternalConstants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DOLLAR_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Dollar_KEY as _Dollar_KEY
             _Dollar_KEY()
 
-        self._dollar_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOLLAR_KEY_OBJECT]
+        self._dollar_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DOLLAR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2724,12 +2724,12 @@ class Ampersand_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.AMPERSAND_KEY_OBJECT)
+        if not _InternalConstants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.AMPERSAND_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Ampersand_KEY as _Ampersand_KEY
             _Ampersand_KEY()
 
-        self._ampersand_key_object_intermediary = _Registry.pmma_module_spine[_Constants.AMPERSAND_KEY_OBJECT]
+        self._ampersand_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.AMPERSAND_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2795,12 +2795,12 @@ class SingleQuote_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SINGLEQUOTE_KEY_OBJECT)
+        if not _InternalConstants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SINGLEQUOTE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import SingleQuote_KEY as _SingleQuote_KEY
             _SingleQuote_KEY()
 
-        self._singlequote_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SINGLEQUOTE_KEY_OBJECT]
+        self._singlequote_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SINGLEQUOTE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2866,12 +2866,12 @@ class LeftParenthesis_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTPARENTHESIS_KEY_OBJECT)
+        if not _InternalConstants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftParenthesis_KEY as _LeftParenthesis_KEY
             _LeftParenthesis_KEY()
 
-        self._leftparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTPARENTHESIS_KEY_OBJECT]
+        self._leftparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -2937,12 +2937,12 @@ class RightParenthesis_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTPARENTHESIS_KEY_OBJECT)
+        if not _InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightParenthesis_KEY as _RightParenthesis_KEY
             _RightParenthesis_KEY()
 
-        self._rightparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTPARENTHESIS_KEY_OBJECT]
+        self._rightparenthesis_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3008,12 +3008,12 @@ class Asterisk_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.ASTERISK_KEY_OBJECT)
+        if not _InternalConstants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.ASTERISK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Asterisk_KEY as _Asterisk_KEY
             _Asterisk_KEY()
 
-        self._asterisk_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ASTERISK_KEY_OBJECT]
+        self._asterisk_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.ASTERISK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3079,12 +3079,12 @@ class Plus_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PLUS_KEY_OBJECT)
+        if not _InternalConstants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PLUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Plus_KEY as _Plus_KEY
             _Plus_KEY()
 
-        self._plus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PLUS_KEY_OBJECT]
+        self._plus_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PLUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3150,12 +3150,12 @@ class Comma_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.COMMA_KEY_OBJECT)
+        if not _InternalConstants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.COMMA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Comma_KEY as _Comma_KEY
             _Comma_KEY()
 
-        self._comma_key_object_intermediary = _Registry.pmma_module_spine[_Constants.COMMA_KEY_OBJECT]
+        self._comma_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.COMMA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3221,12 +3221,12 @@ class Minus_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MINUS_KEY_OBJECT)
+        if not _InternalConstants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MINUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Minus_KEY as _Minus_KEY
             _Minus_KEY()
 
-        self._minus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MINUS_KEY_OBJECT]
+        self._minus_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MINUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3292,12 +3292,12 @@ class Period_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PERIOD_KEY_OBJECT)
+        if not _InternalConstants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PERIOD_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Period_KEY as _Period_KEY
             _Period_KEY()
 
-        self._period_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PERIOD_KEY_OBJECT]
+        self._period_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PERIOD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3363,12 +3363,12 @@ class ForwardSlash_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FORWARDSLASH_KEY_OBJECT)
+        if not _InternalConstants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FORWARDSLASH_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import ForwardSlash_KEY as _ForwardSlash_KEY
             _ForwardSlash_KEY()
 
-        self._forwardslash_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FORWARDSLASH_KEY_OBJECT]
+        self._forwardslash_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FORWARDSLASH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3434,12 +3434,12 @@ class Primary0_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY0_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY0_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary0_KEY as _Primary0_KEY
             _Primary0_KEY()
 
-        self._primary0_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY0_KEY_OBJECT]
+        self._primary0_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY0_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3505,12 +3505,12 @@ class Primary1_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY1_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY1_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary1_KEY as _Primary1_KEY
             _Primary1_KEY()
 
-        self._primary1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY1_KEY_OBJECT]
+        self._primary1_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3576,12 +3576,12 @@ class Primary2_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY2_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY2_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary2_KEY as _Primary2_KEY
             _Primary2_KEY()
 
-        self._primary2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY2_KEY_OBJECT]
+        self._primary2_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3647,12 +3647,12 @@ class Primary3_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY3_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY3_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary3_KEY as _Primary3_KEY
             _Primary3_KEY()
 
-        self._primary3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY3_KEY_OBJECT]
+        self._primary3_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3718,12 +3718,12 @@ class Primary4_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY4_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY4_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary4_KEY as _Primary4_KEY
             _Primary4_KEY()
 
-        self._primary4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY4_KEY_OBJECT]
+        self._primary4_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3789,12 +3789,12 @@ class Primary5_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY5_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY5_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary5_KEY as _Primary5_KEY
             _Primary5_KEY()
 
-        self._primary5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY5_KEY_OBJECT]
+        self._primary5_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3860,12 +3860,12 @@ class Primary6_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY6_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY6_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary6_KEY as _Primary6_KEY
             _Primary6_KEY()
 
-        self._primary6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY6_KEY_OBJECT]
+        self._primary6_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -3931,12 +3931,12 @@ class Primary7_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY7_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY7_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary7_KEY as _Primary7_KEY
             _Primary7_KEY()
 
-        self._primary7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY7_KEY_OBJECT]
+        self._primary7_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4002,12 +4002,12 @@ class Primary8_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY8_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY8_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary8_KEY as _Primary8_KEY
             _Primary8_KEY()
 
-        self._primary8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY8_KEY_OBJECT]
+        self._primary8_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4073,12 +4073,12 @@ class Primary9_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARY9_KEY_OBJECT)
+        if not _InternalConstants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY9_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary9_KEY as _Primary9_KEY
             _Primary9_KEY()
 
-        self._primary9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARY9_KEY_OBJECT]
+        self._primary9_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARY9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4144,12 +4144,12 @@ class Colon_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.COLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.COLON_KEY_OBJECT)
+        if not _InternalConstants.COLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.COLON_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Colon_KEY as _Colon_KEY
             _Colon_KEY()
 
-        self._colon_key_object_intermediary = _Registry.pmma_module_spine[_Constants.COLON_KEY_OBJECT]
+        self._colon_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.COLON_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4215,12 +4215,12 @@ class SemiColon_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SEMICOLON_KEY_OBJECT)
+        if not _InternalConstants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SEMICOLON_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import SemiColon_KEY as _SemiColon_KEY
             _SemiColon_KEY()
 
-        self._semicolon_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SEMICOLON_KEY_OBJECT]
+        self._semicolon_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SEMICOLON_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4286,12 +4286,12 @@ class LessThan_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LESSTHAN_KEY_OBJECT)
+        if not _InternalConstants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LESSTHAN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LessThan_KEY as _LessThan_KEY
             _LessThan_KEY()
 
-        self._lessthan_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LESSTHAN_KEY_OBJECT]
+        self._lessthan_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LESSTHAN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4357,12 +4357,12 @@ class Equals_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.EQUALS_KEY_OBJECT)
+        if not _InternalConstants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.EQUALS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Equals_KEY as _Equals_KEY
             _Equals_KEY()
 
-        self._equals_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EQUALS_KEY_OBJECT]
+        self._equals_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.EQUALS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4428,12 +4428,12 @@ class GreaterThan_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.GREATERTHAN_KEY_OBJECT)
+        if not _InternalConstants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.GREATERTHAN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import GreaterThan_KEY as _GreaterThan_KEY
             _GreaterThan_KEY()
 
-        self._greaterthan_key_object_intermediary = _Registry.pmma_module_spine[_Constants.GREATERTHAN_KEY_OBJECT]
+        self._greaterthan_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.GREATERTHAN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4499,12 +4499,12 @@ class QuestionMark_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.QUESTIONMARK_KEY_OBJECT)
+        if not _InternalConstants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.QUESTIONMARK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import QuestionMark_KEY as _QuestionMark_KEY
             _QuestionMark_KEY()
 
-        self._questionmark_key_object_intermediary = _Registry.pmma_module_spine[_Constants.QUESTIONMARK_KEY_OBJECT]
+        self._questionmark_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.QUESTIONMARK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4570,12 +4570,12 @@ class At_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.AT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.AT_KEY_OBJECT)
+        if not _InternalConstants.AT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.AT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import At_KEY as _At_KEY
             _At_KEY()
 
-        self._at_key_object_intermediary = _Registry.pmma_module_spine[_Constants.AT_KEY_OBJECT]
+        self._at_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.AT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4641,12 +4641,12 @@ class LeftBracket_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTBRACKET_KEY_OBJECT)
+        if not _InternalConstants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTBRACKET_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftBracket_KEY as _LeftBracket_KEY
             _LeftBracket_KEY()
 
-        self._leftbracket_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTBRACKET_KEY_OBJECT]
+        self._leftbracket_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTBRACKET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4712,12 +4712,12 @@ class BackSlash_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.BACKSLASH_KEY_OBJECT)
+        if not _InternalConstants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.BACKSLASH_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import BackSlash_KEY as _BackSlash_KEY
             _BackSlash_KEY()
 
-        self._backslash_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BACKSLASH_KEY_OBJECT]
+        self._backslash_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.BACKSLASH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4783,12 +4783,12 @@ class RightBracket_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTBRACKET_KEY_OBJECT)
+        if not _InternalConstants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTBRACKET_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightBracket_KEY as _RightBracket_KEY
             _RightBracket_KEY()
 
-        self._rightbracket_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTBRACKET_KEY_OBJECT]
+        self._rightbracket_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTBRACKET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4855,12 +4855,12 @@ class Caret_KEY: # ^
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.CARET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.CARET_KEY_OBJECT)
+        if not _InternalConstants.CARET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.CARET_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Caret_KEY as _Caret_KEY
             _Caret_KEY()
 
-        self._caret_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CARET_KEY_OBJECT]
+        self._caret_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.CARET_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4926,12 +4926,12 @@ class Underscore_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.UNDERSCORE_KEY_OBJECT)
+        if not _InternalConstants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.UNDERSCORE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Underscore_KEY as _Underscore_KEY
             _Underscore_KEY()
 
-        self._underscore_key_object_intermediary = _Registry.pmma_module_spine[_Constants.UNDERSCORE_KEY_OBJECT]
+        self._underscore_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.UNDERSCORE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -4997,12 +4997,12 @@ class Grave_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.GRAVE_KEY_OBJECT)
+        if not _InternalConstants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.GRAVE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Grave_KEY as _Grave_KEY
             _Grave_KEY()
 
-        self._grave_key_object_intermediary = _Registry.pmma_module_spine[_Constants.GRAVE_KEY_OBJECT]
+        self._grave_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.GRAVE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5068,12 +5068,12 @@ class PrimaryA_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYA_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryA_KEY as _PrimaryA_KEY
             _PrimaryA_KEY()
 
-        self._primarya_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYA_KEY_OBJECT]
+        self._primarya_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5139,12 +5139,12 @@ class PrimaryB_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYB_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYB_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryB_KEY as _PrimaryB_KEY
             _PrimaryB_KEY()
 
-        self._primaryb_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYB_KEY_OBJECT]
+        self._primaryb_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYB_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5210,12 +5210,12 @@ class PrimaryC_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYC_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYC_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryC_KEY as _PrimaryC_KEY
             _PrimaryC_KEY()
 
-        self._primaryc_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYC_KEY_OBJECT]
+        self._primaryc_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYC_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5281,12 +5281,12 @@ class PrimaryD_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYD_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYD_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryD_KEY as _PrimaryD_KEY
             _PrimaryD_KEY()
 
-        self._primaryd_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYD_KEY_OBJECT]
+        self._primaryd_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5352,12 +5352,12 @@ class PrimaryE_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYE_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryE_KEY as _PrimaryE_KEY
             _PrimaryE_KEY()
 
-        self._primarye_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYE_KEY_OBJECT]
+        self._primarye_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5423,12 +5423,12 @@ class PrimaryF_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYF_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYF_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryF_KEY as _PrimaryF_KEY
             _PrimaryF_KEY()
 
-        self._primaryf_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYF_KEY_OBJECT]
+        self._primaryf_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYF_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5494,12 +5494,12 @@ class PrimaryG_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYG_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYG_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryG_KEY as _PrimaryG_KEY
             _PrimaryG_KEY()
 
-        self._primaryg_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYG_KEY_OBJECT]
+        self._primaryg_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYG_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5565,12 +5565,12 @@ class PrimaryH_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYH_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYH_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryH_KEY as _PrimaryH_KEY
             _PrimaryH_KEY()
 
-        self._primaryh_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYH_KEY_OBJECT]
+        self._primaryh_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYH_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5636,12 +5636,12 @@ class PrimaryI_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYI_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYI_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryI_KEY as _PrimaryI_KEY
             _PrimaryI_KEY()
 
-        self._primaryi_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYI_KEY_OBJECT]
+        self._primaryi_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYI_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5707,12 +5707,12 @@ class PrimaryJ_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYJ_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYJ_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryJ_KEY as _PrimaryJ_KEY
             _PrimaryJ_KEY()
 
-        self._primaryj_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYJ_KEY_OBJECT]
+        self._primaryj_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYJ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5778,12 +5778,12 @@ class PrimaryK_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYK_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryK_KEY as _PrimaryK_KEY
             _PrimaryK_KEY()
 
-        self._primaryk_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYK_KEY_OBJECT]
+        self._primaryk_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5849,12 +5849,12 @@ class PrimaryL_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYL_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryL_KEY as _PrimaryL_KEY
             _PrimaryL_KEY()
 
-        self._primaryl_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYL_KEY_OBJECT]
+        self._primaryl_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5920,12 +5920,12 @@ class PrimaryM_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYM_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYM_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryM_KEY as _PrimaryM_KEY
             _PrimaryM_KEY()
 
-        self._primarym_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYM_KEY_OBJECT]
+        self._primarym_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYM_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -5991,12 +5991,12 @@ class PrimaryN_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYN_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryN_KEY as _PrimaryN_KEY
             _PrimaryN_KEY()
 
-        self._primaryn_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYN_KEY_OBJECT]
+        self._primaryn_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6062,12 +6062,12 @@ class PrimaryO_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYO_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYO_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryO_KEY as _PrimaryO_KEY
             _PrimaryO_KEY()
 
-        self._primaryo_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYO_KEY_OBJECT]
+        self._primaryo_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYO_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6133,12 +6133,12 @@ class PrimaryP_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYP_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryP_KEY as _PrimaryP_KEY
             _PrimaryP_KEY()
 
-        self._primaryp_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYP_KEY_OBJECT]
+        self._primaryp_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6204,12 +6204,12 @@ class PrimaryQ_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYQ_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYQ_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryQ_KEY as _PrimaryQ_KEY
             _PrimaryQ_KEY()
 
-        self._primaryq_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYQ_KEY_OBJECT]
+        self._primaryq_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYQ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6275,12 +6275,12 @@ class PrimaryR_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYR_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYR_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryR_KEY as _PrimaryR_KEY
             _PrimaryR_KEY()
 
-        self._primaryr_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYR_KEY_OBJECT]
+        self._primaryr_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYR_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6346,12 +6346,12 @@ class PrimaryS_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYS_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryS_KEY as _PrimaryS_KEY
             _PrimaryS_KEY()
 
-        self._primarys_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYS_KEY_OBJECT]
+        self._primarys_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6417,12 +6417,12 @@ class PrimaryT_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYT_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryT_KEY as _PrimaryT_KEY
             _PrimaryT_KEY()
 
-        self._primaryt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYT_KEY_OBJECT]
+        self._primaryt_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6488,12 +6488,12 @@ class PrimaryU_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYU_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYU_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryU_KEY as _PrimaryU_KEY
             _PrimaryU_KEY()
 
-        self._primaryu_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYU_KEY_OBJECT]
+        self._primaryu_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYU_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6559,12 +6559,12 @@ class PrimaryV_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYV_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYV_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryV_KEY as _PrimaryV_KEY
             _PrimaryV_KEY()
 
-        self._primaryv_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYV_KEY_OBJECT]
+        self._primaryv_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYV_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6630,12 +6630,12 @@ class PrimaryW_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYW_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYW_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryW_KEY as _PrimaryW_KEY
             _PrimaryW_KEY()
 
-        self._primaryw_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYW_KEY_OBJECT]
+        self._primaryw_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYW_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6701,12 +6701,12 @@ class PrimaryX_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYX_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYX_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryX_KEY as _PrimaryX_KEY
             _PrimaryX_KEY()
 
-        self._primaryx_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYX_KEY_OBJECT]
+        self._primaryx_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYX_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6772,12 +6772,12 @@ class PrimaryY_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYY_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYY_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryY_KEY as _PrimaryY_KEY
             _PrimaryY_KEY()
 
-        self._primaryy_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYY_KEY_OBJECT]
+        self._primaryy_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYY_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6843,12 +6843,12 @@ class PrimaryZ_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRIMARYZ_KEY_OBJECT)
+        if not _InternalConstants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYZ_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryZ_KEY as _PrimaryZ_KEY
             _PrimaryZ_KEY()
 
-        self._primaryz_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRIMARYZ_KEY_OBJECT]
+        self._primaryz_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRIMARYZ_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6914,12 +6914,12 @@ class Delete_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DELETE_KEY_OBJECT)
+        if not _InternalConstants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DELETE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Delete_KEY as _Delete_KEY
             _Delete_KEY()
 
-        self._delete_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DELETE_KEY_OBJECT]
+        self._delete_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DELETE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -6985,12 +6985,12 @@ class Numpad0_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD0_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD0_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad0_KEY as _Numpad0_KEY
             _Numpad0_KEY()
 
-        self._numpad0_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD0_KEY_OBJECT]
+        self._numpad0_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD0_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7056,12 +7056,12 @@ class Numpad1_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD1_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD1_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad1_KEY as _Numpad1_KEY
             _Numpad1_KEY()
 
-        self._numpad1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD1_KEY_OBJECT]
+        self._numpad1_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7127,12 +7127,12 @@ class Numpad2_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD2_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD2_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad2_KEY as _Numpad2_KEY
             _Numpad2_KEY()
 
-        self._numpad2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD2_KEY_OBJECT]
+        self._numpad2_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7198,12 +7198,12 @@ class Numpad3_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD3_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD3_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad3_KEY as _Numpad3_KEY
             _Numpad3_KEY()
 
-        self._numpad3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD3_KEY_OBJECT]
+        self._numpad3_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7269,12 +7269,12 @@ class Numpad4_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD4_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD4_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad4_KEY as _Numpad4_KEY
             _Numpad4_KEY()
 
-        self._numpad4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD4_KEY_OBJECT]
+        self._numpad4_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7340,12 +7340,12 @@ class Numpad5_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD5_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD5_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad5_KEY as _Numpad5_KEY
             _Numpad5_KEY()
 
-        self._numpad5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD5_KEY_OBJECT]
+        self._numpad5_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7411,12 +7411,12 @@ class Numpad6_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD6_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD6_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad6_KEY as _Numpad6_KEY
             _Numpad6_KEY()
 
-        self._numpad6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD6_KEY_OBJECT]
+        self._numpad6_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7482,12 +7482,12 @@ class Numpad7_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD7_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD7_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad7_KEY as _Numpad7_KEY
             _Numpad7_KEY()
 
-        self._numpad7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD7_KEY_OBJECT]
+        self._numpad7_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7553,12 +7553,12 @@ class Numpad8_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD8_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD8_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad8_KEY as _Numpad8_KEY
             _Numpad8_KEY()
 
-        self._numpad8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD8_KEY_OBJECT]
+        self._numpad8_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7624,12 +7624,12 @@ class Numpad9_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPAD9_KEY_OBJECT)
+        if not _InternalConstants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD9_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad9_KEY as _Numpad9_KEY
             _Numpad9_KEY()
 
-        self._numpad9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPAD9_KEY_OBJECT]
+        self._numpad9_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPAD9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7695,12 +7695,12 @@ class NumpadPeriod_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADPERIOD_KEY_OBJECT)
+        if not _InternalConstants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADPERIOD_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadPeriod_KEY as _NumpadPeriod_KEY
             _NumpadPeriod_KEY()
 
-        self._numpadperiod_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADPERIOD_KEY_OBJECT]
+        self._numpadperiod_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADPERIOD_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7766,12 +7766,12 @@ class NumpadDivide_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADDIVIDE_KEY_OBJECT)
+        if not _InternalConstants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADDIVIDE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadDivide_KEY as _NumpadDivide_KEY
             _NumpadDivide_KEY()
 
-        self._numpaddivide_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADDIVIDE_KEY_OBJECT]
+        self._numpaddivide_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADDIVIDE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7837,12 +7837,12 @@ class NumpadMultiply_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADMULTIPLY_KEY_OBJECT)
+        if not _InternalConstants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadMultiply_KEY as _NumpadMultiply_KEY
             _NumpadMultiply_KEY()
 
-        self._numpadmultiply_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADMULTIPLY_KEY_OBJECT]
+        self._numpadmultiply_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7908,12 +7908,12 @@ class NumpadMinus_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADMINUS_KEY_OBJECT)
+        if not _InternalConstants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADMINUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadMinus_KEY as _NumpadMinus_KEY
             _NumpadMinus_KEY()
 
-        self._numpadminus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADMINUS_KEY_OBJECT]
+        self._numpadminus_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADMINUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -7979,12 +7979,12 @@ class NumpadPlus_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADPLUS_KEY_OBJECT)
+        if not _InternalConstants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADPLUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadPlus_KEY as _NumpadPlus_KEY
             _NumpadPlus_KEY()
 
-        self._numpadplus_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADPLUS_KEY_OBJECT]
+        self._numpadplus_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADPLUS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8050,12 +8050,12 @@ class NumpadEnter_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADENTER_KEY_OBJECT)
+        if not _InternalConstants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADENTER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadEnter_KEY as _NumpadEnter_KEY
             _NumpadEnter_KEY()
 
-        self._numpadenter_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADENTER_KEY_OBJECT]
+        self._numpadenter_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADENTER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8121,12 +8121,12 @@ class NumpadEquals_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMPADEQUALS_KEY_OBJECT)
+        if not _InternalConstants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADEQUALS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadEquals_KEY as _NumpadEquals_KEY
             _NumpadEquals_KEY()
 
-        self._numpadequals_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMPADEQUALS_KEY_OBJECT]
+        self._numpadequals_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMPADEQUALS_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8192,12 +8192,12 @@ class Up_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.UP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.UP_KEY_OBJECT)
+        if not _InternalConstants.UP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.UP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Up_KEY as _Up_KEY
             _Up_KEY()
 
-        self._up_key_object_intermediary = _Registry.pmma_module_spine[_Constants.UP_KEY_OBJECT]
+        self._up_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.UP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8263,12 +8263,12 @@ class Down_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DOWN_KEY_OBJECT)
+        if not _InternalConstants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DOWN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Down_KEY as _Down_KEY
             _Down_KEY()
 
-        self._down_key_object_intermediary = _Registry.pmma_module_spine[_Constants.DOWN_KEY_OBJECT]
+        self._down_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DOWN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8334,12 +8334,12 @@ class Right_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHT_KEY_OBJECT)
+        if not _InternalConstants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Right_KEY as _Right_KEY
             _Right_KEY()
 
-        self._right_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHT_KEY_OBJECT]
+        self._right_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8405,12 +8405,12 @@ class Left_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFT_KEY_OBJECT)
+        if not _InternalConstants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Left_KEY as _Left_KEY
             _Left_KEY()
 
-        self._left_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFT_KEY_OBJECT]
+        self._left_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8476,12 +8476,12 @@ class Insert_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.INSERT_KEY_OBJECT)
+        if not _InternalConstants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.INSERT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Insert_KEY as _Insert_KEY
             _Insert_KEY()
 
-        self._insert_key_object_intermediary = _Registry.pmma_module_spine[_Constants.INSERT_KEY_OBJECT]
+        self._insert_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.INSERT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8547,12 +8547,12 @@ class Home_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.HOME_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.HOME_KEY_OBJECT)
+        if not _InternalConstants.HOME_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.HOME_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Home_KEY as _Home_KEY
             _Home_KEY()
 
-        self._home_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HOME_KEY_OBJECT]
+        self._home_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.HOME_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8618,12 +8618,12 @@ class End_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.END_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.END_KEY_OBJECT)
+        if not _InternalConstants.END_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.END_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import End_KEY as _End_KEY
             _End_KEY()
 
-        self._end_key_object_intermediary = _Registry.pmma_module_spine[_Constants.END_KEY_OBJECT]
+        self._end_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.END_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8689,12 +8689,12 @@ class PageUp_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PAGEUP_KEY_OBJECT)
+        if not _InternalConstants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PAGEUP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PageUp_KEY as _PageUp_KEY
             _PageUp_KEY()
 
-        self._pageup_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAGEUP_KEY_OBJECT]
+        self._pageup_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PAGEUP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8760,12 +8760,12 @@ class PageDown_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PAGEDOWN_KEY_OBJECT)
+        if not _InternalConstants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PAGEDOWN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PageDown_KEY as _PageDown_KEY
             _PageDown_KEY()
 
-        self._pagedown_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PAGEDOWN_KEY_OBJECT]
+        self._pagedown_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PAGEDOWN_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8831,12 +8831,12 @@ class Function1_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION1_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION1_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function1_KEY as _Function1_KEY
             _Function1_KEY()
 
-        self._function1_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION1_KEY_OBJECT]
+        self._function1_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION1_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8902,12 +8902,12 @@ class Function2_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION2_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION2_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function2_KEY as _Function2_KEY
             _Function2_KEY()
 
-        self._function2_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION2_KEY_OBJECT]
+        self._function2_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION2_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -8973,12 +8973,12 @@ class Function3_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION3_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION3_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function3_KEY as _Function3_KEY
             _Function3_KEY()
 
-        self._function3_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION3_KEY_OBJECT]
+        self._function3_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION3_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9044,12 +9044,12 @@ class Function4_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION4_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION4_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function4_KEY as _Function4_KEY
             _Function4_KEY()
 
-        self._function4_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION4_KEY_OBJECT]
+        self._function4_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION4_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9115,12 +9115,12 @@ class Function5_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION5_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION5_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function5_KEY as _Function5_KEY
             _Function5_KEY()
 
-        self._function5_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION5_KEY_OBJECT]
+        self._function5_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION5_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9186,12 +9186,12 @@ class Function6_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION6_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION6_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function6_KEY as _Function6_KEY
             _Function6_KEY()
 
-        self._function6_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION6_KEY_OBJECT]
+        self._function6_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION6_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9257,12 +9257,12 @@ class Function7_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION7_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION7_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function7_KEY as _Function7_KEY
             _Function7_KEY()
 
-        self._function7_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION7_KEY_OBJECT]
+        self._function7_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION7_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9328,12 +9328,12 @@ class Function8_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION8_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION8_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function8_KEY as _Function8_KEY
             _Function8_KEY()
 
-        self._function8_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION8_KEY_OBJECT]
+        self._function8_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION8_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9399,12 +9399,12 @@ class Function9_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION9_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION9_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function9_KEY as _Function9_KEY
             _Function9_KEY()
 
-        self._function9_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION9_KEY_OBJECT]
+        self._function9_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION9_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9470,12 +9470,12 @@ class Function10_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION10_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION10_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function10_KEY as _Function10_KEY
             _Function10_KEY()
 
-        self._function10_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION10_KEY_OBJECT]
+        self._function10_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION10_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9541,12 +9541,12 @@ class Function11_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION11_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION11_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function11_KEY as _Function11_KEY
             _Function11_KEY()
 
-        self._function11_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION11_KEY_OBJECT]
+        self._function11_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION11_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9612,12 +9612,12 @@ class Function12_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION12_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION12_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function12_KEY as _Function12_KEY
             _Function12_KEY()
 
-        self._function12_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION12_KEY_OBJECT]
+        self._function12_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION12_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9683,12 +9683,12 @@ class Function13_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION13_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION13_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function13_KEY as _Function13_KEY
             _Function13_KEY()
 
-        self._function13_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION13_KEY_OBJECT]
+        self._function13_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION13_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9754,12 +9754,12 @@ class Function14_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION14_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION14_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function14_KEY as _Function14_KEY
             _Function14_KEY()
 
-        self._function14_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION14_KEY_OBJECT]
+        self._function14_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION14_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9825,12 +9825,12 @@ class Function15_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FUNCTION15_KEY_OBJECT)
+        if not _InternalConstants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION15_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function15_KEY as _Function15_KEY
             _Function15_KEY()
 
-        self._function15_key_object_intermediary = _Registry.pmma_module_spine[_Constants.FUNCTION15_KEY_OBJECT]
+        self._function15_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FUNCTION15_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9896,12 +9896,12 @@ class NumLock_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.NUMLOCK_KEY_OBJECT)
+        if not _InternalConstants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.NUMLOCK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumLock_KEY as _NumLock_KEY
             _NumLock_KEY()
 
-        self._numlock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.NUMLOCK_KEY_OBJECT]
+        self._numlock_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.NUMLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -9967,12 +9967,12 @@ class CapsLock_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.CAPSLOCK_KEY_OBJECT)
+        if not _InternalConstants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.CAPSLOCK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import CapsLock_KEY as _CapsLock_KEY
             _CapsLock_KEY()
 
-        self._capslock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CAPSLOCK_KEY_OBJECT]
+        self._capslock_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.CAPSLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10038,12 +10038,12 @@ class ScrollLock_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SCROLLLOCK_KEY_OBJECT)
+        if not _InternalConstants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SCROLLLOCK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import ScrollLock_KEY as _ScrollLock_KEY
             _ScrollLock_KEY()
 
-        self._scrolllock_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SCROLLLOCK_KEY_OBJECT]
+        self._scrolllock_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SCROLLLOCK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10109,12 +10109,12 @@ class RightShift_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTSHIFT_KEY_OBJECT)
+        if not _InternalConstants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTSHIFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightShift_KEY as _RightShift_KEY
             _RightShift_KEY()
 
-        self._rightshift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTSHIFT_KEY_OBJECT]
+        self._rightshift_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTSHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10180,12 +10180,12 @@ class LeftShift_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTSHIFT_KEY_OBJECT)
+        if not _InternalConstants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTSHIFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftShift_KEY as _LeftShift_KEY
             _LeftShift_KEY()
 
-        self._leftshift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTSHIFT_KEY_OBJECT]
+        self._leftshift_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTSHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10251,12 +10251,12 @@ class Shift_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SHIFT_KEY_OBJECT)
+        if not _InternalConstants.SHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SHIFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Shift_KEY as _Shift_KEY
             _Shift_KEY()
 
-        self._shift_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SHIFT_KEY_OBJECT]
+        self._shift_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SHIFT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10322,12 +10322,12 @@ class RightControl_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTCONTROL_KEY_OBJECT)
+        if not _InternalConstants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTCONTROL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightControl_KEY as _RightControl_KEY
             _RightControl_KEY()
 
-        self._rightcontrol_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTCONTROL_KEY_OBJECT]
+        self._rightcontrol_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTCONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10393,12 +10393,12 @@ class LeftControl_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTCONTROL_KEY_OBJECT)
+        if not _InternalConstants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTCONTROL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftControl_KEY as _LeftControl_KEY
             _LeftControl_KEY()
 
-        self._leftcontrol_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTCONTROL_KEY_OBJECT]
+        self._leftcontrol_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTCONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10464,12 +10464,12 @@ class Control_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.CONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.CONTROL_KEY_OBJECT)
+        if not _InternalConstants.CONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.CONTROL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Control_KEY as _Control_KEY
             _Control_KEY()
 
-        self._control_key_object_intermediary = _Registry.pmma_module_spine[_Constants.CONTROL_KEY_OBJECT]
+        self._control_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.CONTROL_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10535,12 +10535,12 @@ class RightAlt_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTALT_KEY_OBJECT)
+        if not _InternalConstants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTALT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightAlt_KEY as _RightAlt_KEY
             _RightAlt_KEY()
 
-        self._rightalt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTALT_KEY_OBJECT]
+        self._rightalt_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10606,12 +10606,12 @@ class LeftAlt_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTALT_KEY_OBJECT)
+        if not _InternalConstants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTALT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftAlt_KEY as _LeftAlt_KEY
             _LeftAlt_KEY()
 
-        self._leftalt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTALT_KEY_OBJECT]
+        self._leftalt_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10677,12 +10677,12 @@ class Alt_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.ALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.ALT_KEY_OBJECT)
+        if not _InternalConstants.ALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.ALT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Alt_KEY as _Alt_KEY
             _Alt_KEY()
 
-        self._alt_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ALT_KEY_OBJECT]
+        self._alt_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.ALT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10748,12 +10748,12 @@ class RightMeta_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTMETA_KEY_OBJECT)
+        if not _InternalConstants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTMETA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightMeta_KEY as _RightMeta_KEY
             _RightMeta_KEY()
 
-        self._rightmeta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTMETA_KEY_OBJECT]
+        self._rightmeta_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTMETA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10819,12 +10819,12 @@ class LeftMeta_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTMETA_KEY_OBJECT)
+        if not _InternalConstants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTMETA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftMeta_KEY as _LeftMeta_KEY
             _LeftMeta_KEY()
 
-        self._leftmeta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTMETA_KEY_OBJECT]
+        self._leftmeta_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTMETA_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10890,12 +10890,12 @@ class Meta_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.META_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.META_KEY_OBJECT)
+        if not _InternalConstants.META_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.META_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Meta_KEY as _Meta_KEY
             _Meta_KEY()
 
-        self._meta_key_object_intermediary = _Registry.pmma_module_spine[_Constants.META_KEY_OBJECT]
+        self._meta_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.META_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -10961,12 +10961,12 @@ class LeftSuper_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTSUPER_KEY_OBJECT)
+        if not _InternalConstants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTSUPER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftSuper_KEY as _LeftSuper_KEY
             _LeftSuper_KEY()
 
-        self._leftsuper_key_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTSUPER_KEY_OBJECT]
+        self._leftsuper_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTSUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11032,12 +11032,12 @@ class RightSuper_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTSUPER_KEY_OBJECT)
+        if not _InternalConstants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTSUPER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightSuper_KEY as _RightSuper_KEY
             _RightSuper_KEY()
 
-        self._rightsuper_key_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTSUPER_KEY_OBJECT]
+        self._rightsuper_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTSUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11103,12 +11103,12 @@ class Super_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SUPER_KEY_OBJECT)
+        if not _InternalConstants.SUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SUPER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Super_KEY as _Super_KEY
             _Super_KEY()
 
-        self._super_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SUPER_KEY_OBJECT]
+        self._super_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SUPER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11174,12 +11174,12 @@ class Mode_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MODE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MODE_KEY_OBJECT)
+        if not _InternalConstants.MODE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MODE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Mode_KEY as _Mode_KEY
             _Mode_KEY()
 
-        self._mode_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MODE_KEY_OBJECT]
+        self._mode_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MODE_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11245,12 +11245,12 @@ class Help_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.HELP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.HELP_KEY_OBJECT)
+        if not _InternalConstants.HELP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.HELP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Help_KEY as _Help_KEY
             _Help_KEY()
 
-        self._help_key_object_intermediary = _Registry.pmma_module_spine[_Constants.HELP_KEY_OBJECT]
+        self._help_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.HELP_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11316,12 +11316,12 @@ class Print_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.PRINT_KEY_OBJECT)
+        if not _InternalConstants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.PRINT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Print_KEY as _Print_KEY
             _Print_KEY()
 
-        self._print_key_object_intermediary = _Registry.pmma_module_spine[_Constants.PRINT_KEY_OBJECT]
+        self._print_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.PRINT_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11387,12 +11387,12 @@ class SystemRequest_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SYSTEMREQUEST_KEY_OBJECT)
+        if not _InternalConstants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SYSTEMREQUEST_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import SystemRequest_KEY as _SystemRequest_KEY
             _SystemRequest_KEY()
 
-        self._systemrequest_key_object_intermediary = _Registry.pmma_module_spine[_Constants.SYSTEMREQUEST_KEY_OBJECT]
+        self._systemrequest_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SYSTEMREQUEST_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11458,12 +11458,12 @@ class Break_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.BREAK_KEY_OBJECT)
+        if not _InternalConstants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.BREAK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Break_KEY as _Break_KEY
             _Break_KEY()
 
-        self._break_key_object_intermediary = _Registry.pmma_module_spine[_Constants.BREAK_KEY_OBJECT]
+        self._break_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.BREAK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11529,12 +11529,12 @@ class Menu_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MENU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MENU_KEY_OBJECT)
+        if not _InternalConstants.MENU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MENU_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Menu_KEY as _Menu_KEY
             _Menu_KEY()
 
-        self._menu_key_object_intermediary = _Registry.pmma_module_spine[_Constants.MENU_KEY_OBJECT]
+        self._menu_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MENU_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11600,12 +11600,12 @@ class Power_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.POWER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.POWER_KEY_OBJECT)
+        if not _InternalConstants.POWER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.POWER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Power_KEY as _Power_KEY
             _Power_KEY()
 
-        self._power_key_object_intermediary = _Registry.pmma_module_spine[_Constants.POWER_KEY_OBJECT]
+        self._power_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.POWER_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11671,12 +11671,12 @@ class Euro_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.EURO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.EURO_KEY_OBJECT)
+        if not _InternalConstants.EURO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.EURO_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Euro_KEY as _Euro_KEY
             _Euro_KEY()
 
-        self._euro_key_object_intermediary = _Registry.pmma_module_spine[_Constants.EURO_KEY_OBJECT]
+        self._euro_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.EURO_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11742,12 +11742,12 @@ class AndroidBack_KEY:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.ANDROIDBACK_KEY_OBJECT)
+        if not _InternalConstants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.ANDROIDBACK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import AndroidBack_KEY as _AndroidBack_KEY
             _AndroidBack_KEY()
 
-        self._androidback_key_object_intermediary = _Registry.pmma_module_spine[_Constants.ANDROIDBACK_KEY_OBJECT]
+        self._androidback_key_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.ANDROIDBACK_KEY_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11813,12 +11813,12 @@ class LeftButton_MOUSE:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LEFTBUTTON_MOUSE_OBJECT)
+        if not _InternalConstants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LEFTBUTTON_MOUSE_OBJECT)
             from pmma.python_src.utility.event_utils import LeftButton_MOUSE as _LeftButton_MOUSE
             _LeftButton_MOUSE()
 
-        self._leftbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.LEFTBUTTON_MOUSE_OBJECT]
+        self._leftbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LEFTBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11884,12 +11884,12 @@ class MiddleButton_MOUSE:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MIDDLEBUTTON_MOUSE_OBJECT)
+        if not _InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT)
             from pmma.python_src.utility.event_utils import MiddleButton_MOUSE as _MiddleButton_MOUSE
             _MiddleButton_MOUSE()
 
-        self._middlebutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.MIDDLEBUTTON_MOUSE_OBJECT]
+        self._middlebutton_mouse_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -11955,12 +11955,12 @@ class RightButton_MOUSE:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RIGHTBUTTON_MOUSE_OBJECT)
+        if not _InternalConstants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT)
             from pmma.python_src.utility.event_utils import RightButton_MOUSE as _RightButton_MOUSE
             _RightButton_MOUSE()
 
-        self._rightbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_Constants.RIGHTBUTTON_MOUSE_OBJECT]
+        self._rightbutton_mouse_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT]
 
     def set_double_tapped(self, value):
         """
@@ -12026,12 +12026,12 @@ class Mouse_SCROLL:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MOUSE_SCROLL_OBJECT)
+        if not _InternalConstants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MOUSE_SCROLL_OBJECT)
             from pmma.python_src.utility.event_utils import Mouse_SCROLL as _Mouse_SCROLL
             _Mouse_SCROLL()
 
-        self._mouse_scroll_object_intermediary = _Registry.pmma_module_spine[_Constants.MOUSE_SCROLL_OBJECT]
+        self._mouse_scroll_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT]
 
     def get_x_displacement(self):
         """
@@ -12097,12 +12097,12 @@ class Mouse_POSITION:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MOUSE_POSITION_OBJECT)
+        if not _InternalConstants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MOUSE_POSITION_OBJECT)
             from pmma.python_src.utility.event_utils import Mouse_POSITION as _Mouse_POSITION
             _Mouse_POSITION()
 
-        self._mouse_position_object_intermediary = _Registry.pmma_module_spine[_Constants.MOUSE_POSITION_OBJECT]
+        self._mouse_position_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT]
 
     def get_axis_displacement(self):
         """
@@ -12174,12 +12174,12 @@ class Active_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.ACTIVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.ACTIVE_EVENT_OBJECT)
+        if not _InternalConstants.ACTIVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.ACTIVE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import Active_EVENT as _Active_EVENT
             _Active_EVENT()
 
-        self._active_event_object_intermediary = _Registry.pmma_module_spine[_Constants.ACTIVE_EVENT_OBJECT]
+        self._active_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.ACTIVE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12209,12 +12209,12 @@ class AppTerminating_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.APPTERMINATING_EVENT_OBJECT)
+        if not _InternalConstants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.APPTERMINATING_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppTerminating_EVENT as _AppTerminating_EVENT
             _AppTerminating_EVENT()
 
-        self._appterminatingevent_intermediary = _Registry.pmma_module_spine[_Constants.APPTERMINATING_EVENT_OBJECT]
+        self._appterminatingevent_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPTERMINATING_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12228,7 +12228,7 @@ class AppTerminating_EVENT:
         """
         🟩 **R** -
         """
-        if _get_operating_system() != _Constants.ANDROID:
+        if _get_operating_system() != _InternalConstants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'Quit_EVENT' as this works across all platforms.")
         return self._appterminatingevent_intermediary.get_value()
 
@@ -12248,12 +12248,12 @@ class AppLowMemory_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.APPLOWMEMORY_EVENT_OBJECT)
+        if not _InternalConstants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.APPLOWMEMORY_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppLowMemory_EVENT as _AppLowMemory_EVENT
             _AppLowMemory_EVENT()
 
-        self._applowmemory_intermediary = _Registry.pmma_module_spine[_Constants.APPLOWMEMORY_EVENT_OBJECT]
+        self._applowmemory_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPLOWMEMORY_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12267,7 +12267,7 @@ class AppLowMemory_EVENT:
         """
         🟩 **R** -
         """
-        if _get_operating_system() != _Constants.ANDROID:
+        if _get_operating_system() != _InternalConstants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative \
 to this on other operating systems due to how memory is allocated. If you are interested in getting information about memory, \
 I'd recommend checking out PSUtil: https://pypi.org/project/psutil/")
@@ -12289,12 +12289,12 @@ class AppWillEnterBackground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT)
+        if not _InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppWillEnterBackground_EVENT as _AppWillEnterBackground_EVENT
             _AppWillEnterBackground_EVENT()
 
-        self._appwillenterbackground_intermediary = _Registry.pmma_module_spine[_Constants.APPWILLENTERBACKGROUND_EVENT_OBJECT]
+        self._appwillenterbackground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12328,12 +12328,12 @@ class AppDidEnterBackground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT)
+        if not _InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppDidEnterBackground_EVENT as _AppDidEnterBackground_EVENT
             _AppDidEnterBackground_EVENT()
 
-        self._appdidenterbackground_intermediary = _Registry.pmma_module_spine[_Constants.APPDIDENTERBACKGROUND_EVENT_OBJECT]
+        self._appdidenterbackground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12367,12 +12367,12 @@ class AppWillEnterForeground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT)
+        if not _InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppWillEnterForeground_EVENT as _AppWillEnterForeground_EVENT
             _AppWillEnterForeground_EVENT()
 
-        self._appwillenterforeground_intermediary = _Registry.pmma_module_spine[_Constants.APPWILLENTERFOREGROUND_EVENT_OBJECT]
+        self._appwillenterforeground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12406,12 +12406,12 @@ class AppDidEnterForeground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT)
+        if not _InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppDidEnterForeground_EVENT as _AppDidEnterForeground_EVENT
             _AppDidEnterForeground_EVENT()
 
-        self._appdidenterforeground_intermediary = _Registry.pmma_module_spine[_Constants.APPDIDENTERFOREGROUND_EVENT_OBJECT]
+        self._appdidenterforeground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12445,12 +12445,12 @@ class AudioDeviceAdded_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.AUDIODEVICEADDED_EVENT_OBJECT)
+        if not _InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AudioDeviceAdded_EVENT as _AudioDeviceAdded_EVENT
             _AudioDeviceAdded_EVENT()
 
-        self._audiodeviceadded_event_object_intermediary = _Registry.pmma_module_spine[_Constants.AUDIODEVICEADDED_EVENT_OBJECT]
+        self._audiodeviceadded_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12480,12 +12480,12 @@ class AudioDeviceRemoved_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT)
+        if not _InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AudioDeviceRemoved_EVENT as _AudioDeviceRemoved_EVENT
             _AudioDeviceRemoved_EVENT()
 
-        self._audiodeviceremoved_event_object_intermediary = _Registry.pmma_module_spine[_Constants.AUDIODEVICEREMOVED_EVENT_OBJECT]
+        self._audiodeviceremoved_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12515,12 +12515,12 @@ class ClipBoardUpdate_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.CLIPBOARDUPDATE_EVENT_OBJECT)
+        if not _InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import ClipBoardUpdate_EVENT as _ClipBoardUpdate_EVENT
             _ClipBoardUpdate_EVENT()
 
-        self._clipboardupdate_event_object_intermediary = _Registry.pmma_module_spine[_Constants.CLIPBOARDUPDATE_EVENT_OBJECT]
+        self._clipboardupdate_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12550,12 +12550,12 @@ class DropFile_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DROPFILE_EVENT_OBJECT)
+        if not _InternalConstants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DROPFILE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropFile_EVENT as _DropFile_EVENT
             _DropFile_EVENT()
 
-        self._dropfile_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPFILE_EVENT_OBJECT]
+        self._dropfile_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DROPFILE_EVENT_OBJECT]
 
     def set_file(self, file):
         """
@@ -12585,12 +12585,12 @@ class DropText_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DROPTEXT_EVENT_OBJECT)
+        if not _InternalConstants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DROPTEXT_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropText_EVENT as _DropText_EVENT
             _DropText_EVENT()
 
-        self._deoptext_intermediary = _Registry.pmma_module_spine[_Constants.DROPTEXT_EVENT_OBJECT]
+        self._deoptext_intermediary = _Registry.pmma_module_spine[_InternalConstants.DROPTEXT_EVENT_OBJECT]
 
         self._logger = _InternalLogger()
 
@@ -12632,12 +12632,12 @@ class DropBegin_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DROPBEGIN_EVENT_OBJECT)
+        if not _InternalConstants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DROPBEGIN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropBegin_EVENT as _DropBegin_EVENT
             _DropBegin_EVENT()
 
-        self._dropbegin_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPBEGIN_EVENT_OBJECT]
+        self._dropbegin_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DROPBEGIN_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12667,12 +12667,12 @@ class DropComplete_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DROPCOMPLETE_EVENT_OBJECT)
+        if not _InternalConstants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DROPCOMPLETE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropComplete_EVENT as _DropComplete_EVENT
             _DropComplete_EVENT()
 
-        self._dropcomplete_event_object_intermediary = _Registry.pmma_module_spine[_Constants.DROPCOMPLETE_EVENT_OBJECT]
+        self._dropcomplete_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.DROPCOMPLETE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12702,12 +12702,12 @@ class FingerMotion_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FINGERMOTION_EVENT_OBJECT)
+        if not _InternalConstants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FINGERMOTION_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import FingerMotion_EVENT as _FingerMotion_EVENT
             _FingerMotion_EVENT()
 
-        self._fingermotion_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERMOTION_EVENT_OBJECT]
+        self._fingermotion_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FINGERMOTION_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12737,12 +12737,12 @@ class FingerDown_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FINGERDOWN_EVENT_OBJECT)
+        if not _InternalConstants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FINGERDOWN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import FingerDown_EVENT as _FingerDown_EVENT
             _FingerDown_EVENT()
 
-        self._fingerdown_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERDOWN_EVENT_OBJECT]
+        self._fingerdown_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FINGERDOWN_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12772,12 +12772,12 @@ class FingerUp_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.FINGERUP_EVENT_OBJECT)
+        if not _InternalConstants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.FINGERUP_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import FingerUp_EVENT as _FingerUp_EVENT
             _FingerUp_EVENT()
 
-        self._fingerup_event_object_intermediary = _Registry.pmma_module_spine[_Constants.FINGERUP_EVENT_OBJECT]
+        self._fingerup_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.FINGERUP_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12807,12 +12807,12 @@ class KeyMapChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.KEYMAPCHANGED_EVENT_OBJECT)
+        if not _InternalConstants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import KeyMapChanged_EVENT as _KeyMapChanged_EVENT
             _KeyMapChanged_EVENT()
 
-        self._keymapchanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.KEYMAPCHANGED_EVENT_OBJECT]
+        self._keymapchanged_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12842,12 +12842,12 @@ class LocaleChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LOCALECHANGED_EVENT_OBJECT)
+        if not _InternalConstants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LOCALECHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import LocaleChanged_EVENT as _LocaleChanged_EVENT
             _LocaleChanged_EVENT()
 
-        self._localechanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.LOCALECHANGED_EVENT_OBJECT]
+        self._localechanged_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.LOCALECHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12877,12 +12877,12 @@ class MultiGesture_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.MULTIGESTURE_EVENT_OBJECT)
+        if not _InternalConstants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.MULTIGESTURE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import MultiGesture_EVENT as _MultiGesture_EVENT
             _MultiGesture_EVENT()
 
-        self._multigesture_event_object_intermediary = _Registry.pmma_module_spine[_Constants.MULTIGESTURE_EVENT_OBJECT]
+        self._multigesture_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT]
 
     def get_gesture_center_x(self):
         """
@@ -12960,12 +12960,12 @@ class Quit_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.QUIT_EVENT_OBJECT)
+        if not _InternalConstants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.QUIT_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import Quit_EVENT as _Quit_EVENT
             _Quit_EVENT()
 
-        self._quit_event_object_intermediary = _Registry.pmma_module_spine[_Constants.QUIT_EVENT_OBJECT]
+        self._quit_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.QUIT_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -12995,12 +12995,12 @@ class RenderTargetsReset_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDERTARGETSRESET_EVENT_OBJECT)
+        if not _InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import RenderTargetsReset_EVENT as _RenderTargetsReset_EVENT
             _RenderTargetsReset_EVENT()
 
-        self._rendertargetsreset_event_object_intermediary = _Registry.pmma_module_spine[_Constants.RENDERTARGETSRESET_EVENT_OBJECT]
+        self._rendertargetsreset_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13030,12 +13030,12 @@ class RenderDeviceReset_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.RENDERDEVICERESET_EVENT_OBJECT)
+        if not _InternalConstants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import RenderDeviceReset_EVENT as _RenderDeviceReset_EVENT
             _RenderDeviceReset_EVENT()
 
-        self._renderdevicereset_event_object_intermediary = _Registry.pmma_module_spine[_Constants.RENDERDEVICERESET_EVENT_OBJECT]
+        self._renderdevicereset_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13065,12 +13065,12 @@ class SysWMEvent_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SYSWMEVENT_EVENT_OBJECT)
+        if not _InternalConstants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SYSWMEVENT_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import SysWMEvent_EVENT as _SysWMEvent_EVENT
             _SysWMEvent_EVENT()
 
-        self._syswmevent_event_object_intermediary = _Registry.pmma_module_spine[_Constants.SYSWMEVENT_EVENT_OBJECT]
+        self._syswmevent_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.SYSWMEVENT_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13100,12 +13100,12 @@ class VideoResize_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.VIDEORESIZE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.VIDEORESIZE_EVENT_OBJECT)
+        if not _InternalConstants.VIDEORESIZE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.VIDEORESIZE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import VideoResize_EVENT as _VideoResize_EVENT
             _VideoResize_EVENT()
 
-        self._videoresize_event_object_intermediary = _Registry.pmma_module_spine[_Constants.VIDEORESIZE_EVENT_OBJECT]
+        self._videoresize_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.VIDEORESIZE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13135,12 +13135,12 @@ class VideoExpose_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.VIDEOEXPOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.VIDEOEXPOSE_EVENT_OBJECT)
+        if not _InternalConstants.VIDEOEXPOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.VIDEOEXPOSE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import VideoExpose_EVENT as _VideoExpose_EVENT
             _VideoExpose_EVENT()
 
-        self._videoexpose_event_object_intermediary = _Registry.pmma_module_spine[_Constants.VIDEOEXPOSE_EVENT_OBJECT]
+        self._videoexpose_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.VIDEOEXPOSE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13170,12 +13170,12 @@ class WindowShown_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWSHOWN_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWSHOWN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowShown_EVENT as _WindowShown_EVENT
             _WindowShown_EVENT()
 
-        self._windowshown_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWSHOWN_EVENT_OBJECT]
+        self._windowshown_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWSHOWN_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13205,12 +13205,12 @@ class WindowHidden_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWHIDDEN_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowHidden_EVENT as _WindowHidden_EVENT
             _WindowHidden_EVENT()
 
-        self._windowhidden_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWHIDDEN_EVENT_OBJECT]
+        self._windowhidden_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13240,12 +13240,12 @@ class WindowExposed_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWEXPOSED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowExposed_EVENT as _WindowExposed_EVENT
             _WindowExposed_EVENT()
 
-        self._windowexposed_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWEXPOSED_EVENT_OBJECT]
+        self._windowexposed_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13275,12 +13275,12 @@ class WindowMoved_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWMOVED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWMOVED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowMoved_EVENT as _WindowMoved_EVENT
             _WindowMoved_EVENT()
 
-        self._windowmoved_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMOVED_EVENT_OBJECT]
+        self._windowmoved_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWMOVED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13310,12 +13310,12 @@ class WindowResized_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWRESIZED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWRESIZED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowResized_EVENT as _WindowResized_EVENT
             _WindowResized_EVENT()
 
-        self._windowresized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWRESIZED_EVENT_OBJECT]
+        self._windowresized_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13345,12 +13345,12 @@ class WindowMinimized_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWMINIMIZED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowMinimized_EVENT as _WindowMinimized_EVENT
             _WindowMinimized_EVENT()
 
-        self._windowminimized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMINIMIZED_EVENT_OBJECT]
+        self._windowminimized_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13380,12 +13380,12 @@ class WindowMaximized_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWMAXIMIZED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowMaximized_EVENT as _WindowMaximized_EVENT
             _WindowMaximized_EVENT()
 
-        self._windowmaximized_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWMAXIMIZED_EVENT_OBJECT]
+        self._windowmaximized_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13415,12 +13415,12 @@ class WindowRestored_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWRESTORED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWRESTORED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowRestored_EVENT as _WindowRestored_EVENT
             _WindowRestored_EVENT()
 
-        self._windowrestored_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWRESTORED_EVENT_OBJECT]
+        self._windowrestored_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWRESTORED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13450,12 +13450,12 @@ class WindowEnter_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWENTER_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWENTER_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowEnter_EVENT as _WindowEnter_EVENT
             _WindowEnter_EVENT()
 
-        self._windowenter_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWENTER_EVENT_OBJECT]
+        self._windowenter_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWENTER_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13485,12 +13485,12 @@ class WindowLeave_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWLEAVE_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWLEAVE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowLeave_EVENT as _WindowLeave_EVENT
             _WindowLeave_EVENT()
 
-        self._windowleave_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWLEAVE_EVENT_OBJECT]
+        self._windowleave_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWLEAVE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13520,12 +13520,12 @@ class WindowFocusGained_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
             _WindowFocusGained_EVENT()
 
-        self._windowfocusgained_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFOCUSGAINED_EVENT_OBJECT]
+        self._windowfocusgained_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13555,12 +13555,12 @@ class WindowFocusLost_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWFOCUSLOST_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
             _WindowFocusLost_EVENT()
 
-        self._windowfocuslost_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFOCUSLOST_EVENT_OBJECT]
+        self._windowfocuslost_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13590,12 +13590,12 @@ class WindowClose_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWCLOSE_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWCLOSE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowClose_EVENT as _WindowClose_EVENT
             _WindowClose_EVENT()
 
-        self._windowclose_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWCLOSE_EVENT_OBJECT]
+        self._windowclose_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWCLOSE_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13625,12 +13625,12 @@ class WindowTakeFocus_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowTakeFocus_EVENT as _WindowTakeFocus_EVENT
             _WindowTakeFocus_EVENT()
 
-        self._windowtakefocus_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWTAKEFOCUS_EVENT_OBJECT]
+        self._windowtakefocus_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13660,12 +13660,12 @@ class WindowHitTest_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWHITTEST_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWHITTEST_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowHitTest_EVENT as _WindowHitTest_EVENT
             _WindowHitTest_EVENT()
 
-        self._windowhittest_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWHITTEST_EVENT_OBJECT]
+        self._windowhittest_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWHITTEST_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13695,12 +13695,12 @@ class WindowICCPROFChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowICCPROFChanged_EVENT as _WindowICCPROFChanged_EVENT
             _WindowICCPROFChanged_EVENT()
 
-        self._windowiccprofchanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWICCPROFCHANGED_EVENT_OBJECT]
+        self._windowiccprofchanged_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13730,12 +13730,12 @@ class WindowDisplayChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT)
+        if not _InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowDisplayChanged_EVENT as _WindowDisplayChanged_EVENT
             _WindowDisplayChanged_EVENT()
 
-        self._windowdisplaychanged_event_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWDISPLAYCHANGED_EVENT_OBJECT]
+        self._windowdisplaychanged_event_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT]
 
     def set_value(self, value):
         """
@@ -13765,12 +13765,12 @@ class JoyDeviceAdded_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.JOYDEVICEADDED_OBJECT)
+        if not _InternalConstants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.JOYDEVICEADDED_OBJECT)
             from pmma.python_src.utility.event_utils import JoyDeviceAdded_EVENT as _JoyDeviceAdded_EVENT
             _JoyDeviceAdded_EVENT()
 
-        self._joydeviceadded_object_intermediary = _Registry.pmma_module_spine[_Constants.JOYDEVICEADDED_OBJECT]
+        self._joydeviceadded_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEADDED_OBJECT]
 
     def set_value(self, value):
         """
@@ -13800,12 +13800,12 @@ class JoyDeviceRemoved_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.JOYDEVICEREMOVED_OBJECT)
+        if not _InternalConstants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.JOYDEVICEREMOVED_OBJECT)
             from pmma.python_src.utility.event_utils import JoyDeviceRemoved_EVENT as _JoyDeviceRemoved_EVENT
             _JoyDeviceRemoved_EVENT()
 
-        self._joydeviceremoved_object_intermediary = _Registry.pmma_module_spine[_Constants.JOYDEVICEREMOVED_OBJECT]
+        self._joydeviceremoved_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEREMOVED_OBJECT]
 
     def set_value(self, value):
         """
@@ -13835,12 +13835,12 @@ class WindowFullScreenStatusChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
-        if not _Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT)
+        if not _InternalConstants.WINDOWFULLSCREENSTATECHANGED_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWFULLSCREENSTATECHANGED_OBJECT)
             from pmma.python_src.utility.event_utils import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
             _WindowFullScreenStatusChanged_EVENT()
 
-        self._windowfullscreenstatechanged_object_intermediary = _Registry.pmma_module_spine[_Constants.WINDOWFULLSCREENSTATECHANGED_OBJECT]
+        self._windowfullscreenstatechanged_object_intermediary = _Registry.pmma_module_spine[_InternalConstants.WINDOWFULLSCREENSTATECHANGED_OBJECT]
 
     def set_value(self, value):
         """

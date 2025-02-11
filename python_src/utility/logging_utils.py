@@ -15,6 +15,7 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class LoggerIntermediary:
     """
@@ -24,7 +25,7 @@ class LoggerIntermediary:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True, logging_instantiation=True)
+        _initialize(self, unique_instance=_InternalConstants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True, logging_instantiation=True)
 
         self._logged_messages = []
 
@@ -552,11 +553,11 @@ class InternalLogger:
         """
         _initialize(self)
 
-        if not _Constants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.LOGGING_INTERMEDIARY_OBJECT)
+        if not _InternalConstants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.LOGGING_INTERMEDIARY_OBJECT)
             LoggerIntermediary()
 
-        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT]
+        self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_log_development_messages_to_terminal(self, value):
         """

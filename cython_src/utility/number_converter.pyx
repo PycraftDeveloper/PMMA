@@ -11,6 +11,7 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.general_utils import swizzle as _swizzle
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 cdef class Color:
     """
@@ -140,15 +141,15 @@ cdef class DisplayScalar:
         """
         self._point = 0.0
         self._logger = _InternalLogger()
-        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
+        self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_height()
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
 
     def __del__(self):
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
 
     def _handle_resize(self):
         """ Update display height with stored reference """
-        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
+        self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_height()
 
     cpdef void set_point(self, double value, str in_type) noexcept:
         """
@@ -187,15 +188,15 @@ cdef class DisplayCoordinates:
         self._coordinate[0] = 0.0
         self._coordinate[1] = 0.0
         self._logger = _InternalLogger()
-        self.display_width, self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
+        self.display_width, self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_size()
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].add_to_functions_to_call_on_resize(self)
 
     def __del__(self):
-        _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
+        _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].remove_from_functions_to_call_on_resize(self)
 
     def _handle_resize(self):
         """ Update display size """
-        self.display_width, self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
+        self.display_width, self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_size()
 
     cpdef void set_coordinate(self, object coordinate, str in_type) noexcept:
         """

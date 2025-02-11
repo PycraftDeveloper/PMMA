@@ -1,5 +1,3 @@
-from pmma.python_src.constants import Constants as _Constants
-
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.general_utils import up as _up
 from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
@@ -20,6 +18,7 @@ from pmma.python_src.utility.general_utils import get_application_startup_durati
 from pmma.python_src.utility.general_utils import clean_up as _clean_up
 from pmma.python_src.utility.general_utils import set_clean_profiling as _set_clean_profiling
 from pmma.python_src.utility.general_utils import get_clean_profiling as _get_clean_profiling
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 def set_clean_profiling(can_clean_profile):
     """
@@ -40,7 +39,7 @@ def clean_up():
     print("PMMA is about to perform a clean up operation that is \
 designed to make its un-installation easier. This is best run \
 before pmma.init().")
-    _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development("PMMA is about to perform a clean up operation that is \
+    _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development("PMMA is about to perform a clean up operation that is \
 designed to make its un-installation easier. This is best run \
 before pmma.init().")
     _clean_up()
@@ -90,7 +89,7 @@ def profile_this(func):
         🟩 **R** -
         """
         if _Registry.profiler is None:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "Just a quick heads up, you are attempting to profile this specific method \
 however you haven't enabled profiling in 'pmma.init()'. Therefore this has no effect.")
             return func(*args, **kwargs)
@@ -104,7 +103,7 @@ however you haven't enabled profiling in 'pmma.init()'. Therefore this has no ef
             _Registry.profiler.disable()       # Stop profiling
             return result
         else:
-            _Registry.pmma_module_spine[_Constants.LOGGING_INTERMEDIARY_OBJECT].log_development(
+            _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
                 "Just a quick heads up, you are attempting to profile this specific method \
 however you already specified that you want to profile everything, so this has no effect. \
 This behavior can be configured in 'pmma.init()'.")

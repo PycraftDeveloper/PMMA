@@ -5,9 +5,9 @@ from pmma.python_src.opengl import GenericBufferObject as _GenericBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 def repeat_array(base, N):
     base_size = base.shape[0]
@@ -18,7 +18,7 @@ def repeat_array(base, N):
 
 class RenderPipeline:
     def __init__(self):
-        self.aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+        self.aspect_ratio = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio()
         self._gbo = _GenericBufferObject()
         self._gbo.set_dynamic(True)
         self._vao = _VertexArrayObject()
@@ -82,7 +82,7 @@ class RenderPipeline:
         self.internal_update(shape_data_list, total_data_points)
 
     def _internal_render(self):
-        new_aspect_ratio = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio()
+        new_aspect_ratio = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio()
         if new_aspect_ratio != self.aspect_ratio:
             self._program.set_shader_variable("aspect_ratio", new_aspect_ratio)
             self.aspect_ratio = new_aspect_ratio

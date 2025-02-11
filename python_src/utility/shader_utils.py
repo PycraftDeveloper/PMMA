@@ -8,6 +8,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class ShaderIntermediary:
     """
@@ -23,7 +24,7 @@ class LoadedShaderReferenceManager:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
         self.reference_manager_lock = _threading__Lock()
 
@@ -92,11 +93,11 @@ class ShaderManager:
         """
         _initialize(self)
 
-        if not _Constants.SHADER_REFERENCE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SHADER_REFERENCE_MANAGER_OBJECT)
+        if not _InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT)
             LoadedShaderReferenceManager()
 
-        self._shader_reference_manager: "LoadedShaderReferenceManager"= _Registry.pmma_module_spine[_Constants.SHADER_REFERENCE_MANAGER_OBJECT]
+        self._shader_reference_manager: "LoadedShaderReferenceManager"= _Registry.pmma_module_spine[_InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT]
 
     def quit(self):
         """

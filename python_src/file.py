@@ -14,6 +14,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWatcher
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 def path_builder(*args):
     """
@@ -133,7 +134,7 @@ class FileCore:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
 
         self._locations = []
         self._file_matrix = {}

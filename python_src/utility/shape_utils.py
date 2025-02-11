@@ -14,6 +14,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.general_utils import create_cache_id as _create_cache_id
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class ShapeTemplate:
     """
@@ -25,8 +26,8 @@ class ShapeTemplate:
         """
         _initialize(self)
 
-        if not _Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT)
+        if not _InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT)
             from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
             _ShapeGeometryManager()
 
@@ -39,7 +40,7 @@ class ShapeTemplate:
 
         self._color_changed = True
         self._fill_color_manager = _ColorConverter()
-        self._display: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display: "_DisplayIntermediary" = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
 
         self._resized_event = _WindowResized_EVENT()
 
@@ -156,7 +157,7 @@ class LineUtils:
             self._program.set_shader_variable('color', self._color_data)
 
         if geometry_created is False:
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio())
             self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
@@ -225,10 +226,10 @@ class LineUtils:
             self._width)
 
         if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
 
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_line_exists(identifier):
-            vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_line(identifier)
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_line_exists(identifier):
+            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_line(identifier)
         else:
             rotated_line_points = self._rotate_line(rotation_in_radians, start_coords, end_coords)
 
@@ -259,7 +260,7 @@ class LineUtils:
                 *v3, *v2, *v4   # Second triangle
             ], dtype='f4')
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_line(identifier, vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_line(identifier, vertices)
 
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
@@ -283,7 +284,7 @@ class RadialPolygonUtils:
 
         if geometry_created is False:
             self._vbo.set_data(self._vertex_data)
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -311,10 +312,10 @@ class RadialPolygonUtils:
         identifier = _create_cache_id(radius, rotation, self._width, point_count)
 
         if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
 
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_radial_polygon_exists(identifier):
-            vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_radial_polygon(identifier)
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_radial_polygon_exists(identifier):
+            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_radial_polygon(identifier)
         else:
             angle_step = 2 * _math.pi / point_count
             angles = _numpy.arange(point_count) * angle_step + rotation
@@ -348,7 +349,7 @@ class RadialPolygonUtils:
             # The final array of vertices
             vertices = combined_vertices.flatten()
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_radial_polygon(identifier, vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_radial_polygon(identifier, vertices)
 
         self.old_shape_identifier = identifier
         self._vertex_data = vertices
@@ -372,7 +373,7 @@ class RectangleUtils:
 
         if geometry_created is False:
             self._vbo.set_data(self._vertex_data)
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio())
 
         if self._vao.get_created() is False:
             self._vao.create(self._program, self._vbo, ['2f', 'in_position'])
@@ -426,10 +427,10 @@ class RectangleUtils:
         identifier = _create_cache_id(x_size, y_size, width, rotation, corner_radius)
 
         if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
 
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_rectangle_exists(identifier):
-            vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_rectangle(identifier)
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_rectangle_exists(identifier):
+            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_rectangle(identifier)
         else:
             try:
                 minimum_radius = min(
@@ -513,7 +514,7 @@ class RectangleUtils:
 
             vertices = vertices.flatten()
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_rectangle(identifier, vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_rectangle(identifier, vertices)
 
         self._geometry_created = True  # Reset the flag
         self.old_shape_identifier = identifier
@@ -537,7 +538,7 @@ class ArcUtils:
             self._program.set_shader_variable('offset', self._offset_data)
 
         if geometry_created is False:
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio())
             # Update VBO
             self._vbo.set_data(self._vertex_data)
 
@@ -573,10 +574,10 @@ class ArcUtils:
         identifier = _create_cache_id(start_angle, stop_angle, outer_radius, rotation, self._width)
 
         if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
 
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_arc_exists(identifier):
-            rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_arc(identifier)
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_arc_exists(identifier):
+            rotated_vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_arc(identifier)
         else:
             center_x, center_y = [0, 0]
 
@@ -633,7 +634,7 @@ class ArcUtils:
 
             rotated_vertices = rotated_vertices.flatten()
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
         self.old_shape_identifier = identifier
@@ -657,7 +658,7 @@ class EllipseUtils:
             self._program.set_shader_variable('offset', self._offset_data)
 
         if geometry_created is False:
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio())
             self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
@@ -696,10 +697,10 @@ class EllipseUtils:
             rotation)
 
         if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
 
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_ellipse_exists(identifier):
-            rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_ellipse(identifier)
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_ellipse_exists(identifier):
+            rotated_vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_ellipse(identifier)
         else:
             center_x, center_y = [0, 0]
 
@@ -744,7 +745,7 @@ class EllipseUtils:
 
             rotated_vertices = rotated_vertices.flatten()
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
         self.old_shape_identifier = identifier
@@ -765,7 +766,7 @@ class PolygonUtils:
             self._program.set_shader_variable('color', self._color_data)
 
         if geometry_created is False:
-            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT].get_aspect_ratio())
+            self._program.set_shader_variable('aspect_ratio', _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio())
             self._vbo.set_data(self._vertex_data)
 
         if self._vao.get_created() is False:
@@ -809,10 +810,10 @@ class PolygonUtils:
             width)
 
         if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
 
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_polygon_exists(identifier):
-            rotated_vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_polygon(identifier)
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_polygon_exists(identifier):
+            rotated_vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_polygon(identifier)
         else:
             inner_points = []
             index = 0
@@ -846,7 +847,7 @@ class PolygonUtils:
 
             rotated_vertices = rotated_vertices.flatten()
 
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, rotated_vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, rotated_vertices)
 
         self._geometry_created = True  # Reset the flag
         self.old_shape_identifier = identifier
@@ -913,10 +914,10 @@ recommended to do this in the shader it's self with: `gl_PointSize`.")
         """
         🟩 **R** -
         """
-        if _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_pixel_exists():
-            vertices = _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_pixel()
+        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_pixel_exists():
+            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_pixel()
         else:
             vertices = _numpy.array([0, 0], dtype='f4')
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_pixel(vertices)
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_pixel(vertices)
 
         self._vbo.set_data(vertices)

@@ -4,6 +4,7 @@ from pmma.python_src.utility.display_utils import DisplayIntermediary as _Displa
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Display:
     """
@@ -15,12 +16,12 @@ class Display:
         """
         _initialize(self)
 
-        if not _Constants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.DISPLAY_OBJECT)
+        if not _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.DISPLAY_OBJECT)
             from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
             _DisplayIntermediary()
 
-        self._display_intermediary: "_DisplayIntermediary" = _Registry.pmma_module_spine[_Constants.DISPLAY_OBJECT]
+        self._display_intermediary: "_DisplayIntermediary" = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
 
     def clear(self, color=None, format=_Constants.RGB):
         """

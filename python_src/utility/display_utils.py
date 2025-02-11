@@ -20,7 +20,6 @@ from moderngl_window import get_local_window_cls as _moderngl_window__get_local_
 from moderngl_window import activate_context as _moderngl_window__activate_context
 
 from pmma.python_src.general import get_operating_system as _get_operating_system
-from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.utility.opengl_utils import Texture as _Texture
@@ -33,11 +32,13 @@ from pmma.python_src.events import WindowFocusGained_EVENT as _WindowFocusGained
 from pmma.python_src.events import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.advtkinter import Tkinter as _Tkinter
+from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
@@ -50,7 +51,7 @@ class DisplayIntermediary:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
 
         self._logger = _InternalLogger()
 
@@ -107,12 +108,12 @@ class DisplayIntermediary:
 
         self._clock = _pygame__time.Clock()
 
-        if not _Constants.GPU_DISTRIBUTION_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT)
+        if not _InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT)
             from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
             _GPUDistributionManager()
 
-        self._gpu_distribution_manager = _Registry.pmma_module_spine[_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT]
+        self._gpu_distribution_manager = _Registry.pmma_module_spine[_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT]
 
         self.functions_to_call_on_resize = {}
 
@@ -464,8 +465,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         self._refresh_optimization_override = True
         self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
-        if _Constants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine:
-            _Registry.pmma_module_spine[_Constants.SHAPE_GEOMETRY_MANAGER_OBJECT].reset()
+        if _InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine:
+            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].reset()
 
         for key in self.functions_to_call_on_resize:
             self.functions_to_call_on_resize[key]._handle_resize()
@@ -609,7 +610,7 @@ you refresh the display to ensure optimal performance and support!")
         if self._clear_called_but_skipped is False:
             if _Registry.render_pipeline_acceleration_available:
                 self.get_2D_hardware_accelerated_surface()
-                _Registry.pmma_module_spine[_Constants.RENDER_PIPELINE_MANAGER_OBJECT].render()
+                _Registry.pmma_module_spine[_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT].render()
 
             _Registry.context.screen.use()
             self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER

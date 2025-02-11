@@ -1,10 +1,9 @@
 from time import perf_counter as _time__perf_counter
 
-from pmma.python_src.constants import Constants as _Constants
-
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class GPUDistributionManager:
     """
@@ -14,14 +13,14 @@ class GPUDistributionManager:
         """
         🟩 **R** -
         """
-        _initialize(self, unique_instance=_Constants.GPU_DISTRIBUTION_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+        _initialize(self, unique_instance=_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        if not _Constants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_Constants.GPUS_INTERMEDIARY_OBJECT)
+        if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
             _GPUsIntermediary()
 
-        self._gpus = _Registry.pmma_module_spine[_Constants.GPUS_INTERMEDIARY_OBJECT]
+        self._gpus = _Registry.pmma_module_spine[_InternalConstants.GPUS_INTERMEDIARY_OBJECT]
 
         self._render_gpu = None
         self._video_gpu = []
