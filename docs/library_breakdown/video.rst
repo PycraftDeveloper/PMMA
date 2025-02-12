@@ -49,16 +49,6 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Video.set_surface() -> None
-
-    🟩 **R** -
-    
-
-.. py:method:: Video.get_surface() -> None
-
-    🟩 **R** -
-    
-
 .. py:method:: Video.autodetect_and_set_decoder() -> None
 
     🟩 **R** -

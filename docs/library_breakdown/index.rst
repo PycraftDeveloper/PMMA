@@ -15,7 +15,6 @@ The full breakdown of what everything does!
     executor.rst
     gpu.rst
     controller.rst
-    projection.rst
     logging.rst
     data_structures.rst
     settings.rst
@@ -29,6 +28,7 @@ The full breakdown of what everything does!
     recorder.rst
     passport.rst
     backpack.rst
+    camera.rst
     advtkinter.rst
     noise.rst
     transitions.rst
