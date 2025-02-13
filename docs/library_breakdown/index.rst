@@ -6,37 +6,37 @@ The full breakdown of what everything does!
 .. toctree::
     :maxdepth: 1
 
-    shapes_2D.rst
-    complex_shapes_2D.rst
-    video.rst
-    sampler.rst
-    gpu_distribution.rst
     file.rst
     executor.rst
-    gpu.rst
-    controller.rst
-    logging.rst
-    data_structures.rst
-    settings.rst
-    opengl.rst
-    advthreading.rst
-    display.rst
     quickstart.rst
-    advmath.rst
-    general.rst
-    number_converter.rst
-    recorder.rst
-    passport.rst
+    gpu_distribution.rst
+    transitions.rst
+    data_structures.rst
+    __init__.rst
+    logging.rst
+    advthreading.rst
+    noise.rst
+    error.rst
     backpack.rst
     camera.rst
     advtkinter.rst
-    noise.rst
-    transitions.rst
-    audio.rst
-    __init__.rst
-    error.rst
-    memory_manager.rst
-    formatters.rst
+    display.rst
     constants.rst
+    number_converter.rst
+    recorder.rst
+    audio.rst
+    settings.rst
+    memory_manager.rst
+    complex_shapes_2D.rst
+    controller.rst
+    video.rst
+    shapes_2D.rst
+    gpu.rst
+    passport.rst
+    opengl.rst
+    sampler.rst
+    advmath.rst
+    formatters.rst
+    general.rst
     miscellaneous.rst
     events.rst
