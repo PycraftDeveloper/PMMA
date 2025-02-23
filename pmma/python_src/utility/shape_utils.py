@@ -506,13 +506,15 @@ class RectangleUtils:
             combined_vertices = _numpy.array(vertices, dtype='f4')
 
             # Apply rotation around the center
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
+            if rotation % _math.pi != 0:
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
 
-            # Rotate each vertex around the center
-            vertices = _numpy.array([self._rotate_point(v[0], v[1], 0, 0, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
-
-            vertices = vertices.flatten()
+                # Rotate each vertex around the center
+                vertices = _numpy.array([self._rotate_point(v[0], v[1], 0, 0, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
+                vertices = vertices.flatten()
+            else:
+                vertices = combined_vertices.flatten()
 
             _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_rectangle(identifier, vertices)
 
@@ -624,15 +626,18 @@ class ArcUtils:
             vertices[1::2] = inner_vertices
 
             # Apply rotation if necessary
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
+            if rotation % _math.pi != 0:
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
 
-            rotated_vertices = _numpy.array([
-                self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
-                for v in vertices
-            ], dtype='f4')
+                rotated_vertices = _numpy.array([
+                    self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
+                    for v in vertices
+                ], dtype='f4')
 
-            rotated_vertices = rotated_vertices.flatten()
+                rotated_vertices = rotated_vertices.flatten()
+            else:
+                rotated_vertices = vertices.flatten()
 
             _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_arc(identifier, rotated_vertices)
 
@@ -737,13 +742,16 @@ class EllipseUtils:
             vertices[0::2] = outer_vertices
             vertices[1::2] = inner_vertices
 
-            # Apply rotation to each vertex if applicable
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
+            if rotation % _math.pi == 0:
+                # Apply rotation to each vertex if applicable
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
 
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+                rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            rotated_vertices = rotated_vertices.flatten()
+                rotated_vertices = rotated_vertices.flatten()
+            else:
+                rotated_vertices = vertices.flatten()
 
             _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_ellipse(identifier, rotated_vertices)
 
@@ -834,18 +842,21 @@ class PolygonUtils:
             vertices[0::2] = outer_points
             vertices[1::2] = inner_points
 
-            # Apply rotation
-            cos_theta = _numpy.cos(rotation)
-            sin_theta = _numpy.sin(rotation)
+            if rotation % _math.pi == 0:
+                # Apply rotation
+                cos_theta = _numpy.cos(rotation)
+                sin_theta = _numpy.sin(rotation)
 
-            rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+                rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
-            # If closed, append the first vertex to close the loop
-            if self._closed and len(rotated_vertices) > 1:
-                extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
-                rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
+                # If closed, append the first vertex to close the loop
+                if self._closed and len(rotated_vertices) > 1:
+                    extra_points = _numpy.array([rotated_vertices[0], rotated_vertices[1]], dtype='f4')
+                    rotated_vertices = _numpy.concatenate((rotated_vertices, extra_points))
 
-            rotated_vertices = rotated_vertices.flatten()
+                rotated_vertices = rotated_vertices.flatten()
+            else:
+                rotated_vertices = vertices.flatten()
 
             _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].add_polygon(identifier, rotated_vertices)
 
