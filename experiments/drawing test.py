@@ -40,6 +40,7 @@ rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
 rectangle.set_width(9000)
 rectangle.set_corner_radius(100)
+rectangle.set_rotation(90, format=pmma.Constants.DEGREES)
 
 arc = pmma.Arc()
 arc.set_center([500, 500])
@@ -95,7 +96,8 @@ while pmma.Backpack.running:
 
     pmma.compute()
     end = time.perf_counter()
-    display.refresh(refresh_rate=6000000)
+
+    display.refresh(refresh_rate=75)
     #print(1/(end-start))
     #quit()
 
