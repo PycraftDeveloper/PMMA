@@ -1,4 +1,11 @@
 class InternalConstants:
+    LINE = "line"
+    RADIAL_POLYGON = "radial polygon"
+    RECTANGLE = "rectangle"
+    ARC = "arc"
+    ELLIPSE = "ellipse"
+    POLYGON = "polygon"
+
     SMI = "nvidia-smi"
     WMI = "wmi"
     PYADL = "pyadl"
