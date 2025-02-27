@@ -225,11 +225,10 @@ class LineUtils:
             tuple(end_coords),
             self._width)
 
-        if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_line(self.old_shape_identifier)
+        cached_data = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].line_cache(self.old_shape_identifier, identifier)
 
-        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_line_exists(identifier):
-            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_line(identifier)
+        if cached_data is not None:
+            vertices = cached_data
         else:
             rotated_line_points = self._rotate_line(rotation_in_radians, start_coords, end_coords)
 
@@ -311,11 +310,10 @@ class RadialPolygonUtils:
 
         identifier = _create_cache_id(radius, rotation, self._width, point_count)
 
-        if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_radial_polygon(self.old_shape_identifier)
+        cached_data = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].radial_polygon_cache(self.old_shape_identifier, identifier)
 
-        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_radial_polygon_exists(identifier):
-            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_radial_polygon(identifier)
+        if cached_data is not None:
+            vertices = cached_data
         else:
             angle_step = 2 * _math.pi / point_count
             angles = _numpy.arange(point_count) * angle_step + rotation
@@ -426,11 +424,10 @@ class RectangleUtils:
 
         identifier = _create_cache_id(x_size, y_size, width, rotation, corner_radius)
 
-        if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_rectangle(self.old_shape_identifier)
+        cached_data = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].rectangle_cache(self.old_shape_identifier, identifier)
 
-        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_rectangle_exists(identifier):
-            vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_rectangle(identifier)
+        if cached_data is not None:
+            vertices = cached_data
         else:
             try:
                 minimum_radius = min(
@@ -575,11 +572,10 @@ class ArcUtils:
 
         identifier = _create_cache_id(start_angle, stop_angle, outer_radius, rotation, self._width)
 
-        if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_arc(self.old_shape_identifier)
+        cached_data = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].arc_cache(self.old_shape_identifier, identifier)
 
-        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_arc_exists(identifier):
-            rotated_vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_arc(identifier)
+        if cached_data is not None:
+            rotated_vertices = cached_data
         else:
             center_x, center_y = [0, 0]
 
@@ -701,11 +697,10 @@ class EllipseUtils:
             width,
             rotation)
 
-        if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_ellipse(self.old_shape_identifier)
+        cached_data = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].ellipse_cache(self.old_shape_identifier, identifier)
 
-        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_ellipse_exists(identifier):
-            rotated_vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_ellipse(identifier)
+        if cached_data is not None:
+            rotated_vertices = cached_data
         else:
             center_x, center_y = [0, 0]
 
@@ -817,11 +812,10 @@ class PolygonUtils:
             rotation,
             width)
 
-        if self.old_shape_identifier is not None:
-            _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].remove_polygon(self.old_shape_identifier)
+        cached_data = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].polygon_cache(self.old_shape_identifier, identifier)
 
-        if _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].check_if_polygon_exists(identifier):
-            rotated_vertices = _Registry.pmma_module_spine[_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT].get_polygon(identifier)
+        if cached_data is not None:
+            rotated_vertices = cached_data
         else:
             inner_points = []
             index = 0
