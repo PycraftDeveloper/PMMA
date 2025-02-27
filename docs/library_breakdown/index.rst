@@ -7,36 +7,36 @@ The full breakdown of what everything does!
     :maxdepth: 1
 
     file.rst
-    executor.rst
-    quickstart.rst
-    gpu_distribution.rst
-    transitions.rst
-    data_structures.rst
-    __init__.rst
-    logging.rst
-    advthreading.rst
-    noise.rst
-    error.rst
-    backpack.rst
-    camera.rst
-    advtkinter.rst
-    display.rst
-    constants.rst
-    number_converter.rst
-    recorder.rst
-    audio.rst
-    settings.rst
-    memory_manager.rst
-    complex_shapes_2D.rst
-    controller.rst
-    video.rst
     shapes_2D.rst
-    gpu.rst
-    passport.rst
+    noise.rst
+    advthreading.rst
+    constants.rst
+    audio.rst
+    video.rst
+    error.rst
+    logging.rst
     opengl.rst
+    camera.rst
+    complex_shapes_2D.rst
     sampler.rst
     advmath.rst
+    quickstart.rst
+    gpu.rst
+    display.rst
+    __init__.rst
+    recorder.rst
+    memory_manager.rst
+    gpu_distribution.rst
     formatters.rst
+    executor.rst
+    advtkinter.rst
     general.rst
+    controller.rst
+    transitions.rst
+    data_structures.rst
+    backpack.rst
+    settings.rst
+    number_converter.rst
+    passport.rst
     miscellaneous.rst
     events.rst
