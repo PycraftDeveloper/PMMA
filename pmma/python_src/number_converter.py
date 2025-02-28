@@ -243,11 +243,11 @@ class ColorConverter:
         if self._red_noise is None:
             self._red_noise = _Perlin(seed=self._seed)
         if self._green_noise is None:
-            self._green_noise = _Perlin(seed=self._seed)
+            self._green_noise = _Perlin(seed=self._seed+1)
         if self._blue_noise is None:
-            self._blue_noise = _Perlin(seed=self._seed)
+            self._blue_noise = _Perlin(seed=self._seed+2)
         if self._alpha_noise is None:
-            self._alpha_noise = _Perlin(seed=self._seed)
+            self._alpha_noise = _Perlin(seed=self._seed+3)
 
         if red_color_range is None:
             red_color_range = color_range

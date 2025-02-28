@@ -65,7 +65,7 @@ class ShapeTemplate:
         if self._fill_color_manager.get_color_set():
             original_color = self._fill_color_manager.get_color(format=_Constants.RGBA)
             self._fill_color_manager.set_color(color, format=format)
-            if self._fill_color_manager.get_color(format=_Constants.RGBA) != original_color:
+            if _numpy.any(self._fill_color_manager.get_color(format=_Constants.RGBA) != original_color):
                 self._color_changed = True
             else:
                 self._color_changed = False
@@ -122,7 +122,6 @@ class ShapeTemplate:
         """
         self._color_changed = True
         self._color_data = self._fill_color_manager.generate_color_from_perlin_noise(
-            self,
             value=value,
             format=_Constants.SMALL_RGBA,
             color_range=color_range,
