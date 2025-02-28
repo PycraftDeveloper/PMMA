@@ -80,7 +80,6 @@ class Lines:
         🟩 **R** -
         """
         self._polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -213,7 +212,6 @@ class Circle:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -347,7 +345,6 @@ class Decagon:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -481,7 +478,6 @@ class Nonagon:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -615,7 +611,6 @@ class Octagon:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -749,7 +744,6 @@ class Heptagon:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -887,7 +881,6 @@ class Hexagon:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -1021,7 +1014,6 @@ class Pentagon:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -1158,7 +1150,6 @@ class Triangle:
         🟩 **R** -
         """
         self._radial_polygon.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
@@ -1305,7 +1296,6 @@ class Square:
         🟩 **R** -
         """
         self._rectangle.generate_color_from_perlin_noise(
-            self,
             value=value,
             color_range=color_range,
             red_color_range=red_color_range,
