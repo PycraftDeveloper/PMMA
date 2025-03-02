@@ -151,17 +151,18 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def line_cache(self, old_id, new_id):
+        line_geometry_cache = self.geometry_cache[_InternalConstants.LINE]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
-                    line_geometry = self.geometry_cache[_InternalConstants.LINE].get(old_id, None)
+                    line_geometry = line_geometry_cache.get(old_id, None)
                     if line_geometry:
                         line_geometry["references"] -= 1
                         if line_geometry["references"] <= 0:
                             self.current_cache_size -= line_geometry["vertices"].nbytes
                             del self.geometry_cache[_InternalConstants.LINE][old_id]
             else:
-                line_geometry = self.geometry_cache[_InternalConstants.LINE].get(old_id, None)
+                line_geometry = line_geometry_cache.get(old_id, None)
                 if line_geometry:
                     line_geometry["references"] -= 1
                     if line_geometry["references"] <= 0:
@@ -170,12 +171,12 @@ class ShapeGeometryManager:
 
         if self.running_clean_up:
             with self.lock:
-                line_geometry = self.geometry_cache[_InternalConstants.LINE].get(new_id, None)
+                line_geometry = line_geometry_cache.get(new_id, None)
                 if line_geometry:
                     line_geometry["references"] += 1
                     return line_geometry["vertices"]
         else:
-            line_geometry = self.geometry_cache[_InternalConstants.LINE].get(new_id, None)
+            line_geometry = line_geometry_cache.get(new_id, None)
             if line_geometry:
                 line_geometry["references"] += 1
                 return line_geometry["vertices"]
@@ -195,17 +196,18 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def radial_polygon_cache(self, old_id, new_id):
+        radial_polygon_geometry_cache = self.geometry_cache[_InternalConstants.RADIAL_POLYGON]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
-                    radial_polygon_geometry = self.geometry_cache[_InternalConstants.RADIAL_POLYGON].get(old_id, None)
+                    radial_polygon_geometry = radial_polygon_geometry_cache.get(old_id, None)
                     if radial_polygon_geometry:
                         radial_polygon_geometry["references"] -= 1
                         if radial_polygon_geometry["references"] <= 0:
                             self.current_cache_size -= radial_polygon_geometry["vertices"].nbytes
                             del self.geometry_cache[_InternalConstants.RADIAL_POLYGON][old_id]
             else:
-                radial_polygon_geometry = self.geometry_cache[_InternalConstants.RADIAL_POLYGON].get(old_id, None)
+                radial_polygon_geometry = radial_polygon_geometry_cache.get(old_id, None)
                 if radial_polygon_geometry:
                     radial_polygon_geometry["references"] -= 1
                     if radial_polygon_geometry["references"] <= 0:
@@ -214,12 +216,12 @@ class ShapeGeometryManager:
 
         if self.running_clean_up:
             with self.lock:
-                radial_polygon_geometry = self.geometry_cache[_InternalConstants.RADIAL_POLYGON].get(new_id, None)
+                radial_polygon_geometry = radial_polygon_geometry_cache.get(new_id, None)
                 if radial_polygon_geometry:
                     radial_polygon_geometry["references"] += 1
                     return radial_polygon_geometry["vertices"]
         else:
-            radial_polygon_geometry = self.geometry_cache[_InternalConstants.RADIAL_POLYGON].get(new_id, None)
+            radial_polygon_geometry = radial_polygon_geometry_cache.get(new_id, None)
             if radial_polygon_geometry:
                 radial_polygon_geometry["references"] += 1
                 return radial_polygon_geometry["vertices"]
@@ -239,17 +241,18 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def rectangle_cache(self, old_id, new_id):
+        rectangle_geometry_cache = self.geometry_cache[_InternalConstants.RECTANGLE]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
-                    rectangle_geometry = self.geometry_cache[_InternalConstants.RECTANGLE].get(old_id, None)
+                    rectangle_geometry = rectangle_geometry_cache.get(old_id, None)
                     if rectangle_geometry:
                         rectangle_geometry["references"] -= 1
                         if rectangle_geometry["references"] <= 0:
                             self.current_cache_size -= rectangle_geometry["vertices"].nbytes
                             del self.geometry_cache[_InternalConstants.RECTANGLE][old_id]
             else:
-                rectangle_geometry = self.geometry_cache[_InternalConstants.RECTANGLE].get(old_id, None)
+                rectangle_geometry = rectangle_geometry_cache.get(old_id, None)
                 if rectangle_geometry:
                     rectangle_geometry["references"] -= 1
                     if rectangle_geometry["references"] <= 0:
@@ -258,12 +261,12 @@ class ShapeGeometryManager:
 
         if self.running_clean_up:
             with self.lock:
-                rectangle_geometry = self.geometry_cache[_InternalConstants.RECTANGLE].get(new_id, None)
+                rectangle_geometry = rectangle_geometry_cache.get(new_id, None)
                 if rectangle_geometry:
                     rectangle_geometry["references"] += 1
                     return rectangle_geometry["vertices"]
         else:
-            rectangle_geometry = self.geometry_cache[_InternalConstants.RECTANGLE].get(new_id, None)
+            rectangle_geometry = rectangle_geometry_cache.get(new_id, None)
             if rectangle_geometry:
                 rectangle_geometry["references"] += 1
                 return rectangle_geometry["vertices"]
@@ -283,17 +286,18 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def arc_cache(self, old_id, new_id):
+        arc_geometry_cache = self.geometry_cache[_InternalConstants.ARC]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
-                    arc_geometry = self.geometry_cache[_InternalConstants.ARC].get(old_id, None)
+                    arc_geometry = arc_geometry_cache.get(old_id, None)
                     if arc_geometry:
                         arc_geometry["references"] -= 1
                         if arc_geometry["references"] <= 0:
                             self.current_cache_size -= arc_geometry["vertices"].nbytes
                             del self.geometry_cache[_InternalConstants.ARC][old_id]
             else:
-                arc_geometry = self.geometry_cache[_InternalConstants.ARC].get(old_id, None)
+                arc_geometry = arc_geometry_cache.get(old_id, None)
                 if arc_geometry:
                     arc_geometry["references"] -= 1
                     if arc_geometry["references"] <= 0:
@@ -302,12 +306,12 @@ class ShapeGeometryManager:
 
         if self.running_clean_up:
             with self.lock:
-                arc_geometry = self.geometry_cache[_InternalConstants.ARC].get(new_id, None)
+                arc_geometry = arc_geometry_cache.get(new_id, None)
                 if arc_geometry:
                     arc_geometry["references"] += 1
                     return arc_geometry["vertices"]
         else:
-            arc_geometry = self.geometry_cache[_InternalConstants.ARC].get(new_id, None)
+            arc_geometry = arc_geometry_cache.get(new_id, None)
             if arc_geometry:
                 arc_geometry["references"] += 1
                 return arc_geometry["vertices"]
@@ -327,17 +331,18 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def ellipse_cache(self, old_id, new_id):
+        ellipse_geometry_cache = self.geometry_cache[_InternalConstants.ARC]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
-                    ellipse_geometry = self.geometry_cache[_InternalConstants.ELLIPSE][old_id]
+                    ellipse_geometry = ellipse_geometry_cache[old_id]
                     if ellipse_geometry:
                         ellipse_geometry["references"] -= 1
                         if ellipse_geometry["references"] <= 0:
                             self.current_cache_size -= ellipse_geometry["vertices"].nbytes
                             del self.geometry_cache[_InternalConstants.ELLIPSE][old_id]
             else:
-                ellipse_geometry = self.geometry_cache[_InternalConstants.ELLIPSE][old_id]
+                ellipse_geometry = ellipse_geometry_cache[old_id]
                 if ellipse_geometry:
                     ellipse_geometry["references"] -= 1
                     if ellipse_geometry["references"] <= 0:
@@ -346,12 +351,12 @@ class ShapeGeometryManager:
 
         if self.running_clean_up:
             with self.lock:
-                ellipse_geometry = self.geometry_cache[_InternalConstants.ELLIPSE].get(new_id, None)
+                ellipse_geometry = ellipse_geometry_cache.get(new_id, None)
                 if ellipse_geometry:
                     ellipse_geometry["references"] += 1
                     return ellipse_geometry["vertices"]
         else:
-            ellipse_geometry = self.geometry_cache[_InternalConstants.ELLIPSE].get(new_id, None)
+            ellipse_geometry = ellipse_geometry_cache.get(new_id, None)
             if ellipse_geometry:
                 ellipse_geometry["references"] += 1
                 return ellipse_geometry["vertices"]
@@ -371,17 +376,18 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def polygon_cache(self, old_id, new_id):
+        polygon_geometry_cache = self.geometry_cache[_InternalConstants.POLYGON]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
-                    polygon_geometry = self.geometry_cache[_InternalConstants.POLYGON][old_id]
+                    polygon_geometry = polygon_geometry_cache[old_id]
                     if polygon_geometry:
                         polygon_geometry["references"] -= 1
                         if polygon_geometry["references"] <= 0:
                             self.current_cache_size -= polygon_geometry["vertices"].nbytes
                             del self.geometry_cache[_InternalConstants.POLYGON][old_id]
             else:
-                polygon_geometry = self.geometry_cache[_InternalConstants.POLYGON][old_id]
+                polygon_geometry = polygon_geometry_cache[old_id]
                 if polygon_geometry:
                     polygon_geometry["references"] -= 1
                     if polygon_geometry["references"] <= 0:
@@ -390,12 +396,12 @@ class ShapeGeometryManager:
 
         if self.running_clean_up:
             with self.lock:
-                polygon_geometry = self.geometry_cache[_InternalConstants.POLYGON].get(new_id, None)
+                polygon_geometry = polygon_geometry_cache.get(new_id, None)
                 if polygon_geometry:
                     polygon_geometry["references"] += 1
                     return polygon_geometry["vertices"]
         else:
-            polygon_geometry = self.geometry_cache[_InternalConstants.POLYGON].get(new_id, None)
+            polygon_geometry = polygon_geometry_cache.get(new_id, None)
             if polygon_geometry:
                 polygon_geometry["references"] += 1
                 return polygon_geometry["vertices"]

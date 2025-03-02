@@ -39,7 +39,7 @@ rectangle.set_center((900, 200))
 rectangle.set_size((100, 300))
 rectangle.set_color([0, 255, 0])
 rectangle.set_width(9000)
-rectangle.set_corner_radius(100)
+#rectangle.set_corner_radius(100)
 rectangle.set_rotation(90, format=pmma.Constants.DEGREES)
 
 arc = pmma.Arc()
@@ -81,7 +81,7 @@ while pmma.Backpack.running:
 
     #radial_polygon.set_point_count(4)
 
-    #rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
+    rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
     #print(int((1+math.sin(pmma.get_application_run_time()))*10))
     radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
 

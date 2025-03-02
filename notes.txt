@@ -33,6 +33,8 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
+GENERATING FROM PERLIN NOISE USES SAME SEED FOR ALL AXIS, WHICH IS WRONG! ALLOW FOR CUSTOM SEEDS, PASS THIS EVERYWHERE. IS NONE THEN USE +1 OFFSETS
+ALSO ALLOW FOR THIS CUSTOMISATION IN SHAPES!!!
 
 UNCONFIRMED RELEASE SCHEDULE
 ============================
