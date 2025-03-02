@@ -418,6 +418,7 @@ class RectangleUtils:
         if width == 0:
             width = max(x_size / 2, y_size / 2)
         corner_radius = self._corner_radius.get_point(_Constants.OPENGL_COORDINATES)
+        normal_corner_radius = self._corner_radius.get_point(_Constants.CONVENTIONAL_COORDINATES)
         corner_radius = min(corner_radius, x_size / 2, y_size / 2)
         width = min(width, x_size / 2, y_size / 2)
 
@@ -428,78 +429,87 @@ class RectangleUtils:
         if cached_data is not None:
             vertices = cached_data
         else:
-            try:
-                minimum_radius = min(
-                    self._corner_radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES),
-                    self._x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) / 2,
-                    self._y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) / 2)
+            if normal_corner_radius == 1:  # Skip rounded corners when the radius is effectively 1 or 0
+                # Generate a simple rectangle without rounded corners
+                combined_vertices = [
+                    (-x_size / 2, -y_size / 2),  # Bottom-left corner
+                    (x_size / 2, -y_size / 2),   # Bottom-right corner
+                    (-x_size / 2, y_size / 2),   # Top-left corner
+                    (x_size / 2, y_size / 2),    # Top-right corner
+                ]
+            else:
+                try:
+                    minimum_radius = min(
+                        normal_corner_radius,
+                        self._x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) / 2,
+                        self._y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES) / 2)
 
-                segments = 1 + int((_Constants.TAU / _math.asin(1 / minimum_radius)) * _Registry.shape_quality)
-                segments //= 4
-            except:
-                segments = 3
-            if segments < 3:
-                segments = 3
+                    segments = 1 + int((_Constants.TAU / _math.asin(1 / minimum_radius)) * _Registry.shape_quality)
+                    segments //= 4
+                except:
+                    segments = 3
+                if segments < 3:
+                    segments = 3
 
-            vertices = []
+                vertices = []
 
-            # Outer and inner rectangle dimensions
-            outer_radius = corner_radius
-            inner_radius = corner_radius - width
-            outer_width = x_size
-            outer_height = y_size
+                # Outer and inner rectangle dimensions
+                outer_radius = corner_radius
+                inner_radius = corner_radius - width
+                outer_width = x_size
+                outer_height = y_size
 
-            # Bottom-left corner
-            bl_corners = self._generate_corner(
-                -outer_width / 2 + outer_radius,
-                -outer_height / 2 + outer_radius,
-                _math.pi, 1.5 * _math.pi,
-                outer_radius,
-                inner_radius,
-                segments)
-            # Bottom-right corner
-            br_corners = self._generate_corner(
-                outer_width / 2 - outer_radius,
-                -outer_height / 2 + outer_radius,
-                1.5 * _math.pi,
-                2 * _math.pi,
-                outer_radius,
-                inner_radius,
-                segments)
-            # Top-right corner
-            tr_corners = self._generate_corner(
-                outer_width / 2 - outer_radius,
-                outer_height / 2 - outer_radius,
-                0,
-                0.5 * _math.pi,
-                outer_radius,
-                inner_radius,
-                segments)
-            # Top-left corner
-            tl_corners = self._generate_corner(
-                -outer_width / 2 + outer_radius,
-                outer_height / 2 - outer_radius,
-                0.5 * _math.pi,
-                _math.pi,
-                outer_radius,
-                inner_radius,
-                segments)
+                # Bottom-left corner
+                bl_corners = self._generate_corner(
+                    -outer_width / 2 + outer_radius,
+                    -outer_height / 2 + outer_radius,
+                    _math.pi, 1.5 * _math.pi,
+                    outer_radius,
+                    inner_radius,
+                    segments)
+                # Bottom-right corner
+                br_corners = self._generate_corner(
+                    outer_width / 2 - outer_radius,
+                    -outer_height / 2 + outer_radius,
+                    1.5 * _math.pi,
+                    2 * _math.pi,
+                    outer_radius,
+                    inner_radius,
+                    segments)
+                # Top-right corner
+                tr_corners = self._generate_corner(
+                    outer_width / 2 - outer_radius,
+                    outer_height / 2 - outer_radius,
+                    0,
+                    0.5 * _math.pi,
+                    outer_radius,
+                    inner_radius,
+                    segments)
+                # Top-left corner
+                tl_corners = self._generate_corner(
+                    -outer_width / 2 + outer_radius,
+                    outer_height / 2 - outer_radius,
+                    0.5 * _math.pi,
+                    _math.pi,
+                    outer_radius,
+                    inner_radius,
+                    segments)
 
-            # Combine all corners and edges in triangle strip order
-            for outer, inner in bl_corners:
-                vertices.extend([outer, inner])
-            for outer, inner in br_corners:
-                vertices.extend([outer, inner])
-            for outer, inner in tr_corners:
-                vertices.extend([outer, inner])
-            for outer, inner in tl_corners:
-                vertices.extend([outer, inner])
+                # Combine all corners and edges in triangle strip order
+                for outer, inner in bl_corners:
+                    vertices.extend([outer, inner])
+                for outer, inner in br_corners:
+                    vertices.extend([outer, inner])
+                for outer, inner in tr_corners:
+                    vertices.extend([outer, inner])
+                for outer, inner in tl_corners:
+                    vertices.extend([outer, inner])
 
-            # Close the shape by connecting the last and first vertices
-            vertices.append(vertices[0])  # Outer vertex
-            vertices.append(vertices[1])  # Inner vertex
+                # Close the shape by connecting the last and first vertices
+                vertices.append(vertices[0])  # Outer vertex
+                vertices.append(vertices[1])  # Inner vertex
 
-            combined_vertices = _numpy.array(vertices, dtype='f4')
+                combined_vertices = _numpy.array(vertices, dtype='f4')
 
             # Apply rotation around the center
             if rotation % _math.pi != 0:
