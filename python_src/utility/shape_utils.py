@@ -90,9 +90,40 @@ class ShapeTemplate:
         if self._fill_color_manager.get_color_set():
             return self._fill_color_manager.get_color(format=format)
 
+    def set_seed(self, seed):
+        self._fill_color_manager.set_seed(seed)
+
+    def get_seed(self):
+        return self._fill_color_manager.get_seed()
+
+    def set_red_seed(self, seed=None):
+        self._fill_color_manager.set_red_seed(seed)
+
+    def set_green_seed(self, seed=None):
+        self._fill_color_manager.set_green_seed(seed)
+
+    def set_blue_seed(self, seed=None):
+        self._fill_color_manager.set_blue_seed(seed)
+
+    def set_alpha_seed(self, seed=None):
+        self._fill_color_manager.set_alpha_seed(seed)
+
+    def get_red_seed(self):
+        return self._fill_color_manager.get_red_seed()
+
+    def get_green_seed(self):
+        return self._fill_color_manager.get_green_seed()
+
+    def get_blue_seed(self):
+        return self._fill_color_manager.get_blue_seed()
+
+    def get_alpha_seed(self):
+        return self._fill_color_manager.get_alpha_seed()
+
     def generate_random_color(
             self,
             color_range=[0, 255],
+            generate_alpha=True,
             red_color_range=None,
             green_color_range=None,
             blue_color_range=None,
@@ -101,6 +132,10 @@ class ShapeTemplate:
         🟩 **R** -
         """
         self._color_changed = True
+
+        if generate_alpha is False:
+            alpha_color_range = [255, 255]
+
         self._color_data = self._fill_color_manager.generate_random_color(
             format=_Constants.SMALL_RGBA,
             color_range=color_range,
@@ -112,6 +147,7 @@ class ShapeTemplate:
     def generate_color_from_perlin_noise(
             self,
             value=None,
+            generate_alpha=True,
             color_range=[0, 255],
             red_color_range=None,
             green_color_range=None,
@@ -121,6 +157,10 @@ class ShapeTemplate:
         🟩 **R** -
         """
         self._color_changed = True
+
+        if generate_alpha is False:
+            alpha_color_range = [255, 255]
+
         self._color_data = self._fill_color_manager.generate_color_from_perlin_noise(
             value=value,
             format=_Constants.SMALL_RGBA,

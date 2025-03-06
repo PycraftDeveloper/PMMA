@@ -133,7 +133,7 @@ class ColorConverter:
     """
     🟩 **R** -
     """
-    def __init__(self, seed=None):
+    def __init__(self):
         """
         🟩 **R** -
         """
@@ -141,7 +141,11 @@ class ColorConverter:
 
         self._color_intermediary = _ColorIntermediary()
 
-        self._seed = seed
+        self._seed = None
+        self._red_seed = None
+        self._green_seed = None
+        self._blue_seed = None
+        self._alpha_seed = None
 
         self._red_noise = None
         self._green_noise = None
@@ -227,6 +231,84 @@ class ColorConverter:
 
         return self.get_color(format)
 
+    def set_seed(self, seed):
+        self._seed = seed
+
+        if self._red_seed is None:
+            self._red_seed = self._seed
+            self._red_noise.set_seed(self._red_seed)
+
+        if self._green_seed is None:
+            self._green_seed = self._seed
+            self._green_noise.set_seed(self._green_seed)
+
+        if self._blue_seed is None:
+            self._blue_seed = self._seed
+            self._blue_noise.set_seed(self._blue_seed)
+
+        if self._alpha_seed is None:
+            self._alpha_seed = self._seed
+            self._alpha_noise.set_seed(self._alpha_seed)
+
+    def get_seed(self):
+        return self._seed
+
+    def set_red_seed(self, seed=None):
+        self._red_seed = seed
+
+        if self._red_seed is None:
+            self._red_seed = seed
+
+        if self._red_noise is not None:
+            self._red_noise.set_seed(self._red_seed)
+
+    def set_green_seed(self, seed=None):
+        self._green_seed = seed
+
+        if self._green_seed is None:
+            self._green_seed = seed
+
+        if self._green_noise is not None:
+            self._green_noise.set_seed(self._green_seed)
+
+    def set_blue_seed(self, seed=None):
+        self._blue_seed = seed
+
+        if self._blue_seed is None:
+            self._blue_seed = seed
+
+        if self._blue_noise is not None:
+            self._blue_noise.set_seed(self._blue_seed)
+
+    def set_alpha_seed(self, seed=None):
+        self._alpha_seed = seed
+
+        if self._alpha_seed is None:
+            self._alpha_seed = seed
+
+        if self._alpha_noise is not None:
+            self._alpha_noise.set_seed(self._alpha_seed)
+
+    def get_red_seed(self):
+        if self._red_noise is None:
+            return self._red_seed
+        return self._red_noise.get_seed()
+
+    def get_green_seed(self):
+        if self._green_noise is None:
+            return self._green_seed
+        return self._green_noise.get_seed()
+
+    def get_blue_seed(self):
+        if self._blue_noise is None:
+            return self._blue_seed
+        return self._blue_noise.get_seed()
+
+    def get_alpha_seed(self):
+        if self._alpha_noise is None:
+            return self._alpha_seed
+        return self._alpha_noise.get_seed()
+
     def generate_color_from_perlin_noise(
             self,
             value=None,
@@ -241,13 +323,13 @@ class ColorConverter:
         """
 
         if self._red_noise is None:
-            self._red_noise = _Perlin(seed=self._seed)
+            self._red_noise = _Perlin(seed=self._red_seed)
         if self._green_noise is None:
-            self._green_noise = _Perlin(seed=self._seed)
+            self._green_noise = _Perlin(seed=self._green_seed)
         if self._blue_noise is None:
-            self._blue_noise = _Perlin(seed=self._seed)
+            self._blue_noise = _Perlin(seed=self._blue_seed)
         if self._alpha_noise is None:
-            self._alpha_noise = _Perlin(seed=self._seed)
+            self._alpha_noise = _Perlin(seed=self._alpha_seed)
 
         if red_color_range is None:
             red_color_range = color_range
