@@ -8,7 +8,6 @@ import cython
 
 cdef int PERMUTATION_SIZE = 512
 
-# Declare that no exceptions will be propagated
 cdef extern from "math.h":
     double floor(double) noexcept nogil
 
@@ -29,18 +28,18 @@ cdef inline double grad1(int hash, double x) noexcept nogil:
     🟩 **R** -
     """
     cdef int h = hash & 15
-    cdef double grad = 1.0 + (h & 7)  # Gradient value is one of 1.0, 2.0, ..., 8.0
+    cdef double grad = 1.0 + (h & 7)
     if h & 8:
-        grad = -grad  # and a random sign for the gradient
-    return grad * x  # Multiply the gradient with the distance
+        grad = -grad
+    return grad * x
 
 cdef inline double grad2(int hash, double x, double y) noexcept nogil:
     """
     🟩 **R** -
     """
-    cdef int h = hash & 7  # Convert low 3 bits of hash code
-    cdef double u = x if h < 4 else y  # into 8 simple gradient directions,
-    cdef double v = y if h < 4 else x  # and compute the dot product with (x,y).
+    cdef int h = hash & 7
+    cdef double u = x if h < 4 else y
+    cdef double v = y if h < 4 else x
     return ((-u if h & 1 else u) + (-2.0 * v if h & 2 else 2.0 * v))
 
 cdef inline double grad3(int hash, double x, double y, double z) noexcept nogil:
