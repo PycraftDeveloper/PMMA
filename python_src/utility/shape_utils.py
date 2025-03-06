@@ -548,17 +548,6 @@ class ArcUtils:
         # Render the arc using GL_TRIANGLE_STRIP
         self._vao.render(_moderngl.TRIANGLE_STRIP)
 
-    def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
-        """
-        🟩 **R** -
-        """
-        dx = x - cx
-        dy = y - cy
-        return [
-            cx + dx * cos_theta - dy * sin_theta,
-            cy + dx * sin_theta + dy * cos_theta
-        ]
-
     def _create_geometry(self):
         """
         🟩 **R** - Calculate the vertices for the arc based on start_angle, stop_angle, center, radius, and width.
@@ -622,17 +611,17 @@ class ArcUtils:
             vertices[0::2] = outer_vertices
             vertices[1::2] = inner_vertices
 
-            # Apply rotation if necessary
+            # Apply rotation around the center
             if rotation % _math.pi != 0:
                 cos_theta = _math.cos(rotation)
                 sin_theta = _math.sin(rotation)
 
-                rotated_vertices = _numpy.array([
-                    self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
-                    for v in vertices
-                ], dtype='f4')
+                # Rotation matrix
+                rotation_matrix = _numpy.array([[cos_theta, -sin_theta], [sin_theta, cos_theta]], dtype='f4')
 
-                rotated_vertices = rotated_vertices.flatten()
+                # Apply rotation in a vectorized way
+                vertices = vertices @ rotation_matrix.T
+                rotated_vertices = vertices.flatten()
             else:
                 rotated_vertices = vertices.flatten()
 
@@ -738,14 +727,17 @@ class EllipseUtils:
             vertices[0::2] = outer_vertices
             vertices[1::2] = inner_vertices
 
-            if rotation % _math.pi == 0:
-                # Apply rotation to each vertex if applicable
+            # Apply rotation around the center
+            if rotation % _math.pi != 0:
                 cos_theta = _math.cos(rotation)
                 sin_theta = _math.sin(rotation)
 
-                rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
+                # Rotation matrix
+                rotation_matrix = _numpy.array([[cos_theta, -sin_theta], [sin_theta, cos_theta]], dtype='f4')
 
-                rotated_vertices = rotated_vertices.flatten()
+                # Apply rotation in a vectorized way
+                vertices = vertices @ rotation_matrix.T
+                rotated_vertices = vertices.flatten()
             else:
                 rotated_vertices = vertices.flatten()
 
