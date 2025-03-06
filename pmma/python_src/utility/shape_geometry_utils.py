@@ -331,7 +331,7 @@ class ShapeGeometryManager:
                 self.initiate_garbage_collection()
 
     def ellipse_cache(self, old_id, new_id):
-        ellipse_geometry_cache = self.geometry_cache[_InternalConstants.ARC]
+        ellipse_geometry_cache = self.geometry_cache[_InternalConstants.ELLIPSE]
         if old_id is not None:
             if self.running_clean_up:
                 with self.lock:
