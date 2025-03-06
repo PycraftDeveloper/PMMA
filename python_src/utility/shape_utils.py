@@ -183,8 +183,8 @@ class LineUtils:
         translated_y = scaled_point[1] - scaled_center[1]
 
         # Apply 2D rotation matrix
-        cos_angle = _numpy.cos(angle)
-        sin_angle = _numpy.sin(angle)
+        cos_angle = _math.cos(angle)
+        sin_angle = _math.sin(angle)
 
         x_prime = cos_angle * translated_x - sin_angle * translated_y
         y_prime = sin_angle * translated_x + cos_angle * translated_y
@@ -396,17 +396,6 @@ class RectangleUtils:
         inner_arc = self._arc(cx, cy, start_angle, end_angle, inner_radius, segments)
         return zip(outer_arc, inner_arc)
 
-    def _rotate_point(self, x, y, cx, cy, cos_theta, sin_theta):
-        """
-        🟩 **R** -
-        """
-        dx = x -cx
-        dy = y -cy
-        return [
-            cx + dx * cos_theta - dy * sin_theta,
-            cy + dx * sin_theta + dy * cos_theta
-        ]
-
     def _create_geometry(self):
         """
         🟩 **R** - Calculate the vertices of the polygon based on the radius, center, point count, and rotation.
@@ -431,12 +420,12 @@ class RectangleUtils:
         else:
             if normal_corner_radius == 1:  # Skip rounded corners when the radius is effectively 1 or 0
                 # Generate a simple rectangle without rounded corners
-                combined_vertices = [
+                combined_vertices = _numpy.array([
                     (-x_size / 2, -y_size / 2),  # Bottom-left corner
                     (x_size / 2, -y_size / 2),   # Bottom-right corner
                     (-x_size / 2, y_size / 2),   # Top-left corner
                     (x_size / 2, y_size / 2),    # Top-right corner
-                ]
+                ], dtype="f4")
             else:
                 try:
                     minimum_radius = min(
@@ -513,11 +502,14 @@ class RectangleUtils:
 
             # Apply rotation around the center
             if rotation % _math.pi != 0:
-                cos_theta = _numpy.cos(rotation)
-                sin_theta = _numpy.sin(rotation)
+                cos_theta = _math.cos(rotation)
+                sin_theta = _math.sin(rotation)
 
-                # Rotate each vertex around the center
-                vertices = _numpy.array([self._rotate_point(v[0], v[1], 0, 0, cos_theta, sin_theta) for v in combined_vertices], dtype='f4')
+                # Rotation matrix
+                rotation_matrix = _numpy.array([[cos_theta, -sin_theta], [sin_theta, cos_theta]], dtype='f4')
+
+                # Apply rotation in a vectorized way
+                vertices = combined_vertices @ rotation_matrix.T
                 vertices = vertices.flatten()
             else:
                 vertices = combined_vertices.flatten()
@@ -632,8 +624,8 @@ class ArcUtils:
 
             # Apply rotation if necessary
             if rotation % _math.pi != 0:
-                cos_theta = _numpy.cos(rotation)
-                sin_theta = _numpy.sin(rotation)
+                cos_theta = _math.cos(rotation)
+                sin_theta = _math.sin(rotation)
 
                 rotated_vertices = _numpy.array([
                     self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta)
@@ -748,8 +740,8 @@ class EllipseUtils:
 
             if rotation % _math.pi == 0:
                 # Apply rotation to each vertex if applicable
-                cos_theta = _numpy.cos(rotation)
-                sin_theta = _numpy.sin(rotation)
+                cos_theta = _math.cos(rotation)
+                sin_theta = _math.sin(rotation)
 
                 rotated_vertices = _numpy.array([self._rotate_point(v[0], v[1], center_x, center_y, cos_theta, sin_theta) for v in vertices], dtype='f4')
 
