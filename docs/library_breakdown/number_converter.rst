@@ -116,6 +116,46 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: ColorConverter.set_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.get_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.set_red_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.set_green_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.set_blue_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.set_alpha_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.get_red_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.get_green_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.get_blue_seed() -> None
+
+   Not Yet Written
+
+.. py:method:: ColorConverter.get_alpha_seed() -> None
+
+   Not Yet Written
+
 .. py:method:: ColorConverter.generate_color_from_perlin_noise() -> None
 
     🟩 **R** -
