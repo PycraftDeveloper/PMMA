@@ -1,10 +1,10 @@
-from pygame import joystick as _pygame__joystick
-from pygame import init as _pygame__init
-
-from pmma.python_src.controller import Controller as _Controller
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+
+from pmma.python_src.controller import Controller as _Controller
+
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
@@ -21,15 +21,17 @@ class ControllersIntermediary:
             unique_instance=_InternalConstants.CONTROLLER_INTERMEDIARY_OBJECT,
             add_to_pmma_module_spine=True)
 
+        self._pygame__module = _ModuleManager.import_module("pygame")
+
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
             self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame__init()
+            self._pygame__module.init()
 
         self._controllers = []
-        for joy_num in range(_pygame__joystick.get_count()):
+        for joy_num in range(self._pygame__module.joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
     def quit(self):
@@ -56,7 +58,7 @@ class ControllersIntermediary:
         🟩 **R** -
         """
         self._controllers = []
-        for joy_num in range(_pygame__joystick.get_count()):
+        for joy_num in range(self._pygame__module.joystick.get_count()):
             self._controllers.append(_Controller(joy_num))
 
     def list_controllers(self):

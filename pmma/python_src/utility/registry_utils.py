@@ -1,6 +1,3 @@
-from moderngl import Context as _moderngl__Context
-from pprofile import Profile as _pprofile__Profile
-
 class Registry:
     """
     🟩 **R** -
@@ -20,7 +17,7 @@ class Registry:
     development_mode = True
     refresh_rate = 60
     display_initialized = False
-    context: "_moderngl__Context" = None
+    context = None
     power_saving_mode = False
     pmma_initialized = False
     pygame_launch_message = ""
@@ -39,7 +36,7 @@ class Registry:
     displayed_pygame_start_message = False
     shape_quality = 0.27341772151898736 # 0.75
     initial_shape_quality = None
-    profiler: "_pprofile__Profile" = None
+    profiler = None
     general_profile_application = None
     targeted_profile_application = None
     profile_result_path = None

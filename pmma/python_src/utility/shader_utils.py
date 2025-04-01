@@ -1,14 +1,11 @@
-from threading import Thread as _threading__Thread
-from threading import Lock as _threading__Lock
-
-from waiting import wait as _waiting__wait
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class ShaderIntermediary:
     """
@@ -26,9 +23,13 @@ class LoadedShaderReferenceManager:
         """
         _initialize(self, unique_instance=_InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
-        self.reference_manager_lock = _threading__Lock()
+        self._threading__module = _ModuleManager.import_module("threading")
 
-        self._reference_manager_thread = _threading__Thread(target=self.reference_manager)
+        self._waiting__module = _ModuleManager.import_module("waiting")
+
+        self.reference_manager_lock = self._threading__module.Lock()
+
+        self._reference_manager_thread = self._threading__module.Thread(target=self.reference_manager)
         self._reference_manager_thread.daemon = True
         self._reference_manager_thread.name = "LoadedShaderReferenceManager: Reference_Checker_Thread"
 
@@ -65,7 +66,7 @@ class LoadedShaderReferenceManager:
         🟩 **R** -
         """
         while self._enable_reference_checking:
-            _waiting__wait(self.wait_for_shader_filling)
+            self._waiting__module.wait(self.wait_for_shader_filling)
             if self._enable_reference_checking is False:
                 break
             if self._shader_intermediary.loaded_shaders_from_file == {}:

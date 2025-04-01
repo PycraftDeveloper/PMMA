@@ -16,10 +16,8 @@ from pmma.python_src.advmath import Math as _advmath__Math
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.noise_utils import NoiseIntermediary as _NoiseIntermediary
-from pmma.python_src.utility.noise_utils import prefill_optimizer as _prefill_optimizer
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.general_utils import random_real_number as _random_real_number
-from pmma.python_src.utility.general_utils import get_application_run_time as _get_application_run_time
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class Perlin:
     """
@@ -36,6 +34,9 @@ class Perlin:
         """
 
         _initialize(self)
+
+        self._internal_prefill_optimizer = _NoiseIntermediary()
+        self._internal_general_utils = _GeneralIntermediary()
 
         if _Registry.cython_acceleration_available:
             if _NoiseIntermediary.noise_module is None:
@@ -101,7 +102,7 @@ class Perlin:
             for _ in range(0, 10):
                 for _ in range(100):
                     _Registry.perlin_noise_prefill_single_samples += 1
-                    x = _random_real_number()
+                    x = self._internal_general_utils.random_real_number()
                     self.generate_1D_perlin_noise(x/100)
                     self.generate_2D_perlin_noise(x/100, -x/100)
                     self.generate_3D_perlin_noise(x/100, -x/100, x/100)
@@ -110,7 +111,7 @@ class Perlin:
             x = x_samples[0]
             del x_samples[0]
             _Registry.perlin_noise_prefill_array_samples += 1
-            x_array, y_array, z_array = _prefill_optimizer(x)
+            x_array, y_array, z_array = self._internal_prefill_optimizer._prefill_optimizer(x)
 
             self.generate_1D_perlin_noise_from_array(x_array)
 
@@ -125,7 +126,7 @@ class Perlin:
             while _Registry.in_game_loop is False or _Registry.power_saving_mode:
                 for _ in range(100):
                     _Registry.perlin_noise_prefill_single_samples += 1
-                    x = _random_real_number()
+                    x = self._internal_general_utils.random_real_number()
                     self.generate_1D_perlin_noise(x/100)
                     self.generate_2D_perlin_noise(x/100, -x/100)
                     self.generate_3D_perlin_noise(x/100, -x/100, x/100)
@@ -134,7 +135,7 @@ class Perlin:
                     x = x_samples[0]
                     del x_samples[0]
                     _Registry.perlin_noise_prefill_array_samples += 1
-                    x_array, y_array, z_array = _prefill_optimizer(x)
+                    x_array, y_array, z_array = self._internal_prefill_optimizer._prefill_optimizer(x)
 
                     self.generate_1D_perlin_noise_from_array(x_array)
 

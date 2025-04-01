@@ -1,11 +1,11 @@
 from importlib import import_module as _importlib__import_module
 
 from pmma.python_src.constants import Constants as _Constants
-
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class ConverterIntermediaryManager:
     """

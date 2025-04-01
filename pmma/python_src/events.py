@@ -322,7 +322,6 @@ from pygame import WINDOWHITTEST as _pygame__WINDOWHITTEST
 from pygame import WINDOWICCPROFCHANGED as _pygame__WINDOWICCPROFCHANGED
 from pygame import WINDOWDISPLAYCHANGED as _pygame__WINDOWDISPLAYCHANGED
 
-from pmma.python_src.general import get_operating_system as _get_operating_system
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.controller import Controllers as _Controllers
 
@@ -331,6 +330,8 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class Events:
     """
@@ -12209,6 +12210,9 @@ class AppTerminating_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._internal_general_utils = _GeneralIntermediary()
+
         if not _InternalConstants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.APPTERMINATING_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppTerminating_EVENT as _AppTerminating_EVENT
@@ -12228,7 +12232,7 @@ class AppTerminating_EVENT:
         """
         🟩 **R** -
         """
-        if _get_operating_system() != _InternalConstants.ANDROID:
+        if self._internal_general_utils.get_operating_system() != _InternalConstants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. Instead please use: 'Quit_EVENT' as this works across all platforms.")
         return self._appterminatingevent_intermediary.get_value()
 
@@ -12248,6 +12252,9 @@ class AppLowMemory_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._internal_general_utils = _GeneralIntermediary()
+
         if not _InternalConstants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.APPLOWMEMORY_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppLowMemory_EVENT as _AppLowMemory_EVENT
@@ -12267,7 +12274,7 @@ class AppLowMemory_EVENT:
         """
         🟩 **R** -
         """
-        if _get_operating_system() != _InternalConstants.ANDROID:
+        if self._internal_general_utils.get_operating_system() != _InternalConstants.ANDROID:
             self._logger.log_development("This event is exclusive to the Android operating system. There is no alternative \
 to this on other operating systems due to how memory is allocated. If you are interested in getting information about memory, \
 I'd recommend checking out PSUtil: https://pypi.org/project/psutil/")

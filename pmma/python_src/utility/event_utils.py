@@ -1,4 +1,4 @@
-from time import perf_counter as _time__perf_counter
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -19,6 +19,8 @@ class Backspace_KEY:
         🟩 **R** -
         """
         _initialize(self, unique_instance=_InternalConstants.BACKSPACE_KEY_OBJECT, add_to_pmma_module_spine=True)
+
+        self._time__module = _ModuleManager.import_module("time")
 
         self._currently_pressed = False
         self._double_tap_timing = 0.25
@@ -65,7 +67,7 @@ class Backspace_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -145,7 +147,7 @@ class Tab_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -225,7 +227,7 @@ class Clear_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -305,7 +307,7 @@ class Return_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -385,7 +387,7 @@ class Pause_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -465,7 +467,7 @@ class Escape_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -545,7 +547,7 @@ class Space_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -625,7 +627,7 @@ class ExclamationMark_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -705,7 +707,7 @@ class DoubleQuote_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -785,7 +787,7 @@ class Hashtag_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -865,7 +867,7 @@ class Dollar_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -945,7 +947,7 @@ class Ampersand_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1025,7 +1027,7 @@ class SingleQuote_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1105,7 +1107,7 @@ class LeftParenthesis_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1185,7 +1187,7 @@ class RightParenthesis_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1265,7 +1267,7 @@ class Asterisk_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1345,7 +1347,7 @@ class Plus_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1425,7 +1427,7 @@ class Comma_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1505,7 +1507,7 @@ class Minus_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1585,7 +1587,7 @@ class Period_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1665,7 +1667,7 @@ class ForwardSlash_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1745,7 +1747,7 @@ class Primary0_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1825,7 +1827,7 @@ class Primary1_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1905,7 +1907,7 @@ class Primary2_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -1985,7 +1987,7 @@ class Primary3_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2065,7 +2067,7 @@ class Primary4_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2145,7 +2147,7 @@ class Primary5_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2225,7 +2227,7 @@ class Primary6_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2305,7 +2307,7 @@ class Primary7_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2385,7 +2387,7 @@ class Primary8_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2465,7 +2467,7 @@ class Primary9_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2545,7 +2547,7 @@ class Colon_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2625,7 +2627,7 @@ class SemiColon_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2705,7 +2707,7 @@ class LessThan_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2785,7 +2787,7 @@ class Equals_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2865,7 +2867,7 @@ class GreaterThan_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -2945,7 +2947,7 @@ class QuestionMark_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3025,7 +3027,7 @@ class At_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3105,7 +3107,7 @@ class LeftBracket_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3185,7 +3187,7 @@ class BackSlash_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3265,7 +3267,7 @@ class RightBracket_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3345,7 +3347,7 @@ class Caret_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3425,7 +3427,7 @@ class Underscore_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3505,7 +3507,7 @@ class Grave_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3585,7 +3587,7 @@ class PrimaryA_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3665,7 +3667,7 @@ class PrimaryB_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3745,7 +3747,7 @@ class PrimaryC_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3825,7 +3827,7 @@ class PrimaryD_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3905,7 +3907,7 @@ class PrimaryE_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -3985,7 +3987,7 @@ class PrimaryF_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4065,7 +4067,7 @@ class PrimaryG_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4145,7 +4147,7 @@ class PrimaryH_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4225,7 +4227,7 @@ class PrimaryI_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4305,7 +4307,7 @@ class PrimaryJ_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4385,7 +4387,7 @@ class PrimaryK_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4465,7 +4467,7 @@ class PrimaryL_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4545,7 +4547,7 @@ class PrimaryM_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4625,7 +4627,7 @@ class PrimaryN_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4705,7 +4707,7 @@ class PrimaryO_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4785,7 +4787,7 @@ class PrimaryP_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4865,7 +4867,7 @@ class PrimaryQ_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -4945,7 +4947,7 @@ class PrimaryR_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5025,7 +5027,7 @@ class PrimaryS_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5105,7 +5107,7 @@ class PrimaryT_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5185,7 +5187,7 @@ class PrimaryU_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5265,7 +5267,7 @@ class PrimaryV_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5345,7 +5347,7 @@ class PrimaryW_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5425,7 +5427,7 @@ class PrimaryX_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5505,7 +5507,7 @@ class PrimaryY_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5585,7 +5587,7 @@ class PrimaryZ_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5665,7 +5667,7 @@ class Delete_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5745,7 +5747,7 @@ class Numpad0_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5825,7 +5827,7 @@ class Numpad1_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5905,7 +5907,7 @@ class Numpad2_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -5985,7 +5987,7 @@ class Numpad3_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6065,7 +6067,7 @@ class Numpad4_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6145,7 +6147,7 @@ class Numpad5_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6225,7 +6227,7 @@ class Numpad6_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6305,7 +6307,7 @@ class Numpad7_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6385,7 +6387,7 @@ class Numpad8_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6465,7 +6467,7 @@ class Numpad9_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6545,7 +6547,7 @@ class NumpadPeriod_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6625,7 +6627,7 @@ class NumpadDivide_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6705,7 +6707,7 @@ class NumpadMultiply_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6785,7 +6787,7 @@ class NumpadMinus_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6865,7 +6867,7 @@ class NumpadPlus_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -6945,7 +6947,7 @@ class NumpadEnter_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7025,7 +7027,7 @@ class NumpadEquals_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7105,7 +7107,7 @@ class Up_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7185,7 +7187,7 @@ class Down_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7265,7 +7267,7 @@ class Right_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7345,7 +7347,7 @@ class Left_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7425,7 +7427,7 @@ class Insert_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7505,7 +7507,7 @@ class Home_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7585,7 +7587,7 @@ class End_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7665,7 +7667,7 @@ class PageUp_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7745,7 +7747,7 @@ class PageDown_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7825,7 +7827,7 @@ class Function1_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7905,7 +7907,7 @@ class Function2_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -7985,7 +7987,7 @@ class Function3_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8065,7 +8067,7 @@ class Function4_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8145,7 +8147,7 @@ class Function5_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8225,7 +8227,7 @@ class Function6_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8305,7 +8307,7 @@ class Function7_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8385,7 +8387,7 @@ class Function8_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8465,7 +8467,7 @@ class Function9_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8545,7 +8547,7 @@ class Function10_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8625,7 +8627,7 @@ class Function11_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8705,7 +8707,7 @@ class Function12_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8785,7 +8787,7 @@ class Function13_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8865,7 +8867,7 @@ class Function14_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -8945,7 +8947,7 @@ class Function15_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9025,7 +9027,7 @@ class NumLock_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9105,7 +9107,7 @@ class CapsLock_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9185,7 +9187,7 @@ class ScrollLock_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9265,7 +9267,7 @@ class RightShift_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9345,7 +9347,7 @@ class LeftShift_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9425,7 +9427,7 @@ class Shift_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9505,7 +9507,7 @@ class RightControl_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9585,7 +9587,7 @@ class LeftControl_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9665,7 +9667,7 @@ class Control_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9745,7 +9747,7 @@ class RightAlt_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9825,7 +9827,7 @@ class LeftAlt_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9905,7 +9907,7 @@ class Alt_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -9985,7 +9987,7 @@ class RightMeta_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10065,7 +10067,7 @@ class LeftMeta_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10145,7 +10147,7 @@ class Meta_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10225,7 +10227,7 @@ class LeftSuper_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10305,7 +10307,7 @@ class RightSuper_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10385,7 +10387,7 @@ class Super_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10465,7 +10467,7 @@ class Mode_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10545,7 +10547,7 @@ class Help_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10625,7 +10627,7 @@ class Print_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10705,7 +10707,7 @@ class SystemRequest_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10785,7 +10787,7 @@ class Break_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10865,7 +10867,7 @@ class Menu_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -10945,7 +10947,7 @@ class Power_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11025,7 +11027,7 @@ class Euro_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11105,7 +11107,7 @@ class AndroidBack_KEY:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11185,7 +11187,7 @@ class Y_BUTTON: # 3
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11265,7 +11267,7 @@ class B_BUTTON: # 2
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11345,7 +11347,7 @@ class A_BUTTON: # 1
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11425,7 +11427,7 @@ class X_BUTTON: # 0
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11505,7 +11507,7 @@ class Home_BUTTON: # 12
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11585,7 +11587,7 @@ class RightJoystick_BUTTON: # 11
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11665,7 +11667,7 @@ class LeftJoystick_BUTTON: # 10
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11745,7 +11747,7 @@ class Options_BUTTON: # 9
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -11882,7 +11884,7 @@ class Share_BUTTON: # 8
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12024,7 +12026,7 @@ class Right_BUMPER: # 5
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12104,7 +12106,7 @@ class Left_BUMPER: # 4
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12184,7 +12186,7 @@ class Center_BUTTON: # 15
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12352,7 +12354,7 @@ class UpHat_BUTTON:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12432,7 +12434,7 @@ class DownHat_BUTTON:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12512,7 +12514,7 @@ class LeftHat_BUTTON:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12592,7 +12594,7 @@ class RightHat_BUTTON:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12672,7 +12674,7 @@ class LeftButton_MOUSE:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12752,7 +12754,7 @@ class MiddleButton_MOUSE:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 
@@ -12832,7 +12834,7 @@ class RightButton_MOUSE:
         🟩 **R** -
         """
         if value:
-            self.set_last_tap_time(_time__perf_counter())
+            self.set_last_tap_time(self._time__module.perf_counter())
         else:
             self.set_double_tapped(False)
 

@@ -1,25 +1,10 @@
-import os as _os
 from platform import system as _platform__system
 
-from numpy import float32 as _numpy__float32
-from numpy import array as _numpy__array
-from moderngl import BLEND as _moderngl__BLEND
-from moderngl import create_context as _moderngl__create_context
-from pygame import init as _pygame__init
-from pygame import quit as _pygame__quit
-from pygame import time as _pygame__time
-from pygame import display as _pygame__display
-from pygame import OPENGL as _pygame__OPENGL
-from pygame import RESIZABLE as _pygame__RESIZABLE
-from pygame import FULLSCREEN as _pygame__FULLSCREEN
-from pygame import NOFRAME as _pygame__NOFRAME
-from pygame import DOUBLEBUF as _pygame__DOUBLEBUF
-from pygame import image as _pygame__image
-from moderngl_window import geometry as _geometry
-from moderngl_window import get_local_window_cls as _moderngl_window__get_local_window_cls
-from moderngl_window import activate_context as _moderngl_window__activate_context
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
-from pmma.python_src.general import get_operating_system as _get_operating_system
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.opengl import OpenGL as _OpenGL
 from pmma.python_src.utility.opengl_utils import Texture as _Texture
@@ -35,10 +20,10 @@ from pmma.python_src.advtkinter import Tkinter as _Tkinter
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
@@ -53,6 +38,14 @@ class DisplayIntermediary:
         """
         _initialize(self, unique_instance=_InternalConstants.DISPLAY_OBJECT, add_to_pmma_module_spine=True)
 
+        self._os__module = _ModuleManager.import_module("os")
+        self._numpy__module = _ModuleManager.import_module("numpy")
+        self._moderngl__module = _ModuleManager.import_module("moderngl")
+        self._pygame__module = _ModuleManager.import_module("pygame")
+        self._moderngl_window__module = _ModuleManager.import_module("moderngl_window")
+
+        self._internal_general_utils = _GeneralIntermediary()
+
         self._logger = _InternalLogger()
 
         self._clock = None
@@ -66,7 +59,7 @@ class DisplayIntermediary:
         self._opengl = _OpenGL()
 
         self._fill_color = None
-        self._color_key = _numpy__array([0, 0, 0], dtype=_numpy__float32)
+        self._color_key = self._numpy__module.array([0, 0, 0], dtype=self._numpy__module.float32)
 
         self.resized_event = _WindowResized_EVENT()
         _WindowRestored_EVENT() # for passports
@@ -106,7 +99,7 @@ class DisplayIntermediary:
 
         self._tkinter_backend = _Tkinter()
 
-        self._clock = _pygame__time.Clock()
+        self._clock = self._pygame__module.time.Clock()
 
         if not _InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT)
@@ -219,7 +212,7 @@ class DisplayIntermediary:
 
             _ctypes__windll.user32.SetLayeredWindowAttributes(self._display_attribute_hwnd, color_key, 0, 0x2)
 
-        self._color_key = _numpy__array([*self._color_converter.get_color(format=_Constants.SMALL_RGB)], dtype=_numpy__float32)
+        self._color_key = self._numpy__module.array([*self._color_converter.get_color(format=_Constants.SMALL_RGB)], dtype=self._numpy__module.float32)
 
         #self._two_dimension_frame_buffer.use()
         self._two_dimension_frame_buffer.clear(self._color_converter)
@@ -251,7 +244,7 @@ class DisplayIntermediary:
         🟩 **R** -
         """
         if self._shut_down is False:
-            _pygame__display.quit()
+            self._pygame__module.display.quit()
 
     def quit(self):
         """
@@ -304,14 +297,14 @@ class DisplayIntermediary:
         """
         🟩 **R** -
         """
-        flags = _pygame__OPENGL | _pygame__DOUBLEBUF
+        flags = self._pygame__module.OPENGL | self._pygame__module.DOUBLEBUF
 
         if self._display_attribute_no_frame:
-            flags |= _pygame__NOFRAME
+            flags |= self._pygame__module.NOFRAME
         if self._display_attribute_resizable:
-            flags |= _pygame__RESIZABLE
+            flags |= self._pygame__module.RESIZABLE
         if self._display_attribute_full_screen and care_about_full_screen:
-            flags |= _pygame__FULLSCREEN
+            flags |= self._pygame__module.FULLSCREEN
 
         return flags
 
@@ -334,7 +327,7 @@ class DisplayIntermediary:
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
             self._logger.log_information(_Registry.pygame_launch_message)
-            _pygame__init()
+            self._pygame__module.init()
 
         if vsync:
             self._logger.log_development("Your display is using vsync. Therefore the \
@@ -351,7 +344,7 @@ reduce graphical tearing and other rendering anomalies.")
         self._display_attribute_centered = centered
 
         if self._display_attribute_transparent_display:
-            if _get_operating_system() == _Constants.WINDOWS:
+            if self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
                 self._logger.log_development("You are using PMMA's transparent display technology. \
 This means that the window you create is going to be completely transparent - including \
 its borders and captions. It might seem like the display 'pops-in' before disappearing, \
@@ -383,23 +376,23 @@ actively working to address this operating system limitation.")
         self.set_icon()
 
         if self._display_attribute_centered:
-            _os.environ["SDL_VIDEO_CENTERED"] = "1"
+            self._os__module.environ["SDL_VIDEO_CENTERED"] = "1"
 
         if self._display_attribute_full_screen:
             size = (0, 0)
         else:
             size = self._display_attribute_size
 
-        self._display = _pygame__display.set_mode(
+        self._display = self._pygame__module.display.set_mode(
             size,
             flags,
             vsync=self._display_attribute_vsync)
 
-        _Registry.window_context = _moderngl_window__get_local_window_cls("pygame2")
+        _Registry.window_context = self._moderngl_window__module.get_local_window_cls("pygame2")
 
         if self._display_attribute_transparent_display:
-            if _get_operating_system() == _Constants.WINDOWS:
-                self._display_attribute_hwnd = _pygame__display.get_wm_info()["window"]
+            if self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
+                self._display_attribute_hwnd = self._pygame__module.display.get_wm_info()["window"]
 
                 # Make the window transparent and allow click-through
                 # Set the window to be layered
@@ -412,8 +405,8 @@ actively working to address this operating system limitation.")
         _Registry.display_initialized = True
 
         try:
-            _Registry.context = _moderngl__create_context()
-            _moderngl_window__activate_context(_Registry.window_context, _Registry.context)
+            _Registry.context = self._moderngl__module.create_context()
+            self._moderngl_window__module.activate_context(_Registry.window_context, _Registry.context)
         except Exception as error:
             self._logger.log_error("Failed to create OpenGL context.")
             self._logger.log_development("Failed to create OpenGL context. Make sure that \
@@ -428,7 +421,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
         self.on_window_size_changed()
 
-        self._display_quad = _geometry.quad_fs()
+        self._display_quad = self._moderngl_window__module.geometry.quad_fs()
 
         self._gpu_distribution_manager.update_gpu_roles(initialization_override=True)
 
@@ -438,7 +431,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         """
         if caption is None:
             caption = self._display_attribute_caption
-        _pygame__display.set_caption(str(caption))
+        self._pygame__module.display.set_caption(str(caption))
 
     def set_icon(self, icon=None):
         """
@@ -446,15 +439,15 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         """
         if icon is None:
             icon = self._display_attribute_icon
-        icon_img = _pygame__image.load(icon)
-        _pygame__display.set_icon(icon_img)
+        icon_img = self._pygame__module.image.load(icon)
+        self._pygame__module.display.set_icon(icon_img)
         del icon_img
 
     def on_window_size_changed(self):
         """
         🟩 **R** -
         """
-        size = _pygame__display.get_window_size()
+        size = self._pygame__module.display.get_window_size()
 
         self._current_display_size = size
 
@@ -495,16 +488,16 @@ If this fails, try to run another OpenGL application first to attempt to isolate
         flags = self._generate_pygame_flags(care_about_full_screen=False)
 
         if self._display_attribute_full_screen is False:
-            self._display_attribute_size = _pygame__display.get_window_size()
+            self._display_attribute_size = self._pygame__module.display.get_window_size()
 
         self._display_attribute_full_screen = not self._display_attribute_full_screen
 
         if self._display_attribute_full_screen:
-            _pygame__display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
-            self._display = _pygame__display.set_mode((0, 0), flags | _pygame__FULLSCREEN, vsync=self._display_attribute_vsync)
+            self._pygame__module.display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
+            self._display = self._pygame__module.display.set_mode((0, 0), flags | self._pygame__module.FULLSCREEN, vsync=self._display_attribute_vsync)
 
         else:
-            _pygame__display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
+            self._pygame__module.display.set_mode((0, 0), flags, vsync=self._display_attribute_vsync)
 
             if self._display_attribute_size[0] < 800:
                 self._display_attribute_size = (800, self._display_attribute_size[1])
@@ -512,7 +505,7 @@ If this fails, try to run another OpenGL application first to attempt to isolate
             if self._display_attribute_size[1] < 600:
                 self._display_attribute_size = (self._display_attribute_size[0], 600)
 
-            self._display = _pygame__display.set_mode(self._display_attribute_size, flags, vsync=self._display_attribute_vsync)
+            self._display = self._pygame__module.display.set_mode(self._display_attribute_size, flags, vsync=self._display_attribute_vsync)
 
         self.on_window_size_changed()
 
@@ -635,11 +628,11 @@ you refresh the display to ensure optimal performance and support!")
 
             self._texture_aggregation_program.set_shader_variable("color_key", self._color_key)
 
-            _Registry.context.enable(_moderngl__BLEND)
+            _Registry.context.enable(self._moderngl__module.BLEND)
             self._display_quad.render(self._texture_aggregation_program.use_program())
-            _Registry.context.disable(_moderngl__BLEND)
+            _Registry.context.disable(self._moderngl__module.BLEND)
 
-            _pygame__display.flip()
+            self._pygame__module.display.flip()
 
         frame_rate = self.get_fps()
         if _Registry.application_average_frame_rate["Samples"] == 0:
@@ -667,7 +660,7 @@ you refresh the display to ensure optimal performance and support!")
         if _Registry.display_initialized is False:
             self._logger.log_development("You need to create a display with the `create` before you can use this function.")
             return
-        _pygame__quit()
+        self._pygame__module.quit()
 
     def get_fps(self):
         """

@@ -1,5 +1,6 @@
-from PIL import Image as _PIL__Image
 from moderngl import LINEAR as _moderngl__LINEAR
+
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.constants import Constants as _Constants
 
@@ -16,6 +17,8 @@ class Texture:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._PIL_Image__module = _ModuleManager.import_module("PIL.Image")
 
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
@@ -84,7 +87,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         """
         🟩 **R** -
         """
-        image = _PIL__Image.open(file_path)
+        image = self._PIL_Image__module.open(file_path)
         self._size = image.size
         self._components = len(image.mode)
         self._data = image.tobytes()
@@ -128,7 +131,7 @@ maximum number of samples supported by your system is: {}", variables=[_Registry
         🟩 **R** -
         """
         if self._texture is not None:
-            return _PIL__Image.frombytes("RGB", self._size, self._texture.read())
+            return self._PIL_Image__module.frombytes("RGB", self._size, self._texture.read())
 
     def get_texture(self):
         """

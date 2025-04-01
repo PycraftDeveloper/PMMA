@@ -1,19 +1,12 @@
-from threading import Thread as _threading__Thread
-from time import perf_counter as _time__perf_counter
-from time import sleep as _time__sleep
-from math import sin as _math__sin
-from math import pi as _math__pi
-
-from waiting import wait as _waiting__wait
-from numpy import absolute as _numpy__absolute
-from numpy import array as _numpy__array
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
 from pmma.python_src.advmath import Math as _Math
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class TransitionManager:
     """
@@ -28,9 +21,16 @@ class TransitionManager:
             unique_instance=_InternalConstants.TRANSITION_MANAGER_OBJECT,
             add_to_pmma_module_spine=True)
 
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._time__module = _ModuleManager.import_module("time")
+        self._math__module = _ModuleManager.import_module("math")
+
+        self._waiting__module = _ModuleManager.import_module("waiting")
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         self._transitions = {}
 
-        self._transition_manager = _threading__Thread(target=self._manage_transitions)
+        self._transition_manager = self._threading__module.Thread(target=self._manage_transitions)
         self._transition_manager.daemon = True
         self._transition_manager.name = "TransitionManager:Manage_Transitions_Thread"
 
@@ -78,10 +78,10 @@ class TransitionManager:
         """
         🟩 **R** -
         """
-        np_start = _numpy__array(transition.get_start())
-        np_end = _numpy__array(transition.get_end())
-        difference = _numpy__absolute(np_start - np_end)
-        current_run_duration = _time__perf_counter() - transition.get_start_time()
+        np_start = self._numpy__module.array(transition.get_start())
+        np_end = self._numpy__module.array(transition.get_end())
+        difference = self._numpy__module.absolute(np_start - np_end)
+        current_run_duration = self._time__module.perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
         result = difference * (current_run_duration / transition_duration) + np_start
         if current_run_duration >= transition_duration:
@@ -97,7 +97,7 @@ class TransitionManager:
         start = transition.get_start()
         end = transition.get_end()
         difference = abs(start - end)
-        current_run_duration = _time__perf_counter() - transition.get_start_time()
+        current_run_duration = self._time__module.perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
         result = difference * (current_run_duration / transition_duration) + start
         if current_run_duration >= transition_duration:
@@ -110,15 +110,15 @@ class TransitionManager:
         """
         🟩 **R** -
         """
-        current_run_duration = _time__perf_counter() - transition.get_start_time()
+        current_run_duration = self._time__module.perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
 
-        np_start = _numpy__array(transition.get_start())
-        np_end = _numpy__array(transition.get_end())
-        difference = _numpy__absolute(np_start - np_end)
+        np_start = self._numpy__module.array(transition.get_start())
+        np_end = self._numpy__module.array(transition.get_end())
+        difference = self._numpy__module.absolute(np_start - np_end)
         normalized_time = current_run_duration / transition_duration
         # Calculate the velocity based on a sine curve between 0 and pi
-        sine_velocity = _math__sin((_math__pi / 2) * normalized_time)
+        sine_velocity = self._math__module.sin((self._math__module.pi / 2) * normalized_time)
         # Position based on velocity integrated over time
         result = np_start + difference * sine_velocity
 
@@ -132,15 +132,15 @@ class TransitionManager:
         """
         🟩 **R** -
         """
-        current_run_duration = _time__perf_counter() - transition.get_start_time()
+        current_run_duration = self._time__module._time__perf_counter() - transition.get_start_time()
         transition_duration = transition.get_duration()
 
-        start = _numpy__array(transition.get_start())
-        end = _numpy__array(transition.get_end())
+        start = self._numpy__module.array(transition.get_start())
+        end = self._numpy__module.array(transition.get_end())
         difference = abs(start - end)
         normalized_time = current_run_duration / transition_duration
         # Calculate the velocity based on a sine curve between 0 and pi
-        sine_velocity = _math__sin((_math__pi / 2) * normalized_time)
+        sine_velocity = self._math__module.sin((self._math__module.pi / 2) * normalized_time)
         # Position based on velocity integrated over time
         result = start + difference * sine_velocity
 
@@ -155,7 +155,7 @@ class TransitionManager:
         🟩 **R** -
         """
         while self._enable_transition_management:
-            _waiting__wait(self._wait_for_transitions)
+            self._waiting__module.wait(self._wait_for_transitions)
             if len(self._transitions) == 0:
                 continue
             for key in self._transitions:
@@ -179,4 +179,4 @@ class TransitionManager:
                             self._smooth_value_transition(
                                 transition)
 
-            _time__sleep(1 / _Registry.refresh_rate)
+            self._time__module.sleep(1 / _Registry.refresh_rate)

@@ -1,10 +1,11 @@
-from pmma.python_src.general import compute as _compute
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.display import Display as _Display
 from pmma.python_src.events import Events as _Events
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class QuickStart:
     """
@@ -26,6 +27,8 @@ class QuickStart:
         """
 
         _initialize(self)
+
+        self._internal_general_utils = _GeneralIntermediary()
 
         self._display = _Display()
         self._display.create(
@@ -80,6 +83,6 @@ class QuickStart:
         """
         🟩 **R** -
         """
-        _compute()
+        self._internal_general_utils.compute()
         self._display.refresh(refresh_rate=refresh_rate)
         return _Registry.running is False or _Backpack.running is False
