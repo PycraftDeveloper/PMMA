@@ -9,18 +9,20 @@ except Exception as error:
     else:
         raise error
 
-from pmma.python_src.general import get_operating_system as _get_operating_system
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.executor import Executor as _Executor
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-if _get_operating_system() == _Constants.WINDOWS:
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
+
+_internal_general_utils = _GeneralIntermediary()
+
+if _internal_general_utils.get_operating_system() == _Constants.WINDOWS:
     from wmi import WMI as _wmi__WMI
     from pythoncom import CoInitialize as _pythoncom__CoInitialize
 
@@ -33,6 +35,8 @@ class GPUs:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._internal_general_utils = _GeneralIntermediary()
 
         if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
@@ -502,7 +506,7 @@ make sure that you are able to pass through the GPU device.")
         """
         🟩 **R** -
         """
-        if _get_operating_system() == _Constants.WINDOWS:
+        if self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
             _pythoncom__CoInitialize()
         if wait_for_completion:
             self._update(everything=everything, data_points=data_points)
@@ -547,7 +551,7 @@ make sure that you are able to pass through the GPU device.")
         for priority in self._priorities:
             if priority == _InternalConstants.SMI and smi_data != "":
                 self._executor.run([
-                    _find_executable_nvidia_smi(),
+                    self._internal_general_utils.find_executable_nvidia_smi(),
                     f"--query-gpu={smi_data}",
                     "--format=csv,noheader,nounits",
                     f"-i={self._module_identification_indices[_InternalConstants.SMI]}"])
@@ -610,7 +614,7 @@ make sure that you are able to pass through the GPU device.")
                         if data is not None:
                             set_attributes.append(data_point)
 
-            elif priority == _InternalConstants.WMI and wmi_data != [] and _get_operating_system() == _Constants.WINDOWS:
+            elif priority == _InternalConstants.WMI and wmi_data != [] and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
                 computer = _wmi__WMI()
                 gpu_data = computer.Win32_VideoController()[self._module_identification_indices[_InternalConstants.WMI]]
                 result = []

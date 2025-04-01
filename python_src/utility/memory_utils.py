@@ -1,29 +1,17 @@
-from time import perf_counter as _time__perf_counter
-from threading import Thread as _threading__Thread
-from threading import Lock as _threading__Lock
-from sys import getsizeof as _sys__getsizeof
-from tempfile import NamedTemporaryFile as _tempfile__NamedTemporaryFile
-from os import mkdir as _os__mkdir
-from os import remove as _os__remove
 from shutil import rmtree as _shutil__rmtree
-from gc import collect as _gc__collect
-from traceback import format_exc as _traceback__format_exc
 
-from psutil import virtual_memory as _psutil__virtual_memory
-from dill import dumps as _dill__dumps
-from dill import loads as _dill__loads
-from dill import dump as _dill__dump
-from waiting import wait as _waiting__wait
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+
+from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPriorityList
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class MemoryManagerIntermediary:
     """
@@ -38,11 +26,23 @@ class MemoryManagerIntermediary:
         """
         _initialize(self, unique_instance=_InternalConstants.MEMORY_MANAGER_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True)
 
+        self._time__module = _ModuleManager.import_module("time")
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._sys__module = _ModuleManager.import_module("sys")
+        self._tempfile__module = _ModuleManager.import_module("tempfile")
+        self._os__module = _ModuleManager.import_module("os")
+        self._gc__module = _ModuleManager.import_module("gc")
+        self._traceback__module = _ModuleManager.import_module("traceback")
+
+        self._psutil__module = _ModuleManager.import_module("psutil")
+        self._dill__module = _ModuleManager.import_module("dill")
+        self._waiting__module = _ModuleManager.import_module("waiting")
+
         self._logger = _InternalLogger()
 
         self.limited_max_size = False
         if target_size == _Constants.AUTOMATIC:
-            target_size = (1/8) * _psutil__virtual_memory().available
+            target_size = (1/8) * self._psutil__module.virtual_memory().available
             if target_size > 1000000000:
                 self.target_size = 1000000000 # 1 GB
                 self.limited_max_size = True
@@ -82,14 +82,14 @@ leaving the target size variable can be dangerous.")
         self.manager_thread_organized_data = _InvertedPriorityList()
         self.manager_thread_organized_data_minimum_priority_changed = True
 
-        self.manager_thread = _threading__Thread(target=self.object_dictionary_manager)
+        self.manager_thread = self._threading__module.Thread(target=self.object_dictionary_manager)
         self.manager_thread.daemon = True
         self.manager_thread.name = "MemoryManagerIntermediary: Object_Memory_Management_Thread"
         self.manager_thread.start()
         self.max_obj_creation_time = float("-inf")
         self.max_obj_size = 0
 
-        self.memory_manager_thread_lock = _threading__Lock()
+        self.memory_manager_thread_lock = self._threading__module.Lock()
 
         self.memory_management_directory = _path_builder(
             _Registry.base_path,
@@ -100,7 +100,7 @@ leaving the target size variable can be dangerous.")
             self.memory_management_directory,
             ignore_errors=True)
 
-        _os__mkdir(self.memory_management_directory)
+        self._os__module.mkdir(self.memory_management_directory)
 
     def __del__(self):
         """
@@ -115,7 +115,7 @@ leaving the target size variable can be dangerous.")
                 self.memory_management_directory,
                 ignore_errors=True)
 
-            _os__mkdir(self.memory_management_directory)
+            self._os__module.mkdir(self.memory_management_directory)
 
             self.linker = {}
             self.objects = {}
@@ -142,8 +142,8 @@ leaving the target size variable can be dangerous.")
             if pre_locked:
                 if recreatable_object is False:
                     try:
-                        byte_data = _dill__dumps(obj)
-                        _dill__loads(byte_data)
+                        byte_data = self._dill__module.dumps(obj)
+                        self._dill__module.loads(byte_data)
                         stay_in_memory = False
                     except:
                         stay_in_memory = True
@@ -155,7 +155,7 @@ leaving the target size variable can be dangerous.")
                 if identifier in self.linker.keys():
                     raise KeyError("Object already exists")
 
-                obj_size = _sys__getsizeof(obj)
+                obj_size = self._sys__module.getsizeof(obj)
                 if ((_PassportIntermediary.project_size is None or
                             _PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
                         self.assigned_target_size is False):
@@ -189,7 +189,7 @@ more than 25% of the assigned memory")
                     relative_object_creation_time = object_creation_time / self.max_obj_creation_time
                 if object_lifetime is None:
                     object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
-                current_time = str(_time__perf_counter())
+                current_time = str(self._time__module.perf_counter())
                 self.linker[identifier] = current_time
                 self.objects[current_time] = [
                     obj,
@@ -199,7 +199,7 @@ more than 25% of the assigned memory")
                     recreatable_object,
                     stay_in_memory]
 
-                object_priority = object_lifetime+_time__perf_counter()
+                object_priority = object_lifetime+self._time__module.perf_counter()
 
                 if self.manager_thread_organized_data.peek_next_priority() > object_priority:
                     self.manager_thread_organized_data_minimum_priority_changed = True
@@ -212,8 +212,8 @@ more than 25% of the assigned memory")
                 with self.memory_manager_thread_lock:
                     if recreatable_object is False:
                         try:
-                            byte_data = _dill__dumps(obj)
-                            _dill__loads(byte_data)
+                            byte_data = self._dill__module.dumps(obj)
+                            self._dill__module.loads(byte_data)
                             stay_in_memory = False
                         except:
                             stay_in_memory = True
@@ -225,7 +225,7 @@ more than 25% of the assigned memory")
                     if identifier in self.linker.keys():
                         raise KeyError("Object already exists")
 
-                    obj_size = _sys__getsizeof(obj)
+                    obj_size = self._sys__module.getsizeof(obj)
                     if ((_PassportIntermediary.project_size is None or
                                 _PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
                             self.assigned_target_size is False):
@@ -260,7 +260,7 @@ more than 25% of the assigned memory")
                     if object_lifetime is None:
                         object_lifetime = self.object_lifetime * ((relative_object_creation_time + relative_object_creation_time) / 2)
 
-                    current_time = str(_time__perf_counter())
+                    current_time = str(self._time__module.perf_counter())
                     self.linker[identifier] = current_time
                     self.objects[current_time] = [
                         obj,
@@ -270,7 +270,7 @@ more than 25% of the assigned memory")
                         recreatable_object,
                         stay_in_memory]
 
-                    self.manager_thread_organized_data.add(identifier, object_lifetime+_time__perf_counter())
+                    self.manager_thread_organized_data.add(identifier, object_lifetime+self._time__module.perf_counter())
 
                     self.total_size += obj_size
                     return identifier
@@ -284,7 +284,7 @@ more than 25% of the assigned memory")
         if self.enable_memory_management:
             with self.memory_manager_thread_lock:
                 if obj_id in self.linker:
-                    current_time = str(_time__perf_counter())
+                    current_time = str(self._time__module.perf_counter())
                     obj = self.objects[self.linker[obj_id]][0]
                     obj_lifetime = self.objects[self.linker[obj_id]][2]
                     obj_creation_time = self.objects[self.linker[obj_id]][3]
@@ -313,7 +313,7 @@ more than 25% of the assigned memory")
                             object_lifetime,
                             object_creation_time,
                             recreatable_object,
-                            stay_in_memory) = _dill__loads(file.read())
+                            stay_in_memory) = self._dill__module.loads(file.read())
 
                     self.add_object(
                         stored_object,
@@ -323,7 +323,7 @@ more than 25% of the assigned memory")
                         recreatable_object=recreatable_object,
                         pre_locked=True)
 
-                    _os__remove(self.temporary_files[obj_id])
+                    self._os__module.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
                     return stored_object
         else:
@@ -345,15 +345,15 @@ more than 25% of the assigned memory")
                     del self.linker[obj_id]
                     self.objects[obj_id] = None
                     del self.objects[obj_id]
-                    _gc__collect()
+                    self._gc__module.collect()
                     return True
                 elif obj_id in self.temporary_files:
                     self._logger.log_development("Removing temporary memory object w/ ID: \
 '{}' from disk.", variables=[obj_id])
 
-                    _os__remove(self.temporary_files[obj_id])
+                    self._os__module.remove(self.temporary_files[obj_id])
                     del self.temporary_files[obj_id]
-                    _gc__collect()
+                    self._gc__module.collect()
                     return True
                 return False
         else:
@@ -369,7 +369,7 @@ more than 25% of the assigned memory")
         """
         🟩 **R** -
         """
-        return self.manager_thread_organized_data.peek_next_priority() - _time__perf_counter() <= 0 or self.manager_thread_organized_data_minimum_priority_changed or self.enable_memory_management is False
+        return self.manager_thread_organized_data.peek_next_priority() - self._time__module.perf_counter() <= 0 or self.manager_thread_organized_data_minimum_priority_changed or self.enable_memory_management is False
 
     def object_dictionary_manager(self):
         """
@@ -387,10 +387,10 @@ lowering this percentage before performance is negatively affected.", variables=
 currently at or above the target threshold. Performance may be negatively affected \
 as PMMA attempts to correct this.")
                 if self.manager_thread_organized_data.is_empty():
-                    _waiting__wait(self._manager_thread_organized_data_is_not_empty)
+                    self._dill__module.wait(self._manager_thread_organized_data_is_not_empty)
                 else:
-                    _waiting__wait(self._manager_thread_wait_for_expiry)
-                    if not self.manager_thread_organized_data.peek_next_priority() - _time__perf_counter() <= 0:
+                    self._dill__module.wait(self._manager_thread_wait_for_expiry)
+                    if not self.manager_thread_organized_data.peek_next_priority() - self._time__module.perf_counter() <= 0:
                         continue
                     items_to_remove = self.manager_thread_organized_data.remove_highest_priority()
                     with self.memory_manager_thread_lock:
@@ -400,17 +400,17 @@ as PMMA attempts to correct this.")
                                 recreatable_object = self.objects[obj_time][3]
                                 stay_in_memory = self.objects[obj_time][4]
                                 if stay_in_memory is False:
-                                    self.total_size -= _sys__getsizeof(self.objects[obj_time][0])
+                                    self.total_size -= self._sys__module.getsizeof(self.objects[obj_time][0])
                                     if not recreatable_object:
                                         self._logger.log_information("Dumping object w/ ID: \
 '{}' to temporary file.", variables=[self.objects[obj_time][1]])
 
-                                        with _tempfile__NamedTemporaryFile(
+                                        with self._sys__module.NamedTemporaryFile(
                                                 dir=self.memory_management_directory,
                                                 delete=False) as file:
 
                                             file_name = file.name
-                                            _dill__dump(self.objects[obj_time], file)
+                                            self._dill__module.dump(self.objects[obj_time], file)
 
                                         self.temporary_files[self.objects[obj_time][1]] = file_name
                                         self._logger.log_information("Dumped object w/ ID: \
@@ -425,13 +425,13 @@ as PMMA attempts to correct this.")
                                     del self.linker[self.objects[obj_time][1]]
                                     self.objects[obj_time] = None
                                     del self.objects[obj_time]
-                                    _gc__collect()
+                                    self._gc__module.collect()
                             except FileNotFoundError as error:
                                 raise error
 
                             except Exception as error:
                                 print(error)
-                                print(_traceback__format_exc())
+                                print(self._traceback__module.format_exc())
 
         except Exception as error:
             print(error)

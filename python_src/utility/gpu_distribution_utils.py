@@ -1,9 +1,10 @@
-from time import perf_counter as _time__perf_counter
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class GPUDistributionManager:
     """
@@ -15,6 +16,8 @@ class GPUDistributionManager:
         """
         _initialize(self, unique_instance=_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT, add_to_pmma_module_spine=True)
 
+        self._time__module = _ModuleManager.import_module("time")
+
         if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
@@ -24,7 +27,7 @@ class GPUDistributionManager:
 
         self._render_gpu = None
         self._video_gpu = []
-        self._last_updated = _time__perf_counter()
+        self._last_updated = self._time__module.perf_counter()
 
     def quit(self):
         """
@@ -36,7 +39,7 @@ class GPUDistributionManager:
         """
         🟩 **R** -
         """
-        if initialization_override or self._last_updated - _time__perf_counter() > 30:
+        if initialization_override or self._last_updated - self._time__module.perf_counter() > 30:
             if _Registry.display_initialized:
                 self._render_gpu = []
                 self._video_gpu = []

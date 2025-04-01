@@ -5,11 +5,12 @@ from subprocess import PIPE as _subprocess__PIPE
 from threading import Thread as _threading__Thread
 
 from pmma.python_src.constants import Constants as _Constants
-from pmma.python_src.general import get_operating_system as _get_operating_system
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class Executor:
     """
@@ -20,6 +21,8 @@ class Executor:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._internal_general_utils = _GeneralIntermediary()
 
         self._exit_code = None
         self._result = None
@@ -57,7 +60,7 @@ class Executor:
 
         try:
             if command_type == list or command_type == tuple:
-                if hide_window and _get_operating_system() == _Constants.WINDOWS:
+                if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
                     result = _subprocess__run(command, capture_output=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
                 else:
                     result = _subprocess__run(command, capture_output=True, text=True)
@@ -68,7 +71,7 @@ command. It is strongly recommended that you change your approach to use a list 
 'shell injection vulnerabilities' where the end user specifies the command to be run, not \
 its arguments, leading to unsecure commands being run on the host system!")
 
-                if hide_window and _get_operating_system() == _Constants.WINDOWS:
+                if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
                     result = _subprocess__run(command, shell=True, capture_output=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
                 else:
                     result = _subprocess__run(command, shell=True, capture_output=True, text=True)
@@ -159,7 +162,7 @@ class AdvancedExecutor:
         """
         command_type = type(command)
         if command_type == list or command_type == tuple:
-            if hide_window and _get_operating_system() == _Constants.WINDOWS:
+            if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
                 process = _subprocess__Popen(command, stdout=_subprocess__PIPE, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
             else:
                 process = _subprocess__Popen(command, stdout=_subprocess__PIPE, text=True)
@@ -170,7 +173,7 @@ command. It is strongly recommended that you change your approach to use a list 
 'shell injection vulnerabilities' where the end user specifies the command to be run, not \
 its arguments, leading to unsecure commands being run on the host system!")
 
-            if hide_window and _get_operating_system() == _Constants.WINDOWS:
+            if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
                 process = _subprocess__Popen(command, stdout=_subprocess__PIPE, shell=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
             else:
                 process = _subprocess__Popen(command, stdout=_subprocess__PIPE, shell=True, text=True)

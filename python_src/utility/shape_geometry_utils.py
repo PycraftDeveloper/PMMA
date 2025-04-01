@@ -1,12 +1,8 @@
-from threading import RLock as _threading__RLock
-from threading import Thread as _threading__Thread
-from time import sleep as _time__sleep
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
-from waiting import wait as _waiting__wait
-from psutil import virtual_memory as _psutil__virtual_memory
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class ShapeGeometryManager:
     """
@@ -17,6 +13,11 @@ class ShapeGeometryManager:
         🟩 **R** -
         """
         _initialize(self, unique_instance=_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._time__module = _ModuleManager.import_module("time")
+        self._waiting__module = _ModuleManager.import_module("waiting")
+        self._psutil__module = _ModuleManager.import_module("psutil")
 
         self.geometry_cache = {
             _InternalConstants.LINE: {},
@@ -30,21 +31,21 @@ class ShapeGeometryManager:
 
         self.pixel_geometry = {"vertices": None, "references": 0}
 
-        self.lock = _threading__RLock()
+        self.lock = self._threading__module.RLock()
 
         try:
-            free_memory = _psutil__virtual_memory().free
+            free_memory = self._psutil__module.virtual_memory().free
 
             self.max_size = free_memory / 10
         except:
             self.max_size = 1_000_000_000 # default 1GB max size
 
-        self.manager_thread = _threading__Thread() # load empty thread
+        self.manager_thread = self._threading__module.Thread() # load empty thread
         self.running_clean_up = False
 
     def initiate_garbage_collection(self):
         if self.manager_thread.is_alive() is False:
-            self.manager_thread = _threading__Thread(target=self.shape_geometry_manager)
+            self.manager_thread = self._threading__module.Thread(target=self.shape_geometry_manager)
             self.manager_thread.daemon = True
             self.manager_thread.name = "ShapeGeometryManager: Shape_Geometry_Manager_Thread"
             self.manager_thread.start()
@@ -111,7 +112,7 @@ class ShapeGeometryManager:
         """
         self.running_clean_up = True
         while True:
-            _waiting__wait(self.shape_manager_thread_wait_for_data)
+            self._waiting__module.wait(self.shape_manager_thread_wait_for_data)
 
             if self.current_cache_size > self.max_size * 0.9:
                 self.clean_single_references(_InternalConstants.LINE)
@@ -134,7 +135,7 @@ class ShapeGeometryManager:
                     self.stricter_clean(_InternalConstants.ELLIPSE)
                     self.stricter_clean(_InternalConstants.POLYGON)
 
-            _time__sleep(1)
+            self._time__module.sleep(1)
 
     def add_line(self, identifier, data):
         """

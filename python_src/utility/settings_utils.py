@@ -1,5 +1,4 @@
 from pmma.python_src.constants import Constants as _Constants
-
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 

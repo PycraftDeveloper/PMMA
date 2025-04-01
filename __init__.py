@@ -64,18 +64,20 @@ from pmma.python_src.gpu import *
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
+from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
+from pmma.python_src.utility.pmma_configuration import PMMAConfigurationIntermediary as _PMMAConfigurationIntermediary
+
+_internal_general_utils = _GeneralIntermediary()
+_internal_pmma_configuration_utils = _PMMAConfigurationIntermediary()
+
 from pmma.python_src.utility import cython_utils as _cython_utils
-from pmma.python_src.utility.general_utils import get_date_as_number as _general_utils__get_date_as_number
-from pmma.python_src.utility.general_utils import check_for_updates as _general_utils__check_for_updates
-from pmma.python_src.utility.general_utils import update_language as _general_utils__update_language
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.pmma_configuration import load_configuration as _load_configuration
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-_load_configuration()
+_internal_pmma_configuration_utils.load_configuration()
 
-if (_Registry.last_checked_for_updates is None or _general_utils__get_date_as_number()-_Registry.last_checked_for_updates > 7 or _Registry.update_available is None):
-    _general_utils__check_for_updates()
+if (_Registry.last_checked_for_updates is None or _internal_general_utils.get_date_as_number()-_Registry.last_checked_for_updates > 7 or _Registry.update_available is None):
+    _internal_general_utils.check_for_updates()
 
 def init(
             use_c_acceleration=True,
@@ -83,6 +85,8 @@ def init(
             memory_management_max_size=Constants.AUTOMATIC,
             general_profile_application=False,
             targeted_profile_application=False):
+
+    cython_backend = _cython_utils.CythonIntermediary()
 
     passport = {"components used": []}
     if _PassportIntermediary.passport_file_location is not None:
@@ -112,7 +116,7 @@ def init(
         _LoggerIntermediary()
 
     if use_c_acceleration: # needs to be paired before "if optimize_python_extensions:" and as early as possible for max threading benefit.
-        cython_thread = _cython_utils.compile()
+        cython_thread = cython_backend.compile()
 
     root = _tkinter__Tk()
     root.withdraw()
@@ -121,10 +125,10 @@ def init(
     Backpack.application_start_time = startup_time
 
     _Registry.cython_acceleration_enabled = use_c_acceleration
-    _Registry.power_saving_mode = is_battery_saver_enabled()
+    _Registry.power_saving_mode = _internal_general_utils.is_battery_saver_enabled()
     _Registry.power_status_checked_time = _time__perf_counter()
 
-    _general_utils__update_language()
+    _internal_general_utils.update_language()
 
     logger = _InternalLogger()
 
@@ -141,7 +145,7 @@ PMMA by downloading the latest version of PMMA from GitHub here: \
 https://github.com/PycraftDeveloper/PMMA/releases or you can update PMMA \
 through pip by running the following command: `pip install pmma --upgrade`")
 
-    if get_operating_system() == Constants.LINUX:
+    if _internal_general_utils.get_operating_system() == Constants.LINUX:
         try:
             import pyaudio as _pyaudio
         except ModuleNotFoundError as error:
@@ -155,7 +159,7 @@ If you didn't, you can disregard this message. Otherwise; we currently dont have
 control over this, but its most likely worrying about there not being any valid audio output \
 devices. We are working on a better way to handle this situation.")
 
-    register_application()
+    _internal_general_utils.register_application()
 
     if _InternalConstants.MEMORY_MANAGER_INTERMEDIARY_OBJECT in _PassportIntermediary.components_used:
         from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary

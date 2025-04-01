@@ -1,21 +1,15 @@
-from datetime import datetime as _datetime__datetime
-from traceback import format_stack as _traceback__format_stack
-from traceback import print_exc as _traceback__print_exec
-from threading import Lock as _threading__Lock
-from threading import Thread as _threading__Thread
-from os import mkdir as _os__mkdir
-from os import listdir as _os__listdir
 from shutil import rmtree as _shutil__rmtree
 
-from waiting import wait as _waiting__wait
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
 from pmma.python_src.file import path_builder as _path_builder
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class LoggerIntermediary:
     """
@@ -26,6 +20,12 @@ class LoggerIntermediary:
         🟩 **R** -
         """
         _initialize(self, unique_instance=_InternalConstants.LOGGING_INTERMEDIARY_OBJECT, add_to_pmma_module_spine=True, logging_instantiation=True)
+
+        self._datetime__module = _ModuleManager.import_module("datetime")
+        self._traceback__module = _ModuleManager.import_module("traceback")
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._os__module = _ModuleManager.import_module("os")
+        self._waiting__module = _ModuleManager.import_module("waiting")
 
         self._logged_messages = []
 
@@ -51,10 +51,10 @@ class LoggerIntermediary:
         self._external_log_warning_messages_to_file = True
         self._external_log_error_messages_to_file = True
 
-        self._logging_thread_lock = _threading__Lock()
+        self._logging_thread_lock = self._threading__module.Lock()
         self._logging_thread_active = True
 
-        self._log_to_file_thread = _threading__Thread(target=self._file_logger_thread)
+        self._log_to_file_thread = self._threading__module.Thread(target=self._file_logger_thread)
         self._log_to_file_thread.daemon = True
         self._log_to_file_thread.name = "LoggingIntermediary: Log_To_Files_Thread"
 
@@ -62,22 +62,22 @@ class LoggerIntermediary:
 
         self._log_directory = _path_builder(_Registry.base_path, "logs")
         try:
-            _os__mkdir(self._log_directory)
+            self._os__module.mkdir(self._log_directory)
         except:
             pass
 
-        now = _datetime__datetime.now()
+        now = self._datetime__module.datetime.now()
         log_file_identifier = now.strftime("log %d-%m-%Y @ %H-%M-%S")
 
         self._log_folders_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier)
         try:
-            _os__mkdir(self._log_folders_directory)
+            self._os__module.mkdir(self._log_folders_directory)
         except:
             pass
 
         self._internal_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, "pmma")
         try:
-            _os__mkdir(self._internal_log_directory)
+            self._os__module.mkdir(self._internal_log_directory)
         except:
             pass
 
@@ -87,7 +87,7 @@ class LoggerIntermediary:
             name = "application"
         self._external_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, name)
         try:
-            _os__mkdir(self._external_log_directory)
+            self._os__module.mkdir(self._external_log_directory)
         except:
             pass
 
@@ -336,8 +336,8 @@ class LoggerIntermediary:
         """
         🟩 **R** -
         """
-        old_logs = _os__listdir(self._log_directory)
-        now = _datetime__datetime.now()
+        old_logs = self._os__module.listdir(self._log_directory)
+        now = self._datetime__module.datetime.now()
         for log_folder in old_logs:
             original_log_folder = log_folder
             log_folder = log_folder.split("log ")[-1]
@@ -346,7 +346,7 @@ class LoggerIntermediary:
             time = split_date[1].split("-")
             day, month, year = date[0], date[1], date[2]
             hour, minute, second = time[0], time[1], time[2]
-            past = _datetime__datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
+            past = self._datetime__module.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
             time_difference = abs(past-now).days
             if time_difference > _Registry.internal_log_duration:
                 self.log_information(
@@ -364,8 +364,8 @@ class LoggerIntermediary:
         """
         project_log_directory = self._determine_project_log_folder()
         if project_log_directory is not None:
-            old_logs = _os__listdir(project_log_directory)
-            now = _datetime__datetime.now()
+            old_logs = self._os__module.listdir(project_log_directory)
+            now = self._datetime__module.datetime.now()
             for log_folder in old_logs:
                 original_log_folder = log_folder
                 log_folder = log_folder.split("log ")[-1]
@@ -374,7 +374,7 @@ class LoggerIntermediary:
                 time = split_date[1].split("-")
                 day, month, year = date[0], date[1], date[2]
                 hour, minute, second = time[0], time[1], time[2]
-                past = _datetime__datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
+                past = self._datetime__module.datetime(int(year), int(month), int(day), hour=int(hour), minute=int(minute), second=int(second))
                 time_difference = abs(past-now).days
                 if time_difference > _Registry.external_log_duration:
                     self.log_information(
@@ -394,7 +394,7 @@ class LoggerIntermediary:
         self.clear_external_logs()
 
         while self._logging_thread_active:
-            _waiting__wait(self._file_logger_thread_wait_for_load)
+            self._waiting__module.wait(self._file_logger_thread_wait_for_load)
             if not len(self._file_log_buffer) > 0:
                 continue
 
@@ -460,7 +460,7 @@ class LoggerIntermediary:
             inserted_variables_to_message = message.format(*variables)
 
             message = ""
-            now = _datetime__datetime.now()
+            now = self._datetime__module.datetime.now()
             date_time_stamp = now.strftime("[%d/%m/%Y @ %H:%M:%S.%f] ")
             message += date_time_stamp
             if log_level == _Constants.DEVELOPMENT:
@@ -475,9 +475,9 @@ class LoggerIntermediary:
 
             if do_traceback:
                 try:
-                    trace = _traceback__print_exec()
+                    trace = self._traceback__module.print_exec()
                     if trace == None:
-                        trace = "".join(_traceback__format_stack())
+                        trace = "".join(self._traceback__module.format_stack())
                 except:
                     trace = ""
             else:
