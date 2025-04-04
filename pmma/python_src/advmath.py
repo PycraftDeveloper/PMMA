@@ -1,9 +1,8 @@
 from importlib import import_module as _importlib__import_module
 
-from numpy import array as _numpy__array
-from numpy import float64 as _numpy__float64
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.advmath_utils import MathIntermediary as _MathIntermediary
 
@@ -16,6 +15,8 @@ class Math:
         🟩 **R** - Constructor for the Math class.
         """
         _initialize(self)
+
+        self._numpy__module = _ModuleManager.import_module("numpy")
 
         if _Registry.cython_acceleration_available:
             if _MathIntermediary.math_module is None:
@@ -50,7 +51,7 @@ class Math:
             distance (float) - The calculated pythagorean distance between the two points.
         """
         if type(points) in [list, tuple]:
-            points = _numpy__array(points, dtype=_numpy__float64)
+            points = self._numpy__module.array(points, dtype=self._numpy__module.float64)
         return _MathIntermediary.math_module.raw_pythag(points)
 
     def ranger(self, value, old, new):

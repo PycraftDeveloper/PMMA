@@ -1,21 +1,9 @@
-from threading import Thread as _threading__Thread
-from time import sleep as _time__sleep
-
-from pyaudio import PyAudio as _pyaudio__PyAudio
-from pyaudio import paInt16 as _pyaudio__paInt16
-from numpy import max as _numpy__max
-from numpy import frombuffer as _numpy__frombuffer
-from numpy import int16 as _numpy__int16
-from numpy import where as _numpy__where
-from numpy import fft as _numpy__fft
-from numpy import abs as _numpy__abs
-from numpy import average as _numpy__average
-from numpy import hanning as _numpy__hanning
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+
 from pmma.python_src.utility.error_utils import NoInputDevicesFoundError as _NoInputDevicesFoundError
 from pmma.python_src.utility.error_utils import UnableToReadAudioSampleError as _UnableToReadAudioSampleError
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Sampler:
@@ -28,7 +16,13 @@ class Sampler:
         """
         _initialize(self)
 
-        self._pyaudio_instance = _pyaudio__PyAudio()
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._time__module = _ModuleManager.import_module("time")
+
+        self._pyaudio__module = _ModuleManager.import_module("pyaudio")
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
+        self._pyaudio_instance = self._pyaudio__module.PyAudio()
 
         if input_device_id is None:
             self._input_device = self.get_default_input_device()
@@ -46,7 +40,7 @@ class Sampler:
         self._frequency = []
         self._loudest_frequency = 0
 
-        self._sampler_thread = _threading__Thread(
+        self._sampler_thread = self._threading__module.Thread(
             target=self.sampler)
         self._sampler_thread.daemon = True
         self._sampler_thread.name = "Sampler:Sampler_Thread"
@@ -137,7 +131,7 @@ the operating system has detected your device, consider running the \
             raise _NoInputDevicesFoundError("No audio input devices were found!")
 
         stream = self._pyaudio_instance.open(
-            format=_pyaudio__paInt16,
+            format=self._pyaudio__module.paInt16,
             channels=1,
             rate=self._sampling_rate,
             input=True,
@@ -148,7 +142,7 @@ the operating system has detected your device, consider running the \
             if self._do_pause_sampling:
                 if wait_time is None:
                     wait_time = 1/_Registry.refresh_rate
-                _time__sleep(wait_time)
+                self._time__module.sleep(wait_time)
                 continue
 
             try:
@@ -161,21 +155,21 @@ process stopped. Please use the existing 'stop()' method in order to avoid this 
 raised when the audio device is removed.")
                 raise _UnableToReadAudioSampleError("Unable to read audio sample!") from error
 
-            data = _numpy__frombuffer(
+            data = self._numpy__module.frombuffer(
                 stream_data,
-                dtype=_numpy__int16)
+                dtype=self._numpy__module.int16)
 
-            peak = _numpy__average(_numpy__abs(data))*2
+            peak = self._numpy__module.average(self._numpy__module.abs(data))*2
 
             self._volume = peak
 
-            data = data * _numpy__hanning(len(data))
-            self._frequency = abs(_numpy__fft.fft(data).real)
+            data = data * self._numpy__module.hanning(len(data))
+            self._frequency = abs(self._numpy__module.fft.fft(data).real)
 
             fft = self._frequency[:int(len(self._frequency)/2)]
-            freq = _numpy__fft.fftfreq(self._chunk_size, 1.0/self._sampling_rate)
+            freq = self._numpy__module.fft.fftfreq(self._chunk_size, 1.0/self._sampling_rate)
             freq = freq[:int(len(freq)/2)]
-            self._loudest_frequency = freq[_numpy__where(fft==_numpy__max(fft))[0][0]]+1
+            self._loudest_frequency = freq[self._numpy__module.where(fft==self._numpy__module.max(fft))[0][0]]+1
 
         self._is_sampling_running = False
         stream.stop_stream()
@@ -188,7 +182,7 @@ raised when the audio device is removed.")
         if self._is_sampling_running is False:
             self._do_sampling = True
 
-            self._sampler_thread = _threading__Thread(
+            self._sampler_thread = self._threading__module.Thread(
                 target=self.sampler)
             self._sampler_thread.daemon = True
             self._sampler_thread.name = "Sampler:Sampler_Thread"

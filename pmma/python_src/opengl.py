@@ -1,24 +1,18 @@
-from gc import collect as _gc__collect
-from os import path as _os__path
-
-from moderngl import LINE_LOOP as _moderngl__LINE_LOOP
 from moderngl import TRIANGLES as _moderngl__TRIANGLES
-from moderngl import POINTS as _moderngl__POINTS
-from moderngl import PROGRAM_POINT_SIZE as _moderngl__PROGRAM_POINT_SIZE
 from moderngl import LINEAR as _moderngl__LINEAR
-from numpy import ndarray as _numpy__ndarray
-from numpy import array_equal as _numpy__array_equal
 
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+
 from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.error_utils import OpenGLNotYetInitializedError as _OpenGLNotYetInitializedError
 from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeFormatError as _UnexpectedBufferAttributeFormatError
 from pmma.python_src.utility.error_utils import UnknownDataTypeError as _UnknownDataTypeError
 from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeError as _UnexpectedBufferAttributeError
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
 from pmma.python_src.utility.opengl_utils import Texture as _Texture
@@ -76,6 +70,8 @@ class BufferObject:
         """
         _initialize(self)
 
+        self._gc__module = _ModuleManager.import_module("gc")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
@@ -131,7 +127,7 @@ class BufferObject:
         else:
             if old_reserve != self._reserve:
                 self._buffer_object.release()
-                _gc__collect()
+                self._gc__module.collect()
                 self._buffer_object = _Registry.context.buffer(data, dynamic=self._dynamic, reserve=reserve)
                 self._reassign_to_vertex_array_object = True
             else:
@@ -259,6 +255,10 @@ class VertexArrayObject:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._gc__module = _ModuleManager.import_module("gc")
+
+        self._moderngl__module = _ModuleManager.import_module("moderngl")
 
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
@@ -400,7 +400,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         if self._vao is not None:
             self._vao.release()
 
-            _gc__collect()
+            self._gc__module.collect()
 
             program = self._program.use_program()
 
@@ -426,7 +426,7 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
         🟩 **R** -
         """
         if self._vao is not None:
-            self._vao.render(mode=_moderngl__LINE_LOOP)
+            self._vao.render(mode=self._moderngl__module.LINE_LOOP)
 
     def render(self, mode=_moderngl__TRIANGLES, allow_shaders_to_adjust_point_size=True):
         """
@@ -442,18 +442,18 @@ name in your buffer attributes. Remember, each buffer attribute must have its ow
                     self._index_buffer_object._reassign_to_vertex_array_object = False
 
             self._program.use_program()
-            if allow_shaders_to_adjust_point_size and mode == _moderngl__POINTS:
+            if allow_shaders_to_adjust_point_size and mode == self._moderngl__module.POINTS:
                 if self._program.get_using_gl_point_size_syntax():
-                    _Registry.context.enable(_moderngl__PROGRAM_POINT_SIZE)
+                    _Registry.context.enable(self._moderngl__module.PROGRAM_POINT_SIZE)
                     self._logger.log_development("We have automatically detected that you want to \
 render points with their size individually specified in your shader. By default this isn't enabled \
 in OpenGL, but we have enabled it here so you don't have to. This behavior can be controlled \
 using the `allow_shaders_to_adjust_point_size` keyword argument.")
 
             self._vao.render(mode=mode)
-            if allow_shaders_to_adjust_point_size and mode == _moderngl__POINTS:
+            if allow_shaders_to_adjust_point_size and mode == self._moderngl__module.POINTS:
                 if self._program.get_using_gl_point_size_syntax():
-                    _Registry.context.disable(_moderngl__PROGRAM_POINT_SIZE)
+                    _Registry.context.disable(self._moderngl__module.PROGRAM_POINT_SIZE)
 
     def get_vertex_array_object(self):
         """
@@ -536,6 +536,9 @@ class Shader:
         """
         _initialize(self)
 
+        self._numpy__module = _ModuleManager.import_module("numpy")
+        self._os__module = _ModuleManager.import_module("os")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
@@ -596,8 +599,8 @@ class Shader:
                 self._uniform_values[name] = {"value": value, "updated": True}
                 return
 
-            if type(value) == _numpy__ndarray and type(self._uniform_values[name]["value"]) == _numpy__ndarray:
-                if _numpy__array_equal(value, self._uniform_values[name]["value"]) is False:
+            if type(value) == self._numpy__module.ndarray and type(self._uniform_values[name]["value"]) == self._numpy__module.ndarray:
+                if self._numpy__module.array_equal(value, self._uniform_values[name]["value"]) is False:
                     self._uniform_values[name] = {"value": value, "updated": True}
                 return
 
@@ -686,7 +689,7 @@ class Shader:
             for name in vertex_aliases:
                 path = _path_builder(directory, f"{name}.glsl")
                 shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.VERTEX_ONLY)
-                if shader_exists or _os__path.exists(path):
+                if shader_exists or self._os__module.path.exists(path):
                     if shader_exists:
                         vertex_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=_Constants.VERTEX_ONLY)
                         self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
@@ -703,7 +706,7 @@ class Shader:
             for name in fragment_aliases:
                 path = _path_builder(directory, f"{name}.glsl")
                 shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.FRAGMENT_ONLY)
-                if shader_exists or _os__path.exists(path):
+                if shader_exists or self._os__module.path.exists(path):
                     if shader_exists:
                         fragment_shader, using_gl_point_size_syntax, uniform_values, buffer_names = self._shader_manager.get_shader(directory, shader_type=_Constants.FRAGMENT_ONLY)
                         self._using_gl_point_size_syntax = self._using_gl_point_size_syntax or using_gl_point_size_syntax
@@ -758,7 +761,7 @@ class Shader:
                 if data["updated"]:
                     if isinstance(data["value"], (float, int, tuple, list)):
                         self._program[key].value = data["value"]
-                    elif isinstance(data["value"], (bytes, bytearray, _numpy__ndarray)):
+                    elif isinstance(data["value"], (bytes, bytearray, self._numpy__module.ndarray)):
                         self._program[key].write(data["value"])
                     else:
                         raise TypeError("Invalid data type for uniform variable")

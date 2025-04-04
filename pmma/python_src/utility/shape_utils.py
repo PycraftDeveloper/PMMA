@@ -6,6 +6,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 from pmma.python_src.number_converter import ColorConverter as _ColorConverter
 from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
+from pmma.python_src.advmath import Math as _Math
 
 from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
@@ -22,6 +23,8 @@ class ShapeTemplate:
         """
         🟩 **R** -
         """
+        super().__init__()
+
         _initialize(self)
 
         self._pygame__module = _ModuleManager.import_module("pygame")
@@ -187,6 +190,8 @@ class ShapeTemplate:
 
 class LineUtils:
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
@@ -316,6 +321,8 @@ class RadialPolygonUtils:
     🟩 **R** -
     """
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._numpy__module = _ModuleManager.import_module("numpy")
         self._math__module = _ModuleManager.import_module("math")
@@ -411,6 +418,8 @@ class RectangleUtils:
     🟩 **R** -
     """
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
@@ -587,6 +596,8 @@ class ArcUtils:
     🟩 **R** -
     """
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
@@ -705,11 +716,15 @@ class EllipseUtils:
     🟩 **R** -
     """
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
         self._internal_general_utils = _GeneralIntermediary()
+
+        self._math = _Math()
 
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
@@ -770,7 +785,7 @@ class EllipseUtils:
         else:
             center_x, center_y = [0, 0]
 
-            radius = self._math__module.pythag([self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES), self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES)])
+            radius = self._math.pythag([self._outer_x_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES), self._outer_y_size.get_point(format=_Constants.CONVENTIONAL_COORDINATES)])
 
             # Number of points to generate for the ellipse
             num_points = _Registry.shape_quality
@@ -828,6 +843,8 @@ class PolygonUtils:
     🟩 **R** -
     """
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
@@ -939,6 +956,8 @@ class PixelUtils:
     🟩 **R** -
     """
     def __init__(self):
+        super().__init__()
+
         self._moderngl__module = _ModuleManager.import_module("moderngl")
         self._numpy__module = _ModuleManager.import_module("numpy")
 

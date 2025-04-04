@@ -1,11 +1,3 @@
-from threading import Thread as _threading__Thread
-from queue import Queue as _queue__Queue
-from queue import Empty as _queue__Empty
-from time import sleep as _time__sleep
-from time import perf_counter as _time__perf_counter
-
-from sounddevice import OutputStream as _sounddevice__OutputStream
-from soundfile import SoundFile as _soundfile__SoundFile
 from pedalboard import Pedalboard as _pedalboard__Pedalboard
 from pedalboard import Bitcrush as _pedalboard__Bitcrush
 from pedalboard import Chorus as _pedalboard__Chorus
@@ -29,17 +21,13 @@ from pedalboard import Phaser as _pedalboard__Phaser
 from pedalboard import PitchShift as _pedalboard__PitchShift
 from pedalboard import Resample as _pedalboard__Resample
 from pedalboard import Reverb as _pedalboard__Reverb
-from numpy import empty as _numpy__empty
-from numpy import vstack as _numpy__vstack
-from numpy import zeros as _numpy__zeros
-from numpy import pad as _numpy__pad
-from waiting import wait as _waiting__wait
 
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+
 from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Audio:
     """
@@ -51,6 +39,15 @@ class Audio:
         """
         _initialize(self)
 
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._queue__module = _ModuleManager.import_module("queue")
+        self._time__module = _ModuleManager.import_module("time")
+
+        self._soundfile__module = _ModuleManager.import_module("soundfile")
+        self._sounddevice__module = _ModuleManager.import_module("sounddevice")
+        self._waiting__module = _ModuleManager.import_module("waiting")
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         self._file = None
         self._sample_rate = None
         self._audio_loaded = False
@@ -60,7 +57,7 @@ class Audio:
         self._playback_thread = None
         self._channels = 2
         self._queue_max_size = 60
-        self._audio_queue = _queue__Queue(maxsize=self._queue_max_size)
+        self._audio_queue = self._queue__module.Queue(maxsize=self._queue_max_size)
         self._audio_data = None
         self._from_moviepy = False
         self._moviepy_audio_itr = None
@@ -129,7 +126,7 @@ class Audio:
         """
         🟩 **R** -
         """
-        self._file = _soundfile__SoundFile(file_path)
+        self._file = self._soundfile__module.SoundFile(file_path)
         self._sample_rate = self._file.samplerate
         self._channels = self._file.channels
         self._audio_duration = self._file.frames / self._sample_rate
@@ -220,7 +217,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
 
                 return False
             if delay != 0:
-                _time__sleep(delay)
+                self._time__module.sleep(delay)
             self._effects = _pedalboard__Pedalboard(self._effects_list)
             self._paused = False
             self._stop_signal = False
@@ -233,7 +230,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 self._start_playback()
             else:
                 # Start playback in a separate thread (non-blocking)
-                self._playback_thread = _threading__Thread(target=self._start_playback)
+                self._playback_thread = self._threading__module.Thread(target=self._start_playback)
                 self._playback_thread.daemon = True
                 self._playback_thread.name = "Audio:Playing_Audio_Thread"
                 self._playback_thread.start()
@@ -250,20 +247,20 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         🟩 **R** -
         """
         # Start the audio stream
-        with _sounddevice__OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels, blocksize=2048):
+        with self._sounddevice__module.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels, blocksize=2048):
             # Loop while playback is ongoing and not stopped
-            _waiting__wait(self._wait_for_chunk_to_play)
+            self._waiting__module.wait(self._wait_for_chunk_to_play)
 
     def _audio_generator(self, chunk_size):
         """
         🟩 **R** -
         """
-        buffer = _numpy__empty((0, self._channels), dtype='float32')  # Buffer to store leftover samples
+        buffer = self._numpy__module.empty((0, self._channels), dtype='float32')  # Buffer to store leftover samples
 
         while self._stop_signal is False:
             for chunk in self._audio_data.iter_chunks(fps=self._sample_rate, chunksize=chunk_size):
                 # Add the new chunk to the buffer
-                buffer = _numpy__vstack([buffer, chunk])
+                buffer = self._numpy__module.vstack([buffer, chunk])
 
                 # Keep yielding exact-sized chunks from the buffer
                 while len(buffer) >= chunk_size:
@@ -282,13 +279,13 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         🟩 **R** -
         """
         if self._audio_playing_start_time is None:
-            self._audio_playing_start_time = _time__perf_counter()
+            self._audio_playing_start_time = self._time__module.perf_counter()
 
         if status:
             print(status)
 
         if self._paused or self._stop_signal or status:
-            outdata[:] = _numpy__zeros(outdata.shape)
+            outdata[:] = self._numpy__module.zeros(outdata.shape)
             if self._custom_audio_callback_pre_effects is not None:
                 self._custom_audio_callback_pre_effects_results = self._custom_audio_callback_pre_effects(outdata, frames, time, status)
                 self._custom_audio_callback_post_effects_results = self._custom_audio_callback_post_effects(outdata, frames, time, status)
@@ -302,12 +299,12 @@ that's already playing. We will therefore ignore your request to prevent unexpec
                 if self._looping:
                     self._moviepy_audio_itr = self._audio_generator(2048)
                     self._audio_queue.put_nowait(next(self._moviepy_audio_itr))
-            except _queue__Empty:
+            except self._queue__module.Empty:
                 if self._looping:
                     outdata.fill(0)
                 else:
                     self._stop_signal = True
-                    outdata[:] = _numpy__zeros(outdata.shape)
+                    outdata[:] = self._numpy__module.zeros(outdata.shape)
                     if self._custom_audio_callback_pre_effects is not None:
                         self._custom_audio_callback_pre_effects_results = self._custom_audio_callback_pre_effects(outdata, frames, time, status)
                         self._custom_audio_callback_post_effects_results = self._custom_audio_callback_post_effects(outdata, frames, time, status)
@@ -316,7 +313,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         else:
             chunk = self._file.read(frames, dtype='float32')
 
-            if _time__perf_counter() - self._audio_playing_start_time > self._audio_duration:
+            if self._time__module.perf_counter() - self._audio_playing_start_time > self._audio_duration:
                 if self._looping:
                     self._file.seek(0)
                     self._audio_playing_start_time = None
@@ -325,7 +322,7 @@ that's already playing. We will therefore ignore your request to prevent unexpec
 
         if len(chunk) < frames:
             padding_shape = (frames - len(chunk), chunk.shape[1])
-            chunk = _numpy__pad(chunk, ((0, padding_shape[0]), (0, 0)), mode='constant')
+            chunk = self._numpy__module.pad(chunk, ((0, padding_shape[0]), (0, 0)), mode='constant')
 
         if self._custom_audio_callback_pre_effects is not None:
             self._custom_audio_callback_pre_effects_results = self._custom_audio_callback_pre_effects(outdata, frames, time, status)

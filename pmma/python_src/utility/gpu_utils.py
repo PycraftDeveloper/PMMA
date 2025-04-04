@@ -13,14 +13,15 @@ from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLog
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.constants import Constants as _Constants
 
-from pmma.python_src.general import get_operating_system as _get_operating_system
+from pmma.python_src.utility.general_utils import GeneralIntermediary
 from pmma.python_src.gpu import GPU as _GPU
 from pmma.python_src.executor import Executor as _Executor
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.general_utils import find_executable_nvidia_smi as _find_executable_nvidia_smi
 
-if _get_operating_system() == _Constants.WINDOWS:
+_general_intermediary = GeneralIntermediary()
+
+if _general_intermediary.get_operating_system() == _Constants.WINDOWS:
     from wmi import WMI as _wmi__WMI
 
 class GPUsIntermediary:
@@ -50,6 +51,8 @@ class GPUsIntermediary:
         self._json__module = _ModuleManager.import_module("json")
         self._threading__module = _ModuleManager.import_module("threading")
 
+        self._general_intermediary = GeneralIntermediary()
+
         self._logger = _InternalLogger()
 
         self._unique_gpus = {} # {"bus": n, "uuid": n}: {SMI: n, ADL: n, WMI, n}
@@ -66,7 +69,7 @@ class GPUsIntermediary:
                 self._unique_gpus[json_identifier] = {_InternalConstants.SMI: None, _InternalConstants.WMI: None, _InternalConstants.PYADL: adl_index}
                 adl_index += 1
 
-        nvidia_smi = _find_executable_nvidia_smi()
+        nvidia_smi = self._general_intermediary.find_executable_nvidia_smi()
         if nvidia_smi is not None:
             self._executor = _Executor()
             self._executor.run([
@@ -86,7 +89,7 @@ class GPUsIntermediary:
                         if unloaded_key["bus"] == smi_bus:
                             self._unique_gpus[key][_InternalConstants.SMI] = smi_index
 
-        if _get_operating_system() == _Constants.WINDOWS:
+        if self._general_intermediary.get_operating_system() == _Constants.WINDOWS:
             computer = _wmi__WMI()
             wmi_index = 0
             for gpu in computer.Win32_VideoController():

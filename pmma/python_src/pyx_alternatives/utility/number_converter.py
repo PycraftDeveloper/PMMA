@@ -5,9 +5,11 @@ import numpy as _numpy
 
 from pmma.python_src.constants import Constants
 
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.general_utils import swizzle as _swizzle
+from pmma.python_src.utility.general_utils import GeneralIntermediary
 
 class Color:
     """
@@ -17,6 +19,8 @@ class Color:
         """
         🟩 **R** -
         """
+
+        self._GeneralIntermediary = GeneralIntermediary()
         self.in_type = None
         self.color = None
 
@@ -88,28 +92,28 @@ class Color:
             return None
         sorted_out_type = sorted(out_type)
         if sorted_out_type == Constants.SORTED_RGBA:
-            return _numpy.array(_swizzle(Constants.RGBA, self.color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.RGBA, self.color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_RGB:
-            return _numpy.array(_swizzle(Constants.RGB, self.color[0:3], out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.RGB, self.color[0:3], out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_HSL:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2]))
-            return _numpy.array(_swizzle(Constants.HSL, color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.HSL, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_HSLA:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2])) + [round((100 / 255) * self.color[3])]
-            return _numpy.array(_swizzle(Constants.HSLA, color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.HSLA, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSL:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2], per_maximum=1, do_round=False))
-            return _numpy.array(_swizzle(Constants.SMALL_HSL, color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_HSL, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSLA:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2], per_maximum=1, do_round=False)) + \
                     [round((1 / 255) * self.color[3])]
-            return _numpy.array(_swizzle(Constants.SMALL_HSLA, color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_HSLA, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGB:
             color = [self.color[0] / 255, self.color[1] / 255, self.color[2] / 255]
-            return _numpy.array(_swizzle(Constants.SMALL_RGB, color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_RGB, color, out_type), dtype=_numpy.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGBA:
             color = [self.color[0] / 255, self.color[1] / 255, self.color[2] / 255, self.color[3] / 255]
-            return _numpy.array(_swizzle(Constants.SMALL_RGBA, color, out_type), dtype=_numpy.float32)
+            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_RGBA, color, out_type), dtype=_numpy.float32)
         elif out_type == Constants.HEX:
             return '#%02x%02x%02x' % tuple(self.color[0:3])
         elif out_type == Constants.HEXA:
@@ -127,10 +131,10 @@ class DisplayScalar:
         """
         self._point = 0.0
         self._logger = _InternalLogger()
-        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
+        self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_height()
 
     def update_display_height(self):
-        self.display_height = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_height()
+        self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_height()
 
     def set_point(self, value, in_type=Constants.CONVENTIONAL_COORDINATES):
         """
@@ -162,10 +166,10 @@ class DisplayCoordinates:
         self._coordinate = [0.0, 0.0]
         self._logger = _InternalLogger()
 
-        self.display_size = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
+        self.display_size = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_size()
 
     def update_display_size(self):
-        self.display_size = _Registry.pmma_module_spine[Constants.DISPLAY_OBJECT].get_size()
+        self.display_size = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_size()
 
     def set_coordinate(self, coordinate, in_type=Constants.CONVENTIONAL_COORDINATES):
         """

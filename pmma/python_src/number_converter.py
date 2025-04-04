@@ -1,16 +1,15 @@
-from random import randint as _random__randint
-from math import pi as _math__pi
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
 from pmma.python_src.noise import Perlin as _Perlin
 
 from pmma.python_src.utility.number_converter_utils import ColorIntermediary as _ColorIntermediary
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class AngleConverter:
     """
@@ -21,6 +20,8 @@ class AngleConverter:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._math__module = _ModuleManager.import_module("math")
 
         self._angle = 0
         self._angle_cache = {}
@@ -37,7 +38,7 @@ class AngleConverter:
             if format == _Constants.DEGREES:
                 self._angle = angle
             elif format == _Constants.RADIANS:
-                self._angle = (angle / _math__pi) * 180
+                self._angle = (angle / self._math__module.pi) * 180
             elif format == _Constants.GRADIANS:
                 self._angle = angle * (10/9)
             self._angle_set = True
@@ -60,7 +61,7 @@ class AngleConverter:
             if format == _Constants.DEGREES:
                 angle =  self._angle
             elif format == _Constants.RADIANS:
-                angle = (self._angle / 180) * _math__pi
+                angle = (self._angle / 180) * self._math__module.pi
             elif format == _Constants.GRADIANS:
                 angle = self._angle / (10/9)
 
@@ -138,6 +139,8 @@ class ColorConverter:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._random__module = _ModuleManager.import_module("random")
 
         self._color_intermediary = _ColorIntermediary()
 
@@ -223,7 +226,7 @@ class ColorConverter:
         if alpha_color_range is None:
             alpha_color_range = color_range
 
-        color = [_random__randint(*red_color_range), _random__randint(*green_color_range), _random__randint(*blue_color_range), _random__randint(*alpha_color_range)]
+        color = [self._random__module.randint(*red_color_range), self._random__module.randint(*green_color_range), self._random__module.randint(*blue_color_range), self._random__module.randint(*alpha_color_range)]
 
         self.set_color(
             color,
@@ -441,6 +444,8 @@ class DisplayCoordinatesConverter:
         """
         _initialize(self)
 
+        self._random__module = _ModuleManager.import_module("random")
+
         if not _InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
             from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
@@ -512,7 +517,7 @@ create the window onscreen")
         if y_coordinate_range is None:
             y_coordinate_range = coordinate_range
 
-        coordinate = [_random__randint(*x_coordinate_range), _random__randint(*y_coordinate_range)]
+        coordinate = [self._random__module.randint(*x_coordinate_range), self._random__module.randint(*y_coordinate_range)]
 
         self.set_coordinates(
             coordinate,

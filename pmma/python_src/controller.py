@@ -1,6 +1,8 @@
-from pygame import joystick as _pygame__joystick
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
+
 from pmma.python_src.utility.event_utils import Y_BUTTON as _event_utils__Y_BUTTON
 from pmma.python_src.utility.event_utils import B_BUTTON as _event_utils__B_BUTTON
 from pmma.python_src.utility.event_utils import A_BUTTON as _event_utils__A_BUTTON
@@ -22,10 +24,8 @@ from pmma.python_src.utility.event_utils import DownHat_BUTTON as _event_utils__
 from pmma.python_src.utility.event_utils import LeftHat_BUTTON as _event_utils__LeftHat_BUTTON
 from pmma.python_src.utility.event_utils import RightHat_BUTTON as _event_utils__RightHat_BUTTON
 from pmma.python_src.utility.event_utils import Track_BALL as _event_utils__Track_BALL
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Controllers:
     """
@@ -90,8 +90,10 @@ class Controller:
         """
         _initialize(self)
 
+        self._pygame__module = _ModuleManager.import_module("pygame")
+
         self._joy_num = joy_num
-        self._joy = _pygame__joystick.Joystick(joy_num)
+        self._joy = self._pygame__module.joystick.Joystick(joy_num)
         self._joy.init()
 
         self._y_button = _event_utils__Y_BUTTON()

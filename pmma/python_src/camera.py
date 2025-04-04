@@ -1,7 +1,8 @@
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Camera:
     def __init__(self):

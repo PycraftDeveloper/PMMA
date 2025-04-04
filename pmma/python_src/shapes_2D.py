@@ -1,9 +1,12 @@
-from math import asin as _math__asin
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
 
 from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
 from pmma.python_src.opengl import Shader as _Shader
-from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.number_converter import DisplayCoordinatesConverter as _DisplayCoordinatesConverter
 from pmma.python_src.number_converter import DisplayScalarConverter as _DisplayScalarConverter
 from pmma.python_src.number_converter import AngleConverter as _AngleConverter
@@ -11,8 +14,6 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.advmath import Math as _Math
 
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.shape_utils import ShapeTemplate as _ShapeTemplate
 from pmma.python_src.utility.shape_utils import LineUtils as _LineUtils
 from pmma.python_src.utility.shape_utils import RadialPolygonUtils as _RadialPolygonUtils
@@ -21,7 +22,6 @@ from pmma.python_src.utility.shape_utils import ArcUtils as _ArcUtils
 from pmma.python_src.utility.shape_utils import EllipseUtils as _EllipseUtils
 from pmma.python_src.utility.shape_utils import PolygonUtils as _PolygonUtils
 from pmma.python_src.utility.shape_utils import PixelUtils as _PixelUtils
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Line(_ShapeTemplate, _LineUtils):
     """
@@ -204,6 +204,9 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._math__module = _ModuleManager.import_module("math")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
@@ -328,7 +331,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         """
         if self._point_count is None:
             try:
-                point_count = 1 + int((_Constants.TAU / _math__asin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
+                point_count = 1 + int((_Constants.TAU / self._math__module.sin(1 / self._radius.get_point(format=_Constants.CONVENTIONAL_COORDINATES))) * _Registry.shape_quality)
             except:
                 point_count = 3
         else:

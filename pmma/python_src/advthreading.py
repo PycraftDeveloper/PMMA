@@ -1,5 +1,6 @@
-from sys import settrace as _sys__settrace
 from threading import Thread as _threading__Thread
+
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 class Thread(_threading__Thread):
     """
@@ -9,6 +10,8 @@ class Thread(_threading__Thread):
         """
         🟩 **R** -
         """
+        self._sys__module = _ModuleManager.import_module("sys")
+
         _threading__Thread.__init__(self, *args, **keywords)
 
         self._killed = False
@@ -25,7 +28,7 @@ class Thread(_threading__Thread):
         """
         🟩 **R** -
         """
-        _sys__settrace(self.globaltrace)
+        self._sys__module.settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
 

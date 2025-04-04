@@ -1,12 +1,10 @@
-from math import cos as _math__cos
-from math import pi as _math__pi
+from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 from pmma.python_src.shapes_2D import RadialPolygon as _RadialPolygon
 from pmma.python_src.shapes_2D import Polygon as _Polygon
 from pmma.python_src.shapes_2D import Rectangle as _Rectangle
-from pmma.python_src.constants import Constants as _Constants
-
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class Lines:
     """
@@ -1085,11 +1083,13 @@ class Triangle:
         """
         _initialize(self)
 
+        self._math__module = _ModuleManager.import_module("math")
+
         self._radial_polygon = _RadialPolygon()
         self._radial_polygon.set_point_count(3)
 
-        angle = 60 * (_math__pi / 180)
-        self._cos_sixty = _math__cos(angle)
+        angle = 60 * (self._math__module.pi / 180)
+        self._cos_sixty = self._math__module.cos(angle)
 
     def quit(self):
         """

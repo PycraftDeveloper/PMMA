@@ -1,335 +1,13 @@
-from pygame import init as _pygame__init
-from pygame import event as _pygame__event
-from pygame import APP_TERMINATING as _pygame__APP_TERMINATING
-from pygame import APP_LOWMEMORY as _pygame__APP_LOWMEMORY
-from pygame import APP_WILLENTERBACKGROUND as _pygame__APP_WILLENTERBACKGROUND
-from pygame import APP_DIDENTERBACKGROUND as _pygame__APP_DIDENTERBACKGROUND
-from pygame import APP_WILLENTERFOREGROUND as _pygame__APP_WILLENTERFOREGROUND
-from pygame import APP_DIDENTERFOREGROUND as _pygame__APP_DIDENTERFOREGROUND
-from pygame import AUDIODEVICEADDED as _pygame__AUDIODEVICEADDED
-from pygame import AUDIODEVICEREMOVED as _pygame__AUDIODEVICEREMOVED
-from pygame import CLIPBOARDUPDATE as _pygame__CLIPBOARDUPDATE
-from pygame import DROPFILE as _pygame__DROPFILE
-from pygame import DROPTEXT as _pygame__DROPTEXT
-from pygame import DROPBEGIN as _pygame__DROPBEGIN
-from pygame import DROPCOMPLETE as _pygame__DROPCOMPLETE
-from pygame import FINGERMOTION as _pygame__FINGERMOTION
-from pygame import FINGERDOWN as _pygame__FINGERDOWN
-from pygame import FINGERUP as _pygame__FINGERUP
-from pygame import KEYMAPCHANGED as _pygame__KEYMAPCHANGED
-from pygame import JOYAXISMOTION as _pygame__JOYAXISMOTION
-from pygame import JOYBALLMOTION as _pygame__JOYBALLMOTION
-from pygame import JOYBUTTONDOWN as _pygame__JOYBUTTONDOWN
-from pygame import JOYBUTTONUP as _pygame__JOYBUTTONUP
-from pygame import JOYDEVICEADDED as _pygame__JOYDEVICEADDED
-from pygame import JOYDEVICEREMOVED as _pygame__JOYDEVICEREMOVED
-from pygame import LOCALECHANGED as _pygame__LOCALECHANGED
-from pygame import MOUSEMOTION as _pygame__MOUSEMOTION
-from pygame import MOUSEBUTTONDOWN as _pygame__MOUSEBUTTONDOWN
-from pygame import MOUSEBUTTONUP as _pygame__MOUSEBUTTONUP
-from pygame import MOUSEWHEEL as _pygame__MOUSEWHEEL
-from pygame import KEYDOWN as _pygame__KEYDOWN
-from pygame import K_BACKSPACE as _pygame__K_BACKSPACE
-from pygame import K_TAB as _pygame__K_TAB
-from pygame import K_CLEAR as _pygame__K_CLEAR
-from pygame import K_RETURN as _pygame__K_RETURN
-from pygame import K_PAUSE as _pygame__K_PAUSE
-from pygame import K_ESCAPE as _pygame__K_ESCAPE
-from pygame import K_SPACE as _pygame__K_SPACE
-from pygame import K_EXCLAIM as _pygame__K_EXCLAIM
-from pygame import K_QUOTEDBL as _pygame__K_QUOTEDBL
-from pygame import K_HASH as _pygame__K_HASH
-from pygame import K_DOLLAR as _pygame__K_DOLLAR
-from pygame import K_AMPERSAND as _pygame__K_AMPERSAND
-from pygame import K_QUOTE as _pygame__K_QUOTE
-from pygame import K_LEFTPAREN as _pygame__K_LEFTPAREN
-from pygame import K_RIGHTPAREN as _pygame__K_RIGHTPAREN
-from pygame import K_ASTERISK as _pygame__K_ASTERISK
-from pygame import K_PLUS as _pygame__K_PLUS
-from pygame import K_COMMA as _pygame__K_COMMA
-from pygame import K_MINUS as _pygame__K_MINUS
-from pygame import K_PERIOD as _pygame__K_PERIOD
-from pygame import K_SLASH as _pygame__K_SLASH
-from pygame import K_0 as _pygame__K_0
-from pygame import K_1 as _pygame__K_1
-from pygame import K_2 as _pygame__K_2
-from pygame import K_3 as _pygame__K_3
-from pygame import K_4 as _pygame__K_4
-from pygame import K_5 as _pygame__K_5
-from pygame import K_6 as _pygame__K_6
-from pygame import K_7 as _pygame__K_7
-from pygame import K_8 as _pygame__K_8
-from pygame import K_9 as _pygame__K_9
-from pygame import K_COLON as _pygame__K_COLON
-from pygame import K_SEMICOLON as _pygame__K_SEMICOLON
-from pygame import K_LESS as _pygame__K_LESS
-from pygame import K_EQUALS as _pygame__K_EQUALS
-from pygame import K_GREATER as _pygame__K_GREATER
-from pygame import K_QUESTION as _pygame__K_QUESTION
-from pygame import K_AT as _pygame__K_AT
-from pygame import K_LEFTBRACKET as _pygame__K_LEFTBRACKET
-from pygame import K_BACKSLASH as _pygame__K_BACKSLASH
-from pygame import K_RIGHTBRACKET as _pygame__K_RIGHTBRACKET
-from pygame import K_CARET as _pygame__K_CARET
-from pygame import K_UNDERSCORE as _pygame__K_UNDERSCORE
-from pygame import K_BACKQUOTE as _pygame__K_BACKQUOTE
-from pygame import K_a as _pygame__K_a
-from pygame import K_b as _pygame__K_b
-from pygame import K_c as _pygame__K_c
-from pygame import K_d as _pygame__K_d
-from pygame import K_e as _pygame__K_e
-from pygame import K_f as _pygame__K_f
-from pygame import K_g as _pygame__K_g
-from pygame import K_h as _pygame__K_h
-from pygame import K_i as _pygame__K_i
-from pygame import K_j as _pygame__K_j
-from pygame import K_k as _pygame__K_k
-from pygame import K_l as _pygame__K_l
-from pygame import K_m as _pygame__K_m
-from pygame import K_n as _pygame__K_n
-from pygame import K_o as _pygame__K_o
-from pygame import K_p as _pygame__K_p
-from pygame import K_q as _pygame__K_q
-from pygame import K_r as _pygame__K_r
-from pygame import K_s as _pygame__K_s
-from pygame import K_t as _pygame__K_t
-from pygame import K_u as _pygame__K_u
-from pygame import K_v as _pygame__K_v
-from pygame import K_w as _pygame__K_w
-from pygame import K_x as _pygame__K_x
-from pygame import K_y as _pygame__K_y
-from pygame import K_z as _pygame__K_z
-from pygame import K_DELETE as _pygame__K_DELETE
-from pygame import K_KP0 as _pygame__K_KP0
-from pygame import K_KP1 as _pygame__K_KP1
-from pygame import K_KP2 as _pygame__K_KP2
-from pygame import K_KP3 as _pygame__K_KP3
-from pygame import K_KP4 as _pygame__K_KP4
-from pygame import K_KP5 as _pygame__K_KP5
-from pygame import K_KP6 as _pygame__K_KP6
-from pygame import K_KP7 as _pygame__K_KP7
-from pygame import K_KP8 as _pygame__K_KP8
-from pygame import K_KP9 as _pygame__K_KP9
-from pygame import K_KP_PERIOD as _pygame__K_KP_PERIOD
-from pygame import K_KP_DIVIDE as _pygame__K_KP_DIVIDE
-from pygame import K_KP_MULTIPLY as _pygame__K_KP_MULTIPLY
-from pygame import K_KP_MINUS as _pygame__K_KP_MINUS
-from pygame import K_KP_PLUS as _pygame__K_KP_PLUS
-from pygame import K_KP_ENTER as _pygame__K_KP_ENTER
-from pygame import K_KP_EQUALS as _pygame__K_KP_EQUALS
-from pygame import K_UP as _pygame__K_UP
-from pygame import K_DOWN as _pygame__K_DOWN
-from pygame import K_RIGHT as _pygame__K_RIGHT
-from pygame import K_LEFT as _pygame__K_LEFT
-from pygame import K_INSERT as _pygame__K_INSERT
-from pygame import K_HOME as _pygame__K_HOME
-from pygame import K_END as _pygame__K_END
-from pygame import K_PAGEUP as _pygame__K_PAGEUP
-from pygame import K_PAGEDOWN as _pygame__K_PAGEDOWN
-from pygame import K_F1 as _pygame__K_F1
-from pygame import K_F2 as _pygame__K_F2
-from pygame import K_F3 as _pygame__K_F3
-from pygame import K_F4 as _pygame__K_F4
-from pygame import K_F5 as _pygame__K_F5
-from pygame import K_F6 as _pygame__K_F6
-from pygame import K_F7 as _pygame__K_F7
-from pygame import K_F8 as _pygame__K_F8
-from pygame import K_F9 as _pygame__K_F9
-from pygame import K_F10 as _pygame__K_F10
-from pygame import K_F11 as _pygame__K_F11
-from pygame import K_F12 as _pygame__K_F12
-from pygame import K_F13 as _pygame__K_F13
-from pygame import K_F14 as _pygame__K_F14
-from pygame import K_F15 as _pygame__K_F15
-from pygame import K_NUMLOCK as _pygame__K_NUMLOCK
-from pygame import K_CAPSLOCK as _pygame__K_CAPSLOCK
-from pygame import K_SCROLLOCK as _pygame__K_SCROLLOCK
-from pygame import K_RSHIFT as _pygame__K_RSHIFT
-from pygame import K_LSHIFT as _pygame__K_LSHIFT
-from pygame import K_RCTRL as _pygame__K_RCTRL
-from pygame import K_LCTRL as _pygame__K_LCTRL
-from pygame import K_RALT as _pygame__K_RALT
-from pygame import K_LALT as _pygame__K_LALT
-from pygame import K_RMETA as _pygame__K_RMETA
-from pygame import K_LMETA as _pygame__K_LMETA
-from pygame import K_LSUPER as _pygame__K_LSUPER
-from pygame import K_RSUPER as _pygame__K_RSUPER
-from pygame import K_MODE as _pygame__K_MODE
-from pygame import K_HELP as _pygame__K_HELP
-from pygame import K_PRINT as _pygame__K_PRINT
-from pygame import K_SYSREQ as _pygame__K_SYSREQ
-from pygame import K_BREAK as _pygame__K_BREAK
-from pygame import K_MENU as _pygame__K_MENU
-from pygame import K_POWER as _pygame__K_POWER
-from pygame import K_EURO as _pygame__K_EURO
-from pygame import K_AC_BACK as _pygame__K_AC_BACK
-from pygame import KEYUP as _pygame__KEYUP
-from pygame import K_BACKSPACE as _pygame__K_BACKSPACE
-from pygame import K_TAB as _pygame__K_TAB
-from pygame import K_CLEAR as _pygame__K_CLEAR
-from pygame import K_RETURN as _pygame__K_RETURN
-from pygame import K_PAUSE as _pygame__K_PAUSE
-from pygame import K_ESCAPE as _pygame__K_ESCAPE
-from pygame import K_SPACE as _pygame__K_SPACE
-from pygame import K_EXCLAIM as _pygame__K_EXCLAIM
-from pygame import K_QUOTEDBL as _pygame__K_QUOTEDBL
-from pygame import K_HASH as _pygame__K_HASH
-from pygame import K_DOLLAR as _pygame__K_DOLLAR
-from pygame import K_AMPERSAND as _pygame__K_AMPERSAND
-from pygame import K_QUOTE as _pygame__K_QUOTE
-from pygame import K_LEFTPAREN as _pygame__K_LEFTPAREN
-from pygame import K_RIGHTPAREN as _pygame__K_RIGHTPAREN
-from pygame import K_ASTERISK as _pygame__K_ASTERISK
-from pygame import K_PLUS as _pygame__K_PLUS
-from pygame import K_COMMA as _pygame__K_COMMA
-from pygame import K_MINUS as _pygame__K_MINUS
-from pygame import K_PERIOD as _pygame__K_PERIOD
-from pygame import K_SLASH as _pygame__K_SLASH
-from pygame import K_0 as _pygame__K_0
-from pygame import K_1 as _pygame__K_1
-from pygame import K_2 as _pygame__K_2
-from pygame import K_3 as _pygame__K_3
-from pygame import K_4 as _pygame__K_4
-from pygame import K_5 as _pygame__K_5
-from pygame import K_6 as _pygame__K_6
-from pygame import K_7 as _pygame__K_7
-from pygame import K_8 as _pygame__K_8
-from pygame import K_9 as _pygame__K_9
-from pygame import K_COLON as _pygame__K_COLON
-from pygame import K_SEMICOLON as _pygame__K_SEMICOLON
-from pygame import K_LESS as _pygame__K_LESS
-from pygame import K_EQUALS as _pygame__K_EQUALS
-from pygame import K_GREATER as _pygame__K_GREATER
-from pygame import K_QUESTION as _pygame__K_QUESTION
-from pygame import K_AT as _pygame__K_AT
-from pygame import K_LEFTBRACKET as _pygame__K_LEFTBRACKET
-from pygame import K_BACKSLASH as _pygame__K_BACKSLASH
-from pygame import K_RIGHTBRACKET as _pygame__K_RIGHTBRACKET
-from pygame import K_CARET as _pygame__K_CARET
-from pygame import K_UNDERSCORE as _pygame__K_UNDERSCORE
-from pygame import K_BACKQUOTE as _pygame__K_BACKQUOTE
-from pygame import K_a as _pygame__K_a
-from pygame import K_b as _pygame__K_b
-from pygame import K_c as _pygame__K_c
-from pygame import K_d as _pygame__K_d
-from pygame import K_e as _pygame__K_e
-from pygame import K_f as _pygame__K_f
-from pygame import K_g as _pygame__K_g
-from pygame import K_h as _pygame__K_h
-from pygame import K_i as _pygame__K_i
-from pygame import K_j as _pygame__K_j
-from pygame import K_k as _pygame__K_k
-from pygame import K_l as _pygame__K_l
-from pygame import K_m as _pygame__K_m
-from pygame import K_n as _pygame__K_n
-from pygame import K_o as _pygame__K_o
-from pygame import K_p as _pygame__K_p
-from pygame import K_q as _pygame__K_q
-from pygame import K_r as _pygame__K_r
-from pygame import K_s as _pygame__K_s
-from pygame import K_t as _pygame__K_t
-from pygame import K_u as _pygame__K_u
-from pygame import K_v as _pygame__K_v
-from pygame import K_w as _pygame__K_w
-from pygame import K_x as _pygame__K_x
-from pygame import K_y as _pygame__K_y
-from pygame import K_z as _pygame__K_z
-from pygame import K_DELETE as _pygame__K_DELETE
-from pygame import K_KP0 as _pygame__K_KP0
-from pygame import K_KP1 as _pygame__K_KP1
-from pygame import K_KP2 as _pygame__K_KP2
-from pygame import K_KP3 as _pygame__K_KP3
-from pygame import K_KP4 as _pygame__K_KP4
-from pygame import K_KP5 as _pygame__K_KP5
-from pygame import K_KP6 as _pygame__K_KP6
-from pygame import K_KP7 as _pygame__K_KP7
-from pygame import K_KP8 as _pygame__K_KP8
-from pygame import K_KP9 as _pygame__K_KP9
-from pygame import K_KP_PERIOD as _pygame__K_KP_PERIOD
-from pygame import K_KP_DIVIDE as _pygame__K_KP_DIVIDE
-from pygame import K_KP_MULTIPLY as _pygame__K_KP_MULTIPLY
-from pygame import K_KP_MINUS as _pygame__K_KP_MINUS
-from pygame import K_KP_PLUS as _pygame__K_KP_PLUS
-from pygame import K_KP_ENTER as _pygame__K_KP_ENTER
-from pygame import K_KP_EQUALS as _pygame__K_KP_EQUALS
-from pygame import K_UP as _pygame__K_UP
-from pygame import K_DOWN as _pygame__K_DOWN
-from pygame import K_RIGHT as _pygame__K_RIGHT
-from pygame import K_LEFT as _pygame__K_LEFT
-from pygame import K_INSERT as _pygame__K_INSERT
-from pygame import K_HOME as _pygame__K_HOME
-from pygame import K_END as _pygame__K_END
-from pygame import K_PAGEUP as _pygame__K_PAGEUP
-from pygame import K_PAGEDOWN as _pygame__K_PAGEDOWN
-from pygame import K_F1 as _pygame__K_F1
-from pygame import K_F2 as _pygame__K_F2
-from pygame import K_F3 as _pygame__K_F3
-from pygame import K_F4 as _pygame__K_F4
-from pygame import K_F5 as _pygame__K_F5
-from pygame import K_F6 as _pygame__K_F6
-from pygame import K_F7 as _pygame__K_F7
-from pygame import K_F8 as _pygame__K_F8
-from pygame import K_F9 as _pygame__K_F9
-from pygame import K_F10 as _pygame__K_F10
-from pygame import K_F11 as _pygame__K_F11
-from pygame import K_F12 as _pygame__K_F12
-from pygame import K_F13 as _pygame__K_F13
-from pygame import K_F14 as _pygame__K_F14
-from pygame import K_F15 as _pygame__K_F15
-from pygame import K_NUMLOCK as _pygame__K_NUMLOCK
-from pygame import K_CAPSLOCK as _pygame__K_CAPSLOCK
-from pygame import K_SCROLLOCK as _pygame__K_SCROLLOCK
-from pygame import K_RSHIFT as _pygame__K_RSHIFT
-from pygame import K_LSHIFT as _pygame__K_LSHIFT
-from pygame import K_RCTRL as _pygame__K_RCTRL
-from pygame import K_LCTRL as _pygame__K_LCTRL
-from pygame import K_RALT as _pygame__K_RALT
-from pygame import K_LALT as _pygame__K_LALT
-from pygame import K_RMETA as _pygame__K_RMETA
-from pygame import K_LMETA as _pygame__K_LMETA
-from pygame import K_LSUPER as _pygame__K_LSUPER
-from pygame import K_RSUPER as _pygame__K_RSUPER
-from pygame import K_MODE as _pygame__K_MODE
-from pygame import K_HELP as _pygame__K_HELP
-from pygame import K_PRINT as _pygame__K_PRINT
-from pygame import K_SYSREQ as _pygame__K_SYSREQ
-from pygame import K_BREAK as _pygame__K_BREAK
-from pygame import K_MENU as _pygame__K_MENU
-from pygame import K_POWER as _pygame__K_POWER
-from pygame import K_EURO as _pygame__K_EURO
-from pygame import K_AC_BACK as _pygame__K_AC_BACK
-from pygame import MULTIGESTURE as _pygame__MULTIGESTURE
-from pygame import QUIT as _pygame__QUIT
-from pygame import RENDER_TARGETS_RESET as _pygame__RENDER_TARGETS_RESET
-from pygame import RENDER_DEVICE_RESET as _pygame__RENDER_DEVICE_RESET
-from pygame import SYSWMEVENT as _pygame__SYSWMEVENT
-from pygame import WINDOWSHOWN as _pygame__WINDOWSHOWN
-from pygame import WINDOWHIDDEN as _pygame__WINDOWHIDDEN
-from pygame import WINDOWEXPOSED as _pygame__WINDOWEXPOSED
-from pygame import WINDOWMOVED as _pygame__WINDOWMOVED
-from pygame import WINDOWRESIZED as _pygame__WINDOWRESIZED
-from pygame import WINDOWSIZECHANGED as _pygame__WINDOWSIZECHANGED
-from pygame import WINDOWMINIMIZED as _pygame__WINDOWMINIMIZED
-from pygame import WINDOWMAXIMIZED as _pygame__WINDOWMAXIMIZED
-from pygame import WINDOWRESTORED as _pygame__WINDOWRESTORED
-from pygame import WINDOWENTER as _pygame__WINDOWENTER
-from pygame import WINDOWLEAVE as _pygame__WINDOWLEAVE
-from pygame import WINDOWFOCUSGAINED as _pygame__WINDOWFOCUSGAINED
-from pygame import WINDOWFOCUSLOST as _pygame__WINDOWFOCUSLOST
-from pygame import WINDOWCLOSE as _pygame__WINDOWCLOSE
-from pygame import WINDOWTAKEFOCUS as _pygame__WINDOWTAKEFOCUS
-from pygame import WINDOWHITTEST as _pygame__WINDOWHITTEST
-from pygame import WINDOWICCPROFCHANGED as _pygame__WINDOWICCPROFCHANGED
-from pygame import WINDOWDISPLAYCHANGED as _pygame__WINDOWDISPLAYCHANGED
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.backpack import Backpack as _Backpack
 from pmma.python_src.controller import Controllers as _Controllers
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
@@ -349,12 +27,14 @@ class Events:
         """
         _initialize(self, unique_instance=_InternalConstants.EVENTS_OBJECT, add_to_pmma_module_spine=True)
 
+        self._pygame__module = _ModuleManager.import_module("pygame")
+
         self._logger = _InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
             _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(_Registry.pygame_launch_message)
-            _pygame__init()
+            self._pygame__module.init()
 
         self.iteration_id = 0
 
@@ -382,7 +62,7 @@ example when creating Virtual Desktop applications usig PMMA, but should NOT be 
 most applications. We advise you make and test your application with this feature disabled, \
 then enable it to see if it fixes or improves a desired feature.")
 
-            _pygame__event.set_keyboard_grab(True)
+            self._pygame__module.set_keyboard_grab(True)
 
         _Registry.handled_events = True
 
@@ -524,77 +204,77 @@ then enable it to see if it fixes or improves a desired feature.")
             _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(0)
             _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(0)
 
-        raw_events = _pygame__event.get()
+        raw_events = self._pygame__module.event.get()
         for event in raw_events:
-            if event.type == _pygame__APP_TERMINATING:
+            if event.type == self._pygame__module.APP_TERMINATING:
                 if _InternalConstants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.APPTERMINATING_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__APP_LOWMEMORY:
+            elif event.type == self._pygame__module.APP_LOWMEMORY:
                 if _InternalConstants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.APPLOWMEMORY_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__APP_WILLENTERBACKGROUND:
+            elif event.type == self._pygame__module.APP_WILLENTERBACKGROUND:
                 if _InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__APP_DIDENTERBACKGROUND:
+            elif event.type == self._pygame__module.APP_DIDENTERBACKGROUND:
                 if _InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__APP_WILLENTERFOREGROUND:
+            elif event.type == self._pygame__module.APP_WILLENTERFOREGROUND:
                 if _InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__APP_DIDENTERFOREGROUND:
+            elif event.type == self._pygame__module.APP_DIDENTERFOREGROUND:
                 if _InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__AUDIODEVICEADDED:
+            elif event.type == self._pygame__module.AUDIODEVICEADDED:
                 if _InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__AUDIODEVICEREMOVED:
+            elif event.type == self._pygame__module.AUDIODEVICEREMOVED:
                 if _InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__CLIPBOARDUPDATE:
+            elif event.type == self._pygame__module.CLIPBOARDUPDATE:
                 if _InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__DROPFILE:
+            elif event.type == self._pygame__module.DROPFILE:
                 if _InternalConstants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.DROPFILE_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__DROPTEXT:
+            elif event.type == self._pygame__module.DROPTEXT:
                 if _InternalConstants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.DROPTEXT_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__DROPBEGIN:
+            elif event.type == self._pygame__module.DROPBEGIN:
                 if _InternalConstants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.DROPBEGIN_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__DROPCOMPLETE:
+            elif event.type == self._pygame__module.DROPCOMPLETE:
                 if _InternalConstants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.DROPCOMPLETE_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__FINGERMOTION:
+            elif event.type == self._pygame__module.FINGERMOTION:
                 if _InternalConstants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.FINGERMOTION_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__FINGERDOWN:
+            elif event.type == self._pygame__module.FINGERDOWN:
                 if _InternalConstants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.FINGERDOWN_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__FINGERUP:
+            elif event.type == self._pygame__module.FINGERUP:
                 if _InternalConstants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.FINGERUP_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__KEYMAPCHANGED:
+            elif event.type == self._pygame__module.KEYMAPCHANGED:
                 if _InternalConstants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__JOYAXISMOTION:
+            elif event.type == self._pygame__module.JOYAXISMOTION:
                 controller = self.controllers.get_controller(event.joy)
                 if event.axis == 0:
                     controller.set_left_joystick_axis_x_axis(event.value)
@@ -614,14 +294,14 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.axis == 5:
                     controller.set_right_trigger_value(event.value)
 
-            elif event.type == _pygame__JOYBALLMOTION:
+            elif event.type == self._pygame__module.JOYBALLMOTION:
                 controller = self.controllers.get_controller(event.joy)
                 trackball = controller.get_track_ball_from_id(event.ball)
                 x_motion, y_motion = event.rel
                 trackball.set_x_motion(x_motion)
                 trackball.set_y_motion(y_motion)
 
-            elif event.type == _pygame__JOYBUTTONDOWN:
+            elif event.type == self._pygame__module.JOYBUTTONDOWN:
                 controller = self.controllers.get_controller(event.joy)
                 if event.button == 2:
                     controller.set_x_button_pressed(True)
@@ -654,7 +334,7 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.button == 15:
                     controller.set_center_button_pressed(True)
 
-            elif event.type == _pygame__JOYBUTTONUP:
+            elif event.type == self._pygame__module.JOYBUTTONUP:
                 controller = self.controllers.get_controller(event.joy)
                 if event.button == 2:
                     controller.set_x_button_pressed(False)
@@ -687,21 +367,21 @@ then enable it to see if it fixes or improves a desired feature.")
                 elif event.button == 15:
                     controller.set_center_button_pressed(False)
 
-            elif event.type == _pygame__JOYDEVICEADDED:
+            elif event.type == self._pygame__module.JOYDEVICEADDED:
                 if _InternalConstants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEADDED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
-            elif event.type == _pygame__JOYDEVICEREMOVED:
+            elif event.type == self._pygame__module.JOYDEVICEREMOVED:
                 if _InternalConstants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.JOYDEVICEREMOVED_OBJECT].set_value(True)
                 self.controllers.update_controllers()
 
-            elif event.type == _pygame__LOCALECHANGED:
+            elif event.type == self._pygame__module.LOCALECHANGED:
                 if _InternalConstants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.LOCALECHANGED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__MOUSEMOTION:
+            elif event.type == self._pygame__module.MOUSEMOTION:
                 if _InternalConstants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine:
                     mouse_x_position, mouse_y_position = event.pos
                     mouse_x_displacement, mouse_y_displacement = event.rel
@@ -710,7 +390,7 @@ then enable it to see if it fixes or improves a desired feature.")
                     _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_x_axis_displacement(mouse_x_displacement)
                     _Registry.pmma_module_spine[_InternalConstants.MOUSE_POSITION_OBJECT].set_y_axis_displacement(mouse_y_displacement)
 
-            elif event.type == _pygame__MOUSEBUTTONDOWN:
+            elif event.type == self._pygame__module.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if _InternalConstants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(True)
@@ -723,7 +403,7 @@ then enable it to see if it fixes or improves a desired feature.")
                     if _InternalConstants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(True)
 
-            elif event.type == _pygame__MOUSEBUTTONUP:
+            elif event.type == self._pygame__module.MOUSEBUTTONUP:
                 if event.button == 1:
                     if _InternalConstants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTBUTTON_MOUSE_OBJECT].set_pressed(False)
@@ -736,7 +416,7 @@ then enable it to see if it fixes or improves a desired feature.")
                     if _InternalConstants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT].set_pressed(False)
 
-            elif event.type == _pygame__MOUSEWHEEL:
+            elif event.type == self._pygame__module.MOUSEWHEEL:
                 if _InternalConstants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine:
                     x_displacement = event.precise_x
                     y_displacement = event.precise_y
@@ -750,439 +430,439 @@ then enable it to see if it fixes or improves a desired feature.")
                     _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_x_value(total_x + x_displacement)
                     _Registry.pmma_module_spine[_InternalConstants.MOUSE_SCROLL_OBJECT].set_y_value(total_y + y_displacement)
 
-            elif event.type == _pygame__KEYDOWN:
-                if event.key == _pygame__K_BACKSPACE:
+            elif event.type == self._pygame__module.KEYDOWN:
+                if event.key == self._pygame__module.K_BACKSPACE:
                     if _InternalConstants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.BACKSPACE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_TAB:
+                elif event.key == self._pygame__module.K_TAB:
                     if _InternalConstants.TAB_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.TAB_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_CLEAR:
+                elif event.key == self._pygame__module.K_CLEAR:
                     if _InternalConstants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.CLEAR_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RETURN:
+                elif event.key == self._pygame__module.K_RETURN:
                     if _InternalConstants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RETURN_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_PAUSE:
+                elif event.key == self._pygame__module.K_PAUSE:
                     if _InternalConstants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PAUSE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_ESCAPE:
+                elif event.key == self._pygame__module.K_ESCAPE:
                     if _InternalConstants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.ESCAPE_KEY_OBJECT].set_pressed(True)
                     if handle_exit_events:
                         _Registry.running = False
                         _Backpack.running = False
 
-                elif event.key == _pygame__K_SPACE:
+                elif event.key == self._pygame__module.K_SPACE:
                     if _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SPACE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_EXCLAIM:
+                elif event.key == self._pygame__module.K_EXCLAIM:
                     if _InternalConstants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_QUOTEDBL:
+                elif event.key == self._pygame__module.K_QUOTEDBL:
                     if _InternalConstants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_HASH:
+                elif event.key == self._pygame__module.K_HASH:
                     if _InternalConstants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.HASHTAG_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_DOLLAR:
+                elif event.key == self._pygame__module.K_DOLLAR:
                     if _InternalConstants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DOLLAR_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_AMPERSAND:
+                elif event.key == self._pygame__module.K_AMPERSAND:
                     if _InternalConstants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.AMPERSAND_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_QUOTE:
+                elif event.key == self._pygame__module.K_QUOTE:
                     if _InternalConstants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SINGLEQUOTE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LEFTPAREN:
+                elif event.key == self._pygame__module.K_LEFTPAREN:
                     if _InternalConstants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RIGHTPAREN:
+                elif event.key == self._pygame__module.K_RIGHTPAREN:
                     if _InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_ASTERISK:
+                elif event.key == self._pygame__module.K_ASTERISK:
                     if _InternalConstants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.ASTERISK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_PLUS:
+                elif event.key == self._pygame__module.K_PLUS:
                     if _InternalConstants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PLUS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_COMMA:
+                elif event.key == self._pygame__module.K_COMMA:
                     if _InternalConstants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.COMMA_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_MINUS:
+                elif event.key == self._pygame__module.K_MINUS:
                     if _InternalConstants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.MINUS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_PERIOD:
+                elif event.key == self._pygame__module.K_PERIOD:
                     if _InternalConstants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PERIOD_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_SLASH:
+                elif event.key == self._pygame__module.K_SLASH:
                     if _InternalConstants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FORWARDSLASH_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_0:
+                elif event.key == self._pygame__module.K_0:
                     if _InternalConstants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY0_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_1:
+                elif event.key == self._pygame__module.K_1:
                     if _InternalConstants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY1_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_2:
+                elif event.key == self._pygame__module.K_2:
                     if _InternalConstants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY2_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_3:
+                elif event.key == self._pygame__module.K_3:
                     if _InternalConstants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY3_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_4:
+                elif event.key == self._pygame__module.K_4:
                     if _InternalConstants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY4_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_5:
+                elif event.key == self._pygame__module.K_5:
                     if _InternalConstants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY5_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_6:
+                elif event.key == self._pygame__module.K_6:
                     if _InternalConstants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY6_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_7:
+                elif event.key == self._pygame__module.K_7:
                     if _InternalConstants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY7_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_8:
+                elif event.key == self._pygame__module.K_8:
                     if _InternalConstants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY8_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_9:
+                elif event.key == self._pygame__module.K_9:
                     if _InternalConstants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY9_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_COLON:
+                elif event.key == self._pygame__module.K_COLON:
                     if _InternalConstants.COLON_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.COLON_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_SEMICOLON:
+                elif event.key == self._pygame__module.K_SEMICOLON:
                     if _InternalConstants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SEMICOLON_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LESS:
+                elif event.key == self._pygame__module.K_LESS:
                     if _InternalConstants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LESSTHAN_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_EQUALS:
+                elif event.key == self._pygame__module.K_EQUALS:
                     if _InternalConstants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.EQUALS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_GREATER:
+                elif event.key == self._pygame__module.K_GREATER:
                     if _InternalConstants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.GREATERTHAN_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_QUESTION:
+                elif event.key == self._pygame__module.K_QUESTION:
                     if _InternalConstants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.QUESTIONMARK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_AT:
+                elif event.key == self._pygame__module.K_AT:
                     if _InternalConstants.AT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.AT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LEFTBRACKET:
+                elif event.key == self._pygame__module.K_LEFTBRACKET:
                     if _InternalConstants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTBRACKET_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_BACKSLASH:
+                elif event.key == self._pygame__module.K_BACKSLASH:
                     if _InternalConstants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.BACKSLASH_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RIGHTBRACKET:
+                elif event.key == self._pygame__module.K_RIGHTBRACKET:
                     if _InternalConstants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTBRACKET_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_CARET:
+                elif event.key == self._pygame__module.K_CARET:
                     if _InternalConstants.CARET_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.CARET_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_UNDERSCORE:
+                elif event.key == self._pygame__module.K_UNDERSCORE:
                     if _InternalConstants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.UNDERSCORE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_BACKQUOTE:
+                elif event.key == self._pygame__module.K_BACKQUOTE:
                     if _InternalConstants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.GRAVE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_a:
+                elif event.key == self._pygame__module.K_a:
                     if _InternalConstants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYA_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_b:
+                elif event.key == self._pygame__module.K_b:
                     if _InternalConstants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYB_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_c:
+                elif event.key == self._pygame__module.K_c:
                     if _InternalConstants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYC_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_d:
+                elif event.key == self._pygame__module.K_d:
                     if _InternalConstants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYD_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_e:
+                elif event.key == self._pygame__module.K_e:
                     if _InternalConstants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_f:
+                elif event.key == self._pygame__module.K_f:
                     if _InternalConstants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYF_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_g:
+                elif event.key == self._pygame__module.K_g:
                     if _InternalConstants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYG_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_h:
+                elif event.key == self._pygame__module.K_h:
                     if _InternalConstants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYH_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_i:
+                elif event.key == self._pygame__module.K_i:
                     if _InternalConstants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYI_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_j:
+                elif event.key == self._pygame__module.K_j:
                     if _InternalConstants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYJ_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_k:
+                elif event.key == self._pygame__module.K_k:
                     if _InternalConstants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_l:
+                elif event.key == self._pygame__module.K_l:
                     if _InternalConstants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYL_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_m:
+                elif event.key == self._pygame__module.K_m:
                     if _InternalConstants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYM_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_n:
+                elif event.key == self._pygame__module.K_n:
                     if _InternalConstants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYN_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_o:
+                elif event.key == self._pygame__module.K_o:
                     if _InternalConstants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYO_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_p:
+                elif event.key == self._pygame__module.K_p:
                     if _InternalConstants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYP_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_q:
+                elif event.key == self._pygame__module.K_q:
                     if _InternalConstants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYQ_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_r:
+                elif event.key == self._pygame__module.K_r:
                     if _InternalConstants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYR_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_s:
+                elif event.key == self._pygame__module.K_s:
                     if _InternalConstants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_t:
+                elif event.key == self._pygame__module.K_t:
                     if _InternalConstants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_u:
+                elif event.key == self._pygame__module.K_u:
                     if _InternalConstants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYU_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_v:
+                elif event.key == self._pygame__module.K_v:
                     if _InternalConstants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYV_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_w:
+                elif event.key == self._pygame__module.K_w:
                     if _InternalConstants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYW_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_x:
+                elif event.key == self._pygame__module.K_x:
                     if _InternalConstants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYX_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_y:
+                elif event.key == self._pygame__module.K_y:
                     if _InternalConstants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYY_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_z:
+                elif event.key == self._pygame__module.K_z:
                     if _InternalConstants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYZ_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_DELETE:
+                elif event.key == self._pygame__module.K_DELETE:
                     if _InternalConstants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DELETE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP0:
+                elif event.key == self._pygame__module.K_KP0:
                     if _InternalConstants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD0_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP1:
+                elif event.key == self._pygame__module.K_KP1:
                     if _InternalConstants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD1_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP2:
+                elif event.key == self._pygame__module.K_KP2:
                     if _InternalConstants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD2_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP3:
+                elif event.key == self._pygame__module.K_KP3:
                     if _InternalConstants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD3_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP4:
+                elif event.key == self._pygame__module.K_KP4:
                     if _InternalConstants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD4_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP5:
+                elif event.key == self._pygame__module.K_KP5:
                     if _InternalConstants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD5_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP6:
+                elif event.key == self._pygame__module.K_KP6:
                     if _InternalConstants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD6_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP7:
+                elif event.key == self._pygame__module.K_KP7:
                     if _InternalConstants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD7_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP8:
+                elif event.key == self._pygame__module.K_KP8:
                     if _InternalConstants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD8_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP9:
+                elif event.key == self._pygame__module.K_KP9:
                     if _InternalConstants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD9_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_PERIOD:
+                elif event.key == self._pygame__module.K_KP_PERIOD:
                     if _InternalConstants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADPERIOD_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_DIVIDE:
+                elif event.key == self._pygame__module.K_KP_DIVIDE:
                     if _InternalConstants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_MULTIPLY:
+                elif event.key == self._pygame__module.K_KP_MULTIPLY:
                     if _InternalConstants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_MINUS:
+                elif event.key == self._pygame__module.K_KP_MINUS:
                     if _InternalConstants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADMINUS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_PLUS:
+                elif event.key == self._pygame__module.K_KP_PLUS:
                     if _InternalConstants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADPLUS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_ENTER:
+                elif event.key == self._pygame__module.K_KP_ENTER:
                     if _InternalConstants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADENTER_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_KP_EQUALS:
+                elif event.key == self._pygame__module.K_KP_EQUALS:
                     if _InternalConstants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADEQUALS_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_UP:
+                elif event.key == self._pygame__module.K_UP:
                     if _InternalConstants.UP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.UP_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_DOWN:
+                elif event.key == self._pygame__module.K_DOWN:
                     if _InternalConstants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DOWN_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RIGHT:
+                elif event.key == self._pygame__module.K_RIGHT:
                     if _InternalConstants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LEFT:
+                elif event.key == self._pygame__module.K_LEFT:
                     if _InternalConstants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_INSERT:
+                elif event.key == self._pygame__module.K_INSERT:
                     if _InternalConstants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.INSERT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_HOME:
+                elif event.key == self._pygame__module.K_HOME:
                     if _InternalConstants.HOME_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.HOME_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_END:
+                elif event.key == self._pygame__module.K_END:
                     if _InternalConstants.END_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.END_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_PAGEUP:
+                elif event.key == self._pygame__module.K_PAGEUP:
                     if _InternalConstants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PAGEUP_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_PAGEDOWN:
+                elif event.key == self._pygame__module.K_PAGEDOWN:
                     if _InternalConstants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PAGEDOWN_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F1:
+                elif event.key == self._pygame__module.K_F1:
                     if _InternalConstants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION1_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F2:
+                elif event.key == self._pygame__module.K_F2:
                     if _InternalConstants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION2_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F3:
+                elif event.key == self._pygame__module.K_F3:
                     if _InternalConstants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION3_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F4:
+                elif event.key == self._pygame__module.K_F4:
                     if _InternalConstants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION4_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F5:
+                elif event.key == self._pygame__module.K_F5:
                     if _InternalConstants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION5_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F6:
+                elif event.key == self._pygame__module.K_F6:
                     if _InternalConstants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION6_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F7:
+                elif event.key == self._pygame__module.K_F7:
                     if _InternalConstants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION7_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F8:
+                elif event.key == self._pygame__module.K_F8:
                     if _InternalConstants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION8_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F9:
+                elif event.key == self._pygame__module.K_F9:
                     if _InternalConstants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION9_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F10:
+                elif event.key == self._pygame__module.K_F10:
                     if _InternalConstants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION10_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F11:
+                elif event.key == self._pygame__module.K_F11:
                     if _InternalConstants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION11_KEY_OBJECT].set_pressed(True)
                     if handle_full_screen_events:
@@ -1191,648 +871,648 @@ then enable it to see if it fixes or improves a desired feature.")
                             if _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
                                 _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
 
-                elif event.key == _pygame__K_F12:
+                elif event.key == self._pygame__module.K_F12:
                     if _InternalConstants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION12_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F13:
+                elif event.key == self._pygame__module.K_F13:
                     if _InternalConstants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION13_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F14:
+                elif event.key == self._pygame__module.K_F14:
                     if _InternalConstants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION14_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_F15:
+                elif event.key == self._pygame__module.K_F15:
                     if _InternalConstants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION15_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_NUMLOCK:
+                elif event.key == self._pygame__module.K_NUMLOCK:
                     if _InternalConstants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMLOCK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_CAPSLOCK:
+                elif event.key == self._pygame__module.K_CAPSLOCK:
                     if _InternalConstants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.CAPSLOCK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_SCROLLOCK:
+                elif event.key == self._pygame__module.K_SCROLLOCK:
                     if _InternalConstants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SCROLLLOCK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RSHIFT:
+                elif event.key == self._pygame__module.K_RSHIFT:
                     if _InternalConstants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTSHIFT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LSHIFT:
+                elif event.key == self._pygame__module.K_LSHIFT:
                     if _InternalConstants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTSHIFT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RCTRL:
+                elif event.key == self._pygame__module.K_RCTRL:
                     if _InternalConstants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTCONTROL_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LCTRL:
+                elif event.key == self._pygame__module.K_LCTRL:
                     if _InternalConstants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTCONTROL_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RALT:
+                elif event.key == self._pygame__module.K_RALT:
                     if _InternalConstants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTALT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LALT:
+                elif event.key == self._pygame__module.K_LALT:
                     if _InternalConstants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTALT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RMETA:
+                elif event.key == self._pygame__module.K_RMETA:
                     if _InternalConstants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTMETA_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LMETA:
+                elif event.key == self._pygame__module.K_LMETA:
                     if _InternalConstants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTMETA_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_LSUPER:
+                elif event.key == self._pygame__module.K_LSUPER:
                     if _InternalConstants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTSUPER_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_RSUPER:
+                elif event.key == self._pygame__module.K_RSUPER:
                     if _InternalConstants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTSUPER_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_MODE:
+                elif event.key == self._pygame__module.K_MODE:
                     if _InternalConstants.MODE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.MODE_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_HELP:
+                elif event.key == self._pygame__module.K_HELP:
                     if _InternalConstants.HELP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.HELP_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_PRINT:
+                elif event.key == self._pygame__module.K_PRINT:
                     if _InternalConstants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRINT_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_SYSREQ:
+                elif event.key == self._pygame__module.K_SYSREQ:
                     if _InternalConstants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_BREAK:
+                elif event.key == self._pygame__module.K_BREAK:
                     if _InternalConstants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.BREAK_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_MENU:
+                elif event.key == self._pygame__module.K_MENU:
                     if _InternalConstants.MENU_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.MENU_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_POWER:
+                elif event.key == self._pygame__module.K_POWER:
                     if _InternalConstants.POWER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.POWER_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_EURO:
+                elif event.key == self._pygame__module.K_EURO:
                     if _InternalConstants.EURO_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.EURO_KEY_OBJECT].set_pressed(True)
 
-                elif event.key == _pygame__K_AC_BACK:
+                elif event.key == self._pygame__module.K_AC_BACK:
                     if _InternalConstants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.ANDROIDBACK_KEY_OBJECT].set_pressed(True)
 
-            elif event.type == _pygame__KEYUP:
-                if event.key == _pygame__K_BACKSPACE:
+            elif event.type == self._pygame__module.KEYUP:
+                if event.key == self._pygame__module.K_BACKSPACE:
                     if _InternalConstants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.BACKSPACE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_TAB:
+                elif event.key == self._pygame__module.K_TAB:
                     if _InternalConstants.TAB_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.TAB_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_CLEAR:
+                elif event.key == self._pygame__module.K_CLEAR:
                     if _InternalConstants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.CLEAR_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RETURN:
+                elif event.key == self._pygame__module.K_RETURN:
                     if _InternalConstants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RETURN_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_PAUSE:
+                elif event.key == self._pygame__module.K_PAUSE:
                     if _InternalConstants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PAUSE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_ESCAPE:
+                elif event.key == self._pygame__module.K_ESCAPE:
                     if _InternalConstants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.ESCAPE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_SPACE:
+                elif event.key == self._pygame__module.K_SPACE:
                     if _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SPACE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_EXCLAIM:
+                elif event.key == self._pygame__module.K_EXCLAIM:
                     if _InternalConstants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_QUOTEDBL:
+                elif event.key == self._pygame__module.K_QUOTEDBL:
                     if _InternalConstants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DOUBLEQUOTE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_HASH:
+                elif event.key == self._pygame__module.K_HASH:
                     if _InternalConstants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.HASHTAG_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_DOLLAR:
+                elif event.key == self._pygame__module.K_DOLLAR:
                     if _InternalConstants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DOLLAR_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_AMPERSAND:
+                elif event.key == self._pygame__module.K_AMPERSAND:
                     if _InternalConstants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.AMPERSAND_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_QUOTE:
+                elif event.key == self._pygame__module.K_QUOTE:
                     if _InternalConstants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SINGLEQUOTE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LEFTPAREN:
+                elif event.key == self._pygame__module.K_LEFTPAREN:
                     if _InternalConstants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RIGHTPAREN:
+                elif event.key == self._pygame__module.K_RIGHTPAREN:
                     if _InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_ASTERISK:
+                elif event.key == self._pygame__module.K_ASTERISK:
                     if _InternalConstants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.ASTERISK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_PLUS:
+                elif event.key == self._pygame__module.K_PLUS:
                     if _InternalConstants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PLUS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_COMMA:
+                elif event.key == self._pygame__module.K_COMMA:
                     if _InternalConstants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.COMMA_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_MINUS:
+                elif event.key == self._pygame__module.K_MINUS:
                     if _InternalConstants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.MINUS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_PERIOD:
+                elif event.key == self._pygame__module.K_PERIOD:
                     if _InternalConstants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PERIOD_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_SLASH:
+                elif event.key == self._pygame__module.K_SLASH:
                     if _InternalConstants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FORWARDSLASH_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_0:
+                elif event.key == self._pygame__module.K_0:
                     if _InternalConstants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY0_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_1:
+                elif event.key == self._pygame__module.K_1:
                     if _InternalConstants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY1_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_2:
+                elif event.key == self._pygame__module.K_2:
                     if _InternalConstants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY2_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_3:
+                elif event.key == self._pygame__module.K_3:
                     if _InternalConstants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY3_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_4:
+                elif event.key == self._pygame__module.K_4:
                     if _InternalConstants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY4_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_5:
+                elif event.key == self._pygame__module.K_5:
                     if _InternalConstants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY5_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_6:
+                elif event.key == self._pygame__module.K_6:
                     if _InternalConstants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY6_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_7:
+                elif event.key == self._pygame__module.K_7:
                     if _InternalConstants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY7_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_8:
+                elif event.key == self._pygame__module.K_8:
                     if _InternalConstants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY8_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_9:
+                elif event.key == self._pygame__module.K_9:
                     if _InternalConstants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARY9_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_COLON:
+                elif event.key == self._pygame__module.K_COLON:
                     if _InternalConstants.COLON_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.COLON_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_SEMICOLON:
+                elif event.key == self._pygame__module.K_SEMICOLON:
                     if _InternalConstants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SEMICOLON_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LESS:
+                elif event.key == self._pygame__module.K_LESS:
                     if _InternalConstants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LESSTHAN_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_EQUALS:
+                elif event.key == self._pygame__module.K_EQUALS:
                     if _InternalConstants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.EQUALS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_GREATER:
+                elif event.key == self._pygame__module.K_GREATER:
                     if _InternalConstants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.GREATERTHAN_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_QUESTION:
+                elif event.key == self._pygame__module.K_QUESTION:
                     if _InternalConstants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.QUESTIONMARK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_AT:
+                elif event.key == self._pygame__module.K_AT:
                     if _InternalConstants.AT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.AT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LEFTBRACKET:
+                elif event.key == self._pygame__module.K_LEFTBRACKET:
                     if _InternalConstants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTBRACKET_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_BACKSLASH:
+                elif event.key == self._pygame__module.K_BACKSLASH:
                     if _InternalConstants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.BACKSLASH_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RIGHTBRACKET:
+                elif event.key == self._pygame__module.K_RIGHTBRACKET:
                     if _InternalConstants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTBRACKET_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_CARET:
+                elif event.key == self._pygame__module.K_CARET:
                     if _InternalConstants.CARET_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.CARET_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_UNDERSCORE:
+                elif event.key == self._pygame__module.K_UNDERSCORE:
                     if _InternalConstants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.UNDERSCORE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_BACKQUOTE:
+                elif event.key == self._pygame__module.K_BACKQUOTE:
                     if _InternalConstants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.GRAVE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_a:
+                elif event.key == self._pygame__module.K_a:
                     if _InternalConstants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYA_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_b:
+                elif event.key == self._pygame__module.K_b:
                     if _InternalConstants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYB_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_c:
+                elif event.key == self._pygame__module.K_c:
                     if _InternalConstants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYC_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_d:
+                elif event.key == self._pygame__module.K_d:
                     if _InternalConstants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYD_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_e:
+                elif event.key == self._pygame__module.K_e:
                     if _InternalConstants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_f:
+                elif event.key == self._pygame__module.K_f:
                     if _InternalConstants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYF_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_g:
+                elif event.key == self._pygame__module.K_g:
                     if _InternalConstants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYG_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_h:
+                elif event.key == self._pygame__module.K_h:
                     if _InternalConstants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYH_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_i:
+                elif event.key == self._pygame__module.K_i:
                     if _InternalConstants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYI_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_j:
+                elif event.key == self._pygame__module.K_j:
                     if _InternalConstants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYJ_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_k:
+                elif event.key == self._pygame__module.K_k:
                     if _InternalConstants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_l:
+                elif event.key == self._pygame__module.K_l:
                     if _InternalConstants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYL_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_m:
+                elif event.key == self._pygame__module.K_m:
                     if _InternalConstants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYM_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_n:
+                elif event.key == self._pygame__module.K_n:
                     if _InternalConstants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYN_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_o:
+                elif event.key == self._pygame__module.K_o:
                     if _InternalConstants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYO_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_p:
+                elif event.key == self._pygame__module.K_p:
                     if _InternalConstants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYP_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_q:
+                elif event.key == self._pygame__module.K_q:
                     if _InternalConstants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYQ_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_r:
+                elif event.key == self._pygame__module.K_r:
                     if _InternalConstants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYR_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_s:
+                elif event.key == self._pygame__module.K_s:
                     if _InternalConstants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_t:
+                elif event.key == self._pygame__module.K_t:
                     if _InternalConstants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_u:
+                elif event.key == self._pygame__module.K_u:
                     if _InternalConstants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYU_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_v:
+                elif event.key == self._pygame__module.K_v:
                     if _InternalConstants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYV_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_w:
+                elif event.key == self._pygame__module.K_w:
                     if _InternalConstants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYW_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_x:
+                elif event.key == self._pygame__module.K_x:
                     if _InternalConstants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYX_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_y:
+                elif event.key == self._pygame__module.K_y:
                     if _InternalConstants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYY_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_z:
+                elif event.key == self._pygame__module.K_z:
                     if _InternalConstants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRIMARYZ_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_DELETE:
+                elif event.key == self._pygame__module.K_DELETE:
                     if _InternalConstants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DELETE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP0:
+                elif event.key == self._pygame__module.K_KP0:
                     if _InternalConstants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD0_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP1:
+                elif event.key == self._pygame__module.K_KP1:
                     if _InternalConstants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD1_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP2:
+                elif event.key == self._pygame__module.K_KP2:
                     if _InternalConstants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD2_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP3:
+                elif event.key == self._pygame__module.K_KP3:
                     if _InternalConstants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD3_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP4:
+                elif event.key == self._pygame__module.K_KP4:
                     if _InternalConstants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD4_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP5:
+                elif event.key == self._pygame__module.K_KP5:
                     if _InternalConstants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD5_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP6:
+                elif event.key == self._pygame__module.K_KP6:
                     if _InternalConstants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD6_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP7:
+                elif event.key == self._pygame__module.K_KP7:
                     if _InternalConstants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD7_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP8:
+                elif event.key == self._pygame__module.K_KP8:
                     if _InternalConstants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD8_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP9:
+                elif event.key == self._pygame__module.K_KP9:
                     if _InternalConstants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPAD9_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_PERIOD:
+                elif event.key == self._pygame__module.K_KP_PERIOD:
                     if _InternalConstants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADPERIOD_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_DIVIDE:
+                elif event.key == self._pygame__module.K_KP_DIVIDE:
                     if _InternalConstants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADDIVIDE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_MULTIPLY:
+                elif event.key == self._pygame__module.K_KP_MULTIPLY:
                     if _InternalConstants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_MINUS:
+                elif event.key == self._pygame__module.K_KP_MINUS:
                     if _InternalConstants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADMINUS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_PLUS:
+                elif event.key == self._pygame__module.K_KP_PLUS:
                     if _InternalConstants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADPLUS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_ENTER:
+                elif event.key == self._pygame__module.K_KP_ENTER:
                     if _InternalConstants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADENTER_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_KP_EQUALS:
+                elif event.key == self._pygame__module.K_KP_EQUALS:
                     if _InternalConstants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMPADEQUALS_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_UP:
+                elif event.key == self._pygame__module.K_UP:
                     if _InternalConstants.UP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.UP_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_DOWN:
+                elif event.key == self._pygame__module.K_DOWN:
                     if _InternalConstants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.DOWN_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RIGHT:
+                elif event.key == self._pygame__module.K_RIGHT:
                     if _InternalConstants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LEFT:
+                elif event.key == self._pygame__module.K_LEFT:
                     if _InternalConstants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_INSERT:
+                elif event.key == self._pygame__module.K_INSERT:
                     if _InternalConstants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.INSERT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_HOME:
+                elif event.key == self._pygame__module.K_HOME:
                     if _InternalConstants.HOME_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.HOME_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_END:
+                elif event.key == self._pygame__module.K_END:
                     if _InternalConstants.END_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.END_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_PAGEUP:
+                elif event.key == self._pygame__module.K_PAGEUP:
                     if _InternalConstants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PAGEUP_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_PAGEDOWN:
+                elif event.key == self._pygame__module.K_PAGEDOWN:
                     if _InternalConstants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PAGEDOWN_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F1:
+                elif event.key == self._pygame__module.K_F1:
                     if _InternalConstants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION1_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F2:
+                elif event.key == self._pygame__module.K_F2:
                     if _InternalConstants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION2_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F3:
+                elif event.key == self._pygame__module.K_F3:
                     if _InternalConstants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION3_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F4:
+                elif event.key == self._pygame__module.K_F4:
                     if _InternalConstants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION4_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F5:
+                elif event.key == self._pygame__module.K_F5:
                     if _InternalConstants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION5_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F6:
+                elif event.key == self._pygame__module.K_F6:
                     if _InternalConstants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION6_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F7:
+                elif event.key == self._pygame__module.K_F7:
                     if _InternalConstants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION7_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F8:
+                elif event.key == self._pygame__module.K_F8:
                     if _InternalConstants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION8_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F9:
+                elif event.key == self._pygame__module.K_F9:
                     if _InternalConstants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION9_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F10:
+                elif event.key == self._pygame__module.K_F10:
                     if _InternalConstants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION10_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F11:
+                elif event.key == self._pygame__module.K_F11:
                     if _InternalConstants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION11_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F12:
+                elif event.key == self._pygame__module.K_F12:
                     if _InternalConstants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION12_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F13:
+                elif event.key == self._pygame__module.K_F13:
                     if _InternalConstants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION13_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F14:
+                elif event.key == self._pygame__module.K_F14:
                     if _InternalConstants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION14_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_F15:
+                elif event.key == self._pygame__module.K_F15:
                     if _InternalConstants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.FUNCTION15_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_NUMLOCK:
+                elif event.key == self._pygame__module.K_NUMLOCK:
                     if _InternalConstants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.NUMLOCK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_CAPSLOCK:
+                elif event.key == self._pygame__module.K_CAPSLOCK:
                     if _InternalConstants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.CAPSLOCK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_SCROLLOCK:
+                elif event.key == self._pygame__module.K_SCROLLOCK:
                     if _InternalConstants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SCROLLLOCK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RSHIFT:
+                elif event.key == self._pygame__module.K_RSHIFT:
                     if _InternalConstants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTSHIFT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LSHIFT:
+                elif event.key == self._pygame__module.K_LSHIFT:
                     if _InternalConstants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTSHIFT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RCTRL:
+                elif event.key == self._pygame__module.K_RCTRL:
                     if _InternalConstants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTCONTROL_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LCTRL:
+                elif event.key == self._pygame__module.K_LCTRL:
                     if _InternalConstants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTCONTROL_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RALT:
+                elif event.key == self._pygame__module.K_RALT:
                     if _InternalConstants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTALT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LALT:
+                elif event.key == self._pygame__module.K_LALT:
                     if _InternalConstants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTALT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RMETA:
+                elif event.key == self._pygame__module.K_RMETA:
                     if _InternalConstants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTMETA_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LMETA:
+                elif event.key == self._pygame__module.K_LMETA:
                     if _InternalConstants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTMETA_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_LSUPER:
+                elif event.key == self._pygame__module.K_LSUPER:
                     if _InternalConstants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.LEFTSUPER_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_RSUPER:
+                elif event.key == self._pygame__module.K_RSUPER:
                     if _InternalConstants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.RIGHTSUPER_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_MODE:
+                elif event.key == self._pygame__module.K_MODE:
                     if _InternalConstants.MODE_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.MODE_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_HELP:
+                elif event.key == self._pygame__module.K_HELP:
                     if _InternalConstants.HELP_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.HELP_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_PRINT:
+                elif event.key == self._pygame__module.K_PRINT:
                     if _InternalConstants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.PRINT_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_SYSREQ:
+                elif event.key == self._pygame__module.K_SYSREQ:
                     if _InternalConstants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.SYSTEMREQUEST_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_BREAK:
+                elif event.key == self._pygame__module.K_BREAK:
                     if _InternalConstants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.BREAK_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_MENU:
+                elif event.key == self._pygame__module.K_MENU:
                     if _InternalConstants.MENU_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.MENU_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_POWER:
+                elif event.key == self._pygame__module.K_POWER:
                     if _InternalConstants.POWER_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.POWER_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_EURO:
+                elif event.key == self._pygame__module.K_EURO:
                     if _InternalConstants.EURO_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.EURO_KEY_OBJECT].set_pressed(False)
 
-                elif event.key == _pygame__K_AC_BACK:
+                elif event.key == self._pygame__module.K_AC_BACK:
                     if _InternalConstants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine:
                         _Registry.pmma_module_spine[_InternalConstants.ANDROIDBACK_KEY_OBJECT].set_pressed(False)
 
-            elif event.type == _pygame__MULTIGESTURE:
+            elif event.type == self._pygame__module.MULTIGESTURE:
                 if _InternalConstants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_x(event.x)
                     _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_gesture_center_y(event.y)
@@ -1840,90 +1520,90 @@ then enable it to see if it fixes or improves a desired feature.")
                     _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_rotated_value(event.rotated)
                     _Registry.pmma_module_spine[_InternalConstants.MULTIGESTURE_EVENT_OBJECT].set_pinched_value(event.pinched)
 
-            elif event.type == _pygame__QUIT:
+            elif event.type == self._pygame__module.QUIT:
                 if _InternalConstants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.QUIT_EVENT_OBJECT].set_value(True)
                 if handle_exit_events:
                     _Registry.running = False
                     _Backpack.running = False
 
-            elif event.type == _pygame__RENDER_TARGETS_RESET:
+            elif event.type == self._pygame__module.RENDER_TARGETS_RESET:
                 if _InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__RENDER_DEVICE_RESET:
+            elif event.type == self._pygame__module.RENDER_DEVICE_RESET:
                 if _InternalConstants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__SYSWMEVENT:
+            elif event.type == self._pygame__module.SYSWMEVENT:
                 if _InternalConstants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.SYSWMEVENT_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWSHOWN:
+            elif event.type == self._pygame__module.WINDOWSHOWN:
                 if _InternalConstants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWSHOWN_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWHIDDEN:
+            elif event.type == self._pygame__module.WINDOWHIDDEN:
                 if _InternalConstants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWEXPOSED:
+            elif event.type == self._pygame__module.WINDOWEXPOSED:
                 if _InternalConstants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWMOVED:
+            elif event.type == self._pygame__module.WINDOWMOVED:
                 if _InternalConstants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWMOVED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWRESIZED or event.type == _pygame__WINDOWSIZECHANGED:
+            elif event.type == self._pygame__module.WINDOWRESIZED or event.type == self._pygame__module.WINDOWSIZECHANGED:
                 if _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWRESIZED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWMINIMIZED:
+            elif event.type == self._pygame__module.WINDOWMINIMIZED:
                 if _InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWMAXIMIZED:
+            elif event.type == self._pygame__module.WINDOWMAXIMIZED:
                 if _InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWRESTORED:
+            elif event.type == self._pygame__module.WINDOWRESTORED:
                 if _InternalConstants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWRESTORED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWENTER:
+            elif event.type == self._pygame__module.WINDOWENTER:
                 if _InternalConstants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWENTER_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWLEAVE:
+            elif event.type == self._pygame__module.WINDOWLEAVE:
                 if _InternalConstants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWLEAVE_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWFOCUSGAINED:
+            elif event.type == self._pygame__module.WINDOWFOCUSGAINED:
                 if _InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWFOCUSLOST:
+            elif event.type == self._pygame__module.WINDOWFOCUSLOST:
                 if _InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWCLOSE:
+            elif event.type == self._pygame__module.WINDOWCLOSE:
                 if _InternalConstants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWCLOSE_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWTAKEFOCUS:
+            elif event.type == self._pygame__module.WINDOWTAKEFOCUS:
                 if _InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWHITTEST:
+            elif event.type == self._pygame__module.WINDOWHITTEST:
                 if _InternalConstants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWHITTEST_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWICCPROFCHANGED:
+            elif event.type == self._pygame__module.WINDOWICCPROFCHANGED:
                 if _InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT].set_value(True)
 
-            elif event.type == _pygame__WINDOWDISPLAYCHANGED:
+            elif event.type == self._pygame__module.WINDOWDISPLAYCHANGED:
                 if _InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine:
                     _Registry.pmma_module_spine[_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT].set_value(True)
 
