@@ -337,7 +337,7 @@ class GeneralIntermediary:
         _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_development(
             "PMMA is now exiting. Thanks for using PMMA!")
 
-        save_configuration()
+        self._internal_PMMA_configurator_intermediary.save_configuration()
 
         if _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine:
             _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
@@ -540,7 +540,7 @@ class GeneralIntermediary:
             # If the platform is Windows and nvidia-smi
             # could not be found from the environment path,
             # try to find it from system drive with default installation path
-            nvidia_smi = self._distutils__module.find_executable("nvidia-smi")
+            nvidia_smi = self._distutils__module.spawn.find_executable("nvidia-smi")
             if nvidia_smi is None:
                 nvidia_smi = f"{_os__environ['systemdrive']}\\Program Files\\NVIDIA Corporation\\NVSMI\\nvidia-smi.exe"
                 if not _os__path.isfile(nvidia_smi):

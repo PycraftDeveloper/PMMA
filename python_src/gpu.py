@@ -1,5 +1,3 @@
-from threading import Thread as _threading__Thread
-
 try:
     import pyadl as _pyadl
     pyadl_available = True
@@ -9,14 +7,16 @@ except Exception as error:
     else:
         raise error
 
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.constants import Constants as _Constants
-from pmma.python_src.executor import Executor as _Executor
-
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+
+from pmma.python_src.executor import Executor as _Executor
+
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
@@ -35,8 +35,6 @@ class GPUs:
         🟩 **R** -
         """
         _initialize(self)
-
-        self._internal_general_utils = _GeneralIntermediary()
 
         if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
             _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
@@ -78,6 +76,10 @@ class GPU:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._threading__module = _ModuleManager.import_module("threading")
+
+        self._internal_general_utils = _GeneralIntermediary()
 
         self._module_identification_indices = module_identification_indices
         self._executor = _Executor()
@@ -511,7 +513,7 @@ make sure that you are able to pass through the GPU device.")
         if wait_for_completion:
             self._update(everything=everything, data_points=data_points)
         else:
-            thread = _threading__Thread(target=self._update, args=(everything, data_points))
+            thread = self._threading__module.Thread(target=self._update, args=(everything, data_points))
             thread.daemon = True
             thread.name = "GPU:Update_Data_Thread"
             thread.start()

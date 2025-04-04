@@ -1,12 +1,7 @@
-from subprocess import run as _subprocess__run
-from subprocess import CalledProcessError as _subprocess__CalledProcessError
-from subprocess import Popen as _subprocess__Popen
-from subprocess import PIPE as _subprocess__PIPE
-from threading import Thread as _threading__Thread
-
 from pmma.python_src.constants import Constants as _Constants
-
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
@@ -21,6 +16,9 @@ class Executor:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._threading__module = _ModuleManager.import_module("threading")
+        self._subprocess__module = _ModuleManager.import_module("subprocess")
 
         self._internal_general_utils = _GeneralIntermediary()
 
@@ -43,7 +41,7 @@ class Executor:
         self._exit_code = None
         self._result = None
 
-        self._thread = _threading__Thread(target=self._run, args=(command, hide_window,))
+        self._thread = self._threading__module.Thread(target=self._run, args=(command, hide_window,))
         self._thread.name = "Executor:Execution_Thread"
         if blocking is False:
             self._thread.daemon = True
@@ -61,9 +59,9 @@ class Executor:
         try:
             if command_type == list or command_type == tuple:
                 if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
-                    result = _subprocess__run(command, capture_output=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
+                    result = self._subprocess__module.run(command, capture_output=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
                 else:
-                    result = _subprocess__run(command, capture_output=True, text=True)
+                    result = self._subprocess__module.run(command, capture_output=True, text=True)
             else:
                 self._logger.log_development("You are not using an array of arguments as your command. \
 This has the potential to be less secure, especially when using the user's input as a \
@@ -72,13 +70,13 @@ command. It is strongly recommended that you change your approach to use a list 
 its arguments, leading to unsecure commands being run on the host system!")
 
                 if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
-                    result = _subprocess__run(command, shell=True, capture_output=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
+                    result = self._subprocess__module.run(command, shell=True, capture_output=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
                 else:
-                    result = _subprocess__run(command, shell=True, capture_output=True, text=True)
+                    result = self._subprocess__module.run(command, shell=True, capture_output=True, text=True)
 
             self._result = result.stdout
             self._exit_code = result.returncode
-        except _subprocess__CalledProcessError as result:
+        except self._subprocess__module.CalledProcessError as result:
             self._result = result.output
             self._exit_code = result.returncode
 
@@ -107,6 +105,8 @@ class AdvancedExecutor:
         """
         _initialize(self)
 
+        self._threading__module = _ModuleManager.import_module("threading")
+
         self._exit_code = None
         self._result = ""
         self._thread = None
@@ -131,7 +131,7 @@ class AdvancedExecutor:
             self._exit_code = None
             self._result = ""
 
-            self._thread = _threading__Thread(target=self._update_result, args=(command, hide_window,))
+            self._thread = self._threading__module.Thread(target=self._update_result, args=(command, hide_window,))
             self._thread.daemon = True
             self._thread.name = "AdvancedExecutor:Execution_Thread"
             self._thread.start()
@@ -163,9 +163,9 @@ class AdvancedExecutor:
         command_type = type(command)
         if command_type == list or command_type == tuple:
             if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
-                process = _subprocess__Popen(command, stdout=_subprocess__PIPE, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
+                process = self._subprocess__module.Popen(command, stdout=self._subprocess__module.PIPE, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
             else:
-                process = _subprocess__Popen(command, stdout=_subprocess__PIPE, text=True)
+                process = self._subprocess__module.Popen(command, stdout=self._subprocess__module.PIPE, text=True)
         else:
             self._logger.log_development("You are not using an array of arguments as your command. \
 This has the potential to be less secure, especially when using the user's input as a \
@@ -174,9 +174,9 @@ command. It is strongly recommended that you change your approach to use a list 
 its arguments, leading to unsecure commands being run on the host system!")
 
             if hide_window and self._internal_general_utils.get_operating_system() == _Constants.WINDOWS:
-                process = _subprocess__Popen(command, stdout=_subprocess__PIPE, shell=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
+                process = self._subprocess__module.Popen(command, stdout=self._subprocess__module.PIPE, shell=True, text=True, creationflags=_InternalConstants.CREATE_NO_WINDOW)
             else:
-                process = _subprocess__Popen(command, stdout=_subprocess__PIPE, shell=True, text=True)
+                process = self._subprocess__module.Popen(command, stdout=self._subprocess__module.PIPE, shell=True, text=True)
 
         result = ""
         while True:

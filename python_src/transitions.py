@@ -1,13 +1,10 @@
-from time import perf_counter as _time__perf_counter
-
-from numpy import ndarray as _numpy__ndarray
-
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
@@ -20,6 +17,9 @@ class Transition:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._numpy__module = _ModuleManager.import_module("numpy")
+        self._time__module = _ModuleManager.import_module("time")
 
         self._animation_start = None
         self._animation_end = None
@@ -50,10 +50,10 @@ class Transition:
         """
         🟩 **R** -
         """
-        if type(start) == _numpy__ndarray:
+        if type(start) == self._numpy__module.ndarray:
             start = start.tolist()
 
-        if type(end) == _numpy__ndarray:
+        if type(end) == self._numpy__module.ndarray:
             end = end.tolist()
 
         self._animation_object = object
@@ -194,7 +194,7 @@ creating your transition?")
         """
         🟩 **R** -
         """
-        now_time = _time__perf_counter()
+        now_time = self._time__module.perf_counter()
         self._animation_duration -= (now_time - self._animation_start_time)
         self._animation_running = False
 
@@ -202,7 +202,7 @@ creating your transition?")
         """
         🟩 **R** -
         """
-        self._animation_start_time = _time__perf_counter()
+        self._animation_start_time = self._time__module.perf_counter()
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 
@@ -210,7 +210,7 @@ creating your transition?")
         """
         🟩 **R** -
         """
-        self._animation_start_time = _time__perf_counter()
+        self._animation_start_time = self._time__module.perf_counter()
         self._animation_end_time = self._animation_start_time + self._animation_duration
         self._animation_running = True
 

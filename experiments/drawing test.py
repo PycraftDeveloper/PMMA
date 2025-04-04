@@ -58,6 +58,8 @@ polygon = pmma.Lines()
 polygon.set_color([255, 0, 255])
 polygon.set_points([(100, 100), (200, 100), (200, 200), (100, 200), (900, 100)])
 
+general = pmma.General()
+
 s = time.perf_counter()
 while pmma.Backpack.running:
     a = time.perf_counter()
@@ -81,9 +83,9 @@ while pmma.Backpack.running:
 
     #radial_polygon.set_point_count(4)
 
-    rectangle.set_corner_radius(int((1+math.sin(pmma.get_application_run_time()))*50))
-    #print(int((1+math.sin(pmma.get_application_run_time()))*10))
-    radial_polygon.set_point_count(int((1+math.sin(pmma.get_application_run_time()))*10))
+    rectangle.set_corner_radius(int((1+math.sin(general.get_application_run_time()))*50))
+    #print(int((1+math.sin(general.get_application_run_time()))*10))
+    radial_polygon.set_point_count(int((1+math.sin(general.get_application_run_time()))*10))
 
     #line.set_end((500, 60*(time.perf_counter()-start)))
 
@@ -94,7 +96,7 @@ while pmma.Backpack.running:
     arc.set_rotation((time.perf_counter()-s)*50)
     #polygon.set_rotation((time.perf_counter()-s)*10)
 
-    pmma.compute()
+    general.compute()
     end = time.perf_counter()
 
     display.refresh(refresh_rate=75)

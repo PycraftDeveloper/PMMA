@@ -1,9 +1,5 @@
-from numpy import append as _numpy__append
-from numpy import array as _numpy__array
-from numpy import float64 as _numpy__float64
-from numpy import delete as _numpy__delete
-
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 class Stack:
     """
@@ -278,8 +274,10 @@ class PriorityQueue:
         """
         _initialize(self)
 
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = _numpy__array([], dtype=[('priority', _numpy__float64), ('value', object)])
+        self._heap = self._numpy__module.array([], dtype=[('priority', self._numpy__module.float64), ('value', object)])
         self._has_changed = False
 
     def enqueue(self, value, priority):
@@ -287,8 +285,8 @@ class PriorityQueue:
         🟩 **R** - Insert a new value with the given priority into the priority queue.
         """
         # Append the new (priority, value) tuple to the heap
-        new_item = _numpy__array([(priority, value)], dtype=self._heap.dtype)
-        self._heap = _numpy__append(self._heap, new_item)
+        new_item = self._numpy__module.array([(priority, value)], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the max-heap property based on priority
         self._sift_up(len(self._heap) - 1)
         self._has_changed = True
@@ -304,7 +302,7 @@ class PriorityQueue:
 
             # Move the last element to the root and then heapify down
             self._heap[0] = self._heap[-1]
-            self._heap = _numpy__delete(self._heap, -1)
+            self._heap = self._numpy__module.delete(self._heap, -1)
 
             # Perform down-heap bubbling to maintain the max-heap property
             self._sift_down(0)
@@ -367,7 +365,7 @@ class PriorityQueue:
         """
         🟩 **R** - Remove all elements from the queue.
         """
-        self._heap = _numpy__array([], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.array([], dtype=self._heap.dtype)
         self._has_changed = True
 
     def changed(self):
@@ -394,8 +392,10 @@ class InvertedPriorityQueue:
         """
         _initialize(self)
 
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = _numpy__array([], dtype=[('priority', _numpy__float64), ('value', object)])
+        self._heap = self._numpy__module.array([], dtype=[('priority', self._numpy__module.float64), ('value', object)])
         self._has_changed = False
 
     def enqueue(self, value, priority):
@@ -403,8 +403,8 @@ class InvertedPriorityQueue:
         🟩 **R** - Insert a new value with the given priority into the priority queue.
         """
         # Append the new (priority, value) tuple to the heap
-        new_item = _numpy__array([(priority, value)], dtype=self._heap.dtype)
-        self._heap = _numpy__append(self._heap, new_item)
+        new_item = self._numpy__module.array([(priority, value)], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the min-heap property based on priority
         self._sift_up(len(self._heap) - 1)
         self._has_changed = True
@@ -420,7 +420,7 @@ class InvertedPriorityQueue:
 
             # Move the last element to the root and then heapify down
             self._heap[0] = self._heap[-1]
-            self._heap = _numpy__delete(self._heap, -1)
+            self._heap = self._numpy__module.delete(self._heap, -1)
 
             # Perform down-heap bubbling to maintain the min-heap property
             self._sift_down(0)
@@ -483,7 +483,7 @@ class InvertedPriorityQueue:
         """
         🟩 **R** - Remove all elements from the queue.
         """
-        self._heap = _numpy__array([], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.array([], dtype=self._heap.dtype)
         self._has_changed = True
 
     def changed(self):
@@ -510,8 +510,10 @@ class PriorityList:
         """
         _initialize(self)
 
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = _numpy__array([], dtype=[('priority', _numpy__float64), ('value', object)])
+        self._heap = self._numpy__module.array([], dtype=[('priority', self._numpy__module.float64), ('value', object)])
         self._has_changed = False
 
     def add(self, value, priority):
@@ -519,8 +521,8 @@ class PriorityList:
         🟩 **R** - Insert a new value with the given priority into the priority queue.
         """
         # Append the new (priority, value) tuple to the heap
-        new_item = _numpy__array([(priority, value)], dtype=self._heap.dtype)
-        self._heap = _numpy__append(self._heap, new_item)
+        new_item = self._numpy__module.array([(priority, value)], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the max-heap property based on priority
         self._sift_up(len(self._heap) - 1)
         self._has_changed = True
@@ -531,7 +533,7 @@ class PriorityList:
         """
         for i in range(len(self._heap)):
             if self._heap[i]['value'] == item:
-                self._heap = _numpy__delete(self._heap, i)
+                self._heap = self._numpy__module.delete(self._heap, i)
                 self._has_changed = True
                 break
 
@@ -547,7 +549,7 @@ class PriorityList:
 
             # Move the last element to the root and then heapify down
             self._heap[0] = self._heap[-1]
-            self._heap = _numpy__delete(self._heap, -1)
+            self._heap = self._numpy__module.delete(self._heap, -1)
 
             # Perform down-heap bubbling to maintain the max-heap property
             self._sift_down(0)
@@ -624,7 +626,7 @@ class PriorityList:
         """
         🟩 **R** - Remove all elements from the queue.
         """
-        self._heap = _numpy__array([], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.array([], dtype=self._heap.dtype)
         self._has_changed = True
 
     def changed(self):
@@ -651,8 +653,10 @@ class InvertedPriorityList:
         """
         _initialize(self)
 
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = _numpy__array([], dtype=[('priority', _numpy__float64), ('value', object)])
+        self._heap = self._numpy__module.array([], dtype=[('priority', self._numpy__module.float64), ('value', object)])
         self._has_changed = False
 
     def add(self, value, priority):
@@ -660,8 +664,8 @@ class InvertedPriorityList:
         🟩 **R** - Insert a new value with the given priority into the priority queue.
         """
         # Append the new (priority, value) tuple to the heap
-        new_item = _numpy__array([(priority, value)], dtype=self._heap.dtype)
-        self._heap = _numpy__append(self._heap, new_item)
+        new_item = self._numpy__module.array([(priority, value)], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the min-heap property based on priority
         self._sift_up(len(self._heap) - 1)
         self._has_changed = True
@@ -678,7 +682,7 @@ class InvertedPriorityList:
 
             # Move the last element to the root and then heapify down
             self._heap[0] = self._heap[-1]
-            self._heap = _numpy__delete(self._heap, -1)
+            self._heap = self._numpy__module.delete(self._heap, -1)
 
             # Perform down-heap bubbling to maintain the min-heap property
             self._sift_down(0)
@@ -706,7 +710,7 @@ class InvertedPriorityList:
         """
         for i in range(len(self._heap)):
             if self._heap[i]['value'] == item:
-                self._heap = _numpy__delete(self._heap, i)
+                self._heap = self._numpy__module.delete(self._heap, i)
                 self._has_changed = True
                 break
 
@@ -766,7 +770,7 @@ class InvertedPriorityList:
         """
         🟩 **R** - Remove all elements from the queue.
         """
-        self._heap = _numpy__array([], dtype=self._heap.dtype)
+        self._heap = self._numpy__module.array([], dtype=self._heap.dtype)
         self._has_changed = True
 
     def changed(self):

@@ -1,20 +1,14 @@
 from os import path as _os__path
 from os import mkdir as _os__mkdir
-from os import remove as _os__remove
-from os import rename as _os__rename
-from os import walk as _os__walk
-from os import sep as _os__sep
-from shutil import move as _shutil__move
 
-from send2trash import send2trash as _send2trash__send2trash
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.constants import Constants as _Constants
-
-from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWatcher
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+from pmma.python_src.utility.registry_utils import Registry as _Registry
+
+from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
+from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWatcher
 
 def path_builder(*args):
     """
@@ -39,6 +33,11 @@ class File:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._shutil__module = _ModuleManager.import_module("shutil")
+        self._os__module = _ModuleManager.import_module("os")
+
+        self._send2trash__module = _ModuleManager.import_module("send2trash")
 
         self._file_path = file_path
 
@@ -88,20 +87,20 @@ class File:
         """
         🟩 **R** -
         """
-        _shutil__move(self._file_path, new_path)
+        self._shutil__module.move(self._file_path, new_path)
         self._file_path = new_path
 
     def delete(self):
         """
         🟩 **R** -
         """
-        _os__remove(self._file_path)
+        self._os__module.remove(self._file_path)
 
     def recycle(self):
         """
         🟩 **R** -
         """
-        _send2trash__send2trash(self._file_path)
+        self._send2trash__module.send2trash(self._file_path)
 
     def rename(self, new_name):
         """
@@ -109,7 +108,7 @@ class File:
         """
         file_type = self.get_file_type()
         new_file_path = _os__path.dirname(self._file_path) + _Constants.PATH_SEPARATOR + new_name + "." + file_type
-        _os__rename(self._file_path, new_file_path)
+        self._os__module.rename(self._file_path, new_file_path)
         self._file_path = new_file_path
 
     def read(self):
@@ -135,6 +134,8 @@ class FileCore:
         🟩 **R** -
         """
         _initialize(self, unique_instance=_InternalConstants.FILECORE_OBJECT, add_to_pmma_module_spine=True)
+
+        self._os__module = _ModuleManager.import_module("os")
 
         self._locations = []
         self._file_matrix = {}
@@ -191,7 +192,7 @@ class FileCore:
         self._file_matrix = {}
         construction_matrix = {}
         for location in self._locations:
-            for root, subdirs, files in _os__walk(location):
+            for root, subdirs, files in self._os__module.walk(location):
                 for file in files:
                     file_path = _os__path.join(root, file)
                     if file not in construction_matrix:
@@ -202,8 +203,8 @@ class FileCore:
 
                         new_file = file_path
 
-                        original_file_split = original_file.split(_os__sep)
-                        new_file_split = new_file.split(_os__sep)
+                        original_file_split = original_file.split(_Constants.PATH_SEPARATOR)
+                        new_file_split = new_file.split(_Constants.PATH_SEPARATOR)
 
                         original_identifier = original_file_split[-1]
                         new_identifier = new_file_split[-1]
@@ -212,8 +213,8 @@ class FileCore:
                         del new_file_split[-1]
 
                         while original_identifier == new_identifier:
-                            original_identifier = original_file_split[-1] + _os__sep + original_identifier
-                            new_identifier = new_file_split[-1] + _os__sep + new_identifier
+                            original_identifier = original_file_split[-1] + _Constants.PATH_SEPARATOR + original_identifier
+                            new_identifier = new_file_split[-1] + _Constants.PATH_SEPARATOR + new_identifier
 
                             del original_file_split[-1]
                             del new_file_split[-1]
