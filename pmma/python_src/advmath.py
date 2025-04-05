@@ -22,7 +22,7 @@ class Math:
             if _MathIntermediary.math_module is None:
                 math_module = _importlib__import_module(
                     "pmma.bin.math_utils")
-                _MathIntermediary.math_module = math_module.AdvancedMathIntermediary()
+                _MathIntermediary.math_module = math_module
 
         else:
             if _MathIntermediary.math_module is None:
