@@ -1,5 +1,4 @@
-import random
-import math
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 PERMUTATION_SIZE = 512
 
@@ -51,6 +50,9 @@ class PerlinNoise:
         """
         🟩 **R** -
         """
+        self._random__module = _ModuleManager.import_module("random")
+        self._math__module = _ModuleManager.import_module("math")
+
         self.p = [0]*512
         self.init_permutation(seed)
         self.octaves = octaves
@@ -65,9 +67,9 @@ class PerlinNoise:
         for i in range(256):
             perm[i] = i
 
-        random.seed(seed)
+        self._random__module.seed(seed)
         for i in range(255, 0, -1):
-            j = random.randint(0, i+1)
+            j = self._random__module.randint(0, i+1)
             temp = perm[i]
             perm[i] = perm[j]
             perm[j] = temp
@@ -79,8 +81,8 @@ class PerlinNoise:
         """
         🟩 **R** -
         """
-        X = int(math.floor(x)) & 255
-        x -= math.floor(x)
+        X = int(self._math__module.floor(x)) & 255
+        x -= self._math__module.floor(x)
 
         u = fade(x)
 
@@ -93,10 +95,10 @@ class PerlinNoise:
         """
         🟩 **R** -
         """
-        X = int(math.floor(x)) & 255
-        Y = int(math.floor(y)) & 255
-        x -= math.floor(x)
-        y -= math.floor(y)
+        X = int(self._math__module.floor(x)) & 255
+        Y = int(self._math__module.floor(y)) & 255
+        x -= self._math__module.floor(x)
+        y -= self._math__module.floor(y)
 
         u = fade(x)
         v = fade(y)
@@ -111,12 +113,12 @@ class PerlinNoise:
         """
         🟩 **R** -
         """
-        X = int(math.floor(x)) & 255
-        Y = int(math.floor(y)) & 255
-        Z = int(math.floor(z)) & 255
-        x -= math.floor(x)
-        y -= math.floor(y)
-        z -= math.floor(z)
+        X = int(self._math__module.floor(x)) & 255
+        Y = int(self._math__module.floor(y)) & 255
+        Z = int(self._math__module.floor(z)) & 255
+        x -= self._math__module.floor(x)
+        y -= self._math__module.floor(y)
+        z -= self._math__module.floor(z)
 
         u = fade(x)
         v = fade(y)

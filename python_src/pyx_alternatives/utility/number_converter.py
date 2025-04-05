@@ -1,7 +1,5 @@
-from colorsys import hsv_to_rgb as _colorsys__hsv_to_rgb
-from colorsys import rgb_to_hsv as _colorsys__rgb_to_hsv
 
-import numpy as _numpy
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.constants import Constants
 
@@ -19,6 +17,9 @@ class Color:
         """
         🟩 **R** -
         """
+        self._coloysys__module = _ModuleManager.import_module("colorsys")
+
+        self._numpy__module = _ModuleManager.import_module("numpy")
 
         self._GeneralIntermediary = GeneralIntermediary()
         self.in_type = None
@@ -41,19 +42,19 @@ class Color:
         elif sorted_in_type == Constants.SORTED_RGB:
             self.color = color_list + [255]
         elif sorted_in_type == Constants.SORTED_HSL:
-            self.color = list(_colorsys__hsv_to_rgb(
+            self.color = list(self._coloysys__module.hsv_to_rgb(
                 color_list[0] / 360,
                 color_list[1] / 100,
                 color_list[2] / 100)) + [255]
         elif sorted_in_type == Constants.SORTED_HSLA:
-            self.color = list(_colorsys__hsv_to_rgb(
+            self.color = list(self._coloysys__module.hsv_to_rgb(
                 color_list[0] / 360,
                 color_list[1] / 100,
                 color_list[2] / 100)) + [(color_list[3] / 100) * 255]
         elif sorted_in_type == Constants.SORTED_SMALL_HSL:
-            self.color = list(_colorsys__hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255]
+            self.color = list(self._coloysys__module.hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255]
         elif sorted_in_type == Constants.SORTED_SMALL_HSLA:
-            self.color = list(_colorsys__hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255 * color_list[3]]
+            self.color = list(self._coloysys__module.hsv_to_rgb(color_list[0], color_list[1], color_list[2])) + [255 * color_list[3]]
         elif sorted_in_type == Constants.SORTED_SMALL_RGB:
             self.color = [color_list[0] * 255, color_list[1] * 255, color_list[2] * 255, 255]
         elif sorted_in_type == Constants.SORTED_SMALL_RGBA:
@@ -72,7 +73,7 @@ class Color:
         red_percentage = red / 255
         green_percentage = green / 255
         blue_percentage = blue / 255
-        color_hsv_percentage = _colorsys__rgb_to_hsv(
+        color_hsv_percentage = self._coloysys__module.rgb_to_hsv(
             red_percentage, green_percentage, blue_percentage)
         color_h = 360 * color_hsv_percentage[0]
 
@@ -92,28 +93,28 @@ class Color:
             return None
         sorted_out_type = sorted(out_type)
         if sorted_out_type == Constants.SORTED_RGBA:
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.RGBA, self.color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.RGBA, self.color, out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_RGB:
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.RGB, self.color[0:3], out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.RGB, self.color[0:3], out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_HSL:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2]))
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.HSL, color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.HSL, color, out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_HSLA:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2])) + [round((100 / 255) * self.color[3])]
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.HSLA, color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.HSLA, color, out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSL:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2], per_maximum=1, do_round=False))
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_HSL, color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.SMALL_HSL, color, out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_HSLA:
             color = list(self.__convert_rgb_to_hsv(self.color[0], self.color[1], self.color[2], per_maximum=1, do_round=False)) + \
                     [round((1 / 255) * self.color[3])]
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_HSLA, color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.SMALL_HSLA, color, out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGB:
             color = [self.color[0] / 255, self.color[1] / 255, self.color[2] / 255]
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_RGB, color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.SMALL_RGB, color, out_type), dtype=self._numpy__module.float32)
         elif sorted_out_type == Constants.SORTED_SMALL_RGBA:
             color = [self.color[0] / 255, self.color[1] / 255, self.color[2] / 255, self.color[3] / 255]
-            return _numpy.array(self._GeneralIntermediary.swizzle(Constants.SMALL_RGBA, color, out_type), dtype=_numpy.float32)
+            return self._numpy__module.array(self._GeneralIntermediary.swizzle(Constants.SMALL_RGBA, color, out_type), dtype=self._numpy__module.float32)
         elif out_type == Constants.HEX:
             return '#%02x%02x%02x' % tuple(self.color[0:3])
         elif out_type == Constants.HEXA:
@@ -163,6 +164,8 @@ class DisplayCoordinates:
         """
         🟩 **R** -
         """
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
         self._coordinate = [0.0, 0.0]
         self._logger = _InternalLogger()
 
@@ -175,7 +178,7 @@ class DisplayCoordinates:
         """
         🟩 **R** -
         """
-        if isinstance(coordinate, (list, tuple, _numpy.ndarray)):
+        if isinstance(coordinate, (list, tuple, self._numpy__module.ndarray)):
             converted_coordinate = list(coordinate)
         else:
             converted_coordinate = [float(coordinate)]
@@ -202,11 +205,11 @@ class DisplayCoordinates:
         🟩 **R** -
         """
         if out_type == Constants.CONVENTIONAL_COORDINATES:
-            return _numpy.array(self._coordinate, dtype=_numpy.float32)
+            return self._numpy__module.array(self._coordinate, dtype=self._numpy__module.float32)
 
         elif out_type == Constants.OPENGL_COORDINATES:
             display_width = self.display_size[0]
             display_height = self.display_size[1]
             x = (2.0 * self._coordinate[0]) / display_width - 1.0
             y = 1.0 - (2.0 * self._coordinate[1]) / display_height
-            return _numpy.array([x, y], dtype=_numpy.float32)
+            return self._numpy__module.array([x, y], dtype=self._numpy__module.float32)

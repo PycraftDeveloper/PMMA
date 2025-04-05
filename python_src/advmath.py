@@ -20,13 +20,15 @@ class Math:
 
         if _Registry.cython_acceleration_available:
             if _MathIntermediary.math_module is None:
-                _MathIntermediary.math_module = _importlib__import_module(
+                math_module = _importlib__import_module(
                     "pmma.bin.math_utils")
+                _MathIntermediary.math_module = math_module.AdvancedMathIntermediary()
 
         else:
             if _MathIntermediary.math_module is None:
-                _MathIntermediary.math_module = _importlib__import_module(
+                math_module = _importlib__import_module(
                     "pmma.python_src.pyx_alternatives.utility.math_utils")
+                _MathIntermediary.math_module = math_module.AdvancedMathIntermediary()
 
     def quit(self):
         """

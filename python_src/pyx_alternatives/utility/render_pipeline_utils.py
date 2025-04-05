@@ -1,5 +1,5 @@
-import numpy as np
-import moderngl as _moderngl
+
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.opengl import GenericBufferObject as _GenericBufferObject
 from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
@@ -9,15 +9,11 @@ from pmma.python_src.file import path_builder as _path_builder
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-def repeat_array(base, N):
-    base_size = base.shape[0]
-    result = np.empty(N * base_size, dtype=np.float32)
-    for i in range(N):
-        result[i * base_size:(i + 1) * base_size] = base
-    return result
-
 class RenderPipeline:
     def __init__(self):
+        self._numpy__module = _ModuleManager.import_module("numpy")
+        self._moderngl__module = _ModuleManager.import_module("moderngl")
+
         self.aspect_ratio = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_aspect_ratio()
         self._gbo = _GenericBufferObject()
         self._gbo.set_dynamic(True)
@@ -28,20 +24,27 @@ class RenderPipeline:
         self._program.set_shader_variable("aspect_ratio", self.aspect_ratio)
         self._total_vertexes = 0
 
+    def repeat_array(self, base, N):
+        base_size = base.shape[0]
+        result = self._numpy__module.empty(N * base_size, dtype=self._numpy__module.float32)
+        for i in range(N):
+            result[i * base_size:(i + 1) * base_size] = base
+        return result
+
     def quit(self):
         self._program.quit()
         self._vao.quit()
         self._gbo.quit()
 
     def internal_update(self, shape_data, total_data_points):
-        pipeline_data = np.empty(total_data_points, dtype=np.float32)
+        pipeline_data = self._numpy__module.empty(total_data_points, dtype=self._numpy__module.float32)
         index = 0
 
         for i in range(len(shape_data)):
             vertices = shape_data[i][0]
             num_points = vertices.shape[0] // 2
-            colors = repeat_array(shape_data[i][1], num_points)
-            offsets = repeat_array(shape_data[i][2], num_points)
+            colors = self.repeat_array(shape_data[i][1], num_points)
+            offsets = self.repeat_array(shape_data[i][2], num_points)
 
             if i > 0:
                 pipeline_data[index:index+8] = pipeline_data[index-8:index]
@@ -90,4 +93,4 @@ class RenderPipeline:
         if not self._vao.get_created():
             self._vao.create(self._program, self._gbo, ["2f", "in_position", "4f", "in_color", "2f", "in_offset"])
 
-        self._vao.render(mode=_moderngl.TRIANGLE_STRIP)
+        self._vao.render(mode=self._moderngl__module.TRIANGLE_STRIP)
