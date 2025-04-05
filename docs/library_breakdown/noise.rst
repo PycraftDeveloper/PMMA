@@ -37,27 +37,33 @@ Methods
 
 .. py:method:: Perlin.generate_1D_perlin_noise_from_array() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.generate_2D_perlin_noise_from_array() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.generate_3D_perlin_noise_from_array() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.generate_1D_perlin_noise_from_range() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.generate_2D_perlin_noise_from_range() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.generate_3D_perlin_noise_from_range() -> None
 
-   Not Yet Written
+    🟩 **R** -
+    
 
 .. py:method:: Perlin.set_seed() -> None
 
