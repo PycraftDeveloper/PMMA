@@ -2,6 +2,7 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
+from pmma.python_src.constants import Constants as _Constants
 
 class Tkinter:
     """
@@ -57,16 +58,17 @@ class Tkinter:
         except:
             return (0, 0)
 
-    def set_size(self, x, y, root=None):
+    def set_window_size(self, root, x_size, y_size, x_position=_Constants.CENTER, y_position=_Constants.CENTER):
         """
         🟩 **R** -
         """
-        if root is None:
-            root = _Registry.root
+        window_size = (x_size, y_size)
 
-        screen_size = self.get_display_size()
-        window_size = (x, y)
-        centred_x_position = int((screen_size[0]-window_size[0])/2)
-        centred_y_position = int((screen_size[1]-window_size[1])/2)
+        if x_position == _Constants.CENTER or y_position == _Constants.CENTER:
+            screen_size = self.get_display_size()
+            if x_position == _Constants.CENTER:
+                x_position = int((screen_size[0]-window_size[0])/2)
+            else:
+                y_position = int((screen_size[1]-window_size[1])/2)
 
-        root.geometry(f"{window_size[0]}x{window_size[1]}+{centred_x_position}+{centred_y_position}")
+        root.geometry(f"{window_size[0]}x{window_size[1]}+{x_position}+{y_position}")
