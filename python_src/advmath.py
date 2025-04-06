@@ -68,11 +68,11 @@ class Math:
         """
         return _MathIntermediary.math_module.raw_nparray_ranger(value, old, new)
 
-    def gl_look_at(self, eye, target, up):
+    def look_at(self, eye, target, up):
         """
         🟩 **R/C** -
         """
-        return _MathIntermediary.math_module.raw_gl_look_at(eye, target, up)
+        return _MathIntermediary.math_module.raw_look_at(eye, target, up)
 
     def compute_position(self, pos, target, up):
         """
@@ -85,12 +85,6 @@ class Math:
         🟩 **R/C** -
         """
         return _MathIntermediary.math_module.raw_perspective_fov(fov, aspect_ratio, near_plane, far_plane)
-
-    def look_at(self, camera_position, camera_target, up_vector):
-        """
-        🟩 **R/C** -
-        """
-        return _MathIntermediary.math_module.raw_look_at(camera_position, camera_target, up_vector)
 
     def multiply(self, a, b):
         """
