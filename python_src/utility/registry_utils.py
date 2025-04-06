@@ -52,3 +52,4 @@ class Registry:
     application_average_frame_rate = {"Samples": 0, "Mean": 0}
     pmma_identifier = 0
     render_pipeline_acceleration_available = False
+    root = None
