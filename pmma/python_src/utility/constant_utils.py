@@ -1,4 +1,28 @@
+from pmma.python_src.constants import Constants as _Constants
+
 class InternalConstants:
+    TKINTER_STYLES = [
+        _Constants.TKINTER_STYLE_BUTTON,
+        _Constants.TKINTER_STYLE_CHECKBUTTON,
+        _Constants.TKINTER_STYLE_COMBOBOX,
+        _Constants.TKINTER_STYLE_ENTRY,
+        _Constants.TKINTER_STYLE_FRAME,
+        _Constants.TKINTER_STYLE_LABEL,
+        _Constants.TKINTER_STYLE_LABELFRAME,
+        _Constants.TKINTER_STYLE_MENUBUTTON,
+        _Constants.TKINTER_STYLE_NOTEBOOK,
+        _Constants.TKINTER_STYLE_PANEDWINDOW,
+        _Constants.TKINTER_STYLE_HORIZONTAL_PROGRESSBAR,
+        _Constants.TKINTER_STYLE_VERTICAL_PROGRESSBAR,
+        _Constants.TKINTER_STYLE_RADIOBUTTON,
+        _Constants.TKINTER_STYLE_HORIZONTAL_SCALE,
+        _Constants.TKINTER_STYLE_VERTICAL_SCALE,
+        _Constants.TKINTER_STYLE_HORIZONTAL_SCROLLBAR,
+        _Constants.TKINTER_STYLE_VERTICAL_SCROLLBAR,
+        _Constants.TKINTER_STYLE_SEPARATOR,
+        _Constants.TKINTER_STYLE_SIZEGRIP,
+        _Constants.TKINTER_STYLE_TREEVIEW
+    ]
     LINE = "line"
     RADIAL_POLYGON = "radial polygon"
     RECTANGLE = "rectangle"

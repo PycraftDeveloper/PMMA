@@ -6,6 +6,27 @@ class Constants:
     """
     🟩 **R** -
     """
+    TKINTER_STYLE_BUTTON = "TButton"
+    TKINTER_STYLE_CHECKBUTTON = "TCheckbutton"
+    TKINTER_STYLE_COMBOBOX = "TCombobox"
+    TKINTER_STYLE_ENTRY = "TEntry"
+    TKINTER_STYLE_FRAME = "TFrame"
+    TKINTER_STYLE_LABEL = "TLabel"
+    TKINTER_STYLE_LABELFRAME = "TLabelFrame"
+    TKINTER_STYLE_MENUBUTTON = "TMenubutton"
+    TKINTER_STYLE_NOTEBOOK = "TNotebook"
+    TKINTER_STYLE_PANEDWINDOW = "TPanedwindow"
+    TKINTER_STYLE_HORIZONTAL_PROGRESSBAR = "Horizontal.TProgressbar"
+    TKINTER_STYLE_VERTICAL_PROGRESSBAR = "Vertical.TProgressbar"
+    TKINTER_STYLE_RADIOBUTTON = "TRadiobutton"
+    TKINTER_STYLE_HORIZONTAL_SCALE = "Horizontal.TScale"
+    TKINTER_STYLE_VERTICAL_SCALE = "Vertical.TScale"
+    TKINTER_STYLE_HORIZONTAL_SCROLLBAR = "Horizontal.TScrollbar"
+    TKINTER_STYLE_VERTICAL_SCROLLBAR = "Vertical.TScrollbar"
+    TKINTER_STYLE_SEPARATOR = "TSeparator"
+    TKINTER_STYLE_SIZEGRIP = "TSizegrip"
+    TKINTER_STYLE_TREEVIEW = "Treeview"
+
     LINEAR_TRANSITION = "linear transition" # constant velocity (kwargs: None)
     SMOOTH_TRANSITION = "smooth transition" # accelerates, moves constant, decelerates (kwargs: Max Velocity)
     TRANSITION_MOVEMENT_TYPES = [
