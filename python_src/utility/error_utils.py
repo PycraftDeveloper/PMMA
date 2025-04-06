@@ -37,3 +37,7 @@ class UnknownDataTypeError(Exception):
 class UnexpectedBufferAttributeError(Exception):
     """Unexpected buffer attribute!"""
     pass
+
+class UnknownTkinterStyleError(Exception):
+    """Unknown tkinter style!"""
+    pass

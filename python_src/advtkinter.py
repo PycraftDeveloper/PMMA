@@ -1,8 +1,11 @@
 from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
-from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.constants import Constants as _Constants
+from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
+from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
+
+from pmma.python_src.utility.error_utils import UnknownTkinterStyleError as _UnknownTkinterStyleError
 
 class Tkinter:
     """
@@ -27,6 +30,11 @@ class Tkinter:
         """
         🟩 **R** -
         """
+        if widget not in _InternalConstants.TKINTER_STYLES:
+            logger = _InternalLogger()
+            logger.log_error("This is not a valid widget name, the valid widget names are: Constants.TKINTER_STYLE_BUTTON, Constants.TKINTER_STYLE_CHECKBUTTON, Constants.TKINTER_STYLE_COMBOBOX, Constants.TKINTER_STYLE_ENTRY, Constants.TKINTER_STYLE_FRAME, Constants.TKINTER_STYLE_LABEL, Constants.TKINTER_STYLE_LABELFRAME, Constants.TKINTER_STYLE_MENUBUTTON, Constants.TKINTER_STYLE_NOTEBOOK, Constants.TKINTER_STYLE_PANEDWINDOW, Constants.TKINTER_STYLE_HORIZONTAL_PROGRESSBAR, Constants.TKINTER_STYLE_VERTICAL_PROGRESSBAR, Constants.TKINTER_STYLE_RADIOBUTTON, Constants.TKINTER_STYLE_HORIZONTAL_SCALE, Constants.TKINTER_STYLE_VERTICAL_SCALE, Constants.TKINTER_STYLE_HORIZONTAL_SCROLLBAR, Constants.TKINTER_STYLE_VERTICAL_SCROLLBAR, Constants.TKINTER_STYLE_SEPARATOR, Constants.TKINTER_STYLE_SIZEGRIP and Constants.TKINTER_STYLE_TREEVIEW.")
+            raise _UnknownTkinterStyleError()
+
         style = self._tkinter_ttk__module.Style()
         style.configure(
             widget,

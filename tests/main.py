@@ -38,7 +38,7 @@ time.sleep(10)
 root = tkinter.Tk()
 
 _tkinter = pmma.Tkinter()
-_tkinter.style('label')
+_tkinter.style(pmma.Constants.TKINTER_STYLE_LABEL)
 _tkinter.get_display_size()
 _tkinter.set_window_size(root, 64, 64, x_position=pmma.Constants.CENTER, y_position=0)
 
