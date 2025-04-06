@@ -2,6 +2,7 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 class AdvancedMathIntermediary:
     def __init__(self):
+        self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
     # Cubic smoothstep function for acceleration/deceleration
@@ -56,29 +57,27 @@ class AdvancedMathIntermediary:
         return new_value
 
     # Compute the camera's orientation matrix
-    def raw_gl_look_at(self, pos, target, up):
+    def raw_look_at(self, camera_pos, target, up):
         """
         🟩 **R** -
         """
-        x, y, z = self.raw_compute_position(pos, target, up)
+        f = self._numpy__module.array(camera_pos, dtype=self._numpy__module.double) - self._numpy__module.array(target, dtype=self._numpy__module.double)
+        f /= self._numpy__module.linalg.norm(f)
 
-        translate = self._numpy__module.identity(4, dtype=self._numpy__module.double32)
-        translate[3][0] = -pos[0]
-        translate[3][1] = -pos[1]
-        translate[3][2] = -pos[2]
+        s = self._numpy__module.cross(up, f)
+        s /= self._numpy__module.linalg.norm(s)
 
-        rotate = self._numpy__module.identity(4, dtype=self._numpy__module.double32)
-        rotate[0][0] = x[0]  # -- X
-        rotate[1][0] = x[1]
-        rotate[2][0] = x[2]
-        rotate[0][1] = y[0]  # -- Y
-        rotate[1][1] = y[1]
-        rotate[2][1] = y[2]
-        rotate[0][2] = z[0]  # -- Z
-        rotate[1][2] = z[1]
-        rotate[2][2] = z[2]
+        u = self._numpy__module.cross(f, s)
 
-        return rotate @ translate[:, self._numpy__module.newaxis]
+        mat = self._numpy__module.identity(4, dtype=self._numpy__module.float64)
+        mat[0, :3] = s
+        mat[1, :3] = u
+        mat[2, :3] = f
+        mat[0, 3] = -self._numpy__module.dot(s, camera_pos)
+        mat[1, 3] = -self._numpy__module.dot(u, camera_pos)
+        mat[2, 3] = -self._numpy__module.dot(f, camera_pos)
+
+        return mat
 
     # Compute the norm and direction
     def raw_pythag(self, points):
@@ -105,32 +104,10 @@ class AdvancedMathIntermediary:
         """
         🟩 **R** -
         """
-        z = self.normalize(target - pos)
+        z = self.normalize(pos - target)
         x = self.normalize(self._numpy__module.cross(up, z))
         y = self._numpy__module.cross(z, x)
         return (x, y, z)
-
-    # Look at function
-    def raw_look_at(self, camera_position, camera_target, up_vector):
-        """
-        🟩 **R** -
-        """
-        vector = camera_target - camera_position
-
-        x = self._numpy__module.linalg.norm(vector)
-        vector = vector / x
-
-        vector2 = self._numpy__module.cross(up_vector, vector)
-        vector2 /= self._numpy__module.linalg.norm(vector2)
-
-        vector3 = self._numpy__module.cross(vector, vector2)
-
-        return self._numpy__module.array([
-            [vector2[0], vector3[0], vector[0], 0.0],
-            [vector2[1], vector3[1], vector[1], 0.0],
-            [vector2[2], vector3[2], vector[2], 0.0],
-            [-self._numpy__module.dot(vector2, camera_position), -self._numpy__module.dot(vector3, camera_position), self._numpy__module.dot(vector, camera_position), 1.0]
-        ], dtype=self._numpy__module.double32)
 
     # Matrix multiplication function
     def raw_multiply(self, light_proj, sun_light_look_at):
@@ -138,3 +115,18 @@ class AdvancedMathIntermediary:
         🟩 **R** -
         """
         return light_proj @ sun_light_look_at
+
+    def raw_perspective_fov(self, fov, aspect_ratio, near_plane, far_plane):
+        """
+        🟩 **R** -
+        """
+        f = 1.0 / self._math__module.tan(fov * 0.5)
+
+        nf = 1.0 / (near_plane - far_plane)
+
+        return [
+            [f / aspect_ratio, 0.0, 0.0, 0.0],
+            [0.0, f, 0.0, 0.0],
+            [0.0, 0.0, (far_plane + near_plane) * nf, (2 * far_plane * near_plane) * nf],
+            [0.0, 0.0, -1.0, 0.0]
+        ]
