@@ -45,7 +45,7 @@ Methods
     🟩 **R/C** -
     
 
-.. py:method:: Math.gl_look_at() -> None
+.. py:method:: Math.look_at() -> None
 
     🟩 **R/C** -
     
@@ -56,11 +56,6 @@ Methods
     
 
 .. py:method:: Math.perspective_fov() -> None
-
-    🟩 **R/C** -
-    
-
-.. py:method:: Math.look_at() -> None
 
     🟩 **R/C** -
     

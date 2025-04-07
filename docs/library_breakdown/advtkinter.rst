@@ -29,7 +29,7 @@ Methods
     🟩 **R** -
     
 
-.. py:method:: Tkinter.set_size() -> None
+.. py:method:: Tkinter.set_window_size() -> None
 
     🟩 **R** -
     
