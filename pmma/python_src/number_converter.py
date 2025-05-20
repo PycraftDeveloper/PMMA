@@ -237,19 +237,19 @@ class ColorConverter:
     def set_seed(self, seed):
         self._seed = seed
 
-        if self._red_seed is None:
+        if self._red_seed is None and self._red_noise is not None:
             self._red_seed = self._seed
             self._red_noise.set_seed(self._red_seed)
 
-        if self._green_seed is None:
+        if self._green_seed is None and self._green_noise is not None:
             self._green_seed = self._seed
             self._green_noise.set_seed(self._green_seed)
 
-        if self._blue_seed is None:
+        if self._blue_seed is None and self._blue_noise is not None:
             self._blue_seed = self._seed
             self._blue_noise.set_seed(self._blue_seed)
 
-        if self._alpha_seed is None:
+        if self._alpha_seed is None and self._alpha_noise is not None:
             self._alpha_seed = self._seed
             self._alpha_noise.set_seed(self._alpha_seed)
 
