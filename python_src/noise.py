@@ -320,11 +320,11 @@ class Perlin:
         🟩 **R** -
         """
         if len(one_range) == 1:
-            array = self._numpy__module.linespace(0, one_range[0], one_range[0])
+            array = self._numpy__module.linspace(0, one_range[0], one_range[0])
         elif len(one_range) == 2:
-            array = self._numpy__module.linespace(one_range[0], one_range[1], one_range[1])
+            array = self._numpy__module.linspace(one_range[0], one_range[1], one_range[1])
         else:
-            array = self._numpy__module.linespace(one_range[0], one_range[1], one_range[2])
+            array = self._numpy__module.linspace(one_range[0], one_range[1], one_range[2])
 
         noise = self._extended_noise.generate_fbm_1d(array)
 
@@ -353,18 +353,18 @@ class Perlin:
         🟩 **R** -
         """
         if len(one_range) == 1:
-            x_array = self._numpy__module.linespace(0, one_range[0], one_range[0])
+            x_array = self._numpy__module.linspace(0, one_range[0], one_range[0])
         elif len(one_range) == 2:
-            x_array = self._numpy__module.linespace(one_range[0], one_range[1], one_range[1])
+            x_array = self._numpy__module.linspace(one_range[0], one_range[1], one_range[1])
         else:
-            x_array = self._numpy__module.linespace(one_range[0], one_range[1], one_range[2])
+            x_array = self._numpy__module.linspace(one_range[0], one_range[1], one_range[2])
 
         if len(two_range) == 1:
-            y_array = self._numpy__module.linespace(0, two_range[0], two_range[0])
+            y_array = self._numpy__module.linspace(0, two_range[0], two_range[0])
         elif len(two_range) == 2:
-            y_array = self._numpy__module.linespace(two_range[0], two_range[1], two_range[1])
+            y_array = self._numpy__module.linspace(two_range[0], two_range[1], two_range[1])
         else:
-            y_array = self._numpy__module.linespace(two_range[0], two_range[1], two_range[2])
+            y_array = self._numpy__module.linspace(two_range[0], two_range[1], two_range[2])
 
         x, y = self._numpy__module.meshgrid(x_array, y_array)
         array = self._numpy__module.stack((x, y), axis=-1)
@@ -402,25 +402,25 @@ class Perlin:
         """
 
         if len(one_range) == 1:
-            x_array = self._numpy__module.linespace(0, one_range[0], one_range[0])
+            x_array = self._numpy__module.linspace(0, one_range[0], one_range[0])
         elif len(one_range) == 2:
-            x_array = self._numpy__module.linespace(one_range[0], one_range[1], one_range[1])
+            x_array = self._numpy__module.linspace(one_range[0], one_range[1], one_range[1])
         else:
-            x_array = self._numpy__module.linespace(one_range[0], one_range[1], one_range[2])
+            x_array = self._numpy__module.linspace(one_range[0], one_range[1], one_range[2])
 
         if len(two_range) == 1:
-            y_array = self._numpy__module.linespace(0, two_range[0], two_range[0])
+            y_array = self._numpy__module.linspace(0, two_range[0], two_range[0])
         elif len(two_range) == 2:
-            y_array = self._numpy__module.linespace(two_range[0], two_range[1], two_range[1])
+            y_array = self._numpy__module.linspace(two_range[0], two_range[1], two_range[1])
         else:
-            y_array = self._numpy__module.linespace(two_range[0], two_range[1], two_range[2])
+            y_array = self._numpy__module.linspace(two_range[0], two_range[1], two_range[2])
 
         if len(three_range) == 1:
-            z_array = self._numpy__module.linespace(0, three_range[0], three_range[0])
+            z_array = self._numpy__module.linspace(0, three_range[0], three_range[0])
         elif len(three_range) == 2:
-            z_array = self._numpy__module.linespace(three_range[0], three_range[1], three_range[1])
+            z_array = self._numpy__module.linspace(three_range[0], three_range[1], three_range[1])
         else:
-            z_array = self._numpy__module.linespace(three_range[0], three_range[1], three_range[2])
+            z_array = self._numpy__module.linspace(three_range[0], three_range[1], three_range[2])
 
         x, y, z = self._numpy__module.meshgrid(x_array, y_array, z_array)
         array = self._numpy__module.stack((x, y, z), axis=-1)

@@ -66,6 +66,7 @@ Next release:
 	[NEW FEATURE] Introduce a generic TEXT INPUT.
 	[IMPROVEMENT] OPENGL coordinates returned as numpy arrays?
 	[IMPROVEMENT] Noise min/max for numpy arrays created only when changed?
+	[BUG FIX] Fix how seed is set for color generation
 
 Following releases:
 	[BUG FIX] Fix perlin noise for arrays.

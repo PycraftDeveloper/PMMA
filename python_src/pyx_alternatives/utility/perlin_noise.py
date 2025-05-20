@@ -69,7 +69,7 @@ class PerlinNoise:
 
         self._random__module.seed(seed)
         for i in range(255, 0, -1):
-            j = self._random__module.randint(0, i+1)
+            j = self._random__module.randint(0, i)
             temp = perm[i]
             perm[i] = perm[j]
             perm[j] = temp
