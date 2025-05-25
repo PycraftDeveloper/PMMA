@@ -1,11 +1,12 @@
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
-
 class General:
     def __init__(self):
-        self._internal_general_utils = _GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
     def set_clean_profiling(self, can_clean_profile):
         """

@@ -13,11 +13,6 @@ from pmma.python_src.utility.constant_utils import InternalConstants as _Interna
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
-from pmma.python_src.executor import Executor as _Executor
-
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-
 from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 _internal_general_utils = _GeneralIntermediary()
@@ -36,8 +31,10 @@ class GPUs:
         """
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
             _GPUsIntermediary()
 
@@ -79,10 +76,13 @@ class GPU:
 
         self._threading__module = _ModuleManager.import_module("threading")
 
+        self._executor__module = _ModuleManager.import_module("pmma.python_src.executor")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._internal_general_utils = _GeneralIntermediary()
 
         self._module_identification_indices = module_identification_indices
-        self._executor = _Executor()
+        self._executor = self._executor__module.Executor()
 
         self._accelerator_capabilities = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_InternalConstants.SMI: [], _InternalConstants.WMI: ['AcceleratorCapabilities'], _InternalConstants.PYADL: []}}
         self._accounting_mode_enabled = {_Constants.VALUE: None, _Constants.UPDATING: True, _Constants.MANUALLY_SET: False, _Constants.DATA_COLLECTION_METHODS: {_InternalConstants.SMI: ['accounting.mode'], _InternalConstants.WMI: [], _InternalConstants.PYADL: []}}
@@ -494,7 +494,7 @@ class GPU:
 
         self._priorities = [_InternalConstants.SMI, _InternalConstants.PYADL, _InternalConstants.WMI]
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         if pyadl_available is False:
             self._logger.log_development("PMMA is unable to interface with AMD/ATI GPUs. \

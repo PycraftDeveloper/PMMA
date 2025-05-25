@@ -1,8 +1,6 @@
-from pmma.python_src.file import path_builder as _path_builder
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class Passport:
     """
@@ -34,10 +32,13 @@ class Passport:
         sub-name example: "ExpandedEdition"
         """
 
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+
         self._shut_down = False
 
         if _Registry.pmma_initialized:
-            self._logger = _InternalLogger()
+            self._logger = self._logging_utils__module.InternalLogger()
 
             self._logger.log_development("Whilst it may not always be possible to do, configuring your \
 application's passport is best done before calling 'pmma.init()'. Doing so, as you have done, \
@@ -46,7 +47,7 @@ afterwards may cause unintentional or unexpected behavior as some changes may no
         _PassportIntermediary.passport_changed = True
 
         if name is not None:
-            _PassportIntermediary.passport_file_location = _path_builder(_Registry.base_path, "passports", f"passport_for_{name.lower()}.json")
+            _PassportIntermediary.passport_file_location = self._file__module.path_builder(_Registry.base_path, "passports", f"passport_for_{name.lower()}.json")
 
         _PassportIntermediary.name = name
         _PassportIntermediary.sub_name = sub_name

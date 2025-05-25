@@ -26,9 +26,6 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
-from pmma.python_src.number_converter import ProportionConverter as _ProportionConverter
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-
 class Audio:
     """
     🟩 **R** -
@@ -48,6 +45,9 @@ class Audio:
         self._waiting__module = _ModuleManager.import_module("waiting")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._file = None
         self._sample_rate = None
         self._audio_loaded = False
@@ -62,13 +62,13 @@ class Audio:
         self._from_moviepy = False
         self._moviepy_audio_itr = None
 
-        self._volume = _ProportionConverter()  # Default volume is 100%
+        self._volume = self._number_converter__module.ProportionConverter()  # Default volume is 100%
         self._volume.set_value(1.0)
-        self._pan = _ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
+        self._pan = self._number_converter__module.ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
         self._pan.set_value(0.0)
 
         self._playing = False
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
         self._first_run = True
 
         self._looping = False
@@ -439,6 +439,8 @@ class Chorus(_pedalboard__Chorus):
 
         _initialize(self)
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+
         if depth_format is None:
             depth_format = format
         if feedback_format is None:
@@ -446,11 +448,11 @@ class Chorus(_pedalboard__Chorus):
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_depth = _ProportionConverter()
+        self._proportion_adjusted_depth = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_depth.set_value(depth, format=depth_format)
-        self._proportion_adjusted_feedback = _ProportionConverter()
+        self._proportion_adjusted_feedback = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_feedback.set_value(feedback, format=feedback_format)
-        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_mix.set_value(mix, format=mix_format)
 
         super().__init__(
@@ -652,10 +654,12 @@ class Convolution(_pedalboard__Convolution):
 
         _initialize(self)
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_mix.set_value(mix, format=mix_format)
 
         super().__init__(
@@ -723,14 +727,16 @@ class Delay(_pedalboard__Delay):
         """
         _initialize(self)
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+
         if feedback_format is None:
             feedback_format = format
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_feedback = _ProportionConverter()
+        self._proportion_adjusted_feedback = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_feedback.set_value(feedback, format=feedback_format)
-        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_mix.set_value(mix, format=mix_format)
 
         super().__init__(
@@ -1303,6 +1309,8 @@ class Phaser(_pedalboard__Phaser):
         """
         _initialize(self)
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+
         if depth_format is None:
             depth_format = format
         if feedback_format is None:
@@ -1310,11 +1318,11 @@ class Phaser(_pedalboard__Phaser):
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_depth = _ProportionConverter()
+        self._proportion_adjusted_depth = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_depth.set_value(depth, format=depth_format)
-        self._proportion_adjusted_feedback = _ProportionConverter()
+        self._proportion_adjusted_feedback = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_feedback.set_value(feedback, format=feedback_format)
-        self._proportion_adjusted_mix = _ProportionConverter()
+        self._proportion_adjusted_mix = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_mix.set_value(mix, format=mix_format)
 
         super().__init__(
@@ -1476,6 +1484,8 @@ class Reverb(_pedalboard__Reverb):
         """
         _initialize(self)
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+
         if room_size_format is None:
             room_size_format = format
         if damping_format is None:
@@ -1487,15 +1497,15 @@ class Reverb(_pedalboard__Reverb):
         if width_format is None:
             width_format = format
 
-        self._proportion_adjusted_room_size = _ProportionConverter()
+        self._proportion_adjusted_room_size = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_room_size.set_value(room_size, format=room_size_format)
-        self._proportion_adjusted_damping = _ProportionConverter()
+        self._proportion_adjusted_damping = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_damping.set_value(damping, format=damping_format)
-        self._proportion_adjusted_wet_level = _ProportionConverter()
+        self._proportion_adjusted_wet_level = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_wet_level.set_value(wet_level, format=wet_level_format)
-        self._proportion_adjusted_dry_level = _ProportionConverter()
+        self._proportion_adjusted_dry_level = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_dry_level.set_value(dry_level, format=dry_level_format)
-        self._proportion_adjusted_width = _ProportionConverter()
+        self._proportion_adjusted_width = self._number_converter__module.ProportionConverter()
         self._proportion_adjusted_width.set_value(width, format=width_format)
 
         super().__init__(

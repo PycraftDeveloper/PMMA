@@ -2,10 +2,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
-
-from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class Executor:
     """
@@ -20,13 +17,16 @@ class Executor:
         self._threading__module = _ModuleManager.import_module("threading")
         self._subprocess__module = _ModuleManager.import_module("subprocess")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
         self._exit_code = None
         self._result = None
         self._thread = None
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
     def quit(self):
         """
@@ -107,13 +107,15 @@ class AdvancedExecutor:
 
         self._threading__module = _ModuleManager.import_module("threading")
 
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._exit_code = None
         self._result = ""
         self._thread = None
 
         self._command_running = False
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
     def quit(self):
         """

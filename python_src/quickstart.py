@@ -1,11 +1,6 @@
-from pmma.python_src.backpack import Backpack as _Backpack
-from pmma.python_src.display import Display as _Display
-from pmma.python_src.events import Events as _Events
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-
-from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class QuickStart:
     """
@@ -28,9 +23,15 @@ class QuickStart:
 
         _initialize(self)
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._backpack__module = _ModuleManager.import_module("pmma.python_src.backpack")
+        self._display__module = _ModuleManager.import_module("pmma.python_src.display")
+        self._events__module = _ModuleManager.import_module("pmma.python_src.events")
 
-        self._display = _Display()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
+
+        self._display = self._display__module.Display()
         self._display.create(
             width=width,
             height=height,
@@ -43,7 +44,7 @@ class QuickStart:
             transparent_display=transparent_display,
             centered=centered)
 
-        self._events = _Events()
+        self._events = self._events__module.Events()
 
     def __del__(self):
         """
@@ -85,4 +86,4 @@ class QuickStart:
         """
         self._internal_general_utils.compute()
         self._display.refresh(refresh_rate=refresh_rate)
-        return _Registry.running is False or _Backpack.running is False
+        return _Registry.running is False or self._backpack__module.Backpack.running is False
