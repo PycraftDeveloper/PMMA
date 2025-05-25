@@ -95,6 +95,8 @@ class ShaderManager:
         """
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SHADER_REFERENCE_MANAGER_OBJECT)
             LoadedShaderReferenceManager()

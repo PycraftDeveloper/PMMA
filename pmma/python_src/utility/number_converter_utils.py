@@ -56,6 +56,8 @@ class ColorIntermediary:
         """
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
             self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
             from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils

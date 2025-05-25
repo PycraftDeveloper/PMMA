@@ -130,6 +130,8 @@ class DisplayScalar:
         """
         🟩 **R** -
         """
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._point = 0.0
         self._logger = self._logging_utils__module.InternalLogger()
         self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_height()
