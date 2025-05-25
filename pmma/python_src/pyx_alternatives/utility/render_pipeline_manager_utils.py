@@ -1,10 +1,7 @@
-from pmma.python_src.constants import Constants as _Constants
-
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
-
-from pmma.python_src.pyx_alternatives.utility.render_pipeline_utils import RenderPipeline as _RenderPipeline
 
 class RenderPipelineManager:
     """
@@ -15,6 +12,9 @@ class RenderPipelineManager:
         🟩 **R** -
         """
         _initialize(self, unique_instance=_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT, add_to_pmma_module_spine=True)
+
+        self._Render_pipeline_utils__module = _ModuleManager.import_module("pmma.python_src.pyx_alternatives.utility.render_pipeline_utils")
+
         _Registry.render_pipeline_acceleration_available = True
 
         self._render_queue = []
@@ -76,7 +76,7 @@ class RenderPipelineManager:
                     pipeline.update(group)  # Check and update data
                 else:
                     # Create a new pipeline for this group
-                    pipeline = _RenderPipeline()
+                    pipeline = self._Render_pipeline_utils__module.RenderPipeline()
                     pipeline.update(group)  # Populate with group data
                 new_render_queue.append(pipeline)
                 new_pipeline_cache[shape_ids] = pipeline
