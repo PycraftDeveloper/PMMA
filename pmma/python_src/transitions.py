@@ -3,9 +3,6 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
-from pmma.python_src.utility.transition_utils import TransitionManager as _TransitionManager
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Transition:
@@ -18,8 +15,13 @@ class Transition:
         """
         _initialize(self)
 
-        self._numpy__module = _ModuleManager.import_module("numpy")
         self._time__module = _ModuleManager.import_module("time")
+
+        self._numpy__module = _ModuleManager.import_module("numpy")
+
+        self._transition_utils__module = _ModuleManager.import_module("pmma.python_src.utility.transition_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
 
         self._animation_start = None
         self._animation_end = None
@@ -37,13 +39,13 @@ class Transition:
         self._animation_deceleration_time = None
         self._animation_object_name = None
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         if not _InternalConstants.TRANSITION_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.TRANSITION_MANAGER_OBJECT)
-            _TransitionManager()
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.TRANSITION_MANAGER_OBJECT)
+            self._transition_utils__module.TransitionManager()
 
-        self._transition_manager: "_TransitionManager" = _Registry.pmma_module_spine[_InternalConstants.TRANSITION_MANAGER_OBJECT]
+        self._transition_manager = _Registry.pmma_module_spine[_InternalConstants.TRANSITION_MANAGER_OBJECT]
         self._transition_manager.add(self._transition_id, self)
 
     def create(self, transition_type, start, end, duration, transition_mode=_Constants.LINEAR_TRANSITION, object=None, object_attribute_name=None, max_speed=None, acceleration_time=None, deceleration_time=None):

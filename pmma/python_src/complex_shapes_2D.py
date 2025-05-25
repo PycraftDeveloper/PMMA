@@ -2,10 +2,6 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
-from pmma.python_src.shapes_2D import RadialPolygon as _RadialPolygon
-from pmma.python_src.shapes_2D import Polygon as _Polygon
-from pmma.python_src.shapes_2D import Rectangle as _Rectangle
-
 class Lines:
     """
     🟩 **R** - Draws a multi-point line.
@@ -16,7 +12,9 @@ class Lines:
         """
         _initialize(self)
 
-        self._polygon = _Polygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._polygon = self._shapes_2D__module.Polygon()
         self._polygon._closed = False
 
     def quit(self):
@@ -149,7 +147,9 @@ class Circle:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
 
     def quit(self):
         """
@@ -281,7 +281,9 @@ class Decagon:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(10)
 
     def quit(self):
@@ -414,7 +416,9 @@ class Nonagon:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(9)
 
     def quit(self):
@@ -547,7 +551,9 @@ class Octagon:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(8)
 
     def quit(self):
@@ -680,7 +686,9 @@ class Heptagon:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(7)
 
     def quit(self):
@@ -817,7 +825,9 @@ class Hexagon:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(6)
 
     def quit(self):
@@ -950,7 +960,9 @@ class Pentagon:
         """
         _initialize(self)
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(5)
 
     def quit(self):
@@ -1085,7 +1097,9 @@ class Triangle:
 
         self._math__module = _ModuleManager.import_module("math")
 
-        self._radial_polygon = _RadialPolygon()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._radial_polygon = self._shapes_2D__module.RadialPolygon()
         self._radial_polygon.set_point_count(3)
 
         angle = 60 * (self._math__module.pi / 180)
@@ -1235,7 +1249,9 @@ class Square:
         """
         _initialize(self)
 
-        self._rectangle = _Rectangle()
+        self._shapes_2D__module = _ModuleManager.import_module("pmma.python_src.shapes_2D")
+
+        self._rectangle = self._shapes_2D__module.Rectangle()
 
     def quit(self):
         """

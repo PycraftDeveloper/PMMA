@@ -1,9 +1,8 @@
 from pmma.python_src.constants import Constants as _Constants
 
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.logging_utils import LoggerIntermediary as _LoggerIntermediary
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class Logger:
@@ -22,11 +21,14 @@ class Logger:
         """
         _initialize(self)
 
-        if not _InternalConstants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LOGGING_INTERMEDIARY_OBJECT)
-            _LoggerIntermediary()
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
 
-        self._logger_intermediary: "_LoggerIntermediary" = _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT]
+        if not _InternalConstants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LOGGING_INTERMEDIARY_OBJECT)
+            self._logging_utils__module.LoggerIntermediary()
+
+        self._logger_intermediary = _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT]
 
     def set_pmma_log_lifetime(self, value):
         """

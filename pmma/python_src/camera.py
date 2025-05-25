@@ -1,15 +1,17 @@
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
+
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
-
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Camera:
     def __init__(self):
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CAMERA_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CAMERA_MANAGER_OBJECT)
+            self._passport_utils__module.components_used.append(_InternalConstants.CAMERA_MANAGER_OBJECT)
             from pmma.python_src.utility.camera_utils import CameraManager as _CameraManager
             _CameraManager()
 

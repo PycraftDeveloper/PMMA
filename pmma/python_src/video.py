@@ -4,17 +4,7 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-from pmma.python_src.opengl import Texture as _Texture
-from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
-from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
-from pmma.python_src.opengl import Shader as _Shader
 from pmma.python_src.gpu import GPU as _GPU
-from pmma.python_src.gpu_distribution import GPUDistribution as _GPUDistribution
-from pmma.python_src.number_converter import DisplayCoordinatesConverter as _DisplayCoordinatesConverter
-from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.audio import Audio as _Audio
-
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class Video:
     """
@@ -51,12 +41,20 @@ class Video:
         self._moviepy_editor__module = _ModuleManager.import_module("moviepy.editor")
         self._moderngl__module = _ModuleManager.import_module("moderngl")
 
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+        self._gpu_distribution__module = _ModuleManager.import_module("pmma.python_src.gpu_distribution")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._audio__module = _ModuleManager.import_module("pmma.python_src.audio")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._video_loaded = False
-        self._position = _DisplayCoordinatesConverter()
+        self._position = self._number_converter__module.DisplayCoordinatesConverter()
         self._position.set_coordinates([0, 0], _Constants.CONVENTIONAL_COORDINATES)
-        self._size = _DisplayCoordinatesConverter()
+        self._size = self._number_converter__module.DisplayCoordinatesConverter()
         self._input_container = None
-        self._gpu_distribution = _GPUDistribution()
+        self._gpu_distribution = self._gpu_distribution__module.GPUDistribution()
         self._video_stream = None
         self._video_decoder_manually_set = False
         self._video_frame_time = None
@@ -69,16 +67,16 @@ class Video:
                 1.0, -1.0, 1.0, 0.0,
             ], dtype='f4')
 
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
-        self._shader = _Shader()
-        self._shader.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "video_playback"))
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
+        self._shader = self._opengl__module.Shader()
+        self._shader.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "video_playback"))
         self._shader.create()
 
-        self._audio_player = _Audio()
+        self._audio_player = self._audio__module.Audio()
 
         if not _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DISPLAY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DISPLAY_OBJECT)
             from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
             _DisplayIntermediary()
 
@@ -220,7 +218,7 @@ class Video:
         if self._texture is not None:
             self._texture.quit()
 
-        self._texture = _Texture()
+        self._texture = self._opengl__module.Texture()
         self._texture.create(self._video_size, components=_Constants.RGB)
 
         if self._vbo.has_data() is False:
@@ -274,7 +272,7 @@ class Video:
         """
         🟩 **R** -
         """
-        if type(position) != _DisplayCoordinatesConverter:
+        if type(position) != self._number_converter__module.DisplayCoordinatesConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position
@@ -289,7 +287,7 @@ class Video:
         """
         🟩 **R** -
         """
-        if type(size) != _DisplayCoordinatesConverter:
+        if type(size) != self._number_converter__module.DisplayCoordinatesConverter:
             self._size.set_coordinates(size, format=size_format)
         else:
             self._size = size

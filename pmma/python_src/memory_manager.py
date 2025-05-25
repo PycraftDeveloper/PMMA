@@ -1,6 +1,6 @@
+from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 class MemoryManager:
@@ -19,8 +19,10 @@ class MemoryManager:
         """
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MEMORY_MANAGER_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MEMORY_MANAGER_INTERMEDIARY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MEMORY_MANAGER_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.memory_utils import MemoryManagerIntermediary as _MemoryManagerIntermediary
             _MemoryManagerIntermediary()
 

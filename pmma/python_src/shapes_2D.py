@@ -4,16 +4,6 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.opengl import VertexBufferObject as _VertexBufferObject
-from pmma.python_src.opengl import VertexArrayObject as _VertexArrayObject
-from pmma.python_src.opengl import Shader as _Shader
-from pmma.python_src.number_converter import DisplayCoordinatesConverter as _DisplayCoordinatesConverter
-from pmma.python_src.number_converter import DisplayScalarConverter as _DisplayScalarConverter
-from pmma.python_src.number_converter import AngleConverter as _AngleConverter
-from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.advmath import Math as _Math
-
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.shape_utils import ShapeTemplate as _ShapeTemplate
 from pmma.python_src.utility.shape_utils import LineUtils as _LineUtils
 from pmma.python_src.utility.shape_utils import RadialPolygonUtils as _RadialPolygonUtils
@@ -34,25 +24,32 @@ class Line(_ShapeTemplate, _LineUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
                 from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             _RenderPipelineManager()
 
-        self._start = _DisplayCoordinatesConverter()
-        self._end = _DisplayCoordinatesConverter()
+        self._start = self._number_converter__module.DisplayCoordinatesConverter()
+        self._end = self._number_converter__module.DisplayCoordinatesConverter()
         self._width = 1
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_line"))
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_line"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
+        self._rotation = self._number_converter__module.AngleConverter()
         self._rotation.set_angle(0)
 
     def __del__(self):
@@ -106,7 +103,7 @@ class Line(_ShapeTemplate, _LineUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(rotation) != _AngleConverter:
+        if type(rotation) != self._number_converter__module.AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -126,7 +123,7 @@ class Line(_ShapeTemplate, _LineUtils):
         if self._start.get_coordinate_set():
             if start_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._start.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if start_input_type == _DisplayCoordinatesConverter:
+                if start_input_type == self._number_converter__module.DisplayCoordinatesConverter:
                     start_coords = start.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     start_coords = [int(start[0]), int(start[1])]
@@ -135,7 +132,7 @@ class Line(_ShapeTemplate, _LineUtils):
                     return
 
         self._geometry_created = False
-        if start_input_type != _DisplayCoordinatesConverter:
+        if start_input_type != self._number_converter__module.DisplayCoordinatesConverter:
             self._start.set_coordinates(start, format=start_format)
         else:
             self._start = start
@@ -155,7 +152,7 @@ class Line(_ShapeTemplate, _LineUtils):
         if self._start.get_coordinate_set():
             if end_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._end.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if end_input_type == _DisplayCoordinatesConverter:
+                if end_input_type == self._number_converter__module.DisplayCoordinatesConverter:
                     end_coords = end.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     end_coords = [int(end[0]), int(end[1])]
@@ -164,7 +161,7 @@ class Line(_ShapeTemplate, _LineUtils):
                     return
 
         self._geometry_created = False
-        if end_input_type != _DisplayCoordinatesConverter:
+        if end_input_type != self._number_converter__module.DisplayCoordinatesConverter:
             self._end.set_coordinates(end, format=end_format)
         else:
             self._end = end
@@ -207,10 +204,17 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
 
         self._math__module = _ModuleManager.import_module("math")
 
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._advmath__module = _ModuleManager.import_module("pmma.python_src.advmath")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -218,16 +222,16 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
             _RenderPipelineManager()
 
         self._point_count = None
-        self._radius = _DisplayScalarConverter()
-        self._inner_radius = _DisplayScalarConverter()
-        self._center = _DisplayCoordinatesConverter()
+        self._radius = self._number_converter__module.DisplayScalarConverter()
+        self._inner_radius = self._number_converter__module.DisplayScalarConverter()
+        self._center = self._number_converter__module.DisplayCoordinatesConverter()
         self._width = None
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
+        self._rotation = self._number_converter__module.AngleConverter()
         self._rotation.set_angle(0)
         self._position_changed = True
         self._initial_point_count = None
@@ -289,7 +293,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(rotation) != _AngleConverter:
+        if type(rotation) != self._number_converter__module.AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -306,7 +310,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(value) != _DisplayScalarConverter:
+        if type(value) != self._number_converter__module.DisplayScalarConverter:
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
@@ -350,7 +354,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if center_input_format == _DisplayCoordinatesConverter:
+                if center_input_format == self._number_converter__module.DisplayCoordinatesConverter:
                     center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     center_coords = [int(center[0]), int(center[1])]
@@ -359,7 +363,7 @@ class RadialPolygon(_ShapeTemplate, _RadialPolygonUtils):
                     return
 
         self._position_changed = True
-        if center_input_format != _DisplayCoordinatesConverter:
+        if center_input_format != self._number_converter__module.DisplayCoordinatesConverter:
             self._center.set_coordinates(center, format=format)
         else:
             self._center = center
@@ -397,30 +401,37 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
                 from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             _RenderPipelineManager()
 
-        self._center = _DisplayCoordinatesConverter()
-        self._x_size = _DisplayScalarConverter()
-        self._y_size = _DisplayScalarConverter()
-        self._width = _DisplayScalarConverter()
+        self._center = self._number_converter__module.DisplayCoordinatesConverter()
+        self._x_size = self._number_converter__module.DisplayScalarConverter()
+        self._y_size = self._number_converter__module.DisplayScalarConverter()
+        self._width = self._number_converter__module.DisplayScalarConverter()
         self._width.set_point(0)
-        self._rotation = _AngleConverter()
+        self._rotation = self._number_converter__module.AngleConverter()
         self._rotation.set_angle(0)
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
         self._position_changed = True
-        self._corner_radius = _DisplayScalarConverter()
+        self._corner_radius = self._number_converter__module.DisplayScalarConverter()
         self._corner_radius.set_point(1)
 
     def __del__(self):
@@ -480,7 +491,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(width) != _DisplayScalarConverter:
+        if type(width) != self._number_converter__module.DisplayScalarConverter:
             self._width.set_point(width, format=format)
         else:
             self._width = width
@@ -496,7 +507,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(corner_radius) != _DisplayScalarConverter:
+        if type(corner_radius) != self._number_converter__module.DisplayScalarConverter:
             if corner_radius < 1:
                 corner_radius = 1
             self._corner_radius.set_point(corner_radius, format=format)
@@ -514,7 +525,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(rotation) != _AngleConverter:
+        if type(rotation) != self._number_converter__module.AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -534,7 +545,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if center_input_type == _DisplayCoordinatesConverter:
+                if center_input_type == self._number_converter__module.DisplayCoordinatesConverter:
                     center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     center_coords = [int(center[0]), int(center[1])]
@@ -543,7 +554,7 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
                     return
 
         self._position_changed = True
-        if center_input_type != _DisplayCoordinatesConverter:
+        if center_input_type != self._number_converter__module.DisplayCoordinatesConverter:
             self._center.set_coordinates(center, format=format)
         else:
             self._center = center
@@ -560,12 +571,12 @@ class Rectangle(_ShapeTemplate, _RectangleUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(size[0]) != _DisplayScalarConverter:
+        if type(size[0]) != self._number_converter__module.DisplayScalarConverter:
             self._x_size.set_point(size[0], format=size_format)
         else:
             self._x_size = size[0]
 
-        if type(size[1]) != _DisplayScalarConverter:
+        if type(size[1]) != self._number_converter__module.DisplayScalarConverter:
             self._y_size.set_point(size[1], format=size_format)
         else:
             self._y_size = size[1]
@@ -588,27 +599,34 @@ class Arc(_ShapeTemplate, _ArcUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
                 from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             _RenderPipelineManager()
 
-        self._radius = _DisplayScalarConverter()
-        self._inner_radius = _DisplayScalarConverter()
-        self._center = _DisplayCoordinatesConverter()
-        self._start_angle = _AngleConverter()
-        self._stop_angle = _AngleConverter()
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
+        self._radius = self._number_converter__module.DisplayScalarConverter()
+        self._inner_radius = self._number_converter__module.DisplayScalarConverter()
+        self._center = self._number_converter__module.DisplayCoordinatesConverter()
+        self._start_angle = self._number_converter__module.AngleConverter()
+        self._stop_angle = self._number_converter__module.AngleConverter()
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
+        self._rotation = self._number_converter__module.AngleConverter()
         self._rotation.set_angle(0)
         self._width = None
         self._position_changed = True
@@ -688,7 +706,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(rotation) != _AngleConverter:
+        if type(rotation) != self._number_converter__module.AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -705,7 +723,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(start_angle) != _AngleConverter:
+        if type(start_angle) != self._number_converter__module.AngleConverter:
             self._start_angle.set_angle(start_angle, format=angle_format)
 
     def get_start_angle(self, format=_Constants.RADIANS):
@@ -720,7 +738,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(stop_angle) != _AngleConverter:
+        if type(stop_angle) != self._number_converter__module.AngleConverter:
             self._stop_angle.set_angle(stop_angle, format=angle_format)
 
     def get_stop_angle(self, format=_Constants.RADIANS):
@@ -738,7 +756,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if center_input_type == _DisplayCoordinatesConverter:
+                if center_input_type == self._number_converter__module.DisplayCoordinatesConverter:
                     center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     center_coords = [int(center[0]), int(center[1])]
@@ -747,7 +765,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
                     return
 
         self._position_changed = True
-        if center_input_type != _DisplayCoordinatesConverter:
+        if center_input_type != self._number_converter__module.DisplayCoordinatesConverter:
             self._center.set_coordinates(center, format=format)
         else:
             self._center = center
@@ -764,7 +782,7 @@ class Arc(_ShapeTemplate, _ArcUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(value) != _DisplayScalarConverter:
+        if type(value) != self._number_converter__module.DisplayScalarConverter:
             self._radius.set_point(value, format=format)
 
     def get_radius(self, format=_Constants.CONVENTIONAL_COORDINATES):
@@ -785,30 +803,35 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
                 from pmma.python_src.pyx_alternatives.utility.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             _RenderPipelineManager()
 
-        self._center = _DisplayCoordinatesConverter()
-        self._outer_x_size = _DisplayScalarConverter()
-        self._outer_y_size = _DisplayScalarConverter()
-        self._rotation = _AngleConverter()
-        self._inner_x_size = _DisplayScalarConverter()
-        self._inner_y_size = _DisplayScalarConverter()
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_common"))
+        self._center = self._number_converter__module.DisplayCoordinatesConverter()
+        self._outer_x_size = self._number_converter__module.DisplayScalarConverter()
+        self._outer_y_size = self._number_converter__module.DisplayScalarConverter()
+        self._rotation = self._number_converter__module.AngleConverter()
+        self._inner_x_size = self._number_converter__module.DisplayScalarConverter()
+        self._inner_y_size = self._number_converter__module.DisplayScalarConverter()
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_common"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
+        self._rotation = self._number_converter__module.AngleConverter()
         self._rotation.set_angle(0)
-        self._math = _Math()
+        self._math = self._advmath__module.Math()
         self._width = None
         self._position_changed = True
         self._initial_point_count = None
@@ -885,7 +908,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(rotation) != _AngleConverter:
+        if type(rotation) != self._number_converter__module.AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -905,7 +928,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         if self._center.get_coordinate_set():
             if format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if center_input_type == _DisplayCoordinatesConverter:
+                if center_input_type == self._number_converter__module.DisplayCoordinatesConverter:
                     center_coords = center.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     center_coords = [int(center[0]), int(center[1])]
@@ -914,7 +937,7 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
                     return
 
         self._position_changed = True
-        if center_input_type != _DisplayCoordinatesConverter:
+        if center_input_type != self._number_converter__module.DisplayCoordinatesConverter:
             self._center.set_coordinates(center, format=format)
         else:
             self._center = center
@@ -931,12 +954,12 @@ class Ellipse(_ShapeTemplate, _EllipseUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(size[0]) != _AngleConverter:
+        if type(size[0]) != self._number_converter__module.AngleConverter:
             self._outer_x_size.set_point(size[0], format=size_format)
         else:
             self._outer_x_size = size[0]
 
-        if type(size[1]) != _AngleConverter:
+        if type(size[1]) != self._number_converter__module.AngleConverter:
             self._outer_y_size.set_point(size[1], format=size_format)
         else:
             self._outer_y_size = size[1]
@@ -959,10 +982,18 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         super().__init__()
 
         _initialize(self)
+
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._advmath__module = _ModuleManager.import_module("pmma.python_src.advmath")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._properties[_InternalConstants.RENDER_PIPELINE_COMPATIBLE] = True
 
         if not _InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDER_PIPELINE_MANAGER_OBJECT)
             if _Registry.cython_acceleration_available:
                 from pmma.bin.render_pipeline_manager_utils import RenderPipelineManager as _RenderPipelineManager
             else:
@@ -972,14 +1003,14 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         self._points = []
         self._closed = True
         self._curved = False
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_polygon"))
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_polygon"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
-        self._rotation = _AngleConverter()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
+        self._rotation = self._number_converter__module.AngleConverter()
         self._rotation.set_angle(0)
-        self._math = _Math()
+        self._math = self._advmath__module.Math()
         self._width = None
         self._converted_inner_points = []
 
@@ -1034,7 +1065,7 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         🟩 **R** -
         """
         self._geometry_created = False
-        if type(rotation) != _AngleConverter:
+        if type(rotation) != self._number_converter__module.AngleConverter:
             self._rotation.set_angle(rotation, format=format)
         else:
             self._rotation = rotation
@@ -1072,13 +1103,13 @@ class Polygon(_ShapeTemplate, _PolygonUtils):
         self._geometry_created = False
         self._points = []
         for point in points:
-            if type(point) != _DisplayCoordinatesConverter:
-                new_point = _DisplayCoordinatesConverter()
+            if type(point) != self._number_converter__module.DisplayCoordinatesConverter:
+                new_point = self._number_converter__module.DisplayCoordinatesConverter()
                 new_point.set_coordinates(point, format=format)
                 self._points.append(new_point)
             else:
                 self._points.append(point)
-            self._converted_inner_points.append(_DisplayCoordinatesConverter())
+            self._converted_inner_points.append(self._number_converter__module.DisplayCoordinatesConverter())
 
     def get_points(self, format=_Constants.CONVENTIONAL_COORDINATES):
         """
@@ -1116,12 +1147,16 @@ class Pixel(_ShapeTemplate, _PixelUtils):
 
         _initialize(self)
 
-        self._position = _DisplayCoordinatesConverter()
-        self._program = _Shader()
-        self._program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "draw_pixel"))
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+
+        self._position = self._number_converter__module.DisplayCoordinatesConverter()
+        self._program = self._opengl__module.Shader()
+        self._program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "draw_pixel"))
         self._program.create()
-        self._vbo = _VertexBufferObject()
-        self._vao = _VertexArrayObject()
+        self._vbo = self._opengl__module.VertexBufferObject()
+        self._vao = self._opengl__module.VertexArrayObject()
         self._position_changed = True
 
     def __del__(self):
@@ -1180,7 +1215,7 @@ class Pixel(_ShapeTemplate, _PixelUtils):
         if self._position.get_coordinate_set():
             if position_format == _Constants.CONVENTIONAL_COORDINATES:
                 original_coordinates = self._position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
-                if position_input_type == _DisplayCoordinatesConverter:
+                if position_input_type == self._number_converter__module.DisplayCoordinatesConverter:
                     position_coords = position.get_coordinates(format=_Constants.CONVENTIONAL_COORDINATES)
                 else:
                     position_coords = [int(position[0]), int(position[1])]
@@ -1189,7 +1224,7 @@ class Pixel(_ShapeTemplate, _PixelUtils):
                     return
 
         self._position_changed = True
-        if type(position) != _DisplayCoordinatesConverter:
+        if type(position) != self._number_converter__module.DisplayCoordinatesConverter:
             self._position.set_coordinates(position, format=position_format)
         else:
             self._position = position

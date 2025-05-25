@@ -7,9 +7,6 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.file_utils import DirectoryWatcher as _DirectoryWatcher
-
 def path_builder(*args):
     """
     🟩 **R** -
@@ -137,12 +134,15 @@ class FileCore:
 
         self._os__module = _ModuleManager.import_module("os")
 
+        self._file_utils__module = _ModuleManager.import_module("pmma.python_src.utility.file_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         self._locations = []
         self._file_matrix = {}
 
         self.update_locations(project_directory=project_directory, force_refresh=False)
 
-        self._watcher = _DirectoryWatcher(self._locations, File)
+        self._watcher = self._file_utils__module.DirectoryWatcher(self._locations, File)
 
         if passive_refresh:
             self._watcher.start()
@@ -170,18 +170,18 @@ class FileCore:
         self._locations = [_Registry.base_path]
         if project_directory is not None:
             self._locations.append(project_directory)
-        if _PassportIntermediary.project_directory is not None:
-            self._locations.append(_PassportIntermediary.project_directory)
-        if _PassportIntermediary.project_temporary_directory is not None:
-            self._locations.append(_PassportIntermediary.project_temporary_directory)
-        if _PassportIntermediary.project_resources_directory is not None:
-            self._locations.append(_PassportIntermediary.project_resources_directory)
-        if _PassportIntermediary.project_python_src_directory is not None:
-            self._locations.append(_PassportIntermediary.project_python_src_directory)
-        if _PassportIntermediary.project_pyx_src_directory is not None:
-            self._locations.append(_PassportIntermediary.project_pyx_src_directory)
-        if _PassportIntermediary.project_c_src_directory is not None:
-            self._locations.append(_PassportIntermediary.project_c_src_directory)
+        if self._passport_utils__module.project_directory is not None:
+            self._locations.append(self._passport_utils__module.project_directory)
+        if self._passport_utils__module.project_temporary_directory is not None:
+            self._locations.append(self._passport_utils__module.project_temporary_directory)
+        if self._passport_utils__module.project_resources_directory is not None:
+            self._locations.append(self._passport_utils__module.project_resources_directory)
+        if self._passport_utils__module.project_python_src_directory is not None:
+            self._locations.append(self._passport_utils__module.project_python_src_directory)
+        if self._passport_utils__module.project_pyx_src_directory is not None:
+            self._locations.append(self._passport_utils__module.project_pyx_src_directory)
+        if self._passport_utils__module.project_c_src_directory is not None:
+            self._locations.append(self._passport_utils__module.project_c_src_directory)
 
         self.refresh(force=force_refresh)
 

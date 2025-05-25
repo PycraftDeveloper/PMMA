@@ -6,17 +6,6 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
-from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.number_converter import ColorConverter as _ColorConverter
-
-from pmma.python_src.utility.error_utils import OpenGLNotYetInitializedError as _OpenGLNotYetInitializedError
-from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeFormatError as _UnexpectedBufferAttributeFormatError
-from pmma.python_src.utility.error_utils import UnknownDataTypeError as _UnknownDataTypeError
-from pmma.python_src.utility.error_utils import UnexpectedBufferAttributeError as _UnexpectedBufferAttributeError
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.shader_utils import ShaderManager as _ShaderManager
-from pmma.python_src.utility.opengl_utils import Texture as _Texture
-
 class OpenGL:
     """
     🟩 **R** -
@@ -27,7 +16,10 @@ class OpenGL:
         """
         _initialize(self)
 
-        self._logger = _InternalLogger()
+        self._error_utils__module = _ModuleManager.import_module("pmma.python_src.utility.error_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
 
     def quit(self):
         """
@@ -44,7 +36,7 @@ class OpenGL:
 most likely due to not having created a Display through PMMA. You must do this \
 first if you want to be able to use these OpenGL functions.")
 
-            raise _OpenGLNotYetInitializedError()
+            raise self._error_utils__module.OpenGLNotYetInitializedError()
 
     def get_context(self):
         """
@@ -72,13 +64,16 @@ class BufferObject:
 
         self._gc__module = _ModuleManager.import_module("gc")
 
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
         self._data_size = 0
         self._buffer_object = None
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         self._reserve = 0
         self._dynamic = False
@@ -260,6 +255,9 @@ class VertexArrayObject:
 
         self._moderngl__module = _ModuleManager.import_module("moderngl")
 
+        self._error_utils__module = _ModuleManager.import_module("pmma.python_src.utility.error_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
@@ -274,7 +272,7 @@ class VertexArrayObject:
         self._additional_buffers = None
         self._additional_buffer_attributes = None
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
     def _analyse_and_filter_buffer_attributes(self, attributes):
         """
@@ -284,7 +282,7 @@ class VertexArrayObject:
             self._logger.log_development("Your buffer shader attributes must always be \
 an array of 2 or more components, specifying the data type and shader value that each element in the \
 vertex buffer object the GLSL shader will use. For example: [data_type, variable_name] or ['3f', 'in_position']")
-            raise _UnexpectedBufferAttributeFormatError()
+            raise self._error_utils__module.UnexpectedBufferAttributeFormatError()
 
         filtered_data_types = ""
         filtered_variable_names = []
@@ -298,7 +296,7 @@ vertex buffer object the GLSL shader will use. For example: [data_type, variable
                 else:
                     self._logger.log_development(f"Unexpected data type found in buffer attribute analysis. \
 It must be one of the following formats: {','.join(_Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
-                    raise _UnknownDataTypeError
+                    raise self._error_utils__module.UnknownDataTypeError
             filtered_data_types = filtered_data_types.strip()
         else: # PMMA style [data type 1, variable name 1, data type 2, variable name 2 ...]
             if attributes[0].lower() in _Constants.DATA_INTERPRETATIONS:
@@ -312,14 +310,14 @@ It must be one of the following formats: {','.join(_Constants.DATA_COLLECTION_ME
                     else:
                         self._logger.log_development(f"Unexpected data type found in buffer attribute analysis. \
 It must be one of the following formats: {','.join(_Constants.DATA_COLLECTION_METHODS)}.") # fine to use f string here, as constant
-                        raise _UnknownDataTypeError()
+                        raise self._error_utils__module.UnknownDataTypeError()
                 else:
                     if attributes[attribute_index] in program_buffer_inputs:
                         filtered_variable_names.append(attributes[attribute_index]) # check this against shader inputs l8r
                     else:
                         self._logger.log_development("You attempted to assign a buffer object to a variable in \
 your shader that doesn't exist. The available shader buffer inputs that you can write to are: {}", variables=[program_buffer_inputs])
-                        raise _UnexpectedBufferAttributeError()
+                        raise self._error_utils__module.UnexpectedBufferAttributeError()
 
             filtered_data_types = filtered_data_types.strip()
 
@@ -539,6 +537,11 @@ class Shader:
         self._numpy__module = _ModuleManager.import_module("numpy")
         self._os__module = _ModuleManager.import_module("os")
 
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._shader_utils__module = _ModuleManager.import_module("pmma.python_src.utility.shader_utils")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
@@ -547,12 +550,12 @@ class Shader:
 
         self._created = False
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         self._uniform_values = {}
         self._buffer_input_variable_names = []
         self._using_gl_point_size_syntax = False
-        self._shader_manager = _ShaderManager()
+        self._shader_manager = self._shader_utils__module.ShaderManager()
         self._shader_loaded_from_directory = None
 
     def get_buffer_input_variable_names(self):
@@ -687,7 +690,7 @@ class Shader:
         else:
             loaded_from_file = False
             for name in vertex_aliases:
-                path = _path_builder(directory, f"{name}.glsl")
+                path = self._file__module.path_builder(directory, f"{name}.glsl")
                 shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.VERTEX_ONLY)
                 if shader_exists or self._os__module.path.exists(path):
                     if shader_exists:
@@ -704,7 +707,7 @@ class Shader:
                     break
 
             for name in fragment_aliases:
-                path = _path_builder(directory, f"{name}.glsl")
+                path = self._file__module.path_builder(directory, f"{name}.glsl")
                 shader_exists = self._shader_manager.check_if_shader_exists(directory, shader_type=_Constants.FRAGMENT_ONLY)
                 if shader_exists or self._os__module.path.exists(path):
                     if shader_exists:
@@ -821,7 +824,9 @@ class Texture:
         """
         _initialize(self)
 
-        self._internal_texture = _Texture()
+        self._opengl_utils__module = _ModuleManager.import_module("pmma.python_src.utility.opengl_utils")
+
+        self._internal_texture = self._opengl_utils__module.Texture()
 
     def create(
             self,
@@ -947,6 +952,8 @@ class FrameBufferObject:
         """
         _initialize(self)
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
@@ -977,7 +984,7 @@ class FrameBufferObject:
         """
         if color is None:
             color = (0.0, 0.0, 0.0, 0.0)
-        elif type(color) == _ColorConverter:
+        elif type(color) == self._number_converter__module.ColorConverter:
             color = color.get_color(_Constants.SMALL_RGBA)
         elif len(color) == 3:
             color = (*color, 0.0)

@@ -4,13 +4,6 @@ from pmma.python_src.utility.initialization_utils import initialize as _initiali
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-from pmma.python_src.noise import Perlin as _Perlin
-
-from pmma.python_src.utility.number_converter_utils import ColorIntermediary as _ColorIntermediary
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.error_utils import DisplayNotYetCreatedError as _DisplayNotYetCreatedError
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-
 class AngleConverter:
     """
     🟩 **R** -
@@ -142,7 +135,10 @@ class ColorConverter:
 
         self._random__module = _ModuleManager.import_module("random")
 
-        self._color_intermediary = _ColorIntermediary()
+        self._noise__module = _ModuleManager.import_module("pmma.python_src.noise")
+        self._number_converter_utils__module = _ModuleManager.import_module("pmma.python_src.utility.number_converter_utils")
+
+        self._color_intermediary = self._number_converter_utils__module.ColorIntermediary()
 
         self._seed = None
         self._red_seed = None
@@ -326,13 +322,13 @@ class ColorConverter:
         """
 
         if self._red_noise is None:
-            self._red_noise = _Perlin(seed=self._red_seed)
+            self._red_noise = self._noise__module.Perlin(seed=self._red_seed)
         if self._green_noise is None:
-            self._green_noise = _Perlin(seed=self._green_seed)
+            self._green_noise = self._noise__module.Perlin(seed=self._green_seed)
         if self._blue_noise is None:
-            self._blue_noise = _Perlin(seed=self._blue_seed)
+            self._blue_noise = self._noise__module.Perlin(seed=self._blue_seed)
         if self._alpha_noise is None:
-            self._alpha_noise = _Perlin(seed=self._alpha_seed)
+            self._alpha_noise = self._noise__module.Perlin(seed=self._alpha_seed)
 
         if red_color_range is None:
             red_color_range = color_range
@@ -373,8 +369,13 @@ class DisplayScalarConverter:
         """
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
+        self._error_utils__module = _ModuleManager.import_module("pmma.python_src.utility.error_utils")
+
         if not _InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
             from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
             _number_converter_utils()
 
@@ -385,12 +386,12 @@ class DisplayScalarConverter:
         self._point_set = False
 
         if not _Registry.display_initialized:
-            self._logger = _InternalLogger()
+            self._logger = self._logging_utils__module.InternalLogger()
             self._logger.log_development("You need to initialize a display before using \
 coordinate converter, because we dont know what size to convert the coordinates to/from \
 with no window created. Initialize the Display component and use `display.create()` to \
 create the window onscreen")
-            raise _DisplayNotYetCreatedError()
+            raise self._error_utils__module.DisplayNotYetCreatedError()
 
         self._display = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
         self._display.add_to_functions_to_call_on_resize(self)
@@ -446,8 +447,13 @@ class DisplayCoordinatesConverter:
 
         self._random__module = _ModuleManager.import_module("random")
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._noise__module = _ModuleManager.import_module("pmma.python_src.noise")
+        self._error_utils__module = _ModuleManager.import_module("pmma.python_src.utility.error_utils")
+
         if not _InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CONVERTER_INTERMEDIARY_MANAGER_OBJECT)
             from pmma.python_src.utility.number_converter_utils import ConverterIntermediaryManager as _number_converter_utils
             _number_converter_utils()
 
@@ -463,12 +469,12 @@ class DisplayCoordinatesConverter:
         self._coordinate_set = False
 
         if not _Registry.display_initialized:
-            self._logger = _InternalLogger()
+            self._logger = self._logging_utils__module.InternalLogger()
             self._logger.log_development("You need to initialize a display before using \
 coordinate converter, because we dont know what size to convert the coordinates to/from \
 with no window created. Initialize the Display component and use `display.create()` to \
 create the window onscreen")
-            raise _DisplayNotYetCreatedError()
+            raise self._error_utils__module.DisplayNotYetCreatedError()
 
         self._display = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
         self._display.add_to_functions_to_call_on_resize(self)
@@ -537,10 +543,10 @@ create the window onscreen")
         """
 
         if self._x_noise is None:
-            self._x_noise = _Perlin(seed=self._seed)
+            self._x_noise = self._noise__module.Perlin(seed=self._seed)
 
         if self._y_noise is None:
-            self._y_noise = _Perlin(seed=self._seed)
+            self._y_noise = self._noise__module.Perlin(seed=self._seed)
 
         if x_coordinate_range is None:
             if coordinate_range is None:

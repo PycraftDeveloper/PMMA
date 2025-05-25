@@ -3,14 +3,6 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-from pmma.python_src.backpack import Backpack as _Backpack
-from pmma.python_src.controller import Controllers as _Controllers
-
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-
-from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
-
 class Events:
     """
     🟩 **R** -
@@ -29,7 +21,11 @@ class Events:
 
         self._pygame__module = _ModuleManager.import_module("pygame")
 
-        self._logger = _InternalLogger()
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._controller__module = _ModuleManager.import_module("pmma.python_src.controller")
+        self._backpack__module = _ModuleManager.import_module("pmma.python_src.backpack")
+
+        self._logger = self._logging_utils__module.InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
@@ -38,7 +34,7 @@ class Events:
 
         self.iteration_id = 0
 
-        self.controllers = _Controllers()
+        self.controllers = self._controller__module.Controllers()
 
     def handle(self, handle_full_screen_events=True, handle_exit_events=True, grab_extended_keyboard_events=False):
         """
@@ -456,7 +452,7 @@ then enable it to see if it fixes or improves a desired feature.")
                         _Registry.pmma_module_spine[_InternalConstants.ESCAPE_KEY_OBJECT].set_pressed(True)
                     if handle_exit_events:
                         _Registry.running = False
-                        _Backpack.running = False
+                        self._backpack__module.Backpack.running = False
 
                 elif event.key == self._pygame__module.K_SPACE:
                     if _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine:
@@ -1525,7 +1521,7 @@ then enable it to see if it fixes or improves a desired feature.")
                     _Registry.pmma_module_spine[_InternalConstants.QUIT_EVENT_OBJECT].set_value(True)
                 if handle_exit_events:
                     _Registry.running = False
-                    _Backpack.running = False
+                    self._backpack__module.Backpack.running = False
 
             elif event.type == self._pygame__module.RENDER_TARGETS_RESET:
                 if _InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine:
@@ -1624,8 +1620,10 @@ class Backspace_KEY:
         """
         _initialize(self)
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.BACKSPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.BACKSPACE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.BACKSPACE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Backspace_KEY as _Backspace_KEY
             _Backspace_KEY()
 
@@ -1695,8 +1693,11 @@ class Tab_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.TAB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.TAB_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.TAB_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Tab_KEY as _Tab_KEY
             _Tab_KEY()
 
@@ -1766,8 +1767,11 @@ class Clear_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CLEAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CLEAR_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CLEAR_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Clear_KEY as _Clear_KEY
             _Clear_KEY()
 
@@ -1837,8 +1841,11 @@ class Return_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RETURN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RETURN_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RETURN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Return_KEY as _Return_KEY
             _Return_KEY()
 
@@ -1908,8 +1915,11 @@ class Pause_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PAUSE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PAUSE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PAUSE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Pause_KEY as _Pause_KEY
             _Pause_KEY()
 
@@ -1979,8 +1989,11 @@ class Escape_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.ESCAPE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.ESCAPE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.ESCAPE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Escape_KEY as _Escape_KEY
             _Escape_KEY()
 
@@ -2050,8 +2063,11 @@ class Space_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SPACE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SPACE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SPACE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Space_KEY as _Space_KEY
             _Space_KEY()
 
@@ -2121,8 +2137,11 @@ class ExclamationMark_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.EXCLAMATIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.EXCLAMATIONMARK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import ExclamationMark_KEY as _ExclamationMark_KEY
             _ExclamationMark_KEY()
 
@@ -2192,8 +2211,11 @@ class DoubleQuote_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DOUBLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DOUBLEQUOTE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DOUBLEQUOTE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import DoubleQuote_KEY as _DoubleQuote_KEY
             _DoubleQuote_KEY()
 
@@ -2263,8 +2285,11 @@ class Hashtag_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.HASHTAG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.HASHTAG_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.HASHTAG_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Hashtag_KEY as _Hashtag_KEY
             _Hashtag_KEY()
 
@@ -2334,8 +2359,11 @@ class Dollar_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DOLLAR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DOLLAR_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DOLLAR_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Dollar_KEY as _Dollar_KEY
             _Dollar_KEY()
 
@@ -2405,8 +2433,11 @@ class Ampersand_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.AMPERSAND_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.AMPERSAND_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.AMPERSAND_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Ampersand_KEY as _Ampersand_KEY
             _Ampersand_KEY()
 
@@ -2476,8 +2507,11 @@ class SingleQuote_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SINGLEQUOTE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SINGLEQUOTE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SINGLEQUOTE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import SingleQuote_KEY as _SingleQuote_KEY
             _SingleQuote_KEY()
 
@@ -2547,8 +2581,11 @@ class LeftParenthesis_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTPARENTHESIS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftParenthesis_KEY as _LeftParenthesis_KEY
             _LeftParenthesis_KEY()
 
@@ -2618,8 +2655,11 @@ class RightParenthesis_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTPARENTHESIS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightParenthesis_KEY as _RightParenthesis_KEY
             _RightParenthesis_KEY()
 
@@ -2689,8 +2729,11 @@ class Asterisk_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.ASTERISK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.ASTERISK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.ASTERISK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Asterisk_KEY as _Asterisk_KEY
             _Asterisk_KEY()
 
@@ -2760,8 +2803,11 @@ class Plus_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PLUS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PLUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Plus_KEY as _Plus_KEY
             _Plus_KEY()
 
@@ -2831,8 +2877,11 @@ class Comma_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.COMMA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.COMMA_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.COMMA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Comma_KEY as _Comma_KEY
             _Comma_KEY()
 
@@ -2902,8 +2951,11 @@ class Minus_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MINUS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MINUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Minus_KEY as _Minus_KEY
             _Minus_KEY()
 
@@ -2973,8 +3025,11 @@ class Period_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PERIOD_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PERIOD_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Period_KEY as _Period_KEY
             _Period_KEY()
 
@@ -3044,8 +3099,11 @@ class ForwardSlash_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FORWARDSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FORWARDSLASH_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FORWARDSLASH_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import ForwardSlash_KEY as _ForwardSlash_KEY
             _ForwardSlash_KEY()
 
@@ -3115,8 +3173,11 @@ class Primary0_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY0_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY0_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary0_KEY as _Primary0_KEY
             _Primary0_KEY()
 
@@ -3186,8 +3247,11 @@ class Primary1_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY1_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY1_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary1_KEY as _Primary1_KEY
             _Primary1_KEY()
 
@@ -3257,8 +3321,11 @@ class Primary2_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY2_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY2_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary2_KEY as _Primary2_KEY
             _Primary2_KEY()
 
@@ -3328,8 +3395,11 @@ class Primary3_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY3_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY3_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary3_KEY as _Primary3_KEY
             _Primary3_KEY()
 
@@ -3399,8 +3469,11 @@ class Primary4_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY4_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY4_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary4_KEY as _Primary4_KEY
             _Primary4_KEY()
 
@@ -3470,8 +3543,11 @@ class Primary5_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY5_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY5_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary5_KEY as _Primary5_KEY
             _Primary5_KEY()
 
@@ -3541,8 +3617,11 @@ class Primary6_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY6_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY6_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary6_KEY as _Primary6_KEY
             _Primary6_KEY()
 
@@ -3612,8 +3691,11 @@ class Primary7_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY7_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY7_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary7_KEY as _Primary7_KEY
             _Primary7_KEY()
 
@@ -3683,8 +3765,11 @@ class Primary8_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY8_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY8_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary8_KEY as _Primary8_KEY
             _Primary8_KEY()
 
@@ -3754,8 +3839,11 @@ class Primary9_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARY9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARY9_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARY9_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Primary9_KEY as _Primary9_KEY
             _Primary9_KEY()
 
@@ -3825,8 +3913,11 @@ class Colon_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.COLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.COLON_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.COLON_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Colon_KEY as _Colon_KEY
             _Colon_KEY()
 
@@ -3896,8 +3987,11 @@ class SemiColon_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SEMICOLON_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SEMICOLON_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SEMICOLON_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import SemiColon_KEY as _SemiColon_KEY
             _SemiColon_KEY()
 
@@ -3967,8 +4061,11 @@ class LessThan_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LESSTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LESSTHAN_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LESSTHAN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LessThan_KEY as _LessThan_KEY
             _LessThan_KEY()
 
@@ -4038,8 +4135,11 @@ class Equals_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.EQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.EQUALS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.EQUALS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Equals_KEY as _Equals_KEY
             _Equals_KEY()
 
@@ -4109,8 +4209,11 @@ class GreaterThan_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.GREATERTHAN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.GREATERTHAN_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.GREATERTHAN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import GreaterThan_KEY as _GreaterThan_KEY
             _GreaterThan_KEY()
 
@@ -4180,8 +4283,11 @@ class QuestionMark_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.QUESTIONMARK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.QUESTIONMARK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.QUESTIONMARK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import QuestionMark_KEY as _QuestionMark_KEY
             _QuestionMark_KEY()
 
@@ -4251,8 +4357,11 @@ class At_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.AT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.AT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.AT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import At_KEY as _At_KEY
             _At_KEY()
 
@@ -4322,8 +4431,11 @@ class LeftBracket_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTBRACKET_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTBRACKET_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftBracket_KEY as _LeftBracket_KEY
             _LeftBracket_KEY()
 
@@ -4393,8 +4505,11 @@ class BackSlash_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.BACKSLASH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.BACKSLASH_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.BACKSLASH_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import BackSlash_KEY as _BackSlash_KEY
             _BackSlash_KEY()
 
@@ -4464,8 +4579,11 @@ class RightBracket_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTBRACKET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTBRACKET_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTBRACKET_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightBracket_KEY as _RightBracket_KEY
             _RightBracket_KEY()
 
@@ -4536,8 +4654,11 @@ class Caret_KEY: # ^
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CARET_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CARET_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CARET_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Caret_KEY as _Caret_KEY
             _Caret_KEY()
 
@@ -4607,8 +4728,11 @@ class Underscore_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.UNDERSCORE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.UNDERSCORE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.UNDERSCORE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Underscore_KEY as _Underscore_KEY
             _Underscore_KEY()
 
@@ -4678,8 +4802,11 @@ class Grave_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.GRAVE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.GRAVE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.GRAVE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Grave_KEY as _Grave_KEY
             _Grave_KEY()
 
@@ -4749,8 +4876,11 @@ class PrimaryA_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYA_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryA_KEY as _PrimaryA_KEY
             _PrimaryA_KEY()
 
@@ -4820,8 +4950,11 @@ class PrimaryB_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYB_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYB_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYB_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryB_KEY as _PrimaryB_KEY
             _PrimaryB_KEY()
 
@@ -4891,8 +5024,11 @@ class PrimaryC_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYC_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYC_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYC_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryC_KEY as _PrimaryC_KEY
             _PrimaryC_KEY()
 
@@ -4962,8 +5098,11 @@ class PrimaryD_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYD_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYD_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryD_KEY as _PrimaryD_KEY
             _PrimaryD_KEY()
 
@@ -5033,8 +5172,11 @@ class PrimaryE_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryE_KEY as _PrimaryE_KEY
             _PrimaryE_KEY()
 
@@ -5104,8 +5246,11 @@ class PrimaryF_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYF_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYF_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYF_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryF_KEY as _PrimaryF_KEY
             _PrimaryF_KEY()
 
@@ -5175,8 +5320,11 @@ class PrimaryG_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYG_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYG_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYG_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryG_KEY as _PrimaryG_KEY
             _PrimaryG_KEY()
 
@@ -5246,8 +5394,11 @@ class PrimaryH_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYH_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYH_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYH_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryH_KEY as _PrimaryH_KEY
             _PrimaryH_KEY()
 
@@ -5317,8 +5468,11 @@ class PrimaryI_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYI_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYI_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYI_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryI_KEY as _PrimaryI_KEY
             _PrimaryI_KEY()
 
@@ -5388,8 +5542,11 @@ class PrimaryJ_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYJ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYJ_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYJ_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryJ_KEY as _PrimaryJ_KEY
             _PrimaryJ_KEY()
 
@@ -5459,8 +5616,11 @@ class PrimaryK_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryK_KEY as _PrimaryK_KEY
             _PrimaryK_KEY()
 
@@ -5530,8 +5690,11 @@ class PrimaryL_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYL_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryL_KEY as _PrimaryL_KEY
             _PrimaryL_KEY()
 
@@ -5601,8 +5764,11 @@ class PrimaryM_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYM_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYM_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYM_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryM_KEY as _PrimaryM_KEY
             _PrimaryM_KEY()
 
@@ -5672,8 +5838,11 @@ class PrimaryN_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYN_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryN_KEY as _PrimaryN_KEY
             _PrimaryN_KEY()
 
@@ -5743,8 +5912,11 @@ class PrimaryO_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYO_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYO_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryO_KEY as _PrimaryO_KEY
             _PrimaryO_KEY()
 
@@ -5814,8 +5986,11 @@ class PrimaryP_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYP_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryP_KEY as _PrimaryP_KEY
             _PrimaryP_KEY()
 
@@ -5885,8 +6060,11 @@ class PrimaryQ_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYQ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYQ_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYQ_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryQ_KEY as _PrimaryQ_KEY
             _PrimaryQ_KEY()
 
@@ -5956,8 +6134,11 @@ class PrimaryR_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYR_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYR_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYR_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryR_KEY as _PrimaryR_KEY
             _PrimaryR_KEY()
 
@@ -6027,8 +6208,11 @@ class PrimaryS_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryS_KEY as _PrimaryS_KEY
             _PrimaryS_KEY()
 
@@ -6098,8 +6282,11 @@ class PrimaryT_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryT_KEY as _PrimaryT_KEY
             _PrimaryT_KEY()
 
@@ -6169,8 +6356,11 @@ class PrimaryU_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYU_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYU_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryU_KEY as _PrimaryU_KEY
             _PrimaryU_KEY()
 
@@ -6240,8 +6430,11 @@ class PrimaryV_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYV_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYV_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYV_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryV_KEY as _PrimaryV_KEY
             _PrimaryV_KEY()
 
@@ -6311,8 +6504,11 @@ class PrimaryW_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYW_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYW_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYW_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryW_KEY as _PrimaryW_KEY
             _PrimaryW_KEY()
 
@@ -6382,8 +6578,11 @@ class PrimaryX_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYX_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYX_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYX_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryX_KEY as _PrimaryX_KEY
             _PrimaryX_KEY()
 
@@ -6453,8 +6652,11 @@ class PrimaryY_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYY_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYY_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryY_KEY as _PrimaryY_KEY
             _PrimaryY_KEY()
 
@@ -6524,8 +6726,11 @@ class PrimaryZ_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRIMARYZ_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRIMARYZ_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRIMARYZ_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PrimaryZ_KEY as _PrimaryZ_KEY
             _PrimaryZ_KEY()
 
@@ -6595,8 +6800,11 @@ class Delete_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DELETE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DELETE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DELETE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Delete_KEY as _Delete_KEY
             _Delete_KEY()
 
@@ -6666,8 +6874,11 @@ class Numpad0_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD0_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD0_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD0_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad0_KEY as _Numpad0_KEY
             _Numpad0_KEY()
 
@@ -6737,8 +6948,11 @@ class Numpad1_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD1_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD1_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad1_KEY as _Numpad1_KEY
             _Numpad1_KEY()
 
@@ -6808,8 +7022,11 @@ class Numpad2_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD2_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD2_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad2_KEY as _Numpad2_KEY
             _Numpad2_KEY()
 
@@ -6879,8 +7096,11 @@ class Numpad3_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD3_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD3_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad3_KEY as _Numpad3_KEY
             _Numpad3_KEY()
 
@@ -6950,8 +7170,11 @@ class Numpad4_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD4_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD4_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad4_KEY as _Numpad4_KEY
             _Numpad4_KEY()
 
@@ -7021,8 +7244,11 @@ class Numpad5_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD5_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD5_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad5_KEY as _Numpad5_KEY
             _Numpad5_KEY()
 
@@ -7092,8 +7318,11 @@ class Numpad6_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD6_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD6_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad6_KEY as _Numpad6_KEY
             _Numpad6_KEY()
 
@@ -7163,8 +7392,11 @@ class Numpad7_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD7_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD7_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad7_KEY as _Numpad7_KEY
             _Numpad7_KEY()
 
@@ -7234,8 +7466,11 @@ class Numpad8_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD8_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD8_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad8_KEY as _Numpad8_KEY
             _Numpad8_KEY()
 
@@ -7305,8 +7540,11 @@ class Numpad9_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPAD9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPAD9_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPAD9_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Numpad9_KEY as _Numpad9_KEY
             _Numpad9_KEY()
 
@@ -7376,8 +7614,11 @@ class NumpadPeriod_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADPERIOD_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADPERIOD_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADPERIOD_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadPeriod_KEY as _NumpadPeriod_KEY
             _NumpadPeriod_KEY()
 
@@ -7447,8 +7688,11 @@ class NumpadDivide_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADDIVIDE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADDIVIDE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADDIVIDE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadDivide_KEY as _NumpadDivide_KEY
             _NumpadDivide_KEY()
 
@@ -7518,8 +7762,11 @@ class NumpadMultiply_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADMULTIPLY_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADMULTIPLY_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadMultiply_KEY as _NumpadMultiply_KEY
             _NumpadMultiply_KEY()
 
@@ -7589,8 +7836,11 @@ class NumpadMinus_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADMINUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADMINUS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADMINUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadMinus_KEY as _NumpadMinus_KEY
             _NumpadMinus_KEY()
 
@@ -7660,8 +7910,11 @@ class NumpadPlus_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADPLUS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADPLUS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADPLUS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadPlus_KEY as _NumpadPlus_KEY
             _NumpadPlus_KEY()
 
@@ -7731,8 +7984,11 @@ class NumpadEnter_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADENTER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADENTER_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADENTER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadEnter_KEY as _NumpadEnter_KEY
             _NumpadEnter_KEY()
 
@@ -7802,8 +8058,11 @@ class NumpadEquals_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMPADEQUALS_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMPADEQUALS_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMPADEQUALS_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumpadEquals_KEY as _NumpadEquals_KEY
             _NumpadEquals_KEY()
 
@@ -7873,8 +8132,11 @@ class Up_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.UP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.UP_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.UP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Up_KEY as _Up_KEY
             _Up_KEY()
 
@@ -7944,8 +8206,11 @@ class Down_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DOWN_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DOWN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Down_KEY as _Down_KEY
             _Down_KEY()
 
@@ -8015,8 +8280,11 @@ class Right_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Right_KEY as _Right_KEY
             _Right_KEY()
 
@@ -8086,8 +8354,11 @@ class Left_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Left_KEY as _Left_KEY
             _Left_KEY()
 
@@ -8157,8 +8428,11 @@ class Insert_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.INSERT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.INSERT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.INSERT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Insert_KEY as _Insert_KEY
             _Insert_KEY()
 
@@ -8228,8 +8502,11 @@ class Home_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.HOME_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.HOME_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.HOME_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Home_KEY as _Home_KEY
             _Home_KEY()
 
@@ -8299,8 +8576,11 @@ class End_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.END_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.END_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.END_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import End_KEY as _End_KEY
             _End_KEY()
 
@@ -8370,8 +8650,11 @@ class PageUp_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PAGEUP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PAGEUP_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PAGEUP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PageUp_KEY as _PageUp_KEY
             _PageUp_KEY()
 
@@ -8441,8 +8724,11 @@ class PageDown_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PAGEDOWN_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PAGEDOWN_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PAGEDOWN_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import PageDown_KEY as _PageDown_KEY
             _PageDown_KEY()
 
@@ -8512,8 +8798,11 @@ class Function1_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION1_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION1_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION1_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function1_KEY as _Function1_KEY
             _Function1_KEY()
 
@@ -8583,8 +8872,11 @@ class Function2_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION2_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION2_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION2_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function2_KEY as _Function2_KEY
             _Function2_KEY()
 
@@ -8654,8 +8946,11 @@ class Function3_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION3_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION3_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION3_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function3_KEY as _Function3_KEY
             _Function3_KEY()
 
@@ -8725,8 +9020,11 @@ class Function4_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION4_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION4_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION4_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function4_KEY as _Function4_KEY
             _Function4_KEY()
 
@@ -8796,8 +9094,11 @@ class Function5_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION5_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION5_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION5_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function5_KEY as _Function5_KEY
             _Function5_KEY()
 
@@ -8867,8 +9168,11 @@ class Function6_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION6_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION6_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION6_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function6_KEY as _Function6_KEY
             _Function6_KEY()
 
@@ -8938,8 +9242,11 @@ class Function7_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION7_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION7_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION7_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function7_KEY as _Function7_KEY
             _Function7_KEY()
 
@@ -9009,8 +9316,11 @@ class Function8_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION8_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION8_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION8_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function8_KEY as _Function8_KEY
             _Function8_KEY()
 
@@ -9080,8 +9390,11 @@ class Function9_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION9_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION9_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION9_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function9_KEY as _Function9_KEY
             _Function9_KEY()
 
@@ -9151,8 +9464,11 @@ class Function10_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION10_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION10_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION10_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function10_KEY as _Function10_KEY
             _Function10_KEY()
 
@@ -9222,8 +9538,11 @@ class Function11_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION11_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION11_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION11_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function11_KEY as _Function11_KEY
             _Function11_KEY()
 
@@ -9293,8 +9612,11 @@ class Function12_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION12_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION12_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION12_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function12_KEY as _Function12_KEY
             _Function12_KEY()
 
@@ -9364,8 +9686,11 @@ class Function13_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION13_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION13_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION13_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function13_KEY as _Function13_KEY
             _Function13_KEY()
 
@@ -9435,8 +9760,11 @@ class Function14_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION14_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION14_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION14_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function14_KEY as _Function14_KEY
             _Function14_KEY()
 
@@ -9506,8 +9834,11 @@ class Function15_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FUNCTION15_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FUNCTION15_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FUNCTION15_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Function15_KEY as _Function15_KEY
             _Function15_KEY()
 
@@ -9577,8 +9908,11 @@ class NumLock_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.NUMLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.NUMLOCK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.NUMLOCK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import NumLock_KEY as _NumLock_KEY
             _NumLock_KEY()
 
@@ -9648,8 +9982,11 @@ class CapsLock_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CAPSLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CAPSLOCK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CAPSLOCK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import CapsLock_KEY as _CapsLock_KEY
             _CapsLock_KEY()
 
@@ -9719,8 +10056,11 @@ class ScrollLock_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SCROLLLOCK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SCROLLLOCK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SCROLLLOCK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import ScrollLock_KEY as _ScrollLock_KEY
             _ScrollLock_KEY()
 
@@ -9790,8 +10130,11 @@ class RightShift_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTSHIFT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTSHIFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightShift_KEY as _RightShift_KEY
             _RightShift_KEY()
 
@@ -9861,8 +10204,11 @@ class LeftShift_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTSHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTSHIFT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTSHIFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftShift_KEY as _LeftShift_KEY
             _LeftShift_KEY()
 
@@ -9932,8 +10278,11 @@ class Shift_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SHIFT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SHIFT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SHIFT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Shift_KEY as _Shift_KEY
             _Shift_KEY()
 
@@ -10003,8 +10352,11 @@ class RightControl_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTCONTROL_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTCONTROL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightControl_KEY as _RightControl_KEY
             _RightControl_KEY()
 
@@ -10074,8 +10426,11 @@ class LeftControl_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTCONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTCONTROL_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTCONTROL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftControl_KEY as _LeftControl_KEY
             _LeftControl_KEY()
 
@@ -10145,8 +10500,11 @@ class Control_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CONTROL_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CONTROL_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CONTROL_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Control_KEY as _Control_KEY
             _Control_KEY()
 
@@ -10216,8 +10574,11 @@ class RightAlt_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTALT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTALT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightAlt_KEY as _RightAlt_KEY
             _RightAlt_KEY()
 
@@ -10287,8 +10648,11 @@ class LeftAlt_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTALT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTALT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftAlt_KEY as _LeftAlt_KEY
             _LeftAlt_KEY()
 
@@ -10358,8 +10722,11 @@ class Alt_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.ALT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.ALT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.ALT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Alt_KEY as _Alt_KEY
             _Alt_KEY()
 
@@ -10429,8 +10796,11 @@ class RightMeta_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTMETA_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTMETA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightMeta_KEY as _RightMeta_KEY
             _RightMeta_KEY()
 
@@ -10500,8 +10870,11 @@ class LeftMeta_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTMETA_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTMETA_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTMETA_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftMeta_KEY as _LeftMeta_KEY
             _LeftMeta_KEY()
 
@@ -10571,8 +10944,11 @@ class Meta_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.META_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.META_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.META_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Meta_KEY as _Meta_KEY
             _Meta_KEY()
 
@@ -10642,8 +11018,11 @@ class LeftSuper_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTSUPER_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTSUPER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import LeftSuper_KEY as _LeftSuper_KEY
             _LeftSuper_KEY()
 
@@ -10713,8 +11092,11 @@ class RightSuper_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTSUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTSUPER_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTSUPER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import RightSuper_KEY as _RightSuper_KEY
             _RightSuper_KEY()
 
@@ -10784,8 +11166,11 @@ class Super_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SUPER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SUPER_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SUPER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Super_KEY as _Super_KEY
             _Super_KEY()
 
@@ -10855,8 +11240,11 @@ class Mode_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MODE_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MODE_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MODE_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Mode_KEY as _Mode_KEY
             _Mode_KEY()
 
@@ -10926,8 +11314,11 @@ class Help_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.HELP_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.HELP_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.HELP_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Help_KEY as _Help_KEY
             _Help_KEY()
 
@@ -10997,8 +11388,11 @@ class Print_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.PRINT_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.PRINT_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.PRINT_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Print_KEY as _Print_KEY
             _Print_KEY()
 
@@ -11068,8 +11462,11 @@ class SystemRequest_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SYSTEMREQUEST_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SYSTEMREQUEST_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SYSTEMREQUEST_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import SystemRequest_KEY as _SystemRequest_KEY
             _SystemRequest_KEY()
 
@@ -11139,8 +11536,11 @@ class Break_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.BREAK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.BREAK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.BREAK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Break_KEY as _Break_KEY
             _Break_KEY()
 
@@ -11210,8 +11610,11 @@ class Menu_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MENU_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MENU_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MENU_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Menu_KEY as _Menu_KEY
             _Menu_KEY()
 
@@ -11281,8 +11684,11 @@ class Power_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.POWER_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.POWER_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.POWER_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Power_KEY as _Power_KEY
             _Power_KEY()
 
@@ -11352,8 +11758,11 @@ class Euro_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.EURO_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.EURO_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.EURO_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import Euro_KEY as _Euro_KEY
             _Euro_KEY()
 
@@ -11423,8 +11832,11 @@ class AndroidBack_KEY:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.ANDROIDBACK_KEY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.ANDROIDBACK_KEY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.ANDROIDBACK_KEY_OBJECT)
             from pmma.python_src.utility.event_utils import AndroidBack_KEY as _AndroidBack_KEY
             _AndroidBack_KEY()
 
@@ -11494,8 +11906,11 @@ class LeftButton_MOUSE:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LEFTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LEFTBUTTON_MOUSE_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LEFTBUTTON_MOUSE_OBJECT)
             from pmma.python_src.utility.event_utils import LeftButton_MOUSE as _LeftButton_MOUSE
             _LeftButton_MOUSE()
 
@@ -11565,8 +11980,11 @@ class MiddleButton_MOUSE:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MIDDLEBUTTON_MOUSE_OBJECT)
             from pmma.python_src.utility.event_utils import MiddleButton_MOUSE as _MiddleButton_MOUSE
             _MiddleButton_MOUSE()
 
@@ -11636,8 +12054,11 @@ class RightButton_MOUSE:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RIGHTBUTTON_MOUSE_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RIGHTBUTTON_MOUSE_OBJECT)
             from pmma.python_src.utility.event_utils import RightButton_MOUSE as _RightButton_MOUSE
             _RightButton_MOUSE()
 
@@ -11707,8 +12128,11 @@ class Mouse_SCROLL:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MOUSE_SCROLL_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MOUSE_SCROLL_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MOUSE_SCROLL_OBJECT)
             from pmma.python_src.utility.event_utils import Mouse_SCROLL as _Mouse_SCROLL
             _Mouse_SCROLL()
 
@@ -11778,8 +12202,11 @@ class Mouse_POSITION:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MOUSE_POSITION_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MOUSE_POSITION_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MOUSE_POSITION_OBJECT)
             from pmma.python_src.utility.event_utils import Mouse_POSITION as _Mouse_POSITION
             _Mouse_POSITION()
 
@@ -11855,8 +12282,11 @@ class Active_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.ACTIVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.ACTIVE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.ACTIVE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import Active_EVENT as _Active_EVENT
             _Active_EVENT()
 
@@ -11891,16 +12321,19 @@ class AppTerminating_EVENT:
         """
         _initialize(self)
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
         if not _InternalConstants.APPTERMINATING_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.APPTERMINATING_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.APPTERMINATING_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppTerminating_EVENT as _AppTerminating_EVENT
             _AppTerminating_EVENT()
 
         self._appterminatingevent_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPTERMINATING_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_value(self, value):
         """
@@ -11933,16 +12366,19 @@ class AppLowMemory_EVENT:
         """
         _initialize(self)
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
         if not _InternalConstants.APPLOWMEMORY_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.APPLOWMEMORY_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.APPLOWMEMORY_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppLowMemory_EVENT as _AppLowMemory_EVENT
             _AppLowMemory_EVENT()
 
         self._applowmemory_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPLOWMEMORY_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_value(self, value):
         """
@@ -11976,14 +12412,18 @@ class AppWillEnterBackground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+
         if not _InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppWillEnterBackground_EVENT as _AppWillEnterBackground_EVENT
             _AppWillEnterBackground_EVENT()
 
         self._appwillenterbackground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERBACKGROUND_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_value(self, value):
         """
@@ -12015,14 +12455,18 @@ class AppDidEnterBackground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+
         if not _InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppDidEnterBackground_EVENT as _AppDidEnterBackground_EVENT
             _AppDidEnterBackground_EVENT()
 
         self._appdidenterbackground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERBACKGROUND_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_value(self, value):
         """
@@ -12054,14 +12498,18 @@ class AppWillEnterForeground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+
         if not _InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppWillEnterForeground_EVENT as _AppWillEnterForeground_EVENT
             _AppWillEnterForeground_EVENT()
 
         self._appwillenterforeground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPWILLENTERFOREGROUND_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_value(self, value):
         """
@@ -12093,14 +12541,18 @@ class AppDidEnterForeground_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+
         if not _InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AppDidEnterForeground_EVENT as _AppDidEnterForeground_EVENT
             _AppDidEnterForeground_EVENT()
 
         self._appdidenterforeground_intermediary = _Registry.pmma_module_spine[_InternalConstants.APPDIDENTERFOREGROUND_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_value(self, value):
         """
@@ -12132,8 +12584,11 @@ class AudioDeviceAdded_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.AUDIODEVICEADDED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AudioDeviceAdded_EVENT as _AudioDeviceAdded_EVENT
             _AudioDeviceAdded_EVENT()
 
@@ -12167,8 +12622,11 @@ class AudioDeviceRemoved_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.AUDIODEVICEREMOVED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import AudioDeviceRemoved_EVENT as _AudioDeviceRemoved_EVENT
             _AudioDeviceRemoved_EVENT()
 
@@ -12202,8 +12660,11 @@ class ClipBoardUpdate_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.CLIPBOARDUPDATE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import ClipBoardUpdate_EVENT as _ClipBoardUpdate_EVENT
             _ClipBoardUpdate_EVENT()
 
@@ -12237,8 +12698,11 @@ class DropFile_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DROPFILE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DROPFILE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DROPFILE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropFile_EVENT as _DropFile_EVENT
             _DropFile_EVENT()
 
@@ -12272,14 +12736,18 @@ class DropText_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
+
         if not _InternalConstants.DROPTEXT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DROPTEXT_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DROPTEXT_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropText_EVENT as _DropText_EVENT
             _DropText_EVENT()
 
         self._deoptext_intermediary = _Registry.pmma_module_spine[_InternalConstants.DROPTEXT_EVENT_OBJECT]
-
-        self._logger = _InternalLogger()
 
     def set_text(self, text):
         """
@@ -12319,8 +12787,11 @@ class DropBegin_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DROPBEGIN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DROPBEGIN_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DROPBEGIN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropBegin_EVENT as _DropBegin_EVENT
             _DropBegin_EVENT()
 
@@ -12354,8 +12825,11 @@ class DropComplete_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.DROPCOMPLETE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.DROPCOMPLETE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.DROPCOMPLETE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import DropComplete_EVENT as _DropComplete_EVENT
             _DropComplete_EVENT()
 
@@ -12389,8 +12863,11 @@ class FingerMotion_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FINGERMOTION_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FINGERMOTION_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FINGERMOTION_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import FingerMotion_EVENT as _FingerMotion_EVENT
             _FingerMotion_EVENT()
 
@@ -12424,8 +12901,11 @@ class FingerDown_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FINGERDOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FINGERDOWN_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FINGERDOWN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import FingerDown_EVENT as _FingerDown_EVENT
             _FingerDown_EVENT()
 
@@ -12459,8 +12939,11 @@ class FingerUp_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.FINGERUP_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.FINGERUP_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.FINGERUP_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import FingerUp_EVENT as _FingerUp_EVENT
             _FingerUp_EVENT()
 
@@ -12494,8 +12977,11 @@ class KeyMapChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.KEYMAPCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.KEYMAPCHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import KeyMapChanged_EVENT as _KeyMapChanged_EVENT
             _KeyMapChanged_EVENT()
 
@@ -12529,8 +13015,11 @@ class LocaleChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.LOCALECHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LOCALECHANGED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LOCALECHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import LocaleChanged_EVENT as _LocaleChanged_EVENT
             _LocaleChanged_EVENT()
 
@@ -12564,8 +13053,11 @@ class MultiGesture_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.MULTIGESTURE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.MULTIGESTURE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.MULTIGESTURE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import MultiGesture_EVENT as _MultiGesture_EVENT
             _MultiGesture_EVENT()
 
@@ -12647,8 +13139,11 @@ class Quit_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.QUIT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.QUIT_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.QUIT_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import Quit_EVENT as _Quit_EVENT
             _Quit_EVENT()
 
@@ -12682,8 +13177,11 @@ class RenderTargetsReset_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDERTARGETSRESET_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import RenderTargetsReset_EVENT as _RenderTargetsReset_EVENT
             _RenderTargetsReset_EVENT()
 
@@ -12717,8 +13215,11 @@ class RenderDeviceReset_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.RENDERDEVICERESET_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.RENDERDEVICERESET_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import RenderDeviceReset_EVENT as _RenderDeviceReset_EVENT
             _RenderDeviceReset_EVENT()
 
@@ -12752,8 +13253,11 @@ class SysWMEvent_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.SYSWMEVENT_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SYSWMEVENT_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SYSWMEVENT_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import SysWMEvent_EVENT as _SysWMEvent_EVENT
             _SysWMEvent_EVENT()
 
@@ -12787,8 +13291,11 @@ class VideoResize_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.VIDEORESIZE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.VIDEORESIZE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.VIDEORESIZE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import VideoResize_EVENT as _VideoResize_EVENT
             _VideoResize_EVENT()
 
@@ -12822,8 +13329,11 @@ class VideoExpose_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.VIDEOEXPOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.VIDEOEXPOSE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.VIDEOEXPOSE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import VideoExpose_EVENT as _VideoExpose_EVENT
             _VideoExpose_EVENT()
 
@@ -12857,8 +13367,11 @@ class WindowShown_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWSHOWN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWSHOWN_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWSHOWN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowShown_EVENT as _WindowShown_EVENT
             _WindowShown_EVENT()
 
@@ -12892,8 +13405,11 @@ class WindowHidden_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWHIDDEN_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWHIDDEN_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowHidden_EVENT as _WindowHidden_EVENT
             _WindowHidden_EVENT()
 
@@ -12927,8 +13443,11 @@ class WindowExposed_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWEXPOSED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWEXPOSED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowExposed_EVENT as _WindowExposed_EVENT
             _WindowExposed_EVENT()
 
@@ -12962,8 +13481,11 @@ class WindowMoved_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWMOVED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWMOVED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWMOVED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowMoved_EVENT as _WindowMoved_EVENT
             _WindowMoved_EVENT()
 
@@ -12997,8 +13519,11 @@ class WindowResized_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWRESIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWRESIZED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWRESIZED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowResized_EVENT as _WindowResized_EVENT
             _WindowResized_EVENT()
 
@@ -13032,8 +13557,11 @@ class WindowMinimized_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWMINIMIZED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowMinimized_EVENT as _WindowMinimized_EVENT
             _WindowMinimized_EVENT()
 
@@ -13067,8 +13595,11 @@ class WindowMaximized_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWMAXIMIZED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowMaximized_EVENT as _WindowMaximized_EVENT
             _WindowMaximized_EVENT()
 
@@ -13102,8 +13633,11 @@ class WindowRestored_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWRESTORED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWRESTORED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWRESTORED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowRestored_EVENT as _WindowRestored_EVENT
             _WindowRestored_EVENT()
 
@@ -13137,8 +13671,11 @@ class WindowEnter_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWENTER_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWENTER_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWENTER_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowEnter_EVENT as _WindowEnter_EVENT
             _WindowEnter_EVENT()
 
@@ -13172,8 +13709,11 @@ class WindowLeave_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWLEAVE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWLEAVE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWLEAVE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowLeave_EVENT as _WindowLeave_EVENT
             _WindowLeave_EVENT()
 
@@ -13207,8 +13747,11 @@ class WindowFocusGained_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWFOCUSGAINED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
             _WindowFocusGained_EVENT()
 
@@ -13242,8 +13785,11 @@ class WindowFocusLost_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWFOCUSLOST_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
             _WindowFocusLost_EVENT()
 
@@ -13277,8 +13823,11 @@ class WindowClose_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWCLOSE_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWCLOSE_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWCLOSE_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowClose_EVENT as _WindowClose_EVENT
             _WindowClose_EVENT()
 
@@ -13312,8 +13861,11 @@ class WindowTakeFocus_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWTAKEFOCUS_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowTakeFocus_EVENT as _WindowTakeFocus_EVENT
             _WindowTakeFocus_EVENT()
 
@@ -13347,8 +13899,11 @@ class WindowHitTest_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWHITTEST_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWHITTEST_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWHITTEST_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowHitTest_EVENT as _WindowHitTest_EVENT
             _WindowHitTest_EVENT()
 
@@ -13382,8 +13937,11 @@ class WindowICCPROFChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWICCPROFCHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowICCPROFChanged_EVENT as _WindowICCPROFChanged_EVENT
             _WindowICCPROFChanged_EVENT()
 
@@ -13417,8 +13975,11 @@ class WindowDisplayChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWDISPLAYCHANGED_EVENT_OBJECT)
             from pmma.python_src.utility.event_utils import WindowDisplayChanged_EVENT as _WindowDisplayChanged_EVENT
             _WindowDisplayChanged_EVENT()
 
@@ -13452,8 +14013,11 @@ class JoyDeviceAdded_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.JOYDEVICEADDED_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.JOYDEVICEADDED_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.JOYDEVICEADDED_OBJECT)
             from pmma.python_src.utility.event_utils import JoyDeviceAdded_EVENT as _JoyDeviceAdded_EVENT
             _JoyDeviceAdded_EVENT()
 
@@ -13487,8 +14051,11 @@ class JoyDeviceRemoved_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.JOYDEVICEREMOVED_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.JOYDEVICEREMOVED_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.JOYDEVICEREMOVED_OBJECT)
             from pmma.python_src.utility.event_utils import JoyDeviceRemoved_EVENT as _JoyDeviceRemoved_EVENT
             _JoyDeviceRemoved_EVENT()
 
@@ -13522,8 +14089,11 @@ class WindowFullScreenStatusChanged_EVENT:
         🟩 **R** -
         """
         _initialize(self)
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.WINDOWFULLSCREENSTATECHANGED_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.WINDOWFULLSCREENSTATECHANGED_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.WINDOWFULLSCREENSTATECHANGED_OBJECT)
             from pmma.python_src.utility.event_utils import WindowFullScreenStatusChanged_EVENT as _WindowFullScreenStatusChanged_EVENT
             _WindowFullScreenStatusChanged_EVENT()
 
