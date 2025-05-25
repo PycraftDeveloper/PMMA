@@ -6,8 +6,6 @@ from pmma.python_src.constants import Constants
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.general_utils import GeneralIntermediary
 
 class Color:
     """
@@ -21,7 +19,9 @@ class Color:
 
         self._numpy__module = _ModuleManager.import_module("numpy")
 
-        self._GeneralIntermediary = GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._GeneralIntermediary = self._general_utils__module.GeneralIntermediary()
         self.in_type = None
         self.color = None
 
@@ -131,7 +131,7 @@ class DisplayScalar:
         🟩 **R** -
         """
         self._point = 0.0
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
         self.display_height = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_height()
 
     def update_display_height(self):
@@ -166,8 +166,10 @@ class DisplayCoordinates:
         """
         self._numpy__module = _ModuleManager.import_module("numpy")
 
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._coordinate = [0.0, 0.0]
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         self.display_size = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT].get_size()
 
