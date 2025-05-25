@@ -4,16 +4,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.number_converter import ColorConverter as _ColorConverter
-from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
-from pmma.python_src.advmath import Math as _Math
-
-from pmma.python_src.utility.display_utils import DisplayIntermediary as _DisplayIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-
-from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 class ShapeTemplate:
     """
@@ -30,12 +21,18 @@ class ShapeTemplate:
         self._pygame__module = _ModuleManager.import_module("pygame")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._events__module = _ModuleManager.import_module("pmma.python_src.events")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         if not _InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.SHAPE_GEOMETRY_MANAGER_OBJECT)
             from pmma.python_src.utility.shape_geometry_utils import ShapeGeometryManager as _ShapeGeometryManager
             _ShapeGeometryManager()
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
@@ -43,10 +40,10 @@ class ShapeTemplate:
             self._pygame__module.init()
 
         self._color_changed = True
-        self._fill_color_manager = _ColorConverter()
-        self._display: "_DisplayIntermediary" = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
+        self._fill_color_manager = self._number_converter__module.ColorConverter()
+        self._display = _Registry.pmma_module_spine[_InternalConstants.DISPLAY_OBJECT]
 
-        self._resized_event = _WindowResized_EVENT()
+        self._resized_event = self._events__module.WindowResized_EVENT()
 
         self._geometry_created = False
 
@@ -62,7 +59,7 @@ class ShapeTemplate:
         """
         🟩 **R** -
         """
-        if type(color) == _ColorConverter:
+        if type(color) == self._number_converter__module.ColorConverter:
             color = color.get_color(format=_Constants.RGBA)
             format = _Constants.RGBA
 
@@ -196,7 +193,9 @@ class LineUtils:
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
     def _internal_render(self, color_changed, geometry_created):
         """
@@ -327,7 +326,9 @@ class RadialPolygonUtils:
         self._numpy__module = _ModuleManager.import_module("numpy")
         self._math__module = _ModuleManager.import_module("math")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
@@ -424,7 +425,9 @@ class RectangleUtils:
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
@@ -602,7 +605,9 @@ class ArcUtils:
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
@@ -722,9 +727,13 @@ class EllipseUtils:
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._advmath__module = _ModuleManager.import_module("pmma.python_src.advmath")
 
-        self._math = _Math()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
+
+        self._math = self._advmath__module.Math()
 
     def _internal_render(self, color_changed, position_changed, geometry_created):
         """
@@ -849,7 +858,9 @@ class PolygonUtils:
         self._math__module = _ModuleManager.import_module("math")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
 
     def _internal_render(self, color_changed, geometry_created):
         """

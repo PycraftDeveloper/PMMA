@@ -9,13 +9,10 @@ except Exception as error:
 
 from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.constants import Constants as _Constants
 
 from pmma.python_src.utility.general_utils import GeneralIntermediary
-from pmma.python_src.gpu import GPU as _GPU
-from pmma.python_src.executor import Executor as _Executor
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
@@ -51,9 +48,14 @@ class GPUsIntermediary:
         self._json__module = _ModuleManager.import_module("json")
         self._threading__module = _ModuleManager.import_module("threading")
 
+        self._gpu__module = _ModuleManager.import_module("pmma.python_src.gpu")
+
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._executor__module = _ModuleManager.import_module("pmma.python_src.executor")
+
         self._general_intermediary = GeneralIntermediary()
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
         self._unique_gpus = {} # {"bus": n, "uuid": n}: {SMI: n, ADL: n, WMI, n}
 
@@ -71,7 +73,7 @@ class GPUsIntermediary:
 
         nvidia_smi = self._general_intermediary.find_executable_nvidia_smi()
         if nvidia_smi is not None:
-            self._executor = _Executor()
+            self._executor = self._executor__module.Executor()
             self._executor.run([
                 f"{nvidia_smi}",
                 "--query-gpu=index,pci.bus,gpu_name",
@@ -105,7 +107,7 @@ class GPUsIntermediary:
         gpu_instances = []
         self._gpu_instances = []
         for key in self._unique_gpus:
-            gpu_instances.append(_GPU(self._unique_gpus[key]))
+            gpu_instances.append(self._gpu__module.GPU(self._unique_gpus[key]))
 
         threads = []
         for gpu in gpu_instances:

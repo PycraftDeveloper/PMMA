@@ -2,11 +2,8 @@ from sys import executable as _sys__executable
 from os import devnull as _os__devnull
 
 from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
-
 from pmma.python_src.utility.registry_utils import Registry as _Registry
-
 from pmma.python_src.constants import Constants as _Constants
-from pmma.python_src.file import path_builder as _path_builder
 
 class CythonIntermediary:
     def __init__(self):
@@ -17,12 +14,14 @@ class CythonIntermediary:
         self._os__module = _ModuleManager.import_module("os")
         self._threading__module = _ModuleManager.import_module("threading")
 
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+
     def setup(self):
         """
         🟩 **R** -
         """
         try:
-            self._os__module.mkdir(_path_builder(_Registry.base_path, "bin"))
+            self._os__module.mkdir(self._file__module.path_builder(_Registry.base_path, "bin"))
         except FileExistsError:
             pass
 

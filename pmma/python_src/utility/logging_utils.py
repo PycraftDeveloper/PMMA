@@ -6,9 +6,6 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-from pmma.python_src.file import path_builder as _path_builder
-
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class LoggerIntermediary:
@@ -26,6 +23,10 @@ class LoggerIntermediary:
         self._threading__module = _ModuleManager.import_module("threading")
         self._os__module = _ModuleManager.import_module("os")
         self._waiting__module = _ModuleManager.import_module("waiting")
+
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
 
         self._logged_messages = []
 
@@ -60,7 +61,7 @@ class LoggerIntermediary:
 
         self._project_log_folder = None
 
-        self._log_directory = _path_builder(_Registry.base_path, "logs")
+        self._log_directory = self._file__module.path_builder(_Registry.base_path, "logs")
         try:
             self._os__module.mkdir(self._log_directory)
         except:
@@ -69,29 +70,29 @@ class LoggerIntermediary:
         now = self._datetime__module.datetime.now()
         log_file_identifier = now.strftime("log %d-%m-%Y @ %H-%M-%S")
 
-        self._log_folders_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier)
+        self._log_folders_directory = self._file__module.path_builder(_Registry.base_path, "logs", log_file_identifier)
         try:
             self._os__module.mkdir(self._log_folders_directory)
         except:
             pass
 
-        self._internal_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, "pmma")
+        self._internal_log_directory = self._file__module.path_builder(_Registry.base_path, "logs", log_file_identifier, "pmma")
         try:
             self._os__module.mkdir(self._internal_log_directory)
         except:
             pass
 
-        if _PassportIntermediary.name is not None:
-            name = _PassportIntermediary.name
+        if self._passport_utils__module.PassportIntermediary.name is not None:
+            name = self._passport_utils__module.PassportIntermediary.name
         else:
             name = "application"
-        self._external_log_directory = _path_builder(_Registry.base_path, "logs", log_file_identifier, name)
+        self._external_log_directory = self._file__module.path_builder(_Registry.base_path, "logs", log_file_identifier, name)
         try:
             self._os__module.mkdir(self._external_log_directory)
         except:
             pass
 
-        _Registry.logging_path = [_path_builder(self._internal_log_directory, "profile.txt"), _path_builder(self._external_log_directory, "profile.txt")]
+        _Registry.logging_path = [self._file__module.path_builder(self._internal_log_directory, "profile.txt"), self._file__module.path_builder(self._external_log_directory, "profile.txt")]
 
         self._log_to_file_thread.start()
 
@@ -312,13 +313,13 @@ class LoggerIntermediary:
         """
         🟩 **R** -
         """
-        if _PassportIntermediary.project_log_directory is None:
-            if _PassportIntermediary.project_directory is None:
+        if self._passport_utils__module.PassportIntermediary.project_log_directory is None:
+            if self._passport_utils__module.PassportIntermediary.project_directory is None:
                 project_log_directory = None
             else:
-                project_log_directory = _path_builder(_PassportIntermediary.project_directory, "logs")
+                project_log_directory = self._file__module.path_builder(self._passport_utils__module.PassportIntermediary.project_directory, "logs")
         else:
-            project_log_directory = _PassportIntermediary.project_log_directory
+            project_log_directory = self._passport_utils__module.PassportIntermediary.project_log_directory
 
         return project_log_directory
 
@@ -355,7 +356,7 @@ class LoggerIntermediary:
                     repeat_for_effect=True)
 
                 _shutil__rmtree(
-                _path_builder(self._log_directory, original_log_folder),
+                self._file__module.path_builder(self._log_directory, original_log_folder),
                 ignore_errors=True)
 
     def clear_external_logs(self):
@@ -383,7 +384,7 @@ class LoggerIntermediary:
                     repeat_for_effect=True)
 
                     _shutil__rmtree(
-                    _path_builder(self._log_directory, original_log_folder),
+                    self._file__module.path_builder(self._log_directory, original_log_folder),
                     ignore_errors=True)
 
     def _file_logger_thread(self): # self._file_log_buffer.append((formatted_message, log_level, internal))
@@ -402,16 +403,16 @@ class LoggerIntermediary:
                 for message in self._file_log_buffer:
                     formatted_message, log_level, internal = message
                     if internal:
-                        with open(_path_builder(self._internal_log_directory, "log.txt"), "a") as file:
+                        with open(self._file__module.path_builder(self._internal_log_directory, "log.txt"), "a") as file:
                             file.write(formatted_message+"\n")
                             if self._project_log_folder is not None:
-                                with open(_path_builder(self._project_log_folder, "pmma", "log.txt"), "a") as file:
+                                with open(self._file__module.path_builder(self._project_log_folder, "pmma", "log.txt"), "a") as file:
                                     file.write(formatted_message+"\n")
 
-                    with open(_path_builder(self._log_folders_directory, "all.txt"), "a") as file:
+                    with open(self._file__module.path_builder(self._log_folders_directory, "all.txt"), "a") as file:
                         file.write(formatted_message+"\n")
                     if self._project_log_folder is not None:
-                        with open(_path_builder(self._project_log_folder, "all.txt"), "a") as file:
+                        with open(self._file__module.path_builder(self._project_log_folder, "all.txt"), "a") as file:
                                 file.write(formatted_message+"\n")
 
                 self._file_log_buffer = []
@@ -554,7 +555,7 @@ class InternalLogger:
         _initialize(self)
 
         if not _InternalConstants.LOGGING_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.LOGGING_INTERMEDIARY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.LOGGING_INTERMEDIARY_OBJECT)
             LoggerIntermediary()
 
         self._logger_intermediary: "LoggerIntermediary" = _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT]

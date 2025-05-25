@@ -4,7 +4,6 @@ from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 
 class GPUDistributionManager:
     """
@@ -18,8 +17,10 @@ class GPUDistributionManager:
 
         self._time__module = _ModuleManager.import_module("time")
 
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+
         if not _InternalConstants.GPUS_INTERMEDIARY_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.GPUS_INTERMEDIARY_OBJECT)
             from pmma.python_src.utility.gpu_utils import GPUsIntermediary as _GPUsIntermediary
             _GPUsIntermediary()
 

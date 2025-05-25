@@ -3,10 +3,7 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.controller import Controller as _Controller
-
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class ControllersIntermediary:
     """
@@ -23,7 +20,10 @@ class ControllersIntermediary:
 
         self._pygame__module = _ModuleManager.import_module("pygame")
 
-        self._logger = _InternalLogger()
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+        self._controller__module = _ModuleManager.import_module("pmma.python_src.controller")
+
+        self._logger = self._logging_utils__module.InternalLogger()
 
         if _Registry.displayed_pygame_start_message is False:
             _Registry.displayed_pygame_start_message = True
@@ -32,7 +32,7 @@ class ControllersIntermediary:
 
         self._controllers = []
         for joy_num in range(self._pygame__module.joystick.get_count()):
-            self._controllers.append(_Controller(joy_num))
+            self._controllers.append(self._controller__module.Controller(joy_num))
 
     def quit(self):
         """
@@ -59,7 +59,7 @@ class ControllersIntermediary:
         """
         self._controllers = []
         for joy_num in range(self._pygame__module.joystick.get_count()):
-            self._controllers.append(_Controller(joy_num))
+            self._controllers.append(self._controller__module.Controller(joy_num))
 
     def list_controllers(self):
         """

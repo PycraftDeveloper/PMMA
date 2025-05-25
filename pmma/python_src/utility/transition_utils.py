@@ -4,8 +4,6 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 
-from pmma.python_src.advmath import Math as _Math
-
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 
 class TransitionManager:
@@ -28,6 +26,8 @@ class TransitionManager:
         self._waiting__module = _ModuleManager.import_module("waiting")
         self._numpy__module = _ModuleManager.import_module("numpy")
 
+        self._advmath_module = _ModuleManager.import_module("pmma.python_src.advmath")
+
         self._transitions = {}
 
         self._transition_manager = self._threading__module.Thread(target=self._manage_transitions)
@@ -36,7 +36,7 @@ class TransitionManager:
 
         self._enable_transition_management = True
 
-        self._math = _Math()
+        self._math = self._advmath_module.Math()
 
         self._transition_manager.start()
 

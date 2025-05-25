@@ -6,12 +6,7 @@ from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.data_structures import InvertedPriorityList as _InvertedPriorityList
-
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 
 class MemoryManagerIntermediary:
     """
@@ -38,7 +33,13 @@ class MemoryManagerIntermediary:
         self._dill__module = _ModuleManager.import_module("dill")
         self._waiting__module = _ModuleManager.import_module("waiting")
 
-        self._logger = _InternalLogger()
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._data_structures__module = _ModuleManager.import_module("pmma.python_src.data_structures")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
+        self._logger = self._logging_utils__module.InternalLogger()
 
         self.limited_max_size = False
         if target_size == _Constants.AUTOMATIC:
@@ -68,7 +69,7 @@ however this is a target NOT a maximum, and this limit can be exceeded, \
 with PMMA automatically taking corrective action in such cases. Additionally, \
 this memory will not be used until it's needed by PMMA.", variables=[self.target_size/1000000000])
 
-        if self.assigned_target_size is False and _PassportIntermediary.project_size is not None:
+        if self.assigned_target_size is False and self._passport_utils__module.PassportIntermediary.project_size is not None:
             self._logger.log_development("For applications with a defined project size, \
 leaving the target size variable can be dangerous.")
 
@@ -79,7 +80,7 @@ leaving the target size variable can be dangerous.")
         self.enable_memory_management = True
         self.total_size = 0
         self.temporary_files = {}
-        self.manager_thread_organized_data = _InvertedPriorityList()
+        self.manager_thread_organized_data = self._data_structures__module.InvertedPriorityList()
         self.manager_thread_organized_data_minimum_priority_changed = True
 
         self.manager_thread = self._threading__module.Thread(target=self.object_dictionary_manager)
@@ -91,7 +92,7 @@ leaving the target size variable can be dangerous.")
 
         self.memory_manager_thread_lock = self._threading__module.Lock()
 
-        self.memory_management_directory = _path_builder(
+        self.memory_management_directory = self._file__module.path_builder(
             _Registry.base_path,
             "temporary",
             "memory management dumps")
@@ -156,22 +157,22 @@ leaving the target size variable can be dangerous.")
                     raise KeyError("Object already exists")
 
                 obj_size = self._sys__module.getsizeof(obj)
-                if ((_PassportIntermediary.project_size is None or
-                            _PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
+                if ((self._passport_utils__module.PassportIntermediary.project_size is None or
+                            self._passport_utils__module.PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.75:
                         self._logger.log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
-                elif (_PassportIntermediary.project_size == _Constants.MEDIUM_APPLICATION and
+                elif (self._passport_utils__module.PassportIntermediary.project_size == _Constants.MEDIUM_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.5:
                         self._logger.log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
-                elif (_PassportIntermediary.project_size == _Constants.SMALL_APPLICATION and
+                elif (self._passport_utils__module.PassportIntermediary.project_size == _Constants.SMALL_APPLICATION and
                         self.assigned_target_size is False):
 
                     if obj_size / self.target_size > 0.25:
@@ -226,22 +227,22 @@ more than 25% of the assigned memory")
                         raise KeyError("Object already exists")
 
                     obj_size = self._sys__module.getsizeof(obj)
-                    if ((_PassportIntermediary.project_size is None or
-                                _PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
+                    if ((self._passport_utils__module.PassportIntermediary.project_size is None or
+                                self._passport_utils__module.PassportIntermediary.project_size == _Constants.LARGE_APPLICATION) and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.75:
                             self._logger.log_development("No single object is recommended to take up \
 more than 75% of the assigned memory")
 
-                    elif (_PassportIntermediary.project_size == _Constants.MEDIUM_APPLICATION and
+                    elif (self._passport_utils__module.PassportIntermediary.project_size == _Constants.MEDIUM_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.5:
                             self._logger.log_development("No single object is recommended to take up \
 more than 50% of the assigned memory")
 
-                    elif (_PassportIntermediary.project_size == _Constants.SMALL_APPLICATION and
+                    elif (self._passport_utils__module.PassportIntermediary.project_size == _Constants.SMALL_APPLICATION and
                             self.assigned_target_size is False):
 
                         if obj_size / self.target_size > 0.25:
