@@ -5,25 +5,9 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 from pmma.python_src.utility.constant_utils import InternalConstants as _InternalConstants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.number_converter import ColorConverter as _ColorConverter
-from pmma.python_src.opengl import OpenGL as _OpenGL
-from pmma.python_src.utility.opengl_utils import Texture as _Texture
-from pmma.python_src.opengl import Shader as _Shader
-from pmma.python_src.opengl import FrameBufferObject as _FrameBufferObject
-from pmma.python_src.events import WindowResized_EVENT as _WindowResized_EVENT
-from pmma.python_src.events import WindowRestored_EVENT as _WindowRestored_EVENT
-from pmma.python_src.events import WindowMinimized_EVENT as _WindowMinimized_EVENT
-from pmma.python_src.events import WindowFocusGained_EVENT as _WindowFocusGained_EVENT
-from pmma.python_src.events import WindowFocusLost_EVENT as _WindowFocusLost_EVENT
-from pmma.python_src.file import path_builder as _path_builder
-from pmma.python_src.advtkinter import Tkinter as _Tkinter
 from pmma.python_src.constants import Constants as _Constants
 
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
-
-from pmma.python_src.utility.general_utils import GeneralIntermediary as _GeneralIntermediary
 
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
@@ -44,28 +28,39 @@ class DisplayIntermediary:
         self._pygame__module = _ModuleManager.import_module("pygame")
         self._moderngl_window__module = _ModuleManager.import_module("moderngl_window")
 
-        self._internal_general_utils = _GeneralIntermediary()
+        self._events__module = _ModuleManager.import_module("pmma.python_src.events")
+        self._opengl__module = _ModuleManager.import_module("pmma.python_src.opengl")
+        self._file__module = _ModuleManager.import_module("pmma.python_src.file")
+        self._number_converter__module = _ModuleManager.import_module("pmma.python_src.number_converter")
+        self._advtkinter__module = _ModuleManager.import_module("pmma.python_src.advtkinter")
 
-        self._logger = _InternalLogger()
+        self._opengl_utils__module = _ModuleManager.import_module("pmma.python_src.utility.opengl_utils")
+        self._general_utils__module = _ModuleManager.import_module("pmma.python_src.utility.general_utils")
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
+        self._internal_general_utils = self._general_utils__module.GeneralIntermediary()
+
+        self._logger = self._logging_utils__module.InternalLogger()
 
         self._clock = None
 
-        self._color_converter = _ColorConverter()
+        self._color_converter = self._number_converter__module.ColorConverter()
 
         self._display_creation_attributes = []
 
         self._display_quad = None
 
-        self._opengl = _OpenGL()
+        self._opengl = self._opengl__module.OpenGL()
 
         self._fill_color = None
         self._color_key = self._numpy__module.array([0, 0, 0], dtype=self._numpy__module.float32)
 
-        self.resized_event = _WindowResized_EVENT()
-        _WindowRestored_EVENT() # for passports
-        _WindowMinimized_EVENT() # for passports
-        _WindowFocusGained_EVENT() # for passports
-        _WindowFocusLost_EVENT() # for passports
+        self.resized_event = self._events__module.WindowResized_EVENT()
+        self._events__module.WindowRestored_EVENT() # for passports
+        self._events__module.WindowMinimized_EVENT() # for passports
+        self._events__module.WindowFocusGained_EVENT() # for passports
+        self._events__module.WindowFocusLost_EVENT() # for passports
 
         self._currently_active_frame_buffer = _Constants.DISPLAY_FRAME_BUFFER
 
@@ -77,7 +72,7 @@ class DisplayIntermediary:
         self._display_attribute_caption = "PMMA Display"
         self._display_attribute_hwnd = None
         self._display_attribute_transparent_display = False
-        self._display_attribute_icon = _path_builder(_Registry.base_path, "resources", "images", "PMMA icon.ico")
+        self._display_attribute_icon = self._file__module.path_builder(_Registry.base_path, "resources", "images", "PMMA icon.ico")
         self._display_attribute_centered = True
 
         self._window_in_focus = True
@@ -92,17 +87,17 @@ class DisplayIntermediary:
 
         self._object_updated = False
 
-        self._two_dimension_texture = _Texture()
-        self._two_dimension_frame_buffer = _FrameBufferObject()
-        self._three_dimension_texture = _Texture()
-        self._three_dimension_frame_buffer = _FrameBufferObject()
+        self._two_dimension_texture = self._opengl_utils__module.Texture()
+        self._two_dimension_frame_buffer = self._opengl__module.FrameBufferObject()
+        self._three_dimension_texture = self._opengl_utils__module.Texture()
+        self._three_dimension_frame_buffer = self._opengl__module.FrameBufferObject()
 
-        self._tkinter_backend = _Tkinter()
+        self._tkinter_backend = self._advtkinter__module.Tkinter()
 
         self._clock = self._pygame__module.time.Clock()
 
         if not _InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT in _Registry.pmma_module_spine.keys():
-            _PassportIntermediary.components_used.append(_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT)
+            self._passport_utils__module.PassportIntermediary.components_used.append(_InternalConstants.GPU_DISTRIBUTION_MANAGER_OBJECT)
             from pmma.python_src.utility.gpu_distribution_utils import GPUDistributionManager as _GPUDistributionManager
             _GPUDistributionManager()
 
@@ -181,7 +176,7 @@ class DisplayIntermediary:
         if color is None or color == [] or color == ():
             self._color_converter.set_color((0, 0, 0), format=_Constants.RGB)
 
-        elif type(color) == _ColorConverter:
+        elif type(color) == self._number_converter__module.ColorConverter:
             raw_color = color.get_color(_Constants.RGBA)
             self._color_converter.set_color(raw_color, format=_Constants.RGBA)
         else:
@@ -197,7 +192,7 @@ class DisplayIntermediary:
                         self._clear_called_but_skipped = True
                         return
 
-        self._previous_frame_color = _ColorConverter()
+        self._previous_frame_color = self._number_converter__module.ColorConverter()
         self._previous_frame_color.set_color(self._color_converter.get_color(format=_Constants.RGBA), format=_Constants.RGBA)
 
         self._clear_called_but_skipped = False
@@ -415,8 +410,8 @@ If this fails, try to run another OpenGL application first to attempt to isolate
 
             raise error
 
-        self._texture_aggregation_program = _Shader()
-        self._texture_aggregation_program.load_shader_from_folder(_path_builder(_Registry.base_path, "shaders", "texture_aggregation"))
+        self._texture_aggregation_program = self._opengl__module.Shader()
+        self._texture_aggregation_program.load_shader_from_folder(self._file__module.path_builder(_Registry.base_path, "shaders", "texture_aggregation"))
         self._texture_aggregation_program.create()
 
         self.on_window_size_changed()

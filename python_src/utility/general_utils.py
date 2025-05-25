@@ -12,14 +12,6 @@ from pmma.python_src.utility.constant_utils import InternalConstants as _Interna
 from pmma.python_src.constants import Constants as _Constants
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
-from pmma.python_src.backpack import Backpack as _Backpack
-from pmma.python_src.formatters import TimeFormatter as _TimeFormatter
-from pmma.python_src.utility.settings_utils import set_allow_anti_aliasing as _set_allow_anti_aliasing
-from pmma.python_src.utility.settings_utils import set_anti_aliasing_level as _set_anti_aliasing_level
-
-from pmma.python_src.utility.passport_utils import PassportIntermediary as _PassportIntermediary
-from pmma.python_src.utility.pmma_configuration import PMMAConfigurationIntermediary as _PMMAConfigurationIntermediary
-
 if _platform__system() == "Windows":
     from ctypes import windll as _ctypes__windll
 
@@ -41,7 +33,14 @@ class GeneralIntermediary:
         self._getostheme__module = _ModuleManager.import_module("getostheme")
         self._num2words__module = _ModuleManager.import_module("num2words")
 
-        self._internal_PMMA_configurator_intermediary = _PMMAConfigurationIntermediary()
+        self._backpack__module = _ModuleManager.import_module("pmma.python_src.backpack")
+        self._formatters__module = _ModuleManager.import_module("pmma.python_src.formatters")
+
+        self._passport_utils__module = _ModuleManager.import_module("pmma.python_src.utility.passport_utils")
+        self._settings_utils__module = _ModuleManager.import_module("pmma.python_src.utility.settings_utils")
+        self._pmma_configuration__module = _ModuleManager.import_module("pmma.python_src.utility.pmma_configuration")
+
+        self._internal_PMMA_configurator_intermediary = self._pmma_configuration__module.PMMAConfigurationIntermediary()
 
     def pad_numerical_string(self, input_string):
         """
@@ -280,21 +279,21 @@ class GeneralIntermediary:
                 if _Registry.clean_profile:
                     self.perform_clean_profiling(path)
 
-        if _PassportIntermediary.passport_file_location is not None:
-            passport = {"components used": _PassportIntermediary.components_used}
-            with open(_PassportIntermediary.passport_file_location, "w") as file:
+        if self._passport_utils__module.PassportIntermediary.passport_file_location is not None:
+            passport = {"components used": self._passport_utils__module.PassportIntermediary.components_used}
+            with open(self._passport_utils__module.PassportIntermediary.passport_file_location, "w") as file:
                 self._json__module.dump(passport, file)
 
         if show_statistics is None:
             show_statistics = _Registry.development_mode
 
         if show_statistics:
-            app_name = _PassportIntermediary.name
+            app_name = self._passport_utils__module.PassportIntermediary.name
             if app_name is None:
                 app_name = "The application"
 
             if _Registry.display_initialized:
-                time_formatter_instance = _TimeFormatter()
+                time_formatter_instance = self._formatters__module.TimeFormatter()
                 time_formatter_instance.set_from_second(self._time__module.perf_counter() - _Registry.application_start_time)
                 _Registry.pmma_module_spine[_InternalConstants.LOGGING_INTERMEDIARY_OBJECT].log_information(
                     "PMMA statistics: {} ran for: {}", variables=[app_name, time_formatter_instance.get_in_sentence_format()])
@@ -390,8 +389,8 @@ class GeneralIntermediary:
 
         if _Registry.power_saving_mode:
             if allow_anti_aliasing_adjustments_for_low_power_mode:
-                _set_allow_anti_aliasing(False)
-                _set_anti_aliasing_level(0)
+                self._settings_utils__module.set_allow_anti_aliasing(False)
+                self._settings_utils__module.set_anti_aliasing_level(0)
 
             if allow_shape_quality_adjustments_for_low_power_mode and _Registry.initial_shape_quality is None:
                 _Registry.initial_shape_quality = _Registry.shape_quality
@@ -399,14 +398,14 @@ class GeneralIntermediary:
         else:
             if allow_anti_aliasing_adjustments_for_low_power_mode:
                 if _Registry.manually_set_do_anti_aliasing is None:
-                    _set_allow_anti_aliasing(True)
+                    self._settings_utils__module.set_allow_anti_aliasing(True)
                 else:
-                    _set_allow_anti_aliasing(_Registry.manually_set_do_anti_aliasing)
+                    self._settings_utils__module.set_allow_anti_aliasing(_Registry.manually_set_do_anti_aliasing)
 
                 if _Registry.manually_set_anti_aliasing_level is None:
-                    _set_anti_aliasing_level(2)
+                    self._settings_utils__module.set_anti_aliasing_level(2)
                 else:
-                    _set_anti_aliasing_level(_Registry.manually_set_anti_aliasing_level)
+                    self._settings_utils__module.set_anti_aliasing_level(_Registry.manually_set_anti_aliasing_level)
 
             if allow_shape_quality_adjustments_for_low_power_mode and _Registry.initial_shape_quality is not None:
                 _Registry.shape_quality = _Registry.initial_shape_quality
@@ -429,8 +428,8 @@ class GeneralIntermediary:
             new_iteration_id = _random__random()
         _Registry.iteration_id = new_iteration_id
 
-        if _PassportIntermediary.passport_changed:
-            _PassportIntermediary.passport_changed = False
+        if self._passport_utils__module.PassportIntermediary.passport_changed:
+            self._passport_utils__module.PassportIntermediary.passport_changed = False
             self.register_application()
 
         if _InternalConstants.DISPLAY_OBJECT in _Registry.pmma_module_spine.keys() and not _InternalConstants.EVENTS_OBJECT in _Registry.pmma_module_spine.keys():
@@ -459,10 +458,10 @@ class GeneralIntermediary:
         🟩 **R** -
         """
         if self.get_operating_system() == _Constants.WINDOWS:
-            VERSION = _PassportIntermediary.version
-            AUTHOR = _PassportIntermediary.author
-            APPLICATION_NAME = _PassportIntermediary.name
-            SUB_APPLICATION_NAME = _PassportIntermediary.sub_name
+            VERSION = self._passport_utils__module.PassportIntermediary.version
+            AUTHOR = self._passport_utils__module.PassportIntermediary.author
+            APPLICATION_NAME = self._passport_utils__module.PassportIntermediary.name
+            SUB_APPLICATION_NAME = self._passport_utils__module.PassportIntermediary.sub_name
             myappid = f"{AUTHOR}.{APPLICATION_NAME}.{SUB_APPLICATION_NAME}.{VERSION}"
             _ctypes__windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
@@ -590,7 +589,7 @@ class GeneralIntermediary:
             detected_language = "en_US"
 
         _Registry.language = detected_language
-        _Backpack.language = detected_language
+        self._backpack__module.Backpack.language = detected_language
 
     def create_cache_id(self, *args):
         """

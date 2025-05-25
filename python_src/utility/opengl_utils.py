@@ -4,7 +4,6 @@ from pmma.python_src.utility.module_utils import ModuleManager as _ModuleManager
 
 from pmma.python_src.constants import Constants as _Constants
 
-from pmma.python_src.utility.logging_utils import InternalLogger as _InternalLogger
 from pmma.python_src.utility.initialization_utils import initialize as _initialize
 from pmma.python_src.utility.registry_utils import Registry as _Registry
 
@@ -20,6 +19,8 @@ class Texture:
 
         self._PIL_Image__module = _ModuleManager.import_module("PIL.Image")
 
+        self._logging_utils__module = _ModuleManager.import_module("pmma.python_src.utility.logging_utils")
+
         self._unique_identifier = id(self)
         _Registry.opengl_objects[self._unique_identifier] = self
 
@@ -33,7 +34,7 @@ class Texture:
 
         self._created = False
 
-        self._logger = _InternalLogger()
+        self._logger = self._logging_utils__module.InternalLogger()
 
     def create(self, size, data=None, components=_Constants.RGB, scaling=_moderngl__LINEAR, x_scaling=None, y_scaling=None, samples=None, internal=True):
         """
