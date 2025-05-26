@@ -194,6 +194,12 @@ class Audio:
         """
         self._effects_list.append(effect)
 
+    def remove_effect(self, effect):
+        """
+        🟩 **R** -
+        """
+        self._effects_list.remove(effect)
+
     def set_volume(self, volume, format=_Constants.PERCENTAGE):
         """
         🟩 **R** -
@@ -246,10 +252,14 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         """
         🟩 **R** -
         """
+        self._file.seek(0)
         # Start the audio stream
         with self._sounddevice__module.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels, blocksize=2048):
             # Loop while playback is ongoing and not stopped
             self._waiting__module.wait(self._wait_for_chunk_to_play)
+
+        self._audio_playing_start_time = None
+        self._file.seek(0)
 
     def _audio_generator(self, chunk_size):
         """
