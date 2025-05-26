@@ -26,7 +26,7 @@ class Math:
         else:
             if self._MathIntermediary.math_module is None:
                 self._MathIntermediary.math_module = _ModuleManager.import_module(
-                    "pmma.python_src.pyx_alternatives.utility.math_utils")
+                    "pmma.python_src.pyx_alternatives.utility.math_utils").AdvancedMathIntermediary()
 
     def quit(self):
         """
