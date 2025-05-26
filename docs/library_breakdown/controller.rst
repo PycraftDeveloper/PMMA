@@ -60,6 +60,11 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: Controller.get_track_ball_from_id() -> None
+
+    🟩 **R** -
+    
+
 .. py:method:: Controller.set_y_button_double_tapped() -> None
 
     🟩 **R** -
