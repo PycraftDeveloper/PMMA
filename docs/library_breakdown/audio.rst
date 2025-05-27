@@ -84,6 +84,11 @@ Methods
     🟩 **R** -
     
 
+.. py:method:: Audio.remove_effect() -> None
+
+    🟩 **R** -
+    
+
 .. py:method:: Audio.set_volume() -> None
 
     🟩 **R** -
