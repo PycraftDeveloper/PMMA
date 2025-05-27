@@ -5,6 +5,9 @@
 
 
 # PMMA (Python Multi-Media API)
+⚠ This is the DEVELOPMENT version for PMMA 5.0.0 and is NOT meant for routine use. ⚠️
+
+
 PMMA is a Python library aimed at improving application development in Python.
 Typically, developing applications in Python necessitates familiarity with a variety of different libraries such as [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy). PMMA aims to simplify the application development process by creating a single interface that provides easy access to simple and advanced pre-written and highly optimised application development utilities, whilst still also allowing these utilities to be expanded upon by exposing their underlying APIs.
 
