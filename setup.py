@@ -1,53 +1,52 @@
-from setuptools import setup
-from requests import get
-from json import loads
+from setuptools import setup, Extension
+from Cython.Build import cythonize
+import sys, os
 
-# Get the latest tag from GitHub
-tag_data = get("https://api.github.com/repos/PycraftDeveloper/PMMA/tags")
-latest_tag = loads(tag_data.text)[0]["name"]
+cwd = os.path.dirname(__file__)
 
-# Read the long description from README.md
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+def add_source(name):
+    return [
+        os.path.join(cwd, "pmma_dev", "core", "pyx_src", f"{name}.pyx"),
+        os.path.join(cwd, "pmma_dev", "core", "cpp_src", f"{name}.cpp")
+        ]
 
-# Read the requirements from requirements.txt
-with open("requirements.txt", "r", encoding="utf-8") as req_file:
-    requirements = req_file.read().splitlines()
+# Recommended C++ optimization flags
+extra_compile_args = ["-O3", "-march=native", "-ffast-math", "-std=c++17"]
+extra_link_args = []
 
-package_data={
-        "pmma": ["*"],  # Include all file types
-        "": ["__init__.py", "c_setup.py"],  # Include these root files
-    }
+glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
+glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022"
 
-# Manually specify packages
-packages = [
-    "pmma",
-    "pmma.cython_src",
-    "pmma.python_src",
-    "pmma.shaders",
-    "pmma.resources"
-]
+# Adjust for Windows (optional)
+if sys.platform == "win32":
+    extra_compile_args = ["/O2"]  # MSVC optimization
+    extra_link_args = []
+
+ext = Extension(
+    name="mywrapper",
+    sources=[*add_source("mywrapper")],
+    language="c++",
+    include_dirs=[os.path.join(cwd, "pmma_dev", "core", "hpp_src"), glfw_include],
+    library_dirs=[glfw_lib],
+    libraries=["glfw3",
+            "user32",
+            "gdi32",
+            "shell32",
+            "advapi32",
+            "ole32",
+            "oleaut32",
+            "uuid",
+            "comdlg32",
+            "winmm",],
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args,
+)
 
 setup(
-    name="pmma",
-    version=latest_tag,
-    author="PycraftDev",
-    author_email="thomasjebbo@gmail.com",
-    description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/PycraftDeveloper/PMMA",
-    project_urls={
-        "Bug Tracker": "https://github.com/PycraftDeveloper/PMMA/issues",
-    },
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    packages=packages,  # Include the pmma package and all its sub-packages
-    python_requires=">=3.6",
-    install_requires=requirements,
-    include_package_data=True,
-    package_data=package_data,
+    name="MyCythonCppProject",
+    ext_modules=cythonize(
+        [ext],
+        compiler_directives={"language_level": "3"},
+        annotate=True,  # Optional: creates .html annotation file to inspect performance
+    ),
 )
