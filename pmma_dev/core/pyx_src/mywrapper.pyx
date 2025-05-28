@@ -1,6 +1,8 @@
+# cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
+
 # Declare the external C++ function
 cdef extern from "mywrapper.hpp":
-    int multiply(int a, int b)
+    int multiply(int a, int b) nogil
     void CW()
 
 # Python wrapper function

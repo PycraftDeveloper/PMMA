@@ -178,3 +178,4 @@ cython_src/utility/*.c
 # PMMA passports directory
 passports
 /configuration
+*.html
