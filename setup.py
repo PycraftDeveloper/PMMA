@@ -6,8 +6,8 @@ cwd = os.path.dirname(__file__)
 
 def add_source(name):
     return [
-        os.path.join(cwd, "pmma_dev", "core", "pyx_src", f"{name}.pyx"),
-        os.path.join(cwd, "pmma_dev", "core", "cpp_src", f"{name}.cpp")
+        os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx"),
+        os.path.join(cwd, "pmma", "core", "cpp_src", f"{name}.cpp")
         ]
 
 # Recommended C++ optimization flags
@@ -26,7 +26,7 @@ ext = Extension(
     name="mywrapper",
     sources=[*add_source("mywrapper")],
     language="c++",
-    include_dirs=[os.path.join(cwd, "pmma_dev", "core", "hpp_src"), glfw_include],
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include],
     library_dirs=[glfw_lib],
     libraries=["glfw3",
             "user32",
