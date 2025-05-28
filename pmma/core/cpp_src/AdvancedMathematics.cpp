@@ -1,4 +1,5 @@
 #include <cmath>
+#include <cstring>
 
 #include "AdvancedMathematics.hpp"
 
@@ -20,9 +21,9 @@ float CPP_Ranger(const float value, const float* old_range, const float* new_ran
     return new_range[0] + (value - old_range[0]) * (new_range[1] - new_range[0]) / (old_range[1] - old_range[0]);
 }
 
-float CPP_ArrayRanger(float* values, const int length, const float* old_range, const float* new_range) { // Ensure both lengths are 2
+void CPP_ArrayRanger(float* values, const int length, const float* old_range, const float* new_range) { // Ensure both lengths are 2
     for (int i = 0; i < length; i++) {
-        values[i] = Ranger(values[i], old_range, new_range);
+        values[i] = CPP_Ranger(values[i], old_range, new_range);
     }
 }
 
@@ -53,36 +54,36 @@ float CPP_Dot(const float* a, const float* b) {
 
 void CPP_LookAt(const float* eye, const float* target, const float* up, float* out) {
     float f[3];
-    Subtract(target, eye, f);
-    ArrayNormalize(f);
+    CPP_Subtract(target, eye, f);
+    CPP_ArrayNormalize(f);
 
     float upn[3] = {up[0], up[1], up[2]};
-    ArrayNormalize(upn);
+    CPP_ArrayNormalize(upn);
 
     float s[3];
-    Cross(f, upn, s);
-    ArrayNormalize(s);
+    CPP_Cross(f, upn, s);
+    CPP_ArrayNormalize(s);
 
     float u[3];
-    Cross(s, f, u);
+    CPP_Cross(s, f, u);
 
     float m[16] = {
         s[0], u[0], -f[0], 0.0f,
         s[1], u[1], -f[1], 0.0f,
         s[2], u[2], -f[2], 0.0f,
-        -Dot(s, eye), -Dot(u, eye), Dot(f, eye), 1.0f
+        -CPP_Dot(s, eye), -CPP_Dot(u, eye), CPP_Dot(f, eye), 1.0f
     };
     memcpy(out, m, sizeof(float) * 16);
 }
 
 void CPP_ComputePosition(const float* position, const float* target, const float* up, float* out_x, float* out_y, float* out_z) {
-    Subtract(position, target, out_z);
-    ArrayNormalize(out_z);
+    CPP_Subtract(position, target, out_z);
+    CPP_ArrayNormalize(out_z);
 
-    Cross(up, out_z, out_x);
-    ArrayNormalize(out_x);
+    CPP_Cross(up, out_z, out_x);
+    CPP_ArrayNormalize(out_x);
 
-    Cross(out_z, out_x, out_y);
+    CPP_Cross(out_z, out_x, out_y);
 }
 
 void CPP_PerspectiveFOV(const float fov, const float aspect_ratio, const float near, const float far, float (*out)[4]) {

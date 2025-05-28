@@ -8,7 +8,7 @@ float CPP_SmoothStep(const float value);
 
 float CPP_Ranger(const float value, const float* old_range, const float* new_range);
 
-float CPP_ArrayRanger(float* values, const int length, const float* old_range, const float* new_range);
+void CPP_ArrayRanger(float* values, const int length, const float* old_range, const float* new_range);
 
 void CPP_ArrayNormalize(float* value);
 

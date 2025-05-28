@@ -2,6 +2,8 @@ from setuptools import setup, Extension
 from Cython.Build import cythonize
 import sys, os
 
+import numpy
+
 cwd = os.path.dirname(__file__)
 
 def add_source(name):
@@ -22,11 +24,11 @@ if sys.platform == "win32":
     extra_compile_args = ["/O2"]  # MSVC optimization
     extra_link_args = []
 
-ext = Extension(
+mywrapper_ext = Extension( # EXAMPLE
     name="mywrapper",
     sources=[*add_source("mywrapper")],
     language="c++",
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include],
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],
     libraries=["glfw3",
             "user32",
@@ -42,10 +44,19 @@ ext = Extension(
     extra_link_args=extra_link_args,
 )
 
+AdvancedMathematics_ext = Extension(
+    name="AdvancedMathematics",
+    sources=[*add_source("AdvancedMathematics")],
+    language="c++",
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args,
+)
+
 setup(
-    name="MyCythonCppProject",
+    name="PMMA",
     ext_modules=cythonize(
-        [ext],
+        [mywrapper_ext, AdvancedMathematics_ext],
         compiler_directives={"language_level": "3"},
         annotate=True,  # Optional: creates .html annotation file to inspect performance
     ),
