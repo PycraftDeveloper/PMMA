@@ -28,6 +28,3 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 
 print("Copying new version of PMMA...")
 shutil.copytree(os.path.join(current_dir, 'pmma'), os.path.join(SITE_PACKAGE_DIR, 'pmma'))
-
-print("Copying __init__.py...")
-shutil.copy(os.path.join(current_dir, '__init__.py'), os.path.join(SITE_PACKAGE_DIR, 'pmma', '__init__.py'))
