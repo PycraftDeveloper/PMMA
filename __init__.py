@@ -1,7 +1,6 @@
 import subprocess
 import sys
 import os
-import shutil
 
 cwd = os.path.dirname(__file__)
 
