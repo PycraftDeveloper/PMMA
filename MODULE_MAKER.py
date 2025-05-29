@@ -10,18 +10,24 @@ build_dir = os.path.join(cwd, "pmma", "build")
 temp_dir = os.path.join(cwd, "pmma", "temporary")
 
 print("Building PMMA...")
-subprocess.check_output([ # if error occurs, run command manually :) "python setup.py build_ext" should do ALSO MAKE SURE NO IDLE/CODE INSTANCES ARE RUNNING
+
+command = [ # if error occurs, run command manually :) "python setup.py build_ext" should do ALSO MAKE SURE NO IDLE/CODE INSTANCES ARE RUNNING
     sys.executable,
     os.path.join(cwd, "setup.py"),
     "build_ext",
     "--build-lib",
     build_dir,
     "--build-temp",
-    temp_dir])
+    temp_dir]
+
+print("\n\n>>> " + " ".join(command))
+print("="*30)
+print(subprocess.check_output(command).decode("utf-8").strip())
+print("="*30)
 
 SITE_PACKAGE_DIR = site.getsitepackages()[-1]
 
-print("Removing old version of PMMA...")
+print("\n\nRemoving old version of PMMA...")
 shutil.rmtree(os.path.join(SITE_PACKAGE_DIR, 'pmma'))
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
