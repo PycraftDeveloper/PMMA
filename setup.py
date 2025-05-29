@@ -53,10 +53,19 @@ AdvancedMathematics_ext = Extension(
     extra_link_args=extra_link_args,
 )
 
+PerlinNoise_ext = Extension(
+    name="PerlinNoise",
+    sources=[*add_source("PerlinNoise")],
+    language="c++",
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src")],
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args,
+)
+
 setup(
     name="PMMA",
     ext_modules=cythonize(
-        [mywrapper_ext, AdvancedMathematics_ext],
+        [mywrapper_ext, AdvancedMathematics_ext, PerlinNoise_ext],
         compiler_directives={"language_level": "3"},
         annotate=True,  # Optional: creates .html annotation file to inspect performance
     ),
