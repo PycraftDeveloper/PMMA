@@ -51,7 +51,7 @@ Each entry is worth: (20/7) %
 * 🛑 - Not started Sampler
 * 🛑 - Not started Settings
 * 🛑 - Not started Shapes 2D
-* 🛑 - Not started transitions
+* 🛑 - Not started Transitions
   
 ## Contents
 
