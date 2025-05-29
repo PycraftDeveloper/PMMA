@@ -1,3 +1,0 @@
-import pmma
-
-pmma.init()
