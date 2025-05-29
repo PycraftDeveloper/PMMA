@@ -21,18 +21,30 @@ float CPP_Ranger(const float value, const float* old_range, const float* new_ran
     return new_range[0] + (value - old_range[0]) * (new_range[1] - new_range[0]) / (old_range[1] - old_range[0]);
 }
 
-void CPP_ArrayRanger(float* values, const int length, const float* old_range, const float* new_range) { // Ensure both lengths are 2
+void CPP_ArrayRanger(const float* values, const int length, const float* old_range, const float* new_range, float* out) { // Ensure both lengths are 2
     for (int i = 0; i < length; i++) {
-        values[i] = CPP_Ranger(values[i], old_range, new_range);
+        out[i] = CPP_Ranger(values[i], old_range, new_range);
     }
 }
 
-void CPP_ArrayNormalize(float* value) { // Ensure the array has 3 elements
+void CPP_InPlaceArrayNormalize(float* value) { // Ensure the array has 3 elements
     float len = std::sqrt(value[0]*value[0] + value[1]*value[1] + value[2]*value[2]);
     if (len > 1e-6f) {
         value[0] /= len;
         value[1] /= len;
         value[2] /= len;
+    }
+}
+
+void CPP_ArrayNormalize(const float* value, float* out) { // Ensure the array has 3 elements
+    out[0] = value[0];
+    out[1] = value[1];
+    out[2] = value[2];
+    float len = std::sqrt(out[0]*out[0] + out[1]*out[1] + out[2]*out[2]);
+    if (len > 1e-6f) {
+        out[0] /= len;
+        out[1] /= len;
+        out[2] /= len;
     }
 }
 
@@ -55,14 +67,14 @@ float CPP_Dot(const float* a, const float* b) {
 void CPP_LookAt(const float* eye, const float* target, const float* up, float* out) {
     float f[3];
     CPP_Subtract(target, eye, f);
-    CPP_ArrayNormalize(f);
+    CPP_InPlaceArrayNormalize(f);
 
     float upn[3] = {up[0], up[1], up[2]};
-    CPP_ArrayNormalize(upn);
+    CPP_InPlaceArrayNormalize(upn);
 
     float s[3];
     CPP_Cross(f, upn, s);
-    CPP_ArrayNormalize(s);
+    CPP_InPlaceArrayNormalize(s);
 
     float u[3];
     CPP_Cross(s, f, u);
@@ -78,10 +90,10 @@ void CPP_LookAt(const float* eye, const float* target, const float* up, float* o
 
 void CPP_ComputePosition(const float* position, const float* target, const float* up, float* out_x, float* out_y, float* out_z) {
     CPP_Subtract(position, target, out_z);
-    CPP_ArrayNormalize(out_z);
+    CPP_InPlaceArrayNormalize(out_z);
 
     CPP_Cross(up, out_z, out_x);
-    CPP_ArrayNormalize(out_x);
+    CPP_InPlaceArrayNormalize(out_x);
 
     CPP_Cross(out_z, out_x, out_y);
 }

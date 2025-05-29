@@ -10,7 +10,7 @@ build_dir = os.path.join(cwd, "pmma", "build")
 temp_dir = os.path.join(cwd, "pmma", "temporary")
 
 print("Building PMMA...")
-subprocess.check_output([ # if error occurs, run command manually :) "python setup.py build_ext" should do
+subprocess.check_output([ # if error occurs, run command manually :) "python setup.py build_ext" should do ALSO MAKE SURE NO IDLE/CODE INSTANCES ARE RUNNING
     sys.executable,
     os.path.join(cwd, "setup.py"),
     "build_ext",

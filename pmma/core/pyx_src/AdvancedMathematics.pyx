@@ -9,8 +9,8 @@ cdef extern from "AdvancedMathematics.hpp":
     float CPP_PythagoreanDistance(const float x, const float y) nogil
     float CPP_SmoothStep(const float value) nogil
     float CPP_Ranger(const float value, const float* old_range, const float* new_range) nogil
-    void CPP_ArrayRanger(float* value, const int length, const float* old_range, const float* new_range) nogil
-    void CPP_ArrayNormalize(float* value) nogil
+    void CPP_ArrayRanger(const float* value, const int length, const float* old_range, const float* new_range, float* out) nogil
+    void CPP_ArrayNormalize(const float* value, float* out) nogil
     void CPP_Cross(const float* a, const float* b, float* out) nogil
     void CPP_Subtract(const float* a, const float* b, float* out) nogil
     float CPP_Dot(const float* a, const float* b) nogil
@@ -33,7 +33,7 @@ def PointPythagoreanDistance(point):
 def SmoothStep(value):
     return CPP_SmoothStep(value)
 
-def Ranger(float value, old_range, new_range):
+def Ranger(value, old_range, new_range):
     cdef:
         np.ndarray[np.float32_t, ndim=1, mode='c'] old_np
         np.ndarray[np.float32_t, ndim=1, mode='c'] new_np
@@ -62,9 +62,12 @@ def ArrayRanger(values, old_range, new_range):
         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
         np.ndarray[np.float32_t, ndim=1, mode='c'] old_np
         np.ndarray[np.float32_t, ndim=1, mode='c'] new_np
-        float* values_ptr
+        np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
+        const float* values_ptr
         const float* old_ptr
         const float* new_ptr
+        float* out_ptr
+
         int length
 
     # Convert 'values' to numpy float32 contiguous array
@@ -75,6 +78,9 @@ def ArrayRanger(values, old_range, new_range):
 
     length = values_np.shape[0]
     values_ptr = &values_np[0]
+
+    out_np = np.empty(length, dtype=np.float32, order='C')
+    out_ptr = &out_np[0]
 
     # Convert old_range and new_range as before
     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:
@@ -90,20 +96,20 @@ def ArrayRanger(values, old_range, new_range):
     old_ptr = &old_np[0]
     new_ptr = &new_np[0]
 
-    # Call C++ function, modifies values_np in place
-    CPP_ArrayRanger(values_ptr, length, old_ptr, new_ptr)
+    # Call C++ function
+    CPP_ArrayRanger(values_ptr, length, old_ptr, new_ptr, out_ptr)
 
-    # If input was a numpy array, it's modified in place already.
-    # If input was a list, we return the new numpy array with modifications.
     if isinstance(values, np.ndarray):
-        return values_np
+        return out_np
     else:
-        return values_np.tolist()
+        return out_np.tolist()
 
 def ArrayNormalize(values):
     cdef:
         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
-        float* values_ptr
+        np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')
+        const float* values_ptr
+        float* out_ptr = &out_np[0]
 
     # Convert 'values' to numpy float32 contiguous array
     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
@@ -113,7 +119,7 @@ def ArrayNormalize(values):
 
     values_ptr = &values_np[0]
 
-    CPP_ArrayNormalize(values_ptr)
+    CPP_ArrayNormalize(values_ptr, out_ptr)
 
     if isinstance(values, np.ndarray):
         return values_np

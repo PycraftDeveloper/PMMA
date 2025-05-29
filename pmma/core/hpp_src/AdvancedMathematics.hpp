@@ -8,9 +8,11 @@ float CPP_SmoothStep(const float value);
 
 float CPP_Ranger(const float value, const float* old_range, const float* new_range);
 
-void CPP_ArrayRanger(float* values, const int length, const float* old_range, const float* new_range);
+void CPP_ArrayRanger(const float* values, const int length, const float* old_range, const float* new_range, float* out);
 
-void CPP_ArrayNormalize(float* value);
+void CPP_InPlaceArrayNormalize(float* value);
+
+void CPP_ArrayNormalize(const float* value, float* out);
 
 void CPP_Cross(const float* a, const float* b, float* out);
 
