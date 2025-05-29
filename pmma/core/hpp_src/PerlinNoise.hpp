@@ -26,7 +26,7 @@ class CPP_PerlinNoise {
             if (r == 0) return x + y;
             if (r == 1) return -x + y;
             if (r == 2) return x - y;
-            if (r == 3) return -x - y;
+            return -x - y;
         }
 
         static inline float CPP_Grad3D(int hash, float x, float y, float z) noexcept {
@@ -41,7 +41,7 @@ class CPP_PerlinNoise {
         }
 
     public:
-        CPP_PerlinNoise(uint32_t seed = 0);
+        CPP_PerlinNoise(uint32_t seed);
 
         float CPP_Noise1D(float x) const noexcept;
 
