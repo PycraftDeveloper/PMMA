@@ -4,7 +4,7 @@
 {
     "distutils": {
         "depends": [
-            "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\hpp_src\\PerlinNoise.hpp",
+            "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\hpp_src\\FractalBrownianMotion.hpp",
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include\\numpy\\arrayobject.h",
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include\\numpy\\arrayscalars.h",
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include\\numpy\\ndarrayobject.h",
@@ -26,13 +26,13 @@
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include"
         ],
         "language": "c++",
-        "name": "PerlinNoise",
+        "name": "FractalBrownianMotion",
         "sources": [
-            "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\pyx_src\\PerlinNoise.pyx",
-            "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\cpp_src\\PerlinNoise.cpp"
+            "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\pyx_src\\FractalBrownianMotion.pyx",
+            "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\cpp_src\\FractalBrownianMotion.cpp"
         ]
     },
-    "module_name": "PerlinNoise"
+    "module_name": "FractalBrownianMotion"
 }
 END: Cython Metadata */
 
@@ -1264,8 +1264,8 @@ static CYTHON_INLINE float __PYX_NAN() {
     #define __PYX_EXTERN_C extern "C++"
 #endif
 
-#define __PYX_HAVE__PerlinNoise
-#define __PYX_HAVE_API__PerlinNoise
+#define __PYX_HAVE__FractalBrownianMotion
+#define __PYX_HAVE_API__FractalBrownianMotion
 /* Early includes */
 #include <string.h>
 #include <stdio.h>
@@ -1277,7 +1277,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "numpy/ndarraytypes.h"
 #include "numpy/arrayscalars.h"
 #include "numpy/ufuncobject.h"
-#include "PerlinNoise.hpp"
+#include "FractalBrownianMotion.hpp"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -1550,7 +1550,7 @@ static const char *__pyx_filename;
 static const char *__pyx_f[] = {
   "<stringsource>",
   "__init__.cython-30.pxd",
-  "pmma\\\\core\\\\pyx_src\\\\PerlinNoise.pyx",
+  "pmma\\\\core\\\\pyx_src\\\\FractalBrownianMotion.pyx",
   "type.pxd",
 };
 /* #### Code section: utility_code_proto_before_types ### */
@@ -1794,7 +1794,7 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 /* #### Code section: type_declarations ### */
 
 /*--- Type declarations ---*/
-struct __pyx_obj_11PerlinNoise_PerlinNoise;
+struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion;
 
 /* "c:/Users/pamj0/AppData/Local/Programs/Python/Python310/lib/site-packages/numpy/__init__.cython-30.pxd":767
  * ctypedef npy_longdouble longdouble_t
@@ -1832,17 +1832,20 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
 
-/* "PerlinNoise.pyx":25
+/* "FractalBrownianMotion.pyx":25
  * 
  * 
- * cdef class PerlinNoise:             # <<<<<<<<<<<<<<
+ * cdef class FractalBrownianMotion:             # <<<<<<<<<<<<<<
  *     """
  *     Seed value must be positive integer in range 0 to 4294967295.
  */
-struct __pyx_obj_11PerlinNoise_PerlinNoise {
+struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion {
   PyObject_HEAD
-  CPP_PerlinNoise *cpp_class_ptr;
+  CPP_FractalBrownianMotion *cpp_class_ptr;
   unsigned int seed;
+  unsigned int octaves;
+  float lacunarity;
+  float gain;
 };
 
 /* #### Code section: utility_code_proto ### */
@@ -2089,6 +2092,10 @@ static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int 
 #define __Pyx_ArgsSlice_FASTCALL(args, start, stop) PyTuple_GetSlice(args, start, stop)
 #endif
 
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
@@ -2097,10 +2104,6 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject *const *kwvalues
     PyObject **argnames[],
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,
     const char* function_name);
-
-/* RaiseArgTupleInvalid.proto */
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -2686,15 +2689,15 @@ static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__p
 
 /* Module declarations from "numpy" */
 
-/* Module declarations from "PerlinNoise" */
+/* Module declarations from "FractalBrownianMotion" */
 /* #### Code section: typeinfo ### */
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t = { "float32_t", NULL, sizeof(__pyx_t_5numpy_float32_t), { 0 }, 0, 'R', 0, 0 };
 /* #### Code section: before_global_var ### */
-#define __Pyx_MODULE_NAME "PerlinNoise"
-extern int __pyx_module_is_main_PerlinNoise;
-int __pyx_module_is_main_PerlinNoise = 0;
+#define __Pyx_MODULE_NAME "FractalBrownianMotion"
+extern int __pyx_module_is_main_FractalBrownianMotion;
+int __pyx_module_is_main_FractalBrownianMotion = 0;
 
-/* Implementation of "PerlinNoise" */
+/* Implementation of "FractalBrownianMotion" */
 /* #### Code section: global_var ### */
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_ImportError;
@@ -2706,7 +2709,8 @@ static const char __pyx_k_z[] = "z";
 static const char __pyx_k__4[] = "*";
 static const char __pyx_k_gc[] = "gc";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k__26[] = "?";
+static const char __pyx_k__29[] = "?";
+static const char __pyx_k_gain[] = "gain";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_seed[] = "seed";
@@ -2732,11 +2736,13 @@ static const char __pyx_k_float32[] = "float32";
 static const char __pyx_k_noise1D[] = "noise1D";
 static const char __pyx_k_noise2D[] = "noise2D";
 static const char __pyx_k_noise3D[] = "noise3D";
+static const char __pyx_k_octaves[] = "octaves";
 static const char __pyx_k_out_ptr[] = "out_ptr";
 static const char __pyx_k_randint[] = "randint";
 static const char __pyx_k_x_range[] = "x_range";
 static const char __pyx_k_y_range[] = "y_range";
 static const char __pyx_k_z_range[] = "z_range";
+static const char __pyx_k_get_gain[] = "get_gain";
 static const char __pyx_k_get_seed[] = "get_seed";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_setstate[] = "__setstate__";
@@ -2745,12 +2751,13 @@ static const char __pyx_k_isenabled[] = "isenabled";
 static const char __pyx_k_pyx_state[] = "__pyx_state";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_values_np[] = "values_np";
+static const char __pyx_k_lacunarity[] = "lacunarity";
 static const char __pyx_k_values_ptr[] = "values_ptr";
 static const char __pyx_k_x_range_np[] = "x_range_np";
 static const char __pyx_k_y_range_np[] = "y_range_np";
 static const char __pyx_k_z_range_np[] = "z_range_np";
 static const char __pyx_k_ImportError[] = "ImportError";
-static const char __pyx_k_PerlinNoise[] = "PerlinNoise";
+static const char __pyx_k_get_octaves[] = "get_octaves";
 static const char __pyx_k_x_range_ptr[] = "x_range_ptr";
 static const char __pyx_k_y_range_ptr[] = "y_range_ptr";
 static const char __pyx_k_z_range_ptr[] = "z_range_ptr";
@@ -2765,41 +2772,49 @@ static const char __pyx_k_range_noise1D[] = "range_noise1D";
 static const char __pyx_k_range_noise2D[] = "range_noise2D";
 static const char __pyx_k_range_noise3D[] = "range_noise3D";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
+static const char __pyx_k_get_lacunarity[] = "get_lacunarity";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_PerlinNoise_noise1D[] = "PerlinNoise.noise1D";
-static const char __pyx_k_PerlinNoise_noise2D[] = "PerlinNoise.noise2D";
-static const char __pyx_k_PerlinNoise_noise3D[] = "PerlinNoise.noise3D";
-static const char __pyx_k_PerlinNoise_get_seed[] = "PerlinNoise.get_seed";
-static const char __pyx_k_PerlinNoise_array_noise1D[] = "PerlinNoise.array_noise1D";
-static const char __pyx_k_PerlinNoise_array_noise2D[] = "PerlinNoise.array_noise2D";
-static const char __pyx_k_PerlinNoise_array_noise3D[] = "PerlinNoise.array_noise3D";
-static const char __pyx_k_PerlinNoise_range_noise1D[] = "PerlinNoise.range_noise1D";
-static const char __pyx_k_PerlinNoise_range_noise2D[] = "PerlinNoise.range_noise2D";
-static const char __pyx_k_PerlinNoise_range_noise3D[] = "PerlinNoise.range_noise3D";
-static const char __pyx_k_PerlinNoise___reduce_cython[] = "PerlinNoise.__reduce_cython__";
-static const char __pyx_k_PerlinNoise___setstate_cython[] = "PerlinNoise.__setstate_cython__";
+static const char __pyx_k_FractalBrownianMotion[] = "FractalBrownianMotion";
+static const char __pyx_k_FractalBrownianMotion_noise1D[] = "FractalBrownianMotion.noise1D";
+static const char __pyx_k_FractalBrownianMotion_noise2D[] = "FractalBrownianMotion.noise2D";
+static const char __pyx_k_FractalBrownianMotion_noise3D[] = "FractalBrownianMotion.noise3D";
+static const char __pyx_k_FractalBrownianMotion_get_gain[] = "FractalBrownianMotion.get_gain";
+static const char __pyx_k_FractalBrownianMotion_get_seed[] = "FractalBrownianMotion.get_seed";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
+static const char __pyx_k_FractalBrownianMotion___reduce_c[] = "FractalBrownianMotion.__reduce_cython__";
+static const char __pyx_k_FractalBrownianMotion___setstate[] = "FractalBrownianMotion.__setstate_cython__";
+static const char __pyx_k_FractalBrownianMotion_array_nois[] = "FractalBrownianMotion.array_noise1D";
+static const char __pyx_k_FractalBrownianMotion_get_lacuna[] = "FractalBrownianMotion.get_lacunarity";
+static const char __pyx_k_FractalBrownianMotion_get_octave[] = "FractalBrownianMotion.get_octaves";
+static const char __pyx_k_FractalBrownianMotion_range_nois[] = "FractalBrownianMotion.range_noise1D";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
-static const char __pyx_k_pmma_core_pyx_src_PerlinNoise_py[] = "pmma\\core\\pyx_src\\PerlinNoise.pyx";
+static const char __pyx_k_pmma_core_pyx_src_FractalBrownia[] = "pmma\\core\\pyx_src\\FractalBrownianMotion.pyx";
+static const char __pyx_k_FractalBrownianMotion_array_nois_2[] = "FractalBrownianMotion.array_noise2D";
+static const char __pyx_k_FractalBrownianMotion_array_nois_3[] = "FractalBrownianMotion.array_noise3D";
+static const char __pyx_k_FractalBrownianMotion_range_nois_2[] = "FractalBrownianMotion.range_noise2D";
+static const char __pyx_k_FractalBrownianMotion_range_nois_3[] = "FractalBrownianMotion.range_noise3D";
 /* #### Code section: decls ### */
-static int __pyx_pf_11PerlinNoise_11PerlinNoise___cinit__(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_seed); /* proto */
-static void __pyx_pf_11PerlinNoise_11PerlinNoise_2__dealloc__(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_4get_seed(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_6noise1D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, float __pyx_v_x); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_8noise2D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, float __pyx_v_x, float __pyx_v_y); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_10noise3D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, float __pyx_v_x, float __pyx_v_y, float __pyx_v_z); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_values); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_values); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_values); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_length); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_length); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_z_range, PyObject *__pyx_v_length); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_24__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_26__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_11PerlinNoise_PerlinNoise(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion___cinit__(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_octaves, PyObject *__pyx_v_lacunarity, PyObject *__pyx_v_gain, PyObject *__pyx_v_seed); /* proto */
+static void __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_2__dealloc__(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_4get_seed(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_6get_octaves(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_8get_lacunarity(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_10get_gain(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_12noise1D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, float __pyx_v_x); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_14noise2D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, float __pyx_v_x, float __pyx_v_y); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_16noise3D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, float __pyx_v_x, float __pyx_v_y, float __pyx_v_z); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_18array_noise1D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_values); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_20array_noise2D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_values); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_22array_noise3D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_values); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_24range_noise1D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_length); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_26range_noise2D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_length); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_28range_noise3D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_z_range, PyObject *__pyx_v_length); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_30__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_32__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_tp_new_21FractalBrownianMotion_FractalBrownianMotion(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
 typedef struct {
@@ -2862,27 +2877,30 @@ typedef struct {
   PyTypeObject *__pyx_ptype_5numpy_character;
   PyTypeObject *__pyx_ptype_5numpy_ufunc;
   #if CYTHON_USE_MODULE_STATE
-  PyObject *__pyx_type_11PerlinNoise_PerlinNoise;
+  PyObject *__pyx_type_21FractalBrownianMotion_FractalBrownianMotion;
   #endif
-  PyTypeObject *__pyx_ptype_11PerlinNoise_PerlinNoise;
+  PyTypeObject *__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion;
   PyObject *__pyx_n_u_C;
   PyObject *__pyx_n_u_C_CONTIGUOUS;
+  PyObject *__pyx_n_s_FractalBrownianMotion;
+  PyObject *__pyx_n_s_FractalBrownianMotion___reduce_c;
+  PyObject *__pyx_n_s_FractalBrownianMotion___setstate;
+  PyObject *__pyx_n_s_FractalBrownianMotion_array_nois;
+  PyObject *__pyx_n_s_FractalBrownianMotion_array_nois_2;
+  PyObject *__pyx_n_s_FractalBrownianMotion_array_nois_3;
+  PyObject *__pyx_n_s_FractalBrownianMotion_get_gain;
+  PyObject *__pyx_n_s_FractalBrownianMotion_get_lacuna;
+  PyObject *__pyx_n_s_FractalBrownianMotion_get_octave;
+  PyObject *__pyx_n_s_FractalBrownianMotion_get_seed;
+  PyObject *__pyx_n_s_FractalBrownianMotion_noise1D;
+  PyObject *__pyx_n_s_FractalBrownianMotion_noise2D;
+  PyObject *__pyx_n_s_FractalBrownianMotion_noise3D;
+  PyObject *__pyx_n_s_FractalBrownianMotion_range_nois;
+  PyObject *__pyx_n_s_FractalBrownianMotion_range_nois_2;
+  PyObject *__pyx_n_s_FractalBrownianMotion_range_nois_3;
   PyObject *__pyx_n_s_ImportError;
-  PyObject *__pyx_n_s_PerlinNoise;
-  PyObject *__pyx_n_s_PerlinNoise___reduce_cython;
-  PyObject *__pyx_n_s_PerlinNoise___setstate_cython;
-  PyObject *__pyx_n_s_PerlinNoise_array_noise1D;
-  PyObject *__pyx_n_s_PerlinNoise_array_noise2D;
-  PyObject *__pyx_n_s_PerlinNoise_array_noise3D;
-  PyObject *__pyx_n_s_PerlinNoise_get_seed;
-  PyObject *__pyx_n_s_PerlinNoise_noise1D;
-  PyObject *__pyx_n_s_PerlinNoise_noise2D;
-  PyObject *__pyx_n_s_PerlinNoise_noise3D;
-  PyObject *__pyx_n_s_PerlinNoise_range_noise1D;
-  PyObject *__pyx_n_s_PerlinNoise_range_noise2D;
-  PyObject *__pyx_n_s_PerlinNoise_range_noise3D;
   PyObject *__pyx_n_s_TypeError;
-  PyObject *__pyx_n_s__26;
+  PyObject *__pyx_n_s__29;
   PyObject *__pyx_n_s__4;
   PyObject *__pyx_n_s_array;
   PyObject *__pyx_n_s_array_noise1D;
@@ -2896,13 +2914,18 @@ typedef struct {
   PyObject *__pyx_kp_u_enable;
   PyObject *__pyx_n_s_flags;
   PyObject *__pyx_n_s_float32;
+  PyObject *__pyx_n_s_gain;
   PyObject *__pyx_kp_u_gc;
+  PyObject *__pyx_n_s_get_gain;
+  PyObject *__pyx_n_s_get_lacunarity;
+  PyObject *__pyx_n_s_get_octaves;
   PyObject *__pyx_n_s_get_seed;
   PyObject *__pyx_n_s_getstate;
   PyObject *__pyx_n_s_import;
   PyObject *__pyx_n_s_initializing;
   PyObject *__pyx_n_s_is_coroutine;
   PyObject *__pyx_kp_u_isenabled;
+  PyObject *__pyx_n_s_lacunarity;
   PyObject *__pyx_n_s_length;
   PyObject *__pyx_n_s_main;
   PyObject *__pyx_n_s_name;
@@ -2914,10 +2937,11 @@ typedef struct {
   PyObject *__pyx_n_s_numpy;
   PyObject *__pyx_kp_u_numpy_core_multiarray_failed_to;
   PyObject *__pyx_kp_u_numpy_core_umath_failed_to_impor;
+  PyObject *__pyx_n_s_octaves;
   PyObject *__pyx_n_s_order;
   PyObject *__pyx_n_s_out_np;
   PyObject *__pyx_n_s_out_ptr;
-  PyObject *__pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py;
+  PyObject *__pyx_kp_s_pmma_core_pyx_src_FractalBrownia;
   PyObject *__pyx_n_s_pyx_state;
   PyObject *__pyx_n_s_randint;
   PyObject *__pyx_n_s_random;
@@ -2956,26 +2980,29 @@ typedef struct {
   PyObject *__pyx_tuple__2;
   PyObject *__pyx_tuple__3;
   PyObject *__pyx_tuple__5;
-  PyObject *__pyx_tuple__7;
-  PyObject *__pyx_tuple__9;
-  PyObject *__pyx_tuple__11;
-  PyObject *__pyx_tuple__13;
-  PyObject *__pyx_tuple__17;
-  PyObject *__pyx_tuple__19;
-  PyObject *__pyx_tuple__21;
+  PyObject *__pyx_tuple__10;
+  PyObject *__pyx_tuple__12;
+  PyObject *__pyx_tuple__14;
+  PyObject *__pyx_tuple__16;
+  PyObject *__pyx_tuple__20;
+  PyObject *__pyx_tuple__22;
   PyObject *__pyx_tuple__24;
+  PyObject *__pyx_tuple__27;
   PyObject *__pyx_codeobj__6;
+  PyObject *__pyx_codeobj__7;
   PyObject *__pyx_codeobj__8;
-  PyObject *__pyx_codeobj__10;
-  PyObject *__pyx_codeobj__12;
-  PyObject *__pyx_codeobj__14;
+  PyObject *__pyx_codeobj__9;
+  PyObject *__pyx_codeobj__11;
+  PyObject *__pyx_codeobj__13;
   PyObject *__pyx_codeobj__15;
-  PyObject *__pyx_codeobj__16;
+  PyObject *__pyx_codeobj__17;
   PyObject *__pyx_codeobj__18;
-  PyObject *__pyx_codeobj__20;
-  PyObject *__pyx_codeobj__22;
+  PyObject *__pyx_codeobj__19;
+  PyObject *__pyx_codeobj__21;
   PyObject *__pyx_codeobj__23;
   PyObject *__pyx_codeobj__25;
+  PyObject *__pyx_codeobj__26;
+  PyObject *__pyx_codeobj__28;
 } __pyx_mstate;
 
 #if CYTHON_USE_MODULE_STATE
@@ -3034,26 +3061,29 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_ptype_5numpy_flexible);
   Py_CLEAR(clear_module_state->__pyx_ptype_5numpy_character);
   Py_CLEAR(clear_module_state->__pyx_ptype_5numpy_ufunc);
-  Py_CLEAR(clear_module_state->__pyx_ptype_11PerlinNoise_PerlinNoise);
-  Py_CLEAR(clear_module_state->__pyx_type_11PerlinNoise_PerlinNoise);
+  Py_CLEAR(clear_module_state->__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
+  Py_CLEAR(clear_module_state->__pyx_type_21FractalBrownianMotion_FractalBrownianMotion);
   Py_CLEAR(clear_module_state->__pyx_n_u_C);
   Py_CLEAR(clear_module_state->__pyx_n_u_C_CONTIGUOUS);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion___reduce_c);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion___setstate);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_array_nois);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_array_nois_2);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_array_nois_3);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_get_gain);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_get_lacuna);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_get_octave);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_get_seed);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_noise1D);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_noise2D);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_noise3D);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_range_nois);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_range_nois_2);
+  Py_CLEAR(clear_module_state->__pyx_n_s_FractalBrownianMotion_range_nois_3);
   Py_CLEAR(clear_module_state->__pyx_n_s_ImportError);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise___reduce_cython);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise___setstate_cython);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_array_noise1D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_array_noise2D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_array_noise3D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_get_seed);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_noise1D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_noise2D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_noise3D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_range_noise1D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_range_noise2D);
-  Py_CLEAR(clear_module_state->__pyx_n_s_PerlinNoise_range_noise3D);
   Py_CLEAR(clear_module_state->__pyx_n_s_TypeError);
-  Py_CLEAR(clear_module_state->__pyx_n_s__26);
+  Py_CLEAR(clear_module_state->__pyx_n_s__29);
   Py_CLEAR(clear_module_state->__pyx_n_s__4);
   Py_CLEAR(clear_module_state->__pyx_n_s_array);
   Py_CLEAR(clear_module_state->__pyx_n_s_array_noise1D);
@@ -3067,13 +3097,18 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_u_enable);
   Py_CLEAR(clear_module_state->__pyx_n_s_flags);
   Py_CLEAR(clear_module_state->__pyx_n_s_float32);
+  Py_CLEAR(clear_module_state->__pyx_n_s_gain);
   Py_CLEAR(clear_module_state->__pyx_kp_u_gc);
+  Py_CLEAR(clear_module_state->__pyx_n_s_get_gain);
+  Py_CLEAR(clear_module_state->__pyx_n_s_get_lacunarity);
+  Py_CLEAR(clear_module_state->__pyx_n_s_get_octaves);
   Py_CLEAR(clear_module_state->__pyx_n_s_get_seed);
   Py_CLEAR(clear_module_state->__pyx_n_s_getstate);
   Py_CLEAR(clear_module_state->__pyx_n_s_import);
   Py_CLEAR(clear_module_state->__pyx_n_s_initializing);
   Py_CLEAR(clear_module_state->__pyx_n_s_is_coroutine);
   Py_CLEAR(clear_module_state->__pyx_kp_u_isenabled);
+  Py_CLEAR(clear_module_state->__pyx_n_s_lacunarity);
   Py_CLEAR(clear_module_state->__pyx_n_s_length);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
   Py_CLEAR(clear_module_state->__pyx_n_s_name);
@@ -3085,10 +3120,11 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_numpy);
   Py_CLEAR(clear_module_state->__pyx_kp_u_numpy_core_multiarray_failed_to);
   Py_CLEAR(clear_module_state->__pyx_kp_u_numpy_core_umath_failed_to_impor);
+  Py_CLEAR(clear_module_state->__pyx_n_s_octaves);
   Py_CLEAR(clear_module_state->__pyx_n_s_order);
   Py_CLEAR(clear_module_state->__pyx_n_s_out_np);
   Py_CLEAR(clear_module_state->__pyx_n_s_out_ptr);
-  Py_CLEAR(clear_module_state->__pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_pmma_core_pyx_src_FractalBrownia);
   Py_CLEAR(clear_module_state->__pyx_n_s_pyx_state);
   Py_CLEAR(clear_module_state->__pyx_n_s_randint);
   Py_CLEAR(clear_module_state->__pyx_n_s_random);
@@ -3127,26 +3163,29 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_tuple__2);
   Py_CLEAR(clear_module_state->__pyx_tuple__3);
   Py_CLEAR(clear_module_state->__pyx_tuple__5);
-  Py_CLEAR(clear_module_state->__pyx_tuple__7);
-  Py_CLEAR(clear_module_state->__pyx_tuple__9);
-  Py_CLEAR(clear_module_state->__pyx_tuple__11);
-  Py_CLEAR(clear_module_state->__pyx_tuple__13);
-  Py_CLEAR(clear_module_state->__pyx_tuple__17);
-  Py_CLEAR(clear_module_state->__pyx_tuple__19);
-  Py_CLEAR(clear_module_state->__pyx_tuple__21);
+  Py_CLEAR(clear_module_state->__pyx_tuple__10);
+  Py_CLEAR(clear_module_state->__pyx_tuple__12);
+  Py_CLEAR(clear_module_state->__pyx_tuple__14);
+  Py_CLEAR(clear_module_state->__pyx_tuple__16);
+  Py_CLEAR(clear_module_state->__pyx_tuple__20);
+  Py_CLEAR(clear_module_state->__pyx_tuple__22);
   Py_CLEAR(clear_module_state->__pyx_tuple__24);
+  Py_CLEAR(clear_module_state->__pyx_tuple__27);
   Py_CLEAR(clear_module_state->__pyx_codeobj__6);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__7);
   Py_CLEAR(clear_module_state->__pyx_codeobj__8);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__10);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__12);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__14);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__9);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__11);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__13);
   Py_CLEAR(clear_module_state->__pyx_codeobj__15);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__16);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__17);
   Py_CLEAR(clear_module_state->__pyx_codeobj__18);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__20);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__22);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__19);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__21);
   Py_CLEAR(clear_module_state->__pyx_codeobj__23);
   Py_CLEAR(clear_module_state->__pyx_codeobj__25);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__26);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__28);
   return 0;
 }
 #endif
@@ -3183,26 +3222,29 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_ptype_5numpy_flexible);
   Py_VISIT(traverse_module_state->__pyx_ptype_5numpy_character);
   Py_VISIT(traverse_module_state->__pyx_ptype_5numpy_ufunc);
-  Py_VISIT(traverse_module_state->__pyx_ptype_11PerlinNoise_PerlinNoise);
-  Py_VISIT(traverse_module_state->__pyx_type_11PerlinNoise_PerlinNoise);
+  Py_VISIT(traverse_module_state->__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
+  Py_VISIT(traverse_module_state->__pyx_type_21FractalBrownianMotion_FractalBrownianMotion);
   Py_VISIT(traverse_module_state->__pyx_n_u_C);
   Py_VISIT(traverse_module_state->__pyx_n_u_C_CONTIGUOUS);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion___reduce_c);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion___setstate);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_array_nois);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_array_nois_2);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_array_nois_3);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_get_gain);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_get_lacuna);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_get_octave);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_get_seed);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_noise1D);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_noise2D);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_noise3D);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_range_nois);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_range_nois_2);
+  Py_VISIT(traverse_module_state->__pyx_n_s_FractalBrownianMotion_range_nois_3);
   Py_VISIT(traverse_module_state->__pyx_n_s_ImportError);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise___reduce_cython);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise___setstate_cython);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_array_noise1D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_array_noise2D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_array_noise3D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_get_seed);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_noise1D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_noise2D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_noise3D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_range_noise1D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_range_noise2D);
-  Py_VISIT(traverse_module_state->__pyx_n_s_PerlinNoise_range_noise3D);
   Py_VISIT(traverse_module_state->__pyx_n_s_TypeError);
-  Py_VISIT(traverse_module_state->__pyx_n_s__26);
+  Py_VISIT(traverse_module_state->__pyx_n_s__29);
   Py_VISIT(traverse_module_state->__pyx_n_s__4);
   Py_VISIT(traverse_module_state->__pyx_n_s_array);
   Py_VISIT(traverse_module_state->__pyx_n_s_array_noise1D);
@@ -3216,13 +3258,18 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_u_enable);
   Py_VISIT(traverse_module_state->__pyx_n_s_flags);
   Py_VISIT(traverse_module_state->__pyx_n_s_float32);
+  Py_VISIT(traverse_module_state->__pyx_n_s_gain);
   Py_VISIT(traverse_module_state->__pyx_kp_u_gc);
+  Py_VISIT(traverse_module_state->__pyx_n_s_get_gain);
+  Py_VISIT(traverse_module_state->__pyx_n_s_get_lacunarity);
+  Py_VISIT(traverse_module_state->__pyx_n_s_get_octaves);
   Py_VISIT(traverse_module_state->__pyx_n_s_get_seed);
   Py_VISIT(traverse_module_state->__pyx_n_s_getstate);
   Py_VISIT(traverse_module_state->__pyx_n_s_import);
   Py_VISIT(traverse_module_state->__pyx_n_s_initializing);
   Py_VISIT(traverse_module_state->__pyx_n_s_is_coroutine);
   Py_VISIT(traverse_module_state->__pyx_kp_u_isenabled);
+  Py_VISIT(traverse_module_state->__pyx_n_s_lacunarity);
   Py_VISIT(traverse_module_state->__pyx_n_s_length);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
   Py_VISIT(traverse_module_state->__pyx_n_s_name);
@@ -3234,10 +3281,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_numpy);
   Py_VISIT(traverse_module_state->__pyx_kp_u_numpy_core_multiarray_failed_to);
   Py_VISIT(traverse_module_state->__pyx_kp_u_numpy_core_umath_failed_to_impor);
+  Py_VISIT(traverse_module_state->__pyx_n_s_octaves);
   Py_VISIT(traverse_module_state->__pyx_n_s_order);
   Py_VISIT(traverse_module_state->__pyx_n_s_out_np);
   Py_VISIT(traverse_module_state->__pyx_n_s_out_ptr);
-  Py_VISIT(traverse_module_state->__pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_pmma_core_pyx_src_FractalBrownia);
   Py_VISIT(traverse_module_state->__pyx_n_s_pyx_state);
   Py_VISIT(traverse_module_state->__pyx_n_s_randint);
   Py_VISIT(traverse_module_state->__pyx_n_s_random);
@@ -3276,26 +3324,29 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_tuple__2);
   Py_VISIT(traverse_module_state->__pyx_tuple__3);
   Py_VISIT(traverse_module_state->__pyx_tuple__5);
-  Py_VISIT(traverse_module_state->__pyx_tuple__7);
-  Py_VISIT(traverse_module_state->__pyx_tuple__9);
-  Py_VISIT(traverse_module_state->__pyx_tuple__11);
-  Py_VISIT(traverse_module_state->__pyx_tuple__13);
-  Py_VISIT(traverse_module_state->__pyx_tuple__17);
-  Py_VISIT(traverse_module_state->__pyx_tuple__19);
-  Py_VISIT(traverse_module_state->__pyx_tuple__21);
+  Py_VISIT(traverse_module_state->__pyx_tuple__10);
+  Py_VISIT(traverse_module_state->__pyx_tuple__12);
+  Py_VISIT(traverse_module_state->__pyx_tuple__14);
+  Py_VISIT(traverse_module_state->__pyx_tuple__16);
+  Py_VISIT(traverse_module_state->__pyx_tuple__20);
+  Py_VISIT(traverse_module_state->__pyx_tuple__22);
   Py_VISIT(traverse_module_state->__pyx_tuple__24);
+  Py_VISIT(traverse_module_state->__pyx_tuple__27);
   Py_VISIT(traverse_module_state->__pyx_codeobj__6);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__7);
   Py_VISIT(traverse_module_state->__pyx_codeobj__8);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__10);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__12);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__14);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__9);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__11);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__13);
   Py_VISIT(traverse_module_state->__pyx_codeobj__15);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__16);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__17);
   Py_VISIT(traverse_module_state->__pyx_codeobj__18);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__20);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__22);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__19);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__21);
   Py_VISIT(traverse_module_state->__pyx_codeobj__23);
   Py_VISIT(traverse_module_state->__pyx_codeobj__25);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__26);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__28);
   return 0;
 }
 #endif
@@ -3359,27 +3410,30 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_ptype_5numpy_character __pyx_mstate_global->__pyx_ptype_5numpy_character
 #define __pyx_ptype_5numpy_ufunc __pyx_mstate_global->__pyx_ptype_5numpy_ufunc
 #if CYTHON_USE_MODULE_STATE
-#define __pyx_type_11PerlinNoise_PerlinNoise __pyx_mstate_global->__pyx_type_11PerlinNoise_PerlinNoise
+#define __pyx_type_21FractalBrownianMotion_FractalBrownianMotion __pyx_mstate_global->__pyx_type_21FractalBrownianMotion_FractalBrownianMotion
 #endif
-#define __pyx_ptype_11PerlinNoise_PerlinNoise __pyx_mstate_global->__pyx_ptype_11PerlinNoise_PerlinNoise
+#define __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion __pyx_mstate_global->__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion
 #define __pyx_n_u_C __pyx_mstate_global->__pyx_n_u_C
 #define __pyx_n_u_C_CONTIGUOUS __pyx_mstate_global->__pyx_n_u_C_CONTIGUOUS
+#define __pyx_n_s_FractalBrownianMotion __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion
+#define __pyx_n_s_FractalBrownianMotion___reduce_c __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion___reduce_c
+#define __pyx_n_s_FractalBrownianMotion___setstate __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion___setstate
+#define __pyx_n_s_FractalBrownianMotion_array_nois __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_array_nois
+#define __pyx_n_s_FractalBrownianMotion_array_nois_2 __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_array_nois_2
+#define __pyx_n_s_FractalBrownianMotion_array_nois_3 __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_array_nois_3
+#define __pyx_n_s_FractalBrownianMotion_get_gain __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_get_gain
+#define __pyx_n_s_FractalBrownianMotion_get_lacuna __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_get_lacuna
+#define __pyx_n_s_FractalBrownianMotion_get_octave __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_get_octave
+#define __pyx_n_s_FractalBrownianMotion_get_seed __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_get_seed
+#define __pyx_n_s_FractalBrownianMotion_noise1D __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_noise1D
+#define __pyx_n_s_FractalBrownianMotion_noise2D __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_noise2D
+#define __pyx_n_s_FractalBrownianMotion_noise3D __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_noise3D
+#define __pyx_n_s_FractalBrownianMotion_range_nois __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_range_nois
+#define __pyx_n_s_FractalBrownianMotion_range_nois_2 __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_range_nois_2
+#define __pyx_n_s_FractalBrownianMotion_range_nois_3 __pyx_mstate_global->__pyx_n_s_FractalBrownianMotion_range_nois_3
 #define __pyx_n_s_ImportError __pyx_mstate_global->__pyx_n_s_ImportError
-#define __pyx_n_s_PerlinNoise __pyx_mstate_global->__pyx_n_s_PerlinNoise
-#define __pyx_n_s_PerlinNoise___reduce_cython __pyx_mstate_global->__pyx_n_s_PerlinNoise___reduce_cython
-#define __pyx_n_s_PerlinNoise___setstate_cython __pyx_mstate_global->__pyx_n_s_PerlinNoise___setstate_cython
-#define __pyx_n_s_PerlinNoise_array_noise1D __pyx_mstate_global->__pyx_n_s_PerlinNoise_array_noise1D
-#define __pyx_n_s_PerlinNoise_array_noise2D __pyx_mstate_global->__pyx_n_s_PerlinNoise_array_noise2D
-#define __pyx_n_s_PerlinNoise_array_noise3D __pyx_mstate_global->__pyx_n_s_PerlinNoise_array_noise3D
-#define __pyx_n_s_PerlinNoise_get_seed __pyx_mstate_global->__pyx_n_s_PerlinNoise_get_seed
-#define __pyx_n_s_PerlinNoise_noise1D __pyx_mstate_global->__pyx_n_s_PerlinNoise_noise1D
-#define __pyx_n_s_PerlinNoise_noise2D __pyx_mstate_global->__pyx_n_s_PerlinNoise_noise2D
-#define __pyx_n_s_PerlinNoise_noise3D __pyx_mstate_global->__pyx_n_s_PerlinNoise_noise3D
-#define __pyx_n_s_PerlinNoise_range_noise1D __pyx_mstate_global->__pyx_n_s_PerlinNoise_range_noise1D
-#define __pyx_n_s_PerlinNoise_range_noise2D __pyx_mstate_global->__pyx_n_s_PerlinNoise_range_noise2D
-#define __pyx_n_s_PerlinNoise_range_noise3D __pyx_mstate_global->__pyx_n_s_PerlinNoise_range_noise3D
 #define __pyx_n_s_TypeError __pyx_mstate_global->__pyx_n_s_TypeError
-#define __pyx_n_s__26 __pyx_mstate_global->__pyx_n_s__26
+#define __pyx_n_s__29 __pyx_mstate_global->__pyx_n_s__29
 #define __pyx_n_s__4 __pyx_mstate_global->__pyx_n_s__4
 #define __pyx_n_s_array __pyx_mstate_global->__pyx_n_s_array
 #define __pyx_n_s_array_noise1D __pyx_mstate_global->__pyx_n_s_array_noise1D
@@ -3393,13 +3447,18 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_u_enable __pyx_mstate_global->__pyx_kp_u_enable
 #define __pyx_n_s_flags __pyx_mstate_global->__pyx_n_s_flags
 #define __pyx_n_s_float32 __pyx_mstate_global->__pyx_n_s_float32
+#define __pyx_n_s_gain __pyx_mstate_global->__pyx_n_s_gain
 #define __pyx_kp_u_gc __pyx_mstate_global->__pyx_kp_u_gc
+#define __pyx_n_s_get_gain __pyx_mstate_global->__pyx_n_s_get_gain
+#define __pyx_n_s_get_lacunarity __pyx_mstate_global->__pyx_n_s_get_lacunarity
+#define __pyx_n_s_get_octaves __pyx_mstate_global->__pyx_n_s_get_octaves
 #define __pyx_n_s_get_seed __pyx_mstate_global->__pyx_n_s_get_seed
 #define __pyx_n_s_getstate __pyx_mstate_global->__pyx_n_s_getstate
 #define __pyx_n_s_import __pyx_mstate_global->__pyx_n_s_import
 #define __pyx_n_s_initializing __pyx_mstate_global->__pyx_n_s_initializing
 #define __pyx_n_s_is_coroutine __pyx_mstate_global->__pyx_n_s_is_coroutine
 #define __pyx_kp_u_isenabled __pyx_mstate_global->__pyx_kp_u_isenabled
+#define __pyx_n_s_lacunarity __pyx_mstate_global->__pyx_n_s_lacunarity
 #define __pyx_n_s_length __pyx_mstate_global->__pyx_n_s_length
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
 #define __pyx_n_s_name __pyx_mstate_global->__pyx_n_s_name
@@ -3411,10 +3470,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_numpy __pyx_mstate_global->__pyx_n_s_numpy
 #define __pyx_kp_u_numpy_core_multiarray_failed_to __pyx_mstate_global->__pyx_kp_u_numpy_core_multiarray_failed_to
 #define __pyx_kp_u_numpy_core_umath_failed_to_impor __pyx_mstate_global->__pyx_kp_u_numpy_core_umath_failed_to_impor
+#define __pyx_n_s_octaves __pyx_mstate_global->__pyx_n_s_octaves
 #define __pyx_n_s_order __pyx_mstate_global->__pyx_n_s_order
 #define __pyx_n_s_out_np __pyx_mstate_global->__pyx_n_s_out_np
 #define __pyx_n_s_out_ptr __pyx_mstate_global->__pyx_n_s_out_ptr
-#define __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py __pyx_mstate_global->__pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py
+#define __pyx_kp_s_pmma_core_pyx_src_FractalBrownia __pyx_mstate_global->__pyx_kp_s_pmma_core_pyx_src_FractalBrownia
 #define __pyx_n_s_pyx_state __pyx_mstate_global->__pyx_n_s_pyx_state
 #define __pyx_n_s_randint __pyx_mstate_global->__pyx_n_s_randint
 #define __pyx_n_s_random __pyx_mstate_global->__pyx_n_s_random
@@ -3453,26 +3513,29 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_tuple__2 __pyx_mstate_global->__pyx_tuple__2
 #define __pyx_tuple__3 __pyx_mstate_global->__pyx_tuple__3
 #define __pyx_tuple__5 __pyx_mstate_global->__pyx_tuple__5
-#define __pyx_tuple__7 __pyx_mstate_global->__pyx_tuple__7
-#define __pyx_tuple__9 __pyx_mstate_global->__pyx_tuple__9
-#define __pyx_tuple__11 __pyx_mstate_global->__pyx_tuple__11
-#define __pyx_tuple__13 __pyx_mstate_global->__pyx_tuple__13
-#define __pyx_tuple__17 __pyx_mstate_global->__pyx_tuple__17
-#define __pyx_tuple__19 __pyx_mstate_global->__pyx_tuple__19
-#define __pyx_tuple__21 __pyx_mstate_global->__pyx_tuple__21
+#define __pyx_tuple__10 __pyx_mstate_global->__pyx_tuple__10
+#define __pyx_tuple__12 __pyx_mstate_global->__pyx_tuple__12
+#define __pyx_tuple__14 __pyx_mstate_global->__pyx_tuple__14
+#define __pyx_tuple__16 __pyx_mstate_global->__pyx_tuple__16
+#define __pyx_tuple__20 __pyx_mstate_global->__pyx_tuple__20
+#define __pyx_tuple__22 __pyx_mstate_global->__pyx_tuple__22
 #define __pyx_tuple__24 __pyx_mstate_global->__pyx_tuple__24
+#define __pyx_tuple__27 __pyx_mstate_global->__pyx_tuple__27
 #define __pyx_codeobj__6 __pyx_mstate_global->__pyx_codeobj__6
+#define __pyx_codeobj__7 __pyx_mstate_global->__pyx_codeobj__7
 #define __pyx_codeobj__8 __pyx_mstate_global->__pyx_codeobj__8
-#define __pyx_codeobj__10 __pyx_mstate_global->__pyx_codeobj__10
-#define __pyx_codeobj__12 __pyx_mstate_global->__pyx_codeobj__12
-#define __pyx_codeobj__14 __pyx_mstate_global->__pyx_codeobj__14
+#define __pyx_codeobj__9 __pyx_mstate_global->__pyx_codeobj__9
+#define __pyx_codeobj__11 __pyx_mstate_global->__pyx_codeobj__11
+#define __pyx_codeobj__13 __pyx_mstate_global->__pyx_codeobj__13
 #define __pyx_codeobj__15 __pyx_mstate_global->__pyx_codeobj__15
-#define __pyx_codeobj__16 __pyx_mstate_global->__pyx_codeobj__16
+#define __pyx_codeobj__17 __pyx_mstate_global->__pyx_codeobj__17
 #define __pyx_codeobj__18 __pyx_mstate_global->__pyx_codeobj__18
-#define __pyx_codeobj__20 __pyx_mstate_global->__pyx_codeobj__20
-#define __pyx_codeobj__22 __pyx_mstate_global->__pyx_codeobj__22
+#define __pyx_codeobj__19 __pyx_mstate_global->__pyx_codeobj__19
+#define __pyx_codeobj__21 __pyx_mstate_global->__pyx_codeobj__21
 #define __pyx_codeobj__23 __pyx_mstate_global->__pyx_codeobj__23
 #define __pyx_codeobj__25 __pyx_mstate_global->__pyx_codeobj__25
+#define __pyx_codeobj__26 __pyx_mstate_global->__pyx_codeobj__26
+#define __pyx_codeobj__28 __pyx_mstate_global->__pyx_codeobj__28
 /* #### Code section: module_code ### */
 
 /* "c:/Users/pamj0/AppData/Local/Programs/Python/Python310/lib/site-packages/numpy/__init__.cython-30.pxd":245
@@ -4737,21 +4800,24 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":32
- *     cdef unsigned int seed
+/* "FractalBrownianMotion.pyx":35
+ *     cdef float gain
  * 
- *     def __cinit__(self, seed = None):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, octaves, lacunarity, gain, seed = None):             # <<<<<<<<<<<<<<
+ * 
  *         if seed == None:
- *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
  */
 
 /* Python wrapper */
-static int __pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_octaves = 0;
+  PyObject *__pyx_v_lacunarity = 0;
+  PyObject *__pyx_v_gain = 0;
   PyObject *__pyx_v_seed = 0;
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[1] = {0};
+  PyObject* values[4] = {0,0,0,0};
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4765,11 +4831,17 @@ static int __pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(PyObject *__pyx_v_sel
   #endif
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_seed,0};
-    values[0] = __Pyx_Arg_NewRef_VARARGS(((PyObject *)Py_None));
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_octaves,&__pyx_n_s_lacunarity,&__pyx_n_s_gain,&__pyx_n_s_seed,0};
+    values[3] = __Pyx_Arg_NewRef_VARARGS(((PyObject *)Py_None));
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  4: values[3] = __Pyx_Arg_VARARGS(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = __Pyx_Arg_VARARGS(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = __Pyx_Arg_VARARGS(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
         case  1: values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
         CYTHON_FALLTHROUGH;
         case  0: break;
@@ -4778,29 +4850,63 @@ static int __pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(PyObject *__pyx_v_sel
       kw_args = __Pyx_NumKwargs_VARARGS(__pyx_kwds);
       switch (__pyx_nargs) {
         case  0:
+        if (likely((values[0] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_octaves)) != 0)) {
+          (void)__Pyx_Arg_NewRef_VARARGS(values[0]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 35, __pyx_L3_error)
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_lacunarity)) != 0)) {
+          (void)__Pyx_Arg_NewRef_VARARGS(values[1]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 35, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 4, 1); __PYX_ERR(2, 35, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_gain)) != 0)) {
+          (void)__Pyx_Arg_NewRef_VARARGS(values[2]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 35, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 4, 2); __PYX_ERR(2, 35, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_seed);
-          if (value) { values[0] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 32, __pyx_L3_error)
+          if (value) { values[3] = __Pyx_Arg_NewRef_VARARGS(value); kw_args--; }
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 35, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(2, 32, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(2, 35, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
-        case  1: values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
+        case  4: values[3] = __Pyx_Arg_VARARGS(__pyx_args, 3);
         CYTHON_FALLTHROUGH;
-        case  0: break;
+        case  3: values[2] = __Pyx_Arg_VARARGS(__pyx_args, 2);
+        values[1] = __Pyx_Arg_VARARGS(__pyx_args, 1);
+        values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
+        break;
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_seed = values[0];
+    __pyx_v_octaves = values[0];
+    __pyx_v_lacunarity = values[1];
+    __pyx_v_gain = values[2];
+    __pyx_v_seed = values[3];
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, __pyx_nargs); __PYX_ERR(2, 32, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 4, __pyx_nargs); __PYX_ERR(2, 35, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4810,11 +4916,11 @@ static int __pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(PyObject *__pyx_v_sel
       __Pyx_Arg_XDECREF_VARARGS(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise___cinit__(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_seed);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion___cinit__(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_octaves, __pyx_v_lacunarity, __pyx_v_gain, __pyx_v_seed);
 
   /* function exit code */
   {
@@ -4827,84 +4933,120 @@ static int __pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(PyObject *__pyx_v_sel
   return __pyx_r;
 }
 
-static int __pyx_pf_11PerlinNoise_11PerlinNoise___cinit__(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_seed) {
+static int __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion___cinit__(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_octaves, PyObject *__pyx_v_lacunarity, PyObject *__pyx_v_gain, PyObject *__pyx_v_seed) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   unsigned int __pyx_t_4;
+  unsigned int __pyx_t_5;
+  float __pyx_t_6;
+  float __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
   __Pyx_INCREF(__pyx_v_seed);
 
-  /* "PerlinNoise.pyx":33
+  /* "FractalBrownianMotion.pyx":37
+ *     def __cinit__(self, octaves, lacunarity, gain, seed = None):
  * 
- *     def __cinit__(self, seed = None):
  *         if seed == None:             # <<<<<<<<<<<<<<
  *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
  * 
  */
-  __pyx_t_1 = PyObject_RichCompare(__pyx_v_seed, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 33, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(2, 33, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_v_seed, Py_None, Py_EQ); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 37, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(2, 37, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "PerlinNoise.pyx":34
- *     def __cinit__(self, seed = None):
+    /* "FractalBrownianMotion.pyx":38
+ * 
  *         if seed == None:
  *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr = new CPP_PerlinNoise(seed)
+ *         self.cpp_class_ptr = new CPP_FractalBrownianMotion(seed, octaves, lacunarity, gain)
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 34, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 38, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_randint); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 34, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_randint); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 38, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 34, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 38, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF_SET(__pyx_v_seed, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "PerlinNoise.pyx":33
+    /* "FractalBrownianMotion.pyx":37
+ *     def __cinit__(self, octaves, lacunarity, gain, seed = None):
  * 
- *     def __cinit__(self, seed = None):
  *         if seed == None:             # <<<<<<<<<<<<<<
  *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
  * 
  */
   }
 
-  /* "PerlinNoise.pyx":36
+  /* "FractalBrownianMotion.pyx":40
  *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
  * 
- *         self.cpp_class_ptr = new CPP_PerlinNoise(seed)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr = new CPP_FractalBrownianMotion(seed, octaves, lacunarity, gain)             # <<<<<<<<<<<<<<
  * 
  *         self.seed = seed
  */
-  __pyx_t_4 = __Pyx_PyInt_As_unsigned_int(__pyx_v_seed); if (unlikely((__pyx_t_4 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 36, __pyx_L1_error)
-  __pyx_v_self->cpp_class_ptr = new CPP_PerlinNoise(__pyx_t_4);
+  __pyx_t_4 = __Pyx_PyInt_As_unsigned_int(__pyx_v_seed); if (unlikely((__pyx_t_4 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 40, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_unsigned_int(__pyx_v_octaves); if (unlikely((__pyx_t_5 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 40, __pyx_L1_error)
+  __pyx_t_6 = __pyx_PyFloat_AsFloat(__pyx_v_lacunarity); if (unlikely((__pyx_t_6 == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 40, __pyx_L1_error)
+  __pyx_t_7 = __pyx_PyFloat_AsFloat(__pyx_v_gain); if (unlikely((__pyx_t_7 == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 40, __pyx_L1_error)
+  __pyx_v_self->cpp_class_ptr = new CPP_FractalBrownianMotion(__pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7);
 
-  /* "PerlinNoise.pyx":38
- *         self.cpp_class_ptr = new CPP_PerlinNoise(seed)
+  /* "FractalBrownianMotion.pyx":42
+ *         self.cpp_class_ptr = new CPP_FractalBrownianMotion(seed, octaves, lacunarity, gain)
  * 
  *         self.seed = seed             # <<<<<<<<<<<<<<
+ *         self.octaves = octaves
+ *         self.lacunarity = lacunarity
+ */
+  __pyx_t_5 = __Pyx_PyInt_As_unsigned_int(__pyx_v_seed); if (unlikely((__pyx_t_5 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 42, __pyx_L1_error)
+  __pyx_v_self->seed = __pyx_t_5;
+
+  /* "FractalBrownianMotion.pyx":43
+ * 
+ *         self.seed = seed
+ *         self.octaves = octaves             # <<<<<<<<<<<<<<
+ *         self.lacunarity = lacunarity
+ *         self.gain = gain
+ */
+  __pyx_t_5 = __Pyx_PyInt_As_unsigned_int(__pyx_v_octaves); if (unlikely((__pyx_t_5 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 43, __pyx_L1_error)
+  __pyx_v_self->octaves = __pyx_t_5;
+
+  /* "FractalBrownianMotion.pyx":44
+ *         self.seed = seed
+ *         self.octaves = octaves
+ *         self.lacunarity = lacunarity             # <<<<<<<<<<<<<<
+ *         self.gain = gain
+ * 
+ */
+  __pyx_t_7 = __pyx_PyFloat_AsFloat(__pyx_v_lacunarity); if (unlikely((__pyx_t_7 == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 44, __pyx_L1_error)
+  __pyx_v_self->lacunarity = __pyx_t_7;
+
+  /* "FractalBrownianMotion.pyx":45
+ *         self.octaves = octaves
+ *         self.lacunarity = lacunarity
+ *         self.gain = gain             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_t_4 = __Pyx_PyInt_As_unsigned_int(__pyx_v_seed); if (unlikely((__pyx_t_4 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 38, __pyx_L1_error)
-  __pyx_v_self->seed = __pyx_t_4;
+  __pyx_t_7 = __pyx_PyFloat_AsFloat(__pyx_v_gain); if (unlikely((__pyx_t_7 == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 45, __pyx_L1_error)
+  __pyx_v_self->gain = __pyx_t_7;
 
-  /* "PerlinNoise.pyx":32
- *     cdef unsigned int seed
+  /* "FractalBrownianMotion.pyx":35
+ *     cdef float gain
  * 
- *     def __cinit__(self, seed = None):             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, octaves, lacunarity, gain, seed = None):             # <<<<<<<<<<<<<<
+ * 
  *         if seed == None:
- *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
  */
 
   /* function exit code */
@@ -4913,7 +5055,7 @@ static int __pyx_pf_11PerlinNoise_11PerlinNoise___cinit__(struct __pyx_obj_11Per
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_seed);
@@ -4921,8 +5063,8 @@ static int __pyx_pf_11PerlinNoise_11PerlinNoise___cinit__(struct __pyx_obj_11Per
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":40
- *         self.seed = seed
+/* "FractalBrownianMotion.pyx":47
+ *         self.gain = gain
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.cpp_class_ptr
@@ -4930,21 +5072,21 @@ static int __pyx_pf_11PerlinNoise_11PerlinNoise___cinit__(struct __pyx_obj_11Per
  */
 
 /* Python wrapper */
-static void __pyx_pw_11PerlinNoise_11PerlinNoise_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_11PerlinNoise_11PerlinNoise_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_3__dealloc__(PyObject *__pyx_v_self) {
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
   __pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
-  __pyx_pf_11PerlinNoise_11PerlinNoise_2__dealloc__(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self));
+  __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_2__dealloc__(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_11PerlinNoise_11PerlinNoise_2__dealloc__(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self) {
+static void __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_2__dealloc__(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self) {
 
-  /* "PerlinNoise.pyx":41
+  /* "FractalBrownianMotion.pyx":48
  * 
  *     def __dealloc__(self):
  *         del self.cpp_class_ptr             # <<<<<<<<<<<<<<
@@ -4953,8 +5095,8 @@ static void __pyx_pf_11PerlinNoise_11PerlinNoise_2__dealloc__(struct __pyx_obj_1
  */
   delete __pyx_v_self->cpp_class_ptr;
 
-  /* "PerlinNoise.pyx":40
- *         self.seed = seed
+  /* "FractalBrownianMotion.pyx":47
+ *         self.gain = gain
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.cpp_class_ptr
@@ -4964,7 +5106,7 @@ static void __pyx_pf_11PerlinNoise_11PerlinNoise_2__dealloc__(struct __pyx_obj_1
   /* function exit code */
 }
 
-/* "PerlinNoise.pyx":43
+/* "FractalBrownianMotion.pyx":50
  *         del self.cpp_class_ptr
  * 
  *     def get_seed(self):             # <<<<<<<<<<<<<<
@@ -4973,15 +5115,15 @@ static void __pyx_pf_11PerlinNoise_11PerlinNoise_2__dealloc__(struct __pyx_obj_1
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_5get_seed(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_5get_seed(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_5get_seed = {"get_seed", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_5get_seed, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_5get_seed(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_5get_seed = {"get_seed", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_5get_seed, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_5get_seed(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5006,14 +5148,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   if (unlikely(__pyx_nargs > 0)) {
     __Pyx_RaiseArgtupleInvalid("get_seed", 1, 0, 0, __pyx_nargs); return NULL;}
   if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "get_seed", 0))) return NULL;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_4get_seed(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self));
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_4get_seed(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_4get_seed(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_4get_seed(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5022,21 +5164,21 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_4get_seed(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_seed", 1);
 
-  /* "PerlinNoise.pyx":44
+  /* "FractalBrownianMotion.pyx":51
  * 
  *     def get_seed(self):
  *         return self.seed             # <<<<<<<<<<<<<<
  * 
- *     def noise1D(self, float x):
+ *     def get_octaves(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->seed); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 44, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->seed); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 51, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "PerlinNoise.pyx":43
+  /* "FractalBrownianMotion.pyx":50
  *         del self.cpp_class_ptr
  * 
  *     def get_seed(self):             # <<<<<<<<<<<<<<
@@ -5047,7 +5189,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_4get_seed(struct __pyx_obj
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.get_seed", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.get_seed", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5055,24 +5197,297 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_4get_seed(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":46
+/* "FractalBrownianMotion.pyx":53
  *         return self.seed
  * 
- *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+ *     def get_octaves(self):             # <<<<<<<<<<<<<<
+ *         return self.octaves
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_7noise1D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_7get_octaves(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_7noise1D = {"noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_7noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_7noise1D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_7get_octaves = {"get_octaves", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_7get_octaves, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_7get_octaves(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_octaves (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  if (unlikely(__pyx_nargs > 0)) {
+    __Pyx_RaiseArgtupleInvalid("get_octaves", 1, 0, 0, __pyx_nargs); return NULL;}
+  if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "get_octaves", 0))) return NULL;
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_6get_octaves(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_6get_octaves(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_octaves", 1);
+
+  /* "FractalBrownianMotion.pyx":54
+ * 
+ *     def get_octaves(self):
+ *         return self.octaves             # <<<<<<<<<<<<<<
+ * 
+ *     def get_lacunarity(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->octaves); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 54, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "FractalBrownianMotion.pyx":53
+ *         return self.seed
+ * 
+ *     def get_octaves(self):             # <<<<<<<<<<<<<<
+ *         return self.octaves
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.get_octaves", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "FractalBrownianMotion.pyx":56
+ *         return self.octaves
+ * 
+ *     def get_lacunarity(self):             # <<<<<<<<<<<<<<
+ *         return self.lacunarity
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_9get_lacunarity(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_9get_lacunarity = {"get_lacunarity", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_9get_lacunarity, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_9get_lacunarity(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_lacunarity (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  if (unlikely(__pyx_nargs > 0)) {
+    __Pyx_RaiseArgtupleInvalid("get_lacunarity", 1, 0, 0, __pyx_nargs); return NULL;}
+  if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "get_lacunarity", 0))) return NULL;
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_8get_lacunarity(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_8get_lacunarity(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_lacunarity", 1);
+
+  /* "FractalBrownianMotion.pyx":57
+ * 
+ *     def get_lacunarity(self):
+ *         return self.lacunarity             # <<<<<<<<<<<<<<
+ * 
+ *     def get_gain(self):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->lacunarity); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "FractalBrownianMotion.pyx":56
+ *         return self.octaves
+ * 
+ *     def get_lacunarity(self):             # <<<<<<<<<<<<<<
+ *         return self.lacunarity
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.get_lacunarity", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "FractalBrownianMotion.pyx":59
+ *         return self.lacunarity
+ * 
+ *     def get_gain(self):             # <<<<<<<<<<<<<<
+ *         return self.gain
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_11get_gain(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_11get_gain = {"get_gain", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_11get_gain, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_11get_gain(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("get_gain (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  if (unlikely(__pyx_nargs > 0)) {
+    __Pyx_RaiseArgtupleInvalid("get_gain", 1, 0, 0, __pyx_nargs); return NULL;}
+  if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "get_gain", 0))) return NULL;
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_10get_gain(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_10get_gain(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_gain", 1);
+
+  /* "FractalBrownianMotion.pyx":60
+ * 
+ *     def get_gain(self):
+ *         return self.gain             # <<<<<<<<<<<<<<
+ * 
+ *     def noise1D(self, float x):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->gain); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 60, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "FractalBrownianMotion.pyx":59
+ *         return self.lacunarity
+ * 
+ *     def get_gain(self):             # <<<<<<<<<<<<<<
+ *         return self.gain
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.get_gain", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "FractalBrownianMotion.pyx":62
+ *         return self.gain
+ * 
+ *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_13noise1D(PyObject *__pyx_v_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_13noise1D = {"noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_13noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_13noise1D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5116,23 +5531,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 62, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "noise1D") < 0)) __PYX_ERR(2, 46, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "noise1D") < 0)) __PYX_ERR(2, 62, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_x = __pyx_PyFloat_AsFloat(values[0]); if (unlikely((__pyx_v_x == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 46, __pyx_L3_error)
+    __pyx_v_x = __pyx_PyFloat_AsFloat(values[0]); if (unlikely((__pyx_v_x == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 62, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("noise1D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 46, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("noise1D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 62, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5142,11 +5557,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_6noise1D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_x);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_12noise1D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_x);
 
   /* function exit code */
   {
@@ -5159,7 +5574,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_6noise1D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, float __pyx_v_x) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_12noise1D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, float __pyx_v_x) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5168,32 +5583,32 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_6noise1D(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("noise1D", 1);
 
-  /* "PerlinNoise.pyx":47
+  /* "FractalBrownianMotion.pyx":63
  * 
  *     def noise1D(self, float x):
- *         return self.cpp_class_ptr.CPP_Noise1D(x)             # <<<<<<<<<<<<<<
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)             # <<<<<<<<<<<<<<
  * 
  *     def noise2D(self, float x, float y):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->cpp_class_ptr->CPP_Noise1D(__pyx_v_x)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 47, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->cpp_class_ptr->CPP_FractalBrownianMotion1D(__pyx_v_x)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "PerlinNoise.pyx":46
- *         return self.seed
+  /* "FractalBrownianMotion.pyx":62
+ *         return self.gain
  * 
  *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5201,24 +5616,24 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_6noise1D(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":49
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+/* "FractalBrownianMotion.pyx":65
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
  * 
  *     def noise2D(self, float x, float y):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_9noise2D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_15noise2D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_9noise2D = {"noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_9noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_9noise2D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_15noise2D = {"noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_15noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_15noise2D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5265,7 +5680,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 49, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 65, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -5273,14 +5688,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 49, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 65, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("noise2D", 1, 2, 2, 1); __PYX_ERR(2, 49, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("noise2D", 1, 2, 2, 1); __PYX_ERR(2, 65, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "noise2D") < 0)) __PYX_ERR(2, 49, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "noise2D") < 0)) __PYX_ERR(2, 65, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5288,12 +5703,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_x = __pyx_PyFloat_AsFloat(values[0]); if (unlikely((__pyx_v_x == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 49, __pyx_L3_error)
-    __pyx_v_y = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_y == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 49, __pyx_L3_error)
+    __pyx_v_x = __pyx_PyFloat_AsFloat(values[0]); if (unlikely((__pyx_v_x == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 65, __pyx_L3_error)
+    __pyx_v_y = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_y == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 65, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("noise2D", 1, 2, 2, __pyx_nargs); __PYX_ERR(2, 49, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("noise2D", 1, 2, 2, __pyx_nargs); __PYX_ERR(2, 65, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5303,11 +5718,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_8noise2D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_x, __pyx_v_y);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_14noise2D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_x, __pyx_v_y);
 
   /* function exit code */
   {
@@ -5320,7 +5735,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_8noise2D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, float __pyx_v_x, float __pyx_v_y) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_14noise2D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, float __pyx_v_x, float __pyx_v_y) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5329,32 +5744,32 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_8noise2D(struct __pyx_obj_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("noise2D", 1);
 
-  /* "PerlinNoise.pyx":50
+  /* "FractalBrownianMotion.pyx":66
  * 
  *     def noise2D(self, float x, float y):
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)             # <<<<<<<<<<<<<<
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)             # <<<<<<<<<<<<<<
  * 
  *     def noise3D(self, float x, float y, float z):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->cpp_class_ptr->CPP_Noise2D(__pyx_v_x, __pyx_v_y)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 50, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->cpp_class_ptr->CPP_FractalBrownianMotion2D(__pyx_v_x, __pyx_v_y)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "PerlinNoise.pyx":49
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+  /* "FractalBrownianMotion.pyx":65
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
  * 
  *     def noise2D(self, float x, float y):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5362,24 +5777,24 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_8noise2D(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":52
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+/* "FractalBrownianMotion.pyx":68
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  *     def noise3D(self, float x, float y, float z):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_11noise3D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_17noise3D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_11noise3D = {"noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_11noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_11noise3D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_17noise3D = {"noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_17noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_17noise3D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5429,7 +5844,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 52, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 68, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -5437,9 +5852,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 52, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 68, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("noise3D", 1, 3, 3, 1); __PYX_ERR(2, 52, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("noise3D", 1, 3, 3, 1); __PYX_ERR(2, 68, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -5447,14 +5862,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 52, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 68, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("noise3D", 1, 3, 3, 2); __PYX_ERR(2, 52, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("noise3D", 1, 3, 3, 2); __PYX_ERR(2, 68, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "noise3D") < 0)) __PYX_ERR(2, 52, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "noise3D") < 0)) __PYX_ERR(2, 68, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -5463,13 +5878,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
     }
-    __pyx_v_x = __pyx_PyFloat_AsFloat(values[0]); if (unlikely((__pyx_v_x == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 52, __pyx_L3_error)
-    __pyx_v_y = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_y == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 52, __pyx_L3_error)
-    __pyx_v_z = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_z == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 52, __pyx_L3_error)
+    __pyx_v_x = __pyx_PyFloat_AsFloat(values[0]); if (unlikely((__pyx_v_x == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 68, __pyx_L3_error)
+    __pyx_v_y = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_y == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 68, __pyx_L3_error)
+    __pyx_v_z = __pyx_PyFloat_AsFloat(values[2]); if (unlikely((__pyx_v_z == (float)-1) && PyErr_Occurred())) __PYX_ERR(2, 68, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("noise3D", 1, 3, 3, __pyx_nargs); __PYX_ERR(2, 52, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("noise3D", 1, 3, 3, __pyx_nargs); __PYX_ERR(2, 68, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5479,11 +5894,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_10noise3D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_z);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_16noise3D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_x, __pyx_v_y, __pyx_v_z);
 
   /* function exit code */
   {
@@ -5496,7 +5911,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_10noise3D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, float __pyx_v_x, float __pyx_v_y, float __pyx_v_z) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_16noise3D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, float __pyx_v_x, float __pyx_v_y, float __pyx_v_z) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5505,32 +5920,32 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_10noise3D(struct __pyx_obj
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("noise3D", 1);
 
-  /* "PerlinNoise.pyx":53
+  /* "FractalBrownianMotion.pyx":69
  * 
  *     def noise3D(self, float x, float y, float z):
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)             # <<<<<<<<<<<<<<
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)             # <<<<<<<<<<<<<<
  * 
  *     def array_noise1D(self, values):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->cpp_class_ptr->CPP_Noise3D(__pyx_v_x, __pyx_v_y, __pyx_v_z)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 53, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->cpp_class_ptr->CPP_FractalBrownianMotion3D(__pyx_v_x, __pyx_v_y, __pyx_v_z)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "PerlinNoise.pyx":52
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+  /* "FractalBrownianMotion.pyx":68
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  *     def noise3D(self, float x, float y, float z):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5538,8 +5953,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_10noise3D(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":55
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+/* "FractalBrownianMotion.pyx":71
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  *     def array_noise1D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
@@ -5547,15 +5962,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_10noise3D(struct __pyx_obj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_13array_noise1D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_19array_noise1D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_13array_noise1D = {"array_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_13array_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_13array_noise1D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_19array_noise1D = {"array_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_19array_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_19array_noise1D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5599,12 +6014,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 55, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 71, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "array_noise1D") < 0)) __PYX_ERR(2, 55, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "array_noise1D") < 0)) __PYX_ERR(2, 71, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -5615,7 +6030,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("array_noise1D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 55, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("array_noise1D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 71, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5625,11 +6040,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.array_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.array_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_values);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_18array_noise1D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_values);
 
   /* function exit code */
   {
@@ -5642,7 +6057,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_18array_noise1D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_values) {
   PyArrayObject *__pyx_v_values_np = 0;
   PyArrayObject *__pyx_v_out_np = 0;
   float const *__pyx_v_values_ptr;
@@ -5683,7 +6098,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "PerlinNoise.pyx":65
+  /* "FractalBrownianMotion.pyx":81
  * 
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -5697,68 +6112,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 65, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":66
+    /* "FractalBrownianMotion.pyx":82
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
  *             values_np = np.array(values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             values_np = values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 66, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 66, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 66, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_values);
     __Pyx_GIVEREF(__pyx_v_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(2, 66, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 66, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(2, 82, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 66, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 66, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 66, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 66, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 66, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 82, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 66, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 82, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -5775,13 +6190,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 66, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 82, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "PerlinNoise.pyx":65
+    /* "FractalBrownianMotion.pyx":81
  * 
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -5791,7 +6206,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
     goto __pyx_L3;
   }
 
-  /* "PerlinNoise.pyx":68
+  /* "FractalBrownianMotion.pyx":84
  *             values_np = np.array(values, dtype=np.float32, order='C')
  *         else:
  *             values_np = values             # <<<<<<<<<<<<<<
@@ -5799,7 +6214,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
  *         length = values_np.shape[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 68, __pyx_L1_error)
+    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 84, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_values;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -5817,24 +6232,24 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 68, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 84, __pyx_L1_error)
     }
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "PerlinNoise.pyx":70
+  /* "FractalBrownianMotion.pyx":86
  *             values_np = values
  * 
  *         length = values_np.shape[0]             # <<<<<<<<<<<<<<
  *         values_ptr = &values_np[0]
  * 
  */
-  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 70, __pyx_L1_error)
+  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 86, __pyx_L1_error)
   __pyx_v_length = (__pyx_t_14[0]);
 
-  /* "PerlinNoise.pyx":71
+  /* "FractalBrownianMotion.pyx":87
  * 
  *         length = values_np.shape[0]
  *         values_ptr = &values_np[0]             # <<<<<<<<<<<<<<
@@ -5844,41 +6259,41 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
   __pyx_t_15 = 0;
   __pyx_v_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_values_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_values_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":73
+  /* "FractalBrownianMotion.pyx":89
  *         values_ptr = &values_np[0]
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(2, 73, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(2, 89, __pyx_L1_error);
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 73, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 73, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 73, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 89, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 73, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 89, __pyx_L1_error)
   __pyx_t_16 = ((PyArrayObject *)__pyx_t_7);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -5895,33 +6310,33 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 73, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 89, __pyx_L1_error)
   }
   __pyx_t_16 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "PerlinNoise.pyx":74
+  /* "FractalBrownianMotion.pyx":90
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  *         out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr.CPP_ArrayNoise1D(values_ptr, length, out_ptr)
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion1D(values_ptr, length, out_ptr)
  */
   __pyx_t_15 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":76
+  /* "FractalBrownianMotion.pyx":92
  *         out_ptr = &out_np[0]
  * 
- *         self.cpp_class_ptr.CPP_ArrayNoise1D(values_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion1D(values_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(values, np.ndarray):
  */
-  __pyx_v_self->cpp_class_ptr->CPP_ArrayNoise1D(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_out_ptr);
+  __pyx_v_self->cpp_class_ptr->CPP_ArrayFractalBrownianMotion1D(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_out_ptr);
 
-  /* "PerlinNoise.pyx":78
- *         self.cpp_class_ptr.CPP_ArrayNoise1D(values_ptr, length, out_ptr)
+  /* "FractalBrownianMotion.pyx":94
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion1D(values_ptr, length, out_ptr)
  * 
  *         if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -5930,7 +6345,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":79
+    /* "FractalBrownianMotion.pyx":95
  * 
  *         if isinstance(values, np.ndarray):
  *             return out_np             # <<<<<<<<<<<<<<
@@ -5942,8 +6357,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "PerlinNoise.pyx":78
- *         self.cpp_class_ptr.CPP_ArrayNoise1D(values_ptr, length, out_ptr)
+    /* "FractalBrownianMotion.pyx":94
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion1D(values_ptr, length, out_ptr)
  * 
  *         if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -5951,7 +6366,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
  */
   }
 
-  /* "PerlinNoise.pyx":81
+  /* "FractalBrownianMotion.pyx":97
  *             return out_np
  *         else:
  *             return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -5960,7 +6375,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 81, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 97, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_6 = NULL;
     __pyx_t_10 = 0;
@@ -5980,7 +6395,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
       __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 81, __pyx_L1_error)
+      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 97, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
@@ -5989,8 +6404,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
     goto __pyx_L0;
   }
 
-  /* "PerlinNoise.pyx":55
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+  /* "FractalBrownianMotion.pyx":71
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  *     def array_noise1D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
@@ -6011,7 +6426,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_values_np.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.array_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.array_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -6025,7 +6440,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":83
+/* "FractalBrownianMotion.pyx":99
  *             return out_np.tolist()
  * 
  *     def array_noise2D(self, values):             # <<<<<<<<<<<<<<
@@ -6034,15 +6449,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_12array_noise1D(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_15array_noise2D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_21array_noise2D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_15array_noise2D = {"array_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_15array_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_15array_noise2D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_21array_noise2D = {"array_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_21array_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_21array_noise2D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -6086,12 +6501,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 83, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 99, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "array_noise2D") < 0)) __PYX_ERR(2, 83, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "array_noise2D") < 0)) __PYX_ERR(2, 99, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -6102,7 +6517,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("array_noise2D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 83, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("array_noise2D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 99, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6112,11 +6527,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.array_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.array_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_values);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_20array_noise2D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_values);
 
   /* function exit code */
   {
@@ -6129,7 +6544,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_20array_noise2D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_values) {
   PyArrayObject *__pyx_v_values_np = 0;
   PyArrayObject *__pyx_v_out_np = 0;
   float const (*__pyx_v_values_ptr)[2];
@@ -6171,7 +6586,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "PerlinNoise.pyx":93
+  /* "FractalBrownianMotion.pyx":109
  * 
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6185,68 +6600,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 93, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 93, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 109, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":94
+    /* "FractalBrownianMotion.pyx":110
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
  *             values_np = np.array(values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             values_np = values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 94, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 94, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 94, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_values);
     __Pyx_GIVEREF(__pyx_v_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(2, 94, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 94, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(2, 110, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 94, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 94, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 94, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 94, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 94, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 110, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 110, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 94, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 110, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6263,13 +6678,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_values_np.diminfo[1].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_values_np.diminfo[1].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[1];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 94, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 110, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "PerlinNoise.pyx":93
+    /* "FractalBrownianMotion.pyx":109
  * 
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6279,7 +6694,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
     goto __pyx_L3;
   }
 
-  /* "PerlinNoise.pyx":96
+  /* "FractalBrownianMotion.pyx":112
  *             values_np = np.array(values, dtype=np.float32, order='C')
  *         else:
  *             values_np = values             # <<<<<<<<<<<<<<
@@ -6287,7 +6702,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
  *         length = values_np.shape[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 96, __pyx_L1_error)
+    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 112, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_values;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -6305,68 +6720,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_values_np.diminfo[1].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_values_np.diminfo[1].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[1];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 96, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 112, __pyx_L1_error)
     }
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "PerlinNoise.pyx":98
+  /* "FractalBrownianMotion.pyx":114
  *             values_np = values
  * 
  *         length = values_np.shape[0]             # <<<<<<<<<<<<<<
  *         values_ptr = <float (*)[2]> values_np.data
  * 
  */
-  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 98, __pyx_L1_error)
+  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 114, __pyx_L1_error)
   __pyx_v_length = (__pyx_t_14[0]);
 
-  /* "PerlinNoise.pyx":99
+  /* "FractalBrownianMotion.pyx":115
  * 
  *         length = values_np.shape[0]
  *         values_ptr = <float (*)[2]> values_np.data             # <<<<<<<<<<<<<<
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  */
-  __pyx_t_15 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_15 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 99, __pyx_L1_error)
+  __pyx_t_15 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_15 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 115, __pyx_L1_error)
   __pyx_v_values_ptr = ((float (*)[2])__pyx_t_15);
 
-  /* "PerlinNoise.pyx":101
+  /* "FractalBrownianMotion.pyx":117
  *         values_ptr = <float (*)[2]> values_np.data
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(2, 101, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(2, 117, __pyx_L1_error);
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 101, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 101, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 101, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 101, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 117, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 101, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 117, __pyx_L1_error)
   __pyx_t_16 = ((PyArrayObject *)__pyx_t_7);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6383,33 +6798,33 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 101, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 117, __pyx_L1_error)
   }
   __pyx_t_16 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "PerlinNoise.pyx":102
+  /* "FractalBrownianMotion.pyx":118
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  *         out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr.CPP_ArrayNoise2D(values_ptr, length, out_ptr)
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion2D(values_ptr, length, out_ptr)
  */
   __pyx_t_17 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_17, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":104
+  /* "FractalBrownianMotion.pyx":120
  *         out_ptr = &out_np[0]
  * 
- *         self.cpp_class_ptr.CPP_ArrayNoise2D(values_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion2D(values_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(values, np.ndarray):
  */
-  __pyx_v_self->cpp_class_ptr->CPP_ArrayNoise2D(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_out_ptr);
+  __pyx_v_self->cpp_class_ptr->CPP_ArrayFractalBrownianMotion2D(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_out_ptr);
 
-  /* "PerlinNoise.pyx":106
- *         self.cpp_class_ptr.CPP_ArrayNoise2D(values_ptr, length, out_ptr)
+  /* "FractalBrownianMotion.pyx":122
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion2D(values_ptr, length, out_ptr)
  * 
  *         if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -6418,7 +6833,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":107
+    /* "FractalBrownianMotion.pyx":123
  * 
  *         if isinstance(values, np.ndarray):
  *             return out_np             # <<<<<<<<<<<<<<
@@ -6430,8 +6845,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "PerlinNoise.pyx":106
- *         self.cpp_class_ptr.CPP_ArrayNoise2D(values_ptr, length, out_ptr)
+    /* "FractalBrownianMotion.pyx":122
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion2D(values_ptr, length, out_ptr)
  * 
  *         if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -6439,7 +6854,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
  */
   }
 
-  /* "PerlinNoise.pyx":109
+  /* "FractalBrownianMotion.pyx":125
  *             return out_np
  *         else:
  *             return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -6448,7 +6863,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 109, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 125, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_6 = NULL;
     __pyx_t_10 = 0;
@@ -6468,7 +6883,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
       __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 109, __pyx_L1_error)
+      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 125, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
@@ -6477,7 +6892,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
     goto __pyx_L0;
   }
 
-  /* "PerlinNoise.pyx":83
+  /* "FractalBrownianMotion.pyx":99
  *             return out_np.tolist()
  * 
  *     def array_noise2D(self, values):             # <<<<<<<<<<<<<<
@@ -6499,7 +6914,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_values_np.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.array_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.array_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -6513,7 +6928,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":111
+/* "FractalBrownianMotion.pyx":127
  *             return out_np.tolist()
  * 
  *     def array_noise3D(self, values):             # <<<<<<<<<<<<<<
@@ -6522,15 +6937,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_14array_noise2D(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_17array_noise3D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_23array_noise3D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_17array_noise3D = {"array_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_17array_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_17array_noise3D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_23array_noise3D = {"array_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_23array_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_23array_noise3D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -6574,12 +6989,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 111, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 127, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "array_noise3D") < 0)) __PYX_ERR(2, 111, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "array_noise3D") < 0)) __PYX_ERR(2, 127, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -6590,7 +7005,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("array_noise3D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 111, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("array_noise3D", 1, 1, 1, __pyx_nargs); __PYX_ERR(2, 127, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6600,11 +7015,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.array_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.array_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_values);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_22array_noise3D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_values);
 
   /* function exit code */
   {
@@ -6617,7 +7032,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_values) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_22array_noise3D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_values) {
   PyArrayObject *__pyx_v_values_np = 0;
   PyArrayObject *__pyx_v_out_np = 0;
   float const (*__pyx_v_values_ptr)[3];
@@ -6659,7 +7074,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "PerlinNoise.pyx":121
+  /* "FractalBrownianMotion.pyx":137
  * 
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6673,68 +7088,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 121, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 121, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":122
+    /* "FractalBrownianMotion.pyx":138
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
  *             values_np = np.array(values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             values_np = values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 122, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 122, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 122, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_values);
     __Pyx_GIVEREF(__pyx_v_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(2, 122, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 122, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(2, 138, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 122, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 122, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 122, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 122, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 122, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 138, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 122, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 138, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6751,13 +7166,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_values_np.diminfo[1].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_values_np.diminfo[1].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_values_np.diminfo[2].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_values_np.diminfo[2].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[2];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 122, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 138, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "PerlinNoise.pyx":121
+    /* "FractalBrownianMotion.pyx":137
  * 
  *         # Convert 'values' to numpy float32 contiguous array
  *         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6767,7 +7182,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
     goto __pyx_L3;
   }
 
-  /* "PerlinNoise.pyx":124
+  /* "FractalBrownianMotion.pyx":140
  *             values_np = np.array(values, dtype=np.float32, order='C')
  *         else:
  *             values_np = values             # <<<<<<<<<<<<<<
@@ -6775,7 +7190,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
  *         length = values_np.shape[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 124, __pyx_L1_error)
+    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 140, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_values;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -6793,68 +7208,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_values_np.diminfo[1].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_values_np.diminfo[1].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_values_np.diminfo[2].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_values_np.diminfo[2].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[2];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 124, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 140, __pyx_L1_error)
     }
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "PerlinNoise.pyx":126
+  /* "FractalBrownianMotion.pyx":142
  *             values_np = values
  * 
  *         length = values_np.shape[0]             # <<<<<<<<<<<<<<
  *         values_ptr = <float (*)[3]> values_np.data
  * 
  */
-  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 126, __pyx_L1_error)
+  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 142, __pyx_L1_error)
   __pyx_v_length = (__pyx_t_14[0]);
 
-  /* "PerlinNoise.pyx":127
+  /* "FractalBrownianMotion.pyx":143
  * 
  *         length = values_np.shape[0]
  *         values_ptr = <float (*)[3]> values_np.data             # <<<<<<<<<<<<<<
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  */
-  __pyx_t_15 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_15 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 127, __pyx_L1_error)
+  __pyx_t_15 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_15 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(2, 143, __pyx_L1_error)
   __pyx_v_values_ptr = ((float (*)[3])__pyx_t_15);
 
-  /* "PerlinNoise.pyx":129
+  /* "FractalBrownianMotion.pyx":145
  *         values_ptr = <float (*)[3]> values_np.data
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(2, 129, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(2, 145, __pyx_L1_error);
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 129, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 129, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 129, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 129, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 145, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 145, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 129, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 145, __pyx_L1_error)
   __pyx_t_16 = ((PyArrayObject *)__pyx_t_7);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6871,33 +7286,33 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 129, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 145, __pyx_L1_error)
   }
   __pyx_t_16 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "PerlinNoise.pyx":130
+  /* "FractalBrownianMotion.pyx":146
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  *         out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr.CPP_ArrayNoise3D(values_ptr, length, out_ptr)
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion3D(values_ptr, length, out_ptr)
  */
   __pyx_t_17 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_17, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":132
+  /* "FractalBrownianMotion.pyx":148
  *         out_ptr = &out_np[0]
  * 
- *         self.cpp_class_ptr.CPP_ArrayNoise3D(values_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion3D(values_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(values, np.ndarray):
  */
-  __pyx_v_self->cpp_class_ptr->CPP_ArrayNoise3D(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_out_ptr);
+  __pyx_v_self->cpp_class_ptr->CPP_ArrayFractalBrownianMotion3D(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_out_ptr);
 
-  /* "PerlinNoise.pyx":134
- *         self.cpp_class_ptr.CPP_ArrayNoise3D(values_ptr, length, out_ptr)
+  /* "FractalBrownianMotion.pyx":150
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion3D(values_ptr, length, out_ptr)
  * 
  *         if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -6906,7 +7321,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":135
+    /* "FractalBrownianMotion.pyx":151
  * 
  *         if isinstance(values, np.ndarray):
  *             return out_np             # <<<<<<<<<<<<<<
@@ -6918,8 +7333,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "PerlinNoise.pyx":134
- *         self.cpp_class_ptr.CPP_ArrayNoise3D(values_ptr, length, out_ptr)
+    /* "FractalBrownianMotion.pyx":150
+ *         self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion3D(values_ptr, length, out_ptr)
  * 
  *         if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -6927,7 +7342,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
  */
   }
 
-  /* "PerlinNoise.pyx":137
+  /* "FractalBrownianMotion.pyx":153
  *             return out_np
  *         else:
  *             return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -6936,7 +7351,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 137, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 153, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_6 = NULL;
     __pyx_t_10 = 0;
@@ -6956,7 +7371,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
       __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_8, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 137, __pyx_L1_error)
+      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 153, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
@@ -6965,7 +7380,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
     goto __pyx_L0;
   }
 
-  /* "PerlinNoise.pyx":111
+  /* "FractalBrownianMotion.pyx":127
  *             return out_np.tolist()
  * 
  *     def array_noise3D(self, values):             # <<<<<<<<<<<<<<
@@ -6987,7 +7402,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_values_np.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.array_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.array_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -7001,7 +7416,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":139
+/* "FractalBrownianMotion.pyx":155
  *             return out_np.tolist()
  * 
  *     def range_noise1D(self, x_range, length):             # <<<<<<<<<<<<<<
@@ -7010,15 +7425,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_16array_noise3D(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_19range_noise1D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_25range_noise1D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_19range_noise1D = {"range_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_19range_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_19range_noise1D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_25range_noise1D = {"range_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_25range_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_25range_noise1D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -7065,7 +7480,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 139, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 155, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -7073,14 +7488,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 139, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 155, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("range_noise1D", 1, 2, 2, 1); __PYX_ERR(2, 139, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("range_noise1D", 1, 2, 2, 1); __PYX_ERR(2, 155, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "range_noise1D") < 0)) __PYX_ERR(2, 139, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "range_noise1D") < 0)) __PYX_ERR(2, 155, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -7093,7 +7508,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("range_noise1D", 1, 2, 2, __pyx_nargs); __PYX_ERR(2, 139, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("range_noise1D", 1, 2, 2, __pyx_nargs); __PYX_ERR(2, 155, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7103,11 +7518,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.range_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.range_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_x_range, __pyx_v_length);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_24range_noise1D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_x_range, __pyx_v_length);
 
   /* function exit code */
   {
@@ -7120,7 +7535,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_length) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_24range_noise1D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_length) {
   PyArrayObject *__pyx_v_x_range_np = 0;
   PyArrayObject *__pyx_v_out_np = 0;
   float const *__pyx_v_x_range_ptr;
@@ -7160,7 +7575,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "PerlinNoise.pyx":146
+  /* "FractalBrownianMotion.pyx":162
  *             float* out_ptr
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7174,68 +7589,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 146, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 162, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":147
+    /* "FractalBrownianMotion.pyx":163
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:
  *             x_range_np = np.array(x_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             x_range_np = x_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 147, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 147, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 147, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_x_range);
     __Pyx_GIVEREF(__pyx_v_x_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_x_range)) __PYX_ERR(2, 147, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 147, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_x_range)) __PYX_ERR(2, 163, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 147, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 147, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 147, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 147, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 147, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 163, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 147, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 163, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7252,13 +7667,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_x_range_np.diminfo[0].strides = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_range_np.diminfo[0].shape = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 147, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 163, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_x_range_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "PerlinNoise.pyx":146
+    /* "FractalBrownianMotion.pyx":162
  *             float* out_ptr
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7268,7 +7683,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
     goto __pyx_L3;
   }
 
-  /* "PerlinNoise.pyx":149
+  /* "FractalBrownianMotion.pyx":165
  *             x_range_np = np.array(x_range, dtype=np.float32, order='C')
  *         else:
  *             x_range_np = x_range             # <<<<<<<<<<<<<<
@@ -7276,7 +7691,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
  *         x_range_ptr = &x_range_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_x_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 149, __pyx_L1_error)
+    if (!(likely(((__pyx_v_x_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 165, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_x_range;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -7294,14 +7709,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_x_range_np.diminfo[0].strides = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_range_np.diminfo[0].shape = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 149, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 165, __pyx_L1_error)
     }
     __pyx_v_x_range_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "PerlinNoise.pyx":151
+  /* "FractalBrownianMotion.pyx":167
  *             x_range_np = x_range
  * 
  *         x_range_ptr = &x_range_np[0]             # <<<<<<<<<<<<<<
@@ -7311,39 +7726,39 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
   __pyx_t_14 = 0;
   __pyx_v_x_range_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_x_range_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":153
+  /* "FractalBrownianMotion.pyx":169
  *         x_range_ptr = &x_range_np[0]
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 153, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 153, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 153, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_INCREF(__pyx_v_length);
   __Pyx_GIVEREF(__pyx_v_length);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v_length)) __PYX_ERR(2, 153, __pyx_L1_error);
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 153, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v_length)) __PYX_ERR(2, 169, __pyx_L1_error);
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 153, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 153, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 153, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 153, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 153, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 169, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 153, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 169, __pyx_L1_error)
   __pyx_t_15 = ((PyArrayObject *)__pyx_t_7);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7360,34 +7775,34 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 153, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 169, __pyx_L1_error)
   }
   __pyx_t_15 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "PerlinNoise.pyx":154
+  /* "FractalBrownianMotion.pyx":170
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  *         out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr.CPP_RangeNoise1D(x_range_ptr, length, out_ptr)
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion1D(x_range_ptr, length, out_ptr)
  */
   __pyx_t_14 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":156
+  /* "FractalBrownianMotion.pyx":172
  *         out_ptr = &out_np[0]
  * 
- *         self.cpp_class_ptr.CPP_RangeNoise1D(x_range_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion1D(x_range_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(x_range, np.ndarray):
  */
-  __pyx_t_16 = __Pyx_PyInt_As_unsigned_int(__pyx_v_length); if (unlikely((__pyx_t_16 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 156, __pyx_L1_error)
-  __pyx_v_self->cpp_class_ptr->CPP_RangeNoise1D(__pyx_v_x_range_ptr, __pyx_t_16, __pyx_v_out_ptr);
+  __pyx_t_16 = __Pyx_PyInt_As_unsigned_int(__pyx_v_length); if (unlikely((__pyx_t_16 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_v_self->cpp_class_ptr->CPP_RangeFractalBrownianMotion1D(__pyx_v_x_range_ptr, __pyx_t_16, __pyx_v_out_ptr);
 
-  /* "PerlinNoise.pyx":158
- *         self.cpp_class_ptr.CPP_RangeNoise1D(x_range_ptr, length, out_ptr)
+  /* "FractalBrownianMotion.pyx":174
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion1D(x_range_ptr, length, out_ptr)
  * 
  *         if isinstance(x_range, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -7396,7 +7811,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":159
+    /* "FractalBrownianMotion.pyx":175
  * 
  *         if isinstance(x_range, np.ndarray):
  *             return out_np             # <<<<<<<<<<<<<<
@@ -7408,8 +7823,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "PerlinNoise.pyx":158
- *         self.cpp_class_ptr.CPP_RangeNoise1D(x_range_ptr, length, out_ptr)
+    /* "FractalBrownianMotion.pyx":174
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion1D(x_range_ptr, length, out_ptr)
  * 
  *         if isinstance(x_range, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -7417,7 +7832,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
  */
   }
 
-  /* "PerlinNoise.pyx":161
+  /* "FractalBrownianMotion.pyx":177
  *             return out_np
  *         else:
  *             return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -7426,7 +7841,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 161, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 177, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_8 = NULL;
     __pyx_t_10 = 0;
@@ -7446,7 +7861,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_8, NULL};
       __pyx_t_7 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 161, __pyx_L1_error)
+      if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -7455,7 +7870,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
     goto __pyx_L0;
   }
 
-  /* "PerlinNoise.pyx":139
+  /* "FractalBrownianMotion.pyx":155
  *             return out_np.tolist()
  * 
  *     def range_noise1D(self, x_range, length):             # <<<<<<<<<<<<<<
@@ -7477,7 +7892,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_x_range_np.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.range_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.range_noise1D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -7491,7 +7906,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":163
+/* "FractalBrownianMotion.pyx":179
  *             return out_np.tolist()
  * 
  *     def range_noise2D(self, x_range, y_range, length):             # <<<<<<<<<<<<<<
@@ -7500,15 +7915,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_18range_noise1D(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_21range_noise2D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_27range_noise2D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_21range_noise2D = {"range_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_21range_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_21range_noise2D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_27range_noise2D = {"range_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_27range_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_27range_noise2D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -7558,7 +7973,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 163, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 179, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -7566,9 +7981,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 163, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 179, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("range_noise2D", 1, 3, 3, 1); __PYX_ERR(2, 163, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("range_noise2D", 1, 3, 3, 1); __PYX_ERR(2, 179, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -7576,14 +7991,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 163, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 179, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("range_noise2D", 1, 3, 3, 2); __PYX_ERR(2, 163, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("range_noise2D", 1, 3, 3, 2); __PYX_ERR(2, 179, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "range_noise2D") < 0)) __PYX_ERR(2, 163, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "range_noise2D") < 0)) __PYX_ERR(2, 179, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -7598,7 +8013,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("range_noise2D", 1, 3, 3, __pyx_nargs); __PYX_ERR(2, 163, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("range_noise2D", 1, 3, 3, __pyx_nargs); __PYX_ERR(2, 179, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7608,11 +8023,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.range_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.range_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_x_range, __pyx_v_y_range, __pyx_v_length);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_26range_noise2D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_x_range, __pyx_v_y_range, __pyx_v_length);
 
   /* function exit code */
   {
@@ -7625,7 +8040,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_length) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_26range_noise2D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_length) {
   PyArrayObject *__pyx_v_x_range_np = 0;
   PyArrayObject *__pyx_v_y_range_np = 0;
   PyArrayObject *__pyx_v_out_np = 0;
@@ -7674,7 +8089,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "PerlinNoise.pyx":172
+  /* "FractalBrownianMotion.pyx":188
  *             float* out_ptr
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7688,68 +8103,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 172, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 172, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 188, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":173
+    /* "FractalBrownianMotion.pyx":189
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:
  *             x_range_np = np.array(x_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             x_range_np = x_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 173, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 173, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 173, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_x_range);
     __Pyx_GIVEREF(__pyx_v_x_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_x_range)) __PYX_ERR(2, 173, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 173, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_x_range)) __PYX_ERR(2, 189, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 173, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 173, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 173, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 173, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 173, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 189, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 189, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 173, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 189, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7766,13 +8181,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_x_range_np.diminfo[0].strides = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_range_np.diminfo[0].shape = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 173, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 189, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_x_range_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "PerlinNoise.pyx":172
+    /* "FractalBrownianMotion.pyx":188
  *             float* out_ptr
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7782,7 +8197,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     goto __pyx_L3;
   }
 
-  /* "PerlinNoise.pyx":175
+  /* "FractalBrownianMotion.pyx":191
  *             x_range_np = np.array(x_range, dtype=np.float32, order='C')
  *         else:
  *             x_range_np = x_range             # <<<<<<<<<<<<<<
@@ -7790,7 +8205,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_x_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 175, __pyx_L1_error)
+    if (!(likely(((__pyx_v_x_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 191, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_x_range;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -7808,14 +8223,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_x_range_np.diminfo[0].strides = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_range_np.diminfo[0].shape = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 175, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 191, __pyx_L1_error)
     }
     __pyx_v_x_range_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "PerlinNoise.pyx":177
+  /* "FractalBrownianMotion.pyx":193
  *             x_range_np = x_range
  * 
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7829,68 +8244,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 177, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":178
+    /* "FractalBrownianMotion.pyx":194
  * 
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:
  *             y_range_np = np.array(y_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             y_range_np = y_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 178, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 178, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 178, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_y_range);
     __Pyx_GIVEREF(__pyx_v_y_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_y_range)) __PYX_ERR(2, 178, __pyx_L1_error);
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 178, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_y_range)) __PYX_ERR(2, 194, __pyx_L1_error);
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 178, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 178, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 178, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 178, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 178, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 194, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 178, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 194, __pyx_L1_error)
     __pyx_t_14 = ((PyArrayObject *)__pyx_t_7);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7907,13 +8322,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_y_range_np.diminfo[0].strides = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_range_np.diminfo[0].shape = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 178, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 194, __pyx_L1_error)
     }
     __pyx_t_14 = 0;
     __pyx_v_y_range_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "PerlinNoise.pyx":177
+    /* "FractalBrownianMotion.pyx":193
  *             x_range_np = x_range
  * 
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7923,7 +8338,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     goto __pyx_L7;
   }
 
-  /* "PerlinNoise.pyx":180
+  /* "FractalBrownianMotion.pyx":196
  *             y_range_np = np.array(y_range, dtype=np.float32, order='C')
  *         else:
  *             y_range_np = y_range             # <<<<<<<<<<<<<<
@@ -7931,7 +8346,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
  *         x_range_ptr = &x_range_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_y_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_y_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 180, __pyx_L1_error)
+    if (!(likely(((__pyx_v_y_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_y_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 196, __pyx_L1_error)
     __pyx_t_7 = __pyx_v_y_range;
     __Pyx_INCREF(__pyx_t_7);
     {
@@ -7949,14 +8364,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_y_range_np.diminfo[0].strides = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_range_np.diminfo[0].shape = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 180, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 196, __pyx_L1_error)
     }
     __pyx_v_y_range_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
   }
   __pyx_L7:;
 
-  /* "PerlinNoise.pyx":182
+  /* "FractalBrownianMotion.pyx":198
  *             y_range_np = y_range
  * 
  *         x_range_ptr = &x_range_np[0]             # <<<<<<<<<<<<<<
@@ -7966,7 +8381,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
   __pyx_t_15 = 0;
   __pyx_v_x_range_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_x_range_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":183
+  /* "FractalBrownianMotion.pyx":199
  * 
  *         x_range_ptr = &x_range_np[0]
  *         y_range_ptr = &y_range_np[0]             # <<<<<<<<<<<<<<
@@ -7976,39 +8391,39 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
   __pyx_t_15 = 0;
   __pyx_v_y_range_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_y_range_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":185
+  /* "FractalBrownianMotion.pyx":201
  *         y_range_ptr = &y_range_np[0]
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 185, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_empty); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 185, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_empty); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 185, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(__pyx_v_length);
   __Pyx_GIVEREF(__pyx_v_length);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_length)) __PYX_ERR(2, 185, __pyx_L1_error);
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 185, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_length)) __PYX_ERR(2, 201, __pyx_L1_error);
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 185, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 185, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(2, 185, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 185, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 185, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 201, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 201, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 185, __pyx_L1_error)
+  if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 201, __pyx_L1_error)
   __pyx_t_16 = ((PyArrayObject *)__pyx_t_5);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8025,34 +8440,34 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 185, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 201, __pyx_L1_error)
   }
   __pyx_t_16 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "PerlinNoise.pyx":186
+  /* "FractalBrownianMotion.pyx":202
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  *         out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr.CPP_RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion2D(x_range_ptr, y_range_ptr, length, out_ptr)
  */
   __pyx_t_15 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":188
+  /* "FractalBrownianMotion.pyx":204
  *         out_ptr = &out_np[0]
  * 
- *         self.cpp_class_ptr.CPP_RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion2D(x_range_ptr, y_range_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(x_range, np.ndarray):
  */
-  __pyx_t_17 = __Pyx_PyInt_As_unsigned_int(__pyx_v_length); if (unlikely((__pyx_t_17 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 188, __pyx_L1_error)
-  __pyx_v_self->cpp_class_ptr->CPP_RangeNoise2D(__pyx_v_x_range_ptr, __pyx_v_y_range_ptr, __pyx_t_17, __pyx_v_out_ptr);
+  __pyx_t_17 = __Pyx_PyInt_As_unsigned_int(__pyx_v_length); if (unlikely((__pyx_t_17 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 204, __pyx_L1_error)
+  __pyx_v_self->cpp_class_ptr->CPP_RangeFractalBrownianMotion2D(__pyx_v_x_range_ptr, __pyx_v_y_range_ptr, __pyx_t_17, __pyx_v_out_ptr);
 
-  /* "PerlinNoise.pyx":190
- *         self.cpp_class_ptr.CPP_RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)
+  /* "FractalBrownianMotion.pyx":206
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion2D(x_range_ptr, y_range_ptr, length, out_ptr)
  * 
  *         if isinstance(x_range, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -8061,7 +8476,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":191
+    /* "FractalBrownianMotion.pyx":207
  * 
  *         if isinstance(x_range, np.ndarray):
  *             return out_np             # <<<<<<<<<<<<<<
@@ -8073,8 +8488,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "PerlinNoise.pyx":190
- *         self.cpp_class_ptr.CPP_RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)
+    /* "FractalBrownianMotion.pyx":206
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion2D(x_range_ptr, y_range_ptr, length, out_ptr)
  * 
  *         if isinstance(x_range, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -8082,7 +8497,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
  */
   }
 
-  /* "PerlinNoise.pyx":193
+  /* "FractalBrownianMotion.pyx":209
  *             return out_np
  *         else:
  *             return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -8091,7 +8506,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 193, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 209, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_7 = NULL;
     __pyx_t_10 = 0;
@@ -8111,7 +8526,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_7, NULL};
       __pyx_t_5 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 193, __pyx_L1_error)
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 209, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -8120,7 +8535,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     goto __pyx_L0;
   }
 
-  /* "PerlinNoise.pyx":163
+  /* "FractalBrownianMotion.pyx":179
  *             return out_np.tolist()
  * 
  *     def range_noise2D(self, x_range, y_range, length):             # <<<<<<<<<<<<<<
@@ -8143,7 +8558,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_x_range_np.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y_range_np.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.range_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.range_noise2D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -8159,7 +8574,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
   return __pyx_r;
 }
 
-/* "PerlinNoise.pyx":195
+/* "FractalBrownianMotion.pyx":211
  *             return out_np.tolist()
  * 
  *     def range_noise3D(self, x_range, y_range, z_range, length):             # <<<<<<<<<<<<<<
@@ -8168,15 +8583,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_20range_noise2D(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_23range_noise3D(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_29range_noise3D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_23range_noise3D = {"range_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_23range_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_23range_noise3D(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_29range_noise3D = {"range_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_29range_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_29range_noise3D(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -8229,7 +8644,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 195, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 211, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -8237,9 +8652,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 195, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 211, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, 1); __PYX_ERR(2, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, 1); __PYX_ERR(2, 211, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -8247,9 +8662,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 195, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 211, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, 2); __PYX_ERR(2, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, 2); __PYX_ERR(2, 211, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -8257,14 +8672,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 195, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 211, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, 3); __PYX_ERR(2, 195, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, 3); __PYX_ERR(2, 211, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "range_noise3D") < 0)) __PYX_ERR(2, 195, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "range_noise3D") < 0)) __PYX_ERR(2, 211, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -8281,7 +8696,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, __pyx_nargs); __PYX_ERR(2, 195, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("range_noise3D", 1, 4, 4, __pyx_nargs); __PYX_ERR(2, 211, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8291,11 +8706,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.range_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.range_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v_x_range, __pyx_v_y_range, __pyx_v_z_range, __pyx_v_length);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_28range_noise3D(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v_x_range, __pyx_v_y_range, __pyx_v_z_range, __pyx_v_length);
 
   /* function exit code */
   {
@@ -8308,7 +8723,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_z_range, PyObject *__pyx_v_length) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_28range_noise3D(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, PyObject *__pyx_v_x_range, PyObject *__pyx_v_y_range, PyObject *__pyx_v_z_range, PyObject *__pyx_v_length) {
   PyArrayObject *__pyx_v_x_range_np = 0;
   PyArrayObject *__pyx_v_y_range_np = 0;
   PyArrayObject *__pyx_v_z_range_np = 0;
@@ -8366,7 +8781,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "PerlinNoise.pyx":206
+  /* "FractalBrownianMotion.pyx":222
  *             float* out_ptr
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8380,68 +8795,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 206, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_x_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 206, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 222, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":207
+    /* "FractalBrownianMotion.pyx":223
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:
  *             x_range_np = np.array(x_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             x_range_np = x_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 207, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 207, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 207, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_x_range);
     __Pyx_GIVEREF(__pyx_v_x_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_x_range)) __PYX_ERR(2, 207, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 207, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_x_range)) __PYX_ERR(2, 223, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 207, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 207, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 207, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 207, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 207, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 223, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 207, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 223, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8458,13 +8873,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_x_range_np.diminfo[0].strides = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_range_np.diminfo[0].shape = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 207, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 223, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_x_range_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "PerlinNoise.pyx":206
+    /* "FractalBrownianMotion.pyx":222
  *             float* out_ptr
  * 
  *         if not isinstance(x_range, np.ndarray) or x_range.dtype != np.float32 or not x_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8474,7 +8889,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     goto __pyx_L3;
   }
 
-  /* "PerlinNoise.pyx":209
+  /* "FractalBrownianMotion.pyx":225
  *             x_range_np = np.array(x_range, dtype=np.float32, order='C')
  *         else:
  *             x_range_np = x_range             # <<<<<<<<<<<<<<
@@ -8482,7 +8897,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_x_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 209, __pyx_L1_error)
+    if (!(likely(((__pyx_v_x_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 225, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_x_range;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -8500,14 +8915,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_x_range_np.diminfo[0].strides = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_range_np.diminfo[0].shape = __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 209, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 225, __pyx_L1_error)
     }
     __pyx_v_x_range_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "PerlinNoise.pyx":211
+  /* "FractalBrownianMotion.pyx":227
  *             x_range_np = x_range
  * 
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8521,68 +8936,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_y_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 211, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 227, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":212
+    /* "FractalBrownianMotion.pyx":228
  * 
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:
  *             y_range_np = np.array(y_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             y_range_np = y_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 212, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 212, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 212, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_y_range);
     __Pyx_GIVEREF(__pyx_v_y_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_y_range)) __PYX_ERR(2, 212, __pyx_L1_error);
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 212, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_y_range)) __PYX_ERR(2, 228, __pyx_L1_error);
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 212, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 212, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 212, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 212, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 212, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 228, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 212, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 228, __pyx_L1_error)
     __pyx_t_14 = ((PyArrayObject *)__pyx_t_7);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8599,13 +9014,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_y_range_np.diminfo[0].strides = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_range_np.diminfo[0].shape = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 212, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 228, __pyx_L1_error)
     }
     __pyx_t_14 = 0;
     __pyx_v_y_range_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "PerlinNoise.pyx":211
+    /* "FractalBrownianMotion.pyx":227
  *             x_range_np = x_range
  * 
  *         if not isinstance(y_range, np.ndarray) or y_range.dtype != np.float32 or not y_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8615,7 +9030,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     goto __pyx_L7;
   }
 
-  /* "PerlinNoise.pyx":214
+  /* "FractalBrownianMotion.pyx":230
  *             y_range_np = np.array(y_range, dtype=np.float32, order='C')
  *         else:
  *             y_range_np = y_range             # <<<<<<<<<<<<<<
@@ -8623,7 +9038,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
  *         if not isinstance(z_range, np.ndarray) or z_range.dtype != np.float32 or not z_range.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_y_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_y_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 214, __pyx_L1_error)
+    if (!(likely(((__pyx_v_y_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_y_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 230, __pyx_L1_error)
     __pyx_t_7 = __pyx_v_y_range;
     __Pyx_INCREF(__pyx_t_7);
     {
@@ -8641,14 +9056,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_y_range_np.diminfo[0].strides = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_range_np.diminfo[0].shape = __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 214, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 230, __pyx_L1_error)
     }
     __pyx_v_y_range_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
   }
   __pyx_L7:;
 
-  /* "PerlinNoise.pyx":216
+  /* "FractalBrownianMotion.pyx":232
  *             y_range_np = y_range
  * 
  *         if not isinstance(z_range, np.ndarray) or z_range.dtype != np.float32 or not z_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8662,68 +9077,68 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_z_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_z_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 216, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyObject_RichCompare(__pyx_t_7, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_8 = PyObject_RichCompare(__pyx_t_7, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_z_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_z_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 216, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(2, 232, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L12_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":217
+    /* "FractalBrownianMotion.pyx":233
  * 
  *         if not isinstance(z_range, np.ndarray) or z_range.dtype != np.float32 or not z_range.flags['C_CONTIGUOUS']:
  *             z_range_np = np.array(z_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         else:
  *             z_range_np = z_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 217, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 217, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 217, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_z_range);
     __Pyx_GIVEREF(__pyx_v_z_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_z_range)) __PYX_ERR(2, 217, __pyx_L1_error);
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 217, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_z_range)) __PYX_ERR(2, 233, __pyx_L1_error);
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 217, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 217, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(2, 217, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 217, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 217, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 233, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 217, __pyx_L1_error)
+    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 233, __pyx_L1_error)
     __pyx_t_15 = ((PyArrayObject *)__pyx_t_5);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8740,13 +9155,13 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_z_range_np.diminfo[0].strides = __pyx_pybuffernd_z_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_z_range_np.diminfo[0].shape = __pyx_pybuffernd_z_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 217, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 233, __pyx_L1_error)
     }
     __pyx_t_15 = 0;
     __pyx_v_z_range_np = ((PyArrayObject *)__pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "PerlinNoise.pyx":216
+    /* "FractalBrownianMotion.pyx":232
  *             y_range_np = y_range
  * 
  *         if not isinstance(z_range, np.ndarray) or z_range.dtype != np.float32 or not z_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8756,7 +9171,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     goto __pyx_L11;
   }
 
-  /* "PerlinNoise.pyx":219
+  /* "FractalBrownianMotion.pyx":235
  *             z_range_np = np.array(z_range, dtype=np.float32, order='C')
  *         else:
  *             z_range_np = z_range             # <<<<<<<<<<<<<<
@@ -8764,7 +9179,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
  *         x_range_ptr = &x_range_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_z_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_z_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 219, __pyx_L1_error)
+    if (!(likely(((__pyx_v_z_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_z_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 235, __pyx_L1_error)
     __pyx_t_5 = __pyx_v_z_range;
     __Pyx_INCREF(__pyx_t_5);
     {
@@ -8782,14 +9197,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_z_range_np.diminfo[0].strides = __pyx_pybuffernd_z_range_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_z_range_np.diminfo[0].shape = __pyx_pybuffernd_z_range_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 219, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 235, __pyx_L1_error)
     }
     __pyx_v_z_range_np = ((PyArrayObject *)__pyx_t_5);
     __pyx_t_5 = 0;
   }
   __pyx_L11:;
 
-  /* "PerlinNoise.pyx":221
+  /* "FractalBrownianMotion.pyx":237
  *             z_range_np = z_range
  * 
  *         x_range_ptr = &x_range_np[0]             # <<<<<<<<<<<<<<
@@ -8799,7 +9214,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
   __pyx_t_16 = 0;
   __pyx_v_x_range_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_x_range_np.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_x_range_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":222
+  /* "FractalBrownianMotion.pyx":238
  * 
  *         x_range_ptr = &x_range_np[0]
  *         y_range_ptr = &y_range_np[0]             # <<<<<<<<<<<<<<
@@ -8809,7 +9224,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
   __pyx_t_16 = 0;
   __pyx_v_y_range_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_range_np.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_y_range_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":223
+  /* "FractalBrownianMotion.pyx":239
  *         x_range_ptr = &x_range_np[0]
  *         y_range_ptr = &y_range_np[0]
  *         z_range_ptr = &z_range_np[0]             # <<<<<<<<<<<<<<
@@ -8819,39 +9234,39 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
   __pyx_t_16 = 0;
   __pyx_v_z_range_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_z_range_np.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_z_range_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":225
+  /* "FractalBrownianMotion.pyx":241
  *         z_range_ptr = &z_range_np[0]
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_empty); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_empty); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_INCREF(__pyx_v_length);
   __Pyx_GIVEREF(__pyx_v_length);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_length)) __PYX_ERR(2, 225, __pyx_L1_error);
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 225, __pyx_L1_error)
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_length)) __PYX_ERR(2, 241, __pyx_L1_error);
+  __pyx_t_6 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 225, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(2, 225, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 225, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 225, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(2, 241, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 225, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(2, 241, __pyx_L1_error)
   __pyx_t_17 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8868,34 +9283,34 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 225, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(2, 241, __pyx_L1_error)
   }
   __pyx_t_17 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "PerlinNoise.pyx":226
+  /* "FractalBrownianMotion.pyx":242
  * 
  *         out_np = np.empty(length, dtype=np.float32, order='C')
  *         out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr.CPP_RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
  */
   __pyx_t_16 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "PerlinNoise.pyx":228
+  /* "FractalBrownianMotion.pyx":244
  *         out_ptr = &out_np[0]
  * 
- *         self.cpp_class_ptr.CPP_RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *         if isinstance(x_range, np.ndarray):
  */
-  __pyx_t_18 = __Pyx_PyInt_As_unsigned_int(__pyx_v_length); if (unlikely((__pyx_t_18 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 228, __pyx_L1_error)
-  __pyx_v_self->cpp_class_ptr->CPP_RangeNoise3D(__pyx_v_x_range_ptr, __pyx_v_y_range_ptr, __pyx_v_z_range_ptr, __pyx_t_18, __pyx_v_out_ptr);
+  __pyx_t_18 = __Pyx_PyInt_As_unsigned_int(__pyx_v_length); if (unlikely((__pyx_t_18 == (unsigned int)-1) && PyErr_Occurred())) __PYX_ERR(2, 244, __pyx_L1_error)
+  __pyx_v_self->cpp_class_ptr->CPP_RangeFractalBrownianMotion3D(__pyx_v_x_range_ptr, __pyx_v_y_range_ptr, __pyx_v_z_range_ptr, __pyx_t_18, __pyx_v_out_ptr);
 
-  /* "PerlinNoise.pyx":230
- *         self.cpp_class_ptr.CPP_RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
+  /* "FractalBrownianMotion.pyx":246
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
  * 
  *         if isinstance(x_range, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -8904,7 +9319,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_x_range, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "PerlinNoise.pyx":231
+    /* "FractalBrownianMotion.pyx":247
  * 
  *         if isinstance(x_range, np.ndarray):
  *             return out_np             # <<<<<<<<<<<<<<
@@ -8916,8 +9331,8 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "PerlinNoise.pyx":230
- *         self.cpp_class_ptr.CPP_RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
+    /* "FractalBrownianMotion.pyx":246
+ *         self.cpp_class_ptr.CPP_RangeFractalBrownianMotion3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
  * 
  *         if isinstance(x_range, np.ndarray):             # <<<<<<<<<<<<<<
  *             return out_np
@@ -8925,14 +9340,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
  */
   }
 
-  /* "PerlinNoise.pyx":233
+  /* "FractalBrownianMotion.pyx":249
  *             return out_np
  *         else:
  *             return out_np.tolist()             # <<<<<<<<<<<<<<
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 233, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_5 = NULL;
     __pyx_t_10 = 0;
@@ -8952,7 +9367,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
       PyObject *__pyx_callargs[2] = {__pyx_t_5, NULL};
       __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_6, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 233, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 249, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
@@ -8961,7 +9376,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     goto __pyx_L0;
   }
 
-  /* "PerlinNoise.pyx":195
+  /* "FractalBrownianMotion.pyx":211
  *             return out_np.tolist()
  * 
  *     def range_noise3D(self, x_range, y_range, z_range, length):             # <<<<<<<<<<<<<<
@@ -8985,7 +9400,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y_range_np.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_z_range_np.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.range_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.range_noise3D", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
@@ -9010,15 +9425,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_22range_noise3D(struct __p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_25__reduce_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_31__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_25__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_25__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_25__reduce_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_31__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_31__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_31__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -9043,14 +9458,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   if (unlikely(__pyx_nargs > 0)) {
     __Pyx_RaiseArgtupleInvalid("__reduce_cython__", 1, 0, 0, __pyx_nargs); return NULL;}
   if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__reduce_cython__", 0))) return NULL;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_24__reduce_cython__(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self));
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_30__reduce_cython__(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_24__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_30__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -9075,7 +9490,7 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_24__reduce_cython__(CYTHON
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -9090,15 +9505,15 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_24__reduce_cython__(CYTHON
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_27__setstate_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_33__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_11PerlinNoise_11PerlinNoise_27__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_27__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_11PerlinNoise_11PerlinNoise_27__setstate_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_33__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_33__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_33__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -9168,11 +9583,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11PerlinNoise_11PerlinNoise_26__setstate_cython__(((struct __pyx_obj_11PerlinNoise_PerlinNoise *)__pyx_v_self), __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_32__setstate_cython__(((struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *)__pyx_v_self), __pyx_v___pyx_state);
 
   /* function exit code */
   {
@@ -9185,7 +9600,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_26__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_11PerlinNoise_PerlinNoise *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_21FractalBrownianMotion_21FractalBrownianMotion_32__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_lineno = 0;
@@ -9210,14 +9625,14 @@ static PyObject *__pyx_pf_11PerlinNoise_11PerlinNoise_26__setstate_cython__(CYTH
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("PerlinNoise.PerlinNoise.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FractalBrownianMotion.FractalBrownianMotion.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_11PerlinNoise_PerlinNoise(PyTypeObject *t, PyObject *a, PyObject *k) {
+static PyObject *__pyx_tp_new_21FractalBrownianMotion_FractalBrownianMotion(PyTypeObject *t, PyObject *a, PyObject *k) {
   PyObject *o;
   #if CYTHON_COMPILING_IN_LIMITED_API
   allocfunc alloc_func = (allocfunc)PyType_GetSlot(t, Py_tp_alloc);
@@ -9230,17 +9645,17 @@ static PyObject *__pyx_tp_new_11PerlinNoise_PerlinNoise(PyTypeObject *t, PyObjec
   }
   if (unlikely(!o)) return 0;
   #endif
-  if (unlikely(__pyx_pw_11PerlinNoise_11PerlinNoise_1__cinit__(o, a, k) < 0)) goto bad;
+  if (unlikely(__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_1__cinit__(o, a, k) < 0)) goto bad;
   return o;
   bad:
   Py_DECREF(o); o = 0;
   return NULL;
 }
 
-static void __pyx_tp_dealloc_11PerlinNoise_PerlinNoise(PyObject *o) {
+static void __pyx_tp_dealloc_21FractalBrownianMotion_FractalBrownianMotion(PyObject *o) {
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely((PY_VERSION_HEX >= 0x03080000 || __Pyx_PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE)) && __Pyx_PyObject_GetSlot(o, tp_finalize, destructor)) && (!PyType_IS_GC(Py_TYPE(o)) || !__Pyx_PyObject_GC_IsFinalized(o))) {
-    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_11PerlinNoise_PerlinNoise) {
+    if (__Pyx_PyObject_GetSlot(o, tp_dealloc, destructor) == __pyx_tp_dealloc_21FractalBrownianMotion_FractalBrownianMotion) {
       if (PyObject_CallFinalizerFromDealloc(o)) return;
     }
   }
@@ -9249,7 +9664,7 @@ static void __pyx_tp_dealloc_11PerlinNoise_PerlinNoise(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     __Pyx_SET_REFCNT(o, Py_REFCNT(o) + 1);
-    __pyx_pw_11PerlinNoise_11PerlinNoise_3__dealloc__(o);
+    __pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_3__dealloc__(o);
     __Pyx_SET_REFCNT(o, Py_REFCNT(o) - 1);
     PyErr_Restore(etype, eval, etb);
   }
@@ -9263,44 +9678,47 @@ static void __pyx_tp_dealloc_11PerlinNoise_PerlinNoise(PyObject *o) {
   #endif
 }
 
-static PyMethodDef __pyx_methods_11PerlinNoise_PerlinNoise[] = {
-  {"get_seed", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_5get_seed, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_7noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_9noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_11noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"array_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_13array_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"array_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_15array_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"array_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_17array_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"range_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_19range_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"range_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_21range_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"range_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_23range_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_25__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_11PerlinNoise_11PerlinNoise_27__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+static PyMethodDef __pyx_methods_21FractalBrownianMotion_FractalBrownianMotion[] = {
+  {"get_seed", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_5get_seed, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"get_octaves", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_7get_octaves, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"get_lacunarity", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_9get_lacunarity, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"get_gain", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_11get_gain, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_13noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_15noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_17noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"array_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_19array_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"array_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_21array_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"array_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_23array_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"range_noise1D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_25range_noise1D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"range_noise2D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_27range_noise2D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"range_noise3D", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_29range_noise3D, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_31__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_21FractalBrownianMotion_21FractalBrownianMotion_33__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 #if CYTHON_USE_TYPE_SPECS
-static PyType_Slot __pyx_type_11PerlinNoise_PerlinNoise_slots[] = {
-  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_11PerlinNoise_PerlinNoise},
+static PyType_Slot __pyx_type_21FractalBrownianMotion_FractalBrownianMotion_slots[] = {
+  {Py_tp_dealloc, (void *)__pyx_tp_dealloc_21FractalBrownianMotion_FractalBrownianMotion},
   {Py_tp_doc, (void *)PyDoc_STR("\n    Seed value must be positive integer in range 0 to 4294967295.\n    ")},
-  {Py_tp_methods, (void *)__pyx_methods_11PerlinNoise_PerlinNoise},
-  {Py_tp_new, (void *)__pyx_tp_new_11PerlinNoise_PerlinNoise},
+  {Py_tp_methods, (void *)__pyx_methods_21FractalBrownianMotion_FractalBrownianMotion},
+  {Py_tp_new, (void *)__pyx_tp_new_21FractalBrownianMotion_FractalBrownianMotion},
   {0, 0},
 };
-static PyType_Spec __pyx_type_11PerlinNoise_PerlinNoise_spec = {
-  "PerlinNoise.PerlinNoise",
-  sizeof(struct __pyx_obj_11PerlinNoise_PerlinNoise),
+static PyType_Spec __pyx_type_21FractalBrownianMotion_FractalBrownianMotion_spec = {
+  "FractalBrownianMotion.FractalBrownianMotion",
+  sizeof(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion),
   0,
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE,
-  __pyx_type_11PerlinNoise_PerlinNoise_slots,
+  __pyx_type_21FractalBrownianMotion_FractalBrownianMotion_slots,
 };
 #else
 
-static PyTypeObject __pyx_type_11PerlinNoise_PerlinNoise = {
+static PyTypeObject __pyx_type_21FractalBrownianMotion_FractalBrownianMotion = {
   PyVarObject_HEAD_INIT(0, 0)
-  "PerlinNoise.""PerlinNoise", /*tp_name*/
-  sizeof(struct __pyx_obj_11PerlinNoise_PerlinNoise), /*tp_basicsize*/
+  "FractalBrownianMotion.""FractalBrownianMotion", /*tp_name*/
+  sizeof(struct __pyx_obj_21FractalBrownianMotion_FractalBrownianMotion), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11PerlinNoise_PerlinNoise, /*tp_dealloc*/
+  __pyx_tp_dealloc_21FractalBrownianMotion_FractalBrownianMotion, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -9333,7 +9751,7 @@ static PyTypeObject __pyx_type_11PerlinNoise_PerlinNoise = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_11PerlinNoise_PerlinNoise, /*tp_methods*/
+  __pyx_methods_21FractalBrownianMotion_FractalBrownianMotion, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -9345,7 +9763,7 @@ static PyTypeObject __pyx_type_11PerlinNoise_PerlinNoise = {
   #endif
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11PerlinNoise_PerlinNoise, /*tp_new*/
+  __pyx_tp_new_21FractalBrownianMotion_FractalBrownianMotion, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -9395,22 +9813,25 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
   __Pyx_StringTabEntry __pyx_string_tab[] = {
     {&__pyx_n_u_C, __pyx_k_C, sizeof(__pyx_k_C), 0, 1, 0, 1},
     {&__pyx_n_u_C_CONTIGUOUS, __pyx_k_C_CONTIGUOUS, sizeof(__pyx_k_C_CONTIGUOUS), 0, 1, 0, 1},
+    {&__pyx_n_s_FractalBrownianMotion, __pyx_k_FractalBrownianMotion, sizeof(__pyx_k_FractalBrownianMotion), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion___reduce_c, __pyx_k_FractalBrownianMotion___reduce_c, sizeof(__pyx_k_FractalBrownianMotion___reduce_c), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion___setstate, __pyx_k_FractalBrownianMotion___setstate, sizeof(__pyx_k_FractalBrownianMotion___setstate), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_array_nois, __pyx_k_FractalBrownianMotion_array_nois, sizeof(__pyx_k_FractalBrownianMotion_array_nois), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_array_nois_2, __pyx_k_FractalBrownianMotion_array_nois_2, sizeof(__pyx_k_FractalBrownianMotion_array_nois_2), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_array_nois_3, __pyx_k_FractalBrownianMotion_array_nois_3, sizeof(__pyx_k_FractalBrownianMotion_array_nois_3), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_get_gain, __pyx_k_FractalBrownianMotion_get_gain, sizeof(__pyx_k_FractalBrownianMotion_get_gain), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_get_lacuna, __pyx_k_FractalBrownianMotion_get_lacuna, sizeof(__pyx_k_FractalBrownianMotion_get_lacuna), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_get_octave, __pyx_k_FractalBrownianMotion_get_octave, sizeof(__pyx_k_FractalBrownianMotion_get_octave), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_get_seed, __pyx_k_FractalBrownianMotion_get_seed, sizeof(__pyx_k_FractalBrownianMotion_get_seed), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_noise1D, __pyx_k_FractalBrownianMotion_noise1D, sizeof(__pyx_k_FractalBrownianMotion_noise1D), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_noise2D, __pyx_k_FractalBrownianMotion_noise2D, sizeof(__pyx_k_FractalBrownianMotion_noise2D), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_noise3D, __pyx_k_FractalBrownianMotion_noise3D, sizeof(__pyx_k_FractalBrownianMotion_noise3D), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_range_nois, __pyx_k_FractalBrownianMotion_range_nois, sizeof(__pyx_k_FractalBrownianMotion_range_nois), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_range_nois_2, __pyx_k_FractalBrownianMotion_range_nois_2, sizeof(__pyx_k_FractalBrownianMotion_range_nois_2), 0, 0, 1, 1},
+    {&__pyx_n_s_FractalBrownianMotion_range_nois_3, __pyx_k_FractalBrownianMotion_range_nois_3, sizeof(__pyx_k_FractalBrownianMotion_range_nois_3), 0, 0, 1, 1},
     {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise, __pyx_k_PerlinNoise, sizeof(__pyx_k_PerlinNoise), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise___reduce_cython, __pyx_k_PerlinNoise___reduce_cython, sizeof(__pyx_k_PerlinNoise___reduce_cython), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise___setstate_cython, __pyx_k_PerlinNoise___setstate_cython, sizeof(__pyx_k_PerlinNoise___setstate_cython), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_array_noise1D, __pyx_k_PerlinNoise_array_noise1D, sizeof(__pyx_k_PerlinNoise_array_noise1D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_array_noise2D, __pyx_k_PerlinNoise_array_noise2D, sizeof(__pyx_k_PerlinNoise_array_noise2D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_array_noise3D, __pyx_k_PerlinNoise_array_noise3D, sizeof(__pyx_k_PerlinNoise_array_noise3D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_get_seed, __pyx_k_PerlinNoise_get_seed, sizeof(__pyx_k_PerlinNoise_get_seed), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_noise1D, __pyx_k_PerlinNoise_noise1D, sizeof(__pyx_k_PerlinNoise_noise1D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_noise2D, __pyx_k_PerlinNoise_noise2D, sizeof(__pyx_k_PerlinNoise_noise2D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_noise3D, __pyx_k_PerlinNoise_noise3D, sizeof(__pyx_k_PerlinNoise_noise3D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_range_noise1D, __pyx_k_PerlinNoise_range_noise1D, sizeof(__pyx_k_PerlinNoise_range_noise1D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_range_noise2D, __pyx_k_PerlinNoise_range_noise2D, sizeof(__pyx_k_PerlinNoise_range_noise2D), 0, 0, 1, 1},
-    {&__pyx_n_s_PerlinNoise_range_noise3D, __pyx_k_PerlinNoise_range_noise3D, sizeof(__pyx_k_PerlinNoise_range_noise3D), 0, 0, 1, 1},
     {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
-    {&__pyx_n_s__26, __pyx_k__26, sizeof(__pyx_k__26), 0, 0, 1, 1},
+    {&__pyx_n_s__29, __pyx_k__29, sizeof(__pyx_k__29), 0, 0, 1, 1},
     {&__pyx_n_s__4, __pyx_k__4, sizeof(__pyx_k__4), 0, 0, 1, 1},
     {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
     {&__pyx_n_s_array_noise1D, __pyx_k_array_noise1D, sizeof(__pyx_k_array_noise1D), 0, 0, 1, 1},
@@ -9424,13 +9845,18 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_u_enable, __pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0, 0},
     {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
     {&__pyx_n_s_float32, __pyx_k_float32, sizeof(__pyx_k_float32), 0, 0, 1, 1},
+    {&__pyx_n_s_gain, __pyx_k_gain, sizeof(__pyx_k_gain), 0, 0, 1, 1},
     {&__pyx_kp_u_gc, __pyx_k_gc, sizeof(__pyx_k_gc), 0, 1, 0, 0},
+    {&__pyx_n_s_get_gain, __pyx_k_get_gain, sizeof(__pyx_k_get_gain), 0, 0, 1, 1},
+    {&__pyx_n_s_get_lacunarity, __pyx_k_get_lacunarity, sizeof(__pyx_k_get_lacunarity), 0, 0, 1, 1},
+    {&__pyx_n_s_get_octaves, __pyx_k_get_octaves, sizeof(__pyx_k_get_octaves), 0, 0, 1, 1},
     {&__pyx_n_s_get_seed, __pyx_k_get_seed, sizeof(__pyx_k_get_seed), 0, 0, 1, 1},
     {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
     {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
     {&__pyx_n_s_initializing, __pyx_k_initializing, sizeof(__pyx_k_initializing), 0, 0, 1, 1},
     {&__pyx_n_s_is_coroutine, __pyx_k_is_coroutine, sizeof(__pyx_k_is_coroutine), 0, 0, 1, 1},
     {&__pyx_kp_u_isenabled, __pyx_k_isenabled, sizeof(__pyx_k_isenabled), 0, 1, 0, 0},
+    {&__pyx_n_s_lacunarity, __pyx_k_lacunarity, sizeof(__pyx_k_lacunarity), 0, 0, 1, 1},
     {&__pyx_n_s_length, __pyx_k_length, sizeof(__pyx_k_length), 0, 0, 1, 1},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
     {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -9442,10 +9868,11 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
     {&__pyx_kp_u_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 1, 0, 0},
     {&__pyx_kp_u_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 1, 0, 0},
+    {&__pyx_n_s_octaves, __pyx_k_octaves, sizeof(__pyx_k_octaves), 0, 0, 1, 1},
     {&__pyx_n_s_order, __pyx_k_order, sizeof(__pyx_k_order), 0, 0, 1, 1},
     {&__pyx_n_s_out_np, __pyx_k_out_np, sizeof(__pyx_k_out_np), 0, 0, 1, 1},
     {&__pyx_n_s_out_ptr, __pyx_k_out_ptr, sizeof(__pyx_k_out_ptr), 0, 0, 1, 1},
-    {&__pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_k_pmma_core_pyx_src_PerlinNoise_py, sizeof(__pyx_k_pmma_core_pyx_src_PerlinNoise_py), 0, 0, 1, 0},
+    {&__pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_k_pmma_core_pyx_src_FractalBrownia, sizeof(__pyx_k_pmma_core_pyx_src_FractalBrownia), 0, 0, 1, 0},
     {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
     {&__pyx_n_s_randint, __pyx_k_randint, sizeof(__pyx_k_randint), 0, 0, 1, 1},
     {&__pyx_n_s_random, __pyx_k_random, sizeof(__pyx_k_random), 0, 0, 1, 1},
@@ -9518,137 +9945,164 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "PerlinNoise.pyx":34
- *     def __cinit__(self, seed = None):
+  /* "FractalBrownianMotion.pyx":38
+ * 
  *         if seed == None:
  *             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value             # <<<<<<<<<<<<<<
  * 
- *         self.cpp_class_ptr = new CPP_PerlinNoise(seed)
+ *         self.cpp_class_ptr = new CPP_FractalBrownianMotion(seed, octaves, lacunarity, gain)
  */
-  __pyx_tuple__3 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_4294967295); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(2, 34, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(2, __pyx_int_0, __pyx_int_4294967295); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(2, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "PerlinNoise.pyx":43
+  /* "FractalBrownianMotion.pyx":50
  *         del self.cpp_class_ptr
  * 
  *     def get_seed(self):             # <<<<<<<<<<<<<<
  *         return self.seed
  * 
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(2, 43, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(2, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_get_seed, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(2, 43, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_get_seed, 50, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(2, 50, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":46
+  /* "FractalBrownianMotion.pyx":53
  *         return self.seed
  * 
- *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+ *     def get_octaves(self):             # <<<<<<<<<<<<<<
+ *         return self.octaves
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(2, 46, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_noise1D, 46, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(2, 46, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_get_octaves, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(2, 53, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":49
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+  /* "FractalBrownianMotion.pyx":56
+ *         return self.octaves
+ * 
+ *     def get_lacunarity(self):             # <<<<<<<<<<<<<<
+ *         return self.lacunarity
+ * 
+ */
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_get_lacunarity, 56, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(2, 56, __pyx_L1_error)
+
+  /* "FractalBrownianMotion.pyx":59
+ *         return self.lacunarity
+ * 
+ *     def get_gain(self):             # <<<<<<<<<<<<<<
+ *         return self.gain
+ * 
+ */
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_get_gain, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(2, 59, __pyx_L1_error)
+
+  /* "FractalBrownianMotion.pyx":62
+ *         return self.gain
+ * 
+ *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
+ * 
+ */
+  __pyx_tuple__10 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_x); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_noise1D, 62, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(2, 62, __pyx_L1_error)
+
+  /* "FractalBrownianMotion.pyx":65
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
  * 
  *     def noise2D(self, float x, float y):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  */
-  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 49, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_noise2D, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(2, 49, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 65, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_noise2D, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(2, 65, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":52
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+  /* "FractalBrownianMotion.pyx":68
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  *     def noise3D(self, float x, float y, float z):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  */
-  __pyx_tuple__11 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 52, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_noise3D, 52, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(2, 52, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_z); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 68, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_noise3D, 68, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(2, 68, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":55
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+  /* "FractalBrownianMotion.pyx":71
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  *     def array_noise1D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  */
-  __pyx_tuple__13 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_values, __pyx_n_s_values_np, __pyx_n_s_out_np, __pyx_n_s_values_ptr, __pyx_n_s_out_ptr, __pyx_n_s_length); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 55, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_array_noise1D, 55, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(2, 55, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_values, __pyx_n_s_values_np, __pyx_n_s_out_np, __pyx_n_s_values_ptr, __pyx_n_s_out_ptr, __pyx_n_s_length); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(2, 71, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_array_noise1D, 71, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(2, 71, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":83
+  /* "FractalBrownianMotion.pyx":99
  *             return out_np.tolist()
  * 
  *     def array_noise2D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=2, mode='c'] values_np
  */
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_array_noise2D, 83, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(2, 83, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_array_noise2D, 99, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(2, 99, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":111
+  /* "FractalBrownianMotion.pyx":127
  *             return out_np.tolist()
  * 
  *     def array_noise3D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=3, mode='c'] values_np
  */
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_array_noise3D, 111, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(2, 111, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_array_noise3D, 127, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(2, 127, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":139
+  /* "FractalBrownianMotion.pyx":155
  *             return out_np.tolist()
  * 
  *     def range_noise1D(self, x_range, length):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
  */
-  __pyx_tuple__17 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_x_range, __pyx_n_s_length, __pyx_n_s_x_range_np, __pyx_n_s_out_np, __pyx_n_s_x_range_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(2, 139, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_range_noise1D, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(2, 139, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_x_range, __pyx_n_s_length, __pyx_n_s_x_range_np, __pyx_n_s_out_np, __pyx_n_s_x_range_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(2, 155, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_range_noise1D, 155, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(2, 155, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":163
+  /* "FractalBrownianMotion.pyx":179
  *             return out_np.tolist()
  * 
  *     def range_noise2D(self, x_range, y_range, length):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
  */
-  __pyx_tuple__19 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_x_range, __pyx_n_s_y_range, __pyx_n_s_length, __pyx_n_s_x_range_np, __pyx_n_s_y_range_np, __pyx_n_s_out_np, __pyx_n_s_x_range_ptr, __pyx_n_s_y_range_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(2, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_range_noise2D, 163, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(2, 163, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(10, __pyx_n_s_self, __pyx_n_s_x_range, __pyx_n_s_y_range, __pyx_n_s_length, __pyx_n_s_x_range_np, __pyx_n_s_y_range_np, __pyx_n_s_out_np, __pyx_n_s_x_range_ptr, __pyx_n_s_y_range_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(2, 179, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 10, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_range_noise2D, 179, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(2, 179, __pyx_L1_error)
 
-  /* "PerlinNoise.pyx":195
+  /* "FractalBrownianMotion.pyx":211
  *             return out_np.tolist()
  * 
  *     def range_noise3D(self, x_range, y_range, z_range, length):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
  */
-  __pyx_tuple__21 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_x_range, __pyx_n_s_y_range, __pyx_n_s_z_range, __pyx_n_s_length, __pyx_n_s_x_range_np, __pyx_n_s_y_range_np, __pyx_n_s_z_range_np, __pyx_n_s_out_np, __pyx_n_s_x_range_ptr, __pyx_n_s_y_range_ptr, __pyx_n_s_z_range_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(2, 195, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_PerlinNoise_py, __pyx_n_s_range_noise3D, 195, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(2, 195, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(13, __pyx_n_s_self, __pyx_n_s_x_range, __pyx_n_s_y_range, __pyx_n_s_z_range, __pyx_n_s_length, __pyx_n_s_x_range_np, __pyx_n_s_y_range_np, __pyx_n_s_z_range_np, __pyx_n_s_out_np, __pyx_n_s_x_range_ptr, __pyx_n_s_y_range_ptr, __pyx_n_s_z_range_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(2, 211, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 13, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_FractalBrownia, __pyx_n_s_range_noise3D, 211, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(2, 211, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  * def __setstate_cython__(self, __pyx_state):
  */
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_reduce_cython, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_reduce_cython, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 1, __pyx_L1_error)
 
   /* "(tree fragment)":3
  * def __reduce_cython__(self):
@@ -9656,10 +10110,10 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  */
-  __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_pyx_state); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(0, 3, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 3, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_pyx_state); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__27);
+  __Pyx_GIVEREF(__pyx_tuple__27);
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 3, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -9744,27 +10198,27 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_11PerlinNoise_PerlinNoise = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_11PerlinNoise_PerlinNoise_spec, NULL); if (unlikely(!__pyx_ptype_11PerlinNoise_PerlinNoise)) __PYX_ERR(2, 25, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_11PerlinNoise_PerlinNoise_spec, __pyx_ptype_11PerlinNoise_PerlinNoise) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
+  __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_21FractalBrownianMotion_FractalBrownianMotion_spec, NULL); if (unlikely(!__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion)) __PYX_ERR(2, 25, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_21FractalBrownianMotion_FractalBrownianMotion_spec, __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
   #else
-  __pyx_ptype_11PerlinNoise_PerlinNoise = &__pyx_type_11PerlinNoise_PerlinNoise;
+  __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion = &__pyx_type_21FractalBrownianMotion_FractalBrownianMotion;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_11PerlinNoise_PerlinNoise) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
-  __pyx_ptype_11PerlinNoise_PerlinNoise->tp_print = 0;
+  __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion->tp_print = 0;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_11PerlinNoise_PerlinNoise->tp_dictoffset && __pyx_ptype_11PerlinNoise_PerlinNoise->tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_ptype_11PerlinNoise_PerlinNoise->tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion->tp_dictoffset && __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion->tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PerlinNoise, (PyObject *) __pyx_ptype_11PerlinNoise_PerlinNoise) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_FractalBrownianMotion, (PyObject *) __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_11PerlinNoise_PerlinNoise) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion) < 0) __PYX_ERR(2, 25, __pyx_L1_error)
   #endif
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -9839,10 +10293,10 @@ static int __Pyx_modinit_function_import_code(void) {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_PerlinNoise(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_FractalBrownianMotion(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_PerlinNoise},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_FractalBrownianMotion},
   {0, NULL}
 };
 #endif
@@ -9855,7 +10309,7 @@ namespace {
   #endif
   {
       PyModuleDef_HEAD_INIT,
-      "PerlinNoise",
+      "FractalBrownianMotion",
       0, /* m_doc */
     #if CYTHON_PEP489_MULTI_PHASE_INIT
       0, /* m_size */
@@ -9903,11 +10357,11 @@ namespace {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initPerlinNoise(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initPerlinNoise(void)
+__Pyx_PyMODINIT_FUNC initFractalBrownianMotion(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initFractalBrownianMotion(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_PerlinNoise(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_PerlinNoise(void)
+__Pyx_PyMODINIT_FUNC PyInit_FractalBrownianMotion(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_FractalBrownianMotion(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -9988,7 +10442,7 @@ bad:
 }
 
 
-static CYTHON_SMALL_CODE int __pyx_pymod_exec_PerlinNoise(PyObject *__pyx_pyinit_module)
+static CYTHON_SMALL_CODE int __pyx_pymod_exec_FractalBrownianMotion(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -10005,7 +10459,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_PerlinNoise(PyObject *__pyx_pyinit
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
     if (__pyx_m == __pyx_pyinit_module) return 0;
-    PyErr_SetString(PyExc_RuntimeError, "Module 'PerlinNoise' has already been imported. Re-initialisation is not supported.");
+    PyErr_SetString(PyExc_RuntimeError, "Module 'FractalBrownianMotion' has already been imported. Re-initialisation is not supported.");
     return -1;
   }
   #elif PY_MAJOR_VERSION >= 3
@@ -10017,13 +10471,13 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_PerlinNoise(PyObject *__pyx_pyinit
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("PerlinNoise", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("FractalBrownianMotion", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   if (unlikely(!__pyx_m)) __PYX_ERR(2, 1, __pyx_L1_error)
   #elif CYTHON_USE_MODULE_STATE
   __pyx_t_1 = PyModule_Create(&__pyx_moduledef); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
   {
     int add_module_result = PyState_AddModule(__pyx_t_1, &__pyx_moduledef);
-    __pyx_t_1 = 0; /* transfer ownership from __pyx_t_1 to "PerlinNoise" pseudovariable */
+    __pyx_t_1 = 0; /* transfer ownership from __pyx_t_1 to "FractalBrownianMotion" pseudovariable */
     if (unlikely((add_module_result < 0))) __PYX_ERR(2, 1, __pyx_L1_error)
     pystate_addmodule_run = 1;
   }
@@ -10047,7 +10501,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_PerlinNoise(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_FractalBrownianMotion(void)", 0);
   if (__Pyx_check_binary_version(__PYX_LIMITED_VERSION_HEX, __Pyx_get_runtime_version(), CYTHON_COMPILING_IN_LIMITED_API) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
@@ -10085,14 +10539,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_PerlinNoise) {
+  if (__pyx_module_is_main_FractalBrownianMotion) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(2, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "PerlinNoise")) {
-      if (unlikely((PyDict_SetItemString(modules, "PerlinNoise", __pyx_m) < 0))) __PYX_ERR(2, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "FractalBrownianMotion")) {
+      if (unlikely((PyDict_SetItemString(modules, "FractalBrownianMotion", __pyx_m) < 0))) __PYX_ERR(2, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -10113,7 +10567,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   #endif
 
-  /* "PerlinNoise.pyx":3
+  /* "FractalBrownianMotion.pyx":3
  * # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
  * 
  * import random             # <<<<<<<<<<<<<<
@@ -10125,7 +10579,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_random, __pyx_t_2) < 0) __PYX_ERR(2, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "PerlinNoise.pyx":5
+  /* "FractalBrownianMotion.pyx":5
  * import random
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -10137,142 +10591,181 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "PerlinNoise.pyx":43
+  /* "FractalBrownianMotion.pyx":50
  *         del self.cpp_class_ptr
  * 
  *     def get_seed(self):             # <<<<<<<<<<<<<<
  *         return self.seed
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_5get_seed, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_get_seed, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 43, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_5get_seed, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_get_seed, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_get_seed, __pyx_t_2) < 0) __PYX_ERR(2, 43, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_get_seed, __pyx_t_2) < 0) __PYX_ERR(2, 50, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":46
+  /* "FractalBrownianMotion.pyx":53
  *         return self.seed
  * 
- *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+ *     def get_octaves(self):             # <<<<<<<<<<<<<<
+ *         return self.octaves
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_7noise1D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_noise1D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 46, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_7get_octaves, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_get_octave, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_noise1D, __pyx_t_2) < 0) __PYX_ERR(2, 46, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_get_octaves, __pyx_t_2) < 0) __PYX_ERR(2, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":49
- *         return self.cpp_class_ptr.CPP_Noise1D(x)
+  /* "FractalBrownianMotion.pyx":56
+ *         return self.octaves
+ * 
+ *     def get_lacunarity(self):             # <<<<<<<<<<<<<<
+ *         return self.lacunarity
+ * 
+ */
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_9get_lacunarity, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_get_lacuna, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_get_lacunarity, __pyx_t_2) < 0) __PYX_ERR(2, 56, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
+
+  /* "FractalBrownianMotion.pyx":59
+ *         return self.lacunarity
+ * 
+ *     def get_gain(self):             # <<<<<<<<<<<<<<
+ *         return self.gain
+ * 
+ */
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_11get_gain, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_get_gain, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 59, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_get_gain, __pyx_t_2) < 0) __PYX_ERR(2, 59, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
+
+  /* "FractalBrownianMotion.pyx":62
+ *         return self.gain
+ * 
+ *     def noise1D(self, float x):             # <<<<<<<<<<<<<<
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
+ * 
+ */
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_13noise1D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_noise1D, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_noise1D, __pyx_t_2) < 0) __PYX_ERR(2, 62, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
+
+  /* "FractalBrownianMotion.pyx":65
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
  * 
  *     def noise2D(self, float x, float y):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_9noise2D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_noise2D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 49, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_15noise2D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_noise2D, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_noise2D, __pyx_t_2) < 0) __PYX_ERR(2, 49, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_noise2D, __pyx_t_2) < 0) __PYX_ERR(2, 65, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":52
- *         return self.cpp_class_ptr.CPP_Noise2D(x, y)
+  /* "FractalBrownianMotion.pyx":68
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
  * 
  *     def noise3D(self, float x, float y, float z):             # <<<<<<<<<<<<<<
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_11noise3D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_noise3D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 52, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_17noise3D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_noise3D, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_noise3D, __pyx_t_2) < 0) __PYX_ERR(2, 52, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_noise3D, __pyx_t_2) < 0) __PYX_ERR(2, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":55
- *         return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+  /* "FractalBrownianMotion.pyx":71
+ *         return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
  * 
  *     def array_noise1D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_13array_noise1D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_array_noise1D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_19array_noise1D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_array_nois, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 71, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_array_noise1D, __pyx_t_2) < 0) __PYX_ERR(2, 55, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_array_noise1D, __pyx_t_2) < 0) __PYX_ERR(2, 71, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":83
+  /* "FractalBrownianMotion.pyx":99
  *             return out_np.tolist()
  * 
  *     def array_noise2D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=2, mode='c'] values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_15array_noise2D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_array_noise2D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 83, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_21array_noise2D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_array_nois_2, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_array_noise2D, __pyx_t_2) < 0) __PYX_ERR(2, 83, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_array_noise2D, __pyx_t_2) < 0) __PYX_ERR(2, 99, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":111
+  /* "FractalBrownianMotion.pyx":127
  *             return out_np.tolist()
  * 
  *     def array_noise3D(self, values):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=3, mode='c'] values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_17array_noise3D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_array_noise3D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 111, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_23array_noise3D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_array_nois_3, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_array_noise3D, __pyx_t_2) < 0) __PYX_ERR(2, 111, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_array_noise3D, __pyx_t_2) < 0) __PYX_ERR(2, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":139
+  /* "FractalBrownianMotion.pyx":155
  *             return out_np.tolist()
  * 
  *     def range_noise1D(self, x_range, length):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_19range_noise1D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_range_noise1D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 139, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_25range_noise1D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_range_nois, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_range_noise1D, __pyx_t_2) < 0) __PYX_ERR(2, 139, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_range_noise1D, __pyx_t_2) < 0) __PYX_ERR(2, 155, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":163
+  /* "FractalBrownianMotion.pyx":179
  *             return out_np.tolist()
  * 
  *     def range_noise2D(self, x_range, y_range, length):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_21range_noise2D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_range_noise2D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 163, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_27range_noise2D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_range_nois_2, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_range_noise2D, __pyx_t_2) < 0) __PYX_ERR(2, 163, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_range_noise2D, __pyx_t_2) < 0) __PYX_ERR(2, 179, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
-  /* "PerlinNoise.pyx":195
+  /* "FractalBrownianMotion.pyx":211
  *             return out_np.tolist()
  * 
  *     def range_noise3D(self, x_range, y_range, z_range, length):             # <<<<<<<<<<<<<<
  *         cdef:
  *             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_23range_noise3D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise_range_noise3D, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 195, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_29range_noise3D, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion_range_nois_3, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_11PerlinNoise_PerlinNoise, __pyx_n_s_range_noise3D, __pyx_t_2) < 0) __PYX_ERR(2, 195, __pyx_L1_error)
+  if (__Pyx_SetItemOnTypeDict((PyObject *)__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion, __pyx_n_s_range_noise3D, __pyx_t_2) < 0) __PYX_ERR(2, 211, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_11PerlinNoise_PerlinNoise);
+  PyType_Modified(__pyx_ptype_21FractalBrownianMotion_FractalBrownianMotion);
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  * def __setstate_cython__(self, __pyx_state):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_25__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise___reduce_cython, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__23)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_31__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion___reduce_c, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__26)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_reduce_cython, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -10283,12 +10776,12 @@ if (!__Pyx_RefNanny) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     raise TypeError, "no default __reduce__ due to non-trivial __cinit__"
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_11PerlinNoise_11PerlinNoise_27__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PerlinNoise___setstate_cython, NULL, __pyx_n_s_PerlinNoise, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_21FractalBrownianMotion_21FractalBrownianMotion_33__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_FractalBrownianMotion___setstate, NULL, __pyx_n_s_FractalBrownianMotion, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_setstate_cython, __pyx_t_2) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "PerlinNoise.pyx":1
+  /* "FractalBrownianMotion.pyx":1
  * # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False             # <<<<<<<<<<<<<<
  * 
  * import random
@@ -10305,7 +10798,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
-      __Pyx_AddTraceback("init PerlinNoise", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init FractalBrownianMotion", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     #if !CYTHON_USE_MODULE_STATE
     Py_CLEAR(__pyx_m);
@@ -10319,7 +10812,7 @@ if (!__Pyx_RefNanny) {
     }
     #endif
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init PerlinNoise");
+    PyErr_SetString(PyExc_ImportError, "init FractalBrownianMotion");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -11113,6 +11606,32 @@ bad:
 #endif
 #endif
 
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
+}
+
 /* RaiseDoubleKeywords */
 static void __Pyx_RaiseDoubleKeywordsError(
     const char* func_name,
@@ -11281,32 +11800,6 @@ bad:
     Py_XDECREF(key);
     Py_XDECREF(value);
     return -1;
-}
-
-/* RaiseArgTupleInvalid */
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
 }
 
 /* PyDictVersioning */
@@ -15354,7 +15847,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
     if (unlikely(name == NULL) || unlikely(!PyUnicode_Check(name))) {
         PyErr_Clear();
         Py_XDECREF(name);
-        name = __Pyx_NewRef(__pyx_n_s__26);
+        name = __Pyx_NewRef(__pyx_n_s__29);
     }
     return name;
 }

@@ -12,17 +12,18 @@ def add_source(name):
         os.path.join(cwd, "pmma", "core", "cpp_src", f"{name}.cpp")
         ]
 
-# Recommended C++ optimization flags
-extra_compile_args = ["-O3", "-march=native", "-ffast-math", "-std=c++17"]
-extra_link_args = []
-
 glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
 glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022"
 
-# Adjust for Windows (optional)
 if sys.platform == "win32":
-    extra_compile_args = ["/O2"]  # MSVC optimization
-    extra_link_args = []
+    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-"]
+    link_args = ["/LTCG"]
+else:
+    compile_args = [
+        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing",
+        "-fno-exceptions", "-fomit-frame-pointer", "-std=c++17"
+    ]
+    link_args = []
 
 mywrapper_ext = Extension( # EXAMPLE
     name="mywrapper",
@@ -40,8 +41,8 @@ mywrapper_ext = Extension( # EXAMPLE
             "uuid",
             "comdlg32",
             "winmm",],
-    extra_compile_args=extra_compile_args,
-    extra_link_args=extra_link_args,
+    extra_compile_args=compile_args,
+    extra_link_args=link_args,
 )
 
 AdvancedMathematics_ext = Extension(
@@ -49,23 +50,32 @@ AdvancedMathematics_ext = Extension(
     sources=[*add_source("AdvancedMathematics")],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
-    extra_compile_args=extra_compile_args,
-    extra_link_args=extra_link_args,
+    extra_compile_args=compile_args,
+    extra_link_args=link_args,
 )
 
-PerlinNoise_ext = Extension(
+PerlinNoise_ext = Extension( # this one
     name="PerlinNoise",
     sources=[*add_source("PerlinNoise")],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
-    extra_compile_args=extra_compile_args,
-    extra_link_args=extra_link_args,
+    extra_compile_args=compile_args,
+    extra_link_args=link_args,
+)
+
+FractalBrownianMotion_ext = Extension( # this one
+    name="FractalBrownianMotion",
+    sources=[*add_source("FractalBrownianMotion"), add_source("PerlinNoise")[-1]],  # Reuse PerlinNoise's cpp file
+    language="c++",
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
+    extra_compile_args=compile_args,
+    extra_link_args=link_args,
 )
 
 setup(
     name="PMMA",
     ext_modules=cythonize(
-        [mywrapper_ext, AdvancedMathematics_ext, PerlinNoise_ext],
+        [mywrapper_ext, AdvancedMathematics_ext, PerlinNoise_ext, FractalBrownianMotion_ext],
         compiler_directives={"language_level": "3"},
         annotate=True,  # Optional: creates .html annotation file to inspect performance
     ),

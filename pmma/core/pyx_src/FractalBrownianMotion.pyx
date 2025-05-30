@@ -5,37 +5,44 @@ import random
 import numpy as np
 cimport numpy as np
 
-cdef extern from "PerlinNoise.hpp":
-    cdef cppclass CPP_PerlinNoise:
-        CPP_PerlinNoise(const unsigned int seed) nogil
+cdef extern from "FractalBrownianMotion.hpp":
+    cdef cppclass CPP_FractalBrownianMotion:
+        CPP_FractalBrownianMotion(const unsigned int seed, unsigned int octaves, float lacunarity, float gain) nogil
 
-        float CPP_Noise1D(const float x) nogil
-        float CPP_Noise2D(const float x, const float y) nogil
-        float CPP_Noise3D(const float x, const float y, const float z) nogil
+        float CPP_FractalBrownianMotion1D(const float x) nogil
+        float CPP_FractalBrownianMotion2D(const float x, const float y) nogil
+        float CPP_FractalBrownianMotion3D(const float x, const float y, const float z) nogil
 
-        void CPP_ArrayNoise1D(const float* values, const unsigned int length, float* out) nogil
-        void CPP_ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) nogil
-        void CPP_ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) nogil
+        void CPP_ArrayFractalBrownianMotion1D(const float* values, const unsigned int length, float* out) nogil
+        void CPP_ArrayFractalBrownianMotion2D(const float (*values)[2], const unsigned int length, float* out) nogil
+        void CPP_ArrayFractalBrownianMotion3D(const float (*values)[3], const unsigned int length, float* out) nogil
 
-        void CPP_RangeNoise1D(const float* x_range, const unsigned int length, float* out) nogil
-        void CPP_RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) nogil
-        void CPP_RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) nogil
+        void CPP_RangeFractalBrownianMotion1D(const float* x_range, const unsigned int length, float* out) nogil
+        void CPP_RangeFractalBrownianMotion2D(const float* x_range, const float* y_range, const unsigned int length, float* out) nogil
+        void CPP_RangeFractalBrownianMotion3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) nogil
 
 
-cdef class PerlinNoise:
+cdef class FractalBrownianMotion:
     """
     Seed value must be positive integer in range 0 to 4294967295.
     """
-    cdef CPP_PerlinNoise* cpp_class_ptr
+    cdef CPP_FractalBrownianMotion* cpp_class_ptr
     cdef unsigned int seed
+    cdef unsigned int octaves
+    cdef float lacunarity
+    cdef float gain
 
-    def __cinit__(self, seed = None):
+    def __cinit__(self, octaves, lacunarity, gain, seed = None):
+
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
-        self.cpp_class_ptr = new CPP_PerlinNoise(seed)
+        self.cpp_class_ptr = new CPP_FractalBrownianMotion(seed, octaves, lacunarity, gain)
 
         self.seed = seed
+        self.octaves = octaves
+        self.lacunarity = lacunarity
+        self.gain = gain
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -43,14 +50,23 @@ cdef class PerlinNoise:
     def get_seed(self):
         return self.seed
 
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
     def noise1D(self, float x):
-        return self.cpp_class_ptr.CPP_Noise1D(x)
+        return self.cpp_class_ptr.CPP_FractalBrownianMotion1D(x)
 
     def noise2D(self, float x, float y):
-        return self.cpp_class_ptr.CPP_Noise2D(x, y)
+        return self.cpp_class_ptr.CPP_FractalBrownianMotion2D(x, y)
 
     def noise3D(self, float x, float y, float z):
-        return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+        return self.cpp_class_ptr.CPP_FractalBrownianMotion3D(x, y, z)
 
     def array_noise1D(self, values):
         cdef:
@@ -73,7 +89,7 @@ cdef class PerlinNoise:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_ArrayNoise1D(values_ptr, length, out_ptr)
+        self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion1D(values_ptr, length, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np
@@ -101,7 +117,7 @@ cdef class PerlinNoise:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_ArrayNoise2D(values_ptr, length, out_ptr)
+        self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion2D(values_ptr, length, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np
@@ -129,7 +145,7 @@ cdef class PerlinNoise:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_ArrayNoise3D(values_ptr, length, out_ptr)
+        self.cpp_class_ptr.CPP_ArrayFractalBrownianMotion3D(values_ptr, length, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np
@@ -153,7 +169,7 @@ cdef class PerlinNoise:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_RangeNoise1D(x_range_ptr, length, out_ptr)
+        self.cpp_class_ptr.CPP_RangeFractalBrownianMotion1D(x_range_ptr, length, out_ptr)
 
         if isinstance(x_range, np.ndarray):
             return out_np
@@ -185,7 +201,7 @@ cdef class PerlinNoise:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)
+        self.cpp_class_ptr.CPP_RangeFractalBrownianMotion2D(x_range_ptr, y_range_ptr, length, out_ptr)
 
         if isinstance(x_range, np.ndarray):
             return out_np
@@ -225,7 +241,7 @@ cdef class PerlinNoise:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
+        self.cpp_class_ptr.CPP_RangeFractalBrownianMotion3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
 
         if isinstance(x_range, np.ndarray):
             return out_np
