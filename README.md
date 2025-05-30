@@ -13,7 +13,7 @@ Typically, developing applications in Python necessitates familiarity with a var
 
 ## Progress on PMMA v5.0.0
 
-![Progress on PMMA v5.0.0](https://geps.dev/progress/21)
+![Progress on PMMA v5.0.0](https://geps.dev/progress/23)
 
 Each entry is worth: (20/7) %
 
@@ -21,9 +21,9 @@ Each entry is worth: (20/7) %
 * ✅ - Setup new repository automation
 * ✅ - Finished Advanced Mathematics component
 * ✅ - Finished Perlin Noise component
+* ✅ - Working on Fractal Brownian Motion
 * ⏳ - Working on Display
 * ⏳ - Working on Events
-* ⏳ - Working on Fractal Brownian Motion
 * ⏳ - Working on Number Converter
 * ⏳ - Working on Audio
 * ⏳ - Working on Backpack
