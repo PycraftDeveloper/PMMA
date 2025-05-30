@@ -57,7 +57,7 @@ PerlinNoise_ext = Extension(
     name="PerlinNoise",
     sources=[*add_source("PerlinNoise")],
     language="c++",
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src")],
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
     extra_compile_args=extra_compile_args,
     extra_link_args=extra_link_args,
 )

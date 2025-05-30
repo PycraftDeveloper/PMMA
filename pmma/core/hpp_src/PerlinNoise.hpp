@@ -41,11 +41,23 @@ class CPP_PerlinNoise {
         }
 
     public:
-        CPP_PerlinNoise(uint32_t seed);
+        CPP_PerlinNoise(const uint32_t seed);
 
-        float CPP_Noise1D(float x) const noexcept;
+        float CPP_Noise1D(const float x) const noexcept;
 
-        float CPP_Noise2D(float x, float y) const noexcept;
+        float CPP_Noise2D(const float x, const float y) const noexcept;
 
-        float CPP_Noise3D(float x, float y, float z) const noexcept;
+        float CPP_Noise3D(const float x, const float y, const float z) const noexcept;
+
+        void CPP_ArrayNoise1D(const float* values, const unsigned int length, float* out) const noexcept;
+
+        void CPP_ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) const noexcept;
+
+        void CPP_ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) const noexcept;
+
+        void CPP_RangeNoise1D(const float* x_range, const unsigned int length, float* out) const noexcept;
+
+        void CPP_RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept;
+
+        void CPP_RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept;
 };

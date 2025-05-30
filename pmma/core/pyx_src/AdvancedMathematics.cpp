@@ -1270,7 +1270,6 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "numpy/ndarraytypes.h"
 #include "numpy/arrayscalars.h"
 #include "numpy/ufuncobject.h"
-#include <stdlib.h>
 #include "AdvancedMathematics.hpp"
 #ifdef _OPENMP
 #include <omp.h>
@@ -2638,8 +2637,6 @@ static CYTHON_INLINE char *__pyx_f_5numpy_7ndarray_4data_data(PyArrayObject *__p
 
 /* Module declarations from "numpy" */
 
-/* Module declarations from "libc.stdlib" */
-
 /* Module declarations from "AdvancedMathematics" */
 /* #### Code section: typeinfo ### */
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t = { "float32_t", NULL, sizeof(__pyx_t_5numpy_float32_t), { 0 }, 0, 'R', 0, 0 };
@@ -2819,8 +2816,6 @@ typedef struct {
   PyTypeObject *__pyx_ptype_5numpy_flexible;
   PyTypeObject *__pyx_ptype_5numpy_character;
   PyTypeObject *__pyx_ptype_5numpy_ufunc;
-  #if CYTHON_USE_MODULE_STATE
-  #endif
   #if CYTHON_USE_MODULE_STATE
   #endif
   PyObject *__pyx_n_s_AdvancedMathematics;
@@ -3354,8 +3349,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_ptype_5numpy_flexible __pyx_mstate_global->__pyx_ptype_5numpy_flexible
 #define __pyx_ptype_5numpy_character __pyx_mstate_global->__pyx_ptype_5numpy_character
 #define __pyx_ptype_5numpy_ufunc __pyx_mstate_global->__pyx_ptype_5numpy_ufunc
-#if CYTHON_USE_MODULE_STATE
-#endif
 #if CYTHON_USE_MODULE_STATE
 #endif
 #define __pyx_n_s_AdvancedMathematics __pyx_mstate_global->__pyx_n_s_AdvancedMathematics
@@ -4747,7 +4740,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":21
+/* "AdvancedMathematics.pyx":20
  *     void CPP_PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) nogil
  * 
  * def IndividualPythagoreanDifference(x1, y1, x2, y2):             # <<<<<<<<<<<<<<
@@ -4817,7 +4810,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -4825,9 +4818,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, 1); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, 1); __PYX_ERR(1, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -4835,9 +4828,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, 2); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, 2); __PYX_ERR(1, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -4845,14 +4838,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, 3); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, 3); __PYX_ERR(1, 20, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "IndividualPythagoreanDifference") < 0)) __PYX_ERR(1, 21, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "IndividualPythagoreanDifference") < 0)) __PYX_ERR(1, 20, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -4869,7 +4862,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, __pyx_nargs); __PYX_ERR(1, 21, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDifference", 1, 4, 4, __pyx_nargs); __PYX_ERR(1, 20, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4909,7 +4902,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_IndividualPythagoreanDifference(
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("IndividualPythagoreanDifference", 1);
 
-  /* "AdvancedMathematics.pyx":22
+  /* "AdvancedMathematics.pyx":21
  * 
  * def IndividualPythagoreanDifference(x1, y1, x2, y2):
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)             # <<<<<<<<<<<<<<
@@ -4917,17 +4910,17 @@ static PyObject *__pyx_pf_19AdvancedMathematics_IndividualPythagoreanDifference(
  * def PointPythagoreanDifference(point1, point2):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_x1); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 22, __pyx_L1_error)
-  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_v_y1); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 22, __pyx_L1_error)
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_v_x2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 22, __pyx_L1_error)
-  __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_v_y2); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 22, __pyx_L1_error)
-  __pyx_t_5 = PyFloat_FromDouble(CPP_PythagoreanDifference(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 22, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_x1); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_v_y1); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_v_x2); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_v_y2); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_5 = PyFloat_FromDouble(CPP_PythagoreanDifference(__pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4)); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_r = __pyx_t_5;
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":21
+  /* "AdvancedMathematics.pyx":20
  *     void CPP_PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) nogil
  * 
  * def IndividualPythagoreanDifference(x1, y1, x2, y2):             # <<<<<<<<<<<<<<
@@ -4946,7 +4939,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_IndividualPythagoreanDifference(
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":24
+/* "AdvancedMathematics.pyx":23
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)
  * 
  * def PointPythagoreanDifference(point1, point2):             # <<<<<<<<<<<<<<
@@ -5010,7 +5003,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 23, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -5018,14 +5011,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 23, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("PointPythagoreanDifference", 1, 2, 2, 1); __PYX_ERR(1, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("PointPythagoreanDifference", 1, 2, 2, 1); __PYX_ERR(1, 23, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PointPythagoreanDifference") < 0)) __PYX_ERR(1, 24, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PointPythagoreanDifference") < 0)) __PYX_ERR(1, 23, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5038,7 +5031,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("PointPythagoreanDifference", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 24, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("PointPythagoreanDifference", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 23, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5078,7 +5071,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_2PointPythagoreanDifference(CYTH
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PointPythagoreanDifference", 1);
 
-  /* "AdvancedMathematics.pyx":25
+  /* "AdvancedMathematics.pyx":24
  * 
  * def PointPythagoreanDifference(point1, point2):
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])             # <<<<<<<<<<<<<<
@@ -5086,29 +5079,29 @@ static PyObject *__pyx_pf_19AdvancedMathematics_2PointPythagoreanDifference(CYTH
  * def IndividualPythagoreanDistance(x, y):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyFloat_FromDouble(CPP_PythagoreanDifference(__pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 25, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(CPP_PythagoreanDifference(__pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":24
+  /* "AdvancedMathematics.pyx":23
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)
  * 
  * def PointPythagoreanDifference(point1, point2):             # <<<<<<<<<<<<<<
@@ -5127,7 +5120,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_2PointPythagoreanDifference(CYTH
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":27
+/* "AdvancedMathematics.pyx":26
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
  * 
  * def IndividualPythagoreanDistance(x, y):             # <<<<<<<<<<<<<<
@@ -5191,7 +5184,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 26, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -5199,14 +5192,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 26, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDistance", 1, 2, 2, 1); __PYX_ERR(1, 27, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDistance", 1, 2, 2, 1); __PYX_ERR(1, 26, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "IndividualPythagoreanDistance") < 0)) __PYX_ERR(1, 27, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "IndividualPythagoreanDistance") < 0)) __PYX_ERR(1, 26, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5219,7 +5212,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDistance", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 27, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("IndividualPythagoreanDistance", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 26, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5257,7 +5250,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_4IndividualPythagoreanDistance(C
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("IndividualPythagoreanDistance", 1);
 
-  /* "AdvancedMathematics.pyx":28
+  /* "AdvancedMathematics.pyx":27
  * 
  * def IndividualPythagoreanDistance(x, y):
  *     return CPP_PythagoreanDistance(x, y)             # <<<<<<<<<<<<<<
@@ -5265,15 +5258,15 @@ static PyObject *__pyx_pf_19AdvancedMathematics_4IndividualPythagoreanDistance(C
  * def PointPythagoreanDistance(point):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_x); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 28, __pyx_L1_error)
-  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_v_y); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 28, __pyx_L1_error)
-  __pyx_t_3 = PyFloat_FromDouble(CPP_PythagoreanDistance(__pyx_t_1, __pyx_t_2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 28, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_x); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_v_y); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(CPP_PythagoreanDistance(__pyx_t_1, __pyx_t_2)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":27
+  /* "AdvancedMathematics.pyx":26
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
  * 
  * def IndividualPythagoreanDistance(x, y):             # <<<<<<<<<<<<<<
@@ -5292,7 +5285,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_4IndividualPythagoreanDistance(C
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":30
+/* "AdvancedMathematics.pyx":29
  *     return CPP_PythagoreanDistance(x, y)
  * 
  * def PointPythagoreanDistance(point):             # <<<<<<<<<<<<<<
@@ -5353,12 +5346,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 29, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PointPythagoreanDistance") < 0)) __PYX_ERR(1, 30, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PointPythagoreanDistance") < 0)) __PYX_ERR(1, 29, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -5369,7 +5362,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("PointPythagoreanDistance", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 30, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("PointPythagoreanDistance", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 29, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5407,7 +5400,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_6PointPythagoreanDistance(CYTHON
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("PointPythagoreanDistance", 1);
 
-  /* "AdvancedMathematics.pyx":31
+  /* "AdvancedMathematics.pyx":30
  * 
  * def PointPythagoreanDistance(point):
  *     return CPP_PythagoreanDistance(point[0], point[1])             # <<<<<<<<<<<<<<
@@ -5415,21 +5408,21 @@ static PyObject *__pyx_pf_19AdvancedMathematics_6PointPythagoreanDistance(CYTHON
  * def SmoothStep(value):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_2 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_2 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_point, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyFloat_FromDouble(CPP_PythagoreanDistance(__pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(CPP_PythagoreanDistance(__pyx_t_2, __pyx_t_3)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":30
+  /* "AdvancedMathematics.pyx":29
  *     return CPP_PythagoreanDistance(x, y)
  * 
  * def PointPythagoreanDistance(point):             # <<<<<<<<<<<<<<
@@ -5448,7 +5441,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_6PointPythagoreanDistance(CYTHON
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":33
+/* "AdvancedMathematics.pyx":32
  *     return CPP_PythagoreanDistance(point[0], point[1])
  * 
  * def SmoothStep(value):             # <<<<<<<<<<<<<<
@@ -5509,12 +5502,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 33, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 32, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "SmoothStep") < 0)) __PYX_ERR(1, 33, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "SmoothStep") < 0)) __PYX_ERR(1, 32, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -5525,7 +5518,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("SmoothStep", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 33, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("SmoothStep", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 32, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5562,7 +5555,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_8SmoothStep(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("SmoothStep", 1);
 
-  /* "AdvancedMathematics.pyx":34
+  /* "AdvancedMathematics.pyx":33
  * 
  * def SmoothStep(value):
  *     return CPP_SmoothStep(value)             # <<<<<<<<<<<<<<
@@ -5570,14 +5563,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_8SmoothStep(CYTHON_UNUSED PyObje
  * def Ranger(value, old_range, new_range):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 34, __pyx_L1_error)
-  __pyx_t_2 = PyFloat_FromDouble(CPP_SmoothStep(__pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 34, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 33, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(CPP_SmoothStep(__pyx_t_1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 33, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":33
+  /* "AdvancedMathematics.pyx":32
  *     return CPP_PythagoreanDistance(point[0], point[1])
  * 
  * def SmoothStep(value):             # <<<<<<<<<<<<<<
@@ -5596,7 +5589,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_8SmoothStep(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":36
+/* "AdvancedMathematics.pyx":35
  *     return CPP_SmoothStep(value)
  * 
  * def Ranger(value, old_range, new_range):             # <<<<<<<<<<<<<<
@@ -5663,7 +5656,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 36, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -5671,9 +5664,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 36, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("Ranger", 1, 3, 3, 1); __PYX_ERR(1, 36, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Ranger", 1, 3, 3, 1); __PYX_ERR(1, 35, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -5681,14 +5674,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 36, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("Ranger", 1, 3, 3, 2); __PYX_ERR(1, 36, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Ranger", 1, 3, 3, 2); __PYX_ERR(1, 35, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Ranger") < 0)) __PYX_ERR(1, 36, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Ranger") < 0)) __PYX_ERR(1, 35, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -5703,7 +5696,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("Ranger", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 36, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("Ranger", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 35, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -5770,7 +5763,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
   __pyx_pybuffernd_new_np.data = NULL;
   __pyx_pybuffernd_new_np.rcbuffer = &__pyx_pybuffer_new_np;
 
-  /* "AdvancedMathematics.pyx":44
+  /* "AdvancedMathematics.pyx":43
  * 
  *     # Convert old_range to contiguous numpy array of float32 if not already
  *     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -5784,68 +5777,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 44, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":45
+    /* "AdvancedMathematics.pyx":44
  *     # Convert old_range to contiguous numpy array of float32 if not already
  *     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:
  *         old_np = np.array(old_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         old_np = old_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 45, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 45, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 45, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_old_range);
     __Pyx_GIVEREF(__pyx_v_old_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_old_range)) __PYX_ERR(1, 45, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 45, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_old_range)) __PYX_ERR(1, 44, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 45, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 45, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(1, 45, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 45, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 45, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 44, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 44, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 45, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 44, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -5862,13 +5855,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_old_np.diminfo[0].strides = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_old_np.diminfo[0].shape = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 45, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 44, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_old_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "AdvancedMathematics.pyx":44
+    /* "AdvancedMathematics.pyx":43
  * 
  *     # Convert old_range to contiguous numpy array of float32 if not already
  *     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -5878,7 +5871,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":47
+  /* "AdvancedMathematics.pyx":46
  *         old_np = np.array(old_range, dtype=np.float32, order='C')
  *     else:
  *         old_np = old_range             # <<<<<<<<<<<<<<
@@ -5886,7 +5879,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
  *     # Same for new_range
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_old_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_old_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 47, __pyx_L1_error)
+    if (!(likely(((__pyx_v_old_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_old_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 46, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_old_range;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -5904,14 +5897,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_old_np.diminfo[0].strides = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_old_np.diminfo[0].shape = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 47, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 46, __pyx_L1_error)
     }
     __pyx_v_old_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":50
+  /* "AdvancedMathematics.pyx":49
  * 
  *     # Same for new_range
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -5925,68 +5918,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 50, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 50, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":51
+    /* "AdvancedMathematics.pyx":50
  *     # Same for new_range
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:
  *         new_np = np.array(new_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         new_np = new_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 51, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 51, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 51, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_new_range);
     __Pyx_GIVEREF(__pyx_v_new_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_new_range)) __PYX_ERR(1, 51, __pyx_L1_error);
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 51, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_new_range)) __PYX_ERR(1, 50, __pyx_L1_error);
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 51, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 51, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(1, 51, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 51, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 51, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 50, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 50, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 51, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 50, __pyx_L1_error)
     __pyx_t_14 = ((PyArrayObject *)__pyx_t_7);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6003,13 +5996,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_new_np.diminfo[0].strides = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_new_np.diminfo[0].shape = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 51, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 50, __pyx_L1_error)
     }
     __pyx_t_14 = 0;
     __pyx_v_new_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "AdvancedMathematics.pyx":50
+    /* "AdvancedMathematics.pyx":49
  * 
  *     # Same for new_range
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6019,7 +6012,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":53
+  /* "AdvancedMathematics.pyx":52
  *         new_np = np.array(new_range, dtype=np.float32, order='C')
  *     else:
  *         new_np = new_range             # <<<<<<<<<<<<<<
@@ -6027,7 +6020,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
  *     old_ptr = <const float*> &old_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_new_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_new_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 53, __pyx_L1_error)
+    if (!(likely(((__pyx_v_new_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_new_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 52, __pyx_L1_error)
     __pyx_t_7 = __pyx_v_new_range;
     __Pyx_INCREF(__pyx_t_7);
     {
@@ -6045,14 +6038,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_new_np.diminfo[0].strides = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_new_np.diminfo[0].shape = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 53, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 52, __pyx_L1_error)
     }
     __pyx_v_new_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":55
+  /* "AdvancedMathematics.pyx":54
  *         new_np = new_range
  * 
  *     old_ptr = <const float*> &old_np[0]             # <<<<<<<<<<<<<<
@@ -6062,7 +6055,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
   __pyx_t_15 = 0;
   __pyx_v_old_ptr = ((float const *)(&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_old_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_old_np.diminfo[0].strides))));
 
-  /* "AdvancedMathematics.pyx":56
+  /* "AdvancedMathematics.pyx":55
  * 
  *     old_ptr = <const float*> &old_np[0]
  *     new_ptr = <const float*> &new_np[0]             # <<<<<<<<<<<<<<
@@ -6072,7 +6065,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
   __pyx_t_15 = 0;
   __pyx_v_new_ptr = ((float const *)(&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_new_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_new_np.diminfo[0].strides))));
 
-  /* "AdvancedMathematics.pyx":58
+  /* "AdvancedMathematics.pyx":57
  *     new_ptr = <const float*> &new_np[0]
  * 
  *     return CPP_Ranger(value, old_ptr, new_ptr)             # <<<<<<<<<<<<<<
@@ -6080,14 +6073,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
  * def ArrayRanger(values, old_range, new_range):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_16 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_16 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 58, __pyx_L1_error)
-  __pyx_t_7 = PyFloat_FromDouble(CPP_Ranger(__pyx_t_16, __pyx_v_old_ptr, __pyx_v_new_ptr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 58, __pyx_L1_error)
+  __pyx_t_16 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_16 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 57, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble(CPP_Ranger(__pyx_t_16, __pyx_v_old_ptr, __pyx_v_new_ptr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_r = __pyx_t_7;
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":36
+  /* "AdvancedMathematics.pyx":35
  *     return CPP_SmoothStep(value)
  * 
  * def Ranger(value, old_range, new_range):             # <<<<<<<<<<<<<<
@@ -6123,7 +6116,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_10Ranger(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":60
+/* "AdvancedMathematics.pyx":59
  *     return CPP_Ranger(value, old_ptr, new_ptr)
  * 
  * def ArrayRanger(values, old_range, new_range):             # <<<<<<<<<<<<<<
@@ -6190,7 +6183,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 59, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -6198,9 +6191,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 59, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("ArrayRanger", 1, 3, 3, 1); __PYX_ERR(1, 60, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("ArrayRanger", 1, 3, 3, 1); __PYX_ERR(1, 59, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -6208,14 +6201,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 59, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("ArrayRanger", 1, 3, 3, 2); __PYX_ERR(1, 60, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("ArrayRanger", 1, 3, 3, 2); __PYX_ERR(1, 59, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "ArrayRanger") < 0)) __PYX_ERR(1, 60, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "ArrayRanger") < 0)) __PYX_ERR(1, 59, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -6230,7 +6223,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("ArrayRanger", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 60, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("ArrayRanger", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 59, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -6316,7 +6309,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "AdvancedMathematics.pyx":74
+  /* "AdvancedMathematics.pyx":73
  * 
  *     # Convert 'values' to numpy float32 contiguous array
  *     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6330,68 +6323,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 74, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":75
+    /* "AdvancedMathematics.pyx":74
  *     # Convert 'values' to numpy float32 contiguous array
  *     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
  *         values_np = np.array(values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         values_np = values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 75, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 75, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 75, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_values);
     __Pyx_GIVEREF(__pyx_v_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(1, 75, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 75, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_values)) __PYX_ERR(1, 74, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 75, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 75, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(1, 75, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 75, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 75, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 74, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 75, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 74, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6408,13 +6401,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 75, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 74, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "AdvancedMathematics.pyx":74
+    /* "AdvancedMathematics.pyx":73
  * 
  *     # Convert 'values' to numpy float32 contiguous array
  *     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6424,7 +6417,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":77
+  /* "AdvancedMathematics.pyx":76
  *         values_np = np.array(values, dtype=np.float32, order='C')
  *     else:
  *         values_np = values             # <<<<<<<<<<<<<<
@@ -6432,7 +6425,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
  *     length = values_np.shape[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 77, __pyx_L1_error)
+    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 76, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_values;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -6450,24 +6443,24 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 77, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 76, __pyx_L1_error)
     }
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":79
+  /* "AdvancedMathematics.pyx":78
  *         values_np = values
  * 
  *     length = values_np.shape[0]             # <<<<<<<<<<<<<<
  *     values_ptr = &values_np[0]
  * 
  */
-  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(1, 79, __pyx_L1_error)
+  __pyx_t_14 = __pyx_f_5numpy_7ndarray_5shape_shape(((PyArrayObject *)__pyx_v_values_np)); if (unlikely(__pyx_t_14 == ((npy_intp *)NULL) && PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L1_error)
   __pyx_v_length = (__pyx_t_14[0]);
 
-  /* "AdvancedMathematics.pyx":80
+  /* "AdvancedMathematics.pyx":79
  * 
  *     length = values_np.shape[0]
  *     values_ptr = &values_np[0]             # <<<<<<<<<<<<<<
@@ -6477,41 +6470,41 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   __pyx_t_15 = 0;
   __pyx_v_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_values_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":82
+  /* "AdvancedMathematics.pyx":81
  *     values_ptr = &values_np[0]
  * 
  *     out_np = np.empty(length, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     out_ptr = &out_np[0]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_8);
-  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(1, 82, __pyx_L1_error);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8)) __PYX_ERR(1, 81, __pyx_L1_error);
   __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 82, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(1, 82, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 82, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 82, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 81, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 82, __pyx_L1_error)
+  if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 81, __pyx_L1_error)
   __pyx_t_16 = ((PyArrayObject *)__pyx_t_7);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6528,13 +6521,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
       __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
     }
     __pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 82, __pyx_L1_error)
+    if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 81, __pyx_L1_error)
   }
   __pyx_t_16 = 0;
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "AdvancedMathematics.pyx":83
+  /* "AdvancedMathematics.pyx":82
  * 
  *     out_np = np.empty(length, dtype=np.float32, order='C')
  *     out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
@@ -6544,7 +6537,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   __pyx_t_15 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":86
+  /* "AdvancedMathematics.pyx":85
  * 
  *     # Convert old_range and new_range as before
  *     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6558,68 +6551,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyObject_RichCompare(__pyx_t_7, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_8 = PyObject_RichCompare(__pyx_t_7, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_old_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_8, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":87
+    /* "AdvancedMathematics.pyx":86
  *     # Convert old_range and new_range as before
  *     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:
  *         old_np = np.array(old_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         old_np = old_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 87, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 87, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 87, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_old_range);
     __Pyx_GIVEREF(__pyx_v_old_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_old_range)) __PYX_ERR(1, 87, __pyx_L1_error);
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 87, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_old_range)) __PYX_ERR(1, 86, __pyx_L1_error);
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 87, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 87, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(1, 87, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 87, __pyx_L1_error)
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 87, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 86, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 86, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 87, __pyx_L1_error)
+    if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 86, __pyx_L1_error)
     __pyx_t_17 = ((PyArrayObject *)__pyx_t_5);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6636,13 +6629,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_old_np.diminfo[0].strides = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_old_np.diminfo[0].shape = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 87, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 86, __pyx_L1_error)
     }
     __pyx_t_17 = 0;
     __pyx_v_old_np = ((PyArrayObject *)__pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "AdvancedMathematics.pyx":86
+    /* "AdvancedMathematics.pyx":85
  * 
  *     # Convert old_range and new_range as before
  *     if not isinstance(old_range, np.ndarray) or old_range.dtype != np.float32 or not old_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6652,7 +6645,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":89
+  /* "AdvancedMathematics.pyx":88
  *         old_np = np.array(old_range, dtype=np.float32, order='C')
  *     else:
  *         old_np = old_range             # <<<<<<<<<<<<<<
@@ -6660,7 +6653,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_old_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_old_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 89, __pyx_L1_error)
+    if (!(likely(((__pyx_v_old_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_old_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 88, __pyx_L1_error)
     __pyx_t_5 = __pyx_v_old_range;
     __Pyx_INCREF(__pyx_t_5);
     {
@@ -6678,14 +6671,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_old_np.diminfo[0].strides = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_old_np.diminfo[0].shape = __pyx_pybuffernd_old_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 89, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 88, __pyx_L1_error)
     }
     __pyx_v_old_np = ((PyArrayObject *)__pyx_t_5);
     __pyx_t_5 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":91
+  /* "AdvancedMathematics.pyx":90
  *         old_np = old_range
  * 
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6699,68 +6692,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_dtype); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyObject_RichCompare(__pyx_t_5, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_7 = PyObject_RichCompare(__pyx_t_5, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_new_range, __pyx_n_s_flags); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_7, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_7, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L12_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":92
+    /* "AdvancedMathematics.pyx":91
  * 
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:
  *         new_np = np.array(new_range, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         new_np = new_range
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 92, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 92, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 92, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_new_range);
     __Pyx_GIVEREF(__pyx_v_new_range);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_new_range)) __PYX_ERR(1, 92, __pyx_L1_error);
-    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 92, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_new_range)) __PYX_ERR(1, 91, __pyx_L1_error);
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 92, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 92, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 92, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 92, __pyx_L1_error)
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 92, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 91, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 92, __pyx_L1_error)
+    if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 91, __pyx_L1_error)
     __pyx_t_18 = ((PyArrayObject *)__pyx_t_4);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -6777,13 +6770,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_new_np.diminfo[0].strides = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_new_np.diminfo[0].shape = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 92, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 91, __pyx_L1_error)
     }
     __pyx_t_18 = 0;
     __pyx_v_new_np = ((PyArrayObject *)__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "AdvancedMathematics.pyx":91
+    /* "AdvancedMathematics.pyx":90
  *         old_np = old_range
  * 
  *     if not isinstance(new_range, np.ndarray) or new_range.dtype != np.float32 or not new_range.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -6793,7 +6786,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     goto __pyx_L11;
   }
 
-  /* "AdvancedMathematics.pyx":94
+  /* "AdvancedMathematics.pyx":93
  *         new_np = np.array(new_range, dtype=np.float32, order='C')
  *     else:
  *         new_np = new_range             # <<<<<<<<<<<<<<
@@ -6801,7 +6794,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
  *     old_ptr = &old_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_new_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_new_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 94, __pyx_L1_error)
+    if (!(likely(((__pyx_v_new_range) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_new_range, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 93, __pyx_L1_error)
     __pyx_t_4 = __pyx_v_new_range;
     __Pyx_INCREF(__pyx_t_4);
     {
@@ -6819,14 +6812,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_new_np.diminfo[0].strides = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_new_np.diminfo[0].shape = __pyx_pybuffernd_new_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 94, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 93, __pyx_L1_error)
     }
     __pyx_v_new_np = ((PyArrayObject *)__pyx_t_4);
     __pyx_t_4 = 0;
   }
   __pyx_L11:;
 
-  /* "AdvancedMathematics.pyx":96
+  /* "AdvancedMathematics.pyx":95
  *         new_np = new_range
  * 
  *     old_ptr = &old_np[0]             # <<<<<<<<<<<<<<
@@ -6836,7 +6829,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   __pyx_t_15 = 0;
   __pyx_v_old_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_old_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_old_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":97
+  /* "AdvancedMathematics.pyx":96
  * 
  *     old_ptr = &old_np[0]
  *     new_ptr = &new_np[0]             # <<<<<<<<<<<<<<
@@ -6846,7 +6839,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   __pyx_t_15 = 0;
   __pyx_v_new_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_new_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_new_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":100
+  /* "AdvancedMathematics.pyx":99
  * 
  *     # Call C++ function
  *     CPP_ArrayRanger(values_ptr, length, old_ptr, new_ptr, out_ptr)             # <<<<<<<<<<<<<<
@@ -6855,7 +6848,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
  */
   CPP_ArrayRanger(__pyx_v_values_ptr, __pyx_v_length, __pyx_v_old_ptr, __pyx_v_new_ptr, __pyx_v_out_ptr);
 
-  /* "AdvancedMathematics.pyx":102
+  /* "AdvancedMathematics.pyx":101
  *     CPP_ArrayRanger(values_ptr, length, old_ptr, new_ptr, out_ptr)
  * 
  *     if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
@@ -6865,7 +6858,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   __pyx_t_1 = __Pyx_TypeCheck(__pyx_v_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":103
+    /* "AdvancedMathematics.pyx":102
  * 
  *     if isinstance(values, np.ndarray):
  *         return out_np             # <<<<<<<<<<<<<<
@@ -6877,7 +6870,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "AdvancedMathematics.pyx":102
+    /* "AdvancedMathematics.pyx":101
  *     CPP_ArrayRanger(values_ptr, length, old_ptr, new_ptr, out_ptr)
  * 
  *     if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
@@ -6886,7 +6879,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
  */
   }
 
-  /* "AdvancedMathematics.pyx":105
+  /* "AdvancedMathematics.pyx":104
  *         return out_np
  *     else:
  *         return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -6895,7 +6888,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 105, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     __pyx_t_10 = 0;
@@ -6915,7 +6908,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
       PyObject *__pyx_callargs[2] = {__pyx_t_6, NULL};
       __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+1-__pyx_t_10, 0+__pyx_t_10);
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 105, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 104, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -6924,7 +6917,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
     goto __pyx_L0;
   }
 
-  /* "AdvancedMathematics.pyx":60
+  /* "AdvancedMathematics.pyx":59
  *     return CPP_Ranger(value, old_ptr, new_ptr)
  * 
  * def ArrayRanger(values, old_range, new_range):             # <<<<<<<<<<<<<<
@@ -6966,7 +6959,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_12ArrayRanger(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":107
+/* "AdvancedMathematics.pyx":106
  *         return out_np.tolist()
  * 
  * def ArrayNormalize(values):             # <<<<<<<<<<<<<<
@@ -7027,12 +7020,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 107, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 106, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "ArrayNormalize") < 0)) __PYX_ERR(1, 107, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "ArrayNormalize") < 0)) __PYX_ERR(1, 106, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -7043,7 +7036,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("ArrayNormalize", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 107, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("ArrayNormalize", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 106, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7109,39 +7102,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "AdvancedMathematics.pyx":110
+  /* "AdvancedMathematics.pyx":109
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* values_ptr
  *         float* out_ptr = &out_np[0]
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 110, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 110, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 110, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 109, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 110, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 109, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 110, __pyx_L1_error)
+      __PYX_ERR(1, 109, __pyx_L1_error)
     } else {__pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -7149,7 +7142,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AdvancedMathematics.pyx":112
+  /* "AdvancedMathematics.pyx":111
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')
  *         const float* values_ptr
  *         float* out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
@@ -7159,7 +7152,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
   __pyx_t_6 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":115
+  /* "AdvancedMathematics.pyx":114
  * 
  *     # Convert 'values' to numpy float32 contiguous array
  *     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7173,68 +7166,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 114, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":116
+    /* "AdvancedMathematics.pyx":115
  *     # Convert 'values' to numpy float32 contiguous array
  *     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
  *         values_np = np.array(values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         values_np = values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 116, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 116, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 116, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_values);
     __Pyx_GIVEREF(__pyx_v_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_values)) __PYX_ERR(1, 116, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 116, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_values)) __PYX_ERR(1, 115, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 116, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 116, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 116, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 116, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 116, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 115, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 116, __pyx_L1_error)
+    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 115, __pyx_L1_error)
     __pyx_t_11 = ((PyArrayObject *)__pyx_t_10);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7251,13 +7244,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 116, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 115, __pyx_L1_error)
     }
     __pyx_t_11 = 0;
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "AdvancedMathematics.pyx":115
+    /* "AdvancedMathematics.pyx":114
  * 
  *     # Convert 'values' to numpy float32 contiguous array
  *     if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7267,7 +7260,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":118
+  /* "AdvancedMathematics.pyx":117
  *         values_np = np.array(values, dtype=np.float32, order='C')
  *     else:
  *         values_np = values             # <<<<<<<<<<<<<<
@@ -7275,7 +7268,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
  *     values_ptr = &values_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 118, __pyx_L1_error)
+    if (!(likely(((__pyx_v_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 117, __pyx_L1_error)
     __pyx_t_10 = __pyx_v_values;
     __Pyx_INCREF(__pyx_t_10);
     {
@@ -7293,14 +7286,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_values_np.diminfo[0].strides = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_values_np.diminfo[0].shape = __pyx_pybuffernd_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 118, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 117, __pyx_L1_error)
     }
     __pyx_v_values_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":120
+  /* "AdvancedMathematics.pyx":119
  *         values_np = values
  * 
  *     values_ptr = &values_np[0]             # <<<<<<<<<<<<<<
@@ -7310,7 +7303,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
   __pyx_t_6 = 0;
   __pyx_v_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_values_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":122
+  /* "AdvancedMathematics.pyx":121
  *     values_ptr = &values_np[0]
  * 
  *     CPP_ArrayNormalize(values_ptr, out_ptr)             # <<<<<<<<<<<<<<
@@ -7319,47 +7312,47 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
  */
   CPP_ArrayNormalize(__pyx_v_values_ptr, __pyx_v_out_ptr);
 
-  /* "AdvancedMathematics.pyx":124
+  /* "AdvancedMathematics.pyx":123
  *     CPP_ArrayNormalize(values_ptr, out_ptr)
  * 
  *     if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
- *         return values_np
+ *         return out_np
  *     else:
  */
   __pyx_t_7 = __Pyx_TypeCheck(__pyx_v_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":125
+    /* "AdvancedMathematics.pyx":124
  * 
  *     if isinstance(values, np.ndarray):
- *         return values_np             # <<<<<<<<<<<<<<
+ *         return out_np             # <<<<<<<<<<<<<<
  *     else:
- *         return values_np.tolist()
+ *         return out_np.tolist()
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_INCREF((PyObject *)__pyx_v_values_np);
-    __pyx_r = ((PyObject *)__pyx_v_values_np);
+    __Pyx_INCREF((PyObject *)__pyx_v_out_np);
+    __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "AdvancedMathematics.pyx":124
+    /* "AdvancedMathematics.pyx":123
  *     CPP_ArrayNormalize(values_ptr, out_ptr)
  * 
  *     if isinstance(values, np.ndarray):             # <<<<<<<<<<<<<<
- *         return values_np
+ *         return out_np
  *     else:
  */
   }
 
-  /* "AdvancedMathematics.pyx":127
- *         return values_np
+  /* "AdvancedMathematics.pyx":126
+ *         return out_np
  *     else:
- *         return values_np.tolist()             # <<<<<<<<<<<<<<
+ *         return out_np.tolist()             # <<<<<<<<<<<<<<
  * 
  * def Cross(first_values, second_values):
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_values_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 127, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 126, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_2 = NULL;
     __pyx_t_12 = 0;
@@ -7379,7 +7372,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
       PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
       __pyx_t_10 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_12, 0+__pyx_t_12);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 127, __pyx_L1_error)
+      if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 126, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -7388,7 +7381,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
     goto __pyx_L0;
   }
 
-  /* "AdvancedMathematics.pyx":107
+  /* "AdvancedMathematics.pyx":106
  *         return out_np.tolist()
  * 
  * def ArrayNormalize(values):             # <<<<<<<<<<<<<<
@@ -7424,8 +7417,8 @@ static PyObject *__pyx_pf_19AdvancedMathematics_14ArrayNormalize(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":129
- *         return values_np.tolist()
+/* "AdvancedMathematics.pyx":128
+ *         return out_np.tolist()
  * 
  * def Cross(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
@@ -7488,7 +7481,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 129, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 128, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -7496,14 +7489,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 129, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 128, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("Cross", 1, 2, 2, 1); __PYX_ERR(1, 129, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Cross", 1, 2, 2, 1); __PYX_ERR(1, 128, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Cross") < 0)) __PYX_ERR(1, 129, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Cross") < 0)) __PYX_ERR(1, 128, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -7516,7 +7509,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("Cross", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 129, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("Cross", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 128, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -7591,39 +7584,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "AdvancedMathematics.pyx":133
+  /* "AdvancedMathematics.pyx":132
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] second_values_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* first_values_ptr
  *         const float* second_values_ptr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 133, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 133, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 133, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 133, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 133, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 133, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 133, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 133, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 132, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 133, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 132, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 133, __pyx_L1_error)
+      __PYX_ERR(1, 132, __pyx_L1_error)
     } else {__pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -7631,7 +7624,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AdvancedMathematics.pyx":136
+  /* "AdvancedMathematics.pyx":135
  *         const float* first_values_ptr
  *         const float* second_values_ptr
  *         float* out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
@@ -7641,7 +7634,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   __pyx_t_6 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":138
+  /* "AdvancedMathematics.pyx":137
  *         float* out_ptr = &out_np[0]
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7655,68 +7648,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 138, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 138, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":139
+    /* "AdvancedMathematics.pyx":138
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:
  *         first_values_np = np.array(first_values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         first_values_np = first_values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 139, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 139, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 139, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_first_values);
     __Pyx_GIVEREF(__pyx_v_first_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_first_values)) __PYX_ERR(1, 139, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 139, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_first_values)) __PYX_ERR(1, 138, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 139, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 139, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 139, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 139, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 139, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 138, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 138, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 139, __pyx_L1_error)
+    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 138, __pyx_L1_error)
     __pyx_t_11 = ((PyArrayObject *)__pyx_t_10);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7733,13 +7726,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_first_values_np.diminfo[0].strides = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_first_values_np.diminfo[0].shape = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 139, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 138, __pyx_L1_error)
     }
     __pyx_t_11 = 0;
     __pyx_v_first_values_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "AdvancedMathematics.pyx":138
+    /* "AdvancedMathematics.pyx":137
  *         float* out_ptr = &out_np[0]
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7749,7 +7742,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":141
+  /* "AdvancedMathematics.pyx":140
  *         first_values_np = np.array(first_values, dtype=np.float32, order='C')
  *     else:
  *         first_values_np = first_values             # <<<<<<<<<<<<<<
@@ -7757,7 +7750,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_first_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 141, __pyx_L1_error)
+    if (!(likely(((__pyx_v_first_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 140, __pyx_L1_error)
     __pyx_t_10 = __pyx_v_first_values;
     __Pyx_INCREF(__pyx_t_10);
     {
@@ -7775,14 +7768,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_first_values_np.diminfo[0].strides = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_first_values_np.diminfo[0].shape = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 141, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 140, __pyx_L1_error)
     }
     __pyx_v_first_values_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":143
+  /* "AdvancedMathematics.pyx":142
  *         first_values_np = first_values
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7796,68 +7789,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 143, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_10, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_10, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 143, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":144
+    /* "AdvancedMathematics.pyx":143
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:
  *         second_values_np = np.array(second_values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         second_values_np = second_values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 144, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 144, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 144, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_second_values);
     __Pyx_GIVEREF(__pyx_v_second_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_second_values)) __PYX_ERR(1, 144, __pyx_L1_error);
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 144, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_second_values)) __PYX_ERR(1, 143, __pyx_L1_error);
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 144, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 144, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 144, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 144, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 144, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 143, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 143, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 144, __pyx_L1_error)
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 143, __pyx_L1_error)
     __pyx_t_16 = ((PyArrayObject *)__pyx_t_3);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -7874,13 +7867,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_second_values_np.diminfo[0].strides = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_second_values_np.diminfo[0].shape = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 144, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 143, __pyx_L1_error)
     }
     __pyx_t_16 = 0;
     __pyx_v_second_values_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AdvancedMathematics.pyx":143
+    /* "AdvancedMathematics.pyx":142
  *         first_values_np = first_values
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -7890,7 +7883,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":146
+  /* "AdvancedMathematics.pyx":145
  *         second_values_np = np.array(second_values, dtype=np.float32, order='C')
  *     else:
  *         second_values_np = second_values             # <<<<<<<<<<<<<<
@@ -7898,7 +7891,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
  *     first_values_ptr = &first_values_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_second_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 146, __pyx_L1_error)
+    if (!(likely(((__pyx_v_second_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 145, __pyx_L1_error)
     __pyx_t_3 = __pyx_v_second_values;
     __Pyx_INCREF(__pyx_t_3);
     {
@@ -7916,14 +7909,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_second_values_np.diminfo[0].strides = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_second_values_np.diminfo[0].shape = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 146, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 145, __pyx_L1_error)
     }
     __pyx_v_second_values_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":148
+  /* "AdvancedMathematics.pyx":147
  *         second_values_np = second_values
  * 
  *     first_values_ptr = &first_values_np[0]             # <<<<<<<<<<<<<<
@@ -7933,7 +7926,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   __pyx_t_6 = 0;
   __pyx_v_first_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_first_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":149
+  /* "AdvancedMathematics.pyx":148
  * 
  *     first_values_ptr = &first_values_np[0]
  *     second_values_ptr = &second_values_np[0]             # <<<<<<<<<<<<<<
@@ -7943,7 +7936,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   __pyx_t_6 = 0;
   __pyx_v_second_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_second_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":151
+  /* "AdvancedMathematics.pyx":150
  *     second_values_ptr = &second_values_np[0]
  * 
  *     CPP_Cross(first_values_ptr, second_values_ptr, out_ptr)             # <<<<<<<<<<<<<<
@@ -7952,7 +7945,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
  */
   CPP_Cross(__pyx_v_first_values_ptr, __pyx_v_second_values_ptr, __pyx_v_out_ptr);
 
-  /* "AdvancedMathematics.pyx":153
+  /* "AdvancedMathematics.pyx":152
  *     CPP_Cross(first_values_ptr, second_values_ptr, out_ptr)
  * 
  *     if isinstance(first_values, np.ndarray):             # <<<<<<<<<<<<<<
@@ -7962,7 +7955,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   __pyx_t_7 = __Pyx_TypeCheck(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":154
+    /* "AdvancedMathematics.pyx":153
  * 
  *     if isinstance(first_values, np.ndarray):
  *         return out_np             # <<<<<<<<<<<<<<
@@ -7974,7 +7967,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "AdvancedMathematics.pyx":153
+    /* "AdvancedMathematics.pyx":152
  *     CPP_Cross(first_values_ptr, second_values_ptr, out_ptr)
  * 
  *     if isinstance(first_values, np.ndarray):             # <<<<<<<<<<<<<<
@@ -7983,7 +7976,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
  */
   }
 
-  /* "AdvancedMathematics.pyx":156
+  /* "AdvancedMathematics.pyx":155
  *         return out_np
  *     else:
  *         return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -7992,7 +7985,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 156, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 155, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_2 = NULL;
     __pyx_t_12 = 0;
@@ -8012,7 +8005,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
       PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_12, 0+__pyx_t_12);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 156, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 155, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
@@ -8021,8 +8014,8 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
     goto __pyx_L0;
   }
 
-  /* "AdvancedMathematics.pyx":129
- *         return values_np.tolist()
+  /* "AdvancedMathematics.pyx":128
+ *         return out_np.tolist()
  * 
  * def Cross(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
@@ -8060,7 +8053,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_16Cross(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":158
+/* "AdvancedMathematics.pyx":157
  *         return out_np.tolist()
  * 
  * def Subtract(first_values, second_values):             # <<<<<<<<<<<<<<
@@ -8124,7 +8117,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 158, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 157, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -8132,14 +8125,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 158, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 157, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("Subtract", 1, 2, 2, 1); __PYX_ERR(1, 158, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Subtract", 1, 2, 2, 1); __PYX_ERR(1, 157, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Subtract") < 0)) __PYX_ERR(1, 158, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Subtract") < 0)) __PYX_ERR(1, 157, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -8152,7 +8145,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("Subtract", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 158, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("Subtract", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 157, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8227,39 +8220,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "AdvancedMathematics.pyx":162
+  /* "AdvancedMathematics.pyx":161
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] second_values_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* first_values_ptr
  *         const float* second_values_ptr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 162, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 162, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 162, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 162, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 162, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 162, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 162, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 162, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 161, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 161, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 162, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 161, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 162, __pyx_L1_error)
+      __PYX_ERR(1, 161, __pyx_L1_error)
     } else {__pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -8267,7 +8260,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AdvancedMathematics.pyx":165
+  /* "AdvancedMathematics.pyx":164
  *         const float* first_values_ptr
  *         const float* second_values_ptr
  *         float* out_ptr = &out_np[0]             # <<<<<<<<<<<<<<
@@ -8277,7 +8270,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   __pyx_t_6 = 0;
   __pyx_v_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":167
+  /* "AdvancedMathematics.pyx":166
  *         float* out_ptr = &out_np[0]
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8291,68 +8284,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 167, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 166, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":168
+    /* "AdvancedMathematics.pyx":167
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:
  *         first_values_np = np.array(first_values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         first_values_np = first_values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 168, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 168, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 168, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_first_values);
     __Pyx_GIVEREF(__pyx_v_first_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_first_values)) __PYX_ERR(1, 168, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 168, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_first_values)) __PYX_ERR(1, 167, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 168, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 168, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 168, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 168, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 168, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 167, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 167, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 168, __pyx_L1_error)
+    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 167, __pyx_L1_error)
     __pyx_t_11 = ((PyArrayObject *)__pyx_t_10);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8369,13 +8362,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_first_values_np.diminfo[0].strides = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_first_values_np.diminfo[0].shape = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 168, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 167, __pyx_L1_error)
     }
     __pyx_t_11 = 0;
     __pyx_v_first_values_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "AdvancedMathematics.pyx":167
+    /* "AdvancedMathematics.pyx":166
  *         float* out_ptr = &out_np[0]
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8385,7 +8378,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":170
+  /* "AdvancedMathematics.pyx":169
  *         first_values_np = np.array(first_values, dtype=np.float32, order='C')
  *     else:
  *         first_values_np = first_values             # <<<<<<<<<<<<<<
@@ -8393,7 +8386,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_first_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 170, __pyx_L1_error)
+    if (!(likely(((__pyx_v_first_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 169, __pyx_L1_error)
     __pyx_t_10 = __pyx_v_first_values;
     __Pyx_INCREF(__pyx_t_10);
     {
@@ -8411,14 +8404,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_first_values_np.diminfo[0].strides = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_first_values_np.diminfo[0].shape = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 170, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 169, __pyx_L1_error)
     }
     __pyx_v_first_values_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":172
+  /* "AdvancedMathematics.pyx":171
  *         first_values_np = first_values
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8432,68 +8425,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_10, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_10, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":173
+    /* "AdvancedMathematics.pyx":172
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:
  *         second_values_np = np.array(second_values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         second_values_np = second_values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 173, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 173, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 173, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_second_values);
     __Pyx_GIVEREF(__pyx_v_second_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_second_values)) __PYX_ERR(1, 173, __pyx_L1_error);
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 173, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_second_values)) __PYX_ERR(1, 172, __pyx_L1_error);
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 173, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 173, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 173, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 173, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 173, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 172, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 173, __pyx_L1_error)
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 172, __pyx_L1_error)
     __pyx_t_16 = ((PyArrayObject *)__pyx_t_3);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8510,13 +8503,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_second_values_np.diminfo[0].strides = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_second_values_np.diminfo[0].shape = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 173, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 172, __pyx_L1_error)
     }
     __pyx_t_16 = 0;
     __pyx_v_second_values_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AdvancedMathematics.pyx":172
+    /* "AdvancedMathematics.pyx":171
  *         first_values_np = first_values
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8526,7 +8519,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":175
+  /* "AdvancedMathematics.pyx":174
  *         second_values_np = np.array(second_values, dtype=np.float32, order='C')
  *     else:
  *         second_values_np = second_values             # <<<<<<<<<<<<<<
@@ -8534,7 +8527,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
  *     first_values_ptr = &first_values_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_second_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 175, __pyx_L1_error)
+    if (!(likely(((__pyx_v_second_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 174, __pyx_L1_error)
     __pyx_t_3 = __pyx_v_second_values;
     __Pyx_INCREF(__pyx_t_3);
     {
@@ -8552,14 +8545,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_second_values_np.diminfo[0].strides = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_second_values_np.diminfo[0].shape = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 175, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 174, __pyx_L1_error)
     }
     __pyx_v_second_values_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":177
+  /* "AdvancedMathematics.pyx":176
  *         second_values_np = second_values
  * 
  *     first_values_ptr = &first_values_np[0]             # <<<<<<<<<<<<<<
@@ -8569,7 +8562,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   __pyx_t_6 = 0;
   __pyx_v_first_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_first_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":178
+  /* "AdvancedMathematics.pyx":177
  * 
  *     first_values_ptr = &first_values_np[0]
  *     second_values_ptr = &second_values_np[0]             # <<<<<<<<<<<<<<
@@ -8579,7 +8572,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   __pyx_t_6 = 0;
   __pyx_v_second_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_second_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":180
+  /* "AdvancedMathematics.pyx":179
  *     second_values_ptr = &second_values_np[0]
  * 
  *     CPP_Subtract(first_values_ptr, second_values_ptr, out_ptr)             # <<<<<<<<<<<<<<
@@ -8588,7 +8581,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
  */
   CPP_Subtract(__pyx_v_first_values_ptr, __pyx_v_second_values_ptr, __pyx_v_out_ptr);
 
-  /* "AdvancedMathematics.pyx":182
+  /* "AdvancedMathematics.pyx":181
  *     CPP_Subtract(first_values_ptr, second_values_ptr, out_ptr)
  * 
  *     if isinstance(first_values, np.ndarray):             # <<<<<<<<<<<<<<
@@ -8598,7 +8591,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   __pyx_t_7 = __Pyx_TypeCheck(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":183
+    /* "AdvancedMathematics.pyx":182
  * 
  *     if isinstance(first_values, np.ndarray):
  *         return out_np             # <<<<<<<<<<<<<<
@@ -8610,7 +8603,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "AdvancedMathematics.pyx":182
+    /* "AdvancedMathematics.pyx":181
  *     CPP_Subtract(first_values_ptr, second_values_ptr, out_ptr)
  * 
  *     if isinstance(first_values, np.ndarray):             # <<<<<<<<<<<<<<
@@ -8619,7 +8612,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
  */
   }
 
-  /* "AdvancedMathematics.pyx":185
+  /* "AdvancedMathematics.pyx":184
  *         return out_np
  *     else:
  *         return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -8628,7 +8621,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 185, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 184, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_2 = NULL;
     __pyx_t_12 = 0;
@@ -8648,7 +8641,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
       PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_10, __pyx_callargs+1-__pyx_t_12, 0+__pyx_t_12);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 185, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 184, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     }
@@ -8657,7 +8650,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
     goto __pyx_L0;
   }
 
-  /* "AdvancedMathematics.pyx":158
+  /* "AdvancedMathematics.pyx":157
  *         return out_np.tolist()
  * 
  * def Subtract(first_values, second_values):             # <<<<<<<<<<<<<<
@@ -8696,7 +8689,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_18Subtract(CYTHON_UNUSED PyObjec
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":187
+/* "AdvancedMathematics.pyx":186
  *         return out_np.tolist()
  * 
  * def Dot(first_values, second_values):             # <<<<<<<<<<<<<<
@@ -8760,7 +8753,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 186, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -8768,14 +8761,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 187, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 186, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("Dot", 1, 2, 2, 1); __PYX_ERR(1, 187, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("Dot", 1, 2, 2, 1); __PYX_ERR(1, 186, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Dot") < 0)) __PYX_ERR(1, 187, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "Dot") < 0)) __PYX_ERR(1, 186, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -8788,7 +8781,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("Dot", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 187, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("Dot", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 186, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -8854,7 +8847,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
   __pyx_pybuffernd_second_values_np.data = NULL;
   __pyx_pybuffernd_second_values_np.rcbuffer = &__pyx_pybuffer_second_values_np;
 
-  /* "AdvancedMathematics.pyx":194
+  /* "AdvancedMathematics.pyx":193
  *         const float* second_values_ptr
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8868,68 +8861,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 194, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_4, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_first_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 194, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 193, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":195
+    /* "AdvancedMathematics.pyx":194
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:
  *         first_values_np = np.array(first_values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         first_values_np = first_values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_first_values);
     __Pyx_GIVEREF(__pyx_v_first_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_first_values)) __PYX_ERR(1, 195, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 195, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_first_values)) __PYX_ERR(1, 194, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 195, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(1, 195, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 195, __pyx_L1_error)
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 195, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 194, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 195, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 194, __pyx_L1_error)
     __pyx_t_9 = ((PyArrayObject *)__pyx_t_8);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -8946,13 +8939,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_first_values_np.diminfo[0].strides = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_first_values_np.diminfo[0].shape = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 195, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 194, __pyx_L1_error)
     }
     __pyx_t_9 = 0;
     __pyx_v_first_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "AdvancedMathematics.pyx":194
+    /* "AdvancedMathematics.pyx":193
  *         const float* second_values_ptr
  * 
  *     if not isinstance(first_values, np.ndarray) or first_values.dtype != np.float32 or not first_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -8962,7 +8955,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":197
+  /* "AdvancedMathematics.pyx":196
  *         first_values_np = np.array(first_values, dtype=np.float32, order='C')
  *     else:
  *         first_values_np = first_values             # <<<<<<<<<<<<<<
@@ -8970,7 +8963,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_first_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 197, __pyx_L1_error)
+    if (!(likely(((__pyx_v_first_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_first_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 196, __pyx_L1_error)
     __pyx_t_8 = __pyx_v_first_values;
     __Pyx_INCREF(__pyx_t_8);
     {
@@ -8988,14 +8981,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_first_values_np.diminfo[0].strides = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_first_values_np.diminfo[0].shape = __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 197, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 196, __pyx_L1_error)
     }
     __pyx_v_first_values_np = ((PyArrayObject *)__pyx_t_8);
     __pyx_t_8 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":199
+  /* "AdvancedMathematics.pyx":198
  *         first_values_np = first_values
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9009,68 +9002,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_dtype); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_8, __pyx_t_6, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_3) {
   } else {
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_second_values, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely((__pyx_t_3 < 0))) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_2 = (!__pyx_t_3);
   __pyx_t_1 = __pyx_t_2;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "AdvancedMathematics.pyx":200
+    /* "AdvancedMathematics.pyx":199
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:
  *         second_values_np = np.array(second_values, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         second_values_np = second_values
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 200, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 200, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 200, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_second_values);
     __Pyx_GIVEREF(__pyx_v_second_values);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_second_values)) __PYX_ERR(1, 200, __pyx_L1_error);
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 200, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_second_values)) __PYX_ERR(1, 199, __pyx_L1_error);
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 200, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 200, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(1, 200, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 200, __pyx_L1_error)
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 200, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 199, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 199, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 200, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 199, __pyx_L1_error)
     __pyx_t_14 = ((PyArrayObject *)__pyx_t_7);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9087,13 +9080,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
         __pyx_t_11 = __pyx_t_12 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_second_values_np.diminfo[0].strides = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_second_values_np.diminfo[0].shape = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 200, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 199, __pyx_L1_error)
     }
     __pyx_t_14 = 0;
     __pyx_v_second_values_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "AdvancedMathematics.pyx":199
+    /* "AdvancedMathematics.pyx":198
  *         first_values_np = first_values
  * 
  *     if not isinstance(second_values, np.ndarray) or second_values.dtype != np.float32 or not second_values.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9103,7 +9096,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":202
+  /* "AdvancedMathematics.pyx":201
  *         second_values_np = np.array(second_values, dtype=np.float32, order='C')
  *     else:
  *         second_values_np = second_values             # <<<<<<<<<<<<<<
@@ -9111,7 +9104,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
  *     first_values_ptr = &first_values_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_second_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 202, __pyx_L1_error)
+    if (!(likely(((__pyx_v_second_values) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second_values, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 201, __pyx_L1_error)
     __pyx_t_7 = __pyx_v_second_values;
     __Pyx_INCREF(__pyx_t_7);
     {
@@ -9129,14 +9122,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
         __pyx_t_13 = __pyx_t_12 = __pyx_t_11 = 0;
       }
       __pyx_pybuffernd_second_values_np.diminfo[0].strides = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_second_values_np.diminfo[0].shape = __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 202, __pyx_L1_error)
+      if (unlikely((__pyx_t_10 < 0))) __PYX_ERR(1, 201, __pyx_L1_error)
     }
     __pyx_v_second_values_np = ((PyArrayObject *)__pyx_t_7);
     __pyx_t_7 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":204
+  /* "AdvancedMathematics.pyx":203
  *         second_values_np = second_values
  * 
  *     first_values_ptr = &first_values_np[0]             # <<<<<<<<<<<<<<
@@ -9146,7 +9139,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
   __pyx_t_15 = 0;
   __pyx_v_first_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_first_values_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_first_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":205
+  /* "AdvancedMathematics.pyx":204
  * 
  *     first_values_ptr = &first_values_np[0]
  *     second_values_ptr = &second_values_np[0]             # <<<<<<<<<<<<<<
@@ -9156,7 +9149,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
   __pyx_t_15 = 0;
   __pyx_v_second_values_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_second_values_np.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_second_values_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":207
+  /* "AdvancedMathematics.pyx":206
  *     second_values_ptr = &second_values_np[0]
  * 
  *     return CPP_Dot(first_values_ptr, second_values_ptr)             # <<<<<<<<<<<<<<
@@ -9164,13 +9157,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
  * def LookAt(eye, target, up):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_7 = PyFloat_FromDouble(CPP_Dot(__pyx_v_first_values_ptr, __pyx_v_second_values_ptr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 207, __pyx_L1_error)
+  __pyx_t_7 = PyFloat_FromDouble(CPP_Dot(__pyx_v_first_values_ptr, __pyx_v_second_values_ptr)); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 206, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_r = __pyx_t_7;
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":187
+  /* "AdvancedMathematics.pyx":186
  *         return out_np.tolist()
  * 
  * def Dot(first_values, second_values):             # <<<<<<<<<<<<<<
@@ -9206,7 +9199,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_20Dot(CYTHON_UNUSED PyObject *__
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":209
+/* "AdvancedMathematics.pyx":208
  *     return CPP_Dot(first_values_ptr, second_values_ptr)
  * 
  * def LookAt(eye, target, up):             # <<<<<<<<<<<<<<
@@ -9273,7 +9266,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 209, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 208, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -9281,9 +9274,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 209, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 208, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("LookAt", 1, 3, 3, 1); __PYX_ERR(1, 209, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LookAt", 1, 3, 3, 1); __PYX_ERR(1, 208, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -9291,14 +9284,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 209, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 208, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("LookAt", 1, 3, 3, 2); __PYX_ERR(1, 209, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("LookAt", 1, 3, 3, 2); __PYX_ERR(1, 208, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "LookAt") < 0)) __PYX_ERR(1, 209, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "LookAt") < 0)) __PYX_ERR(1, 208, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -9313,7 +9306,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("LookAt", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 209, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("LookAt", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 208, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -9398,39 +9391,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "AdvancedMathematics.pyx":214
+  /* "AdvancedMathematics.pyx":213
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] target_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] up_np
  *         np.ndarray[np.float32_t, ndim=2, mode='c'] out_np = np.empty((4, 4), dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* eye_ptr
  *         const float* target_ptr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 214, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 214, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 214, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 213, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 214, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 213, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 214, __pyx_L1_error)
+      __PYX_ERR(1, 213, __pyx_L1_error)
     } else {__pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_out_np.diminfo[1].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_out_np.diminfo[1].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -9438,17 +9431,17 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AdvancedMathematics.pyx":218
+  /* "AdvancedMathematics.pyx":217
  *         const float* target_ptr
  *         const float* up_ptr
  *         float* out_ptr = <float*> out_np.data             # <<<<<<<<<<<<<<
  * 
  *     if not isinstance(eye, np.ndarray) or eye.dtype != np.float32 or not eye.flags['C_CONTIGUOUS']:
  */
-  __pyx_t_6 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_out_np)); if (unlikely(__pyx_t_6 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(1, 218, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_out_np)); if (unlikely(__pyx_t_6 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(1, 217, __pyx_L1_error)
   __pyx_v_out_ptr = ((float *)__pyx_t_6);
 
-  /* "AdvancedMathematics.pyx":220
+  /* "AdvancedMathematics.pyx":219
  *         float* out_ptr = <float*> out_np.data
  * 
  *     if not isinstance(eye, np.ndarray) or eye.dtype != np.float32 or not eye.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9462,68 +9455,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_eye, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_eye, __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 220, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_1 = PyObject_RichCompare(__pyx_t_4, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_eye, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_eye, __pyx_n_s_flags); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_1, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 220, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 219, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":221
+    /* "AdvancedMathematics.pyx":220
  * 
  *     if not isinstance(eye, np.ndarray) or eye.dtype != np.float32 or not eye.flags['C_CONTIGUOUS']:
  *         eye_np = np.array(eye, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         eye_np = eye
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 221, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 221, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 221, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_eye);
     __Pyx_GIVEREF(__pyx_v_eye);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_eye)) __PYX_ERR(1, 221, __pyx_L1_error);
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 221, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_eye)) __PYX_ERR(1, 220, __pyx_L1_error);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 221, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 221, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 221, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 221, __pyx_L1_error)
-    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 221, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 220, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 221, __pyx_L1_error)
+    if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 220, __pyx_L1_error)
     __pyx_t_11 = ((PyArrayObject *)__pyx_t_10);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9540,13 +9533,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_eye_np.diminfo[0].strides = __pyx_pybuffernd_eye_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_eye_np.diminfo[0].shape = __pyx_pybuffernd_eye_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 221, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 220, __pyx_L1_error)
     }
     __pyx_t_11 = 0;
     __pyx_v_eye_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "AdvancedMathematics.pyx":220
+    /* "AdvancedMathematics.pyx":219
  *         float* out_ptr = <float*> out_np.data
  * 
  *     if not isinstance(eye, np.ndarray) or eye.dtype != np.float32 or not eye.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9556,7 +9549,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":223
+  /* "AdvancedMathematics.pyx":222
  *         eye_np = np.array(eye, dtype=np.float32, order='C')
  *     else:
  *         eye_np = eye             # <<<<<<<<<<<<<<
@@ -9564,7 +9557,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_eye) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_eye, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 223, __pyx_L1_error)
+    if (!(likely(((__pyx_v_eye) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_eye, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 222, __pyx_L1_error)
     __pyx_t_10 = __pyx_v_eye;
     __Pyx_INCREF(__pyx_t_10);
     {
@@ -9582,14 +9575,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_eye_np.diminfo[0].strides = __pyx_pybuffernd_eye_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_eye_np.diminfo[0].shape = __pyx_pybuffernd_eye_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 223, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 222, __pyx_L1_error)
     }
     __pyx_v_eye_np = ((PyArrayObject *)__pyx_t_10);
     __pyx_t_10 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":225
+  /* "AdvancedMathematics.pyx":224
  *         eye_np = eye
  * 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9603,68 +9596,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_dtype); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_dtype); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyObject_RichCompare(__pyx_t_10, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_10, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_flags); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":226
+    /* "AdvancedMathematics.pyx":225
  * 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:
  *         target_np = np.array(target, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         target_np = target
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 226, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 226, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 226, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_target);
     __Pyx_GIVEREF(__pyx_v_target);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_target)) __PYX_ERR(1, 226, __pyx_L1_error);
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 226, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_target)) __PYX_ERR(1, 225, __pyx_L1_error);
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 226, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 226, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 226, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 226, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 226, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 225, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 226, __pyx_L1_error)
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 225, __pyx_L1_error)
     __pyx_t_16 = ((PyArrayObject *)__pyx_t_3);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9681,13 +9674,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_target_np.diminfo[0].strides = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_target_np.diminfo[0].shape = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 226, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 225, __pyx_L1_error)
     }
     __pyx_t_16 = 0;
     __pyx_v_target_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AdvancedMathematics.pyx":225
+    /* "AdvancedMathematics.pyx":224
  *         eye_np = eye
  * 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9697,7 +9690,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":228
+  /* "AdvancedMathematics.pyx":227
  *         target_np = np.array(target, dtype=np.float32, order='C')
  *     else:
  *         target_np = target             # <<<<<<<<<<<<<<
@@ -9705,7 +9698,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_target) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_target, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 228, __pyx_L1_error)
+    if (!(likely(((__pyx_v_target) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_target, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 227, __pyx_L1_error)
     __pyx_t_3 = __pyx_v_target;
     __Pyx_INCREF(__pyx_t_3);
     {
@@ -9723,14 +9716,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_target_np.diminfo[0].strides = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_target_np.diminfo[0].shape = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 228, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 227, __pyx_L1_error)
     }
     __pyx_v_target_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":230
+  /* "AdvancedMathematics.pyx":229
  *         target_np = target
  * 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9744,68 +9737,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_dtype); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_dtype); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 230, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_10 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_NE); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   if (!__pyx_t_9) {
   } else {
     __pyx_t_7 = __pyx_t_9;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_flags); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_flags); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_10, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_t_10, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 230, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_9 < 0))) __PYX_ERR(1, 229, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_8 = (!__pyx_t_9);
   __pyx_t_7 = __pyx_t_8;
   __pyx_L12_bool_binop_done:;
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":231
+    /* "AdvancedMathematics.pyx":230
  * 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:
  *         up_np = np.array(up, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         up_np = up
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 231, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 231, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_array); if (unlikely(!__pyx_t_10)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 231, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_v_up);
     __Pyx_GIVEREF(__pyx_v_up);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_up)) __PYX_ERR(1, 231, __pyx_L1_error);
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 231, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_up)) __PYX_ERR(1, 230, __pyx_L1_error);
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 231, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 231, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(1, 231, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 231, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 231, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 230, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 231, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 230, __pyx_L1_error)
     __pyx_t_17 = ((PyArrayObject *)__pyx_t_1);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -9822,13 +9815,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
         __pyx_t_13 = __pyx_t_14 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_up_np.diminfo[0].strides = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_up_np.diminfo[0].shape = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 231, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 230, __pyx_L1_error)
     }
     __pyx_t_17 = 0;
     __pyx_v_up_np = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AdvancedMathematics.pyx":230
+    /* "AdvancedMathematics.pyx":229
  *         target_np = target
  * 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -9838,7 +9831,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     goto __pyx_L11;
   }
 
-  /* "AdvancedMathematics.pyx":233
+  /* "AdvancedMathematics.pyx":232
  *         up_np = np.array(up, dtype=np.float32, order='C')
  *     else:
  *         up_np = up             # <<<<<<<<<<<<<<
@@ -9846,7 +9839,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
  *     eye_ptr = &eye_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_up) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_up, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 233, __pyx_L1_error)
+    if (!(likely(((__pyx_v_up) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_up, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 232, __pyx_L1_error)
     __pyx_t_1 = __pyx_v_up;
     __Pyx_INCREF(__pyx_t_1);
     {
@@ -9864,14 +9857,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
         __pyx_t_15 = __pyx_t_14 = __pyx_t_13 = 0;
       }
       __pyx_pybuffernd_up_np.diminfo[0].strides = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_up_np.diminfo[0].shape = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 233, __pyx_L1_error)
+      if (unlikely((__pyx_t_12 < 0))) __PYX_ERR(1, 232, __pyx_L1_error)
     }
     __pyx_v_up_np = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
   }
   __pyx_L11:;
 
-  /* "AdvancedMathematics.pyx":235
+  /* "AdvancedMathematics.pyx":234
  *         up_np = up
  * 
  *     eye_ptr = &eye_np[0]             # <<<<<<<<<<<<<<
@@ -9881,7 +9874,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   __pyx_t_18 = 0;
   __pyx_v_eye_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_eye_np.rcbuffer->pybuffer.buf, __pyx_t_18, __pyx_pybuffernd_eye_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":236
+  /* "AdvancedMathematics.pyx":235
  * 
  *     eye_ptr = &eye_np[0]
  *     target_ptr = &target_np[0]             # <<<<<<<<<<<<<<
@@ -9891,7 +9884,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   __pyx_t_18 = 0;
   __pyx_v_target_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_target_np.rcbuffer->pybuffer.buf, __pyx_t_18, __pyx_pybuffernd_target_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":237
+  /* "AdvancedMathematics.pyx":236
  *     eye_ptr = &eye_np[0]
  *     target_ptr = &target_np[0]
  *     up_ptr = &up_np[0]             # <<<<<<<<<<<<<<
@@ -9901,7 +9894,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   __pyx_t_18 = 0;
   __pyx_v_up_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_up_np.rcbuffer->pybuffer.buf, __pyx_t_18, __pyx_pybuffernd_up_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":239
+  /* "AdvancedMathematics.pyx":238
  *     up_ptr = &up_np[0]
  * 
  *     CPP_LookAt(eye_ptr, target_ptr, up_ptr, out_ptr)             # <<<<<<<<<<<<<<
@@ -9910,7 +9903,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
  */
   CPP_LookAt(__pyx_v_eye_ptr, __pyx_v_target_ptr, __pyx_v_up_ptr, __pyx_v_out_ptr);
 
-  /* "AdvancedMathematics.pyx":241
+  /* "AdvancedMathematics.pyx":240
  *     CPP_LookAt(eye_ptr, target_ptr, up_ptr, out_ptr)
  * 
  *     if isinstance(eye, np.ndarray):             # <<<<<<<<<<<<<<
@@ -9920,7 +9913,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   __pyx_t_7 = __Pyx_TypeCheck(__pyx_v_eye, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_7) {
 
-    /* "AdvancedMathematics.pyx":242
+    /* "AdvancedMathematics.pyx":241
  * 
  *     if isinstance(eye, np.ndarray):
  *         return out_np             # <<<<<<<<<<<<<<
@@ -9932,7 +9925,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     __pyx_r = ((PyObject *)__pyx_v_out_np);
     goto __pyx_L0;
 
-    /* "AdvancedMathematics.pyx":241
+    /* "AdvancedMathematics.pyx":240
  *     CPP_LookAt(eye_ptr, target_ptr, up_ptr, out_ptr)
  * 
  *     if isinstance(eye, np.ndarray):             # <<<<<<<<<<<<<<
@@ -9941,7 +9934,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
  */
   }
 
-  /* "AdvancedMathematics.pyx":244
+  /* "AdvancedMathematics.pyx":243
  *         return out_np
  *     else:
  *         return out_np.tolist()             # <<<<<<<<<<<<<<
@@ -9950,7 +9943,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 244, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 243, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = NULL;
     __pyx_t_12 = 0;
@@ -9970,7 +9963,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
       PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_12, 0+__pyx_t_12);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 244, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 243, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
@@ -9979,7 +9972,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
     goto __pyx_L0;
   }
 
-  /* "AdvancedMathematics.pyx":209
+  /* "AdvancedMathematics.pyx":208
  *     return CPP_Dot(first_values_ptr, second_values_ptr)
  * 
  * def LookAt(eye, target, up):             # <<<<<<<<<<<<<<
@@ -10021,7 +10014,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_22LookAt(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":246
+/* "AdvancedMathematics.pyx":245
  *         return out_np.tolist()
  * 
  * def ComputePosition(position, target, up):             # <<<<<<<<<<<<<<
@@ -10088,7 +10081,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 246, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 245, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -10096,9 +10089,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 246, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 245, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("ComputePosition", 1, 3, 3, 1); __PYX_ERR(1, 246, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("ComputePosition", 1, 3, 3, 1); __PYX_ERR(1, 245, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -10106,14 +10099,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 246, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 245, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("ComputePosition", 1, 3, 3, 2); __PYX_ERR(1, 246, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("ComputePosition", 1, 3, 3, 2); __PYX_ERR(1, 245, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "ComputePosition") < 0)) __PYX_ERR(1, 246, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "ComputePosition") < 0)) __PYX_ERR(1, 245, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -10128,7 +10121,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("ComputePosition", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 246, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("ComputePosition", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 245, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -10230,39 +10223,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_pybuffernd_z_out_np.data = NULL;
   __pyx_pybuffernd_z_out_np.rcbuffer = &__pyx_pybuffer_z_out_np;
 
-  /* "AdvancedMathematics.pyx":251
+  /* "AdvancedMathematics.pyx":250
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] target_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] up_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] x_out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] y_out_np = np.empty(3, dtype=np.float32, order='C')
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] z_out_np = np.empty(3, dtype=np.float32, order='C')
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 251, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 251, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 251, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 250, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__3, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 251, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 250, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_x_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_x_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_x_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 251, __pyx_L1_error)
+      __PYX_ERR(1, 250, __pyx_L1_error)
     } else {__pyx_pybuffernd_x_out_np.diminfo[0].strides = __pyx_pybuffernd_x_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_x_out_np.diminfo[0].shape = __pyx_pybuffernd_x_out_np.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -10270,39 +10263,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_v_x_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AdvancedMathematics.pyx":252
+  /* "AdvancedMathematics.pyx":251
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] up_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] x_out_np = np.empty(3, dtype=np.float32, order='C')
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] y_out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] z_out_np = np.empty(3, dtype=np.float32, order='C')
  *         const float* position_ptr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 252, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_empty); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 252, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_empty); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 252, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 252, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 252, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 252, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 252, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__3, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 252, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 251, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__3, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 251, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 252, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 251, __pyx_L1_error)
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_y_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_y_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 252, __pyx_L1_error)
+      __PYX_ERR(1, 251, __pyx_L1_error)
     } else {__pyx_pybuffernd_y_out_np.diminfo[0].strides = __pyx_pybuffernd_y_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_out_np.diminfo[0].shape = __pyx_pybuffernd_y_out_np.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -10310,39 +10303,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_v_y_out_np = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "AdvancedMathematics.pyx":253
+  /* "AdvancedMathematics.pyx":252
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] x_out_np = np.empty(3, dtype=np.float32, order='C')
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] y_out_np = np.empty(3, dtype=np.float32, order='C')
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] z_out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* position_ptr
  *         const float* target_ptr
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 253, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 253, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 253, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 253, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 253, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(1, 253, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 253, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__3, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 253, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 252, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__3, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 253, __pyx_L1_error)
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 252, __pyx_L1_error)
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_z_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_z_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_z_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 253, __pyx_L1_error)
+      __PYX_ERR(1, 252, __pyx_L1_error)
     } else {__pyx_pybuffernd_z_out_np.diminfo[0].strides = __pyx_pybuffernd_z_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_z_out_np.diminfo[0].shape = __pyx_pybuffernd_z_out_np.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -10350,7 +10343,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_v_z_out_np = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":257
+  /* "AdvancedMathematics.pyx":256
  *         const float* target_ptr
  *         const float* up_ptr
  *         float* x_out_ptr = &x_out_np[0]             # <<<<<<<<<<<<<<
@@ -10360,7 +10353,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_8 = 0;
   __pyx_v_x_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_x_out_np.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_x_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":258
+  /* "AdvancedMathematics.pyx":257
  *         const float* up_ptr
  *         float* x_out_ptr = &x_out_np[0]
  *         float* y_out_ptr = &y_out_np[0]             # <<<<<<<<<<<<<<
@@ -10370,7 +10363,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_8 = 0;
   __pyx_v_y_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_y_out_np.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_y_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":259
+  /* "AdvancedMathematics.pyx":258
  *         float* x_out_ptr = &x_out_np[0]
  *         float* y_out_ptr = &y_out_np[0]
  *         float* z_out_ptr = &z_out_np[0]             # <<<<<<<<<<<<<<
@@ -10380,7 +10373,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_8 = 0;
   __pyx_v_z_out_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_z_out_np.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_z_out_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":261
+  /* "AdvancedMathematics.pyx":260
  *         float* z_out_ptr = &z_out_np[0]
  * 
  *     if not isinstance(position, np.ndarray) or position.dtype != np.float32 or not position.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -10394,68 +10387,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     __pyx_t_9 = __pyx_t_11;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_position, __pyx_n_s_dtype); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_position, __pyx_n_s_dtype); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 261, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (!__pyx_t_11) {
   } else {
     __pyx_t_9 = __pyx_t_11;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_position, __pyx_n_s_flags); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_position, __pyx_n_s_flags); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_3, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 261, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 260, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_10 = (!__pyx_t_11);
   __pyx_t_9 = __pyx_t_10;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_9) {
 
-    /* "AdvancedMathematics.pyx":262
+    /* "AdvancedMathematics.pyx":261
  * 
  *     if not isinstance(position, np.ndarray) or position.dtype != np.float32 or not position.flags['C_CONTIGUOUS']:
  *         position_np = np.array(position, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         position_np = position
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 262, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 262, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 262, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_v_position);
     __Pyx_GIVEREF(__pyx_v_position);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_position)) __PYX_ERR(1, 262, __pyx_L1_error);
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 262, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_position)) __PYX_ERR(1, 261, __pyx_L1_error);
+    __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 262, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 262, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_12) < 0) __PYX_ERR(1, 262, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_12) < 0) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 262, __pyx_L1_error)
-    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 262, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 261, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 261, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(((__pyx_t_12) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_12, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 262, __pyx_L1_error)
+    if (!(likely(((__pyx_t_12) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_12, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 261, __pyx_L1_error)
     __pyx_t_13 = ((PyArrayObject *)__pyx_t_12);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -10472,13 +10465,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
         __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
       }
       __pyx_pybuffernd_position_np.diminfo[0].strides = __pyx_pybuffernd_position_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_position_np.diminfo[0].shape = __pyx_pybuffernd_position_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 262, __pyx_L1_error)
+      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 261, __pyx_L1_error)
     }
     __pyx_t_13 = 0;
     __pyx_v_position_np = ((PyArrayObject *)__pyx_t_12);
     __pyx_t_12 = 0;
 
-    /* "AdvancedMathematics.pyx":261
+    /* "AdvancedMathematics.pyx":260
  *         float* z_out_ptr = &z_out_np[0]
  * 
  *     if not isinstance(position, np.ndarray) or position.dtype != np.float32 or not position.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -10488,7 +10481,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     goto __pyx_L3;
   }
 
-  /* "AdvancedMathematics.pyx":264
+  /* "AdvancedMathematics.pyx":263
  *         position_np = np.array(position, dtype=np.float32, order='C')
  *     else:
  *         position_np = position             # <<<<<<<<<<<<<<
@@ -10496,7 +10489,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_position) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_position, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 264, __pyx_L1_error)
+    if (!(likely(((__pyx_v_position) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_position, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 263, __pyx_L1_error)
     __pyx_t_12 = __pyx_v_position;
     __Pyx_INCREF(__pyx_t_12);
     {
@@ -10514,14 +10507,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
         __pyx_t_17 = __pyx_t_16 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_position_np.diminfo[0].strides = __pyx_pybuffernd_position_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_position_np.diminfo[0].shape = __pyx_pybuffernd_position_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 264, __pyx_L1_error)
+      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 263, __pyx_L1_error)
     }
     __pyx_v_position_np = ((PyArrayObject *)__pyx_t_12);
     __pyx_t_12 = 0;
   }
   __pyx_L3:;
 
-  /* "AdvancedMathematics.pyx":266
+  /* "AdvancedMathematics.pyx":265
  *         position_np = position
  * 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -10535,68 +10528,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     __pyx_t_9 = __pyx_t_11;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_dtype); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_dtype); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 266, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyObject_RichCompare(__pyx_t_12, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_12, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (!__pyx_t_11) {
   } else {
     __pyx_t_9 = __pyx_t_11;
     goto __pyx_L8_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_flags); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_target, __pyx_n_s_flags); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_2, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_2, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 266, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_10 = (!__pyx_t_11);
   __pyx_t_9 = __pyx_t_10;
   __pyx_L8_bool_binop_done:;
   if (__pyx_t_9) {
 
-    /* "AdvancedMathematics.pyx":267
+    /* "AdvancedMathematics.pyx":266
  * 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:
  *         target_np = np.array(target, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         target_np = target
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 267, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 267, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 267, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_v_target);
     __Pyx_GIVEREF(__pyx_v_target);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_target)) __PYX_ERR(1, 267, __pyx_L1_error);
-    __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 267, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_target)) __PYX_ERR(1, 266, __pyx_L1_error);
+    __pyx_t_12 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 267, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 267, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(1, 267, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 267, __pyx_L1_error)
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 267, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_12, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 266, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 266, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 267, __pyx_L1_error)
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 266, __pyx_L1_error)
     __pyx_t_18 = ((PyArrayObject *)__pyx_t_1);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -10613,13 +10606,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
         __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
       }
       __pyx_pybuffernd_target_np.diminfo[0].strides = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_target_np.diminfo[0].shape = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 267, __pyx_L1_error)
+      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 266, __pyx_L1_error)
     }
     __pyx_t_18 = 0;
     __pyx_v_target_np = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "AdvancedMathematics.pyx":266
+    /* "AdvancedMathematics.pyx":265
  *         position_np = position
  * 
  *     if not isinstance(target, np.ndarray) or target.dtype != np.float32 or not target.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -10629,7 +10622,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     goto __pyx_L7;
   }
 
-  /* "AdvancedMathematics.pyx":269
+  /* "AdvancedMathematics.pyx":268
  *         target_np = np.array(target, dtype=np.float32, order='C')
  *     else:
  *         target_np = target             # <<<<<<<<<<<<<<
@@ -10637,7 +10630,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_target) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_target, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 269, __pyx_L1_error)
+    if (!(likely(((__pyx_v_target) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_target, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 268, __pyx_L1_error)
     __pyx_t_1 = __pyx_v_target;
     __Pyx_INCREF(__pyx_t_1);
     {
@@ -10655,14 +10648,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
         __pyx_t_17 = __pyx_t_16 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_target_np.diminfo[0].strides = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_target_np.diminfo[0].shape = __pyx_pybuffernd_target_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 269, __pyx_L1_error)
+      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 268, __pyx_L1_error)
     }
     __pyx_v_target_np = ((PyArrayObject *)__pyx_t_1);
     __pyx_t_1 = 0;
   }
   __pyx_L7:;
 
-  /* "AdvancedMathematics.pyx":271
+  /* "AdvancedMathematics.pyx":270
  *         target_np = target
  * 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -10676,68 +10669,68 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     __pyx_t_9 = __pyx_t_11;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_dtype); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_dtype); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 271, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_12 = PyObject_RichCompare(__pyx_t_1, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_12 = PyObject_RichCompare(__pyx_t_1, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   if (!__pyx_t_11) {
   } else {
     __pyx_t_9 = __pyx_t_11;
     goto __pyx_L12_bool_binop_done;
   }
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_flags); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_up, __pyx_n_s_flags); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_12, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_12, __pyx_n_u_C_CONTIGUOUS); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 271, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely((__pyx_t_11 < 0))) __PYX_ERR(1, 270, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_10 = (!__pyx_t_11);
   __pyx_t_9 = __pyx_t_10;
   __pyx_L12_bool_binop_done:;
   if (__pyx_t_9) {
 
-    /* "AdvancedMathematics.pyx":272
+    /* "AdvancedMathematics.pyx":271
  * 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:
  *         up_np = np.array(up, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *     else:
  *         up_np = up
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 272, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 272, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_array); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 272, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_INCREF(__pyx_v_up);
     __Pyx_GIVEREF(__pyx_v_up);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_up)) __PYX_ERR(1, 272, __pyx_L1_error);
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 272, __pyx_L1_error)
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v_up)) __PYX_ERR(1, 271, __pyx_L1_error);
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 272, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 272, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float32); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 272, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 272, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 272, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 271, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 272, __pyx_L1_error)
+    if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 271, __pyx_L1_error)
     __pyx_t_19 = ((PyArrayObject *)__pyx_t_3);
     {
       __Pyx_BufFmt_StackElem __pyx_stack[1];
@@ -10754,13 +10747,13 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
         __pyx_t_15 = __pyx_t_16 = __pyx_t_17 = 0;
       }
       __pyx_pybuffernd_up_np.diminfo[0].strides = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_up_np.diminfo[0].shape = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 272, __pyx_L1_error)
+      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 271, __pyx_L1_error)
     }
     __pyx_t_19 = 0;
     __pyx_v_up_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "AdvancedMathematics.pyx":271
+    /* "AdvancedMathematics.pyx":270
  *         target_np = target
  * 
  *     if not isinstance(up, np.ndarray) or up.dtype != np.float32 or not up.flags['C_CONTIGUOUS']:             # <<<<<<<<<<<<<<
@@ -10770,7 +10763,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     goto __pyx_L11;
   }
 
-  /* "AdvancedMathematics.pyx":274
+  /* "AdvancedMathematics.pyx":273
  *         up_np = np.array(up, dtype=np.float32, order='C')
  *     else:
  *         up_np = up             # <<<<<<<<<<<<<<
@@ -10778,7 +10771,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  *     position_ptr = &position_np[0]
  */
   /*else*/ {
-    if (!(likely(((__pyx_v_up) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_up, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 274, __pyx_L1_error)
+    if (!(likely(((__pyx_v_up) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_up, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 273, __pyx_L1_error)
     __pyx_t_3 = __pyx_v_up;
     __Pyx_INCREF(__pyx_t_3);
     {
@@ -10796,14 +10789,14 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
         __pyx_t_17 = __pyx_t_16 = __pyx_t_15 = 0;
       }
       __pyx_pybuffernd_up_np.diminfo[0].strides = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_up_np.diminfo[0].shape = __pyx_pybuffernd_up_np.rcbuffer->pybuffer.shape[0];
-      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 274, __pyx_L1_error)
+      if (unlikely((__pyx_t_14 < 0))) __PYX_ERR(1, 273, __pyx_L1_error)
     }
     __pyx_v_up_np = ((PyArrayObject *)__pyx_t_3);
     __pyx_t_3 = 0;
   }
   __pyx_L11:;
 
-  /* "AdvancedMathematics.pyx":276
+  /* "AdvancedMathematics.pyx":275
  *         up_np = up
  * 
  *     position_ptr = &position_np[0]             # <<<<<<<<<<<<<<
@@ -10813,7 +10806,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_8 = 0;
   __pyx_v_position_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_position_np.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_position_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":277
+  /* "AdvancedMathematics.pyx":276
  * 
  *     position_ptr = &position_np[0]
  *     target_ptr = &target_np[0]             # <<<<<<<<<<<<<<
@@ -10823,7 +10816,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_8 = 0;
   __pyx_v_target_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_target_np.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_target_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":278
+  /* "AdvancedMathematics.pyx":277
  *     position_ptr = &position_np[0]
  *     target_ptr = &target_np[0]
  *     up_ptr = &up_np[0]             # <<<<<<<<<<<<<<
@@ -10833,7 +10826,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_8 = 0;
   __pyx_v_up_ptr = (&(*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_float32_t *, __pyx_pybuffernd_up_np.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_up_np.diminfo[0].strides)));
 
-  /* "AdvancedMathematics.pyx":280
+  /* "AdvancedMathematics.pyx":279
  *     up_ptr = &up_np[0]
  * 
  *     CPP_ComputePosition(position_ptr, target_ptr, up_ptr, x_out_ptr, y_out_ptr, z_out_ptr)             # <<<<<<<<<<<<<<
@@ -10842,7 +10835,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  */
   CPP_ComputePosition(__pyx_v_position_ptr, __pyx_v_target_ptr, __pyx_v_up_ptr, __pyx_v_x_out_ptr, __pyx_v_y_out_ptr, __pyx_v_z_out_ptr);
 
-  /* "AdvancedMathematics.pyx":282
+  /* "AdvancedMathematics.pyx":281
  *     CPP_ComputePosition(position_ptr, target_ptr, up_ptr, x_out_ptr, y_out_ptr, z_out_ptr)
  * 
  *     if isinstance(position, np.ndarray):             # <<<<<<<<<<<<<<
@@ -10852,7 +10845,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   __pyx_t_9 = __Pyx_TypeCheck(__pyx_v_position, __pyx_ptype_5numpy_ndarray); 
   if (__pyx_t_9) {
 
-    /* "AdvancedMathematics.pyx":283
+    /* "AdvancedMathematics.pyx":282
  * 
  *     if isinstance(position, np.ndarray):
  *         return x_out_np, y_out_np, z_out_np             # <<<<<<<<<<<<<<
@@ -10860,22 +10853,22 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  *         return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 283, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 282, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF((PyObject *)__pyx_v_x_out_np);
     __Pyx_GIVEREF((PyObject *)__pyx_v_x_out_np);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_x_out_np))) __PYX_ERR(1, 283, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_x_out_np))) __PYX_ERR(1, 282, __pyx_L1_error);
     __Pyx_INCREF((PyObject *)__pyx_v_y_out_np);
     __Pyx_GIVEREF((PyObject *)__pyx_v_y_out_np);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, ((PyObject *)__pyx_v_y_out_np))) __PYX_ERR(1, 283, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, ((PyObject *)__pyx_v_y_out_np))) __PYX_ERR(1, 282, __pyx_L1_error);
     __Pyx_INCREF((PyObject *)__pyx_v_z_out_np);
     __Pyx_GIVEREF((PyObject *)__pyx_v_z_out_np);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 2, ((PyObject *)__pyx_v_z_out_np))) __PYX_ERR(1, 283, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 2, ((PyObject *)__pyx_v_z_out_np))) __PYX_ERR(1, 282, __pyx_L1_error);
     __pyx_r = __pyx_t_3;
     __pyx_t_3 = 0;
     goto __pyx_L0;
 
-    /* "AdvancedMathematics.pyx":282
+    /* "AdvancedMathematics.pyx":281
  *     CPP_ComputePosition(position_ptr, target_ptr, up_ptr, x_out_ptr, y_out_ptr, z_out_ptr)
  * 
  *     if isinstance(position, np.ndarray):             # <<<<<<<<<<<<<<
@@ -10884,7 +10877,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  */
   }
 
-  /* "AdvancedMathematics.pyx":285
+  /* "AdvancedMathematics.pyx":284
  *         return x_out_np, y_out_np, z_out_np
  *     else:
  *         return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()             # <<<<<<<<<<<<<<
@@ -10893,7 +10886,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_x_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 285, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_x_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 284, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_4 = NULL;
     __pyx_t_14 = 0;
@@ -10913,11 +10906,11 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
       PyObject *__pyx_callargs[2] = {__pyx_t_4, NULL};
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_1, __pyx_callargs+1-__pyx_t_14, 0+__pyx_t_14);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 285, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 284, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_y_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 285, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_y_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 284, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_12 = NULL;
     __pyx_t_14 = 0;
@@ -10937,11 +10930,11 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
       PyObject *__pyx_callargs[2] = {__pyx_t_12, NULL};
       __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+1-__pyx_t_14, 0+__pyx_t_14);
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 285, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 284, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_z_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 285, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_z_out_np), __pyx_n_s_tolist); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 284, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __pyx_t_2 = NULL;
     __pyx_t_14 = 0;
@@ -10961,18 +10954,18 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
       PyObject *__pyx_callargs[2] = {__pyx_t_2, NULL};
       __pyx_t_4 = __Pyx_PyObject_FastCall(__pyx_t_12, __pyx_callargs+1-__pyx_t_14, 0+__pyx_t_14);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 285, __pyx_L1_error)
+      if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 284, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
-    __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 285, __pyx_L1_error)
+    __pyx_t_12 = PyTuple_New(3); if (unlikely(!__pyx_t_12)) __PYX_ERR(1, 284, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_GIVEREF(__pyx_t_3);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_3)) __PYX_ERR(1, 285, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_3)) __PYX_ERR(1, 284, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_1);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_1)) __PYX_ERR(1, 285, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_12, 1, __pyx_t_1)) __PYX_ERR(1, 284, __pyx_L1_error);
     __Pyx_GIVEREF(__pyx_t_4);
-    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_4)) __PYX_ERR(1, 285, __pyx_L1_error);
+    if (__Pyx_PyTuple_SET_ITEM(__pyx_t_12, 2, __pyx_t_4)) __PYX_ERR(1, 284, __pyx_L1_error);
     __pyx_t_3 = 0;
     __pyx_t_1 = 0;
     __pyx_t_4 = 0;
@@ -10981,7 +10974,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
     goto __pyx_L0;
   }
 
-  /* "AdvancedMathematics.pyx":246
+  /* "AdvancedMathematics.pyx":245
  *         return out_np.tolist()
  * 
  * def ComputePosition(position, target, up):             # <<<<<<<<<<<<<<
@@ -11029,7 +11022,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_24ComputePosition(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "AdvancedMathematics.pyx":287
+/* "AdvancedMathematics.pyx":286
  *         return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()
  * 
  * def PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane):             # <<<<<<<<<<<<<<
@@ -11099,7 +11092,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 287, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 286, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -11107,9 +11100,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 287, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 286, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, 1); __PYX_ERR(1, 287, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, 1); __PYX_ERR(1, 286, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -11117,9 +11110,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 287, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 286, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, 2); __PYX_ERR(1, 287, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, 2); __PYX_ERR(1, 286, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -11127,14 +11120,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 287, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 286, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, 3); __PYX_ERR(1, 287, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, 3); __PYX_ERR(1, 286, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PerspectiveFOV") < 0)) __PYX_ERR(1, 287, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "PerspectiveFOV") < 0)) __PYX_ERR(1, 286, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -11151,7 +11144,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, __pyx_nargs); __PYX_ERR(1, 287, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("PerspectiveFOV", 1, 4, 4, __pyx_nargs); __PYX_ERR(1, 286, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -11204,39 +11197,39 @@ static PyObject *__pyx_pf_19AdvancedMathematics_26PerspectiveFOV(CYTHON_UNUSED P
   __pyx_pybuffernd_out_np.data = NULL;
   __pyx_pybuffernd_out_np.rcbuffer = &__pyx_pybuffer_out_np;
 
-  /* "AdvancedMathematics.pyx":289
+  /* "AdvancedMathematics.pyx":288
  * def PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane):
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=2, mode='c'] out_np = np.empty((4, 4), dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         float (*out_ptr)[4]
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 289, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 289, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 289, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 289, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 289, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 289, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 289, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 289, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_order, __pyx_n_u_C) < 0) __PYX_ERR(1, 288, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__5, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 288, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 289, __pyx_L1_error)
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(1, 288, __pyx_L1_error)
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out_np.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float32_t, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 2, 0, __pyx_stack) == -1)) {
       __pyx_v_out_np = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_out_np.rcbuffer->pybuffer.buf = NULL;
-      __PYX_ERR(1, 289, __pyx_L1_error)
+      __PYX_ERR(1, 288, __pyx_L1_error)
     } else {__pyx_pybuffernd_out_np.diminfo[0].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out_np.diminfo[0].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_out_np.diminfo[1].strides = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_out_np.diminfo[1].shape = __pyx_pybuffernd_out_np.rcbuffer->pybuffer.shape[1];
     }
   }
@@ -11244,30 +11237,30 @@ static PyObject *__pyx_pf_19AdvancedMathematics_26PerspectiveFOV(CYTHON_UNUSED P
   __pyx_v_out_np = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "AdvancedMathematics.pyx":292
+  /* "AdvancedMathematics.pyx":291
  *         float (*out_ptr)[4]
  * 
  *     out_ptr = <float (*)[4]> out_np.data             # <<<<<<<<<<<<<<
  * 
  *     CPP_PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane, out_ptr)
  */
-  __pyx_t_6 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_out_np)); if (unlikely(__pyx_t_6 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(1, 292, __pyx_L1_error)
+  __pyx_t_6 = __pyx_f_5numpy_7ndarray_4data_data(((PyArrayObject *)__pyx_v_out_np)); if (unlikely(__pyx_t_6 == ((char *)NULL) && PyErr_Occurred())) __PYX_ERR(1, 291, __pyx_L1_error)
   __pyx_v_out_ptr = ((float (*)[4])__pyx_t_6);
 
-  /* "AdvancedMathematics.pyx":294
+  /* "AdvancedMathematics.pyx":293
  *     out_ptr = <float (*)[4]> out_np.data
  * 
  *     CPP_PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane, out_ptr)             # <<<<<<<<<<<<<<
  * 
  *     return out_np
  */
-  __pyx_t_7 = __pyx_PyFloat_AsFloat(__pyx_v_FOV); if (unlikely((__pyx_t_7 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 294, __pyx_L1_error)
-  __pyx_t_8 = __pyx_PyFloat_AsFloat(__pyx_v_aspect_ratio); if (unlikely((__pyx_t_8 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 294, __pyx_L1_error)
-  __pyx_t_9 = __pyx_PyFloat_AsFloat(__pyx_v_near_plane); if (unlikely((__pyx_t_9 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 294, __pyx_L1_error)
-  __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_v_far_plane); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 294, __pyx_L1_error)
+  __pyx_t_7 = __pyx_PyFloat_AsFloat(__pyx_v_FOV); if (unlikely((__pyx_t_7 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 293, __pyx_L1_error)
+  __pyx_t_8 = __pyx_PyFloat_AsFloat(__pyx_v_aspect_ratio); if (unlikely((__pyx_t_8 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 293, __pyx_L1_error)
+  __pyx_t_9 = __pyx_PyFloat_AsFloat(__pyx_v_near_plane); if (unlikely((__pyx_t_9 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 293, __pyx_L1_error)
+  __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_v_far_plane); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 293, __pyx_L1_error)
   CPP_PerspectiveFOV(__pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_v_out_ptr);
 
-  /* "AdvancedMathematics.pyx":296
+  /* "AdvancedMathematics.pyx":295
  *     CPP_PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane, out_ptr)
  * 
  *     return out_np             # <<<<<<<<<<<<<<
@@ -11277,7 +11270,7 @@ static PyObject *__pyx_pf_19AdvancedMathematics_26PerspectiveFOV(CYTHON_UNUSED P
   __pyx_r = ((PyObject *)__pyx_v_out_np);
   goto __pyx_L0;
 
-  /* "AdvancedMathematics.pyx":287
+  /* "AdvancedMathematics.pyx":286
  *         return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()
  * 
  * def PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane):             # <<<<<<<<<<<<<<
@@ -11455,195 +11448,195 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "AdvancedMathematics.pyx":110
+  /* "AdvancedMathematics.pyx":109
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* values_ptr
  *         float* out_ptr = &out_np[0]
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 110, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "AdvancedMathematics.pyx":214
+  /* "AdvancedMathematics.pyx":213
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] target_np
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] up_np
  *         np.ndarray[np.float32_t, ndim=2, mode='c'] out_np = np.empty((4, 4), dtype=np.float32, order='C')             # <<<<<<<<<<<<<<
  *         const float* eye_ptr
  *         const float* target_ptr
  */
-  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_int_4, __pyx_int_4); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_int_4, __pyx_int_4); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_tuple__4); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 214, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_tuple__4); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "AdvancedMathematics.pyx":21
+  /* "AdvancedMathematics.pyx":20
  *     void CPP_PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) nogil
  * 
  * def IndividualPythagoreanDifference(x1, y1, x2, y2):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(4, __pyx_n_s_x1, __pyx_n_s_y1, __pyx_n_s_x2, __pyx_n_s_y2); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(4, __pyx_n_s_x1, __pyx_n_s_y1, __pyx_n_s_x2, __pyx_n_s_y2); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_IndividualPythagoreanDifference, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_IndividualPythagoreanDifference, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(1, 20, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":24
+  /* "AdvancedMathematics.pyx":23
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)
  * 
  * def PointPythagoreanDifference(point1, point2):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
  * 
  */
-  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_n_s_point1, __pyx_n_s_point2); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_n_s_point1, __pyx_n_s_point2); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_PointPythagoreanDifference, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_PointPythagoreanDifference, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(1, 23, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":27
+  /* "AdvancedMathematics.pyx":26
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
  * 
  * def IndividualPythagoreanDistance(x, y):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDistance(x, y)
  * 
  */
-  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_n_s_x, __pyx_n_s_y); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_IndividualPythagoreanDistance, 27, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_IndividualPythagoreanDistance, 26, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(1, 26, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":30
+  /* "AdvancedMathematics.pyx":29
  *     return CPP_PythagoreanDistance(x, y)
  * 
  * def PointPythagoreanDistance(point):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDistance(point[0], point[1])
  * 
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_n_s_point); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_n_s_point); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_PointPythagoreanDistance, 30, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_PointPythagoreanDistance, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(1, 29, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":33
+  /* "AdvancedMathematics.pyx":32
  *     return CPP_PythagoreanDistance(point[0], point[1])
  * 
  * def SmoothStep(value):             # <<<<<<<<<<<<<<
  *     return CPP_SmoothStep(value)
  * 
  */
-  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_n_s_value); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 33, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_n_s_value); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_SmoothStep, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(1, 33, __pyx_L1_error)
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_SmoothStep, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(1, 32, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":36
+  /* "AdvancedMathematics.pyx":35
  *     return CPP_SmoothStep(value)
  * 
  * def Ranger(value, old_range, new_range):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] old_np
  */
-  __pyx_tuple__17 = PyTuple_Pack(7, __pyx_n_s_value, __pyx_n_s_old_range, __pyx_n_s_new_range, __pyx_n_s_old_np, __pyx_n_s_new_np, __pyx_n_s_old_ptr, __pyx_n_s_new_ptr); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_tuple__17 = PyTuple_Pack(7, __pyx_n_s_value, __pyx_n_s_old_range, __pyx_n_s_new_range, __pyx_n_s_old_np, __pyx_n_s_new_np, __pyx_n_s_old_ptr, __pyx_n_s_new_ptr); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Ranger, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 7, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Ranger, 35, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(1, 35, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":60
+  /* "AdvancedMathematics.pyx":59
  *     return CPP_Ranger(value, old_ptr, new_ptr)
  * 
  * def ArrayRanger(values, old_range, new_range):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  */
-  __pyx_tuple__19 = PyTuple_Pack(12, __pyx_n_s_values, __pyx_n_s_old_range, __pyx_n_s_new_range, __pyx_n_s_values_np, __pyx_n_s_old_np, __pyx_n_s_new_np, __pyx_n_s_out_np, __pyx_n_s_values_ptr, __pyx_n_s_old_ptr, __pyx_n_s_new_ptr, __pyx_n_s_out_ptr, __pyx_n_s_length); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_tuple__19 = PyTuple_Pack(12, __pyx_n_s_values, __pyx_n_s_old_range, __pyx_n_s_new_range, __pyx_n_s_values_np, __pyx_n_s_old_np, __pyx_n_s_new_np, __pyx_n_s_out_np, __pyx_n_s_values_ptr, __pyx_n_s_old_ptr, __pyx_n_s_new_ptr, __pyx_n_s_out_ptr, __pyx_n_s_length); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(1, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_ArrayRanger, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_ArrayRanger, 59, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(1, 59, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":107
+  /* "AdvancedMathematics.pyx":106
  *         return out_np.tolist()
  * 
  * def ArrayNormalize(values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  */
-  __pyx_tuple__21 = PyTuple_Pack(5, __pyx_n_s_values, __pyx_n_s_values_np, __pyx_n_s_out_np, __pyx_n_s_values_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(1, 107, __pyx_L1_error)
+  __pyx_tuple__21 = PyTuple_Pack(5, __pyx_n_s_values, __pyx_n_s_values_np, __pyx_n_s_out_np, __pyx_n_s_values_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(1, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_ArrayNormalize, 107, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(1, 107, __pyx_L1_error)
+  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_ArrayNormalize, 106, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(1, 106, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":129
- *         return values_np.tolist()
+  /* "AdvancedMathematics.pyx":128
+ *         return out_np.tolist()
  * 
  * def Cross(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  */
-  __pyx_tuple__23 = PyTuple_Pack(8, __pyx_n_s_first_values, __pyx_n_s_second_values, __pyx_n_s_first_values_np, __pyx_n_s_second_values_np, __pyx_n_s_out_np, __pyx_n_s_first_values_ptr, __pyx_n_s_second_values_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(8, __pyx_n_s_first_values, __pyx_n_s_second_values, __pyx_n_s_first_values_np, __pyx_n_s_second_values_np, __pyx_n_s_out_np, __pyx_n_s_first_values_ptr, __pyx_n_s_second_values_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(1, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Cross, 129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Cross, 128, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(1, 128, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":158
+  /* "AdvancedMathematics.pyx":157
  *         return out_np.tolist()
  * 
  * def Subtract(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  */
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Subtract, 158, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 158, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 8, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Subtract, 157, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 157, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":187
+  /* "AdvancedMathematics.pyx":186
  *         return out_np.tolist()
  * 
  * def Dot(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  */
-  __pyx_tuple__26 = PyTuple_Pack(6, __pyx_n_s_first_values, __pyx_n_s_second_values, __pyx_n_s_first_values_np, __pyx_n_s_second_values_np, __pyx_n_s_first_values_ptr, __pyx_n_s_second_values_ptr); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 187, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(6, __pyx_n_s_first_values, __pyx_n_s_second_values, __pyx_n_s_first_values_np, __pyx_n_s_second_values_np, __pyx_n_s_first_values_ptr, __pyx_n_s_second_values_ptr); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 186, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Dot, 187, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(1, 187, __pyx_L1_error)
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_Dot, 186, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(1, 186, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":209
+  /* "AdvancedMathematics.pyx":208
  *     return CPP_Dot(first_values_ptr, second_values_ptr)
  * 
  * def LookAt(eye, target, up):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] eye_np
  */
-  __pyx_tuple__28 = PyTuple_Pack(11, __pyx_n_s_eye, __pyx_n_s_target, __pyx_n_s_up, __pyx_n_s_eye_np, __pyx_n_s_target_np, __pyx_n_s_up_np, __pyx_n_s_out_np, __pyx_n_s_eye_ptr, __pyx_n_s_target_ptr, __pyx_n_s_up_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(1, 209, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(11, __pyx_n_s_eye, __pyx_n_s_target, __pyx_n_s_up, __pyx_n_s_eye_np, __pyx_n_s_target_np, __pyx_n_s_up_np, __pyx_n_s_out_np, __pyx_n_s_eye_ptr, __pyx_n_s_target_ptr, __pyx_n_s_up_ptr, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(1, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_LookAt, 209, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(1, 209, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_LookAt, 208, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(1, 208, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":246
+  /* "AdvancedMathematics.pyx":245
  *         return out_np.tolist()
  * 
  * def ComputePosition(position, target, up):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] position_np
  */
-  __pyx_tuple__30 = PyTuple_Pack(15, __pyx_n_s_position, __pyx_n_s_target, __pyx_n_s_up, __pyx_n_s_position_np, __pyx_n_s_target_np, __pyx_n_s_up_np, __pyx_n_s_x_out_np, __pyx_n_s_y_out_np, __pyx_n_s_z_out_np, __pyx_n_s_position_ptr, __pyx_n_s_target_ptr, __pyx_n_s_up_ptr, __pyx_n_s_x_out_ptr, __pyx_n_s_y_out_ptr, __pyx_n_s_z_out_ptr); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(1, 246, __pyx_L1_error)
+  __pyx_tuple__30 = PyTuple_Pack(15, __pyx_n_s_position, __pyx_n_s_target, __pyx_n_s_up, __pyx_n_s_position_np, __pyx_n_s_target_np, __pyx_n_s_up_np, __pyx_n_s_x_out_np, __pyx_n_s_y_out_np, __pyx_n_s_z_out_np, __pyx_n_s_position_ptr, __pyx_n_s_target_ptr, __pyx_n_s_up_ptr, __pyx_n_s_x_out_ptr, __pyx_n_s_y_out_ptr, __pyx_n_s_z_out_ptr); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(1, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_ComputePosition, 246, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(1, 246, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 15, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_ComputePosition, 245, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(1, 245, __pyx_L1_error)
 
-  /* "AdvancedMathematics.pyx":287
+  /* "AdvancedMathematics.pyx":286
  *         return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()
  * 
  * def PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=2, mode='c'] out_np = np.empty((4, 4), dtype=np.float32, order='C')
  */
-  __pyx_tuple__32 = PyTuple_Pack(6, __pyx_n_s_FOV, __pyx_n_s_aspect_ratio, __pyx_n_s_near_plane, __pyx_n_s_far_plane, __pyx_n_s_out_np, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(1, 287, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(6, __pyx_n_s_FOV, __pyx_n_s_aspect_ratio, __pyx_n_s_near_plane, __pyx_n_s_far_plane, __pyx_n_s_out_np, __pyx_n_s_out_ptr); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(1, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_PerspectiveFOV, 287, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(1, 287, __pyx_L1_error)
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pmma_core_pyx_src_AdvancedMathem, __pyx_n_s_PerspectiveFOV, 286, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(1, 286, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -12073,179 +12066,179 @@ if (!__Pyx_RefNanny) {
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
  * cimport numpy as np
- * from libc.stdlib cimport malloc, free
+ * 
  */
   __pyx_t_2 = __Pyx_ImportDottedModule(__pyx_n_s_numpy, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 3, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_2) < 0) __PYX_ERR(1, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":21
+  /* "AdvancedMathematics.pyx":20
  *     void CPP_PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) nogil
  * 
  * def IndividualPythagoreanDifference(x1, y1, x2, y2):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_1IndividualPythagoreanDifference, 0, __pyx_n_s_IndividualPythagoreanDifference, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_1IndividualPythagoreanDifference, 0, __pyx_n_s_IndividualPythagoreanDifference, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_IndividualPythagoreanDifference, __pyx_t_2) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_IndividualPythagoreanDifference, __pyx_t_2) < 0) __PYX_ERR(1, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":24
+  /* "AdvancedMathematics.pyx":23
  *     return CPP_PythagoreanDifference(x1, y1, x2, y2)
  * 
  * def PointPythagoreanDifference(point1, point2):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_3PointPythagoreanDifference, 0, __pyx_n_s_PointPythagoreanDifference, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_3PointPythagoreanDifference, 0, __pyx_n_s_PointPythagoreanDifference, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_PointPythagoreanDifference, __pyx_t_2) < 0) __PYX_ERR(1, 24, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_PointPythagoreanDifference, __pyx_t_2) < 0) __PYX_ERR(1, 23, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":27
+  /* "AdvancedMathematics.pyx":26
  *     return CPP_PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
  * 
  * def IndividualPythagoreanDistance(x, y):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDistance(x, y)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_5IndividualPythagoreanDistance, 0, __pyx_n_s_IndividualPythagoreanDistance, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_5IndividualPythagoreanDistance, 0, __pyx_n_s_IndividualPythagoreanDistance, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 26, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_IndividualPythagoreanDistance, __pyx_t_2) < 0) __PYX_ERR(1, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_IndividualPythagoreanDistance, __pyx_t_2) < 0) __PYX_ERR(1, 26, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":30
+  /* "AdvancedMathematics.pyx":29
  *     return CPP_PythagoreanDistance(x, y)
  * 
  * def PointPythagoreanDistance(point):             # <<<<<<<<<<<<<<
  *     return CPP_PythagoreanDistance(point[0], point[1])
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_7PointPythagoreanDistance, 0, __pyx_n_s_PointPythagoreanDistance, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_7PointPythagoreanDistance, 0, __pyx_n_s_PointPythagoreanDistance, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_PointPythagoreanDistance, __pyx_t_2) < 0) __PYX_ERR(1, 30, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_PointPythagoreanDistance, __pyx_t_2) < 0) __PYX_ERR(1, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":33
+  /* "AdvancedMathematics.pyx":32
  *     return CPP_PythagoreanDistance(point[0], point[1])
  * 
  * def SmoothStep(value):             # <<<<<<<<<<<<<<
  *     return CPP_SmoothStep(value)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_9SmoothStep, 0, __pyx_n_s_SmoothStep, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 33, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_9SmoothStep, 0, __pyx_n_s_SmoothStep, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_SmoothStep, __pyx_t_2) < 0) __PYX_ERR(1, 33, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_SmoothStep, __pyx_t_2) < 0) __PYX_ERR(1, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":36
+  /* "AdvancedMathematics.pyx":35
  *     return CPP_SmoothStep(value)
  * 
  * def Ranger(value, old_range, new_range):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] old_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_11Ranger, 0, __pyx_n_s_Ranger, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_11Ranger, 0, __pyx_n_s_Ranger, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Ranger, __pyx_t_2) < 0) __PYX_ERR(1, 36, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Ranger, __pyx_t_2) < 0) __PYX_ERR(1, 35, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":60
+  /* "AdvancedMathematics.pyx":59
  *     return CPP_Ranger(value, old_ptr, new_ptr)
  * 
  * def ArrayRanger(values, old_range, new_range):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_13ArrayRanger, 0, __pyx_n_s_ArrayRanger, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_13ArrayRanger, 0, __pyx_n_s_ArrayRanger, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ArrayRanger, __pyx_t_2) < 0) __PYX_ERR(1, 60, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ArrayRanger, __pyx_t_2) < 0) __PYX_ERR(1, 59, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":107
+  /* "AdvancedMathematics.pyx":106
  *         return out_np.tolist()
  * 
  * def ArrayNormalize(values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_15ArrayNormalize, 0, __pyx_n_s_ArrayNormalize, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 107, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_15ArrayNormalize, 0, __pyx_n_s_ArrayNormalize, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__22)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ArrayNormalize, __pyx_t_2) < 0) __PYX_ERR(1, 107, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ArrayNormalize, __pyx_t_2) < 0) __PYX_ERR(1, 106, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":129
- *         return values_np.tolist()
+  /* "AdvancedMathematics.pyx":128
+ *         return out_np.tolist()
  * 
  * def Cross(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_17Cross, 0, __pyx_n_s_Cross, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_17Cross, 0, __pyx_n_s_Cross, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Cross, __pyx_t_2) < 0) __PYX_ERR(1, 129, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Cross, __pyx_t_2) < 0) __PYX_ERR(1, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":158
+  /* "AdvancedMathematics.pyx":157
  *         return out_np.tolist()
  * 
  * def Subtract(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_19Subtract, 0, __pyx_n_s_Subtract, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 158, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_19Subtract, 0, __pyx_n_s_Subtract, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Subtract, __pyx_t_2) < 0) __PYX_ERR(1, 158, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Subtract, __pyx_t_2) < 0) __PYX_ERR(1, 157, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":187
+  /* "AdvancedMathematics.pyx":186
  *         return out_np.tolist()
  * 
  * def Dot(first_values, second_values):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_21Dot, 0, __pyx_n_s_Dot, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 187, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_21Dot, 0, __pyx_n_s_Dot, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 186, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Dot, __pyx_t_2) < 0) __PYX_ERR(1, 187, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Dot, __pyx_t_2) < 0) __PYX_ERR(1, 186, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":209
+  /* "AdvancedMathematics.pyx":208
  *     return CPP_Dot(first_values_ptr, second_values_ptr)
  * 
  * def LookAt(eye, target, up):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] eye_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_23LookAt, 0, __pyx_n_s_LookAt, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 209, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_23LookAt, 0, __pyx_n_s_LookAt, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 208, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LookAt, __pyx_t_2) < 0) __PYX_ERR(1, 209, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LookAt, __pyx_t_2) < 0) __PYX_ERR(1, 208, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":246
+  /* "AdvancedMathematics.pyx":245
  *         return out_np.tolist()
  * 
  * def ComputePosition(position, target, up):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=1, mode='c'] position_np
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_25ComputePosition, 0, __pyx_n_s_ComputePosition, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 246, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_25ComputePosition, 0, __pyx_n_s_ComputePosition, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputePosition, __pyx_t_2) < 0) __PYX_ERR(1, 246, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ComputePosition, __pyx_t_2) < 0) __PYX_ERR(1, 245, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "AdvancedMathematics.pyx":287
+  /* "AdvancedMathematics.pyx":286
  *         return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()
  * 
  * def PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane):             # <<<<<<<<<<<<<<
  *     cdef:
  *         np.ndarray[np.float32_t, ndim=2, mode='c'] out_np = np.empty((4, 4), dtype=np.float32, order='C')
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_27PerspectiveFOV, 0, __pyx_n_s_PerspectiveFOV, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 287, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_19AdvancedMathematics_27PerspectiveFOV, 0, __pyx_n_s_PerspectiveFOV, NULL, __pyx_n_s_AdvancedMathematics, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 286, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_PerspectiveFOV, __pyx_t_2) < 0) __PYX_ERR(1, 287, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_PerspectiveFOV, __pyx_t_2) < 0) __PYX_ERR(1, 286, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "AdvancedMathematics.pyx":1

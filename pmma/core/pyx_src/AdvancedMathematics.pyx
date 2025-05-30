@@ -2,7 +2,6 @@
 
 import numpy as np
 cimport numpy as np
-from libc.stdlib cimport malloc, free
 
 cdef extern from "AdvancedMathematics.hpp":
     float CPP_PythagoreanDifference(const float x1, const float y1, const float x2, const float y2) nogil
@@ -122,9 +121,9 @@ def ArrayNormalize(values):
     CPP_ArrayNormalize(values_ptr, out_ptr)
 
     if isinstance(values, np.ndarray):
-        return values_np
+        return out_np
     else:
-        return values_np.tolist()
+        return out_np.tolist()
 
 def Cross(first_values, second_values):
     cdef:
