@@ -2,13 +2,9 @@
 
 #include <GLFW/glfw3.h>
 
-#include "mywrapper.hpp"
+#include "Display.hpp"
 
 using namespace std;
-
-int multiply(int a, int b) {
-    return a * b;
-}
 
 void CW() {
     glfwInit();

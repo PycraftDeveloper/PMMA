@@ -26,8 +26,8 @@ else:
     link_args = []
 
 mywrapper_ext = Extension( # EXAMPLE
-    name="mywrapper",
-    sources=[*add_source("mywrapper")],
+    name="Display",
+    sources=[*add_source("Display")],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],
