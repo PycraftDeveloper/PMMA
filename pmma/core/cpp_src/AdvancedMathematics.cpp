@@ -6,11 +6,11 @@
 using namespace std;
 
 float CPP_PythagoreanDifference(const float x1, const float y1, const float x2, const float y2) {
-    return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    return (float)sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }
 
 float CPP_PythagoreanDistance(const float x, const float y) {
-    return sqrt(pow(x, 2) + pow(y, 2));
+    return (float)sqrt(pow(x, 2) + pow(y, 2));
 }
 
 float CPP_SmoothStep(const float value) {
