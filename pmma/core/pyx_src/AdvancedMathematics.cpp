@@ -3,6 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
+        "define_macros": [
+            [
+                "NPY_NO_DEPRECATED_API",
+                "NPY_1_7_API_VERSION"
+            ]
+        ],
         "depends": [
             "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\hpp_src\\AdvancedMathematics.hpp",
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include\\numpy\\arrayobject.h",
@@ -12,7 +18,14 @@
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include\\numpy\\ufuncobject.h"
         ],
         "extra_compile_args": [
-            "/O2"
+            "/O2",
+            "/fp:fast",
+            "/GL",
+            "/GF",
+            "/GS-"
+        ],
+        "extra_link_args": [
+            "/LTCG"
         ],
         "include_dirs": [
             "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\hpp_src",

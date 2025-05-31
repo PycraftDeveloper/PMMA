@@ -12,37 +12,59 @@ def add_source(name):
         os.path.join(cwd, "pmma", "core", "cpp_src", f"{name}.cpp")
         ]
 
-glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
-glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022"
-
-if sys.platform == "win32":
+if sys.platform.startswith("win"):
     compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-"]
     link_args = ["/LTCG"]
-else:
+
+    glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
+    glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022"
+    glfw_libraries = [
+        "glfw3",
+        "user32",
+        "gdi32",
+        "shell32",
+        "advapi32",
+        "ole32",
+        "oleaut32",
+        "uuid",
+        "comdlg32",
+        "winmm",
+    ]
+
+elif sys.platform.startswith("linux"):
     compile_args = [
         "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing",
         "-fno-exceptions", "-fomit-frame-pointer", "-std=c++17"
     ]
     link_args = []
 
-mywrapper_ext = Extension( # EXAMPLE
+    glfw_include = "/usr/include"
+    glfw_lib = "/usr/lib/x86_64-linux-gnu"
+    glfw_libraries = ["glfw", "GL", "X11", "pthread", "Xrandr", "Xi", "dl", "m"]
+
+elif sys.platform == "darwin":
+    compile_args = [
+        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing",
+        "-fno-exceptions", "-fomit-frame-pointer", "-std=c++17"
+    ]
+    link_args = []
+
+    glfw_include = "/opt/homebrew/include"  # or /usr/local/include depending on installation
+    glfw_lib = ""
+    glfw_libraries = ["glfw", "Cocoa", "OpenGL", "IOKit", "CoreVideo"]
+else:
+    raise NotImplementedError("Unsupported platform")
+
+Display_ext = Extension( # EXAMPLE
     name="Display",
     sources=[*add_source("Display")],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],
-    libraries=["glfw3",
-            "user32",
-            "gdi32",
-            "shell32",
-            "advapi32",
-            "ole32",
-            "oleaut32",
-            "uuid",
-            "comdlg32",
-            "winmm",],
+    libraries=[*glfw_libraries],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
+    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
 AdvancedMathematics_ext = Extension(
@@ -52,6 +74,7 @@ AdvancedMathematics_ext = Extension(
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
+    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
 PerlinNoise_ext = Extension( # this one
@@ -61,6 +84,7 @@ PerlinNoise_ext = Extension( # this one
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
+    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
 FractalBrownianMotion_ext = Extension( # this one
@@ -70,12 +94,13 @@ FractalBrownianMotion_ext = Extension( # this one
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
+    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
 setup(
     name="PMMA",
     ext_modules=cythonize(
-        [mywrapper_ext, AdvancedMathematics_ext, PerlinNoise_ext, FractalBrownianMotion_ext],
+        [Display_ext, AdvancedMathematics_ext, PerlinNoise_ext, FractalBrownianMotion_ext],
         compiler_directives={"language_level": "3"},
         annotate=True,  # Optional: creates .html annotation file to inspect performance
     ),

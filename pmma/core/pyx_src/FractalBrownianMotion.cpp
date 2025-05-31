@@ -3,6 +3,12 @@
 /* BEGIN: Cython Metadata
 {
     "distutils": {
+        "define_macros": [
+            [
+                "NPY_NO_DEPRECATED_API",
+                "NPY_1_7_API_VERSION"
+            ]
+        ],
         "depends": [
             "W:\\Documents\\GitHub\\PMMA\\pmma\\core\\hpp_src\\FractalBrownianMotion.hpp",
             "c:\\Users\\pamj0\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\numpy\\core\\include\\numpy\\arrayobject.h",
