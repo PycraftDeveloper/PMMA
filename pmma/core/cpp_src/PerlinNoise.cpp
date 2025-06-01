@@ -23,36 +23,36 @@ CPP_PerlinNoise::CPP_PerlinNoise(const uint32_t seed) {
     }
 }
 
-void CPP_PerlinNoise::CPP_ArrayNoise1D(const float* values, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::ArrayNoise1D(const float* values, const unsigned int length, float* out) const noexcept {
     for (unsigned int i = 0; i < length; ++i) {
-        out[i] = CPP_Noise1D(values[i]);
+        out[i] = Noise1D(values[i]);
     }
 }
 
-void CPP_PerlinNoise::CPP_ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) const noexcept {
     for (unsigned int i = 0; i < length; i ++) {
-        out[i] = CPP_Noise2D(values[i][0], values[i][1]);
+        out[i] = Noise2D(values[i][0], values[i][1]);
     }
 }
 
-void CPP_PerlinNoise::CPP_ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) const noexcept {
     for (unsigned int i = 0; i < length; i ++) {
-        out[i] = CPP_Noise3D(values[i][0], values[i][1], values[i][2]);
+        out[i] = Noise3D(values[i][0], values[i][1], values[i][2]);
     }
 }
 
-void CPP_PerlinNoise::CPP_RangeNoise1D(const float* x_range, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::RangeNoise1D(const float* x_range, const unsigned int length, float* out) const noexcept {
     float x = x_range[0];
 
     float dx = (x_range[1] - x_range[0])/length;
 
     for (unsigned int i = 0; i < length; ++i) {
-        out[i] = CPP_Noise1D(x);
+        out[i] = Noise1D(x);
         x += dx;
     }
 }
 
-void CPP_PerlinNoise::CPP_RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept {
     float x = x_range[0];
     float y = y_range[0];
 
@@ -60,13 +60,13 @@ void CPP_PerlinNoise::CPP_RangeNoise2D(const float* x_range, const float* y_rang
     float dy = (y_range[1] - y_range[0])/length;
 
     for (unsigned int i = 0; i < length; ++i) {
-        out[i] = CPP_Noise2D(x, y);
+        out[i] = Noise2D(x, y);
         x += dx;
         y += dy;
     }
 }
 
-void CPP_PerlinNoise::CPP_RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept {
     float x = x_range[0];
     float y = y_range[0];
     float z = z_range[0];
@@ -76,7 +76,7 @@ void CPP_PerlinNoise::CPP_RangeNoise3D(const float* x_range, const float* y_rang
     float dz = (z_range[1] - z_range[0])/length;
 
     for (unsigned int i = 0; i < length; ++i) {
-        out[i] = CPP_Noise3D(x, y, z);
+        out[i] = Noise3D(x, y, z);
         x += dx;
         y += dy;
         z += dz;

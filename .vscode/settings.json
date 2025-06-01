@@ -1,6 +1,7 @@
 {
     "C_Cpp.default.compilerPath": "cl.exe",
     "cSpell.words": [
-        "lacunarity"
+        "lacunarity",
+        "nullptr"
     ]
 }

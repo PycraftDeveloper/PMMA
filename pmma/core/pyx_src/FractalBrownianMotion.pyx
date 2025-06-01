@@ -7,19 +7,19 @@ cimport numpy as np
 
 cdef extern from "FractalBrownianMotion.hpp":
     cdef cppclass CPP_FractalBrownianMotion:
-        CPP_FractalBrownianMotion(const unsigned int seed, unsigned int octaves, float lacunarity, float gain) nogil
+        CPP_FractalBrownianMotion(const unsigned int seed, unsigned int octaves, float lacunarity, float gain) except + nogil
 
-        float CPP_Noise1D(const float x) nogil
-        float CPP_Noise2D(const float x, const float y) nogil
-        float CPP_Noise3D(const float x, const float y, const float z) nogil
+        float Noise1D(const float x) except + nogil
+        float Noise2D(const float x, const float y) except + nogil
+        float Noise3D(const float x, const float y, const float z) except + nogil
 
-        void CPP_ArrayNoise1D(const float* values, const unsigned int length, float* out) nogil
-        void CPP_ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) nogil
-        void CPP_ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) nogil
+        void ArrayNoise1D(const float* values, const unsigned int length, float* out) except + nogil
+        void ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) except + nogil
+        void ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) except + nogil
 
-        void CPP_RangeNoise1D(const float* x_range, const unsigned int length, float* out) nogil
-        void CPP_RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) nogil
-        void CPP_RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) nogil
+        void RangeNoise1D(const float* x_range, const unsigned int length, float* out) except + nogil
+        void RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) except + nogil
+        void RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) except + nogil
 
 
 cdef class FractalBrownianMotion:
@@ -60,13 +60,13 @@ cdef class FractalBrownianMotion:
         return self.gain
 
     def noise1D(self, float x):
-        return self.cpp_class_ptr.CPP_Noise1D(x)
+        return self.cpp_class_ptr.Noise1D(x)
 
     def noise2D(self, float x, float y):
-        return self.cpp_class_ptr.CPP_Noise2D(x, y)
+        return self.cpp_class_ptr.Noise2D(x, y)
 
     def noise3D(self, float x, float y, float z):
-        return self.cpp_class_ptr.CPP_Noise3D(x, y, z)
+        return self.cpp_class_ptr.Noise3D(x, y, z)
 
     def array_noise1D(self, values):
         cdef:
@@ -89,7 +89,7 @@ cdef class FractalBrownianMotion:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_ArrayNoise1D(values_ptr, length, out_ptr)
+        self.cpp_class_ptr.ArrayNoise1D(values_ptr, length, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np
@@ -117,7 +117,7 @@ cdef class FractalBrownianMotion:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_ArrayNoise2D(values_ptr, length, out_ptr)
+        self.cpp_class_ptr.ArrayNoise2D(values_ptr, length, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np
@@ -145,7 +145,7 @@ cdef class FractalBrownianMotion:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_ArrayNoise3D(values_ptr, length, out_ptr)
+        self.cpp_class_ptr.ArrayNoise3D(values_ptr, length, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np
@@ -169,7 +169,7 @@ cdef class FractalBrownianMotion:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_RangeNoise1D(x_range_ptr, length, out_ptr)
+        self.cpp_class_ptr.RangeNoise1D(x_range_ptr, length, out_ptr)
 
         if isinstance(x_range, np.ndarray):
             return out_np
@@ -201,7 +201,7 @@ cdef class FractalBrownianMotion:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)
+        self.cpp_class_ptr.RangeNoise2D(x_range_ptr, y_range_ptr, length, out_ptr)
 
         if isinstance(x_range, np.ndarray):
             return out_np
@@ -241,7 +241,7 @@ cdef class FractalBrownianMotion:
         out_np = np.empty(length, dtype=np.float32, order='C')
         out_ptr = &out_np[0]
 
-        self.cpp_class_ptr.CPP_RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
+        self.cpp_class_ptr.RangeNoise3D(x_range_ptr, y_range_ptr, z_range_ptr, length, out_ptr)
 
         if isinstance(x_range, np.ndarray):
             return out_np
