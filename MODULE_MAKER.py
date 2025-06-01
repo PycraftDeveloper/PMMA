@@ -20,14 +20,27 @@ command = [ # if error occurs, run command manually :) "python setup.py build_ex
     "--build-temp",
     temp_dir]
 
-print("\n\n>>> " + " ".join(command))
+print("\n>>> " + " ".join(command))
 print("="*30)
 print(subprocess.check_output(command).decode("utf-8").strip())
 print("="*30)
 
+print()
+
+if not sys.platform.startswith("win"):
+    result = input("The remainder of this script will attempt to update the pmma module on your computer. Do you wish to continue? (y/n): ")
+
+    while result.lower() not in ["y", "n"]:
+        result = input("Please enter 'y' or 'n': ")
+
+    if result.lower() == "n":
+        print("Remember to run this script again and select 'y' for the update to take effect FOR ANY PLATFORM.")
+        print("Exiting...")
+        sys.exit(0)
+
 SITE_PACKAGE_DIR = site.getsitepackages()[-1]
 
-print("\n\nRemoving old version of PMMA...")
+print("Removing old version of PMMA...")
 shutil.rmtree(os.path.join(SITE_PACKAGE_DIR, 'pmma'))
 
 current_dir = os.path.dirname(os.path.abspath(__file__))

@@ -21,7 +21,8 @@ cdef class Display:
         self.cpp_class_ptr = new CPP_Display()
 
     def __dealloc__(self):
-        del self.cpp_class_ptr
+        #self.cpp_class_ptr.Destructor()
+        del self.cpp_class_ptr # shouldn't this call the CPP_Display destructor?
 
     def create(self, size, caption="PMMA Display"):
         cdef:

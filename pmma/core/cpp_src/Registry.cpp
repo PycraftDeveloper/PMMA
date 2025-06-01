@@ -2,4 +2,5 @@
 
 namespace CPP_Registry {
     bool Is_GLFW_Initialized = false;
+    int GLFW_References = 0;
 }

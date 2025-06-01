@@ -6,7 +6,7 @@ import numpy
 
 cwd = os.path.dirname(__file__)
 
-def add_source(name):
+def add_source(name: str):
     return [
         os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx"),
         os.path.join(cwd, "pmma", "core", "cpp_src", f"{name}.cpp")
@@ -33,8 +33,7 @@ if sys.platform.startswith("win"):
 
 elif sys.platform.startswith("linux"):
     compile_args = [
-        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing",
-        "-fno-exceptions", "-fomit-frame-pointer", "-std=c++17"
+        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
     ]
     link_args = []
 
@@ -44,8 +43,7 @@ elif sys.platform.startswith("linux"):
 
 elif sys.platform == "darwin":
     compile_args = [
-        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing",
-        "-fno-exceptions", "-fomit-frame-pointer", "-std=c++17"
+        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
     ]
     link_args = []
 
@@ -77,7 +75,7 @@ AdvancedMathematics_ext = Extension(
     define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
-PerlinNoise_ext = Extension( # this one
+PerlinNoise_ext = Extension(
     name="PerlinNoise",
     sources=[*add_source("PerlinNoise")],
     language="c++",
