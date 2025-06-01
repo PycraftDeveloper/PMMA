@@ -17,8 +17,8 @@ float CPP_AdvancedMathematics::SmoothStep(const float value) {
     return value * value * (3 - 2 * value);
 }
 
-void CPP_AdvancedMathematics::ArrayRanger(const float* values, const int length, const float* old_range, const float* new_range, float* out) { // Ensure both lengths are 2
-    for (int i = 0; i < length; i++) {
+void CPP_AdvancedMathematics::ArrayRanger(const float* values, const unsigned int length, const float* old_range, const float* new_range, float* out) { // Ensure both lengths are 2
+    for (unsigned int i = 0; i < length; i++) {
         out[i] = CPP_AdvancedMathematics::Ranger(values[i], old_range, new_range);
     }
 }

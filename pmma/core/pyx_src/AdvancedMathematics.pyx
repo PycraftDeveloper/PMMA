@@ -8,7 +8,7 @@ cdef extern from "AdvancedMathematics.hpp" namespace "CPP_AdvancedMathematics":
     float PythagoreanDistance(const float x, const float y) except + nogil
     float SmoothStep(const float value) except + nogil
     float Ranger(const float value, const float* old_range, const float* new_range) except + nogil
-    void ArrayRanger(const float* value, const int length, const float* old_range, const float* new_range, float* out) except + nogil
+    void ArrayRanger(const float* value, const unsigned int length, const float* old_range, const float* new_range, float* out) except + nogil
     void ArrayNormalize(const float* value, float* out) except + nogil
     void Cross(const float* a, const float* b, float* out) except + nogil
     void Subtract(const float* a, const float* b, float* out) except + nogil
@@ -22,27 +22,27 @@ cdef class AdvancedMathematics:
         print("Did you know you don't need to make an instance of this class in order to use it?")
 
     @staticmethod
-    def IndividualPythagoreanDifference(x1, y1, x2, y2):
+    def individual_pythagorean_difference(x1, y1, x2, y2):
         return PythagoreanDifference(x1, y1, x2, y2)
 
     @staticmethod
-    def PointPythagoreanDifference(point1, point2):
+    def point_pythagorean_difference(point1, point2):
         return PythagoreanDifference(point1[0], point1[1], point2[0], point2[1])
 
     @staticmethod
-    def IndividualPythagoreanDistance(x, y):
+    def individual_pythagorean_distance(x, y):
         return PythagoreanDistance(x, y)
 
     @staticmethod
-    def PointPythagoreanDistance(point):
+    def point_pythagorean_distance(point):
         return PythagoreanDistance(point[0], point[1])
 
     @staticmethod
-    def SmoothStep(value):
+    def smooth_step(value):
         return SmoothStep(value)
 
     @staticmethod
-    def Ranger(value, old_range, new_range):
+    def ranger(value, old_range, new_range):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] old_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] new_np
@@ -61,13 +61,13 @@ cdef class AdvancedMathematics:
         else:
             new_np = new_range
 
-        old_ptr = <const float*> &old_np[0]
-        new_ptr = <const float*> &new_np[0]
+        old_ptr = &old_np[0]
+        new_ptr = &new_np[0]
 
         return Ranger(value, old_ptr, new_ptr)
 
     @staticmethod
-    def ArrayRanger(values, old_range, new_range):
+    def array_ranger(values, old_range, new_range):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] old_np
@@ -78,7 +78,7 @@ cdef class AdvancedMathematics:
             const float* new_ptr
             float* out_ptr
 
-            int length
+            unsigned int length
 
         # Convert 'values' to numpy float32 contiguous array
         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
@@ -86,7 +86,7 @@ cdef class AdvancedMathematics:
         else:
             values_np = values
 
-        length = values_np.shape[0]
+        length = <unsigned int>values_np.shape[0]
         values_ptr = &values_np[0]
 
         out_np = np.empty(length, dtype=np.float32, order='C')
@@ -115,7 +115,7 @@ cdef class AdvancedMathematics:
             return out_np.tolist()
 
     @staticmethod
-    def ArrayNormalize(values):
+    def array_normalize(values):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')
@@ -138,7 +138,7 @@ cdef class AdvancedMathematics:
             return out_np.tolist()
 
     @staticmethod
-    def Cross(first_values, second_values):
+    def cross(first_values, second_values):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] second_values_np
@@ -168,7 +168,7 @@ cdef class AdvancedMathematics:
             return out_np.tolist()
 
     @staticmethod
-    def Subtract(first_values, second_values):
+    def subtract(first_values, second_values):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] second_values_np
@@ -198,7 +198,7 @@ cdef class AdvancedMathematics:
             return out_np.tolist()
 
     @staticmethod
-    def Dot(first_values, second_values):
+    def dot(first_values, second_values):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] first_values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] second_values_np
@@ -221,7 +221,7 @@ cdef class AdvancedMathematics:
         return Dot(first_values_ptr, second_values_ptr)
 
     @staticmethod
-    def LookAt(eye, target, up):
+    def look_at(eye, target, up):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] eye_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] target_np
@@ -259,7 +259,7 @@ cdef class AdvancedMathematics:
             return out_np.tolist()
 
     @staticmethod
-    def ComputePosition(position, target, up):
+    def compute_position(position, target, up):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] position_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] target_np
@@ -301,7 +301,7 @@ cdef class AdvancedMathematics:
             return x_out_np.tolist(), y_out_np.tolist(), z_out_np.tolist()
 
     @staticmethod
-    def PerspectiveFOV(FOV, aspect_ratio, near_plane, far_plane):
+    def perspective_fov(FOV, aspect_ratio, near_plane, far_plane):
         cdef:
             np.ndarray[np.float32_t, ndim=2, mode='c'] out_np = np.empty((4, 4), dtype=np.float32, order='C')
             float (*out_ptr)[4]

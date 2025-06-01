@@ -55,9 +55,9 @@ elif sys.platform == "darwin":
 else:
     raise NotImplementedError("Unsupported platform")
 
-Display_ext = Extension( # EXAMPLE
+Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display")],
+    sources=[*add_source("Display"), add_source("Registry")[-1]],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],

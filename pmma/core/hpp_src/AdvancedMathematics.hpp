@@ -11,7 +11,7 @@ namespace CPP_AdvancedMathematics {
         return new_range[0] + (value - old_range[0]) * (new_range[1] - new_range[0]) / (old_range[1] - old_range[0]);
     }
 
-    void ArrayRanger(const float* values, const int length, const float* old_range, const float* new_range, float* out);
+    void ArrayRanger(const float* values, const unsigned int length, const float* old_range, const float* new_range, float* out);
 
     inline void InPlaceArrayNormalize(float* value) {
         float len = std::sqrt(value[0]*value[0] + value[1]*value[1] + value[2]*value[2]);

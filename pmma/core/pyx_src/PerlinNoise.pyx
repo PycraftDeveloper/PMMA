@@ -43,23 +43,23 @@ cdef class PerlinNoise:
     def get_seed(self):
         return self.seed
 
-    def noise1D(self, float x):
+    def noise_1d(self, float x):
         return self.cpp_class_ptr.Noise1D(x)
 
-    def noise2D(self, float x, float y):
+    def noise_2d(self, float x, float y):
         return self.cpp_class_ptr.Noise2D(x, y)
 
-    def noise3D(self, float x, float y, float z):
+    def noise_3d(self, float x, float y, float z):
         return self.cpp_class_ptr.Noise3D(x, y, z)
 
-    def array_noise1D(self, values):
+    def array_noise_1d(self, values):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
             const float* values_ptr
             float* out_ptr
 
-            int length
+            unsigned int length
 
         # Convert 'values' to numpy float32 contiguous array
         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
@@ -67,7 +67,7 @@ cdef class PerlinNoise:
         else:
             values_np = values
 
-        length = values_np.shape[0]
+        length = <unsigned int>values_np.shape[0]
         values_ptr = &values_np[0]
 
         out_np = np.empty(length, dtype=np.float32, order='C')
@@ -80,14 +80,14 @@ cdef class PerlinNoise:
         else:
             return out_np.tolist()
 
-    def array_noise2D(self, values):
+    def array_noise_2d(self, values):
         cdef:
             np.ndarray[np.float32_t, ndim=2, mode='c'] values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
             const float (*values_ptr)[2]
             float* out_ptr
 
-            int length
+            unsigned int length
 
         # Convert 'values' to numpy float32 contiguous array
         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
@@ -95,7 +95,7 @@ cdef class PerlinNoise:
         else:
             values_np = values
 
-        length = values_np.shape[0]
+        length = <unsigned int>values_np.shape[0]
         values_ptr = <float (*)[2]> values_np.data
 
         out_np = np.empty(length, dtype=np.float32, order='C')
@@ -108,14 +108,14 @@ cdef class PerlinNoise:
         else:
             return out_np.tolist()
 
-    def array_noise3D(self, values):
+    def array_noise_3d(self, values):
         cdef:
             np.ndarray[np.float32_t, ndim=3, mode='c'] values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
             const float (*values_ptr)[3]
             float* out_ptr
 
-            int length
+            unsigned int length
 
         # Convert 'values' to numpy float32 contiguous array
         if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
@@ -123,7 +123,7 @@ cdef class PerlinNoise:
         else:
             values_np = values
 
-        length = values_np.shape[0]
+        length = <unsigned int>values_np.shape[0]
         values_ptr = <float (*)[3]> values_np.data
 
         out_np = np.empty(length, dtype=np.float32, order='C')
@@ -136,7 +136,7 @@ cdef class PerlinNoise:
         else:
             return out_np.tolist()
 
-    def range_noise1D(self, x_range, length):
+    def range_noise_1d(self, x_range, length):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
@@ -160,7 +160,7 @@ cdef class PerlinNoise:
         else:
             return out_np.tolist()
 
-    def range_noise2D(self, x_range, y_range, length):
+    def range_noise_2d(self, x_range, y_range, length):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] y_range_np
@@ -192,7 +192,7 @@ cdef class PerlinNoise:
         else:
             return out_np.tolist()
 
-    def range_noise3D(self, x_range, y_range, z_range, length):
+    def range_noise_3d(self, x_range, y_range, z_range, length):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] x_range_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] y_range_np
