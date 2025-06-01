@@ -13,7 +13,7 @@ Typically, developing applications in Python necessitates familiarity with a var
 
 ## Progress on PMMA v5.0.0
 
-![Progress on PMMA v5.0.0](https://geps.dev/progress/23)
+![Progress on PMMA v5.0.0](https://geps.dev/progress/24)
 
 Each entry is worth: (20/7) %
 
@@ -21,12 +21,12 @@ Each entry is worth: (20/7) %
 * ✅ - Setup new repository automation
 * ✅ - Finished Advanced Mathematics component
 * ✅ - Finished Perlin Noise component
-* ✅ - Working on Fractal Brownian Motion
+* ✅ - Finished Fractal Brownian Motion
+* ✅ - Finished Backpack
 * ⏳ - Working on Display
 * ⏳ - Working on Events
 * ⏳ - Working on Number Converter
 * ⏳ - Working on Audio
-* ⏳ - Working on Backpack
 * ⏳ - Working on Video
 * 🛑 - Not started Advanced Threading
 * 🛑 - Not started Advanced Tkinter (may be deprecated?)
@@ -52,7 +52,7 @@ Each entry is worth: (20/7) %
 * 🛑 - Not started Settings
 * 🛑 - Not started Shapes 2D
 * 🛑 - Not started Transitions
-  
+
 ## Contents
 
 * [History](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#history)
