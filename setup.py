@@ -13,7 +13,7 @@ def add_source(name: str):
         ]
 
 if sys.platform.startswith("win"):
-    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-"]
+    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17"]
     link_args = ["/LTCG"]
 
     glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
@@ -55,7 +55,7 @@ else:
 
 Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display"), add_source("Registry")[-1]],
+    sources=[*add_source("Display"), add_source("Registry")[-1], add_source("Components")[-1]],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],
@@ -85,7 +85,7 @@ PerlinNoise_ext = Extension(
     define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
-FractalBrownianMotion_ext = Extension( # this one
+FractalBrownianMotion_ext = Extension(
     name="FractalBrownianMotion",
     sources=[*add_source("FractalBrownianMotion"), add_source("PerlinNoise")[-1]],  # Reuse PerlinNoise's cpp file
     language="c++",
