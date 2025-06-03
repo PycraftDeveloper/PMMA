@@ -7,6 +7,7 @@ import sys
 cwd = os.path.dirname(__file__)
 
 build_dir = os.path.join(cwd, "pmma", "build")
+libs_dir = os.path.join(cwd, "pmma", "libs")
 temp_dir = os.path.join(cwd, "pmma", "temporary")
 
 print("Building PMMA Core...")
@@ -16,7 +17,7 @@ command = [ # if error occurs, run command manually :) "python setup.py build_ex
     os.path.join(cwd, "core_setup.py"),
     "build_ext",
     "--build-lib",
-    build_dir,
+    libs_dir,
     "--build-temp",
     temp_dir]
 

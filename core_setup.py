@@ -80,8 +80,12 @@ class BuildSharedLib(build_ext):
                 obj_files.append(obj)
 
             # Link DLL
-            dll_name = os.path.join(self.build_lib, "components_shared.dll")
-            cmd_link = [link, "/DLL"] + obj_files + ["/OUT:" + dll_name]
+            dll_name = os.path.join(self.build_lib, "PMMA_core.dll")
+            implib_name = os.path.join(self.build_lib, "PMMA_core.lib")
+            cmd_link = [link, "/DLL"] + obj_files + [
+                f"/OUT:{dll_name}",
+                f"/IMPLIB:{implib_name}"
+            ]
             print("Linking: " + " ".join(cmd_link))
             subprocess.check_call(cmd_link)
 
@@ -105,7 +109,7 @@ components_ext = Extension(
     ],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include],
-    library_dirs=[os.path.join(cwd, "build", "lib"), glfw_lib],
+    library_dirs=[os.path.join(cwd, "libs"), glfw_lib],
     libraries=[*glfw_libraries],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
