@@ -55,11 +55,11 @@ else:
 
 Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display"), add_source("Registry")[-1]],
+    sources=[*add_source("Display"), add_source("Registry")[-1], add_source("Components")[-1]],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],
-    libraries=["PMMA_core", *glfw_libraries],
+    libraries=[*glfw_libraries],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
     define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
@@ -97,10 +97,10 @@ FractalBrownianMotion_ext = Extension(
 
 NumberConverter_ext = Extension(
     name="NumberConverter",
-    sources=[add_source("NumberConverter")[0]], # This is header only
+    sources=[add_source("NumberConverter")[0], add_source("Components")[-1]], # This is header only
     language="c++",
     library_dirs=[glfw_lib],
-    libraries=["PMMA_core"],
+    libraries=[*glfw_libraries],
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
