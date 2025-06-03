@@ -22,26 +22,7 @@ command = [ # if error occurs, run command manually :) "python setup.py build_ex
 
 print("\n>>> " + " ".join(command))
 print("="*30)
-if sys.platform.startswith("win"):
-    vcvars_path = r"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-
-    if not os.path.exists(vcvars_path):
-        raise RuntimeError(f"Cannot find vcvars64.bat at: {vcvars_path}")
-
-    full_command = f'"{vcvars_path}" && ' + " ".join(command)
-    print("\n>>> Running in MSVC environment:")
-    print("cmd.exe /c", full_command)
-
-    result = subprocess.run(f'cmd.exe /c "{full_command}"', capture_output=True, text=True, shell=True)
-
-    if result.returncode != 0:
-        print(result.stderr)
-        raise RuntimeError("Build failed")
-    else:
-        print(result.stdout)
-else:
-    # Non-Windows builds
-    print(subprocess.check_output(command).decode("utf-8").strip())
+print(subprocess.check_output(command).decode("utf-8").strip())
 print("="*30)
 
 print()
