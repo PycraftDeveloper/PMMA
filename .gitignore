@@ -172,8 +172,5 @@ pmma/core/pyx_src/*
 pmma/build/*
 !pmma/build/*.pyi
 
-# Ignore everything in pmma/libs
-pmma/libs/*
-
 # annotations
 *.html

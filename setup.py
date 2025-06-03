@@ -6,8 +6,6 @@ import numpy
 
 cwd = os.path.dirname(__file__)
 
-PMMA_CORE_LIB = os.path.join(cwd, "pmma", "libs", "PMMA_core")
-
 def add_source(name: str):
     return [
         os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx"),
@@ -57,11 +55,11 @@ else:
 
 Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display"), add_source("Registry")[-1], add_source("Components")[-1]],
+    sources=[*add_source("Display"), add_source("Registry")[-1]],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[glfw_lib],
-    libraries=[PMMA_CORE_LIB, *glfw_libraries],
+    libraries=["PMMA_core", *glfw_libraries],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
     define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
@@ -102,7 +100,7 @@ NumberConverter_ext = Extension(
     sources=[add_source("NumberConverter")[0]], # This is header only
     language="c++",
     library_dirs=[glfw_lib],
-    libraries=[PMMA_CORE_LIB],
+    libraries=["PMMA_core"],
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
