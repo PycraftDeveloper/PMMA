@@ -47,13 +47,17 @@ class CPP_Display {
             out[1] = Size[1];
         };
 
+        GLFWmonitor* GetMonitorAtPoint(unsigned int* Point);
+
         GLFWmonitor* GetTargetMonitor(GLFWwindow* Window);
 
         GLFWmonitor* GetCurrentMonitor(GLFWwindow* Window);
 
         // WIPs
 
-        void SetWindowPosition(unsigned int* Position);
+        void SetRelativeWindowPosition(unsigned int* Position);
+
+        void SetAbsoluteWindowPosition(unsigned int* Position);
 
         void CenterWindow();
 
@@ -94,9 +98,15 @@ class CPP_Display {
 
         inline float GetFrameTime();
 
-        inline float GetCenter_NormalizedDeviceCoordinates();
+        inline void GetCenter_Pixels(unsigned int* out) {
+            out[0] = (unsigned int)(Size[0] / 2);
+            out[1] = (unsigned int)(Size[1] / 2);
+        }
 
-        inline unsigned int GetCenter_Pixels();
+        inline void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) {
+            out[0] = (unsigned int)((Size[0] - ObjectSize[0]) / 2);
+            out[1] = (unsigned int)((Size[1] - ObjectSize[1]) / 2);
+        }
 
         void GetDisplayProjection();
 

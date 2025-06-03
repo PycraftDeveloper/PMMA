@@ -95,10 +95,22 @@ FractalBrownianMotion_ext = Extension(
     define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
 )
 
+NumberConverter_ext = Extension(
+    name="NumberConverter",
+    sources=[add_source("NumberConverter")[0], add_source("Components")[-1]], # This is header only
+    language="c++",
+    library_dirs=[glfw_lib],
+    libraries=[*glfw_libraries],
+    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
+    extra_compile_args=compile_args,
+    extra_link_args=link_args,
+    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
+)
+
 setup(
     name="PMMA",
     ext_modules=cythonize(
-        [Display_ext, AdvancedMathematics_ext, PerlinNoise_ext, FractalBrownianMotion_ext],
+        [Display_ext, AdvancedMathematics_ext, PerlinNoise_ext, FractalBrownianMotion_ext, NumberConverter_ext],
         compiler_directives={"language_level": "3"},
         annotate=True,  # Optional: creates .html annotation file to inspect performance
     ),

@@ -18,15 +18,7 @@ CPP_Display::CPP_Display() {
     CPP_Components::display = this;
 }
 
-GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
-    int Window_X_Position, Window_Y_Position;
-    glfwGetWindowPos(window, &Window_X_Position, &Window_Y_Position);
-
-    double Mouse_X_Position, Mouse_Y_Position;
-    glfwGetCursorPos(window, &Mouse_X_Position, &Mouse_Y_Position);
-
-    int AbsoluteMouse_X_Position = (int)Mouse_X_Position + Window_X_Position;
-    int AbsoluteMouse_Y_Position = (int)Mouse_Y_Position + Window_Y_Position;
+GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
     int count;
 
     GLFWmonitor** monitors = glfwGetMonitors(&count);
@@ -34,10 +26,14 @@ GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
     for (int i = 0; i < count; i++) {
         int mx, my;
         glfwGetMonitorPos(monitors[i], &mx, &my);
+
+        unsigned int Monitor_X_Position = (unsigned int)mx;
+        unsigned int Monitor_Y_Position = (unsigned int)my;
+
         const GLFWvidmode* mode = glfwGetVideoMode(monitors[i]);
 
-        if (AbsoluteMouse_X_Position >= mx && AbsoluteMouse_X_Position < mx + mode->width &&
-            AbsoluteMouse_Y_Position >= my && AbsoluteMouse_Y_Position < my + mode->height) {
+        if (Point[0] >= Monitor_X_Position && Point[0] < Monitor_X_Position + mode->width &&
+            Point[1] >= Monitor_Y_Position && Point[1] < Monitor_Y_Position + mode->height) {
             // Found the monitor where the mouse cursor is
             return monitors[i];
         }
@@ -45,6 +41,18 @@ GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
 
     // Fallback
     return glfwGetPrimaryMonitor();
+}
+
+GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
+    int Window_X_Position, Window_Y_Position;
+    glfwGetWindowPos(window, &Window_X_Position, &Window_Y_Position);
+
+    double Mouse_X_Position, Mouse_Y_Position;
+    glfwGetCursorPos(window, &Mouse_X_Position, &Mouse_Y_Position);
+
+    unsigned int Point[2] = { (unsigned int)(Mouse_X_Position + Window_X_Position), (unsigned int)(Mouse_Y_Position + Window_Y_Position) };
+
+    return GetMonitorAtPoint(Point);
 }
 
 GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
@@ -177,7 +185,7 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
 
 void CPP_Display::SetWindowInFocus() {
     if (Window == nullptr) {
-        throw std::runtime_error("Display not created yet!");
+        throw runtime_error("Display not created yet!");
     }
 
     glfwFocusWindow(Window);
@@ -185,7 +193,7 @@ void CPP_Display::SetWindowInFocus() {
 
 void CPP_Display::SetWindowMinimized(bool IsMinimized) {
     if (Window == nullptr) {
-        throw std::runtime_error("Display not created yet!");
+        throw runtime_error("Display not created yet!");
     }
 
     if (IsMinimized) {
@@ -198,7 +206,7 @@ void CPP_Display::SetWindowMinimized(bool IsMinimized) {
 
 void CPP_Display::SetWindowMaximized(bool IsMaximized) {
     if (Window == nullptr) {
-        throw std::runtime_error("Display not created yet!");
+        throw runtime_error("Display not created yet!");
     }
 
     if (IsMaximized) {
@@ -207,6 +215,26 @@ void CPP_Display::SetWindowMaximized(bool IsMaximized) {
     else {
         glfwRestoreWindow(Window);
     }
+}
+
+void CPP_Display::SetRelativeWindowPosition(unsigned int* NewPosition) {
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    glfwSetWindowPos(Window, NewPosition[0], NewPosition[1]);
+}
+
+void CPP_Display::SetAbsoluteWindowPosition(unsigned int* NewPosition) {
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    GLFWmonitor* PointMonitor = GetMonitorAtPoint(NewPosition);
+
+    int Monitor_X_Position, Monitor_Y_Position;
+    glfwGetMonitorPos(PointMonitor, &Monitor_X_Position, &Monitor_Y_Position);
+    glfwSetWindowPos(Window, NewPosition[0] - Monitor_X_Position, NewPosition[1] - Monitor_Y_Position);
 }
 
 CPP_Display::~CPP_Display() {

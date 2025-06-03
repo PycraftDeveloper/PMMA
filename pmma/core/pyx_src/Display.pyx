@@ -22,12 +22,12 @@ cdef extern from "Display.hpp":
 cdef class Display:
     cdef:
         CPP_Display* cpp_class_ptr
-        bool using_numpy_size
+        bool using_numpy_arrays
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_Display()
 
-        self.using_numpy_size = False
+        self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -42,10 +42,10 @@ cdef class Display:
 
         if not isinstance(size, np.ndarray) or size.dtype != np.uint32 or not size.flags['C_CONTIGUOUS']:
             size_np = np.array(size, dtype=np.uint32, order='C')
-            self.using_numpy_size = True
+            self.using_numpy_arrays = True
         else:
             size_np = size
-            self.using_numpy_size = False
+            self.using_numpy_arrays = False
 
         size_ptr = <unsigned int*>&size_np[0]
 
@@ -68,7 +68,7 @@ cdef class Display:
 
         self.cpp_class_ptr.GetSize(size_ptr)
 
-        if self.using_numpy_size:
+        if self.using_numpy_arrays:
             return size_np
         else:
             return size_np.tolist()
