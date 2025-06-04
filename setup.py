@@ -1,6 +1,7 @@
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 import sys, os
+import platform
 
 import numpy
 
@@ -53,13 +54,16 @@ elif sys.platform == "darwin":
 else:
     raise NotImplementedError("Unsupported platform")
 
+shared_name = 'libshared'
+pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
+
 Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display"), add_source("Registry")[-1], add_source("Components")[-1]],
+    sources=[*add_source("Display"), add_source("Registry")[-1]],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
-    library_dirs=[glfw_lib],
-    libraries=[*glfw_libraries],
+    library_dirs=[pmma_lib_dir, glfw_lib],
+    libraries=[shared_name, *glfw_libraries],
     extra_compile_args=compile_args,
     extra_link_args=link_args,
     define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
@@ -97,10 +101,10 @@ FractalBrownianMotion_ext = Extension(
 
 NumberConverter_ext = Extension(
     name="NumberConverter",
-    sources=[add_source("NumberConverter")[0], add_source("Components")[-1]], # This is header only
+    sources=[add_source("NumberConverter")[0], add_source("Display")[-1], add_source("Registry")[-1]], # This is header only
     language="c++",
-    library_dirs=[glfw_lib],
-    libraries=[*glfw_libraries],
+    library_dirs=[pmma_lib_dir, glfw_lib],
+    libraries=[shared_name, *glfw_libraries],
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     extra_compile_args=compile_args,
     extra_link_args=link_args,

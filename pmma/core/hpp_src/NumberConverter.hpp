@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "Components.hpp"
+#include "libshared.h"
 
 class CPP_ColorConverter {
     private:
@@ -85,14 +85,19 @@ class CPP_DisplayCoordinatesConverter {
     private:
         float InternalCoordinates[2];
         bool CoordinatesAreSet = false;
+        CPP_Display* display = nullptr;
 
     public:
+        CPP_DisplayCoordinatesConverter(CPP_Display* in_display) {
+            display = in_display;
+        }
+
         inline void SetCoordinates_Pixel(unsigned int* in_coordinates) {
-            if (CPP_Components::display == nullptr) {
+            if (display == nullptr) {
                 throw std::runtime_error("Display not created yet!");
             }
             unsigned int DisplaySize[2];
-            CPP_Components::display->GetSize(DisplaySize);
+            display->GetSize(DisplaySize);
 
             float HalfDisplaySize[2] = { DisplaySize[0] / 2.f, DisplaySize[1] / 2.f };
 
@@ -111,11 +116,11 @@ class CPP_DisplayCoordinatesConverter {
             if (!CoordinatesAreSet) {
                 throw std::runtime_error("Coordinates not set!");
             }
-            if (CPP_Components::display == nullptr) {
+            if (display == nullptr) {
                 throw std::runtime_error("Display not created yet!");
             }
             unsigned int DisplaySize[2];
-            CPP_Components::display->GetSize(DisplaySize);
+            display->GetSize(DisplaySize);
 
             float HalfDisplaySize[2] = { DisplaySize[0] / 2.f, DisplaySize[1] / 2.f };
 
@@ -171,22 +176,22 @@ class CPP_DisplayScalarConverter {
         bool ScalarIsSet = false;
 
     public:
-        inline void SetScalar_Pixel(unsigned int in_scalar) {
-            InternalScalar = (float)(in_scalar) * (2.f / CPP_Components::display->GetHeight());
-            ScalarIsSet = true;
-        }
+        //inline void SetScalar_Pixel(unsigned int in_scalar) {
+            /*InternalScalar = (float)(in_scalar) * (2.f / CPP_Components::display->GetHeight());
+            ScalarIsSet = true;*/
+        //}
 
         inline void SetScalar_Normalized(float in_scalar) {
             InternalScalar = in_scalar;
             ScalarIsSet = true;
         }
 
-        inline unsigned int GetScalar_Pixel() {
-            if (!ScalarIsSet) {
+        //inline unsigned int GetScalar_Pixel() {
+            /*if (!ScalarIsSet) {
                 throw std::runtime_error("Scalar not set!");
             }
-            return (unsigned int)(InternalScalar * CPP_Components::display->GetHeight() / 2.f);
-        }
+            return (unsigned int)(InternalScalar * CPP_Components::display->GetHeight() / 2.f);*/
+        //}
 
         inline float GetScalar_Normalized() {
             if (!ScalarIsSet) {

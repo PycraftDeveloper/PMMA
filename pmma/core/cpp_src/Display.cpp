@@ -7,15 +7,14 @@
 #include "Display.hpp"
 
 #include "Registry.hpp"
-#include "Components.hpp"
 
 using namespace std;
 
 CPP_Display::CPP_Display() {
-    if (CPP_Components::display != nullptr) {
-        CPP_Components::display->~CPP_Display();
-    }
-    CPP_Components::display = this;
+}
+
+void CPP_Display::hello() {
+    cout << "Hello from CPP_Display!" << endl;
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -246,6 +245,4 @@ CPP_Display::~CPP_Display() {
         glfwTerminate();
         CPP_Registry::Is_GLFW_Initialized = false;
     }
-
-    CPP_Components::display = nullptr;
 }

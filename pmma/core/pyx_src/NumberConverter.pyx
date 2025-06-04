@@ -5,6 +5,11 @@ from libcpp cimport bool
 import numpy as np
 cimport numpy as np
 
+from Display cimport CPP_Display  # Get cppclass definition
+
+cdef extern from "libshared.h":
+    CPP_Display* get_display_instance()
+
 cdef extern from "NumberConverter.hpp":
     cdef cppclass CPP_ColorConverter:
         void SetColor_RGBA(unsigned int* in_color) except + nogil
@@ -18,6 +23,8 @@ cdef extern from "NumberConverter.hpp":
         void GetColor_rgb(float* out_color) except + nogil
 
     cdef cppclass CPP_DisplayCoordinatesConverter:
+        CPP_DisplayCoordinatesConverter(CPP_Display* display) except + nogil
+
         void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
         void SetCoordinates_Normalized(float* in_coordinates) except + nogil
 
@@ -32,11 +39,18 @@ cdef extern from "NumberConverter.hpp":
         float GetAngle_Radians() except + nogil
 
     cdef cppclass CPP_DisplayScalarConverter:
-        void SetScalar_Pixel(unsigned int in_scalar) except + nogil
+        #void SetScalar_Pixel(unsigned int in_scalar) except + nogil
         void SetScalar_Normalized(float in_scalar) except + nogil
 
-        unsigned int GetScalar_Pixel() except + nogil
+        #unsigned int GetScalar_Pixel() except + nogil
         inline float GetScalar_Normalized() except + nogil
+
+def use_display():
+    cdef CPP_Display* inst = get_display_instance()
+    if inst != NULL:
+        inst.hello()
+    else:
+        raise RuntimeError("CPP_Display instance not initialized")
 
 cdef class ColorConverter:
     cdef:
@@ -181,7 +195,7 @@ cdef class DisplayCoordinatesConverter:
         bool using_numpy_arrays
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_DisplayCoordinatesConverter()
+        self.cpp_class_ptr = new CPP_DisplayCoordinatesConverter(get_display_instance())
 
         self.using_numpy_arrays = False
 
@@ -284,16 +298,16 @@ cdef class DisplayScalarConverter:
     def __dealloc__(self):
         del self.cpp_class_ptr
 
-    def set_scalar_pixel(self, value):
+    """def set_scalar_pixel(self, value):
         cdef unsigned int in_value = <unsigned int>value
-        self.cpp_class_ptr.SetScalar_Pixel(in_value)
+        self.cpp_class_ptr.SetScalar_Pixel(in_value)"""
 
     def set_scalar_normalized(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetScalar_Normalized(in_value)
 
-    def get_scalar_pixel(self):
-        return self.cpp_class_ptr.GetScalar_Pixel()
+    """def get_scalar_pixel(self):
+        return self.cpp_class_ptr.GetScalar_Pixel()"""
 
     def get_scalar_normalized(self):
         return self.cpp_class_ptr.GetScalar_Normalized()

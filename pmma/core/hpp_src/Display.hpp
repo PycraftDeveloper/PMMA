@@ -23,6 +23,8 @@ class CPP_Display {
     public:
         CPP_Display();
 
+        void hello();
+
         void Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen=true, bool NewResizable=false, bool NewNoFrame=false, bool NewVsync=true, bool NewCentered=true, bool NewMaximized=false);
 
         inline unsigned int GetWidth() {
