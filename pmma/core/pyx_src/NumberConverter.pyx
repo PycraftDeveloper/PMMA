@@ -18,8 +18,6 @@ cdef extern from "NumberConverter.hpp":
         void GetColor_rgb(float* out_color) except + nogil
 
     cdef cppclass CPP_DisplayCoordinatesConverter:
-        CPP_DisplayCoordinatesConverter() except + nogil
-
         void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
         void SetCoordinates_Normalized(float* in_coordinates) except + nogil
 

@@ -8,8 +8,6 @@ cdef extern from "Display.hpp":  # adjust namespace if needed
     cdef cppclass CPP_Display:
         CPP_Display() except + nogil
 
-        void hello()
-
         void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized) except + nogil
 
         unsigned int GetWidth() except + nogil

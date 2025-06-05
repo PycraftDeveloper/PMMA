@@ -22,10 +22,6 @@ CPP_Display::CPP_Display() {
     set_display_instance(this);
 }
 
-void CPP_Display::hello() {
-    cout << "Hello from CPP_Display!" << endl;
-}
-
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
     int count;
 
