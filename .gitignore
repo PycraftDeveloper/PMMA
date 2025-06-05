@@ -167,6 +167,7 @@ pmma/temporary/
 # IGNORE everything in cython directory EXCEPT pyx files
 pmma/core/pyx_src/*
 !pmma/core/pyx_src/*.pyx
+!pmma/core/pyx_src/*.pxd
 
 # Ignore everything in pmma/build except .pyi files
 pmma/build/*
