@@ -90,6 +90,8 @@ class CPP_DisplayCoordinatesConverter {
     public:
         CPP_DisplayCoordinatesConverter(CPP_Display* in_display) {
             display = in_display;
+
+            display = get_display_instance();
         }
 
         inline void SetCoordinates_Pixel(unsigned int* in_coordinates) {

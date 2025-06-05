@@ -5,7 +5,6 @@ import subprocess
 import sys
 import platform
 import glob
-from pathlib import Path
 from typing import Iterable
 
 cwd = os.path.dirname(__file__)

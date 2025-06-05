@@ -5,12 +5,21 @@
 #include <GLFW/glfw3.h>
 
 #include "Display.hpp"
+#include "libshared.h"
 
 #include "Registry.hpp"
 
 using namespace std;
 
 CPP_Display::CPP_Display() {
+    CPP_Display* ExistingDisplay;
+
+    ExistingDisplay = get_display_instance();
+    if (ExistingDisplay != nullptr) {
+        delete ExistingDisplay;
+        ExistingDisplay = nullptr;
+    }
+    set_display_instance(this);
 }
 
 void CPP_Display::hello() {
@@ -245,4 +254,6 @@ CPP_Display::~CPP_Display() {
         glfwTerminate();
         CPP_Registry::Is_GLFW_Initialized = false;
     }
+
+    set_display_instance(nullptr);
 }
