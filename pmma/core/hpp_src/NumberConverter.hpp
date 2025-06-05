@@ -88,9 +88,7 @@ class CPP_DisplayCoordinatesConverter {
         CPP_Display* display = nullptr;
 
     public:
-        CPP_DisplayCoordinatesConverter(CPP_Display* in_display) {
-            display = in_display;
-
+        CPP_DisplayCoordinatesConverter() {
             display = get_display_instance();
         }
 

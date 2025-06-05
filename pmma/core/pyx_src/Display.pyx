@@ -20,29 +20,17 @@ cdef extern from "libshared.h":
 
         void GetSize(unsigned int* out) except + nogil
 
-    CPP_Display* get_display_instance()
-    void set_display_instance(CPP_Display*)
-
 cdef class Display:
     cdef:
         CPP_Display* cpp_class_ptr
         bool using_numpy_arrays
 
     def __cinit__(self):
-        cdef:
-            CPP_Display* existing_instance
-
         self.cpp_class_ptr = new CPP_Display()
-
-        existing_instance = get_display_instance()
-        del existing_instance
-        set_display_instance(self.cpp_class_ptr)
 
         self.using_numpy_arrays = False
 
     def __dealloc__(self):
-        set_display_instance(NULL)
-
         del self.cpp_class_ptr
 
     def create(self, size=np.array([0, 0], dtype=np.uint32, order='C'), caption="PMMA Display", fullscreen=True, resizable=False, no_frame=False, vsync=True, icon="", centered=True, maximized=False):
