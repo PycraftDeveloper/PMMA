@@ -5,6 +5,8 @@ import subprocess
 import sys
 import platform
 import glob
+from pathlib import Path
+from typing import Iterable
 
 cwd = os.path.dirname(__file__)
 
@@ -12,9 +14,60 @@ build_dir = os.path.join(cwd, "pmma", "build")
 lib_dir = os.path.join(cwd, "pmma", "lib")
 temp_dir = os.path.join(cwd, "pmma", "temporary")
 include_dir = os.path.join(cwd, "pmma", "core", "hpp_src")
+pyx_dir = os.path.join(cwd, "pmma", "core", "pyx_src")
 
 glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
 glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.lib"
+
+TERMINAL_SIZE = shutil.get_terminal_size().columns
+
+########################## CLEAN UP OLD BUILD ##########################
+def selective_removal(directory, keep_items: Iterable[str]):
+    for item in os.listdir(directory):
+        item_path = os.path.join(directory, item)
+
+        if os.path.isfile(item_path):  # Check if it's a file
+            delete = True
+            for keep_item in keep_items:
+                if item.endswith(keep_item):
+                    delete = False
+                    break
+            if delete:
+                print("Deleting file:", item_path)
+                os.remove(item_path)  # Delete the file
+
+        elif os.path.isdir(item_path) and not item_path.endswith(".mypy_cache"):  # Check if it's a directory
+            print("Deleting directory:", item_path)
+            try:
+                os.remove(item_path)  # Delete the directory
+            except:
+                print("Could not delete directory:", item_path)
+
+def clean_old_build():
+    print("Cleaning old build directories...")
+    if os.path.exists(build_dir):
+        selective_removal(build_dir, [".pyi"])
+
+    if os.path.exists(pyx_dir):
+        selective_removal(pyx_dir, [".pyx", ".pxd"])
+
+    if os.path.exists(lib_dir):
+        shutil.rmtree(lib_dir, ignore_errors=False)
+
+    if os.path.exists(temp_dir):
+        shutil.rmtree(temp_dir, ignore_errors=False)
+
+print("=" * TERMINAL_SIZE)
+
+result = ""
+while result not in ["y", "n"]:
+    result = input("Do you want to clean up old build directories? (y/n): ").lower()
+
+if result == "y":
+    clean_old_build()
+
+print("=" * TERMINAL_SIZE)
+
 ########################### BUILD PMMA CORE ############################
 
 def build_shared_lib():
@@ -91,9 +144,9 @@ def find_vsdevcmd():
 print("Building PMMA Core...")
 
 build_shared_lib()
+print("=" * TERMINAL_SIZE)
 
 ########################################################################
-
 print("Building PMMA...")
 
 command = [ # if error occurs, run command manually :) "python setup.py build_ext" should do ALSO MAKE SURE NO IDLE/CODE INSTANCES ARE RUNNING
@@ -108,9 +161,10 @@ command = [ # if error occurs, run command manually :) "python setup.py build_ex
 print("\n>>> " + " ".join(command))
 print("="*30)
 print(subprocess.check_output(command).decode("utf-8").strip())
-print("="*30)
 
 print()
+
+print("=" * TERMINAL_SIZE)
 
 if not sys.platform.startswith("win"):
     result = input("The remainder of this script will attempt to update the pmma module on your computer. Do you wish to continue? (y/n): ")
@@ -128,7 +182,11 @@ SITE_PACKAGE_DIR = site.getsitepackages()[-1]
 print("Removing old version of PMMA...")
 shutil.rmtree(os.path.join(SITE_PACKAGE_DIR, 'pmma'))
 
+print("=" * TERMINAL_SIZE)
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 print("Copying new version of PMMA...")
 shutil.copytree(os.path.join(current_dir, 'pmma'), os.path.join(SITE_PACKAGE_DIR, 'pmma'))
+
+print("=" * TERMINAL_SIZE)
