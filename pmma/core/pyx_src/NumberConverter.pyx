@@ -32,10 +32,10 @@ cdef extern from "NumberConverter.hpp":
         float GetAngle_Radians() except + nogil
 
     cdef cppclass CPP_DisplayScalarConverter:
-        #void SetScalar_Pixel(unsigned int in_scalar) except + nogil
+        void SetScalar_Pixel(unsigned int in_scalar) except + nogil
         void SetScalar_Normalized(float in_scalar) except + nogil
 
-        #unsigned int GetScalar_Pixel() except + nogil
+        unsigned int GetScalar_Pixel() except + nogil
         inline float GetScalar_Normalized() except + nogil
 
 cdef class ColorConverter:
@@ -284,16 +284,16 @@ cdef class DisplayScalarConverter:
     def __dealloc__(self):
         del self.cpp_class_ptr
 
-    """def set_scalar_pixel(self, value):
+    def set_scalar_pixel(self, value):
         cdef unsigned int in_value = <unsigned int>value
-        self.cpp_class_ptr.SetScalar_Pixel(in_value)"""
+        self.cpp_class_ptr.SetScalar_Pixel(in_value)
 
     def set_scalar_normalized(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetScalar_Normalized(in_value)
 
-    """def get_scalar_pixel(self):
-        return self.cpp_class_ptr.GetScalar_Pixel()"""
+    def get_scalar_pixel(self):
+        return self.cpp_class_ptr.GetScalar_Pixel()
 
     def get_scalar_normalized(self):
         return self.cpp_class_ptr.GetScalar_Normalized()

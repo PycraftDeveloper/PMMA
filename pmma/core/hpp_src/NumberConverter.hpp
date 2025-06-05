@@ -174,24 +174,35 @@ class CPP_DisplayScalarConverter {
     public:
         float InternalScalar;
         bool ScalarIsSet = false;
+        CPP_Display* display = nullptr;
 
     public:
-        //inline void SetScalar_Pixel(unsigned int in_scalar) {
-            /*InternalScalar = (float)(in_scalar) * (2.f / CPP_Components::display->GetHeight());
-            ScalarIsSet = true;*/
-        //}
+        CPP_DisplayScalarConverter() {
+            display = get_display_instance();
+        }
+
+        inline void SetScalar_Pixel(unsigned int in_scalar) {
+            if (display == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+            InternalScalar = (float)(in_scalar) * (2.f / display->GetHeight());
+            ScalarIsSet = true;
+        }
 
         inline void SetScalar_Normalized(float in_scalar) {
             InternalScalar = in_scalar;
             ScalarIsSet = true;
         }
 
-        //inline unsigned int GetScalar_Pixel() {
-            /*if (!ScalarIsSet) {
+        inline unsigned int GetScalar_Pixel() {
+            if (!ScalarIsSet) {
                 throw std::runtime_error("Scalar not set!");
             }
-            return (unsigned int)(InternalScalar * CPP_Components::display->GetHeight() / 2.f);*/
-        //}
+            if (display == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+            return (unsigned int)(InternalScalar * display->GetHeight() / 2.f);
+        }
 
         inline float GetScalar_Normalized() {
             if (!ScalarIsSet) {
