@@ -126,8 +126,8 @@ def build_windows_shared_lib(cpp_file, include_dir, output_lib):
     if not os.path.exists(vcvarsall_path):
         raise FileNotFoundError(f"vcvarsall.bat not found at {vcvarsall_path}")
 
-    glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
-    glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.lib"
+    glfw_include = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include"
+    glfw_lib = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.lib"
 
     cmd = (
         f'cmd.exe /C "'

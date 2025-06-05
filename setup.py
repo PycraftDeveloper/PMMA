@@ -17,8 +17,8 @@ if sys.platform.startswith("win"):
     compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17"]
     link_args = ["/LTCG"]
 
-    glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
-    glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022"
+    glfw_include = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include"
+    glfw_lib = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/lib-vc2022"
     glfw_libraries = [
         "glfw3",
         "user32",
