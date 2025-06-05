@@ -1,4 +1,3 @@
-// libshared.h
 #pragma once
 
 #ifdef _WIN32
@@ -14,6 +13,12 @@
 #include "Display.hpp"
 
 extern "C" {
-    EXPORT CPP_Display* get_display_instance();
-    EXPORT void set_display_instance(CPP_Display* new_instance);
+    EXPORT CPP_Display* GetDisplayInstance();
+    EXPORT void SetDisplayInstance(CPP_Display* new_instance);
+
+    EXPORT bool Get_GLFW_Initialized();
+    EXPORT void Set_GLFW_Initialized(bool new_value);
+
+    EXPORT int Get_GLFW_References();
+    EXPORT void Set_GLFW_References(int new_value);
 }

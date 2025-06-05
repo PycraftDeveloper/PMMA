@@ -59,7 +59,7 @@ pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
 Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display"), add_source("Registry")[-1]],
+    sources=[*add_source("Display")],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[pmma_lib_dir, glfw_lib],
@@ -101,7 +101,7 @@ FractalBrownianMotion_ext = Extension(
 
 NumberConverter_ext = Extension(
     name="NumberConverter",
-    sources=[add_source("NumberConverter")[0], add_source("Display")[-1], add_source("Registry")[-1]], # This is header only
+    sources=[add_source("NumberConverter")[0], add_source("Display")[-1]], # This is header only
     language="c++",
     library_dirs=[pmma_lib_dir, glfw_lib],
     libraries=[shared_name, *glfw_libraries],

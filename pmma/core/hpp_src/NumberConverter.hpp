@@ -89,7 +89,7 @@ class CPP_DisplayCoordinatesConverter {
 
     public:
         CPP_DisplayCoordinatesConverter() {
-            display = get_display_instance();
+            display = GetDisplayInstance();
         }
 
         inline void SetCoordinates_Pixel(unsigned int* in_coordinates) {
@@ -178,7 +178,7 @@ class CPP_DisplayScalarConverter {
 
     public:
         CPP_DisplayScalarConverter() {
-            display = get_display_instance();
+            display = GetDisplayInstance();
         }
 
         inline void SetScalar_Pixel(unsigned int in_scalar) {

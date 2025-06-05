@@ -7,19 +7,17 @@
 #include "Display.hpp"
 #include "PMMA_Core.hpp"
 
-#include "Registry.hpp"
-
 using namespace std;
 
 CPP_Display::CPP_Display() {
     CPP_Display* ExistingDisplay;
 
-    ExistingDisplay = get_display_instance();
+    ExistingDisplay = GetDisplayInstance();
     if (ExistingDisplay != nullptr) {
         delete ExistingDisplay;
         ExistingDisplay = nullptr;
     }
-    set_display_instance(this);
+    SetDisplayInstance(this);
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -83,11 +81,12 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
 }
 
 void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized) {
-    if (!CPP_Registry::Is_GLFW_Initialized) {
+    if (!Get_GLFW_Initialized()) {
         glfwInit();
-        CPP_Registry::Is_GLFW_Initialized = true;
+        Set_GLFW_Initialized(true);
     }
-    CPP_Registry::GLFW_References++;
+
+    Set_GLFW_References(Get_GLFW_References() + 1);
 
     Caption = NewCaption;
     FullScreen = NewFullScreen;
@@ -103,10 +102,12 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     if (!TemporaryWindow) {
         throw runtime_error("Failed to create GLFW window");
 
-        CPP_Registry::GLFW_References--;
-        if (CPP_Registry::GLFW_References <= 0) {
+        int GLFW_References = Get_GLFW_References();
+        GLFW_References--;
+        Set_GLFW_References(GLFW_References);
+        if (GLFW_References <= 0) {
             glfwTerminate();
-            CPP_Registry::Is_GLFW_Initialized = false;
+            Set_GLFW_Initialized(false);
         }
     return;
     }
@@ -176,10 +177,12 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     if (!Window) {
         throw runtime_error("Failed to create GLFW window");
 
-        CPP_Registry::GLFW_References--;
-        if (CPP_Registry::GLFW_References <= 0) {
+        int GLFW_References = Get_GLFW_References();
+        GLFW_References--;
+        Set_GLFW_References(GLFW_References);
+        if (GLFW_References <= 0) {
             glfwTerminate();
-            CPP_Registry::Is_GLFW_Initialized = false;
+            Set_GLFW_Initialized(false);
         }
         return;
     }
@@ -245,11 +248,13 @@ CPP_Display::~CPP_Display() {
     glfwDestroyWindow(Window);
     Window = nullptr;
 
-    CPP_Registry::GLFW_References--;
-    if (CPP_Registry::GLFW_References <= 0) {
+    int GLFW_References = Get_GLFW_References();
+    GLFW_References--;
+    Set_GLFW_References(GLFW_References);
+    if (GLFW_References <= 0) {
         glfwTerminate();
-        CPP_Registry::Is_GLFW_Initialized = false;
+        Set_GLFW_Initialized(false);
     }
 
-    set_display_instance(nullptr);
+    SetDisplayInstance(nullptr);
 }
