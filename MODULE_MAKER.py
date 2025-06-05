@@ -67,11 +67,11 @@ print("=" * TERMINAL_SIZE)
 ########################### BUILD PMMA CORE ############################
 
 def build_shared_lib():
-    cpp_file = os.path.join(cwd, "pmma", "core", "cpp_src", "libshared.cpp")
+    cpp_file = os.path.join(cwd, "pmma", "core", "cpp_src", "PMMA_Core.cpp")
     output_dir = os.path.abspath(lib_dir)
     os.makedirs(output_dir, exist_ok=True)
 
-    libname = "libshared"
+    libname = "PMMA_Core"
     system = platform.system()
 
     if system == "Windows":
@@ -142,7 +142,7 @@ def build_windows_shared_lib(cpp_file, include_dir, output_lib):
     print(cmd)
     subprocess.run(cmd, check=True, stderr=subprocess.STDOUT)
 
-    os.remove(os.path.join(cwd, "libshared.obj"))
+    os.remove(os.path.join(cwd, "PMMA_Core.obj"))
 
 def find_vsdevcmd():
     candidates = glob.glob(

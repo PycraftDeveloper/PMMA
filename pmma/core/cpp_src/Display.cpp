@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Display.hpp"
-#include "libshared.h"
+#include "PMMA_Core.hpp"
 
 #include "Registry.hpp"
 

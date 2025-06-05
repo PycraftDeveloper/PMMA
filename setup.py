@@ -54,7 +54,7 @@ elif sys.platform == "darwin":
 else:
     raise NotImplementedError("Unsupported platform")
 
-shared_name = 'libshared'
+shared_name = 'PMMA_Core'
 pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
 Display_ext = Extension(

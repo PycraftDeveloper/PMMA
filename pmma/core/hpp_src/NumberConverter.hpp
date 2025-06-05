@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "libshared.h"
+#include "PMMA_Core.hpp"
 
 class CPP_ColorConverter {
     private:

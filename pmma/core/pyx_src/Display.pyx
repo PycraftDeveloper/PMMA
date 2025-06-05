@@ -7,7 +7,7 @@ import numpy as np
 cimport numpy as np
 
 # Declare the external C++ function
-cdef extern from "libshared.h":
+cdef extern from "PMMA_Core.hpp":
     cdef cppclass CPP_Display:
         CPP_Display() except + nogil
 
