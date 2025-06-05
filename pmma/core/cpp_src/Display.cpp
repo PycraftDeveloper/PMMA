@@ -119,7 +119,7 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     int CurrentMonitor_X_Position, CurrentMonitor_Y_Position;
     glfwGetMonitorPos(CurrentMonitor, &CurrentMonitor_X_Position, &CurrentMonitor_Y_Position);
 
-    int RelativeWindow_X_Position, RelativeWindow_Y_Position;
+    unsigned int RelativeWindow_X_Position, RelativeWindow_Y_Position;
     RelativeWindow_X_Position = TemporaryWindow_X_Position - CurrentMonitor_X_Position;
     RelativeWindow_Y_Position = TemporaryWindow_Y_Position - CurrentMonitor_Y_Position;
 

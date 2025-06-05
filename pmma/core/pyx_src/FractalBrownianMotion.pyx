@@ -5,21 +5,21 @@ import random
 import numpy as np
 cimport numpy as np
 
-cdef extern from "FractalBrownianMotion.hpp":
+cdef extern from "FractalBrownianMotion.hpp" nogil:
     cdef cppclass CPP_FractalBrownianMotion:
         CPP_FractalBrownianMotion(const unsigned int seed, unsigned int octaves, float lacunarity, float gain) except + nogil
 
-        float Noise1D(const float x) except + nogil
-        float Noise2D(const float x, const float y) except + nogil
-        float Noise3D(const float x, const float y, const float z) except + nogil
+        inline float Noise1D(const float x) except + nogil
+        inline float Noise2D(const float x, const float y) except + nogil
+        inline float Noise3D(const float x, const float y, const float z) except + nogil
 
-        void ArrayNoise1D(const float* values, const unsigned int length, float* out) except + nogil
-        void ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) except + nogil
-        void ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) except + nogil
+        inline void ArrayNoise1D(const float* values, const unsigned int length, float* out) except + nogil
+        inline void ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) except + nogil
+        inline void ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) except + nogil
 
-        void RangeNoise1D(const float* x_range, const unsigned int length, float* out) except + nogil
-        void RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) except + nogil
-        void RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) except + nogil
+        inline void RangeNoise1D(const float* x_range, const unsigned int length, float* out) except + nogil
+        inline void RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) except + nogil
+        inline void RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) except + nogil
 
 
 cdef class FractalBrownianMotion:

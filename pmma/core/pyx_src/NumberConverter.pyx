@@ -5,38 +5,45 @@ from libcpp cimport bool
 import numpy as np
 cimport numpy as np
 
-cdef extern from "NumberConverter.hpp":
+cdef extern from "NumberConverter.hpp" nogil:
     cdef cppclass CPP_ColorConverter:
-        void SetColor_RGBA(unsigned int* in_color) except + nogil
-        void SetColor_rgba(float* in_color) except + nogil
-        void SetColor_RGB(unsigned int* in_color) except + nogil
-        void SetColor_rgb(float* in_color) except + nogil
+        inline void SetColor_RGBA(unsigned int* in_color) except + nogil
+        inline void SetColor_rgba(float* in_color) except + nogil
+        inline void SetColor_RGB(unsigned int* in_color) except + nogil
+        inline void SetColor_rgb(float* in_color) except + nogil
 
-        void GetColor_RGBA(unsigned int* out_color) except + nogil
-        void GetColor_rgba(float* out_color) except + nogil
-        void GetColor_RGB(unsigned int* out_color) except + nogil
-        void GetColor_rgb(float* out_color) except + nogil
+        inline void GetColor_RGBA(unsigned int* out_color) except + nogil
+        inline void GetColor_rgba(float* out_color) except + nogil
+        inline void GetColor_RGB(unsigned int* out_color) except + nogil
+        inline void GetColor_rgb(float* out_color) except + nogil
 
     cdef cppclass CPP_DisplayCoordinatesConverter:
-        void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
-        void SetCoordinates_Normalized(float* in_coordinates) except + nogil
+        inline void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
+        inline void SetCoordinates_Normalized(float* in_coordinates) except + nogil
 
-        void GetCoordinates_Pixel(unsigned int* out_coordinates) except + nogil
-        void GetCoordinates_Normalized(float* out_coordinates) except + nogil
+        inline void GetCoordinates_Pixel(unsigned int* out_coordinates) except + nogil
+        inline void GetCoordinates_Normalized(float* out_coordinates) except + nogil
 
     cdef cppclass CPP_AngleConverter:
-        void SetAngle_Degrees(float in_angle) except + nogil
-        void SetAngle_Radians(float in_angle) except + nogil
+        inline void SetAngle_Degrees(float in_angle) except + nogil
+        inline void SetAngle_Radians(float in_angle) except + nogil
 
-        float GetAngle_Degrees() except + nogil
-        float GetAngle_Radians() except + nogil
+        inline float GetAngle_Degrees() except + nogil
+        inline float GetAngle_Radians() except + nogil
 
     cdef cppclass CPP_DisplayScalarConverter:
-        void SetScalar_Pixel(unsigned int in_scalar) except + nogil
-        void SetScalar_Normalized(float in_scalar) except + nogil
+        inline void SetScalar_Pixel(unsigned int in_scalar) except + nogil
+        inline void SetScalar_Normalized(float in_scalar) except + nogil
 
-        unsigned int GetScalar_Pixel() except + nogil
+        inline unsigned int GetScalar_Pixel() except + nogil
         inline float GetScalar_Normalized() except + nogil
+
+    cdef cppclass CPP_ProportionConverter:
+        inline void SetProportion_Percentage(float in_proportion) except + nogil
+        inline void SetProportion_Decimal(float in_proportion) except + nogil
+
+        inline float GetProportion_Percentage() except + nogil
+        inline float GetProportion_Decimal() except + nogil
 
 cdef class ColorConverter:
     cdef:
@@ -297,3 +304,25 @@ cdef class DisplayScalarConverter:
 
     def get_scalar_normalized(self):
         return self.cpp_class_ptr.GetScalar_Normalized()
+
+cdef class ProportionConverter:
+    cdef:
+        CPP_ProportionConverter* cpp_class_ptr
+
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_ProportionConverter()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def set_proportion_percentage(self, value):
+        self.cpp_class_ptr.SetProportion_Percentage(value)
+
+    def set_proportion_decimal(self, value):
+        self.cpp_class_ptr.SetProportion_Decimal(value)
+
+    def get_proportion_percentage(self):
+        return self.cpp_class_ptr.GetProportion_Percentage()
+
+    def get_proportion_decimal(self):
+        return self.cpp_class_ptr.GetProportion_Decimal()

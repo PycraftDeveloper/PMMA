@@ -211,3 +211,34 @@ class CPP_DisplayScalarConverter {
             return InternalScalar;
         }
 };
+
+class CPP_ProportionConverter {
+    public:
+        float InternalProportion;
+        bool ProportionIsSet = false;
+
+    public:
+        inline void SetProportion_Percentage(float in_proportion) {
+            InternalProportion = in_proportion / 100;
+            ProportionIsSet = true;
+        }
+
+        inline void SetProportion_Decimal(float in_proportion) {
+            InternalProportion = in_proportion;
+            ProportionIsSet = true;
+        }
+
+        inline float GetProportion_Percentage() {
+            if (!ProportionIsSet) {
+                throw std::runtime_error("Proportion not set!");
+            }
+            return InternalProportion * 100;
+        }
+
+        inline float GetProportion_Decimal() {
+            if (!ProportionIsSet) {
+                throw std::runtime_error("Proportion not set!");
+            }
+            return InternalProportion;
+        }
+};
