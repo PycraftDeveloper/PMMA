@@ -16,9 +16,6 @@ temp_dir = os.path.join(cwd, "pmma", "temporary")
 include_dir = os.path.join(cwd, "pmma", "core", "hpp_src")
 pyx_dir = os.path.join(cwd, "pmma", "core", "pyx_src")
 
-glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
-glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.lib"
-
 TERMINAL_SIZE = shutil.get_terminal_size().columns
 
 ########################## CLEAN UP OLD BUILD ##########################
@@ -84,19 +81,29 @@ def build_shared_lib():
 
     elif system == "Darwin":
         output_lib = os.path.join(output_dir, f"lib{libname}.dylib")
+
+        glfw_include = "/opt/homebrew/include"  # or /usr/local/include depending on installation
+        glfw_lib = ""
+
         cmd = [
             "g++", "-dynamiclib", "-std=c++17", "-fPIC",
             cpp_file, "-I", include_dir, "-I", glfw_include,
-            "-o", output_lib, "-L", glfw_lib, "-lglfw"
+            "-o", output_lib, "-L", glfw_lib, "-lglfw",
+            "-Wl,-rpath,$ORIGIN/../lib"
         ]
         subprocess.run(cmd, check=True)
 
     elif system == "Linux":
         output_lib = os.path.join(output_dir, f"lib{libname}.so")
+
+        glfw_include = "/usr/include"
+        glfw_lib = "/usr/lib/x86_64-linux-gnu"
+
         cmd = [
             "g++", "-shared", "-std=c++17", "-fPIC",
             cpp_file, "-I", include_dir, "-I", glfw_include,
-            "-o", output_lib, "-L", glfw_lib, "-lglfw"
+            "-o", output_lib, "-L", glfw_lib, "-lglfw",
+            "-Wl,-rpath,$ORIGIN/../lib"
         ]
         subprocess.run(cmd, check=True)
 
@@ -119,6 +126,9 @@ def build_windows_shared_lib(cpp_file, include_dir, output_lib):
     if not os.path.exists(vcvarsall_path):
         raise FileNotFoundError(f"vcvarsall.bat not found at {vcvarsall_path}")
 
+    glfw_include = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/include"
+    glfw_lib = "H:/Downloads/CPMMA/extern/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.lib"
+
     cmd = (
         f'cmd.exe /C "'
         f'call "{vcvarsall_path}" {arch} && '
@@ -132,6 +142,8 @@ def build_windows_shared_lib(cpp_file, include_dir, output_lib):
 
     print(cmd)
     subprocess.run(cmd, check=True, stderr=subprocess.STDOUT)
+
+    os.remove(os.path.join(cwd, "libshared.obj"))
 
 def find_vsdevcmd():
     candidates = glob.glob(
