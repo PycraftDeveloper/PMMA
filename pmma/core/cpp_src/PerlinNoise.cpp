@@ -15,7 +15,7 @@ CPP_PerlinNoise::CPP_PerlinNoise(const uint32_t seed) {
 
     srand(seed);
     for (int i = 255; i > 0; --i) {
-        swap(Permutations[i], Permutations[rand() % (i + 1)]);
+        swap(perm[i], perm[rand() % (i + 1)]);
     }
 
     for (int i = 0; i < 256; ++i) {

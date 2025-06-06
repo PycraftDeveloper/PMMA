@@ -101,7 +101,7 @@ FractalBrownianMotion_ext = Extension(
 
 NumberConverter_ext = Extension(
     name="NumberConverter",
-    sources=[add_source("NumberConverter")[0], add_source("Display")[-1]], # This is header only
+    sources=[add_source("NumberConverter")[0], add_source("Display")[-1], add_source("PerlinNoise")[-1], add_source("FractalBrownianMotion")[-1], add_source("AdvancedMathematics")[-1]], # This is header only
     language="c++",
     library_dirs=[pmma_lib_dir, glfw_lib],
     libraries=[shared_name, *glfw_libraries],

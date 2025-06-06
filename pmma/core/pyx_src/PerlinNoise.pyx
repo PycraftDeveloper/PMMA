@@ -26,8 +26,9 @@ cdef class PerlinNoise:
     """
     Seed value must be positive integer in range 0 to 4294967295.
     """
-    cdef CPP_PerlinNoise* cpp_class_ptr
-    cdef unsigned int seed
+    cdef:
+        CPP_PerlinNoise* cpp_class_ptr
+        unsigned int seed
 
     def __cinit__(self, seed = None):
         if seed == None:

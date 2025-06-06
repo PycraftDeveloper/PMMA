@@ -2,8 +2,10 @@
 
 #include "FractalBrownianMotion.hpp"
 
-CPP_FractalBrownianMotion::CPP_FractalBrownianMotion(const uint32_t seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-    CPP_PerlinNoise_ptr = new CPP_PerlinNoise(seed);
+CPP_FractalBrownianMotion::CPP_FractalBrownianMotion(const uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+    CPP_PerlinNoise_ptr = new CPP_PerlinNoise(new_seed);
+
+    Seed = new_seed;
     Octaves = new_octaves;
     Lacunarity = new_frequency;
     Gain = new_amplitude;

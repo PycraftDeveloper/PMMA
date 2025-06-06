@@ -2,11 +2,21 @@
 
 from libcpp cimport bool
 
+import random
+
 import numpy as np
 cimport numpy as np
 
 cdef extern from "NumberConverter.hpp" nogil:
     cdef cppclass CPP_ColorConverter:
+        CPP_ColorConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+
+        inline void GenerateRandomColor() except + nogil
+
+        inline void GeneratePerlinColor(float value) except + nogil
+
+        inline void GenerateFractalBrownianMotionColor(float value) except + nogil
+
         inline void SetColor_RGBA(unsigned int* in_color) except + nogil
         inline void SetColor_rgba(float* in_color) except + nogil
         inline void SetColor_RGB(unsigned int* in_color) except + nogil
@@ -18,6 +28,14 @@ cdef extern from "NumberConverter.hpp" nogil:
         inline void GetColor_rgb(float* out_color) except + nogil
 
     cdef cppclass CPP_DisplayCoordinatesConverter:
+        CPP_DisplayCoordinatesConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+
+        inline void GenerateRandomCoordinates() except + nogil
+
+        inline void GeneratePerlinCoordinates(float value) except + nogil
+
+        inline void GenerateFractalBrownianMotionCoordinates(float value) except + nogil
+
         inline void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
         inline void SetCoordinates_Normalized(float* in_coordinates) except + nogil
 
@@ -25,6 +43,14 @@ cdef extern from "NumberConverter.hpp" nogil:
         inline void GetCoordinates_Normalized(float* out_coordinates) except + nogil
 
     cdef cppclass CPP_AngleConverter:
+        CPP_AngleConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+
+        inline void GenerateRandomAngle() except + nogil
+
+        inline void GeneratePerlinAngle(float value) except + nogil
+
+        inline void GenerateFractalBrownianMotionAngle(float value) except + nogil
+
         inline void SetAngle_Degrees(float in_angle) except + nogil
         inline void SetAngle_Radians(float in_angle) except + nogil
 
@@ -32,6 +58,14 @@ cdef extern from "NumberConverter.hpp" nogil:
         inline float GetAngle_Radians() except + nogil
 
     cdef cppclass CPP_DisplayScalarConverter:
+        CPP_DisplayScalarConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+
+        inline void GenerateRandomScalar() except + nogil
+
+        inline void GeneratePerlinScalar(float value) except + nogil
+
+        inline void GenerateFractalBrownianMotionScalar(float value) except + nogil
+
         inline void SetScalar_Pixel(unsigned int in_scalar) except + nogil
         inline void SetScalar_Normalized(float in_scalar) except + nogil
 
@@ -39,6 +73,14 @@ cdef extern from "NumberConverter.hpp" nogil:
         inline float GetScalar_Normalized() except + nogil
 
     cdef cppclass CPP_ProportionConverter:
+        CPP_ProportionConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+
+        inline void GenerateRandomProportion() except + nogil
+
+        inline void GeneratePerlinProportion(float value) except + nogil
+
+        inline void GenerateFractalBrownianMotionProportion(float value) except + nogil
+
         inline void SetProportion_Percentage(float in_proportion) except + nogil
         inline void SetProportion_Decimal(float in_proportion) except + nogil
 
@@ -50,13 +92,42 @@ cdef class ColorConverter:
         CPP_ColorConverter* cpp_class_ptr
         bool using_numpy_arrays
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_ColorConverter()
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_ColorConverter(seed, octaves, lacunarity, gain)
 
         self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def generate_random_color(self):
+        self.cpp_class_ptr.GenerateRandomColor()
+
+    def generate_color_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinColor(value)
+
+    def generate_color_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionColor(value)
 
     def set_color_RGBA(self, in_color):
         cdef:
@@ -187,13 +258,42 @@ cdef class DisplayCoordinatesConverter:
         CPP_DisplayCoordinatesConverter* cpp_class_ptr
         bool using_numpy_arrays
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_DisplayCoordinatesConverter()
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_DisplayCoordinatesConverter(seed, octaves, lacunarity, gain)
 
         self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def generate_random_coordinates(self):
+        self.cpp_class_ptr.GenerateRandomCoordinates()
+
+    def generate_coordinates_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinCoordinates(value)
+
+    def generate_coordinates_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionCoordinates(value)
 
     def set_coordinates_pixel(self, in_coordinates):
         cdef:
@@ -261,11 +361,40 @@ cdef class AngleConverter:
     cdef:
         CPP_AngleConverter* cpp_class_ptr
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_AngleConverter()
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_AngleConverter(seed, octaves, lacunarity, gain)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def generate_random_angle(self):
+        self.cpp_class_ptr.GenerateRandomAngle()
+
+    def generate_angle_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinAngle(value)
+
+    def generate_angle_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionAngle(value)
 
     def set_angle_degrees(self, value):
         cdef float in_value = <float>value
@@ -285,11 +414,40 @@ cdef class DisplayScalarConverter:
     cdef:
         CPP_DisplayScalarConverter* cpp_class_ptr
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_DisplayScalarConverter()
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_DisplayScalarConverter(seed, octaves, lacunarity, gain)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def generate_random_scalar(self):
+        self.cpp_class_ptr.GenerateRandomScalar()
+
+    def generate_scalar_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinScalar(value)
+
+    def generate_scalar_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionScalar(value)
 
     def set_scalar_pixel(self, value):
         cdef unsigned int in_value = <unsigned int>value
@@ -309,11 +467,40 @@ cdef class ProportionConverter:
     cdef:
         CPP_ProportionConverter* cpp_class_ptr
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_ProportionConverter()
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_ProportionConverter(seed, octaves, lacunarity, gain)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def generate_random_proportion(self):
+        self.cpp_class_ptr.GenerateRandomProportion()
+
+    def generate_proportion_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinProportion(value)
+
+    def generate_proportion_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionProportion(value)
 
     def set_proportion_percentage(self, value):
         self.cpp_class_ptr.SetProportion_Percentage(value)

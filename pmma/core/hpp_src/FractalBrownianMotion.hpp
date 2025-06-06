@@ -8,6 +8,7 @@ using namespace std;
 
 class CPP_FractalBrownianMotion {
     private:
+        uint32_t Seed;
         uint32_t Octaves;
         float Lacunarity;
         float Gain;
@@ -15,7 +16,23 @@ class CPP_FractalBrownianMotion {
         CPP_PerlinNoise* CPP_PerlinNoise_ptr = nullptr;
 
     public:
-        CPP_FractalBrownianMotion(const uint32_t seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+        CPP_FractalBrownianMotion(const uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+
+        inline uint32_t GetSeed() const noexcept {
+            return Seed;
+        }
+
+        inline uint32_t GetOctaves() const noexcept {
+            return Octaves;
+        }
+
+        inline float GetLacunarity() const noexcept {
+            return Lacunarity;
+        }
+
+        inline float GetGain() const noexcept {
+            return Gain;
+        }
 
         inline float Noise1D(const float x) const noexcept {
             float total = 0.0f;

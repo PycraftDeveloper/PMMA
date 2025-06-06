@@ -45,4 +45,9 @@ namespace CPP_AdvancedMathematics {
     void ComputePosition(const float* position, const float* target, const float* up, float* out_x, float* out_y, float* out_z);
 
     void PerspectiveFOV(const float fov, const float aspect_ratio, const float near, const float far, float (*out)[4]);
+
+    inline float RandomFloat(const float* out_range) {
+        float value = (float)rand() / RAND_MAX;
+        return Ranger(value, new float[2]{0.0f, 1.0f}, out_range);
+    }
 }

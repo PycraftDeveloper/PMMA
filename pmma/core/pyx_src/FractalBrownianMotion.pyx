@@ -26,14 +26,14 @@ cdef class FractalBrownianMotion:
     """
     Seed value must be positive integer in range 0 to 4294967295.
     """
-    cdef CPP_FractalBrownianMotion* cpp_class_ptr
-    cdef unsigned int seed
-    cdef unsigned int octaves
-    cdef float lacunarity
-    cdef float gain
+    cdef:
+        CPP_FractalBrownianMotion* cpp_class_ptr
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
 
-    def __cinit__(self, octaves, lacunarity, gain, seed = None):
-
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
