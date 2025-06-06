@@ -513,3 +513,66 @@ cdef class ProportionConverter:
 
     def get_proportion_decimal(self):
         return self.cpp_class_ptr.GetProportion_Decimal()
+
+cdef class LinkedProportionConverter:
+    cdef:
+        CPP_ProportionConverter* cpp_class_ptr
+
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+        object linked_class
+        object attr_name
+
+    def __cinit__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_ProportionConverter(seed, octaves, lacunarity, gain)
+
+    def __init__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        self.linked_class = linked_class
+        self.attr_name = attr_name
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def generate_random_proportion(self):
+        self.cpp_class_ptr.GenerateRandomProportion()
+        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+
+    def generate_proportion_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinProportion(value)
+        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+
+    def generate_proportion_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionProportion(value)
+        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+
+    def set_proportion_percentage(self, value):
+        self.cpp_class_ptr.SetProportion_Percentage(value)
+        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+
+    def set_proportion_decimal(self, value):
+        self.cpp_class_ptr.SetProportion_Decimal(value)
+        setattr(self.linked_class, self.attr_name, value)
+
+    def get_proportion_percentage(self):
+        return self.cpp_class_ptr.GetProportion_Percentage()
+
+    def get_proportion_decimal(self):
+        return self.cpp_class_ptr.GetProportion_Decimal()

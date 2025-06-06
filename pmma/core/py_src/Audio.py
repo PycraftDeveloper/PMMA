@@ -8,7 +8,7 @@ import waiting
 import numpy
 import pedalboard
 
-from pmma.build.NumberConverter import ProportionConverter
+from pmma.build.NumberConverter import ProportionConverter, LinkedProportionConverter
 
 from pmma.core.py_src.Constants import Constants
 
@@ -28,10 +28,10 @@ class Audio:
         self._from_moviepy = False
         self._moviepy_audio_itr = None
 
-        self._volume = ProportionConverter()  # Default volume is 100%
-        self._volume.set_proportion_decimal(1.0)
-        self._pan = ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
-        self._pan.set_proportion_decimal(0.0)
+        self.volume = ProportionConverter()  # Default volume is 100%
+        self.volume.set_proportion_decimal(1.0)
+        self.pan = ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
+        self.pan.set_proportion_decimal(0.0)
 
         self._playing = False
         self._first_run = True
@@ -156,25 +156,6 @@ class Audio:
         🟩 **R** -
         """
         self._effects_list.remove(effect)
-
-    def set_volume(self, volume, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-
-        if format == Constants.PERCENTAGE:
-            self._volume.set_proportion_percentage(volume)
-        else:
-            self._volume.set_proportion_decimal(volume)
-
-    def set_pan(self, pan, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._pan.set_proportion_percentage(pan)
-        else:
-            self._pan.set_proportion_decimal(pan)
 
     def play(self, blocking=True, delay=0):
         """
@@ -319,11 +300,11 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         """
         🟩 **R** - Apply volume and panning to the chunk of audio
         """
-        chunk = chunk * self._volume.get_proportion_decimal()
+        chunk = chunk * self.volume.get_proportion_decimal()
 
         if self._channels == 2:  # Stereo audio
-            left = 1 - max(self._pan.get_proportion_decimal(), 0)  # Reduce left channel when panning right
-            right = 1 - max(-self._pan.get_proportion_decimal(), 0)  # Reduce right channel when panning left
+            left = 1 - max(self.pan.get_proportion_decimal(), 0)  # Reduce left channel when panning right
+            right = 1 - max(-self.pan.get_proportion_decimal(), 0)  # Reduce right channel when panning left
             chunk[:, 0] *= left
             chunk[:, 1] *= right
         return chunk
@@ -410,31 +391,31 @@ class Chorus(pedalboard.Chorus):
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_depth = ProportionConverter()
+        self.proportion_adjusted_depth = LinkedProportionConverter(self, "depth")
         if depth_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_depth.set_proportion_percentage(depth)
+            self.proportion_adjusted_depth.set_proportion_percentage(depth)
         else:
-            self._proportion_adjusted_depth.set_proportion_decimal(depth)
+            self.proportion_adjusted_depth.set_proportion_decimal(depth)
 
-        self._proportion_adjusted_feedback = ProportionConverter()
+        self.proportion_adjusted_feedback = LinkedProportionConverter(self, "feedback")
 
         if feedback_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_feedback.set_proportion_percentage(feedback)
+            self.proportion_adjusted_feedback.set_proportion_percentage(feedback)
         else:
-            self._proportion_adjusted_feedback.set_proportion_decimal(feedback)
+            self.proportion_adjusted_feedback.set_proportion_decimal(feedback)
 
-        self._proportion_adjusted_mix = ProportionConverter()
+        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
         if mix_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
+            self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
+            self.proportion_adjusted_mix.set_proportion_decimal(mix)
 
         super().__init__(
             rate_hz=rate,
-            depth=self._proportion_adjusted_depth.get_proportion_decimal(),
+            depth=self.proportion_adjusted_depth.get_proportion_decimal(),
             centre_delay_ms=center_delay * 1000, # s to ms
-            feedback=self._proportion_adjusted_feedback.get_proportion_decimal(),
-            mix=self._proportion_adjusted_mix.get_proportion_decimal())
+            feedback=self.proportion_adjusted_feedback.get_proportion_decimal(),
+            mix=self.proportion_adjusted_mix.get_proportion_decimal())
 
     def set_rate(self, rate):
         """
@@ -448,24 +429,6 @@ class Chorus(pedalboard.Chorus):
         """
         return self.rate_hz
 
-    def set_depth(self, depth, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_depth.set_proportion_percentage(depth)
-        else:
-            self._proportion_adjusted_depth.set_proportion_decimal(depth)
-        self.depth = self._proportion_adjusted_depth.get_proportion_decimal()
-
-    def get_depth(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_depth.get_proportion_percentage()
-        return self._proportion_adjusted_depth.get_proportion_decimal()
-
     def set_center_delay(self, center_delay):
         """
         🟩 **R** -
@@ -477,42 +440,6 @@ class Chorus(pedalboard.Chorus):
         🟩 **R** -
         """
         return self.centre_delay_ms / 1000
-
-    def set_feedback(self, feedback, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_feedback.set_proportion_percentage(feedback)
-        else:
-            self._proportion_adjusted_feedback.set_proportion_decimal(feedback)
-        self.feedback = self._proportion_adjusted_feedback.get_proportion_decimal()
-
-    def get_feedback(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_feedback.get_proportion_percentage()
-        return self._proportion_adjusted_feedback.get_proportion_decimal()
-
-    def set_mix(self, mix, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
-        else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
-        self.mix = self._proportion_adjusted_mix.get_proportion_decimal()
-
-    def get_mix(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_mix.get_proportion_percentage()
-        return self._proportion_adjusted_mix.get_proportion_decimal()
 
 class Clipping(pedalboard.Clipping):
     """
@@ -623,16 +550,16 @@ class Convolution(pedalboard.Convolution):
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_mix = ProportionConverter()
+        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
 
         if mix_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
+            self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
+            self.proportion_adjusted_mix.set_proportion_decimal(mix)
 
         super().__init__(
             impulse_response_filename=impulse_response_filename,
-            mix=self._proportion_adjusted_mix.get_proportion_decimal(),
+            mix=self.proportion_adjusted_mix.get_proportion_decimal(),
             sample_rate=sample_rate)
 
     def set_impulse_response_filename(self, impulse_response):
@@ -646,24 +573,6 @@ class Convolution(pedalboard.Convolution):
         🟩 **R** -
         """
         return self.impulse_response
-
-    def set_mix(self, mix, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
-        else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
-        self.mix = self._proportion_adjusted_mix.get_proportion_decimal()
-
-    def get_mix(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_mix.get_proportion_percentage()
-        return self._proportion_adjusted_mix.get_proportion_decimal()
 
     def set_sample_rate(self, sample_rate):
         """
@@ -698,23 +607,23 @@ class Delay(pedalboard.Delay):
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_feedback = ProportionConverter()
+        self.proportion_adjusted_feedback = LinkedProportionConverter(self, "feedback")
 
         if feedback_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_feedback.set_proportion_percentage(feedback)
+            self.proportion_adjusted_feedback.set_proportion_percentage(feedback)
         else:
-            self._proportion_adjusted_feedback.set_proportion_decimal(feedback)
+            self.proportion_adjusted_feedback.set_proportion_decimal(feedback)
 
-        self._proportion_adjusted_mix = ProportionConverter()
+        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
         if mix_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
+            self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
+            self.proportion_adjusted_mix.set_proportion_decimal(mix)
 
         super().__init__(
             delay_seconds=delay,
-            feedback=self._proportion_adjusted_feedback.get_proportion_decimal(),
-            mix=self._proportion_adjusted_mix.get_proportion_decimal())
+            feedback=self.proportion_adjusted_feedback.get_proportion_decimal(),
+            mix=self.proportion_adjusted_mix.get_proportion_decimal())
 
     def set_delay(self, delay):
         """
@@ -727,42 +636,6 @@ class Delay(pedalboard.Delay):
         🟩 **R** -
         """
         return self.delay_seconds
-
-    def set_feedback(self, feedback, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_feedback.set_proportion_percentage(feedback)
-        else:
-            self._proportion_adjusted_feedback.set_proportion_decimal(feedback)
-        self.feedback = self._proportion_adjusted_feedback.get_proportion_decimal()
-
-    def get_feedback(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_feedback.get_proportion_percentage()
-        return self._proportion_adjusted_feedback.get_proportion_decimal()
-
-    def set_mix(self, mix, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
-        else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
-        self.mix = self._proportion_adjusted_mix.get_proportion_decimal()
-
-    def get_mix(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_mix.get_proportion_percentage()
-        return self._proportion_adjusted_mix.get_proportion_decimal()
 
 class Distortion(pedalboard.Distortion):
     """
@@ -1207,30 +1080,30 @@ class Phaser(pedalboard.Phaser):
         if mix_format is None:
             mix_format = format
 
-        self._proportion_adjusted_depth = ProportionConverter()
+        self.proportion_adjusted_depth = LinkedProportionConverter(self, "depth")
         if depth_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_depth.set_proportion_percentage(depth)
+            self.proportion_adjusted_depth.set_proportion_percentage(depth)
         else:
-            self._proportion_adjusted_depth.set_proportion_decimal(depth)
+            self.proportion_adjusted_depth.set_proportion_decimal(depth)
 
-        self._proportion_adjusted_feedback = ProportionConverter()
+        self.proportion_adjusted_feedback = LinkedProportionConverter(self, "feedback")
         if feedback_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_feedback.set_proportion_percentage(feedback)
+            self.proportion_adjusted_feedback.set_proportion_percentage(feedback)
         else:
-            self._proportion_adjusted_feedback.set_proportion_decimal(feedback)
+            self.proportion_adjusted_feedback.set_proportion_decimal(feedback)
 
-        self._proportion_adjusted_mix = ProportionConverter()
+        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
         if mix_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
+            self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
+            self.proportion_adjusted_mix.set_proportion_decimal(mix)
 
         super().__init__(
             rate_hz=rate,
-            depth=self._proportion_adjusted_depth.get_proportion_decimal(),
+            depth=self.proportion_adjusted_depth.get_proportion_decimal(),
             centre_frequency_hz=center_frequency,
-            feedback=self._proportion_adjusted_feedback.get_proportion_decimal(),
-            mix=self._proportion_adjusted_mix.get_proportion_decimal())
+            feedback=self.proportion_adjusted_feedback.get_proportion_decimal(),
+            mix=self.proportion_adjusted_mix.get_proportion_decimal())
 
     def set_rate(self, rate):
         """
@@ -1244,24 +1117,6 @@ class Phaser(pedalboard.Phaser):
         """
         return self.rate_hz
 
-    def set_depth(self, depth, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_depth.set_proportion_percentage(depth)
-        else:
-            self._proportion_adjusted_depth.set_proportion_decimal(depth)
-        self.depth = self._proportion_adjusted_depth.get_proportion_decimal()
-
-    def get_depth(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_depth.get_proportion_percentage()
-        return self._proportion_adjusted_depth.get_proportion_decimal()
-
     def set_center_frequency(self, center_frequency):
         """
         🟩 **R** -
@@ -1273,42 +1128,6 @@ class Phaser(pedalboard.Phaser):
         🟩 **R** -
         """
         return self.centre_frequency_hz
-
-    def set_feedback(self, feedback, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_feedback.set_proportion_percentage(feedback)
-        else:
-            self._proportion_adjusted_feedback.set_proportion_decimal(feedback)
-        self.feedback = self._proportion_adjusted_feedback.get_proportion_decimal()
-
-    def get_feedback(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_feedback.get_proportion_percentage()
-        return self._proportion_adjusted_feedback.get_proportion_decimal()
-
-    def set_mix(self, mix, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_mix.set_proportion_percentage(mix)
-        else:
-            self._proportion_adjusted_mix.set_proportion_decimal(mix)
-        self.mix = self._proportion_adjusted_mix.get_proportion_decimal()
-
-    def get_mix(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_mix.get_proportion_percentage()
-        return self._proportion_adjusted_mix.get_proportion_decimal()
 
 class PitchShift(pedalboard.PitchShift):
     """
@@ -1389,133 +1208,43 @@ class Reverb(pedalboard.Reverb):
         if width_format is None:
             width_format = format
 
-        self._proportion_adjusted_room_size = ProportionConverter()
+        self.proportion_adjusted_room_size = LinkedProportionConverter(self, "room_size")
         if room_size_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_room_size.set_proportion_percentage(room_size)
+            self.proportion_adjusted_room_size.set_proportion_percentage(room_size)
         else:
-            self._proportion_adjusted_room_size.set_proportion_decimal(room_size)
+            self.proportion_adjusted_room_size.set_proportion_decimal(room_size)
 
-        self._proportion_adjusted_damping = ProportionConverter()
+        self.proportion_adjusted_damping = LinkedProportionConverter(self, "damping")
         if damping_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_damping.set_proportion_percentage(damping)
+            self.proportion_adjusted_damping.set_proportion_percentage(damping)
         else:
-            self._proportion_adjusted_damping.set_proportion_decimal(damping)
+            self.proportion_adjusted_damping.set_proportion_decimal(damping)
 
-        self._proportion_adjusted_wet_level = ProportionConverter()
+        self.proportion_adjusted_wet_level = LinkedProportionConverter(self, "wet_level")
         if wet_level_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_wet_level.set_proportion_percentage(wet_level)
+            self.proportion_adjusted_wet_level.set_proportion_percentage(wet_level)
         else:
-            self._proportion_adjusted_wet_level.set_proportion_decimal(wet_level)
+            self.proportion_adjusted_wet_level.set_proportion_decimal(wet_level)
 
-        self._proportion_adjusted_dry_level = ProportionConverter()
+        self.proportion_adjusted_dry_level = LinkedProportionConverter(self, "dry_level")
         if dry_level_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_dry_level.set_proportion_percentage(dry_level)
+            self.proportion_adjusted_dry_level.set_proportion_percentage(dry_level)
         else:
-            self._proportion_adjusted_dry_level.set_proportion_decimal(dry_level)
+            self.proportion_adjusted_dry_level.set_proportion_decimal(dry_level)
 
-        self._proportion_adjusted_width = ProportionConverter()
+        self.proportion_adjusted_width = LinkedProportionConverter(self, "width")
         if width_format == Constants.PERCENTAGE:
-            self._proportion_adjusted_width.set_proportion_percentage(width)
+            self.proportion_adjusted_width.set_proportion_percentage(width)
         else:
-            self._proportion_adjusted_width.set_proportion_decimal(width)
+            self.proportion_adjusted_width.set_proportion_decimal(width)
 
         super().__init__(
-            room_size=self._proportion_adjusted_room_size.get_proportion_decimal(),
-            damping=self._proportion_adjusted_damping.get_proportion_decimal(),
-            wet_level=self._proportion_adjusted_wet_level.get_proportion_decimal(),
-            dry_level=self._proportion_adjusted_dry_level.get_proportion_decimal(),
-            width=self._proportion_adjusted_width.get_proportion_decimal(),
+            room_size=self.proportion_adjusted_room_size.get_proportion_decimal(),
+            damping=self.proportion_adjusted_damping.get_proportion_decimal(),
+            wet_level=self.proportion_adjusted_wet_level.get_proportion_decimal(),
+            dry_level=self.proportion_adjusted_dry_level.get_proportion_decimal(),
+            width=self.proportion_adjusted_width.get_proportion_decimal(),
             freeze_mode=freeze_mode)
-
-    def set_room_size(self, room_size, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_room_size.set_proportion_percentage(room_size)
-        else:
-            self._proportion_adjusted_room_size.set_proportion_decimal(room_size)
-        self.room_size = self._proportion_adjusted_room_size.get_proportion_decimal()
-
-    def get_room_size(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_room_size.get_proportion_percentage()
-        return self._proportion_adjusted_room_size.get_proportion_decimal()
-
-    def set_damping(self, damping, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_damping.set_proportion_percentage(damping)
-        else:
-            self._proportion_adjusted_damping.set_proportion_decimal(damping)
-        self.damping = self._proportion_adjusted_damping.get_proportion_decimal()
-
-    def get_damping(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_damping.get_proportion_percentage()
-        return self._proportion_adjusted_damping.get_proportion_decimal()
-
-    def set_wet_level(self, wet_level, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_wet_level.set_proportion_percentage(wet_level)
-        else:
-            self._proportion_adjusted_wet_level.set_proportion_decimal(wet_level)
-        self.wet_level = self._proportion_adjusted_wet_level.get_proportion_decimal()
-
-    def get_wet_level(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_wet_level.get_proportion_percentage()
-        return self._proportion_adjusted_wet_level.get_proportion_decimal()
-
-    def set_dry_level(self, dry_level, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_dry_level.set_proportion_percentage(dry_level)
-        else:
-            self._proportion_adjusted_dry_level.set_proportion_decimal(dry_level)
-        self.dry_level = self._proportion_adjusted_dry_level.get_proportion_decimal()
-
-    def get_dry_level(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_dry_level.get_proportion_percentage()
-        return self._proportion_adjusted_dry_level.get_proportion_decimal()
-
-    def set_width(self, width, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            self._proportion_adjusted_width.get_proportion_percentage(width)
-        else:
-            self._proportion_adjusted_width.get_proportion_decimal(width)
-        self.width = self._proportion_adjusted_width.get_proportion_decimal()
-
-    def get_width(self, format=Constants.PERCENTAGE):
-        """
-        🟩 **R** -
-        """
-        if format == Constants.PERCENTAGE:
-            return self._proportion_adjusted_width.get_proportion_percentage()
-        return self._proportion_adjusted_width.get_proportion_decimal()
 
     def set_freeze_mode(self, freeze_mode):
         """

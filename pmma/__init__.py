@@ -15,7 +15,9 @@ from pmma.build.AdvancedMathematics import AdvancedMathematics
 from pmma.build.PerlinNoise import PerlinNoise
 from pmma.build.FractalBrownianMotion import FractalBrownianMotion
 from pmma.build.Display import Display
-from pmma.build.NumberConverter import ColorConverter, DisplayCoordinatesConverter, AngleConverter, DisplayScalarConverter, ProportionConverter
+from pmma.build.NumberConverter import (
+    ColorConverter, DisplayCoordinatesConverter, AngleConverter,
+    DisplayScalarConverter, ProportionConverter)
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *
