@@ -1,10 +1,7 @@
-from typing import Literal, Union, Callable, Any, Generator
+from typing import Literal, Union, Callable, Any
 
-import numpy
-from numpy.typing import NDArray
 import pedalboard
 from moviepy.audio.io.AudioFileClip import AudioFileClip
-import sounddevice
 
 from pmma.build.NumberConverter import ProportionConverter, LinkedProportionConverter
 
@@ -95,16 +92,6 @@ class Audio:
                             pedalboard.Reverb]) -> None: ...
 
     def play(self, blocking: bool=True, delay: Numerical=0) -> bool: ...
-
-    def _wait_for_chunk_to_play(self) -> bool: ...
-
-    def _start_playback(self) -> None: ...
-
-    def _audio_generator(self, chunk_size: int) -> Generator[NDArray[numpy.float32], None, None]: ...
-
-    def _audio_callback(self, outdata: NDArray[numpy.float32], frames: int, _: Numerical, status: sounddevice.CallbackFlags) -> None: ...
-
-    def _apply_volume_and_pan(self, chunk: NDArray[numpy.float32]) -> NDArray[numpy.float32]: ...
 
     def pause(self) -> None: ...
 

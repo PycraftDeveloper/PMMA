@@ -1,5 +1,3 @@
-from typing import Literal, Iterable
-
 class Constants:
     DECIMAL: str
     PERCENTAGE: str
@@ -34,21 +32,3 @@ class Constants:
     TKINTER_STYLE_SEPARATOR: str
     TKINTER_STYLE_SIZEGRIP: str
     TKINTER_STYLE_TREEVIEW: str
-
-class InternalConstants:
-    DATA_COLLECTION_METHODS: str
-
-    SMI: str
-    WMI: str
-    PYADL: str
-
-    CREATE_NO_WINDOW: Literal[0x08000000]
-
-    TKINTER_STYLES: Iterable[
-        Literal[
-            "TButton", "TCheckbutton", "TCombobox", "TEntry", "TFrame",
-            "TLabel", "TLabelFrame", "TMenubutton", "TNotebook",
-            "TPanedwindow", "Horizontal.TProgressbar",
-            "Vertical.TProgressbar", "TRadiobutton", "Horizontal.TScale",
-            "Vertical.TScale", "Horizontal.TScrollbar",
-            "Vertical.TScrollbar", "TSeparator", "TSizegrip", "Treeview"]]
