@@ -27,14 +27,14 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Audio
 * ✅ - Finished GPU
 * ✅ - Finished Executor
-* ✅ - Finished Advanced Threading
+* ✅ - Finished Advanced Tkinter
 * ⏳ - Working on Video
 * ⏳ - Working on Display
 * ⏳ - Working on Events
 * ⏳ - Working on OpenGL
 * ⏳ - Working on Logging
 * ⏳ - Working on General
-* 🛑 - Not started Advanced Tkinter
+* 🛑 - Not started Advanced Threading
 * 🛑 - Not started Camera
 * 🛑 - Not started Complex 2D shapes
 * 🛑 - Not started Constants
