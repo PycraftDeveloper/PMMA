@@ -13,7 +13,7 @@ Typically, developing applications in Python necessitates familiarity with a var
 
 ## Progress on PMMA v5.0.0
 
-![Progress on PMMA v5.0.0](https://geps.dev/progress/37)
+![Progress on PMMA v5.0.0](https://geps.dev/progress/40)
 
 Each entry is worth: (20/7) %
 
@@ -23,19 +23,18 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Perlin Noise component
 * ✅ - Finished Fractal Brownian Motion
 * ✅ - Finished Backpack
-* ✅ - Working on Number Converter
-* ✅ - Working on Audio
-* ✅ - Not started GPU
-* ✅ - Not started Executor
+* ✅ - Finished Number Converter
+* ✅ - Finished Audio
+* ✅ - Finished GPU
+* ✅ - Finished Executor
+* ✅ - Finished Advanced Threading
 * ⏳ - Working on Video
 * ⏳ - Working on Display
 * ⏳ - Working on Events
-* ⏳ - Not started OpenGL
-* ⏳ - Not started Logging
-* ⏳ - Not started General
-* 🛑 - Not started GPU Distribution
-* 🛑 - Not started Advanced Threading
-* 🛑 - Not started Advanced Tkinter (may be deprecated?)
+* ⏳ - Working on OpenGL
+* ⏳ - Working on Logging
+* ⏳ - Working on General
+* 🛑 - Not started Advanced Tkinter
 * 🛑 - Not started Camera
 * 🛑 - Not started Complex 2D shapes
 * 🛑 - Not started Constants
