@@ -51,7 +51,22 @@ class Audio:
                             LadderFilter, Limiter, LowShelfFilter,
                             LowPassFilter, MP3Compressor, NoiseGate,
                             PeakFilter, Phaser, PitchShift, ReSample,
-                            Reverb]) -> None: ...
+                            Reverb, pedalboard.Bitcrush,
+                            pedalboard.Chorus, pedalboard.Clipping,
+                            pedalboard.Compressor,
+                            pedalboard.Convolution, pedalboard.Delay,
+                            pedalboard.Distortion,
+                            pedalboard.GSMFullRateCompressor,
+                            pedalboard.Gain, pedalboard.HighShelfFilter,
+                            pedalboard.HighpassFilter,
+                            pedalboard.LadderFilter, pedalboard.Limiter,
+                            pedalboard.LowShelfFilter,
+                            pedalboard.LowpassFilter,
+                            pedalboard.MP3Compressor,
+                            pedalboard.NoiseGate, pedalboard.PeakFilter,
+                            pedalboard.Phaser, pedalboard.PitchShift,
+                            pedalboard.Resample,
+                            pedalboard.Reverb]) -> None: ...
 
     def remove_effect(
             self,
@@ -62,7 +77,22 @@ class Audio:
                             LadderFilter, Limiter, LowShelfFilter,
                             LowPassFilter, MP3Compressor, NoiseGate,
                             PeakFilter, Phaser, PitchShift, ReSample,
-                            Reverb]) -> None: ...
+                            Reverb, pedalboard.Bitcrush,
+                            pedalboard.Chorus, pedalboard.Clipping,
+                            pedalboard.Compressor,
+                            pedalboard.Convolution, pedalboard.Delay,
+                            pedalboard.Distortion,
+                            pedalboard.GSMFullRateCompressor,
+                            pedalboard.Gain, pedalboard.HighShelfFilter,
+                            pedalboard.HighpassFilter,
+                            pedalboard.LadderFilter, pedalboard.Limiter,
+                            pedalboard.LowShelfFilter,
+                            pedalboard.LowpassFilter,
+                            pedalboard.MP3Compressor,
+                            pedalboard.NoiseGate, pedalboard.PeakFilter,
+                            pedalboard.Phaser, pedalboard.PitchShift,
+                            pedalboard.Resample,
+                            pedalboard.Reverb]) -> None: ...
 
     def play(self, blocking: bool=True, delay: Numerical=0) -> bool: ...
 

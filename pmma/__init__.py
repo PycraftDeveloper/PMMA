@@ -21,3 +21,6 @@ from pmma.build.NumberConverter import (
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *
+from pmma.core.py_src.Executor import Executor, AdvancedExecutor
+from pmma.core.py_src.General import General
+from pmma.core.py_src.GPU import GPUs
