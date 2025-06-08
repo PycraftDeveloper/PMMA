@@ -171,7 +171,7 @@ command = [ # if error occurs, run command manually :) "python setup.py build_ex
 
 print("\n>>> " + " ".join(command))
 print("="*30)
-print(subprocess.check_output(command).decode("utf-8").strip())
+subprocess.run(command, check=True, stderr=subprocess.STDOUT)
 
 print()
 

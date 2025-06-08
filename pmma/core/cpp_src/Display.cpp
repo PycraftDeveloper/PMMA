@@ -16,15 +16,21 @@ using namespace std;
 
 CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
     CPP_Display* ExistingDisplay;
+    CPP_ColorConverter* ExistingWindowFillColor;
 
     ExistingDisplay = GetDisplayInstance();
+    ExistingWindowFillColor = GetWindowFillColor();
+
     if (ExistingDisplay != nullptr) {
         delete ExistingDisplay;
         ExistingDisplay = nullptr;
     }
     SetDisplayInstance(this);
 
-    WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
+    if (ExistingWindowFillColor == nullptr) {
+        WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
+        SetWindowFillColor(WindowFillColor);
+    }
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -307,12 +313,12 @@ string CPP_Display::GetCaption() {
 
 void CPP_Display::Refresh(
             unsigned int RefreshRate,
-            bool Minimized=false,
-            bool FocusLoss=false,
-            bool LowBattery=false,
-            bool LowerRefreshRate_OnMinimize=true,
-            bool LowerRefreshRate_OnFocusLoss=true,
-            bool LowerRefreshRate_OnLowBattery=true) {
+            bool Minimized,
+            bool FocusLoss,
+            bool LowBattery,
+            bool LowerRefreshRate_OnMinimize,
+            bool LowerRefreshRate_OnFocusLoss,
+            bool LowerRefreshRate_OnLowBattery) {
 
     if (Window == nullptr) {
         throw runtime_error("Display not created yet!");

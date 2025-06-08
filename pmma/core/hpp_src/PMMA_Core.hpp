@@ -12,10 +12,14 @@
 #endif
 
 #include "Display.hpp"
+#include "NumberConverter.hpp"
 
 extern "C" {
     EXPORT CPP_Display* GetDisplayInstance();
     EXPORT void SetDisplayInstance(CPP_Display* new_instance);
+
+    EXPORT CPP_ColorConverter* GetWindowFillColor();
+    EXPORT void SetWindowFillColor(CPP_ColorConverter* new_instance);
 
     EXPORT bool Get_GLFW_Initialized();
     EXPORT void Set_GLFW_Initialized(bool new_value);

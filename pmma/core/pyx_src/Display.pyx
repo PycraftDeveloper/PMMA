@@ -3,12 +3,16 @@
 from libcpp cimport bool
 from libcpp.string cimport string
 
+import random
+
 import numpy as np
 cimport numpy as np
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Display:
+        CPP_Display(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude);
+
         inline void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized) except + nogil
 
         inline unsigned int GetWidth() except + nogil
@@ -47,8 +51,11 @@ cdef class Display:
         CPP_Display* cpp_class_ptr
         bool using_numpy_arrays
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_Display()
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_Display(seed, octaves, lacunarity, gain)
 
         self.using_numpy_arrays = False
 

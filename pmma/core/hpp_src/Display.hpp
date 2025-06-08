@@ -8,7 +8,9 @@
 
 #include <GLFW/glfw3.h>
 
-#include "NumberConverter.hpp"
+#include "PMMA_Core.hpp"
+
+class CPP_ColorConverter;
 
 class CPP_Display {
     private:
@@ -99,12 +101,12 @@ class CPP_Display {
 
         void Refresh(
             unsigned int RefreshRate,
-            bool Minimized=false,
-            bool FocusLoss=false,
-            bool LowBattery=false,
-            bool LowerRefreshRate_OnMinimize=true,
-            bool LowerRefreshRate_OnFocusLoss=true,
-            bool LowerRefreshRate_OnLowBattery=true);
+            bool Minimized,
+            bool FocusLoss,
+            bool LowBattery,
+            bool LowerRefreshRate_OnMinimize,
+            bool LowerRefreshRate_OnFocusLoss,
+            bool LowerRefreshRate_OnLowBattery);
 
         ~CPP_Display();
 

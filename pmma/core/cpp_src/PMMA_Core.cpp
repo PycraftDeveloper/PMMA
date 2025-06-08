@@ -1,18 +1,28 @@
 #include "Display.hpp"
+#include "NumberConverter.hpp"
 #include "PMMA_Core.hpp"
 
-static CPP_Display* display_instance = nullptr;
+static CPP_Display* DisplayInstance = nullptr;
 static bool GLFW_Initialized = false;
 static int GLFW_References = 0;
+static CPP_ColorConverter* WindowFillColor = nullptr;
 
 extern "C" {
 
 EXPORT CPP_Display* GetDisplayInstance() {
-    return display_instance;
+    return DisplayInstance;
 }
 
 EXPORT void SetDisplayInstance(CPP_Display* new_instance) {
-    display_instance = new_instance;
+    DisplayInstance = new_instance;
+}
+
+EXPORT CPP_ColorConverter* GetWindowFillColor() {
+    return WindowFillColor;
+}
+
+EXPORT void SetWindowFillColor(CPP_ColorConverter* new_instance) {
+    WindowFillColor = new_instance;
 }
 
 EXPORT bool Get_GLFW_Initialized() {
