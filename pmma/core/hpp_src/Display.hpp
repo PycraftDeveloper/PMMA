@@ -1,9 +1,14 @@
+#pragma message("Display")
 #pragma once
 
 #include <string>
 #include <stdexcept>
+#include <chrono>
+#include <array>
 
 #include <GLFW/glfw3.h>
+
+#include "NumberConverter.hpp"
 
 class CPP_Display {
     private:
@@ -16,14 +21,18 @@ class CPP_Display {
         std::string Icon;
         bool Centered;
         bool Maximized;
+        float RefreshTime = 0.000001f;
+        std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
 
         GLFWmonitor* Monitor = nullptr;
         GLFWwindow* Window = nullptr;
 
-    public:
-        CPP_Display();
+        CPP_ColorConverter* WindowFillColor = nullptr;
 
-        void Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen=true, bool NewResizable=false, bool NewNoFrame=false, bool NewVsync=true, bool NewCentered=true, bool NewMaximized=false);
+    public:
+        CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+
+        void Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen=true, bool NewResizable=false, bool NewNoFrame=false, bool NewVsync=true, bool NewCentered=true, bool NewMaximized=false, bool Transparent=false);
 
         inline unsigned int GetWidth() {
             if (Window == nullptr) {
@@ -53,15 +62,13 @@ class CPP_Display {
 
         GLFWmonitor* GetCurrentMonitor(GLFWwindow* Window);
 
-        // WIPs
-
         void SetRelativeWindowPosition(unsigned int* Position);
 
         void SetAbsoluteWindowPosition(unsigned int* Position);
 
         void CenterWindow();
 
-        void Clear(); // Need to make number converters for this.
+        void Clear();
 
         void SetWindowInFocus();
 
@@ -69,34 +76,9 @@ class CPP_Display {
 
         void SetWindowMaximized(bool IsMaximized);
 
-        void Get_2D_Surface(bool SetToBeUsed=true);
-
-        void Get_3D_Surface(bool SetToBeUsed=true);
-
         void SetCaption(std::string& new_caption);
 
         std::string GetCaption();
-
-        void SetIcon();
-
-        void ToggleFullScreen();
-
-        inline float GetAspectRatio() {
-            if (Window == nullptr) {
-                throw std::runtime_error("Display not created yet!");
-            }
-            return (float)Size[0] / (float)Size[1];
-        }
-
-        void Refresh(
-            unsigned int RefreshRate,
-            bool LowerRefreshRate_OnMinimize=true,
-            bool LowerRefreshRate_OnFocusLoss=true,
-            bool LowerRefreshRate_OnLowBattery=true);
-
-        inline unsigned int GetFrameRate();
-
-        inline float GetFrameTime();
 
         inline void GetCenter_Pixels(unsigned int* out) {
             out[0] = (unsigned int)(Size[0] / 2);
@@ -108,7 +90,37 @@ class CPP_Display {
             out[1] = (unsigned int)((Size[1] - ObjectSize[1]) / 2);
         }
 
-        void GetDisplayProjection();
+        inline float GetAspectRatio() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+            return (float)Size[0] / (float)Size[1];
+        }
+
+        void Refresh(
+            unsigned int RefreshRate,
+            bool Minimized=false,
+            bool FocusLoss=false,
+            bool LowBattery=false,
+            bool LowerRefreshRate_OnMinimize=true,
+            bool LowerRefreshRate_OnFocusLoss=true,
+            bool LowerRefreshRate_OnLowBattery=true);
 
         ~CPP_Display();
+
+        // WIPs
+
+        inline unsigned int GetFrameRate();
+
+        inline float GetFrameTime();
+
+        void GetDisplayProjection();
+
+        void Get_2D_Surface(bool SetToBeUsed=true);
+
+        void Get_3D_Surface(bool SetToBeUsed=true);
+
+        void SetIcon();
+
+        void ToggleFullScreen();
 };

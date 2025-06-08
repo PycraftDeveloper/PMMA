@@ -1,3 +1,4 @@
+#pragma message("PerlinNoise")
 #pragma once
 
 #include <array>

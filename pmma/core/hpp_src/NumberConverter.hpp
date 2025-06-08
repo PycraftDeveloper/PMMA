@@ -1,12 +1,16 @@
+#pragma message("NumberConverter")
 #pragma once
 
 #include <stdexcept>
 #include <array>
 #include <ctime>
 
-#include "PMMA_Core.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
+
+#include "PMMA_Core.hpp"
+
+class CPP_Display;
 
 class CPP_ColorConverter {
     private:
@@ -172,19 +176,7 @@ class CPP_DisplayCoordinatesConverter {
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
     public:
-        CPP_DisplayCoordinatesConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            display = GetDisplayInstance();
-
-            srand((unsigned int)time(0));
-
-            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-
-            seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
-        }
+        CPP_DisplayCoordinatesConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
 
         inline uint32_t GetSeed() {
             return seed;
@@ -230,19 +222,7 @@ class CPP_DisplayCoordinatesConverter {
             CoordinatesAreSet = true;
         }
 
-        inline void SetCoordinates_Pixel(unsigned int* in_coordinates) {
-            if (display == nullptr) {
-                throw std::runtime_error("Display not created yet!");
-            }
-            unsigned int DisplaySize[2];
-            display->GetSize(DisplaySize);
-
-            float HalfDisplaySize[2] = { DisplaySize[0] / 2.f, DisplaySize[1] / 2.f };
-
-            InternalCoordinates[0] = (in_coordinates[0] - HalfDisplaySize[0]) / HalfDisplaySize[0];
-            InternalCoordinates[1] = (in_coordinates[1] - HalfDisplaySize[1]) / HalfDisplaySize[1];
-            CoordinatesAreSet = true;
-        }
+        void SetCoordinates_Pixel(unsigned int* in_coordinates);
 
         inline void SetCoordinates_Normalized(float* in_coordinates) {
             InternalCoordinates[0] = in_coordinates[0];
@@ -250,21 +230,7 @@ class CPP_DisplayCoordinatesConverter {
             CoordinatesAreSet = true;
         }
 
-        inline void GetCoordinates_Pixel(unsigned int* out_coordinates) {
-            if (!CoordinatesAreSet) {
-                throw std::runtime_error("Coordinates not set!");
-            }
-            if (display == nullptr) {
-                throw std::runtime_error("Display not created yet!");
-            }
-            unsigned int DisplaySize[2];
-            display->GetSize(DisplaySize);
-
-            float HalfDisplaySize[2] = { DisplaySize[0] / 2.f, DisplaySize[1] / 2.f };
-
-            out_coordinates[0] = (unsigned int)(InternalCoordinates[0] * HalfDisplaySize[0] + HalfDisplaySize[0]);
-            out_coordinates[1] = (unsigned int)(InternalCoordinates[1] * HalfDisplaySize[1] + HalfDisplaySize[1]);
-        }
+        void GetCoordinates_Pixel(unsigned int* out_coordinates);
 
         inline void GetCoordinates_Normalized(float* out_coordinates) {
             if (!CoordinatesAreSet) {
@@ -380,19 +346,7 @@ class CPP_DisplayScalarConverter {
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
     public:
-        CPP_DisplayScalarConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            display = GetDisplayInstance();
-
-            srand((unsigned int)time(0));
-
-            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-
-            seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
-        }
+        CPP_DisplayScalarConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
 
         inline uint32_t GetSeed() {
             return seed;
@@ -429,28 +383,14 @@ class CPP_DisplayScalarConverter {
             ScalarIsSet = true;
         }
 
-        inline void SetScalar_Pixel(unsigned int in_scalar) {
-            if (display == nullptr) {
-                throw std::runtime_error("Display not created yet!");
-            }
-            InternalScalar = (float)(in_scalar) * (2.f / display->GetHeight());
-            ScalarIsSet = true;
-        }
+        void SetScalar_Pixel(unsigned int in_scalar);
 
         inline void SetScalar_Normalized(float in_scalar) {
             InternalScalar = in_scalar;
             ScalarIsSet = true;
         }
 
-        inline unsigned int GetScalar_Pixel() {
-            if (!ScalarIsSet) {
-                throw std::runtime_error("Scalar not set!");
-            }
-            if (display == nullptr) {
-                throw std::runtime_error("Display not created yet!");
-            }
-            return (unsigned int)(InternalScalar * display->GetHeight() / 2.f);
-        }
+        unsigned int GetScalar_Pixel();
 
         inline float GetScalar_Normalized() {
             if (!ScalarIsSet) {

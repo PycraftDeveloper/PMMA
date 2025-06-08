@@ -16,6 +16,32 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline void GetSize(unsigned int* out) except + nogil
 
+        void SetRelativeWindowPosition(unsigned int* Position) except + nogil
+        void SetAbsoluteWindowPosition(unsigned int* Position) except + nogil
+
+        void CenterWindow() except + nogil
+
+        void Clear() except + nogil
+
+        void SetWindowInFocus() except + nogil
+
+        void SetWindowMinimized(bool IsMinimized) except + nogil
+        void SetWindowMaximized(bool IsMaximized) except + nogil
+
+        void SetCaption(string& new_caption) except + nogil
+        string GetCaption() except + nogil
+
+        void GetCenter_Pixels(unsigned int* out) except + nogil
+        void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except + nogil
+
+        float GetAspectRatio() except + nogil
+
+        void Refresh(unsigned int RefreshRate, bool Minimized,
+            bool FocusLoss, bool LowBattery,
+            bool LowerRefreshRate_OnMinimize,
+            bool LowerRefreshRate_OnFocusLoss,
+            bool LowerRefreshRate_OnLowBattery) except + nogil
+
 cdef class Display:
     cdef:
         CPP_Display* cpp_class_ptr
@@ -69,3 +95,50 @@ cdef class Display:
             return size_np
         else:
             return size_np.tolist()
+
+    def set_relative_window_position(self, position):
+        pass
+
+    def set_absolute_window_position(self, position):
+        pass
+
+    def center_window(self):
+        self.cpp_class_ptr.CenterWindow()
+
+    def clear(self):
+        self.cpp_class_ptr.Clear()
+
+    def set_window_in_focus(self):
+        self.cpp_class_ptr.SetWindowInFocus()
+
+    def set_window_minimized(self, value):
+        self.cpp_class_ptr.SetWindowMinimized(value)
+
+    def set_window_maximized(self, value):
+        self.cpp_class_ptr.SetWindowMaximized(value)
+
+    def set_caption(self, caption):
+        cdef:
+            string encoded_caption = caption.encode('utf-8')
+
+        self.cpp_class_ptr.SetCaption(caption)
+
+    def get_caption(self):
+        cdef string cpp_str = self.cpp_class_ptr.GetCaption()
+        return cpp_str.c_str().decode('utf-8')
+
+    def get_center(self, object_size=None):
+        pass
+
+    def get_aspect_ratio(self):
+        return self.cpp_class_ptr.GetAspectRatio()
+
+    def refresh(self,
+        refresh_rate=60,
+        lower_refresh_rate_on_minimize=True,
+        lower_refresh_rate_on_focus_loss=True,
+        lower_refresh_rate_on_low_battery=True):
+
+        self.cpp_class_ptr.Refresh(refresh_rate, False, False, False,
+        lower_refresh_rate_on_minimize, lower_refresh_rate_on_focus_loss,
+        lower_refresh_rate_on_low_battery)

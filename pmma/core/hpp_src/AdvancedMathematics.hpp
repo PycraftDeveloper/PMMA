@@ -1,4 +1,7 @@
+#pragma message("AdvancedMathematics")
 #pragma once
+
+#include <cmath>
 
 namespace CPP_AdvancedMathematics {
     float PythagoreanDifference(const float x1, const float y1, const float x2, const float y2);

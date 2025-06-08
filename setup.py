@@ -59,7 +59,7 @@ pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
 Display_ext = Extension(
     name="Display",
-    sources=[*add_source("Display")],
+    sources=[*add_source("Display"), add_source("NumberConverter")[-1]],
     language="c++",
     include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
     library_dirs=[pmma_lib_dir, glfw_lib],

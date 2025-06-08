@@ -1,15 +1,20 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <chrono>
+#include <thread>
+#include <array>
 
 #include <GLFW/glfw3.h>
 
 #include "Display.hpp"
+#include "NumberConverter.hpp"
+
 #include "PMMA_Core.hpp"
 
 using namespace std;
 
-CPP_Display::CPP_Display() {
+CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
     CPP_Display* ExistingDisplay;
 
     ExistingDisplay = GetDisplayInstance();
@@ -18,6 +23,8 @@ CPP_Display::CPP_Display() {
         ExistingDisplay = nullptr;
     }
     SetDisplayInstance(this);
+
+    WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -80,7 +87,7 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
     return glfwGetPrimaryMonitor();
 }
 
-void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized) {
+void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) {
     if (!Get_GLFW_Initialized()) {
         glfwInit();
         Set_GLFW_Initialized(true);
@@ -160,6 +167,18 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
         Size[1] = NewSize[1];
     } else {
         Size[1] = Monitor_Height;
+    }
+
+    if (Transparent) {
+        if (!WindowFillColor->GetColorIsSet()) {
+            WindowFillColor->SetColor_rgba(new float[4] {0, 0, 0, 0});
+        }
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+    } else {
+        if (!WindowFillColor->GetColorIsSet()) {
+            WindowFillColor->SetColor_rgba(new float[4] {0, 0, 0, 1});
+        }
+        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
     }
 
     if (FullScreen) {
@@ -242,6 +261,76 @@ void CPP_Display::SetAbsoluteWindowPosition(unsigned int* NewPosition) {
     int Monitor_X_Position, Monitor_Y_Position;
     glfwGetMonitorPos(PointMonitor, &Monitor_X_Position, &Monitor_Y_Position);
     glfwSetWindowPos(Window, NewPosition[0] - Monitor_X_Position, NewPosition[1] - Monitor_Y_Position);
+}
+
+void CPP_Display::CenterWindow() {
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+
+    int Monitor_Width, Monitor_Height;
+    const GLFWvidmode* Mode = glfwGetVideoMode(CurrentMonitor);
+    Monitor_Width = Mode->width;
+    Monitor_Height = Mode->height;
+
+    int Window_X_Offset = (Monitor_Width - Size[0]) / 2;
+    int Window_Y_Offset = (Monitor_Height - Size[1]) / 2;
+
+    glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
+}
+
+void CPP_Display::Clear() {
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    float out_color[4];
+    WindowFillColor->GetColor_rgba(out_color);
+    glClearColor(out_color[0], out_color[1], out_color[2], out_color[3]);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void CPP_Display::SetCaption(string& new_caption) {
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    glfwSetWindowTitle(Window, new_caption.c_str());
+    Caption = new_caption;
+}
+
+string CPP_Display::GetCaption() {
+    return Caption;
+}
+
+void CPP_Display::Refresh(
+            unsigned int RefreshRate,
+            bool Minimized=false,
+            bool FocusLoss=false,
+            bool LowBattery=false,
+            bool LowerRefreshRate_OnMinimize=true,
+            bool LowerRefreshRate_OnFocusLoss=true,
+            bool LowerRefreshRate_OnLowBattery=true) {
+
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
+    chrono::duration<float> FrameDuration = EndTime - StartTime;
+    float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
+
+    float SleepTime = TargetFrameTime - FrameDuration.count();
+    if (SleepTime > 0.0f) {
+        this_thread::sleep_for(chrono::duration<float>(SleepTime));
+    }
+
+    StartTime = chrono::high_resolution_clock::now();
+
+    glfwSwapBuffers(Window);
+    glfwPollEvents();
 }
 
 CPP_Display::~CPP_Display() {

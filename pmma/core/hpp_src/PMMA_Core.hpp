@@ -1,3 +1,4 @@
+#pragma message("PMMA_Core")
 #pragma once
 
 #ifdef _WIN32
