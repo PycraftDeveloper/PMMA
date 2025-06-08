@@ -1,4 +1,3 @@
-#pragma message("FractalBrownianMotion")
 #pragma once
 
 #include <array>

@@ -13,7 +13,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Display:
         CPP_Display(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude);
 
-        inline void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized) except + nogil
+        inline void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) except + nogil
 
         inline unsigned int GetWidth() except + nogil
         inline unsigned int GetHeight() except + nogil
@@ -62,7 +62,7 @@ cdef class Display:
     def __dealloc__(self):
         del self.cpp_class_ptr
 
-    def create(self, size=np.array([0, 0], dtype=np.uint32, order='C'), caption="PMMA Display", fullscreen=True, resizable=False, no_frame=False, vsync=True, icon="", centered=True, maximized=False):
+    def create(self, size=np.array([0, 0], dtype=np.uint32, order='C'), caption="PMMA Display", fullscreen=True, resizable=False, no_frame=False, vsync=True, icon="", centered=True, maximized=False, transparent=False):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] size_np
             string encoded_caption = caption.encode('utf-8')
@@ -79,7 +79,7 @@ cdef class Display:
 
         size_ptr = <unsigned int*>&size_np[0]
 
-        self.cpp_class_ptr.Create(size_ptr, encoded_caption, encoded_icon, fullscreen, resizable, no_frame, vsync, centered, maximized)
+        self.cpp_class_ptr.Create(size_ptr, encoded_caption, encoded_icon, fullscreen, resizable, no_frame, vsync, centered, maximized, transparent)
 
     def get_width(self):
         return self.cpp_class_ptr.GetWidth()

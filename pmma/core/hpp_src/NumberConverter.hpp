@@ -1,4 +1,3 @@
-#pragma message("NumberConverter")
 #pragma once
 
 #include <stdexcept>

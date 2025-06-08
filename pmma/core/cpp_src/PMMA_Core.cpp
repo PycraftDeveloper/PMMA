@@ -6,6 +6,7 @@ static CPP_Display* DisplayInstance = nullptr;
 static bool GLFW_Initialized = false;
 static int GLFW_References = 0;
 static CPP_ColorConverter* WindowFillColor = nullptr;
+static int WindowFillColorReferences = 0;
 
 extern "C" {
 
@@ -39,6 +40,14 @@ EXPORT int Get_GLFW_References() {
 
 EXPORT void Set_GLFW_References(int value) {
     GLFW_References = value;
+}
+
+EXPORT int GetWindowFillColorReferences() {
+    return WindowFillColorReferences;
+}
+
+EXPORT void SetWindowFillColorReferences(int value) {
+    WindowFillColorReferences = value;
 }
 
 }

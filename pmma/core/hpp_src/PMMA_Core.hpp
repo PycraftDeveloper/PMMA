@@ -26,4 +26,7 @@ extern "C" {
 
     EXPORT int Get_GLFW_References();
     EXPORT void Set_GLFW_References(int new_value);
+
+    EXPORT int GetWindowFillColorReferences();
+    EXPORT void SetWindowFillColorReferences(int value);
 }

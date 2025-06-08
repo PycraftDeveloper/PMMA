@@ -30,6 +30,7 @@ CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_freq
     if (ExistingWindowFillColor == nullptr) {
         WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
         SetWindowFillColor(WindowFillColor);
+        SetWindowFillColorReferences(1);
     }
 }
 
@@ -324,13 +325,28 @@ void CPP_Display::Refresh(
         throw runtime_error("Display not created yet!");
     }
 
+    float estimate = 0.f;
+    float average = 0.0f;
+    float samples = 0.0f;
+
     std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
     chrono::duration<float> FrameDuration = EndTime - StartTime;
     float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
 
     float SleepTime = TargetFrameTime - FrameDuration.count();
-    if (SleepTime > 0.0f) {
-        this_thread::sleep_for(chrono::duration<float>(SleepTime));
+
+    while (SleepTime > average) {
+        std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::chrono::high_resolution_clock::time_point e = chrono::high_resolution_clock::now();
+        estimate = chrono::duration<float>(e - s).count();
+        average = (average * samples + estimate) / (samples + 1.0f);
+        samples += 1.0f;
+        SleepTime -= average;
+    }
+
+    std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
+    while (chrono::duration<float>(chrono::high_resolution_clock::now() - s).count() < SleepTime) {
     }
 
     StartTime = chrono::high_resolution_clock::now();
@@ -349,6 +365,14 @@ CPP_Display::~CPP_Display() {
     if (GLFW_References <= 0) {
         glfwTerminate();
         Set_GLFW_Initialized(false);
+    }
+
+    int WindowFillColorReferences = GetWindowFillColorReferences();
+    WindowFillColorReferences--;
+    SetWindowFillColorReferences(WindowFillColorReferences);
+    if (WindowFillColorReferences <= 0) {
+        delete WindowFillColor;
+        SetWindowFillColor(nullptr);
     }
 
     SetDisplayInstance(nullptr);

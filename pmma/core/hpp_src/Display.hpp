@@ -1,4 +1,3 @@
-#pragma message("Display")
 #pragma once
 
 #include <string>

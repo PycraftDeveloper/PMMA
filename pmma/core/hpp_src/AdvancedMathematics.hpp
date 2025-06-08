@@ -1,4 +1,3 @@
-#pragma message("AdvancedMathematics")
 #pragma once
 
 #include <cmath>
