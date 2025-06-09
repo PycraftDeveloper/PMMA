@@ -3,6 +3,8 @@ from typing import Iterable, Union
 import numpy as np
 import numpy.typing as npt
 
+import pmma
+
 Integer1D = Union[
     npt.NDArray[np.int_],
     Iterable[int],
@@ -11,6 +13,11 @@ Integer1D = Union[
 OptionalInteger = Union[
     int,
     None,
+]
+
+OptionalColor = Union[
+    pmma.ColorConverter,
+    None
 ]
 
 class Display:
@@ -28,7 +35,7 @@ class Display:
 
     def center_window(self) -> None: ...
 
-    def clear(self) -> None: ...
+    def clear(self, new_color: OptionalColor=None) -> None: ...
 
     def set_window_in_focus(self) -> None: ...
     def set_window_minimized(self, value: bool) -> None: ...
