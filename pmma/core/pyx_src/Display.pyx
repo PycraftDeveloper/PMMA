@@ -26,6 +26,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void CenterWindow() except + nogil
 
         void Clear() except + nogil
+        void Clear(float* in_color) except + nogil
 
         void SetWindowInFocus() except + nogil
 
@@ -140,8 +141,17 @@ cdef class Display:
     def center_window(self):
         self.cpp_class_ptr.CenterWindow()
 
-    def clear(self):
-        self.cpp_class_ptr.Clear()
+    def clear(self, new_color=None):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
+            float* color_ptr
+
+        if new_color == None or new_color.get_color_set() is False:
+            self.cpp_class_ptr.Clear()
+        else:
+            color_np = new_color.get_color_small_rgba(detect_format=False)
+            color_ptr = <float*>&color_np[0]
+            self.cpp_class_ptr.Clear(color_ptr)
 
     def set_window_in_focus(self):
         self.cpp_class_ptr.SetWindowInFocus()

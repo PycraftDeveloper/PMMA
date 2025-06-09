@@ -69,6 +69,7 @@ class CPP_Display {
 
         void CenterWindow();
 
+        void Clear(float* in_color);
         void Clear();
 
         void SetWindowInFocus();

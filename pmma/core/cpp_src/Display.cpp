@@ -312,6 +312,16 @@ void CPP_Display::CenterWindow() {
     glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
 }
 
+void CPP_Display::Clear(float* in_color) {
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
+
+    WindowFillColor->SetColor_rgba(in_color);
+    glClearColor(in_color[0], in_color[1], in_color[2], in_color[3]);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void CPP_Display::Clear() {
     if (Window == nullptr) {
         throw runtime_error("Display not created yet!");

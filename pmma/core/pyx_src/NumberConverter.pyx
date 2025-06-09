@@ -97,6 +97,8 @@ cdef class ColorConverter:
         float lacunarity
         float gain
 
+        bool is_color_set
+
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
@@ -104,6 +106,7 @@ cdef class ColorConverter:
         self.cpp_class_ptr = new CPP_ColorConverter(seed, octaves, lacunarity, gain)
 
         self.using_numpy_arrays = False
+        self.is_color_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -120,14 +123,20 @@ cdef class ColorConverter:
     def get_gain(self):
         return self.gain
 
+    def get_color_set(self):
+        return self.is_color_set
+
     def generate_random_color(self):
         self.cpp_class_ptr.GenerateRandomColor()
+        self.is_color_set = True
 
     def generate_color_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinColor(value)
+        self.is_color_set = True
 
     def generate_color_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionColor(value)
+        self.is_color_set = True
 
     def set_color_RGBA(self, in_color):
         cdef:
@@ -144,6 +153,7 @@ cdef class ColorConverter:
         in_color_ptr = <unsigned int*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_RGBA(in_color_ptr)
+        self.is_color_set = True
 
     def set_color_small_rgba(self, in_color):
         cdef:
@@ -160,6 +170,7 @@ cdef class ColorConverter:
         in_color_ptr = <float*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_rgba(in_color_ptr)
+        self.is_color_set = True
 
     def set_color_RGB(self, in_color):
         cdef:
@@ -176,6 +187,7 @@ cdef class ColorConverter:
         in_color_ptr = <unsigned int*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_RGB(in_color_ptr)
+        self.is_color_set = True
 
     def set_color_small_rgb(self, in_color):
         cdef:
@@ -192,8 +204,9 @@ cdef class ColorConverter:
         in_color_ptr = <float*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_rgb(in_color_ptr)
+        self.is_color_set = True
 
-    def get_color_RGBA(self):
+    def get_color_RGBA(self, detect_format=True):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
             unsigned int* out_color_ptr
@@ -203,12 +216,15 @@ cdef class ColorConverter:
 
         self.cpp_class_ptr.GetColor_RGBA(out_color_ptr)
 
-        if self.using_numpy_arrays:
-            return out_color_np
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_color_np
+            else:
+                return out_color_np.tolist()
         else:
-            return out_color_np.tolist()
+            return out_color_np
 
-    def get_color_small_rgba(self):
+    def get_color_small_rgba(self, detect_format=True):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
             float* out_color_ptr
@@ -218,12 +234,15 @@ cdef class ColorConverter:
 
         self.cpp_class_ptr.GetColor_rgba(out_color_ptr)
 
-        if self.using_numpy_arrays:
-            return out_color_np
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_color_np
+            else:
+                return out_color_np.tolist()
         else:
-            return out_color_np.tolist()
+            return out_color_np
 
-    def get_color_RGB(self):
+    def get_color_RGB(self, detect_format=True):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
             unsigned int* out_color_ptr
@@ -233,12 +252,15 @@ cdef class ColorConverter:
 
         self.cpp_class_ptr.GetColor_RGB(out_color_ptr)
 
-        if self.using_numpy_arrays:
-            return out_color_np
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_color_np
+            else:
+                return out_color_np.tolist()
         else:
-            return out_color_np.tolist()
+            return out_color_np
 
-    def get_color_small_rgb(self):
+    def get_color_small_rgb(self, detect_format=True):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
             float* out_color_ptr
@@ -248,10 +270,13 @@ cdef class ColorConverter:
 
         self.cpp_class_ptr.GetColor_rgb(out_color_ptr)
 
-        if self.using_numpy_arrays:
-            return out_color_np
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_color_np
+            else:
+                return out_color_np.tolist()
         else:
-            return out_color_np.tolist()
+            return out_color_np
 
 cdef class DisplayCoordinatesConverter:
     cdef:
@@ -263,6 +288,8 @@ cdef class DisplayCoordinatesConverter:
         float lacunarity
         float gain
 
+        bool is_coordinates_set
+
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
@@ -270,6 +297,7 @@ cdef class DisplayCoordinatesConverter:
         self.cpp_class_ptr = new CPP_DisplayCoordinatesConverter(seed, octaves, lacunarity, gain)
 
         self.using_numpy_arrays = False
+        self.is_coordinates_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -286,14 +314,20 @@ cdef class DisplayCoordinatesConverter:
     def get_gain(self):
         return self.gain
 
+    def get_coordinates_set(self):
+        return self.is_coordinates_set
+
     def generate_random_coordinates(self):
         self.cpp_class_ptr.GenerateRandomCoordinates()
+        self.is_coordinates_set = True
 
     def generate_coordinates_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinCoordinates(value)
+        self.is_coordinates_set = True
 
     def generate_coordinates_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionCoordinates(value)
+        self.is_coordinates_set = True
 
     def set_coordinates_pixel(self, in_coordinates):
         cdef:
@@ -310,6 +344,7 @@ cdef class DisplayCoordinatesConverter:
         in_coordinates_ptr = <unsigned int*>&in_coordinates_np[0]
 
         self.cpp_class_ptr.SetCoordinates_Pixel(in_coordinates_ptr)
+        self.is_coordinates_set = True
 
     def set_coordinates_normalized(self, in_coordinates):
         cdef:
@@ -326,8 +361,9 @@ cdef class DisplayCoordinatesConverter:
         in_coordinates_ptr = <float*>&in_coordinates_np[0]
 
         self.cpp_class_ptr.SetCoordinates_Normalized(in_coordinates_ptr)
+        self.is_coordinates_set = True
 
-    def get_coordinates_pixel(self):
+    def get_coordinates_pixel(self, detect_format=True):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinates_np
             unsigned int* out_coordinates_ptr
@@ -337,12 +373,15 @@ cdef class DisplayCoordinatesConverter:
 
         self.cpp_class_ptr.GetCoordinates_Pixel(out_coordinates_ptr)
 
-        if self.using_numpy_arrays:
-            return out_coordinates_np
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_coordinates_np
+            else:
+                return out_coordinates_np.tolist()
         else:
-            return out_coordinates_np.tolist()
+            return out_coordinates_np
 
-    def get_coordinates_normalized(self):
+    def get_coordinates_normalized(self, detect_format=True):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_coordinates_np
             float* out_coordinates_ptr
@@ -352,10 +391,13 @@ cdef class DisplayCoordinatesConverter:
 
         self.cpp_class_ptr.GetCoordinates_Normalized(out_coordinates_ptr)
 
-        if self.using_numpy_arrays:
-            return out_coordinates_np
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_coordinates_np
+            else:
+                return out_coordinates_np.tolist()
         else:
-            return out_coordinates_np.tolist()
+            return out_coordinates_np
 
 cdef class AngleConverter:
     cdef:
@@ -366,11 +408,15 @@ cdef class AngleConverter:
         float lacunarity
         float gain
 
+        bool is_angle_set
+
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
         self.cpp_class_ptr = new CPP_AngleConverter(seed, octaves, lacunarity, gain)
+
+        self.is_angle_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -387,22 +433,30 @@ cdef class AngleConverter:
     def get_gain(self):
         return self.gain
 
+    def get_angle_set(self):
+        return self.is_angle_set
+
     def generate_random_angle(self):
         self.cpp_class_ptr.GenerateRandomAngle()
+        self.is_angle_set = True
 
     def generate_angle_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinAngle(value)
+        self.is_angle_set = True
 
     def generate_angle_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionAngle(value)
+        self.is_angle_set = True
 
     def set_angle_degrees(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetAngle_Degrees(in_value)
+        self.is_angle_set = True
 
     def set_angle_radians(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetAngle_Radians(in_value)
+        self.is_angle_set = True
 
     def get_angle_degrees(self):
         return self.cpp_class_ptr.GetAngle_Degrees()
@@ -419,11 +473,15 @@ cdef class DisplayScalarConverter:
         float lacunarity
         float gain
 
+        bool is_scalar_set
+
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
         self.cpp_class_ptr = new CPP_DisplayScalarConverter(seed, octaves, lacunarity, gain)
+
+        self.is_scalar_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -440,22 +498,30 @@ cdef class DisplayScalarConverter:
     def get_gain(self):
         return self.gain
 
+    def get_scalar_set(self):
+        return self.is_scalar_set
+
     def generate_random_scalar(self):
         self.cpp_class_ptr.GenerateRandomScalar()
+        self.is_scalar_set = True
 
     def generate_scalar_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinScalar(value)
+        self.is_scalar_set = True
 
     def generate_scalar_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionScalar(value)
+        self.is_scalar_set = True
 
     def set_scalar_pixel(self, value):
         cdef unsigned int in_value = <unsigned int>value
         self.cpp_class_ptr.SetScalar_Pixel(in_value)
+        self.is_scalar_set = True
 
     def set_scalar_normalized(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetScalar_Normalized(in_value)
+        self.is_scalar_set = True
 
     def get_scalar_pixel(self):
         return self.cpp_class_ptr.GetScalar_Pixel()
@@ -472,11 +538,15 @@ cdef class ProportionConverter:
         float lacunarity
         float gain
 
+        bool is_proportion_set
+
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
         self.cpp_class_ptr = new CPP_ProportionConverter(seed, octaves, lacunarity, gain)
+
+        self.is_proportion_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -493,20 +563,28 @@ cdef class ProportionConverter:
     def get_gain(self):
         return self.gain
 
+    def get_proportion_set(self):
+        return self.is_proportion_set
+
     def generate_random_proportion(self):
         self.cpp_class_ptr.GenerateRandomProportion()
+        self.is_proportion_set = True
 
     def generate_proportion_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinProportion(value)
+        self.is_proportion_set = True
 
     def generate_proportion_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionProportion(value)
+        self.is_proportion_set = True
 
     def set_proportion_percentage(self, value):
         self.cpp_class_ptr.SetProportion_Percentage(value)
+        self.is_proportion_set = True
 
     def set_proportion_decimal(self, value):
         self.cpp_class_ptr.SetProportion_Decimal(value)
+        self.is_proportion_set = True
 
     def get_proportion_percentage(self):
         return self.cpp_class_ptr.GetProportion_Percentage()
@@ -523,6 +601,8 @@ cdef class LinkedProportionConverter:
         float lacunarity
         float gain
 
+        bool is_proportion_set
+
         object linked_class
         object attr_name
 
@@ -531,6 +611,8 @@ cdef class LinkedProportionConverter:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
         self.cpp_class_ptr = new CPP_ProportionConverter(seed, octaves, lacunarity, gain)
+
+        self.is_proportion_set = False
 
     def __init__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         self.linked_class = linked_class
@@ -551,24 +633,32 @@ cdef class LinkedProportionConverter:
     def get_gain(self):
         return self.gain
 
+    def get_proportion_set(self):
+        return self.is_proportion_set
+
     def generate_random_proportion(self):
         self.cpp_class_ptr.GenerateRandomProportion()
+        self.is_proportion_set = True
         setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
 
     def generate_proportion_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinProportion(value)
+        self.is_proportion_set = True
         setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
 
     def generate_proportion_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionProportion(value)
+        self.is_proportion_set = True
         setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
 
     def set_proportion_percentage(self, value):
         self.cpp_class_ptr.SetProportion_Percentage(value)
+        self.is_proportion_set = True
         setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
 
     def set_proportion_decimal(self, value):
         self.cpp_class_ptr.SetProportion_Decimal(value)
+        self.is_proportion_set = True
         setattr(self.linked_class, self.attr_name, value)
 
     def get_proportion_percentage(self):
