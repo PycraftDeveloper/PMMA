@@ -107,6 +107,8 @@ class CPP_Display {
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery);
 
+        void Refresh();
+
         ~CPP_Display();
 
         // WIPs

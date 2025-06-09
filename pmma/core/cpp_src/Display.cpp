@@ -325,6 +325,9 @@ void CPP_Display::Refresh(
         throw runtime_error("Display not created yet!");
     }
 
+    glfwSwapBuffers(Window);
+    glfwPollEvents();
+
     float estimate = 0.f;
     float average = 0.0f;
     float samples = 0.0f;
@@ -350,6 +353,13 @@ void CPP_Display::Refresh(
     }
 
     StartTime = chrono::high_resolution_clock::now();
+}
+
+void CPP_Display::Refresh() {
+
+    if (Window == nullptr) {
+        throw runtime_error("Display not created yet!");
+    }
 
     glfwSwapBuffers(Window);
     glfwPollEvents();

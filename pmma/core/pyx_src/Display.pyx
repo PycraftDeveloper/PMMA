@@ -46,6 +46,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) except + nogil
 
+        void Refresh() except + nogil
+
 cdef class Display:
     cdef:
         CPP_Display* cpp_class_ptr
@@ -104,10 +106,32 @@ cdef class Display:
             return size_np.tolist()
 
     def set_relative_window_position(self, position):
-        pass
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
+            unsigned int* position_ptr
+
+        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
+            position_np = np.array(position, dtype=np.uint32, order='C')
+        else:
+            position_np = position
+
+        position_ptr = <unsigned int*>&position_np[0]
+
+        self.cpp_class_ptr.SetRelativeWindowPosition(position_ptr)
 
     def set_absolute_window_position(self, position):
-        pass
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
+            unsigned int* position_ptr
+
+        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
+            position_np = np.array(position, dtype=np.uint32, order='C')
+        else:
+            position_np = position
+
+        position_ptr = <unsigned int*>&position_np[0]
+
+        self.cpp_class_ptr.SetAbsoluteWindowPosition(position_ptr)
 
     def center_window(self):
         self.cpp_class_ptr.CenterWindow()
@@ -146,6 +170,9 @@ cdef class Display:
         lower_refresh_rate_on_focus_loss=True,
         lower_refresh_rate_on_low_battery=True):
 
-        self.cpp_class_ptr.Refresh(refresh_rate, False, False, False,
+        if refresh_rate <= 0:
+            self.cpp_class_ptr.Refresh()
+        else:
+            self.cpp_class_ptr.Refresh(refresh_rate, False, False, False,
         lower_refresh_rate_on_minimize, lower_refresh_rate_on_focus_loss,
         lower_refresh_rate_on_low_battery)
