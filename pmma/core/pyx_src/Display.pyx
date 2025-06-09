@@ -48,6 +48,10 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Refresh() except + nogil
 
+        inline unsigned int GetFrameRate() except + nogil
+
+        inline float GetFrameTime() except + nogil
+
 cdef class Display:
     cdef:
         CPP_Display* cpp_class_ptr
@@ -159,7 +163,39 @@ cdef class Display:
         return cpp_str.c_str().decode('utf-8')
 
     def get_center(self, object_size=None):
-        pass
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] object_size_np
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_np
+            unsigned int* object_size_ptr
+            unsigned int* out_ptr;
+
+        out_np = np.empty(2, dtype=np.uint32, order='C')
+        out_ptr = <unsigned int*>&out_np[0]
+
+        if object_size != None:
+            if not isinstance(object_size, np.ndarray) or object_size.dtype != np.uint32 or not object_size.flags['C_CONTIGUOUS']:
+                object_size_np = np.array(object_size, dtype=np.uint32, order='C')
+            else:
+                object_size_np = object_size
+
+            object_size_ptr = <unsigned int*>&object_size_np[0]
+
+            self.cpp_class_ptr.GetCenter_Pixels(object_size_ptr, out_ptr)
+
+            if isinstance(object_size, np.ndarray):
+                return out_np
+            else:
+                if self.using_numpy_arrays:
+                    return out_np
+                else:
+                    return out_np.tolist()
+
+        self.cpp_class_ptr.GetCenter_Pixels(out_ptr)
+
+        if self.using_numpy_arrays:
+            return out_np
+        else:
+            return out_np.tolist()
 
     def get_aspect_ratio(self):
         return self.cpp_class_ptr.GetAspectRatio()
@@ -176,3 +212,9 @@ cdef class Display:
             self.cpp_class_ptr.Refresh(refresh_rate, False, False, False,
         lower_refresh_rate_on_minimize, lower_refresh_rate_on_focus_loss,
         lower_refresh_rate_on_low_battery)
+
+    def get_frame_rate(self):
+        return self.cpp_class_ptr.GetFrameRate()
+
+    def get_frame_time(self):
+        return self.cpp_class_ptr.GetFrameTime()

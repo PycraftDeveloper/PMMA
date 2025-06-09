@@ -109,13 +109,23 @@ class CPP_Display {
 
         void Refresh();
 
+        inline unsigned int GetFrameRate() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+            return (unsigned int)(1 / RefreshTime);
+        }
+
+        inline float GetFrameTime() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+            return RefreshTime;
+        }
+
         ~CPP_Display();
 
         // WIPs
-
-        inline unsigned int GetFrameRate();
-
-        inline float GetFrameTime();
 
         void GetDisplayProjection();
 

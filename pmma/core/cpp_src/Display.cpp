@@ -181,11 +181,26 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
             WindowFillColor->SetColor_rgba(new float[4] {0, 0, 0, 0});
         }
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+        cout << "You have specified that this window should be transparent. \
+Please note that this isn't guaranteed and relies on the Operating System, \
+GPU/drivers and device settings to be set correctly in order to work." << endl;
     } else {
         if (!WindowFillColor->GetColorIsSet()) {
             WindowFillColor->SetColor_rgba(new float[4] {0, 0, 0, 1});
         }
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
+    }
+
+    if (Resizable) {
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+    } else {
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    }
+
+    if (NoFrame) {
+        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+    } else {
+        glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     }
 
     if (FullScreen) {
@@ -214,6 +229,15 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     }
 
     glfwMakeContextCurrent(Window);
+
+    if (Vsync) {
+        glfwSwapInterval(1);
+    } else {
+        glfwSwapInterval(0);
+        cout << "You are not using vsync. We strongly recommend using \
+vsync to limit the refresh rate of your window. Doing so will reduce \
+visual tearing and improve frame pacing." << endl;
+    }
 }
 
 void CPP_Display::SetWindowInFocus() {
@@ -328,28 +352,31 @@ void CPP_Display::Refresh(
     glfwSwapBuffers(Window);
     glfwPollEvents();
 
-    float estimate = 0.f;
-    float average = 0.0f;
-    float samples = 0.0f;
+    float estimate = 0.001f;
+    float average = 0.001f;
+    unsigned int samples = 1;
 
     std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
     chrono::duration<float> FrameDuration = EndTime - StartTime;
-    float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
+    RefreshTime = chrono::duration<float>(EndTime - StartTime).count();
 
-    float SleepTime = TargetFrameTime - FrameDuration.count();
+    if (!Vsync || Minimized || FocusLoss || LowBattery) {
+        float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
+        float SleepTime = TargetFrameTime - FrameDuration.count();
 
-    while (SleepTime > average) {
+        while (SleepTime > average) {
+            std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            std::chrono::high_resolution_clock::time_point e = chrono::high_resolution_clock::now();
+            estimate = chrono::duration<float>(e - s).count();
+            average = (average * samples + estimate) / (samples + 1);
+            samples += 1;
+            SleepTime -= average;
+        }
+
         std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        std::chrono::high_resolution_clock::time_point e = chrono::high_resolution_clock::now();
-        estimate = chrono::duration<float>(e - s).count();
-        average = (average * samples + estimate) / (samples + 1.0f);
-        samples += 1.0f;
-        SleepTime -= average;
-    }
-
-    std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
-    while (chrono::duration<float>(chrono::high_resolution_clock::now() - s).count() < SleepTime) {
+        while (chrono::duration<float>(chrono::high_resolution_clock::now() - s).count() < SleepTime) {
+        }
     }
 
     StartTime = chrono::high_resolution_clock::now();
