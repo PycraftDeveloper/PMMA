@@ -393,7 +393,6 @@ void CPP_Display::Refresh(
 }
 
 void CPP_Display::Refresh() {
-
     if (Window == nullptr) {
         throw runtime_error("Display not created yet!");
     }
