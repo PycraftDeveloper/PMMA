@@ -66,95 +66,43 @@ print("=" * TERMINAL_SIZE)
 
 ########################### BUILD PMMA CORE ############################
 
+def flatten_dir(parent_dir):
+    for subdir in os.listdir(parent_dir):
+        subdir_path = os.path.join(parent_dir, subdir)
+
+        # Ensure it's a directory before proceeding
+        if os.path.isdir(subdir_path):
+            for item in os.listdir(subdir_path):
+                item_path = os.path.join(subdir_path, item)
+                new_location = os.path.join(parent_dir, item)
+
+                # Move file or directory to the parent directory
+                shutil.move(item_path, new_location)
+
+            # Optionally remove the now-empty subdirectory
+            os.rmdir(subdir_path)
+
 def build_shared_lib():
-    cpp_file = os.path.join(cwd, "pmma", "core", "cpp_src", "PMMA_Core.cpp")
-    output_dir = os.path.abspath(lib_dir)
-    os.makedirs(output_dir, exist_ok=True)
+    # Create the build directory if it doesn't exist
+    os.makedirs(temp_dir, exist_ok=True)
 
-    libname = "PMMA_Core"
-    system = platform.system()
+    print("📦 Running CMake configuration...")
+    subprocess.run(["cmake", cwd], cwd=temp_dir, check=True)
 
-    if system == "Windows":
-        output_lib = os.path.join(output_dir, f"{libname}.dll")
-        build_windows_shared_lib(cpp_file, include_dir, output_lib)
+    print("🔨 Building PMMA_Core...")
+    build_command = ["cmake", "--build", "."]
+    if platform.system() == "Windows":
+        build_command += ["--config", "Release"]
+    subprocess.run(build_command, cwd=temp_dir, check=True)
 
-    elif system == "Darwin":
-        output_lib = os.path.join(output_dir, f"lib{libname}.dylib")
+    flatten_dir(lib_dir)
 
-        glfw_include = "/opt/homebrew/include"  # or /usr/local/include depending on installation
-        glfw_lib = ""
-
-        cmd = [
-            "g++", "-dynamiclib", "-std=c++17", "-fPIC",
-            cpp_file, "-I", include_dir, "-I", glfw_include,
-            "-o", output_lib, "-L", glfw_lib, "-lglfw",
-            "-Wl,-rpath,$ORIGIN/../lib"
-        ]
-        subprocess.run(cmd, check=True)
-
-    elif system == "Linux":
-        output_lib = os.path.join(output_dir, f"lib{libname}.so")
-
-        glfw_include = "/usr/include"
-        glfw_lib = "/usr/lib/x86_64-linux-gnu"
-
-        cmd = [
-            "g++", "-shared", "-std=c++17", "-fPIC",
-            cpp_file, "-I", include_dir, "-I", glfw_include,
-            "-o", output_lib, "-L", glfw_lib, "-lglfw",
-            "-Wl,-rpath,$ORIGIN/../lib"
-        ]
-        subprocess.run(cmd, check=True)
-
-    else:
-        raise RuntimeError(f"Unsupported platform: {system}")
-
-    print(f"✅ Built shared library: {output_lib}")
-    return output_lib
-
-def is_python_64bit():
-    return platform.architecture()[0] == '64bit'
-
-def build_windows_shared_lib(cpp_file, include_dir, output_lib):
-    arch = 'amd64' if is_python_64bit() else 'x86'
-
-    # Path to vcvarsall.bat
-    vs_install_dir = r"C:\Program Files\Microsoft Visual Studio\2022\Community"
-    vcvarsall_path = os.path.join(vs_install_dir, "VC", "Auxiliary", "Build", "vcvarsall.bat")
-
-    if not os.path.exists(vcvarsall_path):
-        raise FileNotFoundError(f"vcvarsall.bat not found at {vcvarsall_path}")
-
-    glfw_include = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include"
-    glfw_lib = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/lib-vc2022/glfw3.lib"
-
-    cmd = (
-        f'cmd.exe /C "'
-        f'call "{vcvarsall_path}" {arch} && '
-        f'cl /LD "{cpp_file}" '
-        f'/DBUILDING_LIBSHARED '
-        f'/I "{include_dir}" /I "{glfw_include}" '
-        f'/Fe:"{output_lib}" '
-        f'/link "{glfw_lib}"'
-        f'"'
-    )
-
-    print(cmd)
-    subprocess.run(cmd, check=True, stderr=subprocess.STDOUT)
-
-    os.remove(os.path.join(cwd, "PMMA_Core.obj"))
-
-def find_vsdevcmd():
-    candidates = glob.glob(
-        r"C:\Program Files\Microsoft Visual Studio\2022\*\Common7\Tools\VsDevCmd.bat"
-    )
-    if not candidates:
-        raise FileNotFoundError("Could not find VsDevCmd.bat.")
-    return candidates[0]
+    print("✅ Build complete. Output should be in pmma/lib/")
 
 print("Building PMMA Core...")
 
 build_shared_lib()
+
 print("=" * TERMINAL_SIZE)
 
 ########################################################################

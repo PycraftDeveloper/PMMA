@@ -1,8 +1,7 @@
-#pragma message("PMMA_Core")
 #pragma once
 
 #ifdef _WIN32
-  #ifdef BUILDING_LIBSHARED
+  #ifdef PMMA_CORE_EXPORTS
     #define EXPORT __declspec(dllexport)
   #else
     #define EXPORT __declspec(dllimport)
