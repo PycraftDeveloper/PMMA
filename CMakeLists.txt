@@ -17,10 +17,18 @@ set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/pmma/lib")
 file(MAKE_DIRECTORY ${LIB_OUTPUT_DIR})
 
 # Collect source files
-set(SOURCES "${SRC_DIR}/PMMA_Core.cpp")
+set(SOURCES
+    "${SRC_DIR}/PMMA_Core.cpp"
+    "${SRC_DIR}/PerlinNoise.cpp"
+    "${SRC_DIR}/FractalBrownianMotion.cpp"
+    "${SRC_DIR}/NumberConverter.cpp"
+    "${SRC_DIR}/EventsManager.cpp"
+    "${SRC_DIR}/Display.cpp"
+    "${SRC_DIR}/AdvancedMathematics.cpp")
 
 # Add shared library
-add_library(${LIB_NAME} SHARED ${SOURCES})
+add_library(
+    ${LIB_NAME} SHARED ${SOURCES})
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
 # GLFW settings (platform-specific)
@@ -36,6 +44,7 @@ if (WIN32)
 
     target_link_directories(${LIB_NAME} PRIVATE ${GLFW_LIB_DIR})
     target_link_libraries(${LIB_NAME} PRIVATE glfw3)
+    target_link_libraries(${LIB_NAME} PRIVATE opengl32)
 elseif(APPLE)
     target_include_directories(${LIB_NAME}
         PRIVATE ${INCLUDE_DIR}
