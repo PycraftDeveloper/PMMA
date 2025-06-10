@@ -9,6 +9,7 @@
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
+#include "EventsManager.hpp"
 
 #include "PMMA_Core.hpp"
 
@@ -238,6 +239,15 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
 vsync to limit the refresh rate of your window. Doing so will reduce \
 visual tearing and improve frame pacing." << endl;
     }
+
+    glfwSetKeyCallback(Window, EventsManager::KeyCallback);
+    glfwSetCharCallback(Window, EventsManager::TextCallback);
+    glfwSetCursorPosCallback(Window, EventsManager::CursorPositionCallback);
+    glfwSetCursorEnterCallback(Window, EventsManager::CursorEnterCallback);
+    glfwSetMouseButtonCallback(Window, EventsManager::MouseButtonCallback);
+    glfwSetScrollCallback(Window, EventsManager::ScrollCallback);
+    glfwSetJoystickCallback(EventsManager::JoystickCallback);
+    glfwSetDropCallback(Window, EventsManager::DropCallback);
 }
 
 void CPP_Display::SetWindowInFocus() {

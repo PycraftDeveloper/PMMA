@@ -13,6 +13,7 @@
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
+#include "EventsManager.hpp"
 
 extern "C" {
     EXPORT CPP_Display* GetDisplayInstance();

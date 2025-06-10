@@ -1,5 +1,6 @@
 #include "Display.hpp"
 #include "NumberConverter.hpp"
+#include "EventsManager.hpp"
 #include "PMMA_Core.hpp"
 
 static CPP_Display* DisplayInstance = nullptr;
