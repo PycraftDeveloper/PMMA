@@ -14,6 +14,7 @@ lib_dir = os.path.join(cwd, "pmma", "lib")
 temp_dir = os.path.join(cwd, "pmma", "temporary")
 include_dir = os.path.join(cwd, "pmma", "core", "hpp_src")
 pyx_dir = os.path.join(cwd, "pmma", "core", "pyx_src")
+cmake_temp_dir = os.path.join(temp_dir, "cmake")
 
 TERMINAL_SIZE = shutil.get_terminal_size().columns
 
@@ -84,18 +85,21 @@ def flatten_dir(parent_dir):
 
 def build_shared_lib():
     # Create the build directory if it doesn't exist
-    os.makedirs(temp_dir, exist_ok=True)
+    os.makedirs(cmake_temp_dir, exist_ok=True)
 
     print("📦 Running CMake configuration...")
-    subprocess.run(["cmake", cwd], cwd=temp_dir, check=True)
+    subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
 
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]
     if platform.system() == "Windows":
         build_command += ["--config", "Release"]
-    subprocess.run(build_command, cwd=temp_dir, check=True)
+    subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     flatten_dir(lib_dir)
+
+    if os.path.exists(cmake_temp_dir):
+        shutil.rmtree(cmake_temp_dir, ignore_errors=False)
 
     print("✅ Build complete. Output should be in pmma/lib/")
 
