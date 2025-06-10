@@ -5,7 +5,7 @@ import random
 import numpy as np
 cimport numpy as np
 
-cdef extern from "FractalBrownianMotion.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_FractalBrownianMotion:
         CPP_FractalBrownianMotion(const unsigned int seed, unsigned int octaves, float lacunarity, float gain) except + nogil
 

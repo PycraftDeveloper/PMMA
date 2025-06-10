@@ -123,7 +123,7 @@ command = [ # if error occurs, run command manually :) "python setup.py build_ex
 
 print("\n>>> " + " ".join(command))
 print("="*30)
-subprocess.run(command, check=True, stderr=subprocess.STDOUT)
+subprocess.run(command, check=True)
 
 print()
 

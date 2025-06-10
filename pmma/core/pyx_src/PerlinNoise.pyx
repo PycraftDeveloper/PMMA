@@ -5,7 +5,7 @@ import random
 import numpy as np
 cimport numpy as np
 
-cdef extern from "PerlinNoise.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_PerlinNoise:
         CPP_PerlinNoise(const unsigned int seed) except + nogil
 

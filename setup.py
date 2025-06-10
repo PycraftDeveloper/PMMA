@@ -14,7 +14,7 @@ def add_source(name: str):
         ]
 
 if sys.platform.startswith("win"):
-    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17"]
+    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551"] # disable warning 4551 which is an issue for Cython
     link_args = ["/LTCG"]
 
     glfw_include = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include"
@@ -58,65 +58,54 @@ else:
 shared_name = 'PMMA_Core'
 pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
-Display_ext = Extension(
-    name="Display",
-    sources=[*add_source("Display"), add_source("NumberConverter")[-1], add_source("PerlinNoise")[-1], add_source("FractalBrownianMotion")[-1], add_source("EventsManager")[-1]],
-    language="c++",
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
-    library_dirs=[pmma_lib_dir, glfw_lib],
-    libraries=[shared_name, *glfw_libraries],
-    extra_compile_args=compile_args,
-    extra_link_args=link_args,
-    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
-)
+def make_ext(name, extra_cpp=None, link_glfw=False, add_numpy=False):
+    sources = [os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx")]
+    if extra_cpp is not None:
+        sources.extend(extra_cpp)
 
-AdvancedMathematics_ext = Extension(
-    name="AdvancedMathematics",
-    sources=[*add_source("AdvancedMathematics")],
-    language="c++",
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
-    extra_compile_args=compile_args,
-    extra_link_args=link_args,
-    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
-)
+    lib_dirs = [pmma_lib_dir]
+    if link_glfw:
+        lib_dirs.append(glfw_lib)
 
-PerlinNoise_ext = Extension(
-    name="PerlinNoise",
-    sources=[*add_source("PerlinNoise")],
-    language="c++",
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
-    extra_compile_args=compile_args,
-    extra_link_args=link_args,
-    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
-)
+    libs = [shared_name]
+    if link_glfw:
+        libs.extend(glfw_libraries)
 
-FractalBrownianMotion_ext = Extension(
-    name="FractalBrownianMotion",
-    sources=[*add_source("FractalBrownianMotion"), add_source("PerlinNoise")[-1]],  # Reuse PerlinNoise's cpp file
-    language="c++",
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), numpy.get_include()],
-    extra_compile_args=compile_args,
-    extra_link_args=link_args,
-    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
-)
+    includes = [os.path.join(cwd, "pmma", "core", "hpp_src")]
 
-NumberConverter_ext = Extension(
-    name="NumberConverter",
-    sources=[*add_source("NumberConverter"), add_source("Display")[-1], add_source("PerlinNoise")[-1], add_source("FractalBrownianMotion")[-1], add_source("AdvancedMathematics")[-1], add_source("EventsManager")[-1]],
-    language="c++",
-    library_dirs=[pmma_lib_dir, glfw_lib],
-    libraries=[shared_name, *glfw_libraries],
-    include_dirs=[os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include, numpy.get_include()],
-    extra_compile_args=compile_args,
-    extra_link_args=link_args,
-    define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
-)
+    if add_numpy:
+        includes += [numpy.get_include()]
+
+    if link_glfw:
+        includes.append(glfw_include)
+        lib_dirs.append(glfw_lib)
+        libs += glfw_libraries
+
+    macros = []
+    if add_numpy:
+        macros.append(('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION'))
+
+    return Extension(
+        name=name,
+        sources=sources,
+        language="c++",
+        include_dirs=includes,
+        library_dirs=lib_dirs,
+        libraries=libs,
+        extra_compile_args=compile_args,
+        extra_link_args=link_args,
+        define_macros=macros,
+    )
+
+ext_modules = [
+    make_ext("Display", link_glfw=True, add_numpy=True),
+    make_ext("AdvancedMathematics", link_glfw=True, add_numpy=True),
+    make_ext("PerlinNoise", link_glfw=True, add_numpy=True),
+    make_ext("FractalBrownianMotion", link_glfw=True, add_numpy=True),
+    make_ext("NumberConverter", link_glfw=True, add_numpy=True),
+]
 
 setup(
     name="PMMA",
-    ext_modules=cythonize(
-        [Display_ext, AdvancedMathematics_ext, PerlinNoise_ext, FractalBrownianMotion_ext, NumberConverter_ext],
-        compiler_directives={"language_level": "3"},
-        annotate=True,  # Optional: creates .html annotation file to inspect performance
-    ),
+    ext_modules=cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True),
 )

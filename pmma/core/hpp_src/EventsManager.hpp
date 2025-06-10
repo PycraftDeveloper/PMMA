@@ -1,23 +1,24 @@
 #pragma once
+#include "PMMA_Exports.hpp"
 
 #include <GLFW/glfw3.h>
 
 namespace EventsManager {
-    void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+    EXPORT void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-    void TextCallback(GLFWwindow* window, unsigned int codepoint);
+    EXPORT void TextCallback(GLFWwindow* window, unsigned int codepoint);
 
-    void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
+    EXPORT void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 
-    void CursorEnterCallback(GLFWwindow* window, int entered);
+    EXPORT void CursorEnterCallback(GLFWwindow* window, int entered);
 
-    void MousePositionCallback(GLFWwindow* window, int button, int action, int mods);
+    EXPORT void MousePositionCallback(GLFWwindow* window, int button, int action, int mods);
 
-    void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+    EXPORT void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
-    void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+    EXPORT void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
-    void JoystickCallback(int jid, int event);
+    EXPORT void JoystickCallback(int jid, int event);
 
-    void DropCallback(GLFWwindow* window, int count, const char** paths);
+    EXPORT void DropCallback(GLFWwindow* window, int count, const char** paths);
 }

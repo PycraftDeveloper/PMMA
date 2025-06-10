@@ -1,4 +1,5 @@
 #pragma once
+#include "PMMA_Exports.hpp"
 
 #include <array>
 
@@ -6,7 +7,7 @@
 
 using namespace std;
 
-class CPP_FractalBrownianMotion {
+class EXPORT CPP_FractalBrownianMotion {
     private:
         uint32_t Seed;
         uint32_t Octaves;

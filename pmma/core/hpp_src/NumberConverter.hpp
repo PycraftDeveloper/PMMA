@@ -1,4 +1,5 @@
 #pragma once
+#include "PMMA_Exports.hpp"
 
 #include <stdexcept>
 #include <array>
@@ -11,7 +12,7 @@
 
 class CPP_Display;
 
-class CPP_ColorConverter {
+class EXPORT CPP_ColorConverter {
     private:
         float InternalColor[4];
         bool ColorIsSet = false;
@@ -160,7 +161,7 @@ class CPP_ColorConverter {
         }
 };
 
-class CPP_DisplayCoordinatesConverter {
+class EXPORT CPP_DisplayCoordinatesConverter {
     private:
         float InternalCoordinates[2];
         bool CoordinatesAreSet = false;
@@ -240,7 +241,7 @@ class CPP_DisplayCoordinatesConverter {
         }
 };
 
-class CPP_AngleConverter {
+class EXPORT CPP_AngleConverter {
     private:
         float InternalAngle;
         bool AngleIsSet = false;
@@ -330,7 +331,7 @@ class CPP_AngleConverter {
         }
 };
 
-class CPP_DisplayScalarConverter {
+class EXPORT CPP_DisplayScalarConverter {
     public:
         float InternalScalar;
         bool ScalarIsSet = false;
@@ -399,7 +400,7 @@ class CPP_DisplayScalarConverter {
         }
 };
 
-class CPP_ProportionConverter {
+class EXPORT CPP_ProportionConverter {
     public:
         float InternalProportion;
         bool ProportionIsSet = false;

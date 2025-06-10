@@ -1,11 +1,12 @@
 #pragma once
+#include "PMMA_Exports.hpp"
 
 #include <array>
 #include <cstdint>
 
 using namespace std;
 
-class CPP_PerlinNoise {
+class EXPORT CPP_PerlinNoise {
     private:
         array<uint8_t, 512> Permutations;
 

@@ -7,7 +7,7 @@ import random
 import numpy as np
 cimport numpy as np
 
-cdef extern from "NumberConverter.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_ColorConverter:
         CPP_ColorConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
 

@@ -1,4 +1,10 @@
 #pragma once
+#ifdef _MSC_VER // disabled at bottom
+    #pragma warning(push)
+    #pragma warning(disable: 4251)
+#endif
+
+#include "PMMA_Exports.hpp"
 
 #include <string>
 #include <stdexcept>
@@ -11,7 +17,7 @@
 
 class CPP_ColorConverter;
 
-class CPP_Display {
+class EXPORT CPP_Display {
     private:
         unsigned int Size[2] = {0, 0};
         std::string Caption = "PMMA Display";
@@ -138,3 +144,7 @@ class CPP_Display {
 
         void ToggleFullScreen();
 };
+
+#ifdef _MSC_VER
+    #pragma warning(pop)
+#endif
