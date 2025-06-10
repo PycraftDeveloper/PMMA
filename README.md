@@ -5,7 +5,7 @@
 
 
 # PMMA (Python Multi-Media API)
-⚠️ This is the DEVELOPMENT version for PMMA 5.0.0 and is NOT meant for routine use. ⚠️
+⚠️ This is the DEVELOPMENT version for PMMA 5.0.0 and is NOT meant for routine use yet. ⚠️
 
 
 PMMA is a Python library aimed at improving application development in Python.

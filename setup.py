@@ -58,28 +58,19 @@ else:
 shared_name = 'PMMA_Core'
 pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
-def make_ext(name, extra_cpp=None, link_glfw=False, add_numpy=False):
+def make_ext(name, extra_cpp=None, add_numpy=False):
     sources = [os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx")]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
-    lib_dirs = [pmma_lib_dir]
-    if link_glfw:
-        lib_dirs.append(glfw_lib)
+    lib_dirs = [pmma_lib_dir, glfw_lib]
 
-    libs = [shared_name]
-    if link_glfw:
-        libs.extend(glfw_libraries)
+    libs = [shared_name, *glfw_libraries]
 
-    includes = [os.path.join(cwd, "pmma", "core", "hpp_src")]
+    includes = [os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include]
 
     if add_numpy:
         includes += [numpy.get_include()]
-
-    if link_glfw:
-        includes.append(glfw_include)
-        lib_dirs.append(glfw_lib)
-        libs += glfw_libraries
 
     macros = []
     if add_numpy:
@@ -98,11 +89,11 @@ def make_ext(name, extra_cpp=None, link_glfw=False, add_numpy=False):
     )
 
 ext_modules = [
-    make_ext("Display", link_glfw=True, add_numpy=True),
-    make_ext("AdvancedMathematics", link_glfw=True, add_numpy=True),
-    make_ext("PerlinNoise", link_glfw=True, add_numpy=True),
-    make_ext("FractalBrownianMotion", link_glfw=True, add_numpy=True),
-    make_ext("NumberConverter", link_glfw=True, add_numpy=True),
+    make_ext("Display", add_numpy=True),
+    make_ext("AdvancedMathematics", add_numpy=True),
+    make_ext("PerlinNoise", add_numpy=True),
+    make_ext("FractalBrownianMotion", add_numpy=True),
+    make_ext("NumberConverter", add_numpy=True),
 ]
 
 setup(
