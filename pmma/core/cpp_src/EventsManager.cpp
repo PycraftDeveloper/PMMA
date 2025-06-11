@@ -1,7 +1,10 @@
+#include <iostream>
+
 #include "EventsManager.hpp"
 
-void EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+using namespace std;
 
+void EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 }
 
 void EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {

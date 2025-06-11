@@ -3,7 +3,7 @@
 #include "NumberConverter.hpp"
 
 CPP_DisplayCoordinatesConverter::CPP_DisplayCoordinatesConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-    display = GetDisplayInstance();
+    display = PMMA::DisplayInstance;
 
     srand((unsigned int)time(0));
 
@@ -47,7 +47,7 @@ void CPP_DisplayCoordinatesConverter::SetCoordinates_Pixel(unsigned int* in_coor
 }
 
 CPP_DisplayScalarConverter::CPP_DisplayScalarConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-    display = GetDisplayInstance();
+    display = PMMA::DisplayInstance;
 
     srand((unsigned int)time(0));
 

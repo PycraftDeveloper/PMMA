@@ -16,23 +16,25 @@
 using namespace std;
 
 CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-    CPP_Display* ExistingDisplay;
-    CPP_ColorConverter* ExistingWindowFillColor;
-
-    ExistingDisplay = GetDisplayInstance();
-    ExistingWindowFillColor = GetWindowFillColor();
-
-    if (ExistingDisplay != nullptr) {
-        delete ExistingDisplay;
-        ExistingDisplay = nullptr;
+    if (PMMA::DisplayInstance != nullptr) {
+        delete PMMA::DisplayInstance;
+        PMMA::DisplayInstance = nullptr;
     }
-    SetDisplayInstance(this);
+    PMMA::DisplayInstance = this;
 
-    if (ExistingWindowFillColor == nullptr) {
-        WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
-        SetWindowFillColor(WindowFillColor);
-        SetWindowFillColorReferences(1);
+    if (PMMA::WindowFillColorInstance == nullptr) {
+        PMMA::WindowFillColorInstance = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
+        PMMA::WindowFillColorReferences = 1;
     }
+
+    WindowFillColor = PMMA::WindowFillColorInstance;
+
+    if (!PMMA::GLFW_Initialized) {
+        glfwInit();
+        PMMA::GLFW_Initialized = true;
+    }
+
+    PMMA::GLFW_References++;
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -96,13 +98,6 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
 }
 
 void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) {
-    if (!Get_GLFW_Initialized()) {
-        glfwInit();
-        Set_GLFW_Initialized(true);
-    }
-
-    Set_GLFW_References(Get_GLFW_References() + 1);
-
     Caption = NewCaption;
     FullScreen = NewFullScreen;
     Resizable = NewResizable;
@@ -117,14 +112,12 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     if (!TemporaryWindow) {
         throw runtime_error("Failed to create GLFW window");
 
-        int GLFW_References = Get_GLFW_References();
-        GLFW_References--;
-        Set_GLFW_References(GLFW_References);
-        if (GLFW_References <= 0) {
+        PMMA::GLFW_References--;
+        if (PMMA::GLFW_References <= 0) {
+            PMMA::GLFW_Initialized = false;
             glfwTerminate();
-            Set_GLFW_Initialized(false);
         }
-    return;
+        return;
     }
 
     int TemporaryWindow_X_Position, TemporaryWindow_Y_Position;
@@ -219,12 +212,10 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     if (!Window) {
         throw runtime_error("Failed to create GLFW window");
 
-        int GLFW_References = Get_GLFW_References();
-        GLFW_References--;
-        Set_GLFW_References(GLFW_References);
-        if (GLFW_References <= 0) {
+        PMMA::GLFW_References--;
+        if (PMMA::GLFW_References <= 0) {
+            PMMA::GLFW_Initialized = false;
             glfwTerminate();
-            Set_GLFW_Initialized(false);
         }
         return;
     }
@@ -415,21 +406,17 @@ CPP_Display::~CPP_Display() {
     glfwDestroyWindow(Window);
     Window = nullptr;
 
-    int GLFW_References = Get_GLFW_References();
-    GLFW_References--;
-    Set_GLFW_References(GLFW_References);
-    if (GLFW_References <= 0) {
+    PMMA::GLFW_References--;
+    if (PMMA::GLFW_References <= 0) {
+        PMMA::GLFW_Initialized = false;
         glfwTerminate();
-        Set_GLFW_Initialized(false);
     }
 
-    int WindowFillColorReferences = GetWindowFillColorReferences();
-    WindowFillColorReferences--;
-    SetWindowFillColorReferences(WindowFillColorReferences);
-    if (WindowFillColorReferences <= 0) {
-        delete WindowFillColor;
-        SetWindowFillColor(nullptr);
+    PMMA::WindowFillColorReferences--;
+    if (PMMA::WindowFillColorReferences <= 0) {
+        delete PMMA::WindowFillColorInstance;
+        PMMA::WindowFillColorInstance = nullptr;
     }
 
-    SetDisplayInstance(nullptr);
+    PMMA::DisplayInstance = nullptr;
 }
