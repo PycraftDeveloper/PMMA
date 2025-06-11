@@ -53,13 +53,19 @@ elseif(APPLE)
 
     find_package(glfw3 REQUIRED)
     target_link_libraries(${LIB_NAME} PRIVATE glfw)
+
+    find_library(OpenGL_LIBRARY OpenGL)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw ${OpenGL_LIBRARY})
+
 elseif(UNIX)
     target_include_directories(${LIB_NAME}
         PRIVATE ${INCLUDE_DIR}
     )
 
     find_package(glfw3 REQUIRED)
+    find_package(OpenGL REQUIRED)
     target_link_libraries(${LIB_NAME} PRIVATE glfw)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw OpenGL::GL)
 endif()
 
 # Set output path
