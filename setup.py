@@ -14,7 +14,7 @@ def add_source(name: str):
         ]
 
 if sys.platform.startswith("win"):
-    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551"] # disable warning 4551 which is an issue for Cython
+    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551", "/wd4251"] # disable warning 4551 & 4251 which is an issue for Cython
     link_args = ["/LTCG"]
 
     glfw_include = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include"
@@ -89,11 +89,12 @@ def make_ext(name, extra_cpp=None, add_numpy=False):
     )
 
 ext_modules = [
-    make_ext("Display", add_numpy=True),
     make_ext("AdvancedMathematics", add_numpy=True),
-    make_ext("PerlinNoise", add_numpy=True),
+    make_ext("Display", add_numpy=True),
+    make_ext("Events"),
     make_ext("FractalBrownianMotion", add_numpy=True),
     make_ext("NumberConverter", add_numpy=True),
+    make_ext("PerlinNoise", add_numpy=True),
 ]
 
 setup(

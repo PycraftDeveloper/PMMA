@@ -19,12 +19,13 @@ file(MAKE_DIRECTORY ${LIB_OUTPUT_DIR})
 # Collect source files
 set(SOURCES
     "${SRC_DIR}/PMMA_Core.cpp"
-    "${SRC_DIR}/PerlinNoise.cpp"
-    "${SRC_DIR}/FractalBrownianMotion.cpp"
-    "${SRC_DIR}/NumberConverter.cpp"
-    "${SRC_DIR}/EventsManager.cpp"
+    "${SRC_DIR}/AdvancedMathematics.cpp"
     "${SRC_DIR}/Display.cpp"
-    "${SRC_DIR}/AdvancedMathematics.cpp")
+    "${SRC_DIR}/Events.cpp"
+    "${SRC_DIR}/FractalBrownianMotion.cpp"
+    "${SRC_DIR}/InternalEventsManager.cpp"
+    "${SRC_DIR}/NumberConverter.cpp"
+    "${SRC_DIR}/PerlinNoise.cpp")
 
 # Add shared library
 add_library(

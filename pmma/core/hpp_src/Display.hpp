@@ -13,6 +13,7 @@
 
 #include <GLFW/glfw3.h>
 
+#include "InternalEventsManager.hpp"
 #include "PMMA_Core.hpp"
 
 class CPP_ColorConverter;
@@ -35,6 +36,8 @@ class EXPORT CPP_Display {
         GLFWwindow* Window = nullptr;
 
         CPP_ColorConverter* WindowFillColor = nullptr;
+
+        CPP_EventsManager* EventsManagerInstance = nullptr;
 
     public:
         CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);

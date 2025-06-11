@@ -9,7 +9,7 @@
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
-#include "EventsManager.hpp"
+#include "InternalEventsManager.hpp"
 
 #include "PMMA_Core.hpp"
 
@@ -226,14 +226,7 @@ vsync to limit the refresh rate of your window. Doing so will reduce \
 visual tearing and improve frame pacing." << endl;
     }
 
-    glfwSetKeyCallback(Window, EventsManager::KeyCallback);
-    glfwSetCharCallback(Window, EventsManager::TextCallback);
-    glfwSetCursorPosCallback(Window, EventsManager::CursorPositionCallback);
-    glfwSetCursorEnterCallback(Window, EventsManager::CursorEnterCallback);
-    glfwSetMouseButtonCallback(Window, EventsManager::MouseButtonCallback);
-    glfwSetScrollCallback(Window, EventsManager::ScrollCallback);
-    glfwSetJoystickCallback(EventsManager::JoystickCallback);
-    glfwSetDropCallback(Window, EventsManager::DropCallback);
+    EventsManagerInstance = new CPP_EventsManager(Window);
 }
 
 void CPP_Display::SetWindowInFocus() {
@@ -398,6 +391,9 @@ void CPP_Display::Refresh() {
 }
 
 CPP_Display::~CPP_Display() {
+    delete EventsManagerInstance;
+    EventsManagerInstance = nullptr;
+
     glfwDestroyWindow(Window);
     Window = nullptr;
 

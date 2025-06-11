@@ -18,6 +18,7 @@ from pmma.build.Display import Display
 from pmma.build.NumberConverter import (
     ColorConverter, DisplayCoordinatesConverter, AngleConverter,
     DisplayScalarConverter, ProportionConverter)
+from pmma.build.Events import *
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *
