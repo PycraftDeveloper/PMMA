@@ -8,9 +8,9 @@
 class EXPORT CPP_SpaceKeyEvent {
     public:
         inline bool GetPressed() {
-            if (PMMA::SpaceKeyEventInstance == nullptr) {
-                throw std::runtime_error("SpaceKeyEventInstance is null");
+            if (PMMA::KeyEvent_Space_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Space_Instance is null");
             }
-            return PMMA::SpaceKeyEventInstance->GetPressed();
+            return PMMA::KeyEvent_Space_Instance->GetPressed();
         };
 };
