@@ -387,245 +387,245 @@ CPP_EventsManager::~CPP_EventsManager() {
 
 void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_SPACE) {
-        PMMA::KeyEvent_Space_Instance->Update(action == GLFW_PRESS);
+        PMMA::KeyEvent_Space_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_APOSTROPHE) {
-        PMMA::KeyEvent_Apostrophe_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Apostrophe_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_COMMA) {
-        PMMA::KeyEvent_Comma_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Comma_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_MINUS) {
-        PMMA::KeyEvent_Minus_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Minus_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_PERIOD) {
-        PMMA::KeyEvent_Period_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Period_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_SLASH) {
-        PMMA::KeyEvent_Slash_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Slash_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_0) {
-        PMMA::KeyEvent_0_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_0_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_1) {
-        PMMA::KeyEvent_1_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_1_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_2) {
-        PMMA::KeyEvent_2_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_2_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_3) {
-        PMMA::KeyEvent_3_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_3_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_4) {
-        PMMA::KeyEvent_4_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_4_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_5) {
-        PMMA::KeyEvent_5_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_5_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_6) {
-        PMMA::KeyEvent_6_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_6_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_7) {
-        PMMA::KeyEvent_7_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_7_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_8) {
-        PMMA::KeyEvent_8_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_8_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_9) {
-        PMMA::KeyEvent_9_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_9_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_SEMICOLON) {
-        PMMA::KeyEvent_Semicolon_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Semicolon_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_EQUAL) {
-        PMMA::KeyEvent_Equal_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Equal_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_A) {
-        PMMA::KeyEvent_A_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_A_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_B) {
-        PMMA::KeyEvent_B_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_B_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_C) {
-        PMMA::KeyEvent_C_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_C_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_D) {
-        PMMA::KeyEvent_D_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_D_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_E) {
-        PMMA::KeyEvent_E_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_E_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F) {
-        PMMA::KeyEvent_F_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_G) {
-        PMMA::KeyEvent_G_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_G_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_H) {
-        PMMA::KeyEvent_H_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_H_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_I) {
-        PMMA::KeyEvent_I_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_I_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_J) {
-        PMMA::KeyEvent_J_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_J_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_K) {
-        PMMA::KeyEvent_K_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_K_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_L) {
-        PMMA::KeyEvent_L_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_L_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_M) {
-        PMMA::KeyEvent_M_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_M_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_N) {
-        PMMA::KeyEvent_N_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_N_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_O) {
-        PMMA::KeyEvent_O_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_O_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_P) {
-        PMMA::KeyEvent_P_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_P_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_Q) {
-        PMMA::KeyEvent_Q_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Q_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_R) {
-        PMMA::KeyEvent_R_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_R_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_S) {
-        PMMA::KeyEvent_S_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_S_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_T) {
-        PMMA::KeyEvent_T_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_T_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_U) {
-        PMMA::KeyEvent_U_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_U_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_V) {
-        PMMA::KeyEvent_V_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_V_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_W) {
-        PMMA::KeyEvent_W_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_W_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_X) {
-        PMMA::KeyEvent_X_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_X_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_Y) {
-        PMMA::KeyEvent_Y_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Y_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_Z) {
-        PMMA::KeyEvent_Z_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Z_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT_BRACKET) {
-        PMMA::KeyEvent_Left_Bracket_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Left_Bracket_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_BACKSLASH) {
-        PMMA::KeyEvent_Backslash_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Backslash_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_RIGHT_BRACKET) {
-        PMMA::KeyEvent_Right_Bracket_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Right_Bracket_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_GRAVE_ACCENT) {
-        PMMA::KeyEvent_Grave_Accent_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Grave_Accent_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_WORLD_1) {
-        PMMA::KeyEvent_World_1_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_World_1_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_WORLD_2) {
-        PMMA::KeyEvent_World_2_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_World_2_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_ESCAPE) {
-        PMMA::KeyEvent_Escape_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Escape_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_ENTER) {
-        PMMA::KeyEvent_Enter_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Enter_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_TAB) {
-        PMMA::KeyEvent_Tab_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Tab_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_BACKSPACE) {
-        PMMA::KeyEvent_Backspace_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Backspace_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_INSERT) {
-        PMMA::KeyEvent_Insert_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Insert_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_DELETE) {
-        PMMA::KeyEvent_Delete_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Delete_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_RIGHT) {
-        PMMA::KeyEvent_Right_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Right_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT) {
-        PMMA::KeyEvent_Left_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Left_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_DOWN) {
-        PMMA::KeyEvent_Down_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Down_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_UP) {
-        PMMA::KeyEvent_Up_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Up_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_PAGE_UP) {
-        PMMA::KeyEvent_Page_Up_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Page_Up_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_PAGE_DOWN) {
-        PMMA::KeyEvent_Page_Down_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Page_Down_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_HOME) {
-        PMMA::KeyEvent_Home_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Home_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_END) {
-        PMMA::KeyEvent_End_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_End_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_CAPS_LOCK) {
-        PMMA::KeyEvent_Caps_Lock_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Caps_Lock_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_SCROLL_LOCK) {
-        PMMA::KeyEvent_Scroll_Lock_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Scroll_Lock_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_NUM_LOCK) {
-        PMMA::KeyEvent_Num_Lock_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Num_Lock_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_PRINT_SCREEN) {
-        PMMA::KeyEvent_Print_Screen_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Print_Screen_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_PAUSE) {
-        PMMA::KeyEvent_Pause_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Pause_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F1) {
-        PMMA::KeyEvent_F1_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F1_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F2) {
-        PMMA::KeyEvent_F2_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F2_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F3) {
-        PMMA::KeyEvent_F3_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F3_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F4) {
-        PMMA::KeyEvent_F4_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F4_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F5) {
-        PMMA::KeyEvent_F5_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F5_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F6) {
-        PMMA::KeyEvent_F6_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F6_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F7) {
-        PMMA::KeyEvent_F7_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F7_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F8) {
-        PMMA::KeyEvent_F8_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F8_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F9) {
-        PMMA::KeyEvent_F9_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F9_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F10) {
-        PMMA::KeyEvent_F10_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F10_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F11) {
-        PMMA::KeyEvent_F11_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F11_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F12) {
-        PMMA::KeyEvent_F12_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F12_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F13) {
-        PMMA::KeyEvent_F13_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F13_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F14) {
-        PMMA::KeyEvent_F14_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F14_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F15) {
-        PMMA::KeyEvent_F15_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F15_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F16) {
-        PMMA::KeyEvent_F16_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F16_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F17) {
-        PMMA::KeyEvent_F17_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F17_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F18) {
-        PMMA::KeyEvent_F18_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F18_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F19) {
-        PMMA::KeyEvent_F19_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F19_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F20) {
-        PMMA::KeyEvent_F20_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F20_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F21) {
-        PMMA::KeyEvent_F21_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F21_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F22) {
-        PMMA::KeyEvent_F22_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F22_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F23) {
-        PMMA::KeyEvent_F23_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F23_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F24) {
-        PMMA::KeyEvent_F24_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F24_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_F25) {
-        PMMA::KeyEvent_F25_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_F25_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_0) {
-        PMMA::KeyPadEvent_0_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_0_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_1) {
-        PMMA::KeyPadEvent_1_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_1_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_2) {
-        PMMA::KeyPadEvent_2_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_2_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_3) {
-        PMMA::KeyPadEvent_3_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_3_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_4) {
-        PMMA::KeyPadEvent_4_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_4_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_5) {
-        PMMA::KeyPadEvent_5_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_5_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_6) {
-        PMMA::KeyPadEvent_6_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_6_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_7) {
-        PMMA::KeyPadEvent_7_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_7_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_8) {
-        PMMA::KeyPadEvent_8_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_8_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_9) {
-        PMMA::KeyPadEvent_9_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_9_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_DECIMAL) {
-        PMMA::KeyPadEvent_Decimal_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Decimal_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_DIVIDE) {
-        PMMA::KeyPadEvent_Divide_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Divide_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_MULTIPLY) {
-        PMMA::KeyPadEvent_Multiply_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Multiply_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_SUBTRACT) {
-        PMMA::KeyPadEvent_Subtract_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Subtract_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_ADD) {
-        PMMA::KeyPadEvent_Add_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Add_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_ENTER) {
-        PMMA::KeyPadEvent_Enter_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Enter_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_KP_EQUAL) {
-        PMMA::KeyPadEvent_Equal_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyPadEvent_Equal_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT_SHIFT) {
-        PMMA::KeyEvent_Left_Shift_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Left_Shift_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT_CONTROL) {
-        PMMA::KeyEvent_Left_Control_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Left_Control_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT_ALT) {
-        PMMA::KeyEvent_Left_Alt_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Left_Alt_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT_SUPER) {
-        PMMA::KeyEvent_Left_Super_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Left_Super_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_RIGHT_SHIFT) {
-        PMMA::KeyEvent_Right_Shift_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Right_Shift_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_RIGHT_CONTROL) {
-        PMMA::KeyEvent_Right_Control_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Right_Control_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_RIGHT_ALT) {
-        PMMA::KeyEvent_Right_Alt_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Right_Alt_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_RIGHT_SUPER) {
-        PMMA::KeyEvent_Right_Super_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Right_Super_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_MENU) {
-        PMMA::KeyEvent_Menu_Instance->Update(action==GLFW_PRESS);
+        PMMA::KeyEvent_Menu_Instance->Update(action!=GLFW_RELEASE);
     } else {
         cout << "Unknown key: " << key << endl;
     }
