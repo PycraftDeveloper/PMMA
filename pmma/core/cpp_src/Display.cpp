@@ -22,12 +22,7 @@ CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_freq
     }
     PMMA::DisplayInstance = this;
 
-    if (PMMA::WindowFillColorInstance == nullptr) {
-        PMMA::WindowFillColorInstance = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
-        PMMA::WindowFillColorReferences = 1;
-    }
-
-    WindowFillColor = PMMA::WindowFillColorInstance;
+    WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
 
     if (!PMMA::GLFW_Initialized) {
         glfwInit();
@@ -410,12 +405,6 @@ CPP_Display::~CPP_Display() {
     if (PMMA::GLFW_References <= 0) {
         PMMA::GLFW_Initialized = false;
         glfwTerminate();
-    }
-
-    PMMA::WindowFillColorReferences--;
-    if (PMMA::WindowFillColorReferences <= 0) {
-        delete PMMA::WindowFillColorInstance;
-        PMMA::WindowFillColorInstance = nullptr;
     }
 
     PMMA::DisplayInstance = nullptr;
